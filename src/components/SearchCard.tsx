@@ -1,0 +1,70 @@
+import { useState } from "react"
+import type { SearchParams, Region, CourtType } from "../types"
+import { REGION_ORDER, TIME_SLOTS } from "../constants"
+
+const REGION_DISPLAY: Record<Region, string> = {
+  "Bad Voeslau": "Bad Vöslau",
+  "Wien Sued":   "Wien Süd",
+  "Wien":        "Wien",
+  "NOE Sued":    "NÖ Süd",
+}
+
+const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white w-full focus:outline-none focus:border-gray-500"
+
+interface Props {
+  onSearch: (params: SearchParams) => void
+  isLoading: boolean
+}
+
+export default function SearchCard({ onSearch, isLoading }: Props) {
+  const today = new Date().toISOString().split("T")[0]
+
+  const [date, setDate]           = useState(today)
+  const [time, setTime]           = useState("10:00")
+  const [region, setRegion]       = useState<Region>(REGION_ORDER[0])
+  const [courtType, setCourtType] = useState<CourtType>("both")
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    onSearch({ date, time, region, court_type: courtType })
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl border border-gray-800 p-4 mb-6">
+      <div className="grid grid-cols-2 gap-3 mb-3">
+        <div className="flex flex-col gap-1">
+          <label className="text-xs text-gray-500">Datum</label>
+          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs text-gray-500">Uhrzeit</label>
+          <select value={time} onChange={(e) => setTime(e.target.value)} className={inputClass}>
+            {TIME_SLOTS.map((t) => <option key={t} value={t}>{t}</option>)}
+          </select>
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs text-gray-500">Region</label>
+          <select value={region} onChange={(e) => setRegion(e.target.value as Region)} className={inputClass}>
+            {REGION_ORDER.map((r) => <option key={r} value={r}>{REGION_DISPLAY[r]}</option>)}
+          </select>
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs text-gray-500">Court</label>
+          <select value={courtType} onChange={(e) => setCourtType(e.target.value as CourtType)} className={inputClass}>
+            <option value="both">Indoor & Outdoor</option>
+            <option value="indoor">Indoor</option>
+            <option value="outdoor">Outdoor</option>
+          </select>
+        </div>
+      </div>
+      <button
+        type="submit"
+        disabled={isLoading}
+        style={{ backgroundColor: "#d4f53c" }}
+        className="w-full py-2.5 rounded-lg text-sm font-bold text-gray-900 tracking-wide disabled:opacity-50"
+      >
+        {isLoading ? "LADEN…" : "SUCHEN"}
+      </button>
+    </form>
+  )
+}
