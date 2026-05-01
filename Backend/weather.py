@@ -2,6 +2,9 @@ import time
 import requests
 from datetime import datetime
 
+_WEATHER_CACHE: dict = {}
+_WEATHER_TTL = 900  # 15 minutes
+
 OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
 
 # WMO weather code → (icon, german description)
@@ -73,3 +76,18 @@ def get_weather_for_hour(lat: float, lon: float, dt: datetime, retries: int = 3)
                 time.sleep(1)
 
     return None
+
+
+def get_weather_cached(venue_id: str, lat: float, lon: float, dt: datetime) -> dict | None:
+    key = f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
+    now = time.time()
+    entry = _WEATHER_CACHE.get(key)
+    if entry and now - entry["timestamp"] < _WEATHER_TTL:
+        print(f"[weather] cache hit:  {venue_id}")
+        return entry["weather"]
+
+    weather = get_weather_for_hour(lat, lon, dt)
+    if weather is not None:
+        print(f"[weather] fetched:    {venue_id}")
+        _WEATHER_CACHE[key] = {"weather": weather, "timestamp": now}
+    return weather

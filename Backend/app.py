@@ -7,7 +7,7 @@ from flask_cors import CORS
 
 from etennis_checker import check_etennis_venues
 from venues import load_venues
-from weather import get_weather_for_hour
+from weather import get_weather_cached, get_weather_for_hour
 
 app = Flask(__name__)
 CORS(app)
@@ -71,7 +71,7 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
         base["error"] = "no_coordinates"
         return base
 
-    weather = get_weather_for_hour(venue["lat"], venue["lon"], dt)
+    weather = get_weather_cached(venue["id"], venue["lat"], venue["lon"], dt)
     if weather is None:
         base["error"] = "weather_unavailable"
     else:
