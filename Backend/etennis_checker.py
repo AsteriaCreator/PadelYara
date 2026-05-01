@@ -91,6 +91,18 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
     return out
 
 
+def get_cached_statuses(venues: list[dict], dt: datetime) -> dict[str, str]:
+    """Return only already-cached statuses. Does not fetch anything."""
+    now = time.time()
+    out: dict[str, str] = {}
+    for venue in venues:
+        key = _cache_key(venue["id"], dt)
+        entry = _CACHE.get(key)
+        if entry and now - entry["timestamp"] < _TTL:
+            out[venue["id"]] = entry["status"]
+    return out
+
+
 def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     """
     Returns {venue_id: "free" | "busy" | "unknown"} for every eTennis venue.

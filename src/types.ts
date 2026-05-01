@@ -37,5 +37,6 @@ export interface SearchResponse {
   results: Venue[]
   date: string
   time: string
+  availability_pending?: boolean
   error?: string
 }

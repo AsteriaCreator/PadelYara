@@ -1,3 +1,4 @@
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -8,7 +9,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from etennis_checker import check_etennis_venues
+from etennis_checker import get_cached_statuses as get_etennis_cached
 from eversports_checker import check_eversports_venues
+from eversports_checker import get_cached_statuses as get_eversports_cached
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
 
@@ -23,6 +26,12 @@ app.add_middleware(
 VENUES = load_venues()
 DEFAULT_VENUE_ID = "padelzone-traiskirchen"
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
+
+_RUNNING: set[str] = set()   # tracks in-flight background checks
+
+
+def _run_key(platform: str, dt: datetime) -> str:
+    return f"{platform}*{dt.strftime('%Y-%m-%d')}*{dt.hour:02d}"
 
 _INDOOR_TYPES  = {"indoor", "indoor+outdoor"}
 _OUTDOOR_TYPES = {"outdoor", "indoor+outdoor"}
@@ -99,7 +108,7 @@ def search(
 
     venues = _filter_venues(region, court_type)
     if not venues:
-        return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M")}
+        return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M"), "availability_pending": False}
 
     results = [None] * len(venues)
     with ThreadPoolExecutor(max_workers=5) as pool:
@@ -107,35 +116,54 @@ def search(
         for future in as_completed(futures):
             results[futures[future]] = future.result()
 
-    # ── Phase 2: eTennis availability ────────────────────────────────
+    # ── Phase 2: eTennis — serve cached, background-fetch the rest ───────
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
     if etennis_venues:
-        try:
-            availability = check_etennis_venues(etennis_venues, dt)
-            for result in results:
-                if result["id"] in availability:
-                    result["status"] = availability[result["id"]]
-        except Exception as exc:
-            print(f"[eTennis] search phase error: {exc}")
+        cached = get_etennis_cached(etennis_venues, dt)
+        for result in results:
+            if result["id"] in cached:
+                result["status"] = cached[result["id"]]
+        to_fetch = [v for v in etennis_venues if v["id"] not in cached]
+        key = _run_key("eTennis", dt)
+        if to_fetch and key not in _RUNNING:
+            _RUNNING.add(key)
+            def _et_bg(vv=to_fetch, d=dt, k=key):
+                try:
+                    check_etennis_venues(vv, d)
+                finally:
+                    _RUNNING.discard(k)
+            threading.Thread(target=_et_bg, daemon=True).start()
 
-    # ── Phase 3: Eversports availability ─────────────────────────────
+    # ── Phase 3: Eversports — serve cached, background-fetch the rest ───
     eversports_venues = [v for v in venues if v["platform"] == "Eversports"]
     if eversports_venues:
-        try:
-            availability = check_eversports_venues(eversports_venues, dt)
-            for result in results:
-                if result["id"] in availability:
-                    result["status"] = availability[result["id"]]
-        except Exception as exc:
-            print(f"[Eversports] search phase error: {exc}")
+        cached = get_eversports_cached(eversports_venues, dt)
+        for result in results:
+            if result["id"] in cached:
+                result["status"] = cached[result["id"]]
+        to_fetch = [v for v in eversports_venues if v["id"] not in cached]
+        key = _run_key("Eversports", dt)
+        if to_fetch and key not in _RUNNING:
+            _RUNNING.add(key)
+            def _ev_bg(vv=to_fetch, d=dt, k=key):
+                try:
+                    check_eversports_venues(vv, d)
+                finally:
+                    _RUNNING.discard(k)
+            threading.Thread(target=_ev_bg, daemon=True).start()
+
+    availability_pending = any(
+        _run_key(p, dt) in _RUNNING for p in ("eTennis", "Eversports")
+    )
 
     results.sort(key=lambda v: v["priority"])
 
     return {
-        "ok":      True,
-        "results": results,
-        "date":    dt.strftime("%Y-%m-%d"),
-        "time":    dt.strftime("%H:%M"),
+        "ok":                   True,
+        "results":              results,
+        "date":                 dt.strftime("%Y-%m-%d"),
+        "time":                 dt.strftime("%H:%M"),
+        "availability_pending": availability_pending,
     }
 
 

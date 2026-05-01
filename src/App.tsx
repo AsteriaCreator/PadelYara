@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import type { Region, Venue, SearchParams } from "./types"
 import { REGION_ORDER } from "./constants"
 import { fetchAvailability } from "./api"
@@ -16,6 +16,9 @@ function groupByRegion(venues: Venue[]): GroupedVenues {
   return groups
 }
 
+const POLL_INTERVAL_MS = 5_000
+const POLL_MAX = 12   // 12 × 5s = 60s
+
 export default function App() {
   const [grouped, setGrouped] = useState<GroupedVenues>({} as GroupedVenues)
   const [isLoading, setLoading] = useState(false)
@@ -23,7 +26,38 @@ export default function App() {
   const [searched, setSearched] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<Region>(REGION_ORDER[0])
 
+  const pollTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const pollCount  = useRef(0)
+  const lastParams = useRef<SearchParams | null>(null)
+
+  function stopPolling() {
+    if (pollTimer.current) {
+      clearTimeout(pollTimer.current)
+      pollTimer.current = null
+    }
+  }
+
+  async function doPoll() {
+    const params = lastParams.current
+    if (!params || pollCount.current >= POLL_MAX) { stopPolling(); return }
+    pollCount.current += 1
+    try {
+      const res = await fetchAvailability(params)
+      if (res.ok) {
+        setGrouped(groupByRegion(res.results))
+        if (!res.availability_pending) { stopPolling(); return }
+      }
+    } catch { /* ignore poll errors silently */ }
+    pollTimer.current = setTimeout(doPoll, POLL_INTERVAL_MS)
+  }
+
+  // Clean up on unmount
+  useEffect(() => stopPolling, [])
+
   async function onSearch(params: SearchParams) {
+    stopPolling()
+    pollCount.current = 0
+    lastParams.current = params
     setLoading(true)
     setError(null)
     try {
@@ -35,6 +69,9 @@ export default function App() {
       setGrouped(groupByRegion(res.results))
       setSelectedRegion(params.region)
       setSearched(true)
+      if (res.availability_pending) {
+        pollTimer.current = setTimeout(doPoll, POLL_INTERVAL_MS)
+      }
     } catch {
       setError("Verbindung fehlgeschlagen")
     } finally {
