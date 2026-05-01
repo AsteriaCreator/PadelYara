@@ -121,7 +121,7 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
         key = _cache_key(venue["id"], dt)
         entry = _CACHE.get(key)
         if entry and now - entry["timestamp"] < _TTL:
-            print(f"[eTennis] cache hit:  {venue['id']} → {entry['status']}")
+            print(f"[eTennis] cache hit:  {venue['id']} -> {entry['status']}")
             cached[venue["id"]] = entry["status"]
         elif venue["id"] in _COOLDOWN and now - _COOLDOWN[venue["id"]] < _COOLDOWN_TTL:
             print(f"[eTennis] cooldown skip: {venue['id']}")
@@ -149,7 +149,7 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     t.join(timeout=120)
 
     for venue_id, status in fresh.items():
-        print(f"[eTennis] fetched:    {venue_id} → {status}")
+        print(f"[eTennis] fetched:    {venue_id} -> {status}")
         if status == "unknown":
             _COOLDOWN[venue_id] = now
         else:
