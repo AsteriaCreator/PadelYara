@@ -5,6 +5,7 @@ Called by app.py; not a standalone server.
 
 import asyncio
 import threading
+import time
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
@@ -12,6 +13,13 @@ from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
+
+_CACHE: dict[str, dict] = {}
+_TTL = 300  # seconds
+
+
+def _cache_key(venue_id: str, dt: datetime) -> str:
+    return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
 
 
 def _page_url(booking_url: str, date) -> str:
@@ -85,17 +93,34 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     Returns {venue_id: "free" | "busy" | "unknown"} for every eTennis venue.
     Runs Playwright in a dedicated thread with its own event loop so it works
     safely inside Flask (avoids event-loop conflicts with werkzeug).
+    Results are cached per venue/date/hour for _TTL seconds.
     """
     if not venues:
         return {}
 
-    output: dict[str, str] = {}
+    now = time.time()
+    cached: dict[str, str] = {}
+    to_fetch: list[dict] = []
+
+    for venue in venues:
+        key = _cache_key(venue["id"], dt)
+        entry = _CACHE.get(key)
+        if entry and now - entry["timestamp"] < _TTL:
+            print(f"[eTennis] cache hit:  {venue['id']} → {entry['status']}")
+            cached[venue["id"]] = entry["status"]
+        else:
+            to_fetch.append(venue)
+
+    if not to_fetch:
+        return cached
+
+    fresh: dict[str, str] = {}
 
     def _run_in_thread():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
-            output.update(loop.run_until_complete(_run(venues, dt)))
+            fresh.update(loop.run_until_complete(_run(to_fetch, dt)))
         except Exception as exc:
             print(f"[eTennis] thread-level error: {exc}")
         finally:
@@ -105,4 +130,8 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     t.start()
     t.join(timeout=120)
 
-    return output
+    for venue_id, status in fresh.items():
+        print(f"[eTennis] fetched:    {venue_id} → {status}")
+        _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": now}
+
+    return {**cached, **fresh}
