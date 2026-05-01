@@ -2,21 +2,27 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from flask import Flask, jsonify, request
-from flask_cors import CORS
+import uvicorn
+from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from etennis_checker import check_etennis_venues
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
 
-app = Flask(__name__)
-CORS(app)
+app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 VENUES = load_venues()
 DEFAULT_VENUE_ID = "padelzone-traiskirchen"
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
-# court_type values that count as indoor / outdoor
 _INDOOR_TYPES  = {"indoor", "indoor+outdoor"}
 _OUTDOOR_TYPES = {"outdoor", "indoor+outdoor"}
 
@@ -53,7 +59,6 @@ def _filter_venues(region: str | None, court_type: str | None) -> list[dict]:
 
 
 def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
-    """Returns a response-ready venue dict with weather + status fields."""
     base = {
         "id":          venue["id"],
         "name":        venue["name"],
@@ -80,18 +85,20 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
     return base
 
 
-@app.route("/api/search")
-def search():
-    dt, parse_error = _parse_datetime(request.args.get("date"), request.args.get("time"))
+@app.get("/api/search")
+def search(
+    date:       str | None = Query(default=None),
+    time:       str | None = Query(default=None),
+    region:     str | None = Query(default=None),
+    court_type: str | None = Query(default=None),
+):
+    dt, parse_error = _parse_datetime(date, time)
     if parse_error:
-        return jsonify({"ok": False, "error": parse_error}), 400
-
-    region     = request.args.get("region")
-    court_type = request.args.get("court_type")
+        return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
     venues = _filter_venues(region, court_type)
     if not venues:
-        return jsonify({"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M")})
+        return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M")}
 
     results = [None] * len(venues)
     with ThreadPoolExecutor(max_workers=5) as pool:
@@ -112,43 +119,47 @@ def search():
 
     results.sort(key=lambda v: v["priority"])
 
-    return jsonify({
+    return {
         "ok":      True,
         "results": results,
         "date":    dt.strftime("%Y-%m-%d"),
         "time":    dt.strftime("%H:%M"),
-    })
+    }
 
 
-@app.route("/api/weather-test")
-def weather_test():
-    venue_id = request.args.get("venue_id") or DEFAULT_VENUE_ID
+@app.get("/api/weather-test")
+def weather_test(
+    venue_id: str | None = Query(default=None),
+    date:     str | None = Query(default=None),
+    time:     str | None = Query(default=None),
+):
+    vid = venue_id or DEFAULT_VENUE_ID
 
-    venue = next((v for v in VENUES if v["id"] == venue_id), None)
+    venue = next((v for v in VENUES if v["id"] == vid), None)
     if venue is None:
-        return jsonify({"error": "venue_not_found", "venue_id": venue_id}), 404
+        return JSONResponse(status_code=404, content={"error": "venue_not_found", "venue_id": vid})
 
     if venue["lat"] is None or venue["lon"] is None:
-        return jsonify({"error": "no_coordinates", "venue_id": venue_id}), 422
+        return JSONResponse(status_code=422, content={"error": "no_coordinates", "venue_id": vid})
 
-    dt, parse_error = _parse_datetime(request.args.get("date"), request.args.get("time"))
+    dt, parse_error = _parse_datetime(date, time)
     if parse_error:
-        return jsonify({"error": "invalid_params", "detail": parse_error}), 400
+        return JSONResponse(status_code=400, content={"error": "invalid_params", "detail": parse_error})
 
     weather = get_weather_for_hour(venue["lat"], venue["lon"], dt)
     if weather is None:
-        return jsonify({"error": "weather_unavailable", "venue_id": venue_id}), 502
+        return JSONResponse(status_code=502, content={"error": "weather_unavailable", "venue_id": vid})
 
-    return jsonify({
+    return {
         "venue_id":       venue["id"],
         "venue_name":     venue["name"],
         "lat":            venue["lat"],
         "lon":            venue["lon"],
         "requested_time": dt.strftime("%Y-%m-%dT%H:%M"),
         "weather":        weather,
-    })
+    }
 
 
 if __name__ == "__main__":
-    # use_reloader=False: reloader subprocess conflicts with Playwright's Chrome process
-    app.run(debug=True, port=5000, use_reloader=False)
+    # reload=False: avoids conflicts with Playwright's Chrome subprocess
+    uvicorn.run("app:app", host="127.0.0.1", port=5000, reload=False)
