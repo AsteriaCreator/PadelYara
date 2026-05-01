@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
+from etennis_checker import check_etennis_venues
 from venues import load_venues
 from weather import get_weather_for_hour
 
@@ -98,6 +99,17 @@ def search():
         for future in as_completed(futures):
             results[futures[future]] = future.result()
 
+    # ── Phase 2: eTennis availability ────────────────────────────────
+    etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
+    if etennis_venues:
+        try:
+            availability = check_etennis_venues(etennis_venues, dt)
+            for result in results:
+                if result["id"] in availability:
+                    result["status"] = availability[result["id"]]
+        except Exception as exc:
+            print(f"[eTennis] search phase error: {exc}")
+
     results.sort(key=lambda v: v["priority"])
 
     return jsonify({
@@ -138,4 +150,5 @@ def weather_test():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    # use_reloader=False: reloader subprocess conflicts with Playwright's Chrome process
+    app.run(debug=True, port=5000, use_reloader=False)
