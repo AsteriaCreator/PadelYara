@@ -17,6 +17,9 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 _CACHE: dict[str, dict] = {}
 _TTL = 300  # seconds
 
+_COOLDOWN: dict[str, float] = {}  # venue_id → timestamp of last unknown
+_COOLDOWN_TTL = 60  # seconds
+
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
     return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
@@ -108,6 +111,9 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
         if entry and now - entry["timestamp"] < _TTL:
             print(f"[eTennis] cache hit:  {venue['id']} → {entry['status']}")
             cached[venue["id"]] = entry["status"]
+        elif venue["id"] in _COOLDOWN and now - _COOLDOWN[venue["id"]] < _COOLDOWN_TTL:
+            print(f"[eTennis] cooldown skip: {venue['id']}")
+            cached[venue["id"]] = "unknown"
         else:
             to_fetch.append(venue)
 
@@ -132,7 +138,9 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
 
     for venue_id, status in fresh.items():
         print(f"[eTennis] fetched:    {venue_id} → {status}")
-        if status != "unknown":
+        if status == "unknown":
+            _COOLDOWN[venue_id] = now
+        else:
             _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": now}
 
     return {**cached, **fresh}
