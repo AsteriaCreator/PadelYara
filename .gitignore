@@ -33,3 +33,8 @@ Backend/etennis_multi_test.py
 
 # Experiments / debug artifacts
 experiments/
+
+# Local debug artifacts
+Backend/*.html
+Backend/*.json
+.claude/
