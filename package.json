@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "backend": "uvicorn app:app --reload --port 5000 --app-dir Backend",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
