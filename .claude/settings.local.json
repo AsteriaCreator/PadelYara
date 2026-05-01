@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(pkill -f \"python app.py\")",
+      "Bash(python app.py)",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?date=2026-04-27&time=18:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?date=2026-04-27\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?date=27-04-2026&time=18:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?time=09:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=padelzone-traiskirchen&date=2026-04-27&time=18:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=padelzone-wien-sportinsel&date=2026-04-27&time=10:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=padeldome-erdberg&date=2026-04-27&time=10:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=gibt-es-nicht\")",
+      "Bash(python -c ' *)",
+      "Bash(taskkill /F /PID 8972 /PID 8872 /PID 2700 /PID 18392 /PID 11484)",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=padeldome-erdberg&date=2026-04-27&time=18:00\")",
+      "Bash(netstat -ano)",
+      "PowerShell(Stop-Process -Id 8872,2700,7876,18392,8972 -Force -ErrorAction SilentlyContinue)",
+      "PowerShell(netstat -ano)",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=padeldome-suessenbrunn&date=2026-04-27&time=18:00\")",
+      "Bash(curl -s \"http://localhost:5000/api/weather-test?venue_id=padelzone-wr-neustadt-arena-27&date=2026-04-27&time=18:00\")",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git rm *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}
