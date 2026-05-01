@@ -30,3 +30,6 @@ __pycache__/
 Backend/analyze_etennis*.py
 Backend/etennis.py
 Backend/etennis_multi_test.py
+
+# Experiments / debug artifacts
+experiments/
