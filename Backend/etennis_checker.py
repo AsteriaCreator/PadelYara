@@ -132,6 +132,7 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
 
     for venue_id, status in fresh.items():
         print(f"[eTennis] fetched:    {venue_id} → {status}")
-        _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": now}
+        if status != "unknown":
+            _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": now}
 
     return {**cached, **fresh}
