@@ -8,6 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from etennis_checker import check_etennis_venues
+from eversports_checker import check_eversports_venues
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
 
@@ -116,6 +117,17 @@ def search(
                     result["status"] = availability[result["id"]]
         except Exception as exc:
             print(f"[eTennis] search phase error: {exc}")
+
+    # ── Phase 3: Eversports availability ─────────────────────────────
+    eversports_venues = [v for v in venues if v["platform"] == "Eversports"]
+    if eversports_venues:
+        try:
+            availability = check_eversports_venues(eversports_venues, dt)
+            for result in results:
+                if result["id"] in availability:
+                    result["status"] = availability[result["id"]]
+        except Exception as exc:
+            print(f"[Eversports] search phase error: {exc}")
 
     results.sort(key=lambda v: v["priority"])
 
