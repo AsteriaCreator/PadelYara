@@ -46,6 +46,7 @@ _ETENNIS_STATUS_MAP: dict[str, bool | None] = {
     "free":    True,
     "busy":    False,
     "unknown": None,
+    "no_slot": None,
 }
 
 

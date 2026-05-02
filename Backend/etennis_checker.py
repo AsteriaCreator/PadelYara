@@ -57,7 +57,7 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
                     const size  = parseFloat(s.dataset.size || '1');
                     return begin <= ts && ts < begin + size * 3600;
                 });
-                if (!matching.length) return 'unknown';
+                if (!matching.length) return 'no_slot';
                 return matching.some(s => s.classList.contains('av')) ? 'free' : 'busy';
             }""",
             target_ts
@@ -168,5 +168,6 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
             _COOLDOWN[venue_id] = now
         else:
             _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": now}
+            _COOLDOWN.pop(venue_id, None)
 
     return {**cached, **fresh}
