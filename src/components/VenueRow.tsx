@@ -10,9 +10,9 @@ const STATUS_STYLES: Record<string, string> = {
 
 const STATUS_LABEL: Record<string, string> = {
   free:    "Frei",
-  busy:    "Belegt",
+  busy:    "Voll",
   error:   "Fehler",
-  unknown: "Unbekannt",
+  unknown: "Wird geprüft",
 }
 
 interface Props {

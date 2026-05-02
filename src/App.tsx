@@ -18,11 +18,13 @@ function groupByRegion(venues: Venue[]): GroupedVenues {
 }
 
 const POLL_INTERVAL_MS = 5_000
-const POLL_MAX = 12   // 12 × 5s = 60s
+const POLL_MAX = 6   // 6 × 5s = 30s
 
 export default function App() {
   const [grouped, setGrouped] = useState<GroupedVenues>({} as GroupedVenues)
   const [isLoading, setLoading] = useState(false)
+  const [isPending, setIsPending] = useState(false)
+  const [showUnresolvedNote, setShowUnresolvedNote] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [searched, setSearched] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<Region>(REGION_ORDER[0])
@@ -37,11 +39,12 @@ export default function App() {
       clearTimeout(pollTimer.current)
       pollTimer.current = null
     }
+    setIsPending(false)
   }
 
   async function doPoll() {
     const params = lastParams.current
-    if (!params || pollCount.current >= POLL_MAX) { stopPolling(); return }
+    if (!params || pollCount.current >= POLL_MAX) { setShowUnresolvedNote(true); stopPolling(); return }
     pollCount.current += 1
     try {
       const res = await fetchAvailability(params, lastGeo.current)
@@ -62,6 +65,7 @@ export default function App() {
     lastParams.current = params
     setLoading(true)
     setError(null)
+    setShowUnresolvedNote(false)
 
     // Public mode if location text given; otherwise fall back to region mode
     let geo: GeoParams | undefined
@@ -86,6 +90,7 @@ export default function App() {
       setSelectedRegion(params.region)
       setSearched(true)
       if (res.availability_pending) {
+        setIsPending(true)
         pollTimer.current = setTimeout(doPoll, POLL_INTERVAL_MS)
       }
     } catch {
@@ -105,6 +110,18 @@ export default function App() {
       <div className="max-w-2xl mx-auto px-4 py-6">
         <h1 className="text-white text-xl font-bold mb-6">Padel Checker</h1>
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
+
+        {isPending && (
+          <p className="text-yellow-500 text-xs mb-3 animate-pulse">
+            ⏳ Verfügbarkeit wird aktualisiert…
+          </p>
+        )}
+
+        {showUnresolvedNote && !isPending && (
+          <p className="text-gray-500 text-xs mb-3">
+            Einige Plattformen konnten noch nicht automatisch geprüft werden.
+          </p>
+        )}
 
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 

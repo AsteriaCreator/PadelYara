@@ -10,7 +10,7 @@ type RawVenue = {
   distance_km: number | null
   court_type: string
   region: string | null
-  available: boolean
+  available: boolean | null
   booking_url: string
   weather: Venue["weather"]
 }
@@ -24,7 +24,7 @@ function mapVenue(v: RawVenue): Venue {
     platform: v.platform as Venue["platform"],
     priority: 0,
     booking_url: v.booking_url,
-    status: v.available ? "free" : "busy",
+    status: v.available === null ? "unknown" : v.available ? "free" : "busy",
     error: null,
     weather: v.weather,
   }
@@ -69,10 +69,12 @@ export async function fetchAvailability(
   }
 
   const data = await res.json()
+  const results = (data.results as RawVenue[]).map(mapVenue)
   return {
     ok: true,
-    results: (data.results as RawVenue[]).map(mapVenue),
+    results,
     date: data.date,
     time: data.time,
+    availability_pending: results.some((v) => v.status === "unknown"),
   }
 }
