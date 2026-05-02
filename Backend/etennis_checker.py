@@ -9,7 +9,6 @@ import time
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
-from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
@@ -42,30 +41,27 @@ def _target_ts(date, hour: int) -> int:
     return int(datetime(date.year, date.month, date.day, hour, tzinfo=VIENNA_TZ).timestamp())
 
 
-def _parse_status(html: str, target_ts: int) -> str:
-    soup = BeautifulSoup(html, "html.parser")
-    matching = []
-    for slot in soup.select(".slot[data-begin]"):
-        begin = int(slot["data-begin"])
-        size  = float(slot.get("data-size") or 1)
-        if begin <= target_ts < begin + size * 3600:
-            matching.append(slot)
-
-    if not matching:
-        return "unknown"
-    return "free" if any("av" in s.get("class", []) for s in matching) else "busy"
-
-
 async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str | None]:
     url       = _page_url(venue["booking_url"], dt.date())
     target_ts = _target_ts(dt.date(), dt.hour)
     page      = None
     try:
         page   = await browser.new_page()
-        await page.goto(url, wait_until="networkidle", timeout=30_000)
-        await page.wait_for_selector(".slot[data-begin]", timeout=15_000)
-        html   = await page.content()
-        status = _parse_status(html, target_ts)
+        await page.goto(url, wait_until="commit", timeout=30_000)
+        await page.wait_for_selector(".slot[data-begin]", timeout=8_000)
+        status = await page.evaluate(
+            """(ts) => {
+                const slots = [...document.querySelectorAll('.slot[data-begin]')];
+                const matching = slots.filter(s => {
+                    const begin = parseInt(s.dataset.begin);
+                    const size  = parseFloat(s.dataset.size || '1');
+                    return begin <= ts && ts < begin + size * 3600;
+                });
+                if (!matching.length) return 'unknown';
+                return matching.some(s => s.classList.contains('av')) ? 'free' : 'busy';
+            }""",
+            target_ts
+        )
         return venue["id"], status, None
     except Exception as exc:
         return venue["id"], "unknown", str(exc)
