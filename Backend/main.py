@@ -125,7 +125,8 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
       Phase 2 — background scrape if cache is cold (never delays the response).
     """
     etennis_venues    = [v for v in venues if v["platform"] == "eTennis"]
-    eversports_venues = [v for v in venues if v["platform"] == "Eversports"]
+    eversports_venues = [v for v in venues if v["platform"] == "Eversports"
+                         and v.get("issues") != "phone_only"]
 
     if not etennis_venues and not eversports_venues:
         return {}
