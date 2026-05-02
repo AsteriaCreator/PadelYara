@@ -20,9 +20,17 @@ _TTL = 300  # seconds
 _COOLDOWN: dict[str, float] = {}  # venue_id → timestamp of last unknown
 _COOLDOWN_TTL = 60  # seconds
 
+_RUNNING: set[str] = set()   # scrape keys currently in-flight
+_RUNNING_LOCK = threading.Lock()
+
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
     return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
+
+
+def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
+    """Stable key for a set of venues at a given date+hour, used to deduplicate in-flight scrapes."""
+    return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:00')}"
 
 
 def _page_url(booking_url: str, date) -> str:
@@ -132,6 +140,14 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     if not to_fetch:
         return cached
 
+    scrape_key = _scrape_key([v["id"] for v in to_fetch], dt)
+
+    with _RUNNING_LOCK:
+        if scrape_key in _RUNNING:
+            print(f"[eTennis] scrape already in-flight for {scrape_key[:60]} — skipping")
+            return {**cached, **{v["id"]: "unknown" for v in to_fetch}}
+        _RUNNING.add(scrape_key)
+
     fresh: dict[str, str] = {}
 
     def _run_in_thread():
@@ -143,6 +159,8 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
             print(f"[eTennis] thread-level error: {exc}")
         finally:
             loop.close()
+            with _RUNNING_LOCK:
+                _RUNNING.discard(scrape_key)
 
     t = threading.Thread(target=_run_in_thread, daemon=True)
     t.start()
