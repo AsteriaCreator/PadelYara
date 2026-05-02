@@ -23,6 +23,8 @@ from fastapi.responses import JSONResponse
 from distance import filter_by_radius
 from etennis_checker import check_etennis_venues, get_cached_statuses
 from venues_mongo import load_venues
+import httpx
+
 from weather import get_weather_cached
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
@@ -72,14 +74,10 @@ def _filter_court_type(venues: list[dict], court_type: str | None) -> list[dict]
     return [v for v in venues if v["court_type"] in allowed]
 
 
-async def _fetch_weather_async(venue: dict, dt: datetime) -> dict:
-    """Fetch weather for one venue without blocking the event loop."""
+async def _fetch_weather_async(client: httpx.AsyncClient, venue: dict, dt: datetime) -> dict:
     if venue.get("lat") is None or venue.get("lon") is None:
         return {**venue, "weather": None}
-    loop = asyncio.get_running_loop()
-    weather = await loop.run_in_executor(
-        _executor, get_weather_cached, venue["id"], venue["lat"], venue["lon"], dt
-    )
+    weather = await get_weather_cached(client, venue["lat"], venue["lon"], dt)
     return {**venue, "weather": weather}
 
 
@@ -194,10 +192,11 @@ async def search(
     # ── Fetch weather + availability in parallel ──────────────────────────
     # Weather: one task per venue. Availability: one task for all eTennis venues.
     # Both run concurrently so Playwright doesn't add to the weather latency.
-    all_weather, availability = await asyncio.gather(
-        asyncio.gather(*[_fetch_weather_async(v, dt) for v in venues]),
-        _fetch_availability_async(venues, dt),
-    )
+    async with httpx.AsyncClient() as client:
+        all_weather, availability = await asyncio.gather(
+            asyncio.gather(*[_fetch_weather_async(client, v, dt) for v in venues]),
+            _fetch_availability_async(venues, dt),
+        )
     with_weather = list(all_weather)
 
     # Sort: personal mode → priority asc; public mode → distance asc

@@ -1,5 +1,5 @@
 import time
-import requests
+import httpx
 from datetime import datetime
 
 _WEATHER_CACHE: dict = {}
@@ -47,19 +47,25 @@ def _wmo_to_weather(code: int, temp: float, rain_prob: int) -> dict:
     }
 
 
-def get_weather_for_hour(lat: float, lon: float, dt: datetime, retries: int = 3) -> dict | None:
+def _cache_key(lat: float, lon: float, dt: datetime) -> str:
+    return f"{lat:.4f},{lon:.4f}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
+
+
+async def get_weather_for_hour(
+    client: httpx.AsyncClient, lat: float, lon: float, dt: datetime, retries: int = 3
+) -> dict | None:
     params = {
         "latitude":      lat,
         "longitude":     lon,
         "hourly":        "temperature_2m,precipitation_probability,weathercode",
-        "forecast_days": 7,
+        "forecast_days": 2,
         "timezone":      "Europe/Vienna",
     }
     target = dt.strftime("%Y-%m-%dT%H:00")
 
     for attempt in range(retries):
         try:
-            resp = requests.get(OPEN_METEO_URL, params=params, timeout=5)
+            resp = await client.get(OPEN_METEO_URL, params=params, timeout=5)
             resp.raise_for_status()
             data = resp.json()
             times = data["hourly"]["time"]
@@ -72,22 +78,22 @@ def get_weather_for_hour(lat: float, lon: float, dt: datetime, retries: int = 3)
                 rain_prob=data["hourly"]["precipitation_probability"][i],
             )
         except Exception:
-            if attempt < retries - 1:
-                time.sleep(1)
+            if attempt == retries - 1:
+                return None
 
     return None
 
 
-def get_weather_cached(venue_id: str, lat: float, lon: float, dt: datetime) -> dict | None:
-    key = f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
+async def get_weather_cached(
+    client: httpx.AsyncClient, lat: float, lon: float, dt: datetime
+) -> dict | None:
+    key = _cache_key(lat, lon, dt)
     now = time.time()
     entry = _WEATHER_CACHE.get(key)
     if entry and now - entry["timestamp"] < _WEATHER_TTL:
-        print(f"[weather] cache hit:  {venue_id}")
         return entry["weather"]
 
-    weather = get_weather_for_hour(lat, lon, dt)
+    weather = await get_weather_for_hour(client, lat, lon, dt)
     if weather is not None:
-        print(f"[weather] fetched:    {venue_id}")
         _WEATHER_CACHE[key] = {"weather": weather, "timestamp": now}
     return weather
