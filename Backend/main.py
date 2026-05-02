@@ -21,7 +21,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from distance import filter_by_radius
-from etennis_checker import check_etennis_venues, get_cached_statuses
+from etennis_checker import check_etennis_venues
+from etennis_checker import get_cached_statuses as get_etennis_cached
+from eversports_checker import check_eversports_venues
+from eversports_checker import get_cached_statuses as get_eversports_cached
 from venues_mongo import load_venues
 import httpx
 
@@ -81,42 +84,60 @@ async def _fetch_weather_async(client: httpx.AsyncClient, venue: dict, dt: datet
     return {**venue, "weather": weather}
 
 
+async def _fetch_platform_async(
+    loop,
+    venues: list[dict],
+    dt: datetime,
+    get_cached_fn,
+    check_fn,
+    label: str,
+) -> dict[str, bool | None]:
+    """
+    Generic two-phase availability fetch for a single platform.
+
+    Phase 1: read cache (instant, no I/O).
+    Phase 2: if any venues are uncached, fire the scraper in the background
+             without blocking the response.
+    """
+    if not venues:
+        return {}
+
+    try:
+        cached: dict[str, str] = await loop.run_in_executor(
+            _executor, get_cached_fn, venues, dt
+        )
+    except Exception as exc:
+        print(f"[{label}] cache read failed: {exc}")
+        cached = {}
+
+    if len(cached) < len(venues):
+        bg = loop.run_in_executor(_executor, check_fn, venues, dt)
+        bg.add_done_callback(lambda _: None)
+
+    return {vid: _ETENNIS_STATUS_MAP.get(st) for vid, st in cached.items()}
+
+
 async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[str, bool | None]:
     """
-    Two-phase availability:
-
-    1. Fast path  — read whatever is already in the in-process cache (instant).
-    2. Background — if any venues are missing, fire check_etennis_venues without
-       awaiting it. The _RUNNING guard in etennis_checker prevents duplicate
-       concurrent scrapes. The next request will get cache hits.
-
-    The response is never delayed by scraping.
+    Run eTennis and Eversports availability fetches in parallel.
+    Both use the same non-blocking two-phase pattern:
+      Phase 1 — instant cache read.
+      Phase 2 — background scrape if cache is cold (never delays the response).
     """
-    etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
-    if not etennis_venues:
+    etennis_venues    = [v for v in venues if v["platform"] == "eTennis"]
+    eversports_venues = [v for v in venues if v["platform"] == "Eversports"]
+
+    if not etennis_venues and not eversports_venues:
         return {}
 
     loop = asyncio.get_running_loop()
 
-    # Phase 1: instant dict lookup — no I/O, always sub-millisecond.
-    try:
-        cached_statuses: dict[str, str] = await loop.run_in_executor(
-            _executor, get_cached_statuses, etennis_venues, dt
-        )
-    except Exception as exc:
-        print(f"[availability] cache read failed: {exc}")
-        cached_statuses = {}
+    etennis_result, eversports_result = await asyncio.gather(
+        _fetch_platform_async(loop, etennis_venues,    dt, get_etennis_cached,    check_etennis_venues,    "eTennis"),
+        _fetch_platform_async(loop, eversports_venues, dt, get_eversports_cached, check_eversports_venues, "Eversports"),
+    )
 
-    # Phase 2: kick off a background scrape for any venue not yet in cache.
-    # check_etennis_venues handles cooldowns and the in-flight guard internally.
-    if len(cached_statuses) < len(etennis_venues):
-        bg = loop.run_in_executor(_executor, check_etennis_venues, etennis_venues, dt)
-        bg.add_done_callback(lambda _: None)  # discard result; suppress warnings
-
-    return {
-        venue_id: _ETENNIS_STATUS_MAP.get(status)
-        for venue_id, status in cached_statuses.items()
-    }
+    return {**etennis_result, **eversports_result}
 
 
 def _build_result(venue: dict, available: bool | None) -> dict:
