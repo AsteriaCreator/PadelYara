@@ -24,11 +24,18 @@ _TTL = 300  # 5 minutes
 _COOLDOWN: dict[str, float] = {}
 _COOLDOWN_TTL = 60  # 1 minute
 
+_RUNNING: set[str] = set()
+_RUNNING_LOCK = threading.Lock()
+
 _BOOKING_HOURS = 2  # minimum booking window to check
 
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
     return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
+
+
+def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
+    return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:00')}"
 
 
 def _parse_hhmm(hhmm: str) -> int:
@@ -283,6 +290,14 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     if not to_fetch:
         return cached
 
+    scrape_key = _scrape_key([v["id"] for v in to_fetch], dt)
+
+    with _RUNNING_LOCK:
+        if scrape_key in _RUNNING:
+            print(f"[Eversports] scrape already in-flight for {scrape_key[:60]} — skipping")
+            return {**cached, **{v["id"]: "unknown" for v in to_fetch}}
+        _RUNNING.add(scrape_key)
+
     fresh: dict[str, str] = {}
 
     def _run_in_thread():
@@ -294,6 +309,8 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
             print(f"[Eversports] thread-level error: {exc}")
         finally:
             loop.close()
+            with _RUNNING_LOCK:
+                _RUNNING.discard(scrape_key)
 
     # Sequential venue checks -> longer timeout than eTennis
     t = threading.Thread(target=_run_in_thread, daemon=True)
