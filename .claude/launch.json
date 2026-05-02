@@ -8,10 +8,10 @@
       "port": 5173
     },
     {
-      "name": "Backend (Flask)",
-      "runtimeExecutable": "python",
-      "runtimeArgs": ["Backend/app.py"],
-      "port": 5000
+      "name": "Backend (FastAPI)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "backend"],
+      "port": 8000
     }
   ]
 }

@@ -25,6 +25,7 @@ dist-ssr
 __pycache__/
 *.pyc
 .env
+.venv/
 
 # Local analysis / prototype scripts (not part of the app)
 Backend/analyze_etennis*.py

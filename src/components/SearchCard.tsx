@@ -23,14 +23,42 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const [time, setTime]           = useState("10:00")
   const [region, setRegion]       = useState<Region>(REGION_ORDER[0])
   const [courtType, setCourtType] = useState<CourtType>("both")
+  const [location, setLocation]   = useState("")
+  const [radius, setRadius]       = useState(20)
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    onSearch({ date, time, region, court_type: courtType })
+    onSearch({ date, time, region, court_type: courtType, location: location.trim() || undefined, radius })
   }
 
   return (
     <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl border border-gray-800 p-4 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-3">
+        <div className="flex flex-col gap-1 flex-1 min-w-0">
+          <label className="text-xs text-gray-500">PLZ oder Ort <span className="text-gray-600">(leer = Region)</span></label>
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="z.B. 2500 oder Baden"
+            className={inputClass}
+          />
+        </div>
+        {location.trim() && (
+          <div className="flex flex-col gap-1 sm:w-36 sm:shrink-0">
+            <label className="text-xs text-gray-500">Radius</label>
+            <select
+              value={radius}
+              onChange={(e) => setRadius(Number(e.target.value))}
+              className={inputClass}
+            >
+              {[5, 10, 20, 25, 50].map((km) => (
+                <option key={km} value={km}>{km} km</option>
+              ))}
+            </select>
+          </div>
+        )}
+      </div>
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Datum</label>

@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react"
 import type { Region, Venue, SearchParams } from "./types"
 import { REGION_ORDER } from "./constants"
-import { fetchAvailability } from "./api"
+import { fetchAvailability, type GeoParams } from "./api"
+import { geocode } from "./geocode"
 import SearchCard from "./components/SearchCard"
 import RegionGroup from "./components/RegionGroup"
 
@@ -29,6 +30,7 @@ export default function App() {
   const pollTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pollCount  = useRef(0)
   const lastParams = useRef<SearchParams | null>(null)
+  const lastGeo    = useRef<GeoParams | undefined>(undefined)
 
   function stopPolling() {
     if (pollTimer.current) {
@@ -42,7 +44,7 @@ export default function App() {
     if (!params || pollCount.current >= POLL_MAX) { stopPolling(); return }
     pollCount.current += 1
     try {
-      const res = await fetchAvailability(params)
+      const res = await fetchAvailability(params, lastGeo.current)
       if (res.ok) {
         setGrouped(groupByRegion(res.results))
         if (!res.availability_pending) { stopPolling(); return }
@@ -60,8 +62,22 @@ export default function App() {
     lastParams.current = params
     setLoading(true)
     setError(null)
+
+    // Public mode if location text given; otherwise fall back to region mode
+    let geo: GeoParams | undefined
+    if (params.location) {
+      const coords = await geocode(params.location)
+      if (!coords) {
+        setError("Ort nicht gefunden — bitte PLZ oder Ortsname prüfen")
+        setLoading(false)
+        return
+      }
+      geo = { ...coords, radius: params.radius }
+    }
+    lastGeo.current = geo
+
     try {
-      const res = await fetchAvailability(params)
+      const res = await fetchAvailability(params, geo)
       if (!res.ok) {
         setError(res.error ?? "Unbekannter Fehler")
         return

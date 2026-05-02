@@ -9,6 +9,8 @@ export interface SearchParams {
   time: string
   region: Region
   court_type: CourtType
+  location?: string
+  radius: number
 }
 
 export interface Weather {
