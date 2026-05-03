@@ -29,6 +29,9 @@ _RUNNING_LOCK = threading.Lock()
 
 _BOOKING_HOURS = 2  # minimum booking window to check
 
+# Set to True to bypass in-memory cache and print full slot-level debug logs.
+DEBUG_MODE = False
+
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
     return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
@@ -47,7 +50,7 @@ def _parse_hhmm(hhmm: str) -> int:
         return -1
 
 
-def _parse_status(html: str, date_str: str, target_hour: int) -> str:
+def _parse_status(html: str, date_str: str, target_hour: int, venue_id: str = "?") -> str:
     """
     Parse /api/booking/calendar/update HTML response.
 
@@ -60,37 +63,73 @@ def _parse_status(html: str, date_str: str, target_hour: int) -> str:
     """
     soup = BeautifulSoup(html, "html.parser")
     tbody = soup.find("tbody", attrs={"data-date": date_str})
+
+    if DEBUG_MODE:
+        # Log all tbody data-date values found so we can verify date matching
+        all_tbodies = soup.find_all("tbody", attrs={"data-date": True})
+        dates_found = [t.get("data-date") for t in all_tbodies]
+        print(f"[Eversports][DEBUG] {venue_id}  date_str={date_str}  tbodies found={dates_found}")
+
     if not tbody:
+        if DEBUG_MODE:
+            print(f"[Eversports][DEBUG] {venue_id}  -> no tbody for date {date_str}  returning unknown")
         return "unknown"
 
-    # Collect slots per court: {court_id: [(start_min, end_min, state)]}
-    by_court: dict[str, list[tuple[int, int, str]]] = {}
-    for td in tbody.find_all(
-        attrs={"data-start": True, "data-state": True, "data-court": True}
-    ):
+    # Collect slots per court with ALL attributes for debugging
+    # {court_id: [(start_min, end_min, state, all_attrs_dict)]}
+    by_court: dict[str, list[tuple[int, int, str, dict]]] = {}
+    for td in tbody.find_all(attrs={"data-start": True, "data-state": True, "data-court": True}):
         start = _parse_hhmm(td.get("data-start", ""))
         end   = _parse_hhmm(td.get("data-end", ""))
         if start < 0:
             continue
-        if end <= start:        # fallback: assume 60-min slot
+        if end <= start:
             end = start + 60
         court = td["data-court"]
         state = td["data-state"]
-        by_court.setdefault(court, []).append((start, end, state))
+        all_attrs = dict(td.attrs)
+        by_court.setdefault(court, []).append((start, end, state, all_attrs))
+
+    if DEBUG_MODE:
+        print(f"[Eversports][DEBUG] {venue_id}  courts found: {list(by_court.keys())}")
+        for court, slots in by_court.items():
+            for s, e, st, attrs in sorted(slots, key=lambda x: x[0]):
+                # Format minutes as HH:MM for readability
+                def fmt(m: int) -> str:
+                    return f"{m//60:02d}:{m%60:02d}"
+                extra = {k: v for k, v in attrs.items()
+                         if k not in ("data-start", "data-end", "data-state", "data-court")}
+                print(f"[Eversports][DEBUG]   court={court}  {fmt(s)}-{fmt(e)}  state={st}  extra={extra}")
 
     if not by_court:
+        if DEBUG_MODE:
+            print(f"[Eversports][DEBUG] {venue_id}  -> no slots parsed  returning unknown")
         return "unknown"
 
     window_start = target_hour * 60
     window_end   = window_start + _BOOKING_HOURS * 60
 
+    if DEBUG_MODE:
+        def fmt(m: int) -> str:
+            return f"{m//60:02d}:{m%60:02d}"
+        print(f"[Eversports][DEBUG] {venue_id}  checking window {fmt(window_start)}-{fmt(window_end)}")
+
     for court, slots in by_court.items():
         # Slots that start within the 2-hour window
-        window = [(s, e, st) for s, e, st in slots
+        window = [(s, e, st) for s, e, st, _ in slots
                   if window_start <= s < window_end]
+
+        if DEBUG_MODE:
+            def fmt(m: int) -> str:
+                return f"{m//60:02d}:{m%60:02d}"
+            in_window = [(f"{fmt(s)}-{fmt(e)}", st) for s, e, st in window]
+            print(f"[Eversports][DEBUG]   court={court}  in-window slots={in_window}")
+
         if not window:
             continue
         if not all(st == "free" for _, _, st in window):
+            if DEBUG_MODE:
+                print(f"[Eversports][DEBUG]   court={court}  -> has non-free slot(s) in window, skip")
             continue
 
         # Verify the free slots cover the full window without gaps
@@ -98,12 +137,21 @@ def _parse_status(html: str, date_str: str, target_hour: int) -> str:
         coverage = window_start
         for s, e, _ in window:
             if s > coverage:
-                break       # gap before this slot
+                if DEBUG_MODE:
+                    print(f"[Eversports][DEBUG]   court={court}  -> GAP at {fmt(coverage)}, slot starts {fmt(s)}, skip")
+                break
             coverage = max(coverage, e)
 
+        if DEBUG_MODE:
+            print(f"[Eversports][DEBUG]   court={court}  -> coverage={fmt(coverage)}  needed={fmt(window_end)}  {'FREE' if coverage >= window_end else 'insufficient'}")
+
         if coverage >= window_end:
+            if DEBUG_MODE:
+                print(f"[Eversports][DEBUG] {venue_id}  -> RESULT: free (via court={court})")
             return "free"
 
+    if DEBUG_MODE:
+        print(f"[Eversports][DEBUG] {venue_id}  -> RESULT: busy")
     return "busy"
 
 
@@ -138,14 +186,22 @@ async def _check_one(
     url      = f"{venue['booking_url']}?date={date_str}"
     page     = None
 
+    if DEBUG_MODE:
+        print(f"[Eversports][DEBUG] {venue['id']}  page_url={url}  target={dt.strftime('%Y-%m-%d %H:%M')}")
+
     try:
         page = await ctx.new_page()
         calendar_html: list[str] = []
+        calendar_urls: list[str] = []
 
         async def on_response(resp):
             if "/api/booking/calendar/update" in resp.url and resp.status == 200:
                 try:
-                    calendar_html.append(await resp.text())
+                    body = await resp.text()
+                    calendar_html.append(body)
+                    calendar_urls.append(resp.url)
+                    if DEBUG_MODE:
+                        print(f"[Eversports][DEBUG] {venue['id']}  calendar_url={resp.url}")
                 except Exception:
                     pass
 
@@ -185,7 +241,11 @@ async def _check_one(
         if not calendar_html:
             return venue["id"], "unknown", "no calendar response"
 
-        status = _parse_status(calendar_html[-1], date_str, dt.hour)
+        if DEBUG_MODE:
+            print(f"[Eversports][DEBUG] {venue['id']}  calendar responses captured: {len(calendar_html)}")
+            print(f"[Eversports][DEBUG] {venue['id']}  using last response ({len(calendar_html[-1])} bytes)")
+
+        status = _parse_status(calendar_html[-1], date_str, dt.hour, venue_id=venue["id"])
         return venue["id"], status, None
 
     except Exception as exc:
@@ -280,13 +340,15 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     for venue in venues:
         key   = _cache_key(venue["id"], dt)
         entry = _CACHE.get(key)
-        if entry and now - entry["timestamp"] < _TTL:
+        if not DEBUG_MODE and entry and now - entry["timestamp"] < _TTL:
             print(f"[Eversports] cache hit:  {venue['id']} -> {entry['status']}")
             cached[venue["id"]] = entry["status"]
-        elif venue["id"] in _COOLDOWN and now - _COOLDOWN[venue["id"]] < _COOLDOWN_TTL:
+        elif not DEBUG_MODE and venue["id"] in _COOLDOWN and now - _COOLDOWN[venue["id"]] < _COOLDOWN_TTL:
             print(f"[Eversports] cooldown:   {venue['id']}")
             cached[venue["id"]] = "unknown"
         else:
+            if DEBUG_MODE and entry:
+                print(f"[Eversports][DEBUG] {venue['id']}  bypassing cache (DEBUG_MODE)")
             to_fetch.append(venue)
 
     if not to_fetch:

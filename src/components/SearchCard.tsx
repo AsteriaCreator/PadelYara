@@ -16,11 +16,21 @@ interface Props {
   isLoading: boolean
 }
 
-export default function SearchCard({ onSearch, isLoading }: Props) {
-  const today = new Date().toISOString().split("T")[0]
+function getNextFullHour(): { date: string; time: string } {
+  const now  = new Date()
+  // Add 1 hour; Date() handles midnight rollover automatically
+  const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1)
+  const pad  = (n: number) => String(n).padStart(2, "0")
+  const date = `${next.getFullYear()}-${pad(next.getMonth() + 1)}-${pad(next.getDate())}`
+  const time = `${pad(next.getHours())}:00`
+  return { date, time }
+}
 
-  const [date, setDate]           = useState(today)
-  const [time, setTime]           = useState("10:00")
+export default function SearchCard({ onSearch, isLoading }: Props) {
+  const { date: defaultDate, time: defaultTime } = getNextFullHour()
+
+  const [date, setDate]           = useState(defaultDate)
+  const [time, setTime]           = useState(defaultTime)
   const [region, setRegion]       = useState<Region>(REGION_ORDER[0])
   const [courtType, setCourtType] = useState<CourtType>("both")
   const [location, setLocation]   = useState("")
