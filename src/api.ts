@@ -1,4 +1,4 @@
-import type { SearchParams, SearchResponse, Venue } from "./types"
+import type { SearchParams, SearchResponse, Venue, Status } from "./types"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -10,12 +10,20 @@ type RawVenue = {
   distance_km: number | null
   court_type: string
   region: string | null
-  available: boolean | null
+  availability_status: string   // "free"|"busy"|"pending"|"check_failed"|"phone_only"
+  available: boolean | null     // backward-compat
   booking_url: string
   weather: Venue["weather"]
 }
 
 function mapVenue(v: RawVenue): Venue {
+  // Prefer explicit availability_status; fall back to available bool for old servers
+  const status: Status =
+    v.availability_status != null
+      ? (v.availability_status as Status)
+      : v.available === true  ? "free"
+      : v.available === false ? "busy"
+      : "pending"
   return {
     id: v.venue_id,
     name: v.name,
@@ -24,11 +32,12 @@ function mapVenue(v: RawVenue): Venue {
     platform: v.platform as Venue["platform"],
     priority: 0,
     booking_url: v.booking_url,
-    status: v.available === null ? "unknown" : v.available ? "free" : "busy",
+    status,
     error: null,
     weather: v.weather,
   }
 }
+
 
 export interface GeoParams {
   lat: number
@@ -75,6 +84,7 @@ export async function fetchAvailability(
     results,
     date: data.date,
     time: data.time,
-    availability_pending: results.some((v) => v.status === "unknown"),
+    // Prefer the explicit backend field; fall back to client-side check for old servers
+    availability_pending: data.availability_pending ?? results.some((v) => v.status === "pending"),
   }
 }

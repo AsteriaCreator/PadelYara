@@ -2,24 +2,34 @@ import type { Venue } from "../types"
 import WeatherCell from "./WeatherCell"
 
 const STATUS_STYLES: Record<string, string> = {
-  free:    "bg-green-900/40 text-green-400",
-  busy:    "bg-red-900/40 text-red-400",
-  error:   "bg-orange-900/40 text-orange-400",
-  unknown: "bg-gray-800 text-gray-500",
+  free:         "bg-green-900/40 text-green-400",
+  busy:         "bg-red-900/40 text-red-400",
+  pending:      "bg-gray-800 text-gray-500 animate-pulse",
+  check_failed: "bg-gray-800 text-gray-500",
+  phone_only:   "bg-blue-900/40 text-blue-400",
+  error:        "bg-orange-900/40 text-orange-400",
 }
 
 const STATUS_LABEL: Record<string, string> = {
-  free:    "Frei",
-  busy:    "Voll",
-  error:   "Fehler",
-  unknown: "Wird geprüft",
+  free:         "Frei",
+  busy:         "Voll",
+  pending:      "Wird geprüft",
+  check_failed: "Konnte nicht geprüft werden",
+  phone_only:   "Nur telefonisch",
+  error:        "Fehler",
 }
 
 interface Props {
   venue: Venue
+  pollingExpired: boolean
 }
 
-export default function VenueRow({ venue }: Props) {
+export default function VenueRow({ venue, pollingExpired }: Props) {
+  // After polling expires, treat still-pending venues as check_failed
+  const displayStatus = pollingExpired && venue.status === "pending"
+    ? "check_failed"
+    : venue.status
+
   const bookingLabel = venue.status === "free" ? "JETZT BUCHEN ↗" : "LINK ↗"
   const bookingStyle = venue.status === "free"
     ? "bg-green-600 hover:bg-green-500 text-white"
@@ -29,8 +39,8 @@ export default function VenueRow({ venue }: Props) {
     <div className="px-4 py-3 border-b border-gray-700/50 last:border-0">
       <div className="flex items-center justify-between mb-1">
         <span className="font-medium text-white truncate">{venue.name}</span>
-        <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ml-3 ${STATUS_STYLES[venue.status]}`}>
-          {STATUS_LABEL[venue.status]}
+        <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ml-3 ${STATUS_STYLES[displayStatus]}`}>
+          {STATUS_LABEL[displayStatus]}
         </span>
       </div>
       <div className="flex items-center justify-between">

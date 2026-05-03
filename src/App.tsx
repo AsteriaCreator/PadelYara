@@ -18,13 +18,13 @@ function groupByRegion(venues: Venue[]): GroupedVenues {
 }
 
 const POLL_INTERVAL_MS = 5_000
-const POLL_MAX = 6   // 6 × 5s = 30s
+const POLL_MAX = 24  // 24 × 5s = 2 min — enough for cold Eversports scrape
 
 export default function App() {
   const [grouped, setGrouped] = useState<GroupedVenues>({} as GroupedVenues)
   const [isLoading, setLoading] = useState(false)
   const [isPending, setIsPending] = useState(false)
-  const [showUnresolvedNote, setShowUnresolvedNote] = useState(false)
+  const [pollingExpired, setPollingExpired] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [searched, setSearched] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<Region>(REGION_ORDER[0])
@@ -44,7 +44,11 @@ export default function App() {
 
   async function doPoll() {
     const params = lastParams.current
-    if (!params || pollCount.current >= POLL_MAX) { setShowUnresolvedNote(true); stopPolling(); return }
+    if (!params || pollCount.current >= POLL_MAX) {
+      setPollingExpired(true)
+      stopPolling()
+      return
+    }
     pollCount.current += 1
     try {
       const res = await fetchAvailability(params, lastGeo.current)
@@ -65,7 +69,7 @@ export default function App() {
     lastParams.current = params
     setLoading(true)
     setError(null)
-    setShowUnresolvedNote(false)
+    setPollingExpired(false)
 
     // Public mode if location text given; otherwise fall back to region mode
     let geo: GeoParams | undefined
@@ -111,15 +115,15 @@ export default function App() {
         <h1 className="text-white text-xl font-bold mb-6">Padel Checker</h1>
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 
-        {isPending && (
+        {isPending && !pollingExpired && (
           <p className="text-yellow-500 text-xs mb-3 animate-pulse">
             ⏳ Verfügbarkeit wird aktualisiert…
           </p>
         )}
 
-        {showUnresolvedNote && !isPending && (
+        {pollingExpired && (
           <p className="text-gray-500 text-xs mb-3">
-            Einige Plattformen konnten noch nicht automatisch geprüft werden.
+            ⚠ Einige Ergebnisse konnten nicht rechtzeitig geprüft werden.
           </p>
         )}
 
@@ -130,7 +134,7 @@ export default function App() {
           !error &&
           sortedRegions.map((region) =>
             grouped[region]?.length ? (
-              <RegionGroup key={region} region={region} venues={grouped[region]} />
+              <RegionGroup key={region} region={region} venues={grouped[region]} pollingExpired={pollingExpired} />
             ) : null
           )}
       </div>

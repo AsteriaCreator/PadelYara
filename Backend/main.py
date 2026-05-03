@@ -46,12 +46,21 @@ _OUTDOOR_TYPES = {"outdoor", "indoor+outdoor"}
 
 _executor = ThreadPoolExecutor(max_workers=20)
 
-# Maps eTennis scraper status strings to the API's boolean/null convention.
-_ETENNIS_STATUS_MAP: dict[str, bool | None] = {
-    "free":    True,
-    "busy":    False,
-    "unknown": None,
-    "no_slot": None,
+# Raw scraper output → canonical availability_status
+_SCRAPER_STATUS: dict[str, str] = {
+    "free":    "free",
+    "busy":    "busy",
+    "unknown": "check_failed",
+    "no_slot": "busy",        # no slot at this time = not bookable
+}
+
+# Canonical status → available bool (kept for backward-compat)
+_STATUS_TO_AVAILABLE: dict[str, bool | None] = {
+    "free":         True,
+    "busy":         False,
+    "check_failed": None,
+    "pending":      None,
+    "phone_only":   None,
 }
 
 
@@ -91,13 +100,16 @@ async def _fetch_platform_async(
     get_cached_fn,
     check_fn,
     label: str,
-) -> dict[str, bool | None]:
+) -> dict[str, str]:
     """
     Generic two-phase availability fetch for a single platform.
 
     Phase 1: read cache (instant, no I/O).
     Phase 2: if any venues are uncached, fire the scraper in the background
              without blocking the response.
+
+    Returns {venue_id: canonical_status} for venues already in cache only.
+    Missing keys = not yet cached (caller marks those as "pending").
     """
     if not venues:
         return {}
@@ -114,44 +126,55 @@ async def _fetch_platform_async(
         bg = loop.run_in_executor(_executor, check_fn, venues, dt)
         bg.add_done_callback(lambda _: None)
 
-    return {vid: _ETENNIS_STATUS_MAP.get(st) for vid, st in cached.items()}
+    return {vid: _SCRAPER_STATUS.get(st, "check_failed") for vid, st in cached.items()}
 
 
-async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[str, bool | None]:
+async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[str, str]:
     """
     Run eTennis and Eversports availability fetches in parallel.
     Both use the same non-blocking two-phase pattern:
       Phase 1 — instant cache read.
       Phase 2 — background scrape if cache is cold (never delays the response).
-    """
-    etennis_venues    = [v for v in venues if v["platform"] == "eTennis"]
-    eversports_venues = [v for v in venues if v["platform"] == "Eversports"
-                         and v.get("issues") != "phone_only"]
 
-    if not etennis_venues and not eversports_venues:
-        return {}
+    Returns {venue_id: availability_status} for ALL venues:
+      "free" | "busy" | "check_failed" | "pending" | "phone_only"
+    """
+    etennis_venues       = [v for v in venues if v["platform"] == "eTennis"]
+    eversports_scrapeable = [v for v in venues if v["platform"] == "Eversports"
+                              and v.get("issues") != "phone_only"]
 
     loop = asyncio.get_running_loop()
 
     etennis_result, eversports_result = await asyncio.gather(
-        _fetch_platform_async(loop, etennis_venues,    dt, get_etennis_cached,    check_etennis_venues,    "eTennis"),
-        _fetch_platform_async(loop, eversports_venues, dt, get_eversports_cached, check_eversports_venues, "Eversports"),
+        _fetch_platform_async(loop, etennis_venues,        dt, get_etennis_cached,    check_etennis_venues,    "eTennis"),
+        _fetch_platform_async(loop, eversports_scrapeable, dt, get_eversports_cached, check_eversports_venues, "Eversports"),
     )
 
-    return {**etennis_result, **eversports_result}
+    resolved = {**etennis_result, **eversports_result}
+
+    # Assign explicit status to every venue
+    out: dict[str, str] = {}
+    for v in venues:
+        vid = v["id"]
+        if v.get("issues") == "phone_only":
+            out[vid] = "phone_only"
+        else:
+            out[vid] = resolved.get(vid, "pending")
+    return out
 
 
-def _build_result(venue: dict, available: bool | None) -> dict:
+def _build_result(venue: dict, status: str) -> dict:
     return {
-        "venue_id":    venue["id"],
-        "name":        venue["name"],
-        "platform":    venue["platform"],
-        "distance_km": venue.get("distance_km"),   # None in region mode
-        "court_type":  venue["court_type"],
-        "region":      venue.get("region"),
-        "available":   available,
-        "booking_url": venue["booking_url"],
-        "weather":     venue.get("weather"),
+        "venue_id":             venue["id"],
+        "name":                 venue["name"],
+        "platform":             venue["platform"],
+        "distance_km":          venue.get("distance_km"),   # None in region mode
+        "court_type":           venue["court_type"],
+        "region":               venue.get("region"),
+        "availability_status":  status,
+        "available":            _STATUS_TO_AVAILABLE.get(status),  # backward-compat
+        "booking_url":          venue["booking_url"],
+        "weather":              venue.get("weather"),
     }
 
 
@@ -227,14 +250,15 @@ async def search(
     else:
         with_weather.sort(key=lambda v: v.get("distance_km") or 0)
 
-    # availability dict only contains eTennis venues; all others default to None.
+    results = [_build_result(v, availability[v["id"]]) for v in with_weather]
     return {
-        "results": [_build_result(v, availability.get(v["id"])) for v in with_weather],
-        "date":    dt.strftime("%Y-%m-%d"),
-        "time":    dt.strftime("%H:%M"),
+        "results":              results,
+        "date":                 dt.strftime("%Y-%m-%d"),
+        "time":                 dt.strftime("%H:%M"),
+        "availability_pending": any(r["availability_status"] == "pending" for r in results),
     }
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=5000, reload=False)
+    uvicorn.run("main:app", host="127.0.0.1", port=8001, reload=False)
