@@ -54,13 +54,23 @@ _SCRAPER_STATUS: dict[str, str] = {
     "no_slot": "busy",        # no slot at this time = not bookable
 }
 
+# Eversports anonymous calendar only shows opening-hours schedule, not real
+# booking status (every slot shows data-state='free' regardless of bookings).
+# Map scraper "free" → "platform_check_required" so users see "Bei Eversports
+# prüfen" instead of the misleading "Frei".
+_EVERSPORTS_SCRAPER_STATUS: dict[str, str] = {
+    **_SCRAPER_STATUS,
+    "free": "platform_check_required",
+}
+
 # Canonical status → available bool (kept for backward-compat)
 _STATUS_TO_AVAILABLE: dict[str, bool | None] = {
-    "free":         True,
-    "busy":         False,
-    "check_failed": None,
-    "pending":      None,
-    "phone_only":   None,
+    "free":                    True,
+    "busy":                    False,
+    "check_failed":            None,
+    "pending":                 None,
+    "phone_only":              None,
+    "platform_check_required": None,
 }
 
 
@@ -100,6 +110,7 @@ async def _fetch_platform_async(
     get_cached_fn,
     check_fn,
     label: str,
+    status_map: dict[str, str] | None = None,
 ) -> dict[str, str]:
     """
     Generic two-phase availability fetch for a single platform.
@@ -110,9 +121,14 @@ async def _fetch_platform_async(
 
     Returns {venue_id: canonical_status} for venues already in cache only.
     Missing keys = not yet cached (caller marks those as "pending").
+
+    status_map overrides the default _SCRAPER_STATUS translation, e.g. to
+    map Eversports "free" → "platform_check_required".
     """
     if not venues:
         return {}
+
+    smap = status_map if status_map is not None else _SCRAPER_STATUS
 
     try:
         cached: dict[str, str] = await loop.run_in_executor(
@@ -126,7 +142,7 @@ async def _fetch_platform_async(
         bg = loop.run_in_executor(_executor, check_fn, venues, dt)
         bg.add_done_callback(lambda _: None)
 
-    return {vid: _SCRAPER_STATUS.get(st, "check_failed") for vid, st in cached.items()}
+    return {vid: smap.get(st, "check_failed") for vid, st in cached.items()}
 
 
 async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[str, str]:
@@ -156,7 +172,8 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
 
     etennis_result, eversports_result = await asyncio.gather(
         _fetch_platform_async(loop, etennis_venues,        dt, get_etennis_cached,    check_etennis_venues,    "eTennis"),
-        _fetch_platform_async(loop, eversports_scrapeable, dt, get_eversports_cached, check_eversports_venues, "Eversports"),
+        _fetch_platform_async(loop, eversports_scrapeable, dt, get_eversports_cached, check_eversports_venues, "Eversports",
+                              status_map=_EVERSPORTS_SCRAPER_STATUS),
     )
 
     resolved = {**etennis_result, **eversports_result}

@@ -2,21 +2,23 @@ import type { Venue } from "../types"
 import WeatherCell from "./WeatherCell"
 
 const STATUS_STYLES: Record<string, string> = {
-  free:         "bg-green-900/40 text-green-400",
-  busy:         "bg-red-900/40 text-red-400",
-  pending:      "bg-gray-800 text-gray-500 animate-pulse",
-  check_failed: "bg-gray-800 text-gray-500",
-  phone_only:   "bg-blue-900/40 text-blue-400",
-  error:        "bg-orange-900/40 text-orange-400",
+  free:                    "bg-green-900/40 text-green-400",
+  busy:                    "bg-red-900/40 text-red-400",
+  pending:                 "bg-gray-800 text-gray-500 animate-pulse",
+  check_failed:            "bg-gray-800 text-gray-500",
+  phone_only:              "bg-blue-900/40 text-blue-400",
+  platform_check_required: "bg-yellow-900/40 text-yellow-500",
+  error:                   "bg-orange-900/40 text-orange-400",
 }
 
 const STATUS_LABEL: Record<string, string> = {
-  free:         "Frei",
-  busy:         "Voll",
-  pending:      "Wird geprüft",
-  check_failed: "Konnte nicht geprüft werden",
-  phone_only:   "Nur telefonisch",
-  error:        "Fehler",
+  free:                    "Frei",
+  busy:                    "Voll",
+  pending:                 "Wird geprüft",
+  check_failed:            "Konnte nicht geprüft werden",
+  phone_only:              "Nur telefonisch",
+  platform_check_required: "Bei Eversports prüfen",
+  error:                   "Fehler",
 }
 
 interface Props {
