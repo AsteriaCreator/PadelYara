@@ -250,7 +250,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
 
 
 def get_cached_statuses(venues: list[dict], dt: datetime) -> dict[str, str]:
-    """Return only already-cached statuses. Does not fetch anything."""
+    """Return cached/cooldown statuses without fetching anything."""
     now = time.time()
     out: dict[str, str] = {}
     for venue in venues:
@@ -258,6 +258,8 @@ def get_cached_statuses(venues: list[dict], dt: datetime) -> dict[str, str]:
         entry = _CACHE.get(key)
         if entry and now - entry["timestamp"] < _TTL:
             out[venue["id"]] = entry["status"]
+        elif venue["id"] in _COOLDOWN and now - _COOLDOWN[venue["id"]] < _COOLDOWN_TTL:
+            out[venue["id"]] = "unknown"  # maps to check_failed in main.py
     return out
 
 
@@ -317,18 +319,19 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     t.start()
     t.join(timeout=120 * len(to_fetch))
 
+    store_ts = time.time()  # fresh timestamp after join — avoids stale-cooldown bug
     for venue_id, status in fresh.items():
         print(f"[Eversports] fetched:    {venue_id} -> {status}")
         if status == "unknown":
-            _COOLDOWN[venue_id] = now
+            _COOLDOWN[venue_id] = store_ts
         else:
-            _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": now}
+            _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
 
     # Any venue in to_fetch missing from fresh (thread crash / timeout) -> unknown + cooldown
     for venue in to_fetch:
         if venue["id"] not in fresh:
             print(f"[Eversports] no result:  {venue['id']} -> unknown (cooldown)")
-            _COOLDOWN[venue["id"]] = now
+            _COOLDOWN[venue["id"]] = store_ts
             fresh[venue["id"]] = "unknown"
 
     return {**cached, **fresh}
