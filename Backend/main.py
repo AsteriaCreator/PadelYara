@@ -140,8 +140,17 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
       "free" | "busy" | "check_failed" | "pending" | "phone_only"
     """
     etennis_venues       = [v for v in venues if v["platform"] == "eTennis"]
+    # NOTE: Eversports anonymous-session calendar always shows every open-hours
+    # slot as data-state='free' / data-with-url='false' regardless of actual
+    # booking state.  The scraper therefore returns "free" whenever the slot is
+    # within opening hours — it cannot distinguish a booked slot from a free one
+    # without an authenticated session.  All Eversports venues (including
+    # Floridsdorf, Traiskirchen, Ebreichsdorf …) share this limitation equally.
+    # Scraping them is still useful: "check_failed" means the page was
+    # unreachable; "free" means the slot is in opening hours (may or may not be
+    # actually bookable); "busy" is never emitted by the anonymous scraper.
     eversports_scrapeable = [v for v in venues if v["platform"] == "Eversports"
-                              and v.get("issues") not in ("phone_only", "eversports_display_only")]
+                              and v.get("issues") != "phone_only"]
 
     loop = asyncio.get_running_loop()
 
@@ -158,8 +167,6 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
         vid = v["id"]
         if v.get("issues") == "phone_only":
             out[vid] = "phone_only"
-        elif v.get("issues") == "eversports_display_only":
-            out[vid] = "check_failed"
         else:
             out[vid] = resolved.get(vid, "pending")
     return out
