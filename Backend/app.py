@@ -40,6 +40,13 @@ DEFAULT_VENUE_ID = "padelzone-traiskirchen"
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
 _RUNNING: set[str] = set()   # tracks in-flight background checks
+_RUNNING_LOCK = threading.Lock()
+
+_EVERSPORTS_STATUS_MAP: dict[str, str] = {
+    "free": "free",
+    "busy": "busy",
+    # "unknown" falls through to "platform_check_required"
+}
 
 
 def _run_key(platform: str, dt: datetime) -> str:
@@ -150,27 +157,39 @@ def search(
                     _RUNNING.discard(k)
             threading.Thread(target=_et_bg, daemon=True).start()
 
-    # ── Phase 3: Eversports — serve cached, background-fetch the rest ───
+    # ── Phase 3: Eversports — map checker result; unknown → platform_check_required ──
     eversports_venues = [v for v in venues if v["platform"] == "Eversports"]
     if eversports_venues:
-        cached = get_eversports_cached(eversports_venues, dt)
+        ev_cached = get_eversports_cached(eversports_venues, dt)
+        ev_cached_ids = set(ev_cached)
         for result in results:
-            if result["id"] in cached:
-                result["status"] = cached[result["id"]]
-        to_fetch = [v for v in eversports_venues if v["id"] not in cached]
-        key = _run_key("Eversports", dt)
-        if to_fetch and key not in _RUNNING:
-            _RUNNING.add(key)
-            def _ev_bg(vv=to_fetch, d=dt, k=key):
+            if result["platform"] != "Eversports":
+                continue
+            if result["id"] in ev_cached_ids:
+                raw = ev_cached[result["id"]]
+                result["status"] = _EVERSPORTS_STATUS_MAP.get(raw, "platform_check_required")
+            else:
+                result["status"] = "pending"
+
+        ev_to_fetch = [v for v in eversports_venues if v["id"] not in ev_cached_ids]
+        ev_key = _run_key("Eversports", dt)
+        with _RUNNING_LOCK:
+            ev_should_start = bool(ev_to_fetch) and ev_key not in _RUNNING
+            if ev_should_start:
+                _RUNNING.add(ev_key)
+        if ev_should_start:
+            def _ev_bg(vv=ev_to_fetch, d=dt, k=ev_key):
                 try:
                     check_eversports_venues(vv, d)
                 finally:
-                    _RUNNING.discard(k)
+                    with _RUNNING_LOCK:
+                        _RUNNING.discard(k)
             threading.Thread(target=_ev_bg, daemon=True).start()
 
-    availability_pending = any(
-        _run_key(p, dt) in _RUNNING for p in ("eTennis", "Eversports")
-    )
+    with _RUNNING_LOCK:
+        availability_pending = any(
+            _run_key(p, dt) in _RUNNING for p in ("eTennis", "Eversports")
+        )
 
     results.sort(key=lambda v: v["priority"])
 
