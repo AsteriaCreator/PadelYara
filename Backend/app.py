@@ -1,8 +1,10 @@
+import asyncio
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import httpx
 import uvicorn
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -14,6 +16,16 @@ from eversports_checker import check_eversports_venues
 from eversports_checker import get_cached_statuses as get_eversports_cached
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
+
+
+def _run_async(coro):
+    """Run an async coroutine from any thread using a fresh event loop."""
+    loop = asyncio.new_event_loop()
+    try:
+        return loop.run_until_complete(coro)
+    finally:
+        loop.close()
+
 
 app = FastAPI()
 app.add_middleware(
@@ -86,7 +98,11 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
         base["error"] = "no_coordinates"
         return base
 
-    weather = get_weather_cached(venue["id"], venue["lat"], venue["lon"], dt)
+    async def _get():
+        async with httpx.AsyncClient() as client:
+            return await get_weather_cached(client, venue["lat"], venue["lon"], dt)
+
+    weather = _run_async(_get())
     if weather is None:
         base["error"] = "weather_unavailable"
     else:
@@ -186,7 +202,11 @@ def weather_test(
     if parse_error:
         return JSONResponse(status_code=400, content={"error": "invalid_params", "detail": parse_error})
 
-    weather = get_weather_for_hour(venue["lat"], venue["lon"], dt)
+    async def _get():
+        async with httpx.AsyncClient() as client:
+            return await get_weather_for_hour(client, venue["lat"], venue["lon"], dt)
+
+    weather = _run_async(_get())
     if weather is None:
         return JSONResponse(status_code=502, content={"error": "weather_unavailable", "venue_id": vid})
 
