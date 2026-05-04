@@ -1,3 +1,8 @@
+IMPORTANT:
+Eversports availability is NOT reliable.
+Never treat "free" as actual availability.
+Always map to platform_check_required unless proven otherwise.
+
 Current state:
 - Eversports availability marked as platform_check_required
 - Backend stable after clean restart
