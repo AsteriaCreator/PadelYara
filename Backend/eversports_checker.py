@@ -27,8 +27,6 @@ _COOLDOWN_TTL = 60  # 1 minute
 _RUNNING: set[str] = set()
 _RUNNING_LOCK = threading.Lock()
 
-_BOOKING_HOURS = 2  # minimum booking window to check
-
 # Set to True to bypass in-memory cache and print full slot-level debug logs.
 DEBUG_MODE = False
 
@@ -54,101 +52,67 @@ def _parse_status(html: str, date_str: str, target_hour: int, venue_id: str = "?
     """
     Parse /api/booking/calendar/update HTML response.
 
-    A venue is 'free' when at least one court has its entire
-    [target_hour:00, target_hour + 2h) window covered by consecutive
-    free slots.  Any gap or 'booked' slot within the window -> that court
-    is skipped.
-
-    Returns 'free', 'busy', or 'unknown'.
+    Exact matching: finds <td data-date=DATE data-start=HHMM ...> elements.
+    - data-date must equal date_str exactly
+    - data-start must equal target_hour as "HHMM" (e.g. 19:00 -> "1900")
+    - If any court has that exact slot with data-state="free" -> "free"
+    - If exact slots exist but none are free -> "busy"
+    - If no exact slot found -> "unknown"
     """
     soup = BeautifulSoup(html, "html.parser")
-    tbody = soup.find("tbody", attrs={"data-date": date_str})
+    target_start = f"{target_hour:02d}00"
+
+    # All td elements that carry the slot attributes we need
+    all_tds = soup.find_all(
+        "td",
+        attrs={"data-state": True, "data-start": True, "data-date": True, "data-court": True},
+    )
 
     if DEBUG_MODE:
-        # Log all tbody data-date values found so we can verify date matching
-        all_tbodies = soup.find_all("tbody", attrs={"data-date": True})
-        dates_found = [t.get("data-date") for t in all_tbodies]
-        print(f"[Eversports][DEBUG] {venue_id}  date_str={date_str}  tbodies found={dates_found}")
+        print(
+            f"[Eversports][DEBUG] {venue_id}"
+            f"  total slot tds={len(all_tds)}"
+            f"  looking for date={date_str}  start={target_start}"
+        )
+        for td in all_tds:
+            print(
+                f"[Eversports][DEBUG]   td:"
+                f" date={td.get('data-date')}"
+                f" start={td.get('data-start')}"
+                f" end={td.get('data-end')}"
+                f" state={td.get('data-state')}"
+                f" court={td.get('data-court')}"
+                f" title={td.get('data-original-title')!r}"
+            )
 
-    if not tbody:
+    # Exact date + exact start-time match
+    matching = [
+        td for td in all_tds
+        if td.get("data-date") == date_str and td.get("data-start") == target_start
+    ]
+
+    if DEBUG_MODE:
+        print(
+            f"[Eversports][DEBUG] {venue_id}"
+            f"  exact matches for {date_str} {target_start}: {len(matching)}"
+        )
+        for td in matching:
+            print(
+                f"[Eversports][DEBUG]   MATCH:"
+                f" state={td.get('data-state')}"
+                f" court={td.get('data-court')}"
+                f" title={td.get('data-original-title')!r}"
+            )
+
+    if not matching:
         if DEBUG_MODE:
-            print(f"[Eversports][DEBUG] {venue_id}  -> no tbody for date {date_str}  returning unknown")
+            print(f"[Eversports][DEBUG] {venue_id}  -> no exact slot found -> unknown")
         return "unknown"
 
-    # Collect slots per court with ALL attributes for debugging
-    # {court_id: [(start_min, end_min, state, all_attrs_dict)]}
-    by_court: dict[str, list[tuple[int, int, str, dict]]] = {}
-    for td in tbody.find_all(attrs={"data-start": True, "data-state": True, "data-court": True}):
-        start = _parse_hhmm(td.get("data-start", ""))
-        end   = _parse_hhmm(td.get("data-end", ""))
-        if start < 0:
-            continue
-        if end <= start:
-            end = start + 60
-        court = td["data-court"]
-        state = td["data-state"]
-        all_attrs = dict(td.attrs)
-        by_court.setdefault(court, []).append((start, end, state, all_attrs))
-
-    if DEBUG_MODE:
-        print(f"[Eversports][DEBUG] {venue_id}  courts found: {list(by_court.keys())}")
-        for court, slots in by_court.items():
-            for s, e, st, attrs in sorted(slots, key=lambda x: x[0]):
-                # Format minutes as HH:MM for readability
-                def fmt(m: int) -> str:
-                    return f"{m//60:02d}:{m%60:02d}"
-                extra = {k: v for k, v in attrs.items()
-                         if k not in ("data-start", "data-end", "data-state", "data-court")}
-                print(f"[Eversports][DEBUG]   court={court}  {fmt(s)}-{fmt(e)}  state={st}  extra={extra}")
-
-    if not by_court:
+    if any(td.get("data-state") == "free" for td in matching):
         if DEBUG_MODE:
-            print(f"[Eversports][DEBUG] {venue_id}  -> no slots parsed  returning unknown")
-        return "unknown"
-
-    window_start = target_hour * 60
-    window_end   = window_start + _BOOKING_HOURS * 60
-
-    if DEBUG_MODE:
-        def fmt(m: int) -> str:
-            return f"{m//60:02d}:{m%60:02d}"
-        print(f"[Eversports][DEBUG] {venue_id}  checking window {fmt(window_start)}-{fmt(window_end)}")
-
-    for court, slots in by_court.items():
-        # Slots that start within the 2-hour window
-        window = [(s, e, st) for s, e, st, _ in slots
-                  if window_start <= s < window_end]
-
-        if DEBUG_MODE:
-            def fmt(m: int) -> str:
-                return f"{m//60:02d}:{m%60:02d}"
-            in_window = [(f"{fmt(s)}-{fmt(e)}", st) for s, e, st in window]
-            print(f"[Eversports][DEBUG]   court={court}  in-window slots={in_window}")
-
-        if not window:
-            continue
-        if not all(st == "free" for _, _, st in window):
-            if DEBUG_MODE:
-                print(f"[Eversports][DEBUG]   court={court}  -> has non-free slot(s) in window, skip")
-            continue
-
-        # Verify the free slots cover the full window without gaps
-        window.sort(key=lambda x: x[0])
-        coverage = window_start
-        for s, e, _ in window:
-            if s > coverage:
-                if DEBUG_MODE:
-                    print(f"[Eversports][DEBUG]   court={court}  -> GAP at {fmt(coverage)}, slot starts {fmt(s)}, skip")
-                break
-            coverage = max(coverage, e)
-
-        if DEBUG_MODE:
-            print(f"[Eversports][DEBUG]   court={court}  -> coverage={fmt(coverage)}  needed={fmt(window_end)}  {'FREE' if coverage >= window_end else 'insufficient'}")
-
-        if coverage >= window_end:
-            if DEBUG_MODE:
-                print(f"[Eversports][DEBUG] {venue_id}  -> RESULT: free (via court={court})")
-            return "free"
+            print(f"[Eversports][DEBUG] {venue_id}  -> RESULT: free")
+        return "free"
 
     if DEBUG_MODE:
         print(f"[Eversports][DEBUG] {venue_id}  -> RESULT: busy")
@@ -191,19 +155,19 @@ async def _check_one(
 
     try:
         page = await ctx.new_page()
-        calendar_html: list[str] = []
-        calendar_urls: list[str] = []
+
+        # /api/booking/calendar/update always returns all slots as state=free —
+        # it is the opening-hours skeleton.  The real booking status arrives via
+        # a separate /api/slot call whose response is used by JS to rewrite
+        # data-state attributes in the DOM.  We watch for /api/slot to know
+        # when it is safe to read the live DOM.
+        slot_api_done: list[bool] = [False]
 
         async def on_response(resp):
-            if "/api/booking/calendar/update" in resp.url and resp.status == 200:
-                try:
-                    body = await resp.text()
-                    calendar_html.append(body)
-                    calendar_urls.append(resp.url)
-                    if DEBUG_MODE:
-                        print(f"[Eversports][DEBUG] {venue['id']}  calendar_url={resp.url}")
-                except Exception:
-                    pass
+            if "/api/slot" in resp.url and resp.status == 200:
+                slot_api_done[0] = True
+                if DEBUG_MODE:
+                    print(f"[Eversports][DEBUG] {venue['id']}  /api/slot done  url={resp.url[:120]}")
 
         page.on("response", on_response)
 
@@ -217,35 +181,31 @@ async def _check_one(
             clicked = await _accept_cookies(page)
             if clicked:
                 cookies_accepted[0] = True
-                await asyncio.sleep(2)  # give the page time to reload calendar
+                if DEBUG_MODE:
+                    print(f"[Eversports][DEBUG] {venue['id']}  cookies accepted, waiting for page reload")
+                await asyncio.sleep(2)  # give the page time to reload after consent
 
-        # Wait up to 20 s for the intercepted calendar response
-        for _ in range(20):
-            if calendar_html:
+        # Wait up to 30 s for /api/slot to fire (it carries the real booking data)
+        for _ in range(30):
+            if slot_api_done[0]:
                 break
             await asyncio.sleep(1)
 
-        # Fallback: trigger calendar update via JS if page didn't fire it
-        if not calendar_html:
-            try:
-                await page.evaluate(
-                    "() => { if (typeof updateCalendar === 'function') updateCalendar(); }"
-                )
-                for _ in range(10):
-                    if calendar_html:
-                        break
-                    await asyncio.sleep(1)
-            except Exception:
-                pass
+        if not slot_api_done[0]:
+            if DEBUG_MODE:
+                print(f"[Eversports][DEBUG] {venue['id']}  /api/slot never fired -> unknown")
+            return venue["id"], "unknown", "slot API never fired"
 
-        if not calendar_html:
-            return venue["id"], "unknown", "no calendar response"
+        # Give JS a moment to finish rewriting data-state in the DOM
+        await asyncio.sleep(2)
+
+        # Read the live DOM — data-state values are now correct
+        dom_html = await page.content()
 
         if DEBUG_MODE:
-            print(f"[Eversports][DEBUG] {venue['id']}  calendar responses captured: {len(calendar_html)}")
-            print(f"[Eversports][DEBUG] {venue['id']}  using last response ({len(calendar_html[-1])} bytes)")
+            print(f"[Eversports][DEBUG] {venue['id']}  DOM read ({len(dom_html)} bytes)")
 
-        status = _parse_status(calendar_html[-1], date_str, dt.hour, venue_id=venue["id"])
+        status = _parse_status(dom_html, date_str, dt.hour, venue_id=venue["id"])
         return venue["id"], status, None
 
     except Exception as exc:
