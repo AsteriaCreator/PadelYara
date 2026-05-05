@@ -281,7 +281,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         for channel in ("chrome", "msedge", None):
             try:
                 kwargs: dict = {
-                    "headless": False,
+                    "headless": True,
                     "args": ["--disable-blink-features=AutomationControlled"],
                 }
                 if channel:
