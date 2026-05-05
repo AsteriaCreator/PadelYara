@@ -240,5 +240,7 @@ def weather_test(
 
 
 if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 5000))
     # reload=False: avoids conflicts with Playwright's Chrome subprocess
-    uvicorn.run("app:app", host="127.0.0.1", port=5000, reload=False)
+    uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
