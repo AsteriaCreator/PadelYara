@@ -19,7 +19,7 @@ _TTL = 300  # seconds
 _COOLDOWN: dict[str, float] = {}  # venue_id → timestamp of last unknown
 _COOLDOWN_TTL = 60  # seconds
 
-_RUNNING: dict[str, threading.Event] = {}  # scrape key → completion event
+_RUNNING: set[str] = set()  # scrape keys currently in-flight
 _RUNNING_LOCK = threading.Lock()
 
 
@@ -40,6 +40,17 @@ def _page_url(booking_url: str, date) -> str:
 
 def _target_ts(date, hour: int) -> int:
     return int(datetime(date.year, date.month, date.day, hour, tzinfo=VIENNA_TZ).timestamp())
+
+
+def _store_result(venue_id: str, status: str, dt: datetime) -> None:
+    """Write one venue result to cache immediately — called per-venue as scraping completes."""
+    store_ts = time.time()
+    print(f"[eTennis] cached: {venue_id} -> {status}")
+    if status == "unknown":
+        _COOLDOWN[venue_id] = store_ts
+    else:
+        _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
+        _COOLDOWN.pop(venue_id, None)
 
 
 async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str | None]:
@@ -128,6 +139,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
                 if err:
                     print(f"[eTennis] {vid} error: {err}")
                 out[vid] = status
+                _store_result(vid, status, dt)  # write to cache immediately, don't wait for full batch
         finally:
             try:
                 await browser.close()
@@ -179,65 +191,35 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     if not to_fetch:
         return cached
 
-    scrape_key = _scrape_key([v["id"] for v in to_fetch], dt)
+    # Key covers ALL input venues so the in-flight check still matches even after
+    # some venues have been individually cached (to_fetch shrinks; key must not).
+    scrape_key = _scrape_key([v["id"] for v in venues], dt)
 
     with _RUNNING_LOCK:
         if scrape_key in _RUNNING:
-            existing_event = _RUNNING[scrape_key]
-            in_flight = True
-        else:
-            done_event = threading.Event()
-            _RUNNING[scrape_key] = done_event
-            in_flight = False
-
-    if in_flight:
-        print(f"[eTennis] scrape in-flight for {scrape_key[:60]} — waiting up to 15s")
-        existing_event.wait(timeout=15)
-        now2 = time.time()
-        waited: dict[str, str] = {}
-        for venue in to_fetch:
-            key = _cache_key(venue["id"], dt)
-            entry = _CACHE.get(key)
-            if entry and now2 - entry["timestamp"] < _TTL:
-                waited[venue["id"]] = entry["status"]
-            else:
-                waited[venue["id"]] = "unknown"
-        return {**cached, **waited}
-
-    fresh: dict[str, str] = {}
+            print(f"[eTennis] scrape in-flight — returning {len(cached)} cached so far")
+            return cached  # partial results; caller marks the rest as pending
+        _RUNNING.add(scrape_key)
 
     def _run_in_thread():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
-            fresh.update(loop.run_until_complete(_run(to_fetch, dt)))
+            loop.run_until_complete(_run(to_fetch, dt))  # writes cache per-venue
         except Exception as exc:
             print(f"[eTennis] thread-level error: {exc}")
         finally:
             loop.close()
+            # Any venue not yet cached (e.g. thread killed mid-run) → cooldown
+            store_ts = time.time()
+            for v in to_fetch:
+                if _cache_key(v["id"], dt) not in _CACHE and v["id"] not in _COOLDOWN:
+                    print(f"[eTennis] no result: {v['id']} -> unknown (thread exit)")
+                    _COOLDOWN[v["id"]] = store_ts
+            with _RUNNING_LOCK:
+                _RUNNING.discard(scrape_key)
 
-    t = threading.Thread(target=_run_in_thread, daemon=True)
-    t.start()
-    t.join(timeout=120)
-
-    store_ts = time.time()  # fresh timestamp after join — avoids stale-cooldown bug
-    for venue_id, status in fresh.items():
-        print(f"[eTennis] fetched:    {venue_id} -> {status}")
-        if status == "unknown":
-            _COOLDOWN[venue_id] = store_ts
-        else:
-            _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
-            _COOLDOWN.pop(venue_id, None)
-
-    # Venues not returned by scraper (thread timeout) → unknown + cooldown
-    for venue in to_fetch:
-        if venue["id"] not in fresh:
-            print(f"[eTennis] no result: {venue['id']} -> unknown (timeout)")
-            _COOLDOWN[venue["id"]] = store_ts
-
-    # Signal completion AFTER cache is populated so waiting callers see fresh data
-    with _RUNNING_LOCK:
-        _RUNNING.pop(scrape_key, None)
-    done_event.set()
-
-    return {**cached, **fresh}
+    threading.Thread(target=_run_in_thread, daemon=True).start()
+    # Return immediately — _run_in_thread writes results as they arrive;
+    # the next request reads them from cache via get_cached_statuses.
+    return cached

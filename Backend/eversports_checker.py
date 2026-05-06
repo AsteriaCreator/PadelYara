@@ -24,7 +24,7 @@ _TTL = 300  # 5 minutes
 _COOLDOWN: dict[str, float] = {}
 _COOLDOWN_TTL = 60  # 1 minute
 
-_RUNNING: dict[str, threading.Event] = {}  # scrape key → completion event
+_RUNNING: set[str] = set()  # scrape keys currently in-flight
 _RUNNING_LOCK = threading.Lock()
 
 # Set to True to bypass in-memory cache and print full slot-level debug logs.
@@ -37,6 +37,16 @@ def _cache_key(venue_id: str, dt: datetime) -> str:
 
 def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
     return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:00')}"
+
+
+def _store_result(venue_id: str, status: str, dt: datetime) -> None:
+    """Write one venue result to cache immediately — called per-venue as scraping completes."""
+    store_ts = time.time()
+    print(f"[Eversports] cached: {venue_id} -> {status}")
+    if status == "unknown":
+        _COOLDOWN[venue_id] = store_ts
+    else:
+        _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
 
 
 def _parse_hhmm(hhmm: str) -> int:
@@ -325,6 +335,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
             for venue in venues:
                 r = await _check_one_with_retry(ctx, venue, dt, cookies_accepted)
                 results.append(r)
+                _store_result(r[0], r[1], dt)  # write to cache immediately
         finally:
             try:
                 await browser.close()
@@ -385,65 +396,35 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
     if not to_fetch:
         return cached
 
-    scrape_key = _scrape_key([v["id"] for v in to_fetch], dt)
+    # Key covers ALL input venues so the in-flight check still matches even after
+    # some venues have been individually cached (to_fetch shrinks; key must not).
+    scrape_key = _scrape_key([v["id"] for v in venues], dt)
 
     with _RUNNING_LOCK:
         if scrape_key in _RUNNING:
-            existing_event = _RUNNING[scrape_key]
-            in_flight = True
-        else:
-            done_event = threading.Event()
-            _RUNNING[scrape_key] = done_event
-            in_flight = False
-
-    if in_flight:
-        print(f"[Eversports] scrape in-flight for {scrape_key[:60]} — waiting up to 15s")
-        existing_event.wait(timeout=15)
-        now2 = time.time()
-        waited: dict[str, str] = {}
-        for venue in to_fetch:
-            key = _cache_key(venue["id"], dt)
-            entry = _CACHE.get(key)
-            if entry and now2 - entry["timestamp"] < _TTL:
-                waited[venue["id"]] = entry["status"]
-            else:
-                waited[venue["id"]] = "unknown"
-        return {**cached, **waited}
-
-    fresh: dict[str, str] = {}
+            print(f"[Eversports] scrape in-flight — returning {len(cached)} cached so far")
+            return cached  # partial results; caller marks the rest as pending
+        _RUNNING.add(scrape_key)
 
     def _run_in_thread():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         try:
-            fresh.update(loop.run_until_complete(_run(to_fetch, dt)))
+            loop.run_until_complete(_run(to_fetch, dt))  # writes cache per-venue
         except Exception as exc:
             print(f"[Eversports] thread-level error: {exc}")
         finally:
             loop.close()
+            # Any venue not yet cached (e.g. thread killed mid-run) → cooldown
+            store_ts = time.time()
+            for v in to_fetch:
+                if _cache_key(v["id"], dt) not in _CACHE and v["id"] not in _COOLDOWN:
+                    print(f"[Eversports] no result: {v['id']} -> unknown (thread exit)")
+                    _COOLDOWN[v["id"]] = store_ts
+            with _RUNNING_LOCK:
+                _RUNNING.discard(scrape_key)
 
-    t = threading.Thread(target=_run_in_thread, daemon=True)
-    t.start()
-    t.join(timeout=60 * len(to_fetch))
-
-    store_ts = time.time()  # fresh timestamp after join — avoids stale-cooldown bug
-    for venue_id, status in fresh.items():
-        print(f"[Eversports] fetched:    {venue_id} -> {status}")
-        if status == "unknown":
-            _COOLDOWN[venue_id] = store_ts
-        else:
-            _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
-
-    # Any venue in to_fetch missing from fresh (thread crash / timeout) -> unknown + cooldown
-    for venue in to_fetch:
-        if venue["id"] not in fresh:
-            print(f"[Eversports] no result:  {venue['id']} -> unknown (cooldown)")
-            _COOLDOWN[venue["id"]] = store_ts
-            fresh[venue["id"]] = "unknown"
-
-    # Signal completion AFTER cache is populated so waiting callers see fresh data
-    with _RUNNING_LOCK:
-        _RUNNING.pop(scrape_key, None)
-    done_event.set()
-
-    return {**cached, **fresh}
+    threading.Thread(target=_run_in_thread, daemon=True).start()
+    # Return immediately — _run_in_thread writes results as they arrive;
+    # the next request reads them from cache via get_cached_statuses.
+    return cached

@@ -111,20 +111,18 @@ async def _fetch_platform_async(
     check_fn,
     label: str,
     status_map: dict[str, str] | None = None,
-    scrape_wait: float = 10.0,
 ) -> dict[str, str]:
     """
     Two-phase availability fetch for a single platform.
 
-    Phase 1: instant cache read.
-    Phase 2: if any venues are uncached, run the scraper and wait up to
-             scrape_wait seconds. If the scraper doesn't finish in time the
-             asyncio future is abandoned but the background thread keeps
-             running, stores to cache, and signals the scraper's done_event
-             so the next request's in-flight wait picks up the result.
+    Phase 1: read cache instantly — may be partial if a scrape is in progress.
+    Phase 2: if any venues are uncached, fire the scraper in the background
+             and return immediately.  check_fn deduplicates in-flight scrapes
+             and writes each venue result to cache as soon as it finishes, so
+             the next request picks up whatever completed since the last call.
 
-    Returns {venue_id: canonical_status} for all venues with known results.
-    Missing keys = still pending (caller marks those as "pending").
+    Returns {venue_id: canonical_status} for cached venues only.
+    Missing keys → caller marks those as "pending".
     """
     if not venues:
         return {}
@@ -139,26 +137,11 @@ async def _fetch_platform_async(
         print(f"[{label}] cache read failed: {exc}")
         cached = {}
 
-    if len(cached) >= len(venues):
-        return {vid: smap.get(st, "check_failed") for vid, st in cached.items()}
+    if len(cached) < len(venues):
+        # Fire scraper in background — check_fn returns immediately if already running.
+        loop.run_in_executor(_executor, check_fn, venues, dt)
 
-    # Some venues uncached — run scraper, wait up to scrape_wait seconds.
-    # Timeout just abandons the asyncio future; the underlying thread continues
-    # and will populate the cache + signal done_event for the next request.
-    try:
-        fresh: dict[str, str] = await asyncio.wait_for(
-            loop.run_in_executor(_executor, check_fn, venues, dt),
-            timeout=scrape_wait,
-        )
-    except asyncio.TimeoutError:
-        print(f"[{label}] scraper did not finish within {scrape_wait:.0f}s — partial results")
-        fresh = {}
-    except Exception as exc:
-        print(f"[{label}] scraper error: {exc}")
-        fresh = {}
-
-    merged = {**fresh, **cached}  # cached entries win over fresh
-    return {vid: smap.get(st, "check_failed") for vid, st in merged.items()}
+    return {vid: smap.get(st, "check_failed") for vid, st in cached.items()}
 
 
 async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[str, str]:
@@ -187,10 +170,9 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
     loop = asyncio.get_running_loop()
 
     etennis_result, eversports_result = await asyncio.gather(
-        _fetch_platform_async(loop, etennis_venues,        dt, get_etennis_cached,    check_etennis_venues,    "eTennis",
-                              scrape_wait=10.0),
+        _fetch_platform_async(loop, etennis_venues,        dt, get_etennis_cached,    check_etennis_venues,    "eTennis"),
         _fetch_platform_async(loop, eversports_scrapeable, dt, get_eversports_cached, check_eversports_venues, "Eversports",
-                              status_map=_EVERSPORTS_SCRAPER_STATUS, scrape_wait=15.0),
+                              status_map=_EVERSPORTS_SCRAPER_STATUS),
     )
 
     resolved = {**etennis_result, **eversports_result}
