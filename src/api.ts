@@ -10,20 +10,12 @@ type RawVenue = {
   distance_km: number | null
   court_type: string
   region: string | null
-  availability_status: string   // "free"|"busy"|"pending"|"check_failed"|"phone_only"
-  available: boolean | null     // backward-compat
+  status: string
   booking_url: string
   weather: Venue["weather"]
 }
 
 function mapVenue(v: RawVenue): Venue {
-  // Prefer explicit availability_status; fall back to available bool for old servers
-  const status: Status =
-    v.availability_status != null
-      ? (v.availability_status as Status)
-      : v.available === true  ? "free"
-      : v.available === false ? "busy"
-      : "pending"
   return {
     id: v.venue_id,
     name: v.name,
@@ -32,7 +24,7 @@ function mapVenue(v: RawVenue): Venue {
     platform: v.platform as Venue["platform"],
     priority: 0,
     booking_url: v.booking_url,
-    status,
+    status: (v.status as Status) ?? "pending",
     error: null,
     weather: v.weather,
     distance_km: v.distance_km,

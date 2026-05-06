@@ -5,6 +5,7 @@ const STATUS_STYLES: Record<string, string> = {
   free:                    "bg-green-900/40 text-green-400",
   busy:                    "bg-red-900/40 text-red-400",
   pending:                 "bg-gray-800 text-gray-500 animate-pulse",
+  unknown:                 "bg-gray-800 text-gray-500",
   check_failed:            "bg-gray-800 text-gray-500",
   phone_only:              "bg-blue-900/40 text-blue-400",
   platform_check_required: "bg-yellow-900/40 text-yellow-500",
@@ -13,8 +14,9 @@ const STATUS_STYLES: Record<string, string> = {
 
 const STATUS_LABEL: Record<string, string> = {
   free:                    "Frei",
-  busy:                    "Voll",
+  busy:                    "Belegt",
   pending:                 "Wird geprüft",
+  unknown:                 "Konnte nicht geprüft werden",
   check_failed:            "Konnte nicht geprüft werden",
   phone_only:              "Nur telefonisch",
   platform_check_required: "Bei Eversports prüfen",
