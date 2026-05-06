@@ -7,7 +7,7 @@ export type Status = "free" | "busy" | "pending" | "check_failed" | "phone_only"
 export interface SearchParams {
   date: string
   time: string
-  region: Region
+  region: Region | ""
   court_type: CourtType
   location?: string
   radius: number

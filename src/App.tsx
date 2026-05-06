@@ -27,7 +27,7 @@ export default function App() {
   const [pollingExpired, setPollingExpired] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [searched, setSearched] = useState(false)
-  const [selectedRegion, setSelectedRegion] = useState<Region>(REGION_ORDER[0])
+  const [selectedRegion, setSelectedRegion] = useState<Region | "">("")
 
   const pollTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const pollCount  = useRef(0)
@@ -64,6 +64,7 @@ export default function App() {
   useEffect(() => stopPolling, [])
 
   async function onSearch(params: SearchParams) {
+    if (isLoading) return
     stopPolling()
     pollCount.current = 0
     lastParams.current = params
@@ -104,10 +105,9 @@ export default function App() {
     }
   }
 
-  const sortedRegions = [
-    selectedRegion,
-    ...REGION_ORDER.filter((r) => r !== selectedRegion),
-  ]
+  const sortedRegions = selectedRegion
+    ? [selectedRegion, ...REGION_ORDER.filter((r) => r !== selectedRegion)]
+    : REGION_ORDER
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#080810" }}>

@@ -31,7 +31,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
   const [date, setDate]           = useState(defaultDate)
   const [time, setTime]           = useState(defaultTime)
-  const [region, setRegion]       = useState<Region>(REGION_ORDER[0])
+  const [region, setRegion]       = useState<Region | "">("")
   const [courtType, setCourtType] = useState<CourtType>("both")
   const [location, setLocation]   = useState("")
   const [radius, setRadius]       = useState(20)
@@ -82,7 +82,8 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Region</label>
-          <select value={region} onChange={(e) => setRegion(e.target.value as Region)} className={inputClass}>
+          <select value={region} onChange={(e) => setRegion(e.target.value as Region | "")} className={inputClass}>
+            <option value="">Alle Regionen</option>
             {REGION_ORDER.map((r) => <option key={r} value={r}>{REGION_DISPLAY[r]}</option>)}
           </select>
         </div>

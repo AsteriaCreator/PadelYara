@@ -61,7 +61,7 @@ export async function fetchAvailability(
     url.searchParams.set("lat", String(geo.lat))
     url.searchParams.set("lon", String(geo.lon))
     url.searchParams.set("radius", String(geo.radius))
-  } else {
+  } else if (params.region) {
     url.searchParams.set("region", params.region)
   }
 

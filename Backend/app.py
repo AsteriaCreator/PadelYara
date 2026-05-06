@@ -1,4 +1,5 @@
 import asyncio
+import math
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -74,13 +75,33 @@ def _parse_datetime(date_str: str | None, time_str: str | None) -> tuple[datetim
     return dt.replace(tzinfo=VIENNA_TZ), None
 
 
-def _filter_venues(region: str | None, court_type: str | None) -> list[dict]:
+def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    R = 6371.0
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
+    return R * 2 * math.asin(math.sqrt(a))
+
+
+def _filter_venues(
+    region: str | None,
+    court_type: str | None,
+    lat: float | None = None,
+    lon: float | None = None,
+    radius: float | None = None,
+) -> list[dict]:
     result = VENUES
 
     if region:
         result = [v for v in result if v["region"] == region]
+    elif lat is not None and lon is not None and radius is not None:
+        result = [
+            v for v in result
+            if v["lat"] is not None and v["lon"] is not None
+            and _haversine_km(lat, lon, v["lat"], v["lon"]) <= radius
+        ]
 
-    if court_type and court_type != "both":
+    if court_type and court_type != "both" and court_type != "all":
         allowed = _INDOOR_TYPES if court_type == "indoor" else _OUTDOOR_TYPES
         result = [v for v in result if v["court_type"] in allowed]
 
@@ -120,16 +141,19 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
 
 @app.get("/api/search")
 def search(
-    date:       str | None = Query(default=None),
-    time:       str | None = Query(default=None),
-    region:     str | None = Query(default=None),
-    court_type: str | None = Query(default=None),
+    date:       str | None   = Query(default=None),
+    time:       str | None   = Query(default=None),
+    region:     str | None   = Query(default=None),
+    court_type: str | None   = Query(default=None),
+    lat:        float | None = Query(default=None),
+    lon:        float | None = Query(default=None),
+    radius:     float | None = Query(default=None),
 ):
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
         return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
-    venues = _filter_venues(region, court_type)
+    venues = _filter_venues(region, court_type, lat, lon, radius)
     if not venues:
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M"), "availability_pending": False}
 
