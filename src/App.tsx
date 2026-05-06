@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import type { Region, Venue, SearchParams } from "./types"
 import { REGION_ORDER } from "./constants"
 import { fetchAvailability, type GeoParams } from "./api"
@@ -27,8 +27,20 @@ export default function App() {
   const [searched, setSearched] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState<Region | "">("")
 
+  const refreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  function cancelRefresh() {
+    if (refreshTimer.current) {
+      clearTimeout(refreshTimer.current)
+      refreshTimer.current = null
+    }
+  }
+
+  useEffect(() => cancelRefresh, [])
+
   async function onSearch(params: SearchParams) {
     if (isLoading) return
+    cancelRefresh()
     setLoading(true)
     setError(null)
 
@@ -58,6 +70,18 @@ export default function App() {
         setSelectedRegion(params.region)
       }
       setSearched(true)
+      if (res.availability_pending) {
+        refreshTimer.current = setTimeout(async () => {
+          refreshTimer.current = null
+          const refreshed = await fetchAvailability(params, geo).catch(() => null)
+          if (!refreshed?.ok) return
+          if (geo) {
+            setFlatResults(refreshed.results)
+          } else {
+            setGrouped(groupByRegion(refreshed.results))
+          }
+        }, 12_000)
+      }
     } catch {
       setError("Verbindung fehlgeschlagen")
     } finally {
