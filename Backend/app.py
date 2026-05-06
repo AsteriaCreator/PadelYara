@@ -113,17 +113,17 @@ def _filter_venues(
 
 def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
     base = {
-        "id":          venue["id"],
-        "name":        venue["name"],
-        "region":      venue["region"],
-        "court_type":  venue["court_type"],
-        "platform":    venue["platform"],
-        "priority":    venue["priority"],
-        "booking_url": venue["booking_url"],
-        "distance_km": venue.get("distance_km"),
-        "status":      "unknown",
-        "error":       None,
-        "weather":     None,
+        "venue_id":            venue["id"],
+        "name":                venue["name"],
+        "region":              venue["region"],
+        "court_type":          venue["court_type"],
+        "platform":            venue["platform"],
+        "priority":            venue["priority"],
+        "booking_url":         venue["booking_url"],
+        "distance_km":         venue.get("distance_km"),
+        "availability_status": "unknown",
+        "error":               None,
+        "weather":             None,
     }
 
     if venue["lat"] is None or venue["lon"] is None:
@@ -171,19 +171,27 @@ def search(
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
     if etennis_venues:
         cached = get_etennis_cached(etennis_venues, dt)
+        print(f"[search] eTennis cache: {len(cached)}/{len(etennis_venues)} hits — {list(cached.items())}")
         for result in results:
-            if result["id"] in cached:
-                result["status"] = cached[result["id"]]
+            if result["venue_id"] in cached:
+                result["availability_status"] = cached[result["venue_id"]]
         to_fetch = [v for v in etennis_venues if v["id"] not in cached]
         key = _run_key("eTennis", dt)
-        if to_fetch and key not in _RUNNING:
-            _RUNNING.add(key)
+        with _RUNNING_LOCK:
+            et_should_start = bool(to_fetch) and key not in _RUNNING
+            if et_should_start:
+                _RUNNING.add(key)
+        if et_should_start:
+            print(f"[search] eTennis scraper starting: key={key} venues={[v['id'] for v in to_fetch]}")
             def _et_bg(vv=to_fetch, d=dt, k=key):
                 with _SCRAPER_SEM:
+                    print(f"[search] eTennis scraper acquired semaphore: key={k}")
                     try:
                         check_etennis_venues(vv, d)
+                        print(f"[search] eTennis scraper finished: key={k}")
                     finally:
-                        _RUNNING.discard(k)
+                        with _RUNNING_LOCK:
+                            _RUNNING.discard(k)
             threading.Thread(target=_et_bg, daemon=True).start()
 
     # ── Phase 3: Eversports — map checker result; unknown → platform_check_required ──
@@ -191,14 +199,15 @@ def search(
     if eversports_venues:
         ev_cached = get_eversports_cached(eversports_venues, dt)
         ev_cached_ids = set(ev_cached)
+        print(f"[search] Eversports cache: {len(ev_cached_ids)}/{len(eversports_venues)} hits — {list(ev_cached.items())}")
         for result in results:
             if result["platform"] != "Eversports":
                 continue
-            if result["id"] in ev_cached_ids:
-                raw = ev_cached[result["id"]]
-                result["status"] = _EVERSPORTS_STATUS_MAP.get(raw, "platform_check_required")
+            if result["venue_id"] in ev_cached_ids:
+                raw = ev_cached[result["venue_id"]]
+                result["availability_status"] = _EVERSPORTS_STATUS_MAP.get(raw, "platform_check_required")
             else:
-                result["status"] = "pending"
+                result["availability_status"] = "pending"
 
         ev_to_fetch = [v for v in eversports_venues if v["id"] not in ev_cached_ids]
         ev_key = _run_key("Eversports", dt)
@@ -207,10 +216,13 @@ def search(
             if ev_should_start:
                 _RUNNING.add(ev_key)
         if ev_should_start:
+            print(f"[search] Eversports scraper starting: key={ev_key} venues={[v['id'] for v in ev_to_fetch]}")
             def _ev_bg(vv=ev_to_fetch, d=dt, k=ev_key):
                 with _SCRAPER_SEM:
+                    print(f"[search] Eversports scraper acquired semaphore: key={k}")
                     try:
                         check_eversports_venues(vv, d)
+                        print(f"[search] Eversports scraper finished: key={k}")
                     finally:
                         with _RUNNING_LOCK:
                             _RUNNING.discard(k)
@@ -220,6 +232,7 @@ def search(
         availability_pending = any(
             _run_key(p, dt) in _RUNNING for p in ("eTennis", "Eversports")
         )
+    print(f"[search] availability_pending={availability_pending}  _RUNNING={_RUNNING}")
 
     if lat is not None:
         results.sort(key=lambda v: v.get("distance_km") or float("inf"))
