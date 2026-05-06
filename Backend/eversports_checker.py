@@ -265,12 +265,24 @@ async def _check_one_with_retry(
     dt: datetime,
     cookies_accepted: list[bool],
 ) -> tuple[str, str, str | None]:
-    """Run _check_one; if the first attempt returns 'unknown', retry once."""
+    """Run _check_one; retry once only if the first attempt finished within 45s.
+
+    A slow first attempt (>=45s) means Playwright itself is hanging — retrying
+    would double the wait time with no realistic chance of success.
+    """
+    t0 = time.monotonic()
     vid, status, err = await _check_one(ctx, venue, dt, cookies_accepted, attempt=1)
     if status == "unknown":
-        print(f"[Eversports] {venue['id']}  first attempt unknown -> retrying")
-        vid, status, err = await _check_one(ctx, venue, dt, cookies_accepted, attempt=2)
-        print(f"[Eversports] {venue['id']}  retry result -> {status}")
+        elapsed = time.monotonic() - t0
+        if elapsed >= 45.0:
+            print(
+                f"[Eversports] {venue['id']}"
+                f"  first attempt unknown after {elapsed:.1f}s -> skip retry (too slow)"
+            )
+        else:
+            print(f"[Eversports] {venue['id']}  first attempt unknown -> retrying")
+            vid, status, err = await _check_one(ctx, venue, dt, cookies_accepted, attempt=2)
+            print(f"[Eversports] {venue['id']}  retry result -> {status}")
     return vid, status, err
 
 

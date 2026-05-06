@@ -48,7 +48,7 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
     try:
         page   = await browser.new_page()
         await page.goto(url, wait_until="commit", timeout=30_000)
-        await page.wait_for_selector(".slot[data-begin]", timeout=8_000)
+        await page.wait_for_selector(".slot[data-begin]", timeout=20_000)
         status = await page.evaluate(
             """(ts) => {
                 const slots = [...document.querySelectorAll('.slot[data-begin]')];
