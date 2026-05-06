@@ -1,0 +1,355 @@
+Padel Checker – MVP Developer Review Package
+Version 1.1 · May 2026 (updated: developer feedback incorporated)
+
+1 · Product Requirements (PRD)
+Core Use Case
+"I want to play today – where is that possible?" → Answer in ≤ 5 seconds.
+Problem
+Availability spread across Eversports + eTennis
+Manual checking per venue
+Slots disappear fast
+Weather unknown when choosing Indoor vs Outdoor
+Solution – MVP Scope
+Aggregate all venues in one view
+Real-time availability
+Weather per venue
+Deep-link to booking platform (no auto-booking)
+Core Features
+Location & Radius: Auto-detect OR manual input · 5 / 10 / 20 / 50 km (default 20 km)
+Search inputs: Date · Time · Radius · Court Type (Indoor / Outdoor / All)
+Defaults: today · next full hour · last-used region
+Availability states: ✅ Available · ❌ Full · ❓ Unknown (scraper failed)
+Weather: Temperature + rain % per venue → Indoor vs Outdoor decision
+Booking: Deep link only, no auto-booking
+Fallback: "No courts found" + suggest different time/radius
+Out of Scope (MVP)
+User accounts · Matchmaking · Payment · Ratings · Chat
+Happy Path
+Open app → 2. Select filters → 3. Search → 4. See results + weather → 5. Click booking link
+Success Criteria
+≤ 5s from open to decision
+≥ 80% searches return results
+Core users return ≥ 3×/week
+API Contract
+GET /api/search
+Parameter
+Type
+Description
+
+
+
+
+date
+YYYY-MM-DD
+Target date
+
+
+
+
+time
+HH:MM
+Target time
+
+
+
+
+lat
+float
+User latitude
+
+
+
+
+lon
+float
+User longitude
+
+
+
+
+radius
+integer
+km
+
+
+
+
+court_type
+indoor\
+outdoor\
+all
+Filter
+
+{
+  "results": [{
+    "venue_id": "padeldome_alt_erlaa",
+    "name": "Padeldome Alt Erlaa",
+    "platform": "eversports",
+    "distance_km": 8.5,
+    "court_type": "indoor",
+    "available": true,
+    "booking_url": "https://...",
+    "weather": { "temperature": 18, "rain_probability": 10 }
+  }]
+}
+
+
+2 · Tech Stack
+Frontend
+Layer
+Choice
+Framework
+React + TypeScript
+Build tool
+Vite
+Styling
+Tailwind CSS + shadcn/ui
+Icons
+lucide-react
+Hosting
+Vercel
+Env vars
+VITE_API_URL only — no API key for public MVP
+
+Backend
+Layer
+Choice
+Language
+Python 3.12
+Framework
+FastAPI
+Server
+Uvicorn
+Browser automation
+Playwright
+HTTP client
+httpx (async)
+Package manager
+uv • pyproject.toml
+Hosting
+Render.com
+Env vars
+FRONTEND_URL, MONGODB_URI
+
+Data Storage
+Layer
+Choice
+Venue config
+MongoDB (Atlas free tier)
+Runtime data
+Fetched live (weather, availability)
+
+MongoDB replaces CSV. Venues are documents — no redeploy needed to add/edit a venue.
+External APIs
+Weather: Open-Meteo (no key required)
+Court platforms: eTennis (Playwright), Eversports (API)
+Caching
+No dedicated cache in MVP. Availability changes every few minutes — a stale cache causes wrong results. If response time becomes a problem post-MVP: add in-memory TTL cache (cachetools.TTLCache, 60s, keyed by venue_id + date + time). No Redis needed.
+Project Structure
+padel-checker/
+  frontend/
+  backend/
+  .gitignore        ← commit this first
+
+Backend:
+backend/
+  main.py               # FastAPI app, CORS, routes
+  venues.py             # MongoDB connection, venue loading
+  distance.py           # Haversine filter
+  weather.py            # Open-Meteo integration
+  etennis_checker.py    # Playwright scraper
+  eversports_checker.py # API-based checker
+  pyproject.toml        # uv dependencies
+  .env.example
+
+Frontend:
+frontend/src/
+  api/api.ts
+  components/SearchCard.tsx
+  components/VenueRow.tsx
+  components/RegionGroup.tsx
+  types/index.ts
+  App.tsx
+
+.gitignore must include:
+.env
+__pycache__/
+.venv/
+node_modules/
+.DS_Store
+
+Hard Constraints
+No user accounts · No payment · No matchmaking · No chat
+Do NOT replace React with Next.js
+
+3 · Frontend Guidelines
+Design
+Mobile-first · dark mode only · single-page · no animations
+Max width ~640px, centered on desktop
+Speed over aesthetics — decision in ≤ 5 seconds
+Colors
+Role
+Hex
+Background
+#080810
+Surface
+#0e0e18
+Accent (CTA, links)
+#d4f53c
+Primary text
+#ffffff
+Secondary text
+#a1a1aa
+Available
+text-green-500
+Full
+text-red-500
+
+Typography
+Body: Outfit · Headlines: Bebas Neue · Labels: JetBrains Mono
+Components
+SearchCard: Date · Time · Radius · Court Type — all always visible, no hidden sections
+VenueRow: Name + platform · Distance km · Court type · Status (color-coded) · Weather (icon, small) · Booking link (accent, text only)
+Do NOT Add
+Modals · Tooltips · Light mode · Multi-step flows · Complex dropdowns
+
+4 · Backend Structure
+Core Goal
+date + time + location + radius + court_type → venues with availability, weather, distance, booking link
+Modules
+main.py — FastAPI app, CORS (FRONTEND_URL only), /api/search route, request validation, response assembly. No scraper logic here.
+venues.py — MongoDB connection, load active venues, normalize platform + court_type values.
+distance.py — Haversine calculation, radius filter, returns distance_km per venue.
+weather.py — Open-Meteo fetch. On failure: return weather: null, never break the response.
+etennis_checker.py — Playwright scraper. Output: { available: bool|null }. On failure: { available: null, error: "checker_failed" }.
+eversports_checker.py — API-based. Identical output contract.
+Filtering Pipeline
+Load active venues from MongoDB
+Filter by court type
+Filter by radius (Haversine)
+Fetch availability in parallel (asyncio)
+Fetch weather
+Sort by distance ascending
+Return
+Error Handling
+Situation
+Status
+Response
+Missing param
+400
+{ detail: "missing_parameter" }
+Invalid param
+400
+{ detail: "invalid_parameter" }
+Scraper failure
+200
+available: null
+Weather failure
+200
+weather: null
+
+Performance
+Target: < 2s ideal, < 5s max
+Parallelize all availability checks (asyncio)
+Partial results OK — never fail entire request for one slow scraper
+Security
+CORS: allow only FRONTEND_URL env var
+No API key for MVP (public app, no user accounts)
+All secrets via environment variables, never committed
+.env in .gitignore
+MongoDB Schema (venues collection)
+{
+  "_id": "padeldome_alt_erlaa",
+  "name": "Padeldome Alt Erlaa",
+  "platform": "eversports",
+  "lat": 48.15,
+  "lon": 16.33,
+  "court_type": "indoor",
+  "booking_url": "https://...",
+  "active": true,
+  "address": "",
+  "notes": ""
+}
+
+Deployment (Render.com)
+Start command:
+uvicorn main:app --host 0.0.0.0 --port $PORT
+
+Env vars to set in Render dashboard:
+FRONTEND_URL=https://your-app.vercel.app
+MONGODB_URI=mongodb+srv://...
+
+
+5 · Implementation Plan
+Follow phases in order. Each phase must work before proceeding.
+Phase 0 – Setup
+.gitignore committed first
+Backend: uv init, add FastAPI, uvicorn, httpx, motor (async MongoDB driver), Playwright to pyproject.toml
+Frontend: Vite + React + TS, Tailwind, shadcn/ui, lucide-react
+Phase 1 – Static Backend
+Connect MongoDB, load venues
+Haversine filter
+Open-Meteo weather
+/api/search returning available: true (mock)
+Test with curl
+Phase 2 – Frontend Integration
+api.ts → call /api/search
+SearchCard + VenueRow components
+Mobile test
+Phase 3 – eTennis Integration
+Playwright scraper
+Parallel execution
+Error handling → available: null
+Phase 4 – Eversports Integration
+API-based checker
+Same output contract as eTennis
+Phase 5 – UX Polish
+Skeleton loading
+Empty state with suggestions
+Mobile spacing pass
+Phase 6 – Deployment
+Backend → Render.com
+Frontend → Vercel
+End-to-end test
+Phase 7 – Validation
+Real booking session by owner
+3–5 player test
+Key question: faster than manual? If not → fix speed, don't add features
+
+6 · Starter Prompt
+You are helping me build "Padel Checker" MVP.
+
+Stack: FastAPI backend (Python 3.12, uv + pyproject.toml, MongoDB via motor), React + TypeScript frontend (Vite, Tailwind, shadcn/ui), hosted on Render.com (backend) + Vercel (frontend).
+
+Rules:
+1. Follow the implementation plan phase by phase — do not skip.
+2. Venue data in MongoDB (motor, async). No CSV.
+3. No user accounts, payment, matchmaking, chat, or ratings.
+4. Keep backend modular (one file per concern).
+5. Frontend: mobile-first, dark mode only, no unnecessary animations.
+6. Use uv + pyproject.toml — no requirements.txt.
+7. .gitignore must be committed before any other file.
+8. No API key on frontend — backend is public for MVP.
+9. After each phase: summarize what changed, how to test, what's next.
+
+Start with Phase 0 and Phase 1 only. Inspect existing files first, propose changes before editing.
+
+
+## Personal Mode (Private Use)
+
+In addition to the public MVP (location + radius search), the system must support a private "region-based" mode for the owner.
+
+Requirements:
+- Optional input parameter: `region`
+- If `region` is provided → use predefined venue groups (existing private logic)
+- If `region` is NOT provided → use location + radius flow (public MVP)
+
+Important:
+- Both flows must use the SAME backend pipeline after venue selection
+- No duplicate logic for availability, weather, or sorting
+- Region-based mode is a shortcut, not a separate system
+- Do not remove or break existing region logic during refactor
+
+Frontend:
+- Region mode may be hidden or secondary (e.g. toggle or query param)
+- Public mode (location + radius) is the default for all users

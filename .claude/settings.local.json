@@ -24,7 +24,30 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(git rm *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(claude --version)",
+      "Bash(python test_eversports_traiskirchen.py)",
+      "Bash(python diag_eversports.py)",
+      "Bash(git checkout *)",
+      "Bash(grep -v \"^$\")",
+      "Bash(echo \"Server PID: $!\")",
+      "Bash(curl -s \"http://127.0.0.1:5000/api/search?date=2026-05-04&time=19:00&region=Bad+Voeslau\")",
+      "Bash(python -m json.tool)",
+      "Bash(python -c \"import httpx; print\\('httpx ok'\\)\")",
+      "Bash(taskkill /F /IM python.exe)",
+      "Bash(awk '{print $5}')",
+      "Bash(taskkill /F /PID 828)",
+      "PowerShell(Start-Process -FilePath \"python\" -ArgumentList \"C:\\\\CodingProjekte\\\\NeoPadelChecker\\\\Backend\\\\app.py\" -RedirectStandardOutput \"C:\\\\CodingProjekte\\\\NeoPadelChecker\\\\server_test.log\" -RedirectStandardError \"C:\\\\CodingProjekte\\\\NeoPadelChecker\\\\server_test.err\" -NoNewWindow)",
+      "PowerShell(Invoke-RestMethod \"http://127.0.0.1:5000/api/search?date=2026-05-04&time=19:00&region=Bad+Voeslau\")",
+      "Bash(curl -s \"http://127.0.0.1:5000/api/search?date=2026-05-04&time=18:00&region=Bad+Voeslau\")",
+      "PowerShell(Start-Process -FilePath \"python\" -ArgumentList \"C:\\\\CodingProjekte\\\\NeoPadelChecker\\\\Backend\\\\app.py\" -RedirectStandardOutput \"C:\\\\CodingProjekte\\\\NeoPadelChecker\\\\server_test.log\" -RedirectStandardError \"C:\\\\CodingProjekte\\\\NeoPadelChecker\\\\server_test.err\" -NoNewWindow; Start-Sleep 5; \\(Invoke-RestMethod \"http://127.0.0.1:5000/api/search?date=2026-05-04&time=19:00&region=Bad+Voeslau\"\\).ok)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('ok:', d['ok']\\)\")",
+      "Bash(curl -s \"http://127.0.0.1:5000/api/search?date=2026-05-04&time=03:00&region=Bad+Voeslau\")",
+      "Bash(curl -s \"http://127.0.0.1:5000/api/search?date=2026-05-04&time=17:00&region=Bad+Voeslau\")",
+      "Bash(git -C C:/CodingProjekte/NeoPadelChecker status)",
+      "Bash(git -C C:/CodingProjekte/NeoPadelChecker log --oneline -5)",
+      "Bash(python -c \"import sys,json; d=json.load\\(sys.stdin\\); [print\\(f'  {r[\\\\\"id\\\\\"]:<45} status={r[\\\\\"status\\\\\"]}'\\) for r in d['results']]; print\\(f'availability_pending: {d[\\\\\"availability_pending\\\\\"]}'\\)\")",
+      "Bash(awk '{print $2}')"
     ]
   }
 }

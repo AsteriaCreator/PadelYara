@@ -4,36 +4,29 @@ const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
 // Shape the backend actually returns
 type RawVenue = {
-  venue_id: string
+  id: string
   name: string
   platform: string
-  distance_km: number | null
   court_type: string
   region: string | null
-  availability_status: string   // "free"|"busy"|"pending"|"check_failed"|"phone_only"
-  available: boolean | null     // backward-compat
+  priority: number
+  status: string   // "free"|"busy"|"pending"|"check_failed"|"phone_only"|"platform_check_required"
+  error: string | null
   booking_url: string
   weather: Venue["weather"]
 }
 
 function mapVenue(v: RawVenue): Venue {
-  // Prefer explicit availability_status; fall back to available bool for old servers
-  const status: Status =
-    v.availability_status != null
-      ? (v.availability_status as Status)
-      : v.available === true  ? "free"
-      : v.available === false ? "busy"
-      : "pending"
   return {
-    id: v.venue_id,
+    id: v.id,
     name: v.name,
     region: (v.region ?? "Wien") as Venue["region"],
     court_type: v.court_type as Venue["court_type"],
     platform: v.platform as Venue["platform"],
-    priority: 0,
+    priority: v.priority ?? 0,
     booking_url: v.booking_url,
-    status,
-    error: null,
+    status: (v.status ?? "pending") as Status,
+    error: v.error,
     weather: v.weather,
   }
 }
