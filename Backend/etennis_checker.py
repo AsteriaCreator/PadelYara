@@ -66,7 +66,7 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
         print(f"[eTennis] {vid}  page loaded, title={title!r}")
 
         try:
-            await page.wait_for_selector(".slot[data-begin]", timeout=10_000)
+            await page.wait_for_selector(".slot[data-begin]", state="attached", timeout=10_000)
         except Exception as sel_exc:
             # Selector not found — log what the page actually contains
             diag = await page.evaluate(

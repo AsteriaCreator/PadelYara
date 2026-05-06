@@ -13,8 +13,6 @@ from fastapi.responses import JSONResponse
 
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_statuses as get_etennis_cached
-from eversports_checker import check_eversports_venues
-from eversports_checker import get_cached_statuses as get_eversports_cached
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
 
@@ -43,12 +41,6 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 _RUNNING: set[str] = set()   # tracks in-flight background checks
 _RUNNING_LOCK = threading.Lock()
 _SCRAPER_SEM = threading.Semaphore(1)  # only one Playwright browser at a time on Render
-
-_EVERSPORTS_STATUS_MAP: dict[str, str] = {
-    "free": "free",
-    "busy": "busy",
-    # "unknown" falls through to "platform_check_required"
-}
 
 
 def _run_key(platform: str, dt: datetime) -> str:
@@ -173,66 +165,39 @@ def search(
         cached = get_etennis_cached(etennis_venues, dt)
         print(f"[search] eTennis cache: {len(cached)}/{len(etennis_venues)} hits — {list(cached.items())}")
         for result in results:
-            if result["venue_id"] in cached:
-                result["availability_status"] = cached[result["venue_id"]]
-        to_fetch = [v for v in etennis_venues if v["id"] not in cached]
-        key = _run_key("eTennis", dt)
-        with _RUNNING_LOCK:
-            et_should_start = bool(to_fetch) and key not in _RUNNING
-            if et_should_start:
-                _RUNNING.add(key)
-        if et_should_start:
-            print(f"[search] eTennis scraper starting: key={key} venues={[v['id'] for v in to_fetch]}")
-            def _et_bg(vv=to_fetch, d=dt, k=key):
-                with _SCRAPER_SEM:
-                    print(f"[search] eTennis scraper acquired semaphore: key={k}")
-                    try:
-                        check_etennis_venues(vv, d)
-                        print(f"[search] eTennis scraper finished: key={k}")
-                    finally:
-                        with _RUNNING_LOCK:
-                            _RUNNING.discard(k)
-            threading.Thread(target=_et_bg, daemon=True).start()
-
-    # ── Phase 3: Eversports — map checker result; unknown → platform_check_required ──
-    eversports_venues = [v for v in venues if v["platform"] == "Eversports"]
-    if eversports_venues:
-        ev_cached = get_eversports_cached(eversports_venues, dt)
-        ev_cached_ids = set(ev_cached)
-        print(f"[search] Eversports cache: {len(ev_cached_ids)}/{len(eversports_venues)} hits — {list(ev_cached.items())}")
-        for result in results:
-            if result["platform"] != "Eversports":
-                continue
-            if result["venue_id"] in ev_cached_ids:
-                raw = ev_cached[result["venue_id"]]
-                result["availability_status"] = _EVERSPORTS_STATUS_MAP.get(raw, "platform_check_required")
-            else:
+            vid = result["venue_id"]
+            if vid in cached:
+                result["availability_status"] = cached[vid]
+            elif result["platform"] == "eTennis":
                 result["availability_status"] = "pending"
+        to_fetch = [v for v in etennis_venues if v["id"] not in cached]
+        if to_fetch:
+            key = _run_key("eTennis", dt)
+            with _RUNNING_LOCK:
+                et_should_start = key not in _RUNNING
+                if et_should_start:
+                    _RUNNING.add(key)
+            if et_should_start:
+                print(f"[search] eTennis scraper starting: key={key} venues={[v['id'] for v in to_fetch]}")
+                def _et_bg(vv=to_fetch, d=dt, k=key):
+                    with _SCRAPER_SEM:
+                        print(f"[search] eTennis scraper acquired semaphore: key={k}")
+                        try:
+                            check_etennis_venues(vv, d)
+                            print(f"[search] eTennis scraper finished: key={k}")
+                        finally:
+                            with _RUNNING_LOCK:
+                                _RUNNING.discard(k)
+                threading.Thread(target=_et_bg, daemon=True).start()
 
-        ev_to_fetch = [v for v in eversports_venues if v["id"] not in ev_cached_ids]
-        ev_key = _run_key("Eversports", dt)
-        with _RUNNING_LOCK:
-            ev_should_start = bool(ev_to_fetch) and ev_key not in _RUNNING
-            if ev_should_start:
-                _RUNNING.add(ev_key)
-        if ev_should_start:
-            print(f"[search] Eversports scraper starting: key={ev_key} venues={[v['id'] for v in ev_to_fetch]}")
-            def _ev_bg(vv=ev_to_fetch, d=dt, k=ev_key):
-                with _SCRAPER_SEM:
-                    print(f"[search] Eversports scraper acquired semaphore: key={k}")
-                    try:
-                        check_eversports_venues(vv, d)
-                        print(f"[search] Eversports scraper finished: key={k}")
-                    finally:
-                        with _RUNNING_LOCK:
-                            _RUNNING.discard(k)
-            threading.Thread(target=_ev_bg, daemon=True).start()
+    # ── Phase 3: Eversports — headless Playwright is blocked by Cloudflare on
+    #    Render (no system Chrome); return platform_check_required immediately ──
+    for result in results:
+        if result["platform"] == "Eversports":
+            result["availability_status"] = "platform_check_required"
 
-    with _RUNNING_LOCK:
-        availability_pending = any(
-            _run_key(p, dt) in _RUNNING for p in ("eTennis", "Eversports")
-        )
-    print(f"[search] availability_pending={availability_pending}  _RUNNING={_RUNNING}")
+    availability_pending = any(r["availability_status"] == "pending" for r in results)
+    print(f"[search] availability_pending={availability_pending}")
 
     if lat is not None:
         results.sort(key=lambda v: v.get("distance_km") or float("inf"))
