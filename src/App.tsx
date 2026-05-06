@@ -5,6 +5,7 @@ import { fetchAvailability, type GeoParams } from "./api"
 import { geocode } from "./geocode"
 import SearchCard from "./components/SearchCard"
 import RegionGroup from "./components/RegionGroup"
+import VenueRow from "./components/VenueRow"
 
 type GroupedVenues = Record<Region, Venue[]>
 
@@ -19,6 +20,8 @@ function groupByRegion(venues: Venue[]): GroupedVenues {
 
 export default function App() {
   const [grouped, setGrouped] = useState<GroupedVenues>({} as GroupedVenues)
+  const [flatResults, setFlatResults] = useState<Venue[]>([])
+  const [isGeoMode, setIsGeoMode] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [searched, setSearched] = useState(false)
@@ -46,8 +49,14 @@ export default function App() {
         setError(res.error ?? "Unbekannter Fehler")
         return
       }
-      setGrouped(groupByRegion(res.results))
-      setSelectedRegion(params.region)
+      if (geo) {
+        setIsGeoMode(true)
+        setFlatResults(res.results)
+      } else {
+        setIsGeoMode(false)
+        setGrouped(groupByRegion(res.results))
+        setSelectedRegion(params.region)
+      }
       setSearched(true)
     } catch {
       setError("Verbindung fehlgeschlagen")
@@ -68,9 +77,15 @@ export default function App() {
 
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-        {searched &&
-          !isLoading &&
-          !error &&
+        {searched && !isLoading && !error && isGeoMode && (
+          <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
+            {flatResults.map((venue) => (
+              <VenueRow key={venue.id} venue={venue} pollingExpired={false} />
+            ))}
+          </div>
+        )}
+
+        {searched && !isLoading && !error && !isGeoMode &&
           sortedRegions.map((region) =>
             grouped[region]?.length ? (
               <RegionGroup key={region} region={region} venues={grouped[region]} pollingExpired={false} />

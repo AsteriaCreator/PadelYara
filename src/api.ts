@@ -35,6 +35,7 @@ function mapVenue(v: RawVenue): Venue {
     status,
     error: null,
     weather: v.weather,
+    distance_km: v.distance_km,
   }
 }
 

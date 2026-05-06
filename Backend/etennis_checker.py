@@ -75,24 +75,26 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
 
 async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
     async with async_playwright() as pw:
-        browser = await pw.chromium.launch(headless=True)
-        # return_exceptions=True: one failing venue doesn't cancel the others
-        results = await asyncio.gather(
-            *[_check_one(browser, v, dt) for v in venues],
-            return_exceptions=True,
-        )
-        await browser.close()
+        browser = None
+        try:
+            browser = await pw.chromium.launch(headless=True)
+        except Exception as exc:
+            print(f"[eTennis] browser launch failed: {exc}")
+            return {v["id"]: "unknown" for v in venues}
 
-    out = {}
-    for r in results:
-        if isinstance(r, Exception):
-            print(f"[eTennis] gather exception: {r}")
-        else:
-            venue_id, status, err = r
-            if err:
-                print(f"[eTennis] {venue_id} error: {err}")
-            out[venue_id] = status
-    return out
+        out: dict[str, str] = {}
+        try:
+            for venue in venues:
+                vid, status, err = await _check_one(browser, venue, dt)
+                if err:
+                    print(f"[eTennis] {vid} error: {err}")
+                out[vid] = status
+        finally:
+            try:
+                await browser.close()
+            except Exception:
+                pass
+        return out
 
 
 def get_cached_statuses(venues: list[dict], dt: datetime) -> dict[str, str]:

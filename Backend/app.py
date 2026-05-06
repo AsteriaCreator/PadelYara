@@ -42,6 +42,7 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
 _RUNNING: set[str] = set()   # tracks in-flight background checks
 _RUNNING_LOCK = threading.Lock()
+_SCRAPER_SEM = threading.Semaphore(1)  # only one Playwright browser at a time on Render
 
 _EVERSPORTS_STATUS_MAP: dict[str, str] = {
     "free": "free",
@@ -95,11 +96,13 @@ def _filter_venues(
     if region:
         result = [v for v in result if v["region"] == region]
     elif lat is not None and lon is not None and radius is not None:
-        result = [
-            v for v in result
-            if v["lat"] is not None and v["lon"] is not None
-            and _haversine_km(lat, lon, v["lat"], v["lon"]) <= radius
-        ]
+        with_dist = []
+        for v in result:
+            if v["lat"] is not None and v["lon"] is not None:
+                dist = _haversine_km(lat, lon, v["lat"], v["lon"])
+                if dist <= radius:
+                    with_dist.append({**v, "distance_km": round(dist, 1)})
+        result = with_dist
 
     if court_type and court_type != "both" and court_type != "all":
         allowed = _INDOOR_TYPES if court_type == "indoor" else _OUTDOOR_TYPES
@@ -117,6 +120,7 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
         "platform":    venue["platform"],
         "priority":    venue["priority"],
         "booking_url": venue["booking_url"],
+        "distance_km": venue.get("distance_km"),
         "status":      "unknown",
         "error":       None,
         "weather":     None,
@@ -175,10 +179,11 @@ def search(
         if to_fetch and key not in _RUNNING:
             _RUNNING.add(key)
             def _et_bg(vv=to_fetch, d=dt, k=key):
-                try:
-                    check_etennis_venues(vv, d)
-                finally:
-                    _RUNNING.discard(k)
+                with _SCRAPER_SEM:
+                    try:
+                        check_etennis_venues(vv, d)
+                    finally:
+                        _RUNNING.discard(k)
             threading.Thread(target=_et_bg, daemon=True).start()
 
     # ── Phase 3: Eversports — map checker result; unknown → platform_check_required ──
@@ -203,11 +208,12 @@ def search(
                 _RUNNING.add(ev_key)
         if ev_should_start:
             def _ev_bg(vv=ev_to_fetch, d=dt, k=ev_key):
-                try:
-                    check_eversports_venues(vv, d)
-                finally:
-                    with _RUNNING_LOCK:
-                        _RUNNING.discard(k)
+                with _SCRAPER_SEM:
+                    try:
+                        check_eversports_venues(vv, d)
+                    finally:
+                        with _RUNNING_LOCK:
+                            _RUNNING.discard(k)
             threading.Thread(target=_ev_bg, daemon=True).start()
 
     with _RUNNING_LOCK:
@@ -215,7 +221,10 @@ def search(
             _run_key(p, dt) in _RUNNING for p in ("eTennis", "Eversports")
         )
 
-    results.sort(key=lambda v: v["priority"])
+    if lat is not None:
+        results.sort(key=lambda v: v.get("distance_km") or float("inf"))
+    else:
+        results.sort(key=lambda v: v["priority"])
 
     return {
         "ok":                   True,

@@ -322,11 +322,15 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
 
         cookies_accepted: list[bool] = [False]
         results = []
-        for venue in venues:
-            r = await _check_one_with_retry(ctx, venue, dt, cookies_accepted)
-            results.append(r)
-
-        await browser.close()
+        try:
+            for venue in venues:
+                r = await _check_one_with_retry(ctx, venue, dt, cookies_accepted)
+                results.append(r)
+        finally:
+            try:
+                await browser.close()
+            except Exception:
+                pass
 
     out: dict[str, str] = {}
     for r in results:

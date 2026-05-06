@@ -32,6 +32,7 @@ export interface Venue {
   status: Status
   error: string | null
   weather: Weather | null
+  distance_km?: number | null
 }
 
 export interface SearchResponse {
