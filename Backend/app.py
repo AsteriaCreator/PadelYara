@@ -159,6 +159,16 @@ def search(
         for future in as_completed(futures):
             results[futures[future]] = future.result()
 
+    # In radius mode limit availability scraping to the 5 closest venues so
+    # Render's free tier (512 MB, 0.1 CPU) doesn't launch too many browsers.
+    if lat is not None:
+        scrape_ids = {
+            v["id"]
+            for v in sorted(venues, key=lambda v: v.get("distance_km") or float("inf"))[:5]
+        }
+    else:
+        scrape_ids = None  # region mode: scrape everything
+
     # ── Phase 2: eTennis — serve cached, background-fetch the rest ───────
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
     if etennis_venues:
@@ -169,8 +179,12 @@ def search(
             if vid in cached:
                 result["availability_status"] = cached[vid]
             elif result["platform"] == "eTennis":
-                result["availability_status"] = "pending"
-        to_fetch = [v for v in etennis_venues if v["id"] not in cached]
+                if scrape_ids is None or vid in scrape_ids:
+                    result["availability_status"] = "pending"
+                else:
+                    result["availability_status"] = "not_checked"
+        to_fetch = [v for v in etennis_venues
+                    if v["id"] not in cached and (scrape_ids is None or v["id"] in scrape_ids)]
         if to_fetch:
             key = _run_key("eTennis", dt)
             with _RUNNING_LOCK:
