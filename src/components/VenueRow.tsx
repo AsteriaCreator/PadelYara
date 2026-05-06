@@ -9,6 +9,8 @@ const STATUS_STYLES: Record<string, string> = {
   check_failed:            "bg-gray-800 text-gray-500",
   phone_only:              "bg-blue-900/40 text-blue-400",
   platform_check_required: "bg-yellow-900/40 text-yellow-500",
+  not_checked:             "bg-gray-800 text-gray-600",
+  no_slot:                 "bg-red-900/40 text-red-400",
   error:                   "bg-orange-900/40 text-orange-400",
 }
 
@@ -19,7 +21,9 @@ const STATUS_LABEL: Record<string, string> = {
   unknown:                 "Konnte nicht geprüft werden",
   check_failed:            "Konnte nicht geprüft werden",
   phone_only:              "Nur telefonisch",
-  platform_check_required: "Bei Eversports prüfen",
+  platform_check_required: "Bei Plattform prüfen",
+  not_checked:             "Nicht geprüft",
+  no_slot:                 "Kein Slot",
   error:                   "Fehler",
 }
 

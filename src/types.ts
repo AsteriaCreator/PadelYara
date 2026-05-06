@@ -2,7 +2,7 @@ export type Region = "Bad Voeslau" | "Wien Sued" | "Wien" | "NOE Sued"
 
 export type CourtType = "both" | "indoor" | "outdoor"
 
-export type Status = "free" | "busy" | "pending" | "unknown" | "check_failed" | "phone_only" | "error"
+export type Status = "free" | "busy" | "pending" | "unknown" | "check_failed" | "phone_only" | "platform_check_required" | "not_checked" | "no_slot" | "error"
 
 export interface SearchParams {
   date: string
