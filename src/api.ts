@@ -10,7 +10,7 @@ type RawVenue = {
   distance_km: number | null
   court_type: string
   region: string | null
-  status: string
+  availability_status?: string
   booking_url: string
   weather: Venue["weather"]
 }
@@ -24,7 +24,7 @@ function mapVenue(v: RawVenue): Venue {
     platform: v.platform as Venue["platform"],
     priority: 0,
     booking_url: v.booking_url,
-    status: (v.status as Status) ?? "pending",
+    status: (v.availability_status as Status) ?? "pending",
     error: null,
     weather: v.weather,
     distance_km: v.distance_km,
