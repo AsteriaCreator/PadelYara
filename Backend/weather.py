@@ -58,7 +58,7 @@ async def get_weather_for_hour(
         "latitude":      lat,
         "longitude":     lon,
         "hourly":        "temperature_2m,precipitation_probability,weathercode",
-        "forecast_days": 2,
+        "forecast_days": 7,
         "timezone":      "Europe/Vienna",
     }
     target = dt.strftime("%Y-%m-%dT%H:00")
