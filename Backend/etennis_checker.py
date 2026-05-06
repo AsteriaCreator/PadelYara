@@ -6,7 +6,7 @@ Called by app.py; not a standalone server.
 import asyncio
 import threading
 import time
-from datetime import datetime, timezone
+from datetime import datetime
 from zoneinfo import ZoneInfo
 
 from playwright.async_api import async_playwright
@@ -19,7 +19,7 @@ _TTL = 300  # seconds
 _COOLDOWN: dict[str, float] = {}  # venue_id → timestamp of last unknown
 _COOLDOWN_TTL = 60  # seconds
 
-_RUNNING: set[str] = set()   # scrape keys currently in-flight
+_RUNNING: dict[str, threading.Event] = {}  # scrape key → completion event
 _RUNNING_LOCK = threading.Lock()
 
 
@@ -33,7 +33,8 @@ def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
 
 
 def _page_url(booking_url: str, date) -> str:
-    ts = int(datetime(date.year, date.month, date.day, tzinfo=timezone.utc).timestamp())
+    # Use Vienna midnight — eTennis slot data-begin values are also Vienna-based
+    ts = int(datetime(date.year, date.month, date.day, tzinfo=VIENNA_TZ).timestamp())
     return f"{booking_url}&t={ts}"
 
 
@@ -44,27 +45,65 @@ def _target_ts(date, hour: int) -> int:
 async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str | None]:
     url       = _page_url(venue["booking_url"], dt.date())
     target_ts = _target_ts(dt.date(), dt.hour)
+    vid       = venue["id"]
     page      = None
+    print(f"[eTennis] {vid}  loading: {url[:100]}  target_ts={target_ts}")
     try:
-        page   = await browser.new_page()
+        page = await browser.new_page()
         await page.goto(url, wait_until="commit", timeout=30_000)
-        await page.wait_for_selector(".slot[data-begin]", timeout=20_000)
-        status = await page.evaluate(
+        title = await page.title()
+        print(f"[eTennis] {vid}  page loaded, title={title!r}")
+
+        try:
+            await page.wait_for_selector(".slot[data-begin]", timeout=10_000)
+        except Exception as sel_exc:
+            # Selector not found — log what the page actually contains
+            diag = await page.evaluate(
+                """() => ({
+                    slotCount:      document.querySelectorAll('.slot').length,
+                    dataBeginCount: document.querySelectorAll('[data-begin]').length,
+                    bodySnippet:    document.body?.innerText?.slice(0, 200) || ''
+                })"""
+            )
+            print(
+                f"[eTennis] {vid}  .slot[data-begin] not found"
+                f"  .slot={diag['slotCount']}"
+                f"  [data-begin]={diag['dataBeginCount']}"
+                f"  body={diag['bodySnippet']!r:.120}"
+                f"  error={sel_exc}"
+            )
+            return vid, "unknown", f"selector timeout: {sel_exc}"
+
+        result = await page.evaluate(
             """(ts) => {
-                const slots = [...document.querySelectorAll('.slot[data-begin]')];
+                const slots    = [...document.querySelectorAll('.slot[data-begin]')];
                 const matching = slots.filter(s => {
                     const begin = parseInt(s.dataset.begin);
                     const size  = parseFloat(s.dataset.size || '1');
                     return begin <= ts && ts < begin + size * 3600;
                 });
-                if (!matching.length) return 'no_slot';
-                return matching.some(s => s.classList.contains('av')) ? 'free' : 'busy';
+                const avCount = matching.filter(s => s.classList.contains('av')).length;
+                return {
+                    total:    slots.length,
+                    matching: matching.length,
+                    avCount:  avCount,
+                    status:   matching.length === 0 ? 'no_slot'
+                              : avCount > 0 ? 'free' : 'busy'
+                };
             }""",
-            target_ts
+            target_ts,
         )
-        return venue["id"], status, None
+        print(
+            f"[eTennis] {vid}"
+            f"  total_slots={result['total']}"
+            f"  matching={result['matching']}"
+            f"  av={result['avCount']}"
+            f"  result={result['status']}"
+        )
+        return vid, result["status"], None
     except Exception as exc:
-        return venue["id"], "unknown", str(exc)
+        print(f"[eTennis] {vid}  exception: {exc}")
+        return vid, "unknown", str(exc)
     finally:
         if page:
             try:
@@ -144,9 +183,26 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
 
     with _RUNNING_LOCK:
         if scrape_key in _RUNNING:
-            print(f"[eTennis] scrape already in-flight for {scrape_key[:60]} — skipping")
-            return {**cached, **{v["id"]: "unknown" for v in to_fetch}}
-        _RUNNING.add(scrape_key)
+            existing_event = _RUNNING[scrape_key]
+            in_flight = True
+        else:
+            done_event = threading.Event()
+            _RUNNING[scrape_key] = done_event
+            in_flight = False
+
+    if in_flight:
+        print(f"[eTennis] scrape in-flight for {scrape_key[:60]} — waiting up to 15s")
+        existing_event.wait(timeout=15)
+        now2 = time.time()
+        waited: dict[str, str] = {}
+        for venue in to_fetch:
+            key = _cache_key(venue["id"], dt)
+            entry = _CACHE.get(key)
+            if entry and now2 - entry["timestamp"] < _TTL:
+                waited[venue["id"]] = entry["status"]
+            else:
+                waited[venue["id"]] = "unknown"
+        return {**cached, **waited}
 
     fresh: dict[str, str] = {}
 
@@ -159,8 +215,6 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
             print(f"[eTennis] thread-level error: {exc}")
         finally:
             loop.close()
-            with _RUNNING_LOCK:
-                _RUNNING.discard(scrape_key)
 
     t = threading.Thread(target=_run_in_thread, daemon=True)
     t.start()
@@ -174,5 +228,16 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
         else:
             _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
             _COOLDOWN.pop(venue_id, None)
+
+    # Venues not returned by scraper (thread timeout) → unknown + cooldown
+    for venue in to_fetch:
+        if venue["id"] not in fresh:
+            print(f"[eTennis] no result: {venue['id']} -> unknown (timeout)")
+            _COOLDOWN[venue["id"]] = store_ts
+
+    # Signal completion AFTER cache is populated so waiting callers see fresh data
+    with _RUNNING_LOCK:
+        _RUNNING.pop(scrape_key, None)
+    done_event.set()
 
     return {**cached, **fresh}

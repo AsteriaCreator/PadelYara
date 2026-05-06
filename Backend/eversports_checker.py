@@ -24,7 +24,7 @@ _TTL = 300  # 5 minutes
 _COOLDOWN: dict[str, float] = {}
 _COOLDOWN_TTL = 60  # 1 minute
 
-_RUNNING: set[str] = set()
+_RUNNING: dict[str, threading.Event] = {}  # scrape key → completion event
 _RUNNING_LOCK = threading.Lock()
 
 # Set to True to bypass in-memory cache and print full slot-level debug logs.
@@ -127,7 +127,7 @@ async def _accept_cookies(page) -> bool:
         "button:has-text('Akzeptieren')",
         "button:has-text('Accept')",
     ]
-    for _ in range(20):        # up to ~10 s
+    for _ in range(8):         # up to ~4 s
         for sel in selectors:
             try:
                 btn = page.locator(sel).first
@@ -181,7 +181,7 @@ async def _check_one(
         # it is the opening-hours skeleton.  The real booking status arrives via
         # /api/slot whose response triggers JS to rewrite data-state in the DOM.
         try:
-            await page.goto(url, wait_until="load", timeout=45_000)
+            await page.goto(url, wait_until="load", timeout=25_000)
         except Exception:
             pass    # load timeout is fine; the page HTML is still usable
 
@@ -196,9 +196,9 @@ async def _check_one(
                 except Exception:
                     await asyncio.sleep(2)
 
-        # Wait up to 25s for the first /api/slot response
+        # Wait up to 12s for the first /api/slot response
         try:
-            await asyncio.wait_for(slot_api_event.wait(), timeout=25.0)
+            await asyncio.wait_for(slot_api_event.wait(), timeout=12.0)
         except asyncio.TimeoutError:
             # Fallback: if the browser used a cached response no network event fires,
             # but the DOM may already contain correct slot data — check before giving up.
@@ -227,14 +227,13 @@ async def _check_one(
                 )
                 return vid, "unknown", "slot API never fired"
 
-        # Wait for "quiet": no new /api/slot calls for 1.5s, bounded at 6s from first.
-        # This handles venues with multiple sequential /api/slot calls (one per court group).
+        # Wait for "quiet": no new /api/slot calls for 0.3s, bounded at 2s from first.
         first_slot_time = slot_api_last[0]
         while True:
             await asyncio.sleep(0.2)
             since_last = time.monotonic() - slot_api_last[0]
             since_first = time.monotonic() - first_slot_time
-            if since_last >= 1.5 or since_first >= 6.0:
+            if since_last >= 0.3 or since_first >= 2.0:
                 break
 
         dom_html = await page.content()
@@ -390,9 +389,26 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
 
     with _RUNNING_LOCK:
         if scrape_key in _RUNNING:
-            print(f"[Eversports] scrape already in-flight for {scrape_key[:60]} — skipping")
-            return {**cached, **{v["id"]: "unknown" for v in to_fetch}}
-        _RUNNING.add(scrape_key)
+            existing_event = _RUNNING[scrape_key]
+            in_flight = True
+        else:
+            done_event = threading.Event()
+            _RUNNING[scrape_key] = done_event
+            in_flight = False
+
+    if in_flight:
+        print(f"[Eversports] scrape in-flight for {scrape_key[:60]} — waiting up to 15s")
+        existing_event.wait(timeout=15)
+        now2 = time.time()
+        waited: dict[str, str] = {}
+        for venue in to_fetch:
+            key = _cache_key(venue["id"], dt)
+            entry = _CACHE.get(key)
+            if entry and now2 - entry["timestamp"] < _TTL:
+                waited[venue["id"]] = entry["status"]
+            else:
+                waited[venue["id"]] = "unknown"
+        return {**cached, **waited}
 
     fresh: dict[str, str] = {}
 
@@ -405,13 +421,10 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
             print(f"[Eversports] thread-level error: {exc}")
         finally:
             loop.close()
-            with _RUNNING_LOCK:
-                _RUNNING.discard(scrape_key)
 
-    # Sequential venue checks + one retry per venue -> generous timeout
     t = threading.Thread(target=_run_in_thread, daemon=True)
     t.start()
-    t.join(timeout=120 * len(to_fetch))
+    t.join(timeout=60 * len(to_fetch))
 
     store_ts = time.time()  # fresh timestamp after join — avoids stale-cooldown bug
     for venue_id, status in fresh.items():
@@ -427,5 +440,10 @@ def check_eversports_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
             print(f"[Eversports] no result:  {venue['id']} -> unknown (cooldown)")
             _COOLDOWN[venue["id"]] = store_ts
             fresh[venue["id"]] = "unknown"
+
+    # Signal completion AFTER cache is populated so waiting callers see fresh data
+    with _RUNNING_LOCK:
+        _RUNNING.pop(scrape_key, None)
+    done_event.set()
 
     return {**cached, **fresh}
