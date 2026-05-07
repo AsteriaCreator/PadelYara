@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse
 
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_statuses as get_etennis_cached
+from eversports_checker import check_eversports
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
 
@@ -35,6 +36,9 @@ app.add_middleware(
 )
 
 VENUES = load_venues()
+_ev_ids = [(v["id"], v["eversports_facility_id"], v["eversports_court_ids"])
+           for v in VENUES if v.get("eversports_facility_id")]
+print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
 DEFAULT_VENUE_ID = "padelzone-traiskirchen"
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
@@ -204,10 +208,27 @@ def search(
                                 _RUNNING.discard(k)
                 threading.Thread(target=_et_bg, daemon=True).start()
 
-    # ── Phase 3: Eversports — headless Playwright is blocked by Cloudflare on
-    #    Render (no system Chrome); return platform_check_required immediately ──
+
+    # ── Phase 3: Eversports — direct /api/slot check for venues with known IDs;
+    #    all others fall back to platform_check_required immediately ────────────
+    # scrape_ids gates eTennis only; Eversports API calls are cheap, no limit needed.
+    _all_platforms = [(r["venue_id"], r["platform"]) for r in results]
+    print(f"[Eversports API] Phase3 entry — all result platforms: {_all_platforms}")
+
     for result in results:
-        if result["platform"] == "Eversports":
+        if result["platform"] != "Eversports":
+            continue
+        venue = next((v for v in venues if v["id"] == result["venue_id"]), None)
+        fid   = venue.get("eversports_facility_id") if venue else None
+        cids  = venue.get("eversports_court_ids")   if venue else None
+        print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
+        if fid and cids:
+            time_hhmm = dt.strftime("%H%M")
+            status = _run_async(check_eversports(fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm))
+            print(f"[Eversports API] {result['venue_id']}  final_status={status}")
+            result["availability_status"] = status
+        else:
+            print(f"[Eversports API] {result['venue_id']}  fid/cids missing — platform_check_required")
             result["availability_status"] = "platform_check_required"
 
     availability_pending = any(r["availability_status"] == "pending" for r in results)
