@@ -2,6 +2,6 @@
   "$schema": "https://schema.railpack.com",
   "provider": "python",
   "deploy": {
-    "startCommand": "python Backend/test_eversports_api.py"
+    "startCommand": "cd Backend && uvicorn eversports_service:app --host 0.0.0.0 --port $PORT"
   }
 }

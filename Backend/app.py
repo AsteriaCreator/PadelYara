@@ -1,5 +1,6 @@
 import asyncio
 import math
+import os
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -13,9 +14,34 @@ from fastapi.responses import JSONResponse
 
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_statuses as get_etennis_cached
-from eversports_checker import check_eversports
 from venues import load_venues
 from weather import get_weather_cached, get_weather_for_hour
+
+
+# Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
+def _call_eversports_service(fid: int, cids: list[int], date_str: str, time_hhmm: str) -> str:
+    """Call the Railway Eversports microservice. Falls back to platform_check_required."""
+    url = os.environ.get("EVERSPORTS_SERVICE_URL")
+    if not url:
+        return "platform_check_required"
+    try:
+        r = httpx.get(
+            f"{url.rstrip('/')}/check",
+            params={
+                "facility_id": fid,
+                "court_ids": ",".join(str(c) for c in cids),
+                "date": date_str,
+                "time": f"{time_hhmm[:2]}:{time_hhmm[2:]}",  # "1800" -> "18:00"
+            },
+            timeout=15,
+        )
+        if r.status_code == 200:
+            return r.json().get("status", "platform_check_required")
+        print(f"[Eversports service] HTTP {r.status_code} for facilityId={fid}")
+        return "platform_check_required"
+    except Exception as exc:
+        print(f"[Eversports service] request failed: {type(exc).__name__}: {exc}")
+        return "platform_check_required"
 
 
 def _run_async(coro):
@@ -224,7 +250,7 @@ def search(
         print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
         if fid and cids:
             time_hhmm = dt.strftime("%H%M")
-            status = _run_async(check_eversports(fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm))
+            status = _call_eversports_service(fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm)
             print(f"[Eversports API] {result['venue_id']}  final_status={status}")
             result["availability_status"] = status
         else:
@@ -286,7 +312,6 @@ def weather_test(
 
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     # reload=False: avoids conflicts with Playwright's Chrome subprocess
     uvicorn.run("app:app", host="0.0.0.0", port=port, reload=False)
