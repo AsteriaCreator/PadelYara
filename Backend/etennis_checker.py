@@ -94,12 +94,19 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
                     return begin <= ts && ts < begin + size * 3600;
                 });
                 const avCount = matching.filter(s => s.classList.contains('av')).length;
+                const diagSlots = slots.slice(0, 5).map(s => ({
+                    rawBegin:    s.dataset.begin,
+                    parsedBegin: parseInt(s.dataset.begin),
+                    dataSize:    s.dataset.size,
+                    className:   s.className,
+                }));
                 return {
-                    total:    slots.length,
-                    matching: matching.length,
-                    avCount:  avCount,
-                    status:   matching.length === 0 ? 'no_slot'
-                              : avCount > 0 ? 'free' : 'busy'
+                    total:      slots.length,
+                    matching:   matching.length,
+                    avCount:    avCount,
+                    status:     matching.length === 0 ? 'no_slot'
+                                : avCount > 0 ? 'free' : 'busy',
+                    diagSlots:  diagSlots,
                 };
             }""",
             target_ts,
@@ -111,6 +118,30 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             f"  av={result['avCount']}"
             f"  result={result['status']}"
         )
+        # --- temporary diagnostic ---
+        target_human = datetime.fromtimestamp(target_ts, tz=VIENNA_TZ).isoformat()
+        print(f"[eTennis diag] {vid}  target_ts={target_ts}  ({target_human})")
+        for i, slot in enumerate(result.get("diagSlots", [])):
+            raw     = slot["rawBegin"]
+            parsed  = slot["parsedBegin"]
+            size    = slot.get("dataSize", "?")
+            cls     = slot["className"]
+            try:
+                as_sec = datetime.fromtimestamp(parsed, tz=VIENNA_TZ).isoformat()
+            except Exception:
+                as_sec = "overflow"
+            norm_ms = parsed // 1000 if parsed > 1_000_000_000_000 else None
+            as_ms   = datetime.fromtimestamp(norm_ms, tz=VIENNA_TZ).isoformat() if norm_ms else "n/a"
+            print(
+                f"[eTennis diag]   slot[{i}]"
+                f"  raw={raw!r}"
+                f"  parsed={parsed}"
+                f"  size={size!r}"
+                f"  class={cls!r}"
+                f"  as_sec={as_sec}"
+                f"  norm_ms={norm_ms}  as_ms={as_ms}"
+            )
+        # --- end diagnostic ---
         return vid, result["status"], None
     except Exception as exc:
         print(f"[eTennis] {vid}  exception: {exc}")
