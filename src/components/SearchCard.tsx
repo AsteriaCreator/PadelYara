@@ -55,7 +55,6 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   const v = getNowVienna()
   if (dateStr > v.dateStr) return false
   if (dateStr < v.dateStr) return true
-  // Same day: slot hour must be strictly greater than current hour
   return parseInt(timeStr) <= v.hour
 }
 
@@ -68,24 +67,22 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const [courtType, setCourtType] = useState<CourtType>("both")
   const [location, setLocation]   = useState("")
   const [radius, setRadius]       = useState(20)
-  const [pastError, setPastError] = useState(false)
+  const [formError, setFormError] = useState<string | null>(null)
 
   const v       = getNowVienna()
   const isToday = date === v.dateStr
-  const minHour = v.hour + 1   // earliest bookable hour for today
+  const minHour = v.hour + 1
 
   function handleDateChange(newDate: string) {
-    setPastError(false)
+    setFormError(null)
     const vNow = getNowVienna()
     if (newDate === vNow.dateStr) {
       const min = vNow.hour + 1
       if (parseInt(time) < min) {
-        // Currently selected time is now in the past — advance to next valid slot
         const nextSlot = TIME_SLOTS.find(t => parseInt(t) >= min)
         if (nextSlot) {
           setTime(nextSlot)
         } else {
-          // All today's slots are past — jump to tomorrow 18:00
           const { date: nd, time: nt } = getNextFullHour()
           setDate(nd)
           setTime(nt)
@@ -98,16 +95,23 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
   function handleTimeChange(newTime: string) {
     setTime(newTime)
-    setPastError(false)
+    setFormError(null)
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+
     if (isSelectedPast(date, time)) {
-      setPastError(true)
+      setFormError("Diese Uhrzeit ist bereits vorbei.")
       return
     }
-    setPastError(false)
+
+    if (!region && !location.trim()) {
+      setFormError("Bitte Region auswählen oder Ort/PLZ + Radius eingeben.")
+      return
+    }
+
+    setFormError(null)
     onSearch({ date, time, region, court_type: courtType, location: location.trim() || undefined, radius })
   }
 
@@ -119,7 +123,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
           <input
             type="text"
             value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={(e) => { setLocation(e.target.value); setFormError(null) }}
             placeholder="z.B. 2500 oder Baden"
             className={inputClass}
           />
@@ -166,7 +170,11 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Region</label>
-          <select value={region} onChange={(e) => setRegion(e.target.value as Region | "")} className={inputClass}>
+          <select
+            value={region}
+            onChange={(e) => { setRegion(e.target.value as Region | ""); setFormError(null) }}
+            className={inputClass}
+          >
             <option value="">Alle Regionen</option>
             {REGION_ORDER.map((r) => <option key={r} value={r}>{REGION_DISPLAY[r]}</option>)}
           </select>
@@ -181,8 +189,8 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         </div>
       </div>
 
-      {pastError && (
-        <p className="text-red-400 text-xs mb-2">Diese Uhrzeit ist bereits vorbei.</p>
+      {formError && (
+        <p className="text-red-400 text-xs mb-2">{formError}</p>
       )}
 
       <button

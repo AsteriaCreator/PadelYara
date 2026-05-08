@@ -1,32 +1,16 @@
 import { useState, useRef, useEffect } from "react"
-import type { Region, Venue, SearchParams } from "./types"
-import { REGION_ORDER } from "./constants"
+import type { Venue, SearchParams } from "./types"
 import { fetchAvailability, type GeoParams } from "./api"
 import { geocode } from "./geocode"
 import SearchCard from "./components/SearchCard"
-import RegionGroup from "./components/RegionGroup"
 import VenueRow from "./components/VenueRow"
 
-type GroupedVenues = Record<Region, Venue[]>
-
-function groupByRegion(venues: Venue[]): GroupedVenues {
-  const groups = {} as GroupedVenues
-  for (const venue of venues) {
-    if (!groups[venue.region]) groups[venue.region] = []
-    groups[venue.region].push(venue)
-  }
-  return groups
-}
-
 export default function App() {
-  const [grouped, setGrouped] = useState<GroupedVenues>({} as GroupedVenues)
-  const [flatResults, setFlatResults] = useState<Venue[]>([])
-  const [isGeoMode, setIsGeoMode] = useState(false)
-  const [isLoading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [searched, setSearched] = useState(false)
-  const [selectedRegion, setSelectedRegion] = useState<Region | "">("")
-  const [isPending, setIsPending] = useState(false)
+  const [results, setResults]         = useState<Venue[]>([])
+  const [isLoading, setLoading]       = useState(false)
+  const [error, setError]             = useState<string | null>(null)
+  const [searched, setSearched]       = useState(false)
+  const [isPending, setIsPending]     = useState(false)
   const [pollingExpired, setPollingExpired] = useState(false)
 
   const refreshTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -53,11 +37,7 @@ export default function App() {
         setPollingExpired(true)
         return
       }
-      if (geo) {
-        setFlatResults(refreshed.results)
-      } else {
-        setGrouped(groupByRegion(refreshed.results))
-      }
+      setResults(refreshed.results)
       if (refreshed.availability_pending && attempt < 2) {
         scheduleRefresh(params, geo, attempt + 1)
       } else {
@@ -90,14 +70,7 @@ export default function App() {
         setError(res.error ?? "Unbekannter Fehler")
         return
       }
-      if (geo) {
-        setIsGeoMode(true)
-        setFlatResults(res.results)
-      } else {
-        setIsGeoMode(false)
-        setGrouped(groupByRegion(res.results))
-        setSelectedRegion(params.region)
-      }
+      setResults(res.results)
       setSearched(true)
       if (res.availability_pending) {
         setIsPending(true)
@@ -109,10 +82,6 @@ export default function App() {
       setLoading(false)
     }
   }
-
-  const sortedRegions = selectedRegion
-    ? [selectedRegion, ...REGION_ORDER.filter((r) => r !== selectedRegion)]
-    : REGION_ORDER
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#080810" }}>
@@ -128,20 +97,13 @@ export default function App() {
           </p>
         )}
 
-        {searched && !isLoading && !error && isGeoMode && (
+        {searched && !isLoading && !error && (
           <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
-            {flatResults.map((venue) => (
+            {results.map((venue) => (
               <VenueRow key={venue.id} venue={venue} pollingExpired={pollingExpired} />
             ))}
           </div>
         )}
-
-        {searched && !isLoading && !error && !isGeoMode &&
-          sortedRegions.map((region) =>
-            grouped[region]?.length ? (
-              <RegionGroup key={region} region={region} venues={grouped[region]} pollingExpired={pollingExpired} />
-            ) : null
-          )}
       </div>
     </div>
   )
