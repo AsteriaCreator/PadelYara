@@ -1,11 +1,6 @@
 {
   "$schema": "https://schema.railpack.com",
   "provider": "python",
-  "steps": {
-    "install": {
-      "commands": ["python -m pip install -r Backend/requirements.txt"]
-    }
-  },
   "deploy": {
     "startCommand": "python Backend/test_eversports_api.py"
   }
