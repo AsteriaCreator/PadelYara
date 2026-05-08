@@ -16,14 +16,47 @@ interface Props {
   isLoading: boolean
 }
 
+// "sv-SE" locale produces "YYYY-MM-DD HH:mm:ss" — stable cross-browser
+function getNowVienna() {
+  const now        = new Date()
+  const viennaStr  = now.toLocaleString("sv-SE", { timeZone: "Europe/Vienna" })
+  const [datePart, timePart] = viennaStr.split(" ")
+  const [year, month, day]   = datePart.split("-").map(Number)
+  const [hour, minute]       = timePart.split(":").map(Number)
+  return { year, month, day, hour, minute, dateStr: datePart }
+}
+
+const pad = (n: number) => String(n).padStart(2, "0")
+
 function getNextFullHour(): { date: string; time: string } {
-  const now  = new Date()
-  // Add 1 hour; Date() handles midnight rollover automatically
-  const next = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1)
-  const pad  = (n: number) => String(n).padStart(2, "0")
-  const date = `${next.getFullYear()}-${pad(next.getMonth() + 1)}-${pad(next.getDate())}`
-  const time = `${pad(next.getHours())}:00`
-  return { date, time }
+  const v = getNowVienna()
+  let { year, month, day } = v
+  let nextHour = v.hour + 1
+
+  if (nextHour > 22) {
+    // No useful slots remain today — default to tomorrow 18:00
+    const tomorrow = new Date(year, month - 1, day + 1)
+    year     = tomorrow.getFullYear()
+    month    = tomorrow.getMonth() + 1
+    day      = tomorrow.getDate()
+    nextHour = 18
+  } else if (nextHour < 7) {
+    // Early morning before first slot — snap to 07:00 today
+    nextHour = 7
+  }
+
+  return {
+    date: `${year}-${pad(month)}-${pad(day)}`,
+    time: `${pad(nextHour)}:00`,
+  }
+}
+
+function isSelectedPast(dateStr: string, timeStr: string): boolean {
+  const v = getNowVienna()
+  if (dateStr > v.dateStr) return false
+  if (dateStr < v.dateStr) return true
+  // Same day: slot hour must be strictly greater than current hour
+  return parseInt(timeStr) <= v.hour
 }
 
 export default function SearchCard({ onSearch, isLoading }: Props) {
@@ -35,9 +68,46 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const [courtType, setCourtType] = useState<CourtType>("both")
   const [location, setLocation]   = useState("")
   const [radius, setRadius]       = useState(20)
+  const [pastError, setPastError] = useState(false)
+
+  const v       = getNowVienna()
+  const isToday = date === v.dateStr
+  const minHour = v.hour + 1   // earliest bookable hour for today
+
+  function handleDateChange(newDate: string) {
+    setPastError(false)
+    const vNow = getNowVienna()
+    if (newDate === vNow.dateStr) {
+      const min = vNow.hour + 1
+      if (parseInt(time) < min) {
+        // Currently selected time is now in the past — advance to next valid slot
+        const nextSlot = TIME_SLOTS.find(t => parseInt(t) >= min)
+        if (nextSlot) {
+          setTime(nextSlot)
+        } else {
+          // All today's slots are past — jump to tomorrow 18:00
+          const { date: nd, time: nt } = getNextFullHour()
+          setDate(nd)
+          setTime(nt)
+          return
+        }
+      }
+    }
+    setDate(newDate)
+  }
+
+  function handleTimeChange(newTime: string) {
+    setTime(newTime)
+    setPastError(false)
+  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (isSelectedPast(date, time)) {
+      setPastError(true)
+      return
+    }
+    setPastError(false)
     onSearch({ date, time, region, court_type: courtType, location: location.trim() || undefined, radius })
   }
 
@@ -69,15 +139,29 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
           </div>
         )}
       </div>
+
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Datum</label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className={inputClass} />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => handleDateChange(e.target.value)}
+            className={inputClass}
+          />
         </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Uhrzeit</label>
-          <select value={time} onChange={(e) => setTime(e.target.value)} className={inputClass}>
-            {TIME_SLOTS.map((t) => <option key={t} value={t}>{t}</option>)}
+          <select
+            value={time}
+            onChange={(e) => handleTimeChange(e.target.value)}
+            className={inputClass}
+          >
+            {TIME_SLOTS.map((t) => (
+              <option key={t} value={t} disabled={isToday && parseInt(t) < minHour}>
+                {t}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col gap-1">
@@ -96,6 +180,11 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
           </select>
         </div>
       </div>
+
+      {pastError && (
+        <p className="text-red-400 text-xs mb-2">Diese Uhrzeit ist bereits vorbei.</p>
+      )}
+
       <button
         type="submit"
         disabled={isLoading}
