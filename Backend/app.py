@@ -253,7 +253,7 @@ def search(
                     with _SCRAPER_SEM:
                         print(f"[search] eTennis scraper acquired semaphore: key={k}")
                         try:
-                            check_etennis_venues(vv, d)
+                            check_etennis_venues(etennis_venues, d)
                             print(f"[search] eTennis scraper finished: key={k}")
                         finally:
                             with _RUNNING_LOCK:
