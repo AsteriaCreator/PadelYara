@@ -280,8 +280,13 @@ def search(
             print(f"[Eversports API] {result['venue_id']}  final_status={status}")
             result["availability_status"] = status
         else:
-            print(f"[Eversports API] {result['venue_id']}  fid/cids missing — platform_check_required")
-            result["availability_status"] = "platform_check_required"
+            issues = venue.get("issues", "") if venue else ""
+            if issues == "phone_booking_only":
+                print(f"[Eversports API] {result['venue_id']}  phone-only venue — not_checked")
+                result["availability_status"] = "not_checked"
+            else:
+                print(f"[Eversports API] {result['venue_id']}  fid/cids missing — platform_check_required")
+                result["availability_status"] = "platform_check_required"
 
     availability_pending = any(r["availability_status"] == "pending" for r in results)
     print(f"[search] availability_pending={availability_pending}")

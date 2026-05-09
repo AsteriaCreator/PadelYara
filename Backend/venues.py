@@ -61,4 +61,5 @@ def _parse_row(row: dict) -> dict:
         "eversports_slug":         row.get("eversports_slug", "").strip() or None,
         "eversports_facility_id":  _parse_int(row.get("eversports_facility_id", "")),
         "eversports_court_ids":    _parse_court_ids(row.get("eversports_court_ids", "")),
+        "issues":                  (row.get("issues") or "").strip(),
     }
