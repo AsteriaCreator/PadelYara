@@ -13,7 +13,6 @@ export default function App() {
   const [isLoading, setLoading]             = useState(false)
   const [error, setError]                   = useState<string | null>(null)
   const [searched, setSearched]             = useState(false)
-  const [isPending, setIsPending]           = useState(false)
   const [pollingExpired, setPollingExpired] = useState(false)
   const [lastUpdated, setLastUpdated]       = useState<number | null>(null)
   const [secondsSince, setSecondsSince]     = useState(0)
@@ -25,7 +24,6 @@ export default function App() {
       clearTimeout(refreshTimer.current)
       refreshTimer.current = null
     }
-    setIsPending(false)
     setPollingExpired(false)
   }
 
@@ -48,7 +46,6 @@ export default function App() {
       refreshTimer.current = null
       const refreshed = await fetchAvailability(params, geo).catch(() => null)
       if (!refreshed?.ok) {
-        setIsPending(false)
         setPollingExpired(true)
         return
       }
@@ -57,7 +54,6 @@ export default function App() {
       if (refreshed.availability_pending && attempt < 2) {
         scheduleRefresh(params, geo, attempt + 1)
       } else {
-        setIsPending(false)
         if (refreshed.availability_pending) setPollingExpired(true)
       }
     }, delay)
@@ -90,7 +86,6 @@ export default function App() {
       setLastUpdated(Date.now())
       setSearched(true)
       if (res.availability_pending) {
-        setIsPending(true)
         scheduleRefresh(params, geo, 1)
       }
     } catch {
