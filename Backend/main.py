@@ -54,15 +54,6 @@ _SCRAPER_STATUS: dict[str, str] = {
     "no_slot": "busy",        # no slot at this time = not bookable
 }
 
-# Eversports anonymous calendar only shows opening-hours schedule, not real
-# booking status (every slot shows data-state='free' regardless of bookings).
-# Map scraper "free" → "platform_check_required" so users see "Bei Eversports
-# prüfen" instead of the misleading "Frei".
-_EVERSPORTS_SCRAPER_STATUS: dict[str, str] = {
-    **_SCRAPER_STATUS,
-    "free": "platform_check_required",
-}
-
 # Canonical status → available bool (kept for backward-compat)
 _STATUS_TO_AVAILABLE: dict[str, bool | None] = {
     "free":                    True,
@@ -154,16 +145,7 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
     Returns {venue_id: availability_status} for ALL venues:
       "free" | "busy" | "check_failed" | "pending" | "phone_only"
     """
-    etennis_venues       = [v for v in venues if v["platform"] == "eTennis"]
-    # NOTE: Eversports anonymous-session calendar always shows every open-hours
-    # slot as data-state='free' / data-with-url='false' regardless of actual
-    # booking state.  The scraper therefore returns "free" whenever the slot is
-    # within opening hours — it cannot distinguish a booked slot from a free one
-    # without an authenticated session.  All Eversports venues (including
-    # Floridsdorf, Traiskirchen, Ebreichsdorf …) share this limitation equally.
-    # Scraping them is still useful: "check_failed" means the page was
-    # unreachable; "free" means the slot is in opening hours (may or may not be
-    # actually bookable); "busy" is never emitted by the anonymous scraper.
+    etennis_venues        = [v for v in venues if v["platform"] == "eTennis"]
     eversports_scrapeable = [v for v in venues if v["platform"] == "Eversports"
                               and v.get("issues") != "phone_only"]
 
@@ -171,8 +153,7 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
 
     etennis_result, eversports_result = await asyncio.gather(
         _fetch_platform_async(loop, etennis_venues,        dt, get_etennis_cached,    check_etennis_venues,    "eTennis"),
-        _fetch_platform_async(loop, eversports_scrapeable, dt, get_eversports_cached, check_eversports_venues, "Eversports",
-                              status_map=_EVERSPORTS_SCRAPER_STATUS),
+        _fetch_platform_async(loop, eversports_scrapeable, dt, get_eversports_cached, check_eversports_venues, "Eversports"),
     )
 
     resolved = {**etennis_result, **eversports_result}
