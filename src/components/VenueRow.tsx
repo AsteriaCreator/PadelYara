@@ -4,12 +4,12 @@ import WeatherCell from "./WeatherCell"
 const STATUS_STYLES: Record<string, string> = {
   free:                    "bg-green-900/40 text-green-400",
   busy:                    "bg-red-900/40 text-red-400",
-  pending:                 "bg-gray-800 text-gray-500 animate-pulse",
-  unknown:                 "bg-gray-800 text-gray-500",
-  check_failed:            "bg-gray-800 text-gray-500",
+  pending:                 "bg-blue-900/40 text-blue-400 animate-pulse",
+  unknown:                 "bg-amber-900/40 text-amber-400",
+  check_failed:            "bg-amber-900/40 text-amber-400",
   phone_only:              "bg-blue-900/40 text-blue-400",
-  platform_check_required: "bg-gray-800 text-gray-500",
-  not_checked:             "bg-gray-800 text-gray-600",
+  platform_check_required: "bg-amber-900/40 text-amber-400",
+  not_checked:             "bg-gray-800 text-gray-500",
   no_slot:                 "bg-red-900/40 text-red-400",
   error:                   "bg-orange-900/40 text-orange-400",
 }
