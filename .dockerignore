@@ -1,0 +1,10 @@
+node_modules/
+dist/
+src/
+public/
+.claude/
+.git/
+*.md
+*.csv
+*.json
+!Backend/requirements.txt
