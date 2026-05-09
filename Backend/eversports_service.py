@@ -1,5 +1,6 @@
 import json
 import os
+import time as _time
 from urllib.parse import urlencode
 
 from curl_cffi.requests import AsyncSession
@@ -131,16 +132,34 @@ async def check(
         f"date={date} time_hhmm={time_hhmm}"
     )
 
+    t0 = _time.monotonic()
+
+    def _log(status: str, slots_count: int, error: str | None = None) -> None:
+        entry: dict = {
+            "event":       "railway_check_result",
+            "facility_id": facility_id,
+            "date":        date,
+            "time":        time,
+            "status":      status,
+            "slots_count": slots_count,
+            "duration_ms": round((_time.monotonic() - t0) * 1000),
+        }
+        if error:
+            entry["error"] = error
+        print(json.dumps(entry))
+
     try:
         http_status, text = await _fetch_slots(params)
 
         if http_status != 200:
             print(f"[check] non-200 after all layers: {http_status}")
+            _log("platform_check_required", 0, error=f"http_{http_status}")
             return {"status": "platform_check_required", "slots_count": 0}
 
         slots = _parse_slots(text)
         if slots is None:
             print("[check] JSON parse failed or slots not a list")
+            _log("platform_check_required", 0, error="parse_error")
             return {"status": "platform_check_required", "slots_count": 0}
 
         slots_count = len(slots)
@@ -149,13 +168,16 @@ async def check(
         for slot in slots:
             if slot.get("start") == time_hhmm:
                 print(f"[check] MATCH at {time_hhmm}")
+                _log("free", slots_count)
                 return {"status": "free", "slots_count": slots_count}
 
         print(f"[check] no match for {time_hhmm!r}")
+        _log("busy", slots_count)
         return {"status": "busy", "slots_count": slots_count}
 
     except Exception as exc:
         print(f"[check] EXCEPTION {type(exc).__name__}: {exc}")
+        _log("platform_check_required", 0, error=f"{type(exc).__name__}: {exc}")
         return {"status": "platform_check_required", "slots_count": 0}
 
 

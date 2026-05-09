@@ -1,7 +1,9 @@
 import asyncio
+import json
 import math
 import os
 import threading
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -19,11 +21,31 @@ from weather import get_weather_cached, get_weather_for_hour
 
 
 # Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
-def _call_eversports_service(fid: int, cids: list[int], date_str: str, time_hhmm: str) -> str:
+def _call_eversports_service(
+    fid: int, cids: list[int], date_str: str, time_hhmm: str, venue_id: str = "unknown"
+) -> str:
     """Call the Railway Eversports microservice. Falls back to platform_check_required."""
     url = os.environ.get("EVERSPORTS_SERVICE_URL")
     if not url:
         return "platform_check_required"
+
+    t0 = time.monotonic()
+    time_colon = f"{time_hhmm[:2]}:{time_hhmm[2:]}"  # "1800" -> "18:00"
+
+    def _log(status: str, error: str | None = None) -> None:
+        entry: dict = {
+            "event":       "eversports_service_result",
+            "venue_id":    venue_id,
+            "facility_id": fid,
+            "date":        date_str,
+            "time":        time_colon,
+            "status":      status,
+            "duration_ms": round((time.monotonic() - t0) * 1000),
+        }
+        if error:
+            entry["error"] = error
+        print(json.dumps(entry))
+
     try:
         r = httpx.get(
             f"{url.rstrip('/')}/check",
@@ -31,15 +53,19 @@ def _call_eversports_service(fid: int, cids: list[int], date_str: str, time_hhmm
                 "facility_id": fid,
                 "court_ids": ",".join(str(c) for c in cids),
                 "date": date_str,
-                "time": f"{time_hhmm[:2]}:{time_hhmm[2:]}",  # "1800" -> "18:00"
+                "time": time_colon,
             },
             timeout=15,
         )
         if r.status_code == 200:
-            return r.json().get("status", "platform_check_required")
+            status = r.json().get("status", "platform_check_required")
+            _log(status)
+            return status
+        _log("platform_check_required", error=f"http_{r.status_code}")
         print(f"[Eversports service] HTTP {r.status_code} for facilityId={fid}")
         return "platform_check_required"
     except Exception as exc:
+        _log("platform_check_required", error=f"{type(exc).__name__}: {exc}")
         print(f"[Eversports service] request failed: {type(exc).__name__}: {exc}")
         return "platform_check_required"
 
@@ -250,7 +276,7 @@ def search(
         print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
         if fid and cids:
             time_hhmm = dt.strftime("%H%M")
-            status = _call_eversports_service(fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm)
+            status = _call_eversports_service(fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm, venue_id=result["venue_id"])
             print(f"[Eversports API] {result['venue_id']}  final_status={status}")
             result["availability_status"] = status
         else:

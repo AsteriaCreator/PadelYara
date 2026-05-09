@@ -4,6 +4,7 @@ Called by app.py; not a standalone server.
 """
 
 import asyncio
+import json
 import threading
 import time
 from datetime import datetime
@@ -58,6 +59,7 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
     target_ts = _target_ts(dt.date(), dt.hour)
     vid       = venue["id"]
     page      = None
+    t0        = time.monotonic()
     print(f"[eTennis] {vid}  loading: {url[:100]}  target_ts={target_ts}")
     try:
         page = await browser.new_page()
@@ -118,6 +120,16 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             f"  av={result['avCount']}"
             f"  result={result['status']}"
         )
+        print(json.dumps({
+            "event":          "etennis_scrape_result",
+            "venue_id":       vid,
+            "date":           dt.strftime("%Y-%m-%d"),
+            "time":           dt.strftime("%H:%M"),
+            "status":         result["status"],
+            "total_slots":    result["total"],
+            "matching_slots": result["matching"],
+            "duration_ms":    round((time.monotonic() - t0) * 1000),
+        }))
         # --- temporary diagnostic ---
         target_human = datetime.fromtimestamp(target_ts, tz=VIENNA_TZ).isoformat()
         print(f"[eTennis diag] {vid}  target_ts={target_ts}  ({target_human})")
@@ -145,6 +157,15 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
         return vid, result["status"], None
     except Exception as exc:
         print(f"[eTennis] {vid}  exception: {exc}")
+        print(json.dumps({
+            "event":       "etennis_scrape_result",
+            "venue_id":    vid,
+            "date":        dt.strftime("%Y-%m-%d"),
+            "time":        dt.strftime("%H:%M"),
+            "status":      "unknown",
+            "duration_ms": round((time.monotonic() - t0) * 1000),
+            "error":       f"{type(exc).__name__}: {exc}",
+        }))
         return vid, "unknown", str(exc)
     finally:
         if page:
