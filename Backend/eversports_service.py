@@ -111,6 +111,11 @@ def _build_params(
 # Endpoints
 # ---------------------------------------------------------------------------
 
+@app.get("/health")
+async def health():
+    return {"ok": True, "service": "eversports-service"}
+
+
 @app.get("/check")
 async def check(
     facility_id: int = Query(...),
