@@ -38,5 +38,4 @@ experiments/
 # Local debug artifacts
 Backend/*.html
 Backend/*.json
-!Backend/railway.json
 .claude/
