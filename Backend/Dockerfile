@@ -24,4 +24,4 @@ ENV PORT=8000
 EXPOSE 8000
 
 # Shell form so ${PORT} expands correctly at runtime
-CMD ["sh", "-c", "uvicorn eversports_service:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "python -m uvicorn eversports_service:app --host 0.0.0.0 --port ${PORT:-8000}"]
