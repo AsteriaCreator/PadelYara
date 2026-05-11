@@ -59,7 +59,7 @@ def _call_eversports_service(
         r = httpx.get(
             f"{url.rstrip('/')}/check",
             params=params,
-            timeout=60,  # DOM scraping via Playwright needs more time
+            timeout=90,  # DOM scraping: 45s networkidle + 10s selector + margin
         )
         if r.status_code == 200:
             body = r.json()

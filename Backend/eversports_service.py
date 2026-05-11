@@ -55,13 +55,16 @@ async def _check_via_playwright_dom(
             page = await context.new_page()
 
             # ── Step 1: load the booking page ────────────────────────────
-            await page.goto(venue_url, wait_until="domcontentloaded", timeout=30_000)
+            # "networkidle" lets the Cloudflare JS challenge resolve AND
+            # waits for the AJAX that populates the booking calendar grid
+            # (POST /api/booking/calendar/update) to complete.
+            await page.goto(venue_url, wait_until="networkidle", timeout=45_000)
 
-            # ── Step 2: wait for the AJAX calendar grid to populate ───────
+            # ── Step 2: confirm the calendar grid populated ───────────────
             try:
-                await page.wait_for_selector("td[data-state]", timeout=20_000)
+                await page.wait_for_selector("td[data-state]", timeout=10_000)
             except Exception:
-                print("[pw-dom] timeout waiting for td[data-state] on initial load")
+                print("[pw-dom] timeout waiting for td[data-state] after networkidle")
                 return "platform_check_required", 0
 
             # ── Step 3: check whether the target date is already visible ──
