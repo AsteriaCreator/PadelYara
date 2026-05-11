@@ -163,17 +163,25 @@ async def check(
             return {"status": "platform_check_required", "slots_count": 0}
 
         slots_count = len(slots)
-        print(f"[check] slots_count={slots_count}  first_starts={[s.get('start') for s in slots[:5]]}")
+        first_dates = [f"{s.get('date')}T{s.get('start')}" for s in slots[:5]]
+        print(f"[check] slots_count={slots_count}  first_slots={first_dates}")
 
-        for slot in slots:
-            if slot.get("start") == time_hhmm:
-                print(f"[check] MATCH at {time_hhmm}")
-                _log("free", slots_count)
-                return {"status": "free", "slots_count": slots_count}
+        # Only free if slot exists on the exact requested date AND time
+        if any(s.get("start") == time_hhmm and s.get("date") == date for s in slots):
+            print(f"[check] MATCH at {date} {time_hhmm} — free")
+            _log("free", slots_count)
+            return {"status": "free", "slots_count": slots_count}
 
-        print(f"[check] no match for {time_hhmm!r}")
-        _log("busy", slots_count)
-        return {"status": "busy", "slots_count": slots_count}
+        # Time exists on other dates → offered at this venue but booked today
+        if any(s.get("start") == time_hhmm for s in slots):
+            print(f"[check] {time_hhmm} offered but not available on {date!r} — busy")
+            _log("busy", slots_count)
+            return {"status": "busy", "slots_count": slots_count}
+
+        # Time never appears in any slot → not offered, or no slots at all
+        print(f"[check] {time_hhmm!r} not offered at facilityId={facility_id} (slots_count={slots_count}) — platform_check_required")
+        _log("platform_check_required", slots_count, error="time_not_offered")
+        return {"status": "platform_check_required", "slots_count": slots_count}
 
     except Exception as exc:
         print(f"[check] EXCEPTION {type(exc).__name__}: {exc}")

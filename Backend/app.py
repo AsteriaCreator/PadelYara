@@ -58,8 +58,19 @@ def _call_eversports_service(
             timeout=15,
         )
         if r.status_code == 200:
-            status = r.json().get("status", "platform_check_required")
+            body = r.json()
+            status = body.get("status", "platform_check_required")
+            slots_count = body.get("slots_count")
             _log(status)
+            print(json.dumps({
+                "event":       "eversports_raw_response",
+                "venue_id":    venue_id,
+                "facility_id": fid,
+                "date":        date_str,
+                "time":        time_colon,
+                "status":      status,
+                "slots_count": slots_count,
+            }))
             return status
         _log("platform_check_required", error=f"http_{r.status_code}")
         print(f"[Eversports service] HTTP {r.status_code} for facilityId={fid}")
