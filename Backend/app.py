@@ -22,7 +22,8 @@ from weather import get_weather_cached, get_weather_for_hour
 
 # Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
 def _call_eversports_service(
-    fid: int, cids: list[int], date_str: str, time_hhmm: str, venue_id: str = "unknown"
+    fid: int, cids: list[int], date_str: str, time_hhmm: str,
+    venue_id: str = "unknown", booking_url: str = "",
 ) -> str:
     """Call the Railway Eversports microservice. Falls back to platform_check_required."""
     url = os.environ.get("EVERSPORTS_SERVICE_URL")
@@ -47,15 +48,18 @@ def _call_eversports_service(
         print(json.dumps(entry))
 
     try:
+        params = {
+            "facility_id": fid,
+            "court_ids":   ",".join(str(c) for c in cids),
+            "date":        date_str,
+            "time":        time_colon,
+        }
+        if booking_url:
+            params["venue_url"] = booking_url
         r = httpx.get(
             f"{url.rstrip('/')}/check",
-            params={
-                "facility_id": fid,
-                "court_ids": ",".join(str(c) for c in cids),
-                "date": date_str,
-                "time": time_colon,
-            },
-            timeout=15,
+            params=params,
+            timeout=60,  # DOM scraping via Playwright needs more time
         )
         if r.status_code == 200:
             body = r.json()
@@ -272,9 +276,10 @@ def search(
                 threading.Thread(target=_et_bg, daemon=True).start()
 
 
-    # ── Phase 3: Eversports — direct /api/slot check for venues with known IDs;
-    #    all others fall back to platform_check_required immediately ────────────
-    # scrape_ids gates eTennis only; Eversports API calls are cheap, no limit needed.
+    # ── Phase 3: Eversports — DOM scrape via booking page (Playwright on Railway);
+    #    passes booking_url so Railway reads td[data-state] from the live calendar.
+    #    Venues without facility_id/cids fall back to platform_check_required.
+    # scrape_ids gates eTennis only; Eversports runs on Railway, no Render limit needed.
     _all_platforms = [(r["venue_id"], r["platform"]) for r in results]
     print(f"[Eversports API] Phase3 entry — all result platforms: {_all_platforms}")
 
@@ -286,8 +291,12 @@ def search(
         cids  = venue.get("eversports_court_ids")   if venue else None
         print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
         if fid and cids:
-            time_hhmm = dt.strftime("%H%M")
-            status = _call_eversports_service(fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm, venue_id=result["venue_id"])
+            time_hhmm   = dt.strftime("%H%M")
+            booking_url = venue.get("booking_url", "") if venue else ""
+            status = _call_eversports_service(
+                fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm,
+                venue_id=result["venue_id"], booking_url=booking_url,
+            )
             print(f"[Eversports API] {result['venue_id']}  final_status={status}")
             result["availability_status"] = status
         else:
