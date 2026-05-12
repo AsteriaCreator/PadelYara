@@ -47,6 +47,39 @@ async def _check_via_playwright_dom(
     dp_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d/%m/%Y")
     print(f"[pw-dom] start  url={venue_url}  date={date}  time={time_hhmm}  dp_date={dp_date}")
 
+    async def _diag(page, label: str) -> None:
+        """Log full page diagnostics to help debug why calendar didn't load."""
+        try:
+            current_url = page.url
+            title       = await page.title()
+            body_text   = await page.evaluate("() => document.body?.innerText?.substring(0, 600) || ''")
+            td_count    = await page.evaluate("() => document.querySelectorAll('td').length")
+            ds_count    = await page.evaluate("() => document.querySelectorAll('[data-state]').length")
+            has_cf      = await page.evaluate(
+                "() => document.body?.innerText?.includes('Just a moment') || "
+                "document.body?.innerText?.includes('Checking your browser') || false"
+            )
+            has_cal     = await page.evaluate(
+                "() => !!document.getElementById('booking-calendar-container')"
+            )
+            cal_html    = await page.evaluate(
+                "() => document.getElementById('booking-calendar-container')?.innerHTML?.substring(0,200) || 'missing'"
+            )
+            print(json.dumps({
+                "event":       "pw_dom_diag",
+                "label":       label,
+                "url":         current_url,
+                "title":       title,
+                "cloudflare":  has_cf,
+                "has_cal_container": has_cal,
+                "cal_inner_html_200": cal_html,
+                "td_count":    td_count,
+                "data_state_count": ds_count,
+                "body_200":    body_text[:200],
+            }))
+        except Exception as e:
+            print(f"[pw-dom] diag error: {e}")
+
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=_PW_ARGS)
         try:
@@ -58,13 +91,20 @@ async def _check_via_playwright_dom(
             # "networkidle" lets the Cloudflare JS challenge resolve AND
             # waits for the AJAX that populates the booking calendar grid
             # (POST /api/booking/calendar/update) to complete.
-            await page.goto(venue_url, wait_until="networkidle", timeout=45_000)
+            try:
+                await page.goto(venue_url, wait_until="networkidle", timeout=45_000)
+                print(f"[pw-dom] goto complete  url={page.url}")
+            except Exception as e:
+                print(f"[pw-dom] goto failed: {type(e).__name__}: {e}")
+                await _diag(page, "goto_failed")
+                return "platform_check_required", 0
 
             # ── Step 2: confirm the calendar grid populated ───────────────
             try:
                 await page.wait_for_selector("td[data-state]", timeout=10_000)
             except Exception:
                 print("[pw-dom] timeout waiting for td[data-state] after networkidle")
+                await _diag(page, "td_data_state_timeout")
                 return "platform_check_required", 0
 
             # ── Step 3: check whether the target date is already visible ──
@@ -90,6 +130,7 @@ async def _check_via_playwright_dom(
                     )
                 except Exception:
                     print(f"[pw-dom] timeout after datepicker navigation to {date!r}")
+                    await _diag(page, "datepicker_nav_timeout")
                     return "platform_check_required", 0
 
                 cells = await page.query_selector_all(
