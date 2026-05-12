@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 import re
@@ -26,6 +27,66 @@ _PW_UA = (
 _WEBDRIVER_INIT = (
     "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
 )
+
+# ---------------------------------------------------------------------------
+# Cloudflare clearance cookie cache
+# ---------------------------------------------------------------------------
+# The /api/slot endpoint is protected by Cloudflare and requires a valid
+# cf_clearance cookie. We obtain it once via Playwright (slow, ~45 s) and
+# then reuse it for all subsequent curl_cffi calls (fast, <1 s).
+# The cf_clearance cookie typically lasts ~1–2 hours; we refresh after 60 min.
+
+_cf_cookies:    dict | None = None
+_cf_cookies_ts: float       = 0.0
+_cf_cookies_ttl = 3600      # seconds — refresh once per hour
+_cf_lock        = asyncio.Lock()
+
+
+async def _refresh_cf_cookies() -> dict | None:
+    """
+    Launch a headless Chromium, visit www.eversports.at, solve the Cloudflare
+    JS challenge, and return the resulting cookies dict.  Slow (~30–45 s).
+    """
+    from playwright.async_api import async_playwright
+    print("[cf-cookies] refreshing Cloudflare clearance via Playwright…")
+    try:
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True, args=_PW_ARGS)
+            context = await browser.new_context(
+                user_agent=_PW_UA,
+                viewport={"width": 1280, "height": 800},
+                locale="de-AT",
+                extra_http_headers={"Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
+            )
+            await context.add_init_script(_WEBDRIVER_INIT)
+            page = await context.new_page()
+            await page.goto(_ES_BASE + "/", wait_until="networkidle", timeout=45_000)
+            cookies = await context.cookies()
+            await browser.close()
+
+        cdict = {c["name"]: c["value"] for c in cookies}
+        if "cf_clearance" in cdict:
+            print(f"[cf-cookies] got cf_clearance  total_cookies={len(cdict)}")
+            return cdict
+        print(f"[cf-cookies] WARNING: no cf_clearance in cookies ({list(cdict.keys())})")
+        return cdict  # return what we have; might still help
+    except Exception as exc:
+        print(f"[cf-cookies] refresh failed: {type(exc).__name__}: {exc}")
+        return None
+
+
+async def _get_cf_cookies() -> dict | None:
+    """Return cached CF cookies, refreshing if stale or absent."""
+    global _cf_cookies, _cf_cookies_ts
+    async with _cf_lock:
+        now = _time.monotonic()
+        if _cf_cookies and (now - _cf_cookies_ts) < _cf_cookies_ttl:
+            return _cf_cookies
+        cookies = await _refresh_cf_cookies()
+        if cookies:
+            _cf_cookies    = cookies
+            _cf_cookies_ts = now
+        return _cf_cookies
 
 
 # ---------------------------------------------------------------------------
@@ -449,13 +510,35 @@ async def _playwright_fetch(params: list[tuple]) -> tuple[int, str]:
 
 
 async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
-    async with AsyncSession(impersonate="chrome124") as session:
-        r = await session.get(_SLOT_URL, params=params, timeout=10)
-    print(f"[curl_cffi] HTTP {r.status_code}  body[:200]={r.text[:200]!r}")
-    if _is_cloudflare_block(r.status_code, r.text):
-        print("[curl_cffi] Cloudflare block — falling back to Playwright")
-        return await _playwright_fetch(params)
-    return r.status_code, r.text
+    """
+    Fetch /api/slot with Cloudflare bypass.
+
+    Strategy (fastest first):
+      1. Try curl_cffi with cached cf_clearance cookies  (fast, ~0.5 s)
+      2. If cookies absent/expired: refresh via Playwright (slow, ~40 s)
+         then retry with new cookies
+      3. If curl_cffi still blocked: full Playwright page navigation
+    """
+    cookies = await _get_cf_cookies()
+
+    if cookies:
+        async with AsyncSession(impersonate="chrome124") as session:
+            r = await session.get(_SLOT_URL, params=params, cookies=cookies, timeout=10)
+        print(
+            f"[curl_cffi+cookies] HTTP {r.status_code}  "
+            f"body[:100]={r.text[:100]!r}"
+        )
+        if not _is_cloudflare_block(r.status_code, r.text):
+            return r.status_code, r.text
+        # Cookie expired mid-session — force a refresh on next call
+        global _cf_cookies, _cf_cookies_ts
+        _cf_cookies    = None
+        _cf_cookies_ts = 0.0
+        print("[curl_cffi+cookies] cookie rejected — falling back to Playwright")
+
+    # Playwright full-page navigation (slow but always works)
+    print("[fetch-slots] falling back to Playwright page navigation")
+    return await _playwright_fetch(params)
 
 
 def _parse_slots(text: str) -> list | None:
@@ -539,18 +622,19 @@ async def check(
         #   • Response scope went past target date    → target time is BUSY
         #   • Response scope went past target time (same date) → target time is BUSY
         #   • Response empty or only before target   → AMBIGUOUS → platform_check_required
+        slot_status = "platform_check_required"
+        slots_count = 0
+
         params, cids = _build_params(facility_id, court_ids, date)
         http_status, text = await _fetch_slots(params)
 
         if http_status != 200:
             print(f"[check] /api/slot non-200: {http_status}")
-            slot_status = "platform_check_required"
             _log(slot_status, 0, error=f"http_{http_status}")
         else:
             slots = _parse_slots(text)
             if slots is None:
                 print("[check] /api/slot JSON parse failed")
-                slot_status = "platform_check_required"
                 _log(slot_status, 0, error="parse_error")
             else:
                 slots_count = len(slots)
@@ -585,21 +669,21 @@ async def check(
                     )
                     slot_status = "busy"
                 elif max_same_day_start == time_hhmm:
-                    # Target time appears for same date but different court? Shouldn't happen
-                    # (we already checked exact date+time match above). Treat as platform_check_required.
+                    # Target time appears for same date but no exact match (different
+                    # court already handled above by the exact check).
                     slot_status = "platform_check_required"
                 else:
-                    # Response either empty or only covers times before our target:
-                    # possibly a response-limit cutoff — cannot determine availability
+                    # Response empty or only covers times before our target:
+                    # possible response-limit cutoff — cannot determine availability
                     print(
-                        f"[check] /api/slot response scope ends at {max_date or 'empty'} "
+                        f"[check] /api/slot scope ends at {max_date or 'empty'} "
                         f"(same-day max={max_same_day_start or 'none'}) — cannot determine"
                     )
                     slot_status = "platform_check_required"
 
                 _log(slot_status, slots_count)
 
-        slot_result = {"status": slot_status, "slots_count": 0}
+        slot_result = {"status": slot_status, "slots_count": slots_count}
 
         # ── Method 3: Playwright DOM scrape — last resort ──────────────────
         # Slow (~45 s). On Railway: still blocked by Cloudflare for the AJAX
