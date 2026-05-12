@@ -53,13 +53,14 @@ def _call_eversports_service(
             "court_ids":   ",".join(str(c) for c in cids),
             "date":        date_str,
             "time":        time_colon,
+            "venue_id":    venue_id,
         }
         if booking_url:
             params["venue_url"] = booking_url
         r = httpx.get(
             f"{url.rstrip('/')}/check",
             params=params,
-            timeout=90,  # DOM scraping: 45s networkidle + 10s selector + margin
+            timeout=60,  # /api/slot + CF cookie warmup max ~45s; DOM scrape removed
         )
         if r.status_code == 200:
             body = r.json()

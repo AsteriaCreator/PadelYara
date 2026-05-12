@@ -542,10 +542,26 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
 
 
 def _parse_slots(text: str) -> list | None:
+    """
+    Parse /api/slot JSON response.
+
+    The API returns two formats:
+      • With results:  {"slots": [{...}, ...]}          ← flat list
+      • Empty results: {"slots": {"slots": [], ...}}    ← nested object
+
+    Both are normalised to a list (possibly empty).
+    Returns None only on JSON parse failure or unexpected structure.
+    """
     try:
         data = json.loads(text)
         slots = data.get("slots", [])
-        return slots if isinstance(slots, list) else None
+        if isinstance(slots, list):
+            return slots
+        if isinstance(slots, dict):
+            # Nested format: {"slots": {"slots": [...], ...}}
+            inner = slots.get("slots", [])
+            return inner if isinstance(inner, list) else None
+        return None
     except Exception:
         return None
 
@@ -579,27 +595,46 @@ async def check(
     date:        str = Query(...),
     time:        str = Query(...),
     venue_url:   str = Query(default=""),
+    venue_id:    str = Query(default=""),
 ):
     time_hhmm = time.replace(":", "")
 
-    print(
-        f"[check] facilityId={facility_id} courts={court_ids} "
-        f"date={date} time_hhmm={time_hhmm} "
-        f"venue_url={venue_url!r}"
-    )
+    print(json.dumps({
+        "event":       "eversports_check_start",
+        "venue_id":    venue_id,
+        "facility_id": facility_id,
+        "court_ids":   court_ids,
+        "date":        date,
+        "time":        time,
+    }))
 
     t0 = _time.monotonic()
 
-    def _log(status: str, slots_count: int, error: str | None = None) -> None:
+    def _log(
+        status: str,
+        slots_count: int,
+        first_starts: list[str] | None = None,
+        last_starts:  list[str] | None = None,
+        max_date:     str | None       = None,
+        error:        str | None       = None,
+    ) -> None:
         entry: dict = {
-            "event":       "railway_check_result",
+            "event":       "eversports_check_result",
+            "venue_id":    venue_id,
             "facility_id": facility_id,
+            "court_ids":   court_ids,
             "date":        date,
             "time":        time,
             "status":      status,
             "slots_count": slots_count,
             "duration_ms": round((_time.monotonic() - t0) * 1000),
         }
+        if first_starts is not None:
+            entry["first_starts"] = first_starts
+        if last_starts is not None:
+            entry["last_starts"] = last_starts
+        if max_date is not None:
+            entry["max_date"] = max_date
         if error:
             entry["error"] = error
         print(json.dumps(entry))
@@ -616,14 +651,22 @@ async def check(
                 return {"status": status, "slots_count": count}
             print("[check] cal-post failed (likely Cloudflare block) — trying /api/slot")
 
-        # ── Method 2: /api/slot — always reachable via curl_cffi + Playwright ─
-        # Returns a list of AVAILABLE (free) slots starting from `startDate`.
-        # Heuristic to distinguish busy vs ambiguous when target slot is absent:
-        #   • Response scope went past target date    → target time is BUSY
-        #   • Response scope went past target time (same date) → target time is BUSY
-        #   • Response empty or only before target   → AMBIGUOUS → platform_check_required
+        # ── Method 2: /api/slot — primary path on Railway ─────────────────────
+        # Returns only AVAILABLE (free) slots starting from startDate.
+        # Two JSON formats from the API:
+        #   • {"slots":[{...},...]}          ← flat list  (has results)
+        #   • {"slots":{"slots":[], ...}}    ← nested obj (empty / no free slots)
+        # _parse_slots handles both and returns a list (possibly empty) or None.
+        #
+        # Busy-vs-ambiguous heuristic when the target slot is absent:
+        #   • Any free slot exists on a LATER date   → target slot is BUSY
+        #   • Any free slot exists later on SAME day → target slot is BUSY
+        #   • Response empty or ends before target   → genuinely AMBIGUOUS
         slot_status = "platform_check_required"
         slots_count = 0
+        first_starts: list[str] = []
+        last_starts:  list[str] = []
+        scope_max_date = ""
 
         params, cids = _build_params(facility_id, court_ids, date)
         http_status, text = await _fetch_slots(params)
@@ -638,70 +681,71 @@ async def check(
                 _log(slot_status, 0, error="parse_error")
             else:
                 slots_count = len(slots)
-                first5 = [f"{s.get('date')}T{s.get('start')}" for s in slots[:5]]
-                print(f"[check] /api/slot  count={slots_count}  first5={first5}")
+
+                # Collect first/last slot starts for structured logging
+                starts_seq = [s.get("start", "") for s in slots if s.get("start")]
+                first_starts = starts_seq[:3]
+                last_starts  = starts_seq[-3:] if len(starts_seq) > 3 else starts_seq
+
+                all_dates = [s.get("date", "") for s in slots if s.get("date")]
+                scope_max_date = max(all_dates) if all_dates else ""
+
+                print(json.dumps({
+                    "event":        "eversports_slot_scope",
+                    "venue_id":     venue_id,
+                    "facility_id":  facility_id,
+                    "date":         date,
+                    "time":         time,
+                    "slots_count":  slots_count,
+                    "first_starts": first_starts,
+                    "last_starts":  last_starts,
+                    "max_date":     scope_max_date,
+                }))
 
                 # Target slot present → free
                 if any(s.get("start") == time_hhmm and s.get("date") == date for s in slots):
-                    print(f"[check] MATCH at {date} {time_hhmm} — free")
-                    _log("free", slots_count)
+                    print(f"[check] MATCH at {date} {time_hhmm} → free")
+                    _log("free", slots_count,
+                         first_starts=first_starts, last_starts=last_starts,
+                         max_date=scope_max_date)
                     return {"status": "free", "slots_count": slots_count}
 
                 # Response scope: did it go past our target?
-                all_dates = [s.get("date", "") for s in slots if s.get("date")]
-                max_date  = max(all_dates) if all_dates else ""
                 same_day_starts = [
                     s.get("start", "") for s in slots
                     if s.get("date") == date and s.get("start")
                 ]
                 max_same_day_start = max(same_day_starts) if same_day_starts else ""
 
-                if max_date > date:
-                    # Slots from dates AFTER our target → our date/time is booked
-                    print(
-                        f"[check] response scope ({max_date}) > target date ({date}) → busy"
-                    )
+                if scope_max_date > date:
+                    # Free slots exist on dates after our target → our date/time is booked
+                    print(f"[check] scope ({scope_max_date}) > target ({date}) → busy")
                     slot_status = "busy"
                 elif max_same_day_start > time_hhmm:
-                    # Same day, but a later time slot is free → our time is booked
-                    print(
-                        f"[check] same-day max start ({max_same_day_start}) > {time_hhmm} → busy"
-                    )
+                    # Free slots exist later on same day → our time slot is booked
+                    print(f"[check] same-day max ({max_same_day_start}) > {time_hhmm} → busy")
                     slot_status = "busy"
-                elif max_same_day_start == time_hhmm:
-                    # Target time appears for same date but no exact match (different
-                    # court already handled above by the exact check).
-                    slot_status = "platform_check_required"
                 else:
-                    # Response empty or only covers times before our target:
-                    # possible response-limit cutoff — cannot determine availability
+                    # Response is empty or ends before / at our target time:
+                    # cannot determine — could be a response-limit cutoff
                     print(
-                        f"[check] /api/slot scope ends at {max_date or 'empty'} "
-                        f"(same-day max={max_same_day_start or 'none'}) — cannot determine"
+                        f"[check] ambiguous: scope_max={scope_max_date or 'empty'} "
+                        f"same-day-max={max_same_day_start or 'none'} → platform_check_required"
                     )
                     slot_status = "platform_check_required"
 
-                _log(slot_status, slots_count)
+                _log(slot_status, slots_count,
+                     first_starts=first_starts, last_starts=last_starts,
+                     max_date=scope_max_date)
 
-        slot_result = {"status": slot_status, "slots_count": slots_count}
+        # ── Method 3: Playwright DOM scrape — DISABLED on Railway ─────────────
+        # Cloudflare WAF blocks all AJAX POSTs from Railway's egress IPs, so
+        # _check_via_playwright_dom always returns platform_check_required here
+        # and wastes ~45 s.  /api/slot (Method 2) handles all cases reliably.
+        # Method 3 remains available in the codebase for non-Railway deployments
+        # where the booking-page AJAX is reachable.
 
-        # ── Method 3: Playwright DOM scrape — last resort ──────────────────
-        # Slow (~45 s). On Railway: still blocked by Cloudflare for the AJAX
-        # POST, so returns platform_check_required too. Kept for non-Railway
-        # deployments where the booking page's AJAX is reachable.
-        if venue_url and slot_status == "platform_check_required":
-            print("[check] /api/slot ambiguous — trying Playwright DOM scrape")
-            pw_status, pw_count = await _check_via_playwright_dom(
-                facility_id, venue_url, date, time_hhmm
-            )
-            print(f"[check] pw-dom  status={pw_status}  count={pw_count}")
-            if pw_status != "platform_check_required":
-                _log(pw_status, pw_count, error="pw_dom")
-                return {"status": pw_status, "slots_count": pw_count}
-            # pw-dom also ambiguous → keep the slot result
-            print("[check] pw-dom also platform_check_required — returning slot result")
-
-        return slot_result
+        return {"status": slot_status, "slots_count": slots_count}
 
     except Exception as exc:
         print(f"[check] EXCEPTION {type(exc).__name__}: {exc}")
@@ -723,32 +767,38 @@ async def diag(
     try:
         http_status, text = await _fetch_slots(params)
         body_excerpt = text[:500]
-        slots: list = []
-        slots_type = "n/a"
         parse_error = None
+        slots: list = []
 
         if http_status == 200:
-            try:
-                data = json.loads(text)
-                raw_slots = data.get("slots", [])
-                slots_type = type(raw_slots).__name__
-                if isinstance(raw_slots, list):
-                    slots = raw_slots
-            except Exception as e:
-                parse_error = str(e)
+            parsed = _parse_slots(text)
+            if parsed is None:
+                parse_error = "unsupported response structure"
+            else:
+                slots = parsed
 
-        matching = [s for s in slots if s.get("start") == time_hhmm]
+        # Slots matching the requested date+time
+        matching_date_time = [
+            s for s in slots
+            if s.get("start") == time_hhmm and s.get("date") == date
+        ]
+        # All slots matching the time on any date (for cross-date inspection)
+        matching_time_any  = [s for s in slots if s.get("start") == time_hhmm]
+
+        all_dates  = sorted(set(s.get("date",  "") for s in slots if s.get("date")))
+        all_starts = sorted(set(s.get("start", "") for s in slots if s.get("start")))
 
         return {
-            "http_status":    http_status,
-            "body_excerpt":   body_excerpt,
-            "slots_type":     slots_type,
-            "slots_count":    len(slots),
-            "time_hhmm":      time_hhmm,
-            "matching_slots": matching,
-            "result":         "free" if matching else ("busy" if slots else "platform_check_required"),
-            "parse_error":    parse_error,
-            "first_5_starts": [s.get("start") for s in slots[:5]],
+            "http_status":        http_status,
+            "body_excerpt":       body_excerpt,
+            "slots_count":        len(slots),
+            "time_hhmm":          time_hhmm,
+            "matching_date_time": matching_date_time,
+            "matching_time_any":  matching_time_any[:10],
+            "all_dates":          all_dates,
+            "all_starts":         all_starts,
+            "parse_error":        parse_error,
+            "first_5_starts":     [s.get("start") for s in slots[:5]],
         }
 
     except Exception as exc:
