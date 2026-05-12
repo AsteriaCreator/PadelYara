@@ -83,9 +83,33 @@ async def _check_via_playwright_dom(
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True, args=_PW_ARGS)
         try:
-            context = await browser.new_context(user_agent=_PW_UA)
+            context = await browser.new_context(
+                user_agent=_PW_UA,
+                viewport={"width": 1280, "height": 800},
+                locale="de-AT",
+                extra_http_headers={"Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
+            )
             await context.add_init_script(_WEBDRIVER_INIT)
             page = await context.new_page()
+
+            # ── Monitor all /api/ network activity ────────────────────────
+            _api_log: list[str] = []
+
+            def _on_req(req):
+                if "/api/" in req.url:
+                    pd = (req.post_data or "")[:120]
+                    _api_log.append(f"REQ {req.method} {req.url.split('eversports.at')[1].split('?')[0]} post={pd!r}")
+
+            async def _on_resp(resp):
+                if "/api/" in resp.url:
+                    try:
+                        body = await resp.text()
+                        _api_log.append(f"RESP {resp.status} {resp.url.split('eversports.at')[1].split('?')[0]} body={body[:120]!r}")
+                    except Exception:
+                        _api_log.append(f"RESP {resp.status} {resp.url.split('eversports.at')[1].split('?')[0]} (unreadable)")
+
+            page.on("request",  _on_req)
+            page.on("response", _on_resp)
 
             # ── Step 1: load the booking page ────────────────────────────
             # "networkidle" lets the Cloudflare JS challenge resolve AND
@@ -93,19 +117,63 @@ async def _check_via_playwright_dom(
             # (POST /api/booking/calendar/update) to complete.
             try:
                 await page.goto(venue_url, wait_until="networkidle", timeout=45_000)
-                print(f"[pw-dom] goto complete  url={page.url}")
+                print(f"[pw-dom] goto complete  url={page.url}  api_calls={_api_log}")
             except Exception as e:
-                print(f"[pw-dom] goto failed: {type(e).__name__}: {e}")
+                print(f"[pw-dom] goto failed: {type(e).__name__}: {e}  api_calls={_api_log}")
                 await _diag(page, "goto_failed")
                 return "platform_check_required", 0
 
             # ── Step 2: confirm the calendar grid populated ───────────────
+            # If not yet present, try manually triggering the calendar init
+            # by executing the page's own initCalendar/update logic via JS.
             try:
-                await page.wait_for_selector("td[data-state]", timeout=10_000)
+                await page.wait_for_selector("td[data-state]", timeout=5_000)
             except Exception:
-                print("[pw-dom] timeout waiting for td[data-state] after networkidle")
-                await _diag(page, "td_data_state_timeout")
-                return "platform_check_required", 0
+                # Calendar didn't auto-populate — try to trigger it manually
+                print(f"[pw-dom] td[data-state] not present — trying manual trigger  api_calls_so_far={_api_log}")
+                cal_data = await page.evaluate("""
+                    () => {
+                        const ct = document.getElementById('calendar-title');
+                        if (!ct) return {error: 'no calendar-title'};
+                        const attrs = {};
+                        for (const a of ct.attributes) attrs[a.name] = a.value;
+                        return attrs;
+                    }
+                """)
+                print(f"[pw-dom] calendar-title attrs={cal_data}")
+
+                # Try to trigger the calendar AJAX via jQuery (if loaded)
+                trigger_result = await page.evaluate("""
+                    () => new Promise((resolve) => {
+                        if (typeof $ === 'undefined') { resolve('no jQuery'); return; }
+                        const ct = $('#calendar-title');
+                        const fid = ct.data('id');
+                        const slug = ct.data('facility');
+                        if (!fid) { resolve('no facilityId'); return; }
+                        // Try the datepicker-triggered update (uses today's date)
+                        const today = new Date();
+                        const dd = String(today.getDate()).padStart(2,'0');
+                        const mm = String(today.getMonth()+1).padStart(2,'0');
+                        const yyyy = today.getFullYear();
+                        $.ajax({
+                            url: '/api/booking/calendar/update',
+                            type: 'POST',
+                            data: {date: dd+'/'+mm+'/'+yyyy, facilityId: fid, facility: slug},
+                            success: function(html) { resolve('ok:'+html.substring(0,100)); },
+                            error:   function(xhr)  { resolve('err:'+xhr.status+':'+xhr.responseText.substring(0,100)); }
+                        });
+                        setTimeout(() => resolve('timeout'), 10000);
+                    })
+                """)
+                print(f"[pw-dom] manual trigger result={trigger_result!r}")
+
+                # Wait again after manual trigger
+                try:
+                    await page.wait_for_selector("td[data-state]", timeout=8_000)
+                except Exception:
+                    print(f"[pw-dom] td[data-state] still absent after manual trigger  api_calls={_api_log}")
+                    await _diag(page, "td_data_state_timeout")
+                    return "platform_check_required", 0
 
             # ── Step 3: check whether the target date is already visible ──
             cells = await page.query_selector_all(
