@@ -522,56 +522,102 @@ async def check(
         print(json.dumps(entry))
 
     try:
+        # ── Method 1: direct curl_cffi POST to /api/booking/calendar/update ─
+        # Works on non-Railway IPs; blocked by Cloudflare WAF from Railway's IP.
         if venue_url:
-            # ── Primary: direct curl_cffi POST to /api/booking/calendar/update ──
             result = await _check_via_calendar_post(facility_id, venue_url, date, time_hhmm)
             if result is not None:
                 status, count = result
                 print(f"[check] cal-post succeeded  status={status}  count={count}")
                 _log(status, count)
                 return {"status": status, "slots_count": count}
+            print("[check] cal-post failed (likely Cloudflare block) — trying /api/slot")
 
-            # ── Fallback: Playwright DOM scrape ───────────────────────────────
-            print("[check] cal-post failed — falling back to Playwright DOM scrape")
-            status, count = await _check_via_playwright_dom(
-                facility_id, venue_url, date, time_hhmm
-            )
-            print(f"[check] pw-dom result  status={status}  count={count}")
-            _log(status, count)
-            return {"status": status, "slots_count": count}
-
-        # ── Legacy fallback: /api/slot (used only if venue_url missing) ────
+        # ── Method 2: /api/slot — always reachable via curl_cffi + Playwright ─
+        # Returns a list of AVAILABLE (free) slots starting from `startDate`.
+        # Heuristic to distinguish busy vs ambiguous when target slot is absent:
+        #   • Response scope went past target date    → target time is BUSY
+        #   • Response scope went past target time (same date) → target time is BUSY
+        #   • Response empty or only before target   → AMBIGUOUS → platform_check_required
         params, cids = _build_params(facility_id, court_ids, date)
         http_status, text = await _fetch_slots(params)
 
         if http_status != 200:
-            print(f"[check] non-200 after all layers: {http_status}")
-            _log("platform_check_required", 0, error=f"http_{http_status}")
-            return {"status": "platform_check_required", "slots_count": 0}
+            print(f"[check] /api/slot non-200: {http_status}")
+            slot_status = "platform_check_required"
+            _log(slot_status, 0, error=f"http_{http_status}")
+        else:
+            slots = _parse_slots(text)
+            if slots is None:
+                print("[check] /api/slot JSON parse failed")
+                slot_status = "platform_check_required"
+                _log(slot_status, 0, error="parse_error")
+            else:
+                slots_count = len(slots)
+                first5 = [f"{s.get('date')}T{s.get('start')}" for s in slots[:5]]
+                print(f"[check] /api/slot  count={slots_count}  first5={first5}")
 
-        slots = _parse_slots(text)
-        if slots is None:
-            print("[check] JSON parse failed or slots not a list")
-            _log("platform_check_required", 0, error="parse_error")
-            return {"status": "platform_check_required", "slots_count": 0}
+                # Target slot present → free
+                if any(s.get("start") == time_hhmm and s.get("date") == date for s in slots):
+                    print(f"[check] MATCH at {date} {time_hhmm} — free")
+                    _log("free", slots_count)
+                    return {"status": "free", "slots_count": slots_count}
 
-        slots_count = len(slots)
-        first_dates = [f"{s.get('date')}T{s.get('start')}" for s in slots[:5]]
-        print(f"[check] slots_count={slots_count}  first_slots={first_dates}")
+                # Response scope: did it go past our target?
+                all_dates = [s.get("date", "") for s in slots if s.get("date")]
+                max_date  = max(all_dates) if all_dates else ""
+                same_day_starts = [
+                    s.get("start", "") for s in slots
+                    if s.get("date") == date and s.get("start")
+                ]
+                max_same_day_start = max(same_day_starts) if same_day_starts else ""
 
-        if any(s.get("start") == time_hhmm and s.get("date") == date for s in slots):
-            print(f"[check] MATCH at {date} {time_hhmm} — free")
-            _log("free", slots_count)
-            return {"status": "free", "slots_count": slots_count}
+                if max_date > date:
+                    # Slots from dates AFTER our target → our date/time is booked
+                    print(
+                        f"[check] response scope ({max_date}) > target date ({date}) → busy"
+                    )
+                    slot_status = "busy"
+                elif max_same_day_start > time_hhmm:
+                    # Same day, but a later time slot is free → our time is booked
+                    print(
+                        f"[check] same-day max start ({max_same_day_start}) > {time_hhmm} → busy"
+                    )
+                    slot_status = "busy"
+                elif max_same_day_start == time_hhmm:
+                    # Target time appears for same date but different court? Shouldn't happen
+                    # (we already checked exact date+time match above). Treat as platform_check_required.
+                    slot_status = "platform_check_required"
+                else:
+                    # Response either empty or only covers times before our target:
+                    # possibly a response-limit cutoff — cannot determine availability
+                    print(
+                        f"[check] /api/slot response scope ends at {max_date or 'empty'} "
+                        f"(same-day max={max_same_day_start or 'none'}) — cannot determine"
+                    )
+                    slot_status = "platform_check_required"
 
-        if any(s.get("start") == time_hhmm for s in slots):
-            print(f"[check] {time_hhmm} offered but not on {date!r} — busy")
-            _log("busy", slots_count)
-            return {"status": "busy", "slots_count": slots_count}
+                _log(slot_status, slots_count)
 
-        print(f"[check] {time_hhmm!r} not offered at facilityId={facility_id} — platform_check_required")
-        _log("platform_check_required", slots_count, error="time_not_offered")
-        return {"status": "platform_check_required", "slots_count": slots_count}
+        slot_result = {"status": slot_status, "slots_count": 0}
+
+        # ── Method 3: Playwright DOM scrape — last resort ──────────────────
+        # Slow (~45 s). On Railway: still blocked by Cloudflare for the AJAX
+        # POST, so returns platform_check_required too. Kept for non-Railway
+        # deployments where the booking page's AJAX is reachable.
+        if venue_url and slot_status == "platform_check_required":
+            print("[check] /api/slot ambiguous — trying Playwright DOM scrape")
+            pw_status, pw_count = await _check_via_playwright_dom(
+                facility_id, venue_url, date, time_hhmm
+            )
+            print(f"[check] pw-dom  status={pw_status}  count={pw_count}")
+            if pw_status != "platform_check_required":
+                _log(pw_status, pw_count, error="pw_dom")
+                return {"status": pw_status, "slots_count": pw_count}
+            # pw-dom also ambiguous → keep the slot result
+            print("[check] pw-dom also platform_check_required — returning slot result")
+
+        return slot_result
 
     except Exception as exc:
         print(f"[check] EXCEPTION {type(exc).__name__}: {exc}")
