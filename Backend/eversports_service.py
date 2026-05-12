@@ -628,6 +628,157 @@ async def diag(
         }
 
 
+@app.get("/debug-pw-cal")
+async def debug_pw_cal(
+    facility_id: int = Query(default=83836),
+    venue_url:   str = Query(default="https://www.eversports.at/sb/padelzone-wiener-neustadt-or-achtersee"),
+    date:        str = Query(default="2026-05-13"),
+    time:        str = Query(default="18:00"),
+):
+    """
+    Playwright diagnostic: loads the booking page, runs the manual JS fetch
+    trigger, and returns everything needed to understand why td[data-state]
+    is not appearing.
+    """
+    from playwright.async_api import async_playwright
+
+    time_hhmm     = time.replace(":", "")
+    facility_slug = venue_url.rstrip("/").split("/")[-1]
+    dp            = _dp_date(date)
+
+    result: dict = {
+        "goto_ok":           False,
+        "goto_url":          "",
+        "api_calls":         [],
+        "td_after_goto":     0,
+        "ds_after_goto":     0,
+        "cal_html_200":      "",
+        "page_info":         {},
+        "trigger_result":    "",
+        "td_after_trigger":  0,
+        "ds_after_trigger":  0,
+        "post_body_500":     "",
+    }
+
+    try:
+        async with async_playwright() as p:
+            browser = await p.chromium.launch(headless=True, args=_PW_ARGS)
+            try:
+                context = await browser.new_context(
+                    user_agent=_PW_UA,
+                    viewport={"width": 1280, "height": 800},
+                    locale="de-AT",
+                    extra_http_headers={"Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
+                )
+                await context.add_init_script(_WEBDRIVER_INIT)
+                page = await context.new_page()
+
+                _api_log: list[str] = []
+                _post_body: list[str] = []
+
+                def _on_req(req):
+                    if "/api/" in req.url:
+                        pd = (req.post_data or "")[:120]
+                        _api_log.append(f"REQ {req.method} {req.url.split('eversports.at')[1].split('?')[0]} post={pd!r}")
+
+                async def _on_resp(resp):
+                    if "/api/booking/calendar" in resp.url:
+                        try:
+                            body = await resp.text()
+                            _post_body.append(body[:500])
+                            _api_log.append(f"RESP {resp.status} {resp.url.split('eversports.at')[1].split('?')[0]} body={body[:200]!r}")
+                        except Exception:
+                            _api_log.append(f"RESP {resp.status} unreadable")
+
+                page.on("request",  _on_req)
+                page.on("response", _on_resp)
+
+                try:
+                    await page.goto(venue_url, wait_until="networkidle", timeout=45_000)
+                    result["goto_ok"]  = True
+                    result["goto_url"] = page.url
+                except Exception as e:
+                    result["goto_ok"]  = False
+                    result["goto_url"] = f"error: {e}"
+
+                result["api_calls"]     = _api_log[:]
+                result["td_after_goto"] = await page.evaluate("() => document.querySelectorAll('td[data-state]').length")
+                result["ds_after_goto"] = await page.evaluate("() => document.querySelectorAll('[data-state]').length")
+                result["cal_html_200"]  = await page.evaluate(
+                    "() => document.getElementById('booking-calendar-container')?.innerHTML?.substring(0,200) || 'empty'"
+                )
+
+                # Extract page info
+                page_info = await page.evaluate("""
+                    () => {
+                        const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
+                        const ct   = document.getElementById('calendar-title');
+                        const fid  = ct?.dataset?.id || ct?.getAttribute('data-id') || '';
+                        const slug = ct?.dataset?.facility || ct?.getAttribute('data-facility') || '';
+                        const calScript = Array.from(document.scripts).map(s => s.src || s.textContent.substring(0,50)).join(' | ').substring(0,300);
+                        return {csrf: csrf.substring(0,20), fid, slug, scripts_hint: calScript};
+                    }
+                """)
+                result["page_info"] = page_info
+
+                p_fid  = page_info.get("fid")  or str(facility_id)
+                p_slug = page_info.get("slug") or facility_slug
+                p_csrf = page_info.get("csrf") or ""
+
+                # Run the fetch trigger
+                trigger_result = await page.evaluate(f"""
+                    async () => {{
+                        try {{
+                            const body = new URLSearchParams({{
+                                date:       '{dp}',
+                                facilityId: '{p_fid}',
+                                facility:   '{p_slug}',
+                            }}).toString();
+                            const headers = {{
+                                'Content-Type':     'application/x-www-form-urlencoded; charset=UTF-8',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            }};
+                            if ('{p_csrf}') headers['X-CSRF-TOKEN'] = '{p_csrf}';
+                            const r = await fetch('/api/booking/calendar/update', {{
+                                method:      'POST',
+                                headers:     headers,
+                                credentials: 'include',
+                                body:        body,
+                            }});
+                            const html = await r.text();
+                            const container = document.getElementById('booking-calendar-container');
+                            if (container && html.includes('<td')) {{
+                                container.innerHTML = html;
+                            }}
+                            return JSON.stringify({{status: r.status, len: html.length, has_td: html.includes('<td'), excerpt: html.substring(0,200)}});
+                        }} catch(e) {{
+                            return 'error:' + e.message;
+                        }}
+                    }}
+                """)
+                result["trigger_result"] = trigger_result
+                if _post_body:
+                    result["post_body_500"] = _post_body[-1]
+
+                # Wait briefly for DOM update then recount
+                try:
+                    await page.wait_for_selector("td[data-state]", timeout=5_000)
+                except Exception:
+                    pass
+
+                result["td_after_trigger"] = await page.evaluate("() => document.querySelectorAll('td[data-state]').length")
+                result["ds_after_trigger"] = await page.evaluate("() => document.querySelectorAll('[data-state]').length")
+                result["api_calls"]        = _api_log[:]
+
+            finally:
+                await browser.close()
+
+    except Exception as exc:
+        result["exception"] = f"{type(exc).__name__}: {exc}"
+
+    return result
+
+
 @app.get("/debug-cal-post")
 async def debug_cal_post(
     facility_id: int = Query(default=83836),
