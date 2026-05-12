@@ -876,6 +876,58 @@ async def debug_cal_post(
         }
 
 
+@app.get("/debug-slot")
+async def debug_slot(
+    facility_id:  int = Query(default=83836),
+    court_id:     int = Query(default=112892),
+    start_date:   str = Query(default="2026-05-21"),
+    end_date:     str = Query(default=""),
+    extra_params: str = Query(default=""),
+):
+    """
+    Test /api/slot with various parameters to discover what the API accepts.
+    extra_params: URL-encoded extra query string, e.g. 'limit=50&startTime=1900'
+    """
+    params: list[tuple] = [
+        ("facilityId", facility_id),
+        ("startDate",  start_date),
+        ("courts[]",   court_id),
+    ]
+    if end_date:
+        params.append(("endDate", end_date))
+
+    # Parse extra_params into the params list
+    if extra_params:
+        from urllib.parse import parse_qsl
+        params.extend(parse_qsl(extra_params))
+
+    try:
+        async with AsyncSession(impersonate="chrome124") as session:
+            r = await session.get(_SLOT_URL, params=params, timeout=15)
+        body = r.text
+        slots = []
+        parse_error = None
+        if r.status_code == 200:
+            try:
+                data = json.loads(body)
+                slots = data.get("slots", [])
+            except Exception as e:
+                parse_error = str(e)
+
+        return {
+            "http_status":   r.status_code,
+            "params_sent":   dict(params),
+            "slots_count":   len(slots),
+            "all_dates":     sorted(set(s.get("date","") for s in slots)),
+            "all_starts":    sorted(set(s.get("start","") for s in slots)),
+            "slots":         slots,
+            "parse_error":   parse_error,
+            "body_excerpt":  body[:300],
+        }
+    except Exception as exc:
+        return {"exception": type(exc).__name__, "detail": str(exc)}
+
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
