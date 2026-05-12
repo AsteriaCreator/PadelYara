@@ -628,6 +628,103 @@ async def diag(
         }
 
 
+@app.get("/debug-cal-post")
+async def debug_cal_post(
+    facility_id: int = Query(default=83836),
+    venue_url:   str = Query(default="https://www.eversports.at/sb/padelzone-wiener-neustadt-or-achtersee"),
+    date:        str = Query(default="2026-05-12"),
+    time:        str = Query(default="20:00"),
+):
+    """
+    Debug endpoint: shows exactly what happens during the direct cal-post check.
+    Returns raw GET + POST results without scraping.
+    """
+    time_hhmm     = time.replace(":", "")
+    facility_slug = venue_url.rstrip("/").split("/")[-1]
+    dp            = _dp_date(date)
+
+    try:
+        async with AsyncSession(impersonate="chrome124") as session:
+            # GET the booking page
+            get_resp = await session.get(
+                venue_url,
+                headers={
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                    "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
+                    "Referer": "https://www.eversports.at/",
+                },
+                timeout=20,
+            )
+            page_html = get_resp.text
+
+            # Extract CSRF
+            csrf_token = ""
+            m = re.search(r'<meta[^>]+name=["\']csrf-token["\'][^>]+content=["\']([^"\']+)', page_html)
+            if not m:
+                m = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+name=["\']csrf-token', page_html)
+            if m:
+                csrf_token = m.group(1)
+
+            # Extract facilityId from page
+            fid_in_page = facility_id
+            m2 = re.search(r"data-id=['\"](\d+)['\"]", page_html)
+            if m2:
+                fid_in_page = int(m2.group(1))
+
+            # POST to calendar update
+            post_headers = {
+                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                "X-Requested-With": "XMLHttpRequest",
+                "Accept": "*/*",
+                "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
+                "Referer": venue_url,
+                "Origin": _ES_BASE,
+            }
+            if csrf_token:
+                post_headers["X-CSRF-TOKEN"] = csrf_token
+
+            post_data = {
+                "date":       dp,
+                "facilityId": str(fid_in_page),
+                "facility":   facility_slug,
+            }
+
+            post_resp = await session.post(
+                _CAL_URL,
+                data=post_data,
+                headers=post_headers,
+                timeout=20,
+            )
+            cal_html    = post_resp.text
+            has_td      = "<td" in cal_html
+            td_count    = len(re.findall(r"<td\b", cal_html, re.IGNORECASE))
+            ds_count    = len(re.findall(r"data-state=", cal_html, re.IGNORECASE))
+
+            result = _parse_calendar_html(cal_html, date, time_hhmm) if has_td else None
+
+        return {
+            "get_status":        get_resp.status_code,
+            "get_body_len":      len(page_html),
+            "csrf_token_found":  bool(csrf_token),
+            "csrf_token_len":    len(csrf_token),
+            "fid_in_page":       fid_in_page,
+            "post_data":         post_data,
+            "post_status":       post_resp.status_code,
+            "post_body_len":     len(cal_html),
+            "post_body_500":     cal_html[:500],
+            "has_td":            has_td,
+            "td_count":          td_count,
+            "data_state_count":  ds_count,
+            "parsed_result":     result,
+        }
+
+    except Exception as exc:
+        return {
+            "exception": type(exc).__name__,
+            "detail":    str(exc),
+        }
+
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))
