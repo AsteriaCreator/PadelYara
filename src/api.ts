@@ -41,6 +41,7 @@ export interface GeoParams {
 export async function fetchAvailability(
   params: SearchParams,
   geo?: GeoParams,
+  etOffset = 0,
 ): Promise<SearchResponse> {
   const url = new URL(`${API_BASE}/api/search`)
   url.searchParams.set("date", params.date)
@@ -56,6 +57,10 @@ export async function fetchAvailability(
     url.searchParams.set("radius", String(geo.radius))
   } else if (params.region) {
     url.searchParams.set("region", params.region)
+  }
+
+  if (etOffset > 0) {
+    url.searchParams.set("et_offset", String(etOffset))
   }
 
   const res = await fetch(url.toString())
@@ -79,5 +84,6 @@ export async function fetchAvailability(
     time: data.time,
     // Prefer the explicit backend field; fall back to client-side check for old servers
     availability_pending: data.availability_pending ?? results.some((v) => v.status === "pending"),
+    has_more: data.has_more ?? false,
   }
 }

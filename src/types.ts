@@ -41,5 +41,6 @@ export interface SearchResponse {
   date: string
   time: string
   availability_pending?: boolean
+  has_more?: boolean
   error?: string
 }

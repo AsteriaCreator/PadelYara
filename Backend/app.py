@@ -206,6 +206,9 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
     return base
 
 
+ET_BATCH = 5  # eTennis venues checked per request (Render free-tier limit)
+
+
 @app.get("/api/search")
 def search(
     date:       str | None   = Query(default=None),
@@ -215,6 +218,7 @@ def search(
     lat:        float | None = Query(default=None),
     lon:        float | None = Query(default=None),
     radius:     float | None = Query(default=None),
+    et_offset:  int          = Query(default=0),
 ):
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
@@ -230,15 +234,20 @@ def search(
         for future in as_completed(futures):
             results[futures[future]] = future.result()
 
-    # In radius mode limit availability scraping to the 5 closest venues so
-    # Render's free tier (512 MB, 0.1 CPU) doesn't launch too many browsers.
+    # In radius mode paginate eTennis scraping so Render's free tier
+    # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
+    # et_offset lets the frontend request successive batches ("Mehr Ergebnisse").
+    has_more = False
     if lat is not None:
-        scrape_ids = {
-            v["id"]
-            for v in sorted(venues, key=lambda v: v.get("distance_km") or float("inf"))[:5]
-        }
+        et_by_dist = sorted(
+            [v for v in venues if v["platform"] == "eTennis"],
+            key=lambda v: v.get("distance_km") or float("inf"),
+        )
+        batch      = et_by_dist[et_offset : et_offset + ET_BATCH]
+        scrape_ids = {v["id"] for v in batch}
+        has_more   = len(et_by_dist) > et_offset + ET_BATCH
     else:
-        scrape_ids = None  # region mode: scrape everything
+        scrape_ids = None  # region mode: scrape all eTennis
 
     # ── Phase 2: eTennis — serve cached, background-fetch the rest ───────
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
@@ -273,40 +282,49 @@ def search(
                 threading.Thread(target=_et_bg, daemon=True).start()
 
 
-    # ── Phase 3: Eversports — DOM scrape via booking page (Playwright on Railway);
-    #    passes booking_url so Railway reads td[data-state] from the live calendar.
-    #    Venues without facility_id/cids fall back to platform_check_required.
-    # scrape_ids gates eTennis only; Eversports runs on Railway, no Render limit needed.
-    _all_platforms = [(r["venue_id"], r["platform"]) for r in results]
-    print(f"[Eversports API] Phase3 entry — all result platforms: {_all_platforms}")
+    # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
+    #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
+    #    skip the Railway round-trips to avoid redundant work.
+    if et_offset == 0:
+        _all_platforms = [(r["venue_id"], r["platform"]) for r in results]
+        print(f"[Eversports API] Phase3 entry — all result platforms: {_all_platforms}")
 
-    for result in results:
-        if result["platform"] != "Eversports":
-            continue
-        venue = next((v for v in venues if v["id"] == result["venue_id"]), None)
-        fid   = venue.get("eversports_facility_id") if venue else None
-        cids  = venue.get("eversports_court_ids")   if venue else None
-        print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
-        if fid and cids:
-            time_hhmm   = dt.strftime("%H%M")
-            booking_url = venue.get("booking_url", "") if venue else ""
-            status = _call_eversports_service(
-                fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm,
-                venue_id=result["venue_id"], booking_url=booking_url,
-            )
-            print(f"[Eversports API] {result['venue_id']}  final_status={status}")
-            result["availability_status"] = status
-        else:
-            issues = venue.get("issues", "") if venue else ""
-            if issues == "phone_booking_only":
-                print(f"[Eversports API] {result['venue_id']}  phone-only venue — not_checked")
-                result["availability_status"] = "not_checked"
+        for result in results:
+            if result["platform"] != "Eversports":
+                continue
+            venue = next((v for v in venues if v["id"] == result["venue_id"]), None)
+            fid   = venue.get("eversports_facility_id") if venue else None
+            cids  = venue.get("eversports_court_ids")   if venue else None
+            print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
+            if fid and cids:
+                time_hhmm   = dt.strftime("%H%M")
+                booking_url = venue.get("booking_url", "") if venue else ""
+                status = _call_eversports_service(
+                    fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm,
+                    venue_id=result["venue_id"], booking_url=booking_url,
+                )
+                print(f"[Eversports API] {result['venue_id']}  final_status={status}")
+                result["availability_status"] = status
             else:
-                print(f"[Eversports API] {result['venue_id']}  fid/cids missing — platform_check_required")
-                result["availability_status"] = "platform_check_required"
+                issues = venue.get("issues", "") if venue else ""
+                if issues == "phone_booking_only":
+                    print(f"[Eversports API] {result['venue_id']}  phone-only venue — not_checked")
+                    result["availability_status"] = "not_checked"
+                else:
+                    print(f"[Eversports API] {result['venue_id']}  fid/cids missing — platform_check_required")
+                    result["availability_status"] = "platform_check_required"
+
+    # Strip not_checked venues — frontend only shows results that were actually scraped.
+    # On load-more calls also strip non-eTennis (Eversports already in first response).
+    if et_offset > 0:
+        results = [r for r in results
+                   if r["platform"] == "eTennis"
+                   and r.get("availability_status") != "not_checked"]
+    else:
+        results = [r for r in results if r.get("availability_status") != "not_checked"]
 
     availability_pending = any(r["availability_status"] == "pending" for r in results)
-    print(f"[search] availability_pending={availability_pending}")
+    print(f"[search] availability_pending={availability_pending}  has_more={has_more}")
 
     if lat is not None:
         results.sort(key=lambda v: v.get("distance_km") or float("inf"))
@@ -319,6 +337,7 @@ def search(
         "date":                 dt.strftime("%Y-%m-%d"),
         "time":                 dt.strftime("%H:%M"),
         "availability_pending": availability_pending,
+        "has_more":             has_more,
     }
 
 
