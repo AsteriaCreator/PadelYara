@@ -119,11 +119,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       return
     }
 
-    if (trimmedLocation.length < 3) {
-      setFormError("Bitte mindestens 3 Zeichen für den Ort eingeben.")
-      return
-    }
-
     setFormError(null)
     onSearch({ date, time, court_type: courtType, location: trimmedLocation, radius })
   }
