@@ -37,6 +37,15 @@ export async function geocode(query: string): Promise<Coords | null> {
     const importance = parseFloat(data[0].importance ?? "1")
     if (importance < MIN_IMPORTANCE) return null
 
+    // Reject prefix/abbreviation matches: the user's query must cover at
+    // least half the length of the result's canonical name.
+    // e.g. "Bad" (3) vs "Bad Ischl" (9) = 33% → null
+    //      "Baden" (5) vs "Baden" (5)   = 100% → accept
+    //      "Wien" (4) vs "Wien" (4)     = 100% → accept
+    //      "2500" (4) vs "2500" (4)     = 100% → accept
+    const resultName: string = data[0].name ?? ""
+    if (resultName && query.trim().length / resultName.length < 0.5) return null
+
     return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) }
   } catch (err) {
     // AbortSignal.timeout fires a DOMException with name "TimeoutError"
