@@ -222,13 +222,30 @@ def search(
 
     venues = _filter_venues(court_type, lat, lon, radius)
     if not venues:
-        return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M"), "availability_pending": False}
+        return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
+                "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
 
-    results = [None] * len(venues)
+    results: list = [None] * len(venues)
     with ThreadPoolExecutor(max_workers=5) as pool:
         futures = {pool.submit(_fetch_venue_weather, v, dt): i for i, v in enumerate(venues)}
         for future in as_completed(futures):
-            results[futures[future]] = future.result()
+            idx = futures[future]
+            try:
+                results[idx] = future.result()
+            except Exception as exc:
+                v = venues[idx]
+                print(json.dumps({
+                    "event":    "venue_weather_error",
+                    "venue_id": v.get("id", "unknown"),
+                    "error":    f"{type(exc).__name__}: {exc}",
+                }))
+                # Leave slot as None — filtered out below
+
+    # Drop any venues whose weather fetch raised an unhandled exception
+    results = [r for r in results if r is not None]
+    if not results:
+        return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
+                "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
 
     # In radius mode paginate eTennis scraping so Render's free tier
     # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
@@ -264,14 +281,24 @@ def search(
                 if et_should_start:
                     _RUNNING.add(key)
             if et_should_start:
-                print(f"[search] eTennis scraper starting: key={key} venues={[v['id'] for v in to_fetch]}")
+                print(json.dumps({
+                    "event":  "etennis_bg_start",
+                    "key":    key,
+                    "venues": [v["id"] for v in to_fetch],
+                }))
                 def _et_bg(vv=to_fetch, d=dt, k=key):
                     try:
-                        check_etennis_venues(etennis_venues, d)
+                        check_etennis_venues(vv, d)
                     finally:
                         with _RUNNING_LOCK:
                             _RUNNING.discard(k)
                 threading.Thread(target=_et_bg, daemon=True).start()
+            else:
+                print(json.dumps({
+                    "event":  "etennis_bg_deduplicated",
+                    "key":    key,
+                    "venues": [v["id"] for v in to_fetch],
+                }))
 
 
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).

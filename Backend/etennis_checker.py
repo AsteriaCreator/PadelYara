@@ -134,19 +134,12 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
                     return begin <= ts && ts < begin + size * 3600;
                 });
                 const avCount = matching.filter(s => s.classList.contains('av')).length;
-                const diagSlots = slots.slice(0, 5).map(s => ({
-                    rawBegin:    s.dataset.begin,
-                    parsedBegin: parseInt(s.dataset.begin),
-                    dataSize:    s.dataset.size,
-                    className:   s.className,
-                }));
                 return {
-                    total:      slots.length,
-                    matching:   matching.length,
-                    avCount:    avCount,
-                    status:     matching.length === 0 ? 'no_slot'
-                                : avCount > 0 ? 'free' : 'busy',
-                    diagSlots:  diagSlots,
+                    total:    slots.length,
+                    matching: matching.length,
+                    avCount:  avCount,
+                    status:   matching.length === 0 ? 'no_slot'
+                              : avCount > 0 ? 'free' : 'busy',
                 };
             }""",
             target_ts,
@@ -168,30 +161,6 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             "matching_slots": result["matching"],
             "duration_ms":    round((time.monotonic() - t0) * 1000),
         }))
-        # --- temporary diagnostic ---
-        target_human = datetime.fromtimestamp(target_ts, tz=VIENNA_TZ).isoformat()
-        print(f"[eTennis diag] {vid}  target_ts={target_ts}  ({target_human})")
-        for i, slot in enumerate(result.get("diagSlots", [])):
-            raw     = slot["rawBegin"]
-            parsed  = slot["parsedBegin"]
-            size    = slot.get("dataSize", "?")
-            cls     = slot["className"]
-            try:
-                as_sec = datetime.fromtimestamp(parsed, tz=VIENNA_TZ).isoformat()
-            except Exception:
-                as_sec = "overflow"
-            norm_ms = parsed // 1000 if parsed > 1_000_000_000_000 else None
-            as_ms   = datetime.fromtimestamp(norm_ms, tz=VIENNA_TZ).isoformat() if norm_ms else "n/a"
-            print(
-                f"[eTennis diag]   slot[{i}]"
-                f"  raw={raw!r}"
-                f"  parsed={parsed}"
-                f"  size={size!r}"
-                f"  class={cls!r}"
-                f"  as_sec={as_sec}"
-                f"  norm_ms={norm_ms}  as_ms={as_ms}"
-            )
-        # --- end diagnostic ---
         return vid, result["status"], None
     except Exception as exc:
         print(f"[eTennis] {vid}  exception: {exc} — trying HTTP fallback")
@@ -228,29 +197,61 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
                 pass
 
 
+_PER_VENUE_TIMEOUT = 90  # seconds — comfortably above goto(30s) + selector(20s) + eval
+
+
 async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
+    t0 = time.monotonic()
+    print(json.dumps({
+        "event":  "etennis_scraper_start",
+        "venues": [v["id"] for v in venues],
+        "date":   dt.strftime("%Y-%m-%d"),
+        "time":   dt.strftime("%H:%M"),
+    }))
+
     async with async_playwright() as pw:
         browser = None
         try:
             browser = await pw.chromium.launch(headless=True)
         except Exception as exc:
-            print(f"[eTennis] browser launch failed: {exc}")
+            print(json.dumps({
+                "event": "etennis_browser_launch_failed",
+                "error": f"{type(exc).__name__}: {exc}",
+            }))
             return {v["id"]: "unknown" for v in venues}
 
         out: dict[str, str] = {}
         try:
             for venue in venues:
-                vid, status, err = await _check_one(browser, venue, dt)
+                try:
+                    vid, status, err = await asyncio.wait_for(
+                        _check_one(browser, venue, dt),
+                        timeout=_PER_VENUE_TIMEOUT,
+                    )
+                except asyncio.TimeoutError:
+                    vid, status, err = venue["id"], "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s"
+                    print(json.dumps({
+                        "event":    "etennis_scrape_timeout",
+                        "venue_id": vid,
+                        "date":     dt.strftime("%Y-%m-%d"),
+                        "time":     dt.strftime("%H:%M"),
+                    }))
                 if err:
                     print(f"[eTennis] {vid} error: {err}")
                 out[vid] = status
-                _store_result(vid, status, dt)  # write to cache immediately, don't wait for full batch
+                _store_result(vid, status, dt)  # write to cache immediately
         finally:
             try:
                 await browser.close()
             except Exception:
                 pass
-        return out
+
+    print(json.dumps({
+        "event":       "etennis_scraper_done",
+        "statuses":    out,
+        "duration_ms": round((time.monotonic() - t0) * 1000),
+    }))
+    return out
 
 
 def get_cached_statuses(venues: list[dict], dt: datetime) -> dict[str, str]:

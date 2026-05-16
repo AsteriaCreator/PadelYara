@@ -23,7 +23,6 @@ export interface Venue {
   name: string
   court_type: "indoor" | "outdoor" | "indoor+outdoor"
   platform: "eTennis" | "Eversports" | "Andere"
-  priority: number
   booking_url: string
   status: Status
   error: string | null

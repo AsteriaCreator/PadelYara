@@ -48,30 +48,40 @@ async def _refresh_cf_cookies() -> dict | None:
     JS challenge, and return the resulting cookies dict.  Slow (~30–45 s).
     """
     from playwright.async_api import async_playwright
-    print("[cf-cookies] refreshing Cloudflare clearance via Playwright…")
+    t0 = _time.monotonic()
+    print(json.dumps({"event": "cf_cookies_refresh_start"}))
     try:
         async with async_playwright() as p:
             browser = await p.chromium.launch(headless=True, args=_PW_ARGS)
-            context = await browser.new_context(
-                user_agent=_PW_UA,
-                viewport={"width": 1280, "height": 800},
-                locale="de-AT",
-                extra_http_headers={"Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
-            )
-            await context.add_init_script(_WEBDRIVER_INIT)
-            page = await context.new_page()
-            await page.goto(_ES_BASE + "/", wait_until="networkidle", timeout=45_000)
-            cookies = await context.cookies()
-            await browser.close()
+            try:
+                context = await browser.new_context(
+                    user_agent=_PW_UA,
+                    viewport={"width": 1280, "height": 800},
+                    locale="de-AT",
+                    extra_http_headers={"Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
+                )
+                await context.add_init_script(_WEBDRIVER_INIT)
+                page = await context.new_page()
+                await page.goto(_ES_BASE + "/", wait_until="networkidle", timeout=45_000)
+                cookies = await context.cookies()
+            finally:
+                await browser.close()  # always close, even on timeout/exception
 
         cdict = {c["name"]: c["value"] for c in cookies}
-        if "cf_clearance" in cdict:
-            print(f"[cf-cookies] got cf_clearance  total_cookies={len(cdict)}")
-            return cdict
-        print(f"[cf-cookies] WARNING: no cf_clearance in cookies ({list(cdict.keys())})")
-        return cdict  # return what we have; might still help
+        has_clearance = "cf_clearance" in cdict
+        print(json.dumps({
+            "event":         "cf_cookies_refresh_done",
+            "has_clearance": has_clearance,
+            "cookie_count":  len(cdict),
+            "duration_ms":   round((_time.monotonic() - t0) * 1000),
+        }))
+        return cdict
     except Exception as exc:
-        print(f"[cf-cookies] refresh failed: {type(exc).__name__}: {exc}")
+        print(json.dumps({
+            "event":       "cf_cookies_refresh_failed",
+            "error":       f"{type(exc).__name__}: {exc}",
+            "duration_ms": round((_time.monotonic() - t0) * 1000),
+        }))
         return None
 
 
@@ -515,10 +525,12 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
 
     Strategy (fastest first):
       1. Try curl_cffi with cached cf_clearance cookies  (fast, ~0.5 s)
-      2. If cookies absent/expired: refresh via Playwright (slow, ~40 s)
-         then retry with new cookies
-      3. If curl_cffi still blocked: full Playwright page navigation
+      2. If blocked: invalidate inside _cf_lock (prevents concurrent double-refresh),
+         retry once with freshly obtained cookies
+      3. If still blocked: full Playwright page navigation
     """
+    global _cf_cookies, _cf_cookies_ts
+
     cookies = await _get_cf_cookies()
 
     if cookies:
@@ -530,11 +542,24 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
         )
         if not _is_cloudflare_block(r.status_code, r.text):
             return r.status_code, r.text
-        # Cookie expired mid-session — force a refresh on next call
-        global _cf_cookies, _cf_cookies_ts
-        _cf_cookies    = None
-        _cf_cookies_ts = 0.0
-        print("[curl_cffi+cookies] cookie rejected — falling back to Playwright")
+
+        # Invalidate inside the lock so concurrent requests don't race to reset.
+        # The identity check (is cookies) ensures only the request that used the
+        # stale batch clears it — a concurrent request may have already refreshed.
+        async with _cf_lock:
+            if _cf_cookies is cookies:
+                _cf_cookies    = None
+                _cf_cookies_ts = 0.0
+                print(json.dumps({"event": "cf_cookies_invalidated", "reason": "cf_block"}))
+
+        # One retry with freshly obtained cookies (lock serialises the refresh)
+        cookies = await _get_cf_cookies()
+        if cookies:
+            async with AsyncSession(impersonate="chrome124") as session:
+                r = await session.get(_SLOT_URL, params=params, cookies=cookies, timeout=10)
+            if not _is_cloudflare_block(r.status_code, r.text):
+                return r.status_code, r.text
+        print(json.dumps({"event": "cf_cookies_retry_still_blocked"}))
 
     # Playwright full-page navigation (slow but always works)
     print("[fetch-slots] falling back to Playwright page navigation")

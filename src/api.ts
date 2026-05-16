@@ -21,7 +21,6 @@ function mapVenue(v: RawVenue): Venue {
     name: v.name,
     court_type: v.court_type as Venue["court_type"],
     platform: v.platform as Venue["platform"],
-    priority: 0,
     booking_url: v.booking_url,
     status: (v.availability_status as Status) ?? "pending",
     error: null,
