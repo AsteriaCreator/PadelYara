@@ -189,8 +189,16 @@ export default function App() {
         )}
 
         {searched && !isLoading && searchLabel && (
-          <p className="text-xs text-gray-600 mb-2 px-1 tracking-wide uppercase">
+          <p className="text-xs text-gray-600 mb-1 px-1 tracking-wide uppercase">
             {searchLabel}
+          </p>
+        )}
+
+        {searched && !isLoading && !error && results.length > 0 && lastParamsRef.current && (
+          <p className="text-xs text-gray-500 mb-2 px-1">
+            {results.length === 1
+              ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
+              : `${results.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
           </p>
         )}
 
