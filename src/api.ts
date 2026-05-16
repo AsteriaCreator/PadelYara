@@ -9,22 +9,18 @@ const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 export function trackBookingClick(venueId: string, platform: string): void {
   const url = `${API_BASE}/api/booking-click`
   const body = JSON.stringify({ venue_id: venueId, platform })
-  try {
-    if (navigator.sendBeacon) {
-      // Blob sets Content-Type: application/json, required by the FastAPI endpoint
-      navigator.sendBeacon(url, new Blob([body], { type: "application/json" }))
-      return
-    }
-    // Fallback: keepalive ensures the request outlives the current page
+  // Defer by one tick so the click handler returns before the network request
+  // goes out. This avoids colliding with the peak load of an active scrape on
+  // the backend (target="_blank" keeps the current page alive, so keepalive
+  // is sufficient — sendBeacon's "survives unload" property is not needed here).
+  setTimeout(() => {
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body,
       keepalive: true,
     }).catch(() => {})
-  } catch {
-    // swallow — analytics must never surface errors to the user
-  }
+  }, 0)
 }
 
 // Shape the backend actually returns
