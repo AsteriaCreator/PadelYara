@@ -51,25 +51,26 @@ export default function VenueRow({ venue, pollingExpired }: Props) {
           {STATUS_LABEL[displayStatus]}
         </span>
       </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xs text-gray-500">
-          <span>{venue.platform}</span>
-          <span>·</span>
-          <span>{venue.court_type}</span>
-          {venue.distance_km != null && (
-            <>
-              <span>·</span>
-              <span>{venue.distance_km.toFixed(1)} km entfernt</span>
-            </>
-          )}
-          <span>·</span>
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex flex-col gap-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-x-1.5 text-xs text-gray-500">
+            <span>{venue.platform}</span>
+            <span>·</span>
+            <span>{venue.court_type}</span>
+            {venue.distance_km != null && (
+              <>
+                <span>·</span>
+                <span className="whitespace-nowrap">{venue.distance_km.toFixed(1)} km entfernt</span>
+              </>
+            )}
+          </div>
           <WeatherCell weather={venue.weather} />
         </div>
         <a
           href={venue.booking_url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`text-xs font-semibold px-3 py-1 rounded shrink-0 ml-3 ${bookingStyle}`}
+          className={`text-xs font-semibold px-3 py-1 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
         >
           {bookingLabel}
         </a>

@@ -109,7 +109,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl border border-gray-800 p-4 mb-6">
-      <div className="flex flex-col sm:flex-row gap-3 mb-3">
+      <div className="flex flex-row gap-3 mb-3">
         <div className="flex flex-col gap-1 flex-1 min-w-0">
           <label className="text-xs text-gray-500">PLZ oder Ort</label>
           <input
@@ -120,7 +120,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             className={inputClass}
           />
         </div>
-        <div className="flex flex-col gap-1 sm:w-36 sm:shrink-0">
+        <div className="flex flex-col gap-1 w-28 shrink-0">
           <label className="text-xs text-gray-500">Radius</label>
           <select
             value={radius}
