@@ -5,7 +5,9 @@ import os
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from contextlib import asynccontextmanager
 from datetime import datetime
+from time import monotonic as time_monotonic
 from zoneinfo import ZoneInfo
 
 import httpx
@@ -13,7 +15,15 @@ import uvicorn
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
+import analytics
+from analytics import (
+    track_booking_clicked,
+    track_scraper_timeout,
+    track_search_completed,
+    track_search_failed,
+)
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_statuses as get_etennis_cached
 from venues import load_venues
@@ -81,6 +91,9 @@ def _call_eversports_service(
         print(f"[Eversports service] HTTP {r.status_code} for facilityId={fid}")
         return "platform_check_required"
     except Exception as exc:
+        elapsed_ms = round((time.monotonic() - t0) * 1000)
+        if isinstance(exc, httpx.TimeoutException):
+            track_scraper_timeout(venue_id=venue_id, platform="Eversports", timeout_ms=elapsed_ms)
         _log("platform_check_required", error=f"{type(exc).__name__}: {exc}")
         print(f"[Eversports service] request failed: {type(exc).__name__}: {exc}")
         return "platform_check_required"
@@ -95,7 +108,13 @@ def _run_async(coro):
         loop.close()
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    await analytics.lifespan_startup()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -216,8 +235,10 @@ def search(
     radius:     float | None = Query(default=None),
     et_offset:  int          = Query(default=0),
 ):
+    t0 = time_monotonic()
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
+        track_search_failed(reason="invalid_datetime", court_type=court_type)
         return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
     venues = _filter_venues(court_type, lat, lon, radius)
@@ -344,12 +365,20 @@ def search(
         results = [r for r in results if r.get("availability_status") != "not_checked"]
 
     availability_pending = any(r["availability_status"] == "pending" for r in results)
+    response_ms = round((time_monotonic() - t0) * 1000)
     print(json.dumps({
-        "event":    "search_done",
-        "results":  len(results),
-        "pending":  availability_pending,
-        "has_more": has_more,
+        "event":       "search_done",
+        "results":     len(results),
+        "pending":     availability_pending,
+        "has_more":    has_more,
+        "response_ms": response_ms,
     }))
+    track_search_completed(
+        radius=radius,
+        court_type=court_type,
+        results_count=len(results),
+        response_ms=response_ms,
+    )
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
 
@@ -361,6 +390,18 @@ def search(
         "availability_pending": availability_pending,
         "has_more":             has_more,
     }
+
+
+class BookingClickBody(BaseModel):
+    venue_id: str
+    platform: str
+
+
+@app.post("/api/booking-click")
+async def booking_click(body: BookingClickBody):
+    """Record booking intent. Frontend fires-and-forgets; opens the booking URL itself."""
+    track_booking_clicked(venue_id=body.venue_id, platform=body.platform)
+    return {"ok": True}
 
 
 @app.get("/api/weather-test")

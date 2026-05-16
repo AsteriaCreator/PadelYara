@@ -14,6 +14,8 @@ import requests as _requests
 from bs4 import BeautifulSoup as _BS
 from playwright.async_api import async_playwright
 
+from analytics import track_scraper_timeout
+
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
 _CACHE: dict[str, dict] = {}
@@ -220,12 +222,15 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
                     )
                 except asyncio.TimeoutError:
                     vid, status, err = venue["id"], "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s"
+                    timeout_ms = _PER_VENUE_TIMEOUT * 1000
                     print(json.dumps({
-                        "event":    "etennis_scrape_timeout",
-                        "venue_id": vid,
-                        "date":     dt.strftime("%Y-%m-%d"),
-                        "time":     dt.strftime("%H:%M"),
+                        "event":      "etennis_scrape_timeout",
+                        "venue_id":   vid,
+                        "date":       dt.strftime("%Y-%m-%d"),
+                        "time":       dt.strftime("%H:%M"),
+                        "timeout_ms": timeout_ms,
                     }))
+                    track_scraper_timeout(venue_id=vid, platform="eTennis", timeout_ms=timeout_ms)
                 if err:
                     print(f"[eTennis] {vid} error: {err}")
                 out[vid] = status

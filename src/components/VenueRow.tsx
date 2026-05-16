@@ -1,3 +1,4 @@
+import { trackBookingClick } from "../api"
 import type { Venue } from "../types"
 import WeatherCell from "./WeatherCell"
 
@@ -70,6 +71,7 @@ export default function VenueRow({ venue, pollingExpired }: Props) {
           href={venue.booking_url}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackBookingClick(venue.id, venue.platform)}
           className={`text-xs font-semibold px-3 py-1 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
         >
           {bookingLabel}

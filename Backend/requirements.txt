@@ -6,3 +6,4 @@ beautifulsoup4>=4.12
 playwright>=1.40
 tzdata>=2024.1
 curl-cffi>=0.7
+motor>=3.3

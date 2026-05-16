@@ -2,6 +2,31 @@ import type { SearchParams, SearchResponse, Venue, Status } from "./types"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
+/**
+ * Fire-and-forget booking intent signal. Never blocks navigation or throws.
+ * Uses sendBeacon (survives tab close) with a fetch+keepalive fallback.
+ */
+export function trackBookingClick(venueId: string, platform: string): void {
+  const url = `${API_BASE}/api/booking-click`
+  const body = JSON.stringify({ venue_id: venueId, platform })
+  try {
+    if (navigator.sendBeacon) {
+      // Blob sets Content-Type: application/json, required by the FastAPI endpoint
+      navigator.sendBeacon(url, new Blob([body], { type: "application/json" }))
+      return
+    }
+    // Fallback: keepalive ensures the request outlives the current page
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+    }).catch(() => {})
+  } catch {
+    // swallow — analytics must never surface errors to the user
+  }
+}
+
 // Shape the backend actually returns
 type RawVenue = {
   venue_id: string
