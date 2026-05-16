@@ -85,16 +85,13 @@ export default function App() {
     setHasMore(false)
     setEtOffset(0)
 
-    let geo: GeoParams | undefined
-    if (params.location) {
-      const coords = await geocode(params.location)
-      if (!coords) {
-        setError("Ort nicht gefunden — bitte PLZ oder Ortsname prüfen")
-        setLoading(false)
-        return
-      }
-      geo = { ...coords, radius: params.radius }
+    const coords = await geocode(params.location!)
+    if (!coords) {
+      setError("Ort nicht gefunden — bitte PLZ oder Ortsname prüfen")
+      setLoading(false)
+      return
     }
+    const geo: GeoParams = { ...coords, radius: params.radius }
 
     lastParamsRef.current = params
     lastGeoRef.current    = geo

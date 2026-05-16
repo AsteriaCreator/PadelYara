@@ -1,5 +1,3 @@
-export type Region = "Bad Voeslau" | "Wien Sued" | "Wien" | "NOE Sued"
-
 export type CourtType = "both" | "indoor" | "outdoor"
 
 export type Status = "free" | "busy" | "pending" | "unknown" | "check_failed" | "phone_only" | "platform_check_required" | "not_checked" | "no_slot" | "error"
@@ -7,7 +5,6 @@ export type Status = "free" | "busy" | "pending" | "unknown" | "check_failed" | 
 export interface SearchParams {
   date: string
   time: string
-  region: Region | ""
   court_type: CourtType
   location?: string
   radius: number
@@ -24,7 +21,6 @@ export interface Weather {
 export interface Venue {
   id: string
   name: string
-  region: Region
   court_type: "indoor" | "outdoor" | "indoor+outdoor"
   platform: "eTennis" | "Eversports" | "Andere"
   priority: number

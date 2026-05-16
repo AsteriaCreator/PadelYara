@@ -19,7 +19,6 @@ function mapVenue(v: RawVenue): Venue {
   return {
     id: v.venue_id,
     name: v.name,
-    region: (v.region ?? "Wien") as Venue["region"],
     court_type: v.court_type as Venue["court_type"],
     platform: v.platform as Venue["platform"],
     priority: 0,
@@ -55,8 +54,6 @@ export async function fetchAvailability(
     url.searchParams.set("lat", String(geo.lat))
     url.searchParams.set("lon", String(geo.lon))
     url.searchParams.set("radius", String(geo.radius))
-  } else if (params.region) {
-    url.searchParams.set("region", params.region)
   }
 
   if (etOffset > 0) {

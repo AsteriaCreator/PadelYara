@@ -1,13 +1,6 @@
 import { useState } from "react"
-import type { SearchParams, Region, CourtType } from "../types"
-import { REGION_ORDER, TIME_SLOTS } from "../constants"
-
-const REGION_DISPLAY: Record<Region, string> = {
-  "Bad Voeslau": "Bad Vöslau",
-  "Wien Sued":   "Wien Süd",
-  "Wien":        "Wien",
-  "NOE Sued":    "NÖ Süd",
-}
+import type { SearchParams, CourtType } from "../types"
+import { TIME_SLOTS } from "../constants"
 
 const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white w-full focus:outline-none focus:border-gray-500"
 
@@ -63,7 +56,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
   const [date, setDate]           = useState(defaultDate)
   const [time, setTime]           = useState(defaultTime)
-  const [region, setRegion]       = useState<Region | "">("")
   const [courtType, setCourtType] = useState<CourtType>("both")
   const [location, setLocation]   = useState("")
   const [radius, setRadius]       = useState(20)
@@ -106,20 +98,20 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       return
     }
 
-    if (!region && !location.trim()) {
-      setFormError("Bitte Region auswählen oder Ort/PLZ + Radius eingeben.")
+    if (!location.trim()) {
+      setFormError("Bitte PLZ oder Ort eingeben.")
       return
     }
 
     setFormError(null)
-    onSearch({ date, time, region, court_type: courtType, location: location.trim() || undefined, radius })
+    onSearch({ date, time, court_type: courtType, location: location.trim(), radius })
   }
 
   return (
     <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl border border-gray-800 p-4 mb-6">
       <div className="flex flex-col sm:flex-row gap-3 mb-3">
         <div className="flex flex-col gap-1 flex-1 min-w-0">
-          <label className="text-xs text-gray-500">PLZ oder Ort <span className="text-gray-600">(leer = Region)</span></label>
+          <label className="text-xs text-gray-500">PLZ oder Ort</label>
           <input
             type="text"
             value={location}
@@ -128,20 +120,18 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             className={inputClass}
           />
         </div>
-        {location.trim() && (
-          <div className="flex flex-col gap-1 sm:w-36 sm:shrink-0">
-            <label className="text-xs text-gray-500">Radius</label>
-            <select
-              value={radius}
-              onChange={(e) => setRadius(Number(e.target.value))}
-              className={inputClass}
-            >
-              {[5, 10, 20, 25, 50].map((km) => (
-                <option key={km} value={km}>{km} km</option>
-              ))}
-            </select>
-          </div>
-        )}
+        <div className="flex flex-col gap-1 sm:w-36 sm:shrink-0">
+          <label className="text-xs text-gray-500">Radius</label>
+          <select
+            value={radius}
+            onChange={(e) => setRadius(Number(e.target.value))}
+            className={inputClass}
+          >
+            {[5, 10, 20, 25, 50].map((km) => (
+              <option key={km} value={km}>{km} km</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-3">
@@ -168,18 +158,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             ))}
           </select>
         </div>
-        <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Region</label>
-          <select
-            value={region}
-            onChange={(e) => { setRegion(e.target.value as Region | ""); setFormError(null) }}
-            className={inputClass}
-          >
-            <option value="">Alle Regionen</option>
-            {REGION_ORDER.map((r) => <option key={r} value={r}>{REGION_DISPLAY[r]}</option>)}
-          </select>
-        </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 col-span-2">
           <label className="text-xs text-gray-500">Court</label>
           <select value={courtType} onChange={(e) => setCourtType(e.target.value as CourtType)} className={inputClass}>
             <option value="both">Indoor & Outdoor</option>

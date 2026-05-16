@@ -148,7 +148,6 @@ def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
 
 
 def _filter_venues(
-    region: str | None,
     court_type: str | None,
     lat: float | None = None,
     lon: float | None = None,
@@ -156,9 +155,7 @@ def _filter_venues(
 ) -> list[dict]:
     result = VENUES
 
-    if region:
-        result = [v for v in result if v["region"] == region]
-    elif lat is not None and lon is not None and radius is not None:
+    if lat is not None and lon is not None and radius is not None:
         with_dist = []
         for v in result:
             if v["lat"] is not None and v["lon"] is not None:
@@ -213,7 +210,6 @@ ET_BATCH = 5  # eTennis venues checked per request (Render free-tier limit)
 def search(
     date:       str | None   = Query(default=None),
     time:       str | None   = Query(default=None),
-    region:     str | None   = Query(default=None),
     court_type: str | None   = Query(default=None),
     lat:        float | None = Query(default=None),
     lon:        float | None = Query(default=None),
@@ -224,7 +220,7 @@ def search(
     if parse_error:
         return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
-    venues = _filter_venues(region, court_type, lat, lon, radius)
+    venues = _filter_venues(court_type, lat, lon, radius)
     if not venues:
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"), "time": dt.strftime("%H:%M"), "availability_pending": False}
 
@@ -237,17 +233,13 @@ def search(
     # In radius mode paginate eTennis scraping so Render's free tier
     # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
     # et_offset lets the frontend request successive batches ("Mehr Ergebnisse").
-    has_more = False
-    if lat is not None:
-        et_by_dist = sorted(
-            [v for v in venues if v["platform"] == "eTennis"],
-            key=lambda v: v.get("distance_km") or float("inf"),
-        )
-        batch      = et_by_dist[et_offset : et_offset + ET_BATCH]
-        scrape_ids = {v["id"] for v in batch}
-        has_more   = len(et_by_dist) > et_offset + ET_BATCH
-    else:
-        scrape_ids = None  # region mode: scrape all eTennis
+    et_by_dist = sorted(
+        [v for v in venues if v["platform"] == "eTennis"],
+        key=lambda v: v.get("distance_km") or float("inf"),
+    )
+    batch      = et_by_dist[et_offset : et_offset + ET_BATCH]
+    scrape_ids = {v["id"] for v in batch}
+    has_more   = len(et_by_dist) > et_offset + ET_BATCH
 
     # ── Phase 2: eTennis — serve cached, background-fetch the rest ───────
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
@@ -259,12 +251,12 @@ def search(
             if vid in cached:
                 result["availability_status"] = cached[vid]
             elif result["platform"] == "eTennis":
-                if scrape_ids is None or vid in scrape_ids:
+                if vid in scrape_ids:
                     result["availability_status"] = "pending"
                 else:
                     result["availability_status"] = "not_checked"
         to_fetch = [v for v in etennis_venues
-                    if v["id"] not in cached and (scrape_ids is None or v["id"] in scrape_ids)]
+                    if v["id"] not in cached and v["id"] in scrape_ids]
         if to_fetch:
             key = _run_key("eTennis", dt)
             with _RUNNING_LOCK:
@@ -326,10 +318,7 @@ def search(
     availability_pending = any(r["availability_status"] == "pending" for r in results)
     print(f"[search] availability_pending={availability_pending}  has_more={has_more}")
 
-    if lat is not None:
-        results.sort(key=lambda v: v.get("distance_km") or float("inf"))
-    else:
-        results.sort(key=lambda v: v["priority"])
+    results.sort(key=lambda v: v.get("distance_km") or float("inf"))
 
     return {
         "ok":                   True,
