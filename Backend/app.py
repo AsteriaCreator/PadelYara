@@ -112,7 +112,6 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
 _RUNNING: set[str] = set()   # tracks in-flight background checks
 _RUNNING_LOCK = threading.Lock()
-_SCRAPER_SEM = threading.Semaphore(1)  # only one Playwright browser at a time on Render
 
 
 def _run_key(platform: str, dt: datetime) -> str:
@@ -266,14 +265,11 @@ def search(
             if et_should_start:
                 print(f"[search] eTennis scraper starting: key={key} venues={[v['id'] for v in to_fetch]}")
                 def _et_bg(vv=to_fetch, d=dt, k=key):
-                    with _SCRAPER_SEM:
-                        print(f"[search] eTennis scraper acquired semaphore: key={k}")
-                        try:
-                            check_etennis_venues(etennis_venues, d)
-                            print(f"[search] eTennis scraper finished: key={k}")
-                        finally:
-                            with _RUNNING_LOCK:
-                                _RUNNING.discard(k)
+                    try:
+                        check_etennis_venues(etennis_venues, d)
+                    finally:
+                        with _RUNNING_LOCK:
+                            _RUNNING.discard(k)
                 threading.Thread(target=_et_bg, daemon=True).start()
 
 

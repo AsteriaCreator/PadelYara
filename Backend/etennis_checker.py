@@ -10,6 +10,8 @@ import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+import requests as _requests
+from bs4 import BeautifulSoup as _BS
 from playwright.async_api import async_playwright
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
@@ -22,6 +24,7 @@ _COOLDOWN_TTL = 60  # seconds
 
 _RUNNING: set[str] = set()  # scrape keys currently in-flight
 _RUNNING_LOCK = threading.Lock()
+_PLAYWRIGHT_SEM = threading.Semaphore(1)  # one Playwright browser at a time on Render
 
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
@@ -41,6 +44,35 @@ def _page_url(booking_url: str, date) -> str:
 
 def _target_ts(date, hour: int) -> int:
     return int(datetime(date.year, date.month, date.day, hour, tzinfo=VIENNA_TZ).timestamp())
+
+
+def _http_scrape(url: str, target_ts: int) -> tuple[str, str | None]:
+    """
+    HTTP fallback for server-rendered slot pages (e.g. reservierung.padel4fun.at).
+    Used when Playwright fails (timeout, crash) on Render's resource-constrained env.
+    """
+    try:
+        r = _requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+        r.raise_for_status()
+        soup = _BS(r.text, "html.parser")
+        slots = soup.select(".slot[data-begin]")
+        if not slots:
+            return "unknown", "http_fallback: no .slot[data-begin] found"
+        matching = []
+        for s in slots:
+            try:
+                begin = int(s["data-begin"])
+                size  = float(s.get("data-size") or "1")
+            except (ValueError, KeyError):
+                continue
+            if begin <= target_ts < begin + size * 3600:
+                matching.append(s)
+        if not matching:
+            return "no_slot", None
+        av_count = sum(1 for s in matching if "av" in (s.get("class") or []))
+        return ("free" if av_count > 0 else "busy"), None
+    except Exception as exc:
+        return "unknown", f"http_fallback: {exc}"
 
 
 def _store_result(venue_id: str, status: str, dt: datetime) -> None:
@@ -71,21 +103,27 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             await page.wait_for_selector(".slot[data-begin]", state="attached", timeout=20_000)
         except Exception as sel_exc:
             # Selector not found — log what the page actually contains
-            diag = await page.evaluate(
-                """() => ({
-                    slotCount:      document.querySelectorAll('.slot').length,
-                    dataBeginCount: document.querySelectorAll('[data-begin]').length,
-                    bodySnippet:    document.body?.innerText?.slice(0, 200) || ''
-                })"""
-            )
-            print(
-                f"[eTennis] {vid}  .slot[data-begin] not found"
-                f"  .slot={diag['slotCount']}"
-                f"  [data-begin]={diag['dataBeginCount']}"
-                f"  body={diag['bodySnippet']!r:.120}"
-                f"  error={sel_exc}"
-            )
-            return vid, "unknown", f"selector timeout: {sel_exc}"
+            try:
+                diag = await page.evaluate(
+                    """() => ({
+                        slotCount:      document.querySelectorAll('.slot').length,
+                        dataBeginCount: document.querySelectorAll('[data-begin]').length,
+                        bodySnippet:    document.body?.innerText?.slice(0, 200) || ''
+                    })"""
+                )
+                print(
+                    f"[eTennis] {vid}  .slot[data-begin] not found"
+                    f"  .slot={diag['slotCount']}"
+                    f"  [data-begin]={diag['dataBeginCount']}"
+                    f"  body={diag['bodySnippet']!r:.120}"
+                    f"  error={sel_exc}"
+                )
+            except Exception:
+                print(f"[eTennis] {vid}  .slot[data-begin] not found, diag eval also failed: {sel_exc}")
+            print(f"[eTennis] {vid}  selector timeout — trying HTTP fallback")
+            status, fallback_err = await asyncio.to_thread(_http_scrape, url, target_ts)
+            print(f"[eTennis] {vid}  HTTP fallback: {status}  err={fallback_err!r}")
+            return vid, status, fallback_err
 
         result = await page.evaluate(
             """(ts) => {
@@ -156,7 +194,22 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
         # --- end diagnostic ---
         return vid, result["status"], None
     except Exception as exc:
-        print(f"[eTennis] {vid}  exception: {exc}")
+        print(f"[eTennis] {vid}  exception: {exc} — trying HTTP fallback")
+        try:
+            status, fallback_err = await asyncio.to_thread(_http_scrape, url, target_ts)
+            print(f"[eTennis] {vid}  HTTP fallback: {status}  err={fallback_err!r}")
+            print(json.dumps({
+                "event":       "etennis_scrape_result",
+                "venue_id":    vid,
+                "date":        dt.strftime("%Y-%m-%d"),
+                "time":        dt.strftime("%H:%M"),
+                "status":      status,
+                "duration_ms": round((time.monotonic() - t0) * 1000),
+                "via":         "http_fallback",
+            }))
+            return vid, status, fallback_err
+        except Exception as fallback_exc:
+            print(f"[eTennis] {vid}  HTTP fallback also failed: {fallback_exc}")
         print(json.dumps({
             "event":       "etennis_scrape_result",
             "venue_id":    vid,
@@ -254,22 +307,23 @@ def check_etennis_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
         _RUNNING.add(scrape_key)
 
     def _run_in_thread():
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            loop.run_until_complete(_run(to_fetch, dt))  # writes cache per-venue
-        except Exception as exc:
-            print(f"[eTennis] thread-level error: {exc}")
-        finally:
-            loop.close()
-            # Any venue not yet cached (e.g. thread killed mid-run) → cooldown
-            store_ts = time.time()
-            for v in to_fetch:
-                if _cache_key(v["id"], dt) not in _CACHE and v["id"] not in _COOLDOWN:
-                    print(f"[eTennis] no result: {v['id']} -> unknown (thread exit)")
-                    _COOLDOWN[v["id"]] = store_ts
-            with _RUNNING_LOCK:
-                _RUNNING.discard(scrape_key)
+        with _PLAYWRIGHT_SEM:  # blocks until any concurrent Playwright browser finishes
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            try:
+                loop.run_until_complete(_run(to_fetch, dt))  # writes cache per-venue
+            except Exception as exc:
+                print(f"[eTennis] thread-level error: {exc}")
+            finally:
+                loop.close()
+                # Any venue not yet cached (e.g. thread killed mid-run) → cooldown
+                store_ts = time.time()
+                for v in to_fetch:
+                    if _cache_key(v["id"], dt) not in _CACHE and v["id"] not in _COOLDOWN:
+                        print(f"[eTennis] no result: {v['id']} -> unknown (thread exit)")
+                        _COOLDOWN[v["id"]] = store_ts
+                with _RUNNING_LOCK:
+                    _RUNNING.discard(scrape_key)
 
     threading.Thread(target=_run_in_thread, daemon=True).start()
     # Return immediately — _run_in_thread writes results as they arrive;
