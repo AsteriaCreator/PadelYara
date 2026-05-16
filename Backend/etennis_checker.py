@@ -92,12 +92,9 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
     vid       = venue["id"]
     page      = None
     t0        = time.monotonic()
-    print(f"[eTennis] {vid}  loading: {url[:100]}  target_ts={target_ts}")
     try:
         page = await browser.new_page()
         await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
-        title = await page.title()
-        print(f"[eTennis] {vid}  page loaded, title={title!r}")
 
         try:
             await page.wait_for_selector(".slot[data-begin]", state="attached", timeout=20_000)
@@ -143,13 +140,6 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
                 };
             }""",
             target_ts,
-        )
-        print(
-            f"[eTennis] {vid}"
-            f"  total_slots={result['total']}"
-            f"  matching={result['matching']}"
-            f"  av={result['avCount']}"
-            f"  result={result['status']}"
         )
         print(json.dumps({
             "event":          "etennis_scrape_result",

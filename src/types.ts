@@ -25,7 +25,6 @@ export interface Venue {
   platform: "eTennis" | "Eversports" | "Andere"
   booking_url: string
   status: Status
-  error: string | null
   weather: Weather | null
   distance_km?: number | null
 }

@@ -4,6 +4,26 @@ import { TIME_SLOTS } from "../constants"
 
 const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white w-full focus:outline-none focus:border-gray-500"
 
+const VALID_RADII = [5, 10, 20, 25, 50]
+const LS_LOCATION = "padel_location"
+const LS_RADIUS   = "padel_radius"
+
+function getStoredLocation(): string {
+  try { return localStorage.getItem(LS_LOCATION) ?? "" } catch { return "" }
+}
+function getStoredRadius(): number {
+  try {
+    const n = Number(localStorage.getItem(LS_RADIUS))
+    return VALID_RADII.includes(n) ? n : 20
+  } catch { return 20 }
+}
+function saveSearch(location: string, radius: number) {
+  try {
+    localStorage.setItem(LS_LOCATION, location)
+    localStorage.setItem(LS_RADIUS, String(radius))
+  } catch { /* private-mode Safari */ }
+}
+
 interface Props {
   onSearch: (params: SearchParams) => void
   isLoading: boolean
@@ -57,8 +77,8 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const [date, setDate]           = useState(defaultDate)
   const [time, setTime]           = useState(defaultTime)
   const [courtType, setCourtType] = useState<CourtType>("both")
-  const [location, setLocation]   = useState("")
-  const [radius, setRadius]       = useState(20)
+  const [location, setLocation]   = useState(getStoredLocation)
+  const [radius, setRadius]       = useState(getStoredRadius)
   const [formError, setFormError] = useState<string | null>(null)
 
   const v       = getNowVienna()
@@ -104,7 +124,9 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
     }
 
     setFormError(null)
-    onSearch({ date, time, court_type: courtType, location: location.trim(), radius })
+    const trimmedLocation = location.trim()
+    saveSearch(trimmedLocation, radius)
+    onSearch({ date, time, court_type: courtType, location: trimmedLocation, radius })
   }
 
   return (

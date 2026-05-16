@@ -262,7 +262,12 @@ def search(
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
     if etennis_venues:
         cached = get_etennis_cached(etennis_venues, dt)
-        print(f"[search] eTennis cache: {len(cached)}/{len(etennis_venues)} hits — {list(cached.items())}")
+        print(json.dumps({
+            "event":      "etennis_cache_check",
+            "hits":       len(cached),
+            "total":      len(etennis_venues),
+            "statuses":   dict(cached),
+        }))
         for result in results:
             vid = result["venue_id"]
             if vid in cached:
@@ -305,16 +310,12 @@ def search(
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
     #    skip the Railway round-trips to avoid redundant work.
     if et_offset == 0:
-        _all_platforms = [(r["venue_id"], r["platform"]) for r in results]
-        print(f"[Eversports API] Phase3 entry — all result platforms: {_all_platforms}")
-
         for result in results:
             if result["platform"] != "Eversports":
                 continue
             venue = next((v for v in venues if v["id"] == result["venue_id"]), None)
             fid   = venue.get("eversports_facility_id") if venue else None
             cids  = venue.get("eversports_court_ids")   if venue else None
-            print(f"[Eversports API] {result['venue_id']}  platform={result['platform']!r}  fid={fid!r}  court_ids={cids!r}")
             if fid and cids:
                 time_hhmm   = dt.strftime("%H%M")
                 booking_url = venue.get("booking_url", "") if venue else ""
@@ -322,16 +323,16 @@ def search(
                     fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm,
                     venue_id=result["venue_id"], booking_url=booking_url,
                 )
-                print(f"[Eversports API] {result['venue_id']}  final_status={status}")
                 result["availability_status"] = status
             else:
                 issues = venue.get("issues", "") if venue else ""
-                if issues == "phone_booking_only":
-                    print(f"[Eversports API] {result['venue_id']}  phone-only venue — not_checked")
-                    result["availability_status"] = "not_checked"
-                else:
-                    print(f"[Eversports API] {result['venue_id']}  fid/cids missing — platform_check_required")
-                    result["availability_status"] = "platform_check_required"
+                status = "not_checked" if issues == "phone_booking_only" else "platform_check_required"
+                print(json.dumps({
+                    "event":    "eversports_skip",
+                    "venue_id": result["venue_id"],
+                    "reason":   "phone_only" if issues == "phone_booking_only" else "no_fid_cids",
+                }))
+                result["availability_status"] = status
 
     # Strip not_checked venues — frontend only shows results that were actually scraped.
     # On load-more calls also strip non-eTennis (Eversports already in first response).
@@ -343,7 +344,12 @@ def search(
         results = [r for r in results if r.get("availability_status") != "not_checked"]
 
     availability_pending = any(r["availability_status"] == "pending" for r in results)
-    print(f"[search] availability_pending={availability_pending}  has_more={has_more}")
+    print(json.dumps({
+        "event":    "search_done",
+        "results":  len(results),
+        "pending":  availability_pending,
+        "has_more": has_more,
+    }))
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
 

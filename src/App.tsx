@@ -32,6 +32,7 @@ export default function App() {
   const [lastUpdated, setLastUpdated]       = useState<number | null>(null)
   const [secondsSince, setSecondsSince]     = useState(0)
   const [farFuture, setFarFuture]           = useState(false)
+  const [searchLabel, setSearchLabel]       = useState<string | null>(null)
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastParamsRef = useRef<SearchParams | null>(null)
@@ -85,6 +86,7 @@ export default function App() {
     setError(null)
     setHasMore(false)
     setEtOffset(0)
+    setSearchLabel(null)
     const msPerDay = 86_400_000
     setFarFuture((new Date(params.date).getTime() - Date.now()) > 14 * msPerDay)
 
@@ -109,6 +111,7 @@ export default function App() {
       setHasMore(res.has_more ?? false)
       setLastUpdated(Date.now())
       setSearched(true)
+      setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
       if (res.availability_pending) {
         scheduleRefresh(params, geo, 1)
       }
@@ -165,6 +168,12 @@ export default function App() {
               <SkeletonRow key={i} />
             ))}
           </div>
+        )}
+
+        {searched && !isLoading && searchLabel && (
+          <p className="text-xs text-gray-600 mb-2 px-1 tracking-wide uppercase">
+            {searchLabel}
+          </p>
         )}
 
         {searched && !isLoading && farFuture && (
