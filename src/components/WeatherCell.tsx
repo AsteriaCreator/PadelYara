@@ -18,7 +18,7 @@ export default function WeatherCell({ weather }: Props) {
       <span className="font-medium">{weather.temp}°C</span>
       <span className="text-gray-400">{weather.desc}</span>
       <span className="text-gray-300">·</span>
-      <span className="text-blue-400">{weather.rain_prob}% Regenwahrscheinlichkeit</span>
+      <span className="text-blue-400">{weather.rain_prob}% Regen</span>
     </div>
   )
 }
