@@ -216,6 +216,12 @@ export default function App() {
           </div>
         )}
 
+        {searched && !isLoading && !error && results.length === 0 && (
+          <p className="text-gray-500 text-sm px-1 mb-4">
+            Keine Ergebnisse in diesem Umkreis gefunden.
+          </p>
+        )}
+
         {isLoadingMore && (
           <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
             {Array.from({ length: ET_BATCH }).map((_, i) => (
