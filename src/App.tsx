@@ -31,6 +31,7 @@ export default function App() {
   const [pollingExpired, setPollingExpired] = useState(false)
   const [lastUpdated, setLastUpdated]       = useState<number | null>(null)
   const [secondsSince, setSecondsSince]     = useState(0)
+  const [farFuture, setFarFuture]           = useState(false)
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastParamsRef = useRef<SearchParams | null>(null)
@@ -84,6 +85,8 @@ export default function App() {
     setError(null)
     setHasMore(false)
     setEtOffset(0)
+    const msPerDay = 86_400_000
+    setFarFuture((new Date(params.date).getTime() - Date.now()) > 14 * msPerDay)
 
     const coords = await geocode(params.location!)
     if (!coords) {
@@ -162,6 +165,12 @@ export default function App() {
               <SkeletonRow key={i} />
             ))}
           </div>
+        )}
+
+        {searched && !isLoading && farFuture && (
+          <p className="text-xs text-gray-500 mb-3 px-1">
+            ℹ️ Viele Plattformen erlauben Buchungen nur bis 14 Tage im Voraus.
+          </p>
         )}
 
         {searched && !isLoading && !error && results.length > 0 && (
