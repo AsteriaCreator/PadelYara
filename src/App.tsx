@@ -103,7 +103,7 @@ export default function App() {
       return
     }
     if (!coords) {
-      setError("Ort nicht gefunden — bitte PLZ oder Ortsname prüfen")
+      setError("Ort nicht gefunden. Bitte gib den vollständigen Ortsnamen oder die PLZ ein.")
       setLoading(false)
       return
     }

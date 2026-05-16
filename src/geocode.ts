@@ -30,6 +30,13 @@ export async function geocode(query: string): Promise<Coords | null> {
     const data = await res.json()
     if (!Array.isArray(data) || data.length === 0) return null
 
+    // Treat results with extremely low importance as not-found.
+    // All real Austrian cities, towns, and PLZs score well above 0.1;
+    // only spurious/junk matches fall this low.
+    const MIN_IMPORTANCE = 0.1
+    const importance = parseFloat(data[0].importance ?? "1")
+    if (importance < MIN_IMPORTANCE) return null
+
     return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) }
   } catch (err) {
     // AbortSignal.timeout fires a DOMException with name "TimeoutError"
