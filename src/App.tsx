@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react"
 import type { Venue, SearchParams } from "./types"
 import { fetchAvailability, type GeoParams } from "./api"
-import { geocode } from "./geocode"
+import { geocode, GeocodeTimeoutError } from "./geocode"
 import SearchCard from "./components/SearchCard"
 import VenueRow from "./components/VenueRow"
 import SkeletonRow from "./components/SkeletonRow"
@@ -90,12 +90,30 @@ export default function App() {
     const msPerDay = 86_400_000
     setFarFuture((new Date(params.date).getTime() - Date.now()) > 14 * msPerDay)
 
-    const coords = await geocode(params.location!)
+    let coords: { lat: number; lon: number } | null
+    try {
+      coords = await geocode(params.location!)
+    } catch (err) {
+      setError(
+        err instanceof GeocodeTimeoutError
+          ? "Ortssuche hat zu lange gedauert — bitte nochmal versuchen."
+          : "Verbindung fehlgeschlagen"
+      )
+      setLoading(false)
+      return
+    }
     if (!coords) {
       setError("Ort nicht gefunden — bitte PLZ oder Ortsname prüfen")
       setLoading(false)
       return
     }
+
+    // Geocoding succeeded — persist the location for next visit
+    try {
+      localStorage.setItem("padel_location", params.location!)
+      localStorage.setItem("padel_radius", String(params.radius))
+    } catch { /* private-mode Safari */ }
+
     const geo: GeoParams = { ...coords, radius: params.radius }
 
     lastParamsRef.current = params

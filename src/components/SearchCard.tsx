@@ -17,12 +17,6 @@ function getStoredRadius(): number {
     return VALID_RADII.includes(n) ? n : 20
   } catch { return 20 }
 }
-function saveSearch(location: string, radius: number) {
-  try {
-    localStorage.setItem(LS_LOCATION, location)
-    localStorage.setItem(LS_RADIUS, String(radius))
-  } catch { /* private-mode Safari */ }
-}
 
 interface Props {
   onSearch: (params: SearchParams) => void
@@ -125,7 +119,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
     setFormError(null)
     const trimmedLocation = location.trim()
-    saveSearch(trimmedLocation, radius)
     onSearch({ date, time, court_type: courtType, location: trimmedLocation, radius })
   }
 
