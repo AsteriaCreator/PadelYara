@@ -4,11 +4,6 @@ import { TIME_SLOTS } from "../constants"
 
 const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white w-full focus:outline-none focus:border-gray-500"
 
-const MONTHS = [
-  "Jänner", "Februar", "März", "April", "Mai", "Juni",
-  "Juli", "August", "September", "Oktober", "November", "Dezember",
-]
-
 interface Props {
   onSearch: (params: SearchParams) => void
   isLoading: boolean
@@ -25,10 +20,6 @@ function getNowVienna() {
 }
 
 const pad = (n: number) => String(n).padStart(2, "0")
-
-function daysInMonth(year: number, month: number): number {
-  return new Date(year, month, 0).getDate() // month is 1-based
-}
 
 function getNextFullHour(): { date: string; time: string } {
   const v = getNowVienna()
@@ -74,11 +65,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const isToday = date === v.dateStr
   const minHour = v.hour + 1
 
-  // Parse the current YYYY-MM-DD date into parts for the selects
-  const [dateYear, dateMonth, dateDay] = date.split("-").map(Number)
-  const yearOptions = [v.year, v.year + 1, v.year + 2]
-  const dayCount    = daysInMonth(dateYear, dateMonth)
-
   function handleDateChange(newDate: string) {
     setFormError(null)
     const vNow = getNowVienna()
@@ -97,21 +83,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       }
     }
     setDate(newDate)
-  }
-
-  function handleDayChange(newDay: number) {
-    handleDateChange(`${dateYear}-${pad(dateMonth)}-${pad(newDay)}`)
-  }
-
-  function handleMonthChange(newMonth: number) {
-    // Clamp day if the new month has fewer days (e.g. switching to Feb)
-    const max = daysInMonth(dateYear, newMonth)
-    handleDateChange(`${dateYear}-${pad(newMonth)}-${pad(Math.min(dateDay, max))}`)
-  }
-
-  function handleYearChange(newYear: number) {
-    const max = daysInMonth(newYear, dateMonth)
-    handleDateChange(`${newYear}-${pad(dateMonth)}-${pad(Math.min(dateDay, max))}`)
   }
 
   function handleTimeChange(newTime: string) {
@@ -165,42 +136,17 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         </div>
       </div>
 
-      {/* Date — three selects, always European order: Tag | Monat | Jahr */}
-      <div className="flex flex-col gap-1 mb-3">
-        <label className="text-xs text-gray-500">Datum</label>
-        <div className="flex gap-2">
-          <select
-            value={dateDay}
-            onChange={(e) => handleDayChange(Number(e.target.value))}
-            className={`${inputClass} w-20 shrink-0`}
-          >
-            {Array.from({ length: dayCount }, (_, i) => i + 1).map((d) => (
-              <option key={d} value={d}>{d}</option>
-            ))}
-          </select>
-          <select
-            value={dateMonth}
-            onChange={(e) => handleMonthChange(Number(e.target.value))}
-            className={`${inputClass} flex-1`}
-          >
-            {MONTHS.map((name, i) => (
-              <option key={i + 1} value={i + 1}>{name}</option>
-            ))}
-          </select>
-          <select
-            value={dateYear}
-            onChange={(e) => handleYearChange(Number(e.target.value))}
-            className={`${inputClass} w-24 shrink-0`}
-          >
-            {yearOptions.map((y) => (
-              <option key={y} value={y}>{y}</option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Time + Court */}
+      {/* Date + Time + Court */}
       <div className="grid grid-cols-2 gap-3 mb-3">
+        <div className="flex flex-col gap-1">
+          <label className="text-xs text-gray-500">Datum</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => handleDateChange(e.target.value)}
+            className={inputClass}
+          />
+        </div>
         <div className="flex flex-col gap-1">
           <label className="text-xs text-gray-500">Uhrzeit</label>
           <select
