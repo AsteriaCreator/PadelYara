@@ -56,6 +56,12 @@ export default function VenueRow({ venue, pollingExpired }: Props) {
           <span>{venue.platform}</span>
           <span>·</span>
           <span>{venue.court_type}</span>
+          {venue.distance_km != null && (
+            <>
+              <span>·</span>
+              <span>{venue.distance_km.toFixed(1)} km entfernt</span>
+            </>
+          )}
           <span>·</span>
           <WeatherCell weather={venue.weather} />
         </div>
