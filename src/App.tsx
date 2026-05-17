@@ -5,6 +5,7 @@ import { geocode, GeocodeTimeoutError } from "./geocode"
 import SearchCard from "./components/SearchCard"
 import VenueRow from "./components/VenueRow"
 import SkeletonRow from "./components/SkeletonRow"
+import ImprintModal from "./components/ImprintModal"
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -33,6 +34,7 @@ export default function App() {
   const [secondsSince, setSecondsSince]     = useState(0)
   const [farFuture, setFarFuture]           = useState(false)
   const [searchLabel, setSearchLabel]       = useState<string | null>(null)
+  const [showImprint, setShowImprint]       = useState(false)
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastParamsRef = useRef<SearchParams | null>(null)
@@ -245,6 +247,17 @@ export default function App() {
           </p>
         )}
       </div>
+
+      <footer className="text-center py-6">
+        <button
+          onClick={() => setShowImprint(true)}
+          className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+        >
+          Impressum
+        </button>
+      </footer>
+
+      {showImprint && <ImprintModal onClose={() => setShowImprint(false)} />}
     </div>
   )
 }
