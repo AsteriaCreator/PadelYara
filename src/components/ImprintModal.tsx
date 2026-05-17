@@ -61,15 +61,16 @@ export default function ImprintModal({ onClose }: Props) {
           </p>
           <p>Bezirkshauptmannschaft Mödling</p>
           <p>
-            Berufsrechtliche Vorschriften: Gewerbeordnung verfügbar unter{" "}
+            Berufsrechtliche Vorschriften:{" "}
             <a
-              href="https://www.ris.bka.gv.at"
+              href="https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=10007517"
               target="_blank"
               rel="noopener noreferrer"
               className="text-indigo-400 hover:text-indigo-300 transition-colors"
             >
-              www.ris.bka.gv.at
-            </a>
+              Gewerbeordnung
+            </a>{" "}
+            verfügbar unter www.ris.bka.gv.at
           </p>
         </div>
       </div>
