@@ -70,7 +70,15 @@ export default function ImprintModal({ onClose }: Props) {
             >
               Gewerbeordnung
             </a>{" "}
-            verfügbar unter www.ris.bka.gv.at
+            verfügbar unter{" "}
+            <a
+              href="https://www.ris.bka.gv.at"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-400 hover:text-indigo-300 transition-colors"
+            >
+              www.ris.bka.gv.at
+            </a>
           </p>
         </div>
       </div>
