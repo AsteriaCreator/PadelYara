@@ -132,16 +132,17 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
                 const slots    = [...document.querySelectorAll('.slot[data-begin]')];
                 // Exact start-time match only: a slot is considered only when its
                 // begin timestamp equals the requested time exactly.
-                // Range-based overlap (begin <= ts < begin + size*3600) is intentionally
-                // NOT used — a slot starting at 06:30 must not satisfy a 07:00 query.
                 const matching = slots.filter(s => parseInt(s.dataset.begin) === ts);
                 const avCount  = matching.filter(s => s.classList.contains('av')).length;
+                // Diagnostic: first 8 begin values so we can compare against target_ts
+                const sampleBegins = slots.slice(0, 8).map(s => parseInt(s.dataset.begin));
                 return {
-                    total:    slots.length,
-                    matching: matching.length,
-                    avCount:  avCount,
-                    status:   matching.length === 0 ? 'no_slot'
-                              : avCount > 0 ? 'free' : 'busy',
+                    total:        slots.length,
+                    matching:     matching.length,
+                    avCount:      avCount,
+                    sampleBegins: sampleBegins,
+                    status:       matching.length === 0 ? 'no_slot'
+                                  : avCount > 0 ? 'free' : 'busy',
                 };
             }""",
             target_ts,
@@ -151,9 +152,11 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             "venue_id":       vid,
             "date":           dt.strftime("%Y-%m-%d"),
             "time":           dt.strftime("%H:%M"),
+            "target_ts":      target_ts,
             "status":         result["status"],
             "total_slots":    result["total"],
             "matching_slots": result["matching"],
+            "sample_begins":  result["sampleBegins"],
             "duration_ms":    round((time.monotonic() - t0) * 1000),
         }))
         return vid, result["status"], None
