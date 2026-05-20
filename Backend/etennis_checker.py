@@ -7,7 +7,7 @@ import asyncio
 import json
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import requests as _requests
@@ -237,7 +237,39 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
                 if err:
                     print(f"[eTennis] {vid} error: {err}")
                 out[vid] = status
-                _store_result(vid, status, dt)  # write to cache immediately
+                _store_result(vid, status, dt)  # write primary result to cache immediately
+
+                # Inline fallback: for venues with slot_fallback_minutes configured,
+                # check each fallback offset in the SAME browser session right now.
+                # This avoids a separate browser launch and semaphore wait — the
+                # fallback result is cached before this scrape thread exits, so
+                # app.py's next cache read will find it without timing issues.
+                fallback_mins: list[int] = venue.get("slot_fallback_minutes") or []
+                if fallback_mins and status != "free":
+                    for fb_min in fallback_mins:
+                        dt_fb   = dt + timedelta(minutes=fb_min)
+                        fb_time = dt_fb.strftime("%H:%M")
+                        print(f"[fallback] {vid} +{fb_min}m ({fb_time}): checking inline")
+                        try:
+                            _, fb_status, fb_err = await asyncio.wait_for(
+                                _check_one(browser, venue, dt_fb),
+                                timeout=_PER_VENUE_TIMEOUT,
+                            )
+                            if fb_err:
+                                print(f"[fallback] {vid} +{fb_min}m err: {fb_err}")
+                        except asyncio.TimeoutError:
+                            fb_status = "unknown"
+                            print(f"[fallback] {vid} +{fb_min}m: inline check timed out")
+                        _store_result(vid, fb_status, dt_fb)
+                        print(json.dumps({
+                            "event":    "etennis_fallback_result",
+                            "venue_id": vid,
+                            "date":     dt_fb.strftime("%Y-%m-%d"),
+                            "time":     fb_time,
+                            "primary":  status,
+                            "fallback": fb_status,
+                        }))
+
         finally:
             try:
                 await browser.close()

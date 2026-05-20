@@ -328,9 +328,9 @@ def search(
 
 
     # ── Fallback: venues with slot_fallback_minutes (e.g. Padelunion Prater) ──
-    # If the primary slot at HH:00 is not free, check HH+N min for an exact
-    # slot start.  Only fires for eTennis venues that have slot_fallback_minutes
-    # configured in Padel_Venues.csv — no other venue is affected.
+    # The etennis_checker now checks fallback times INLINE in the same browser
+    # session, caching the HH:30 result alongside the HH:00 result.
+    # Here we just read that cached result and upgrade the response if it's free.
     _fb_venues = [
         v for v in venues
         if v.get("slot_fallback_minutes") and v["platform"] == "eTennis"
@@ -342,46 +342,18 @@ def search(
             continue
         primary_status = res.get("availability_status", "unknown")
 
-        if primary_status == "free":
-            continue  # already free, nothing to do
+        if primary_status in ("free", "pending"):
+            continue  # nothing to upgrade
 
-        # Preemptive: when primary is still pending (cold cache), fire fallback
-        # scrapers immediately so both run in parallel.
-        if primary_status == "pending":
-            for minutes in fv["slot_fallback_minutes"]:
-                dt_fb = dt + timedelta(minutes=minutes)
-                print(
-                    f"[fallback] {vid} +{minutes}m: preemptive fire at "
-                    f"{dt_fb.strftime('%H:%M')} (primary pending)"
-                )
-                threading.Thread(
-                    target=check_etennis_venues,
-                    args=([fv], dt_fb),
-                    daemon=True,
-                ).start()
-            continue  # keep showing pending; next poll picks up result
-
-        # Primary is not free — check each configured fallback offset
+        # Primary is not free — read fallback cache (populated by inline check)
         for minutes in fv["slot_fallback_minutes"]:
-            dt_fb   = dt + timedelta(minutes=minutes)
-            fb_time = dt_fb.strftime("%H:%M")
+            dt_fb     = dt + timedelta(minutes=minutes)
+            fb_time   = dt_fb.strftime("%H:%M")
             cached_fb = get_etennis_cached([fv], dt_fb)
             raw_fb    = cached_fb.get(vid)
 
-            if raw_fb is None:
-                # Cache cold → fire background scrape; result available next poll
-                print(
-                    f"[fallback] {vid} +{minutes}m ({fb_time}): "
-                    "cache miss — firing background scrape"
-                )
-                threading.Thread(
-                    target=check_etennis_venues,
-                    args=([fv], dt_fb),
-                    daemon=True,
-                ).start()
-                continue
+            print(f"[fallback] {vid} +{minutes}m ({fb_time}): cached={raw_fb!r}")
 
-            print(f"[fallback] {vid} +{minutes}m ({fb_time}): cached raw={raw_fb}")
             if raw_fb == "free":
                 res["availability_status"] = "free"
                 res["time_adjusted"]       = True
@@ -389,8 +361,7 @@ def search(
                 res["requested_time"]      = dt.strftime("%H:%M")
                 res["adjustment_label"]    = f"Nächster Slot ab {fb_time}"
                 print(f"[fallback] {vid}: upgraded to free at {fb_time}")
-                break  # found a free fallback — stop checking further offsets
-            # fallback also not free → keep original status, try next offset
+                break
 
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
