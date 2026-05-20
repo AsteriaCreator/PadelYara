@@ -52,6 +52,10 @@ def _http_scrape(url: str, target_ts: int) -> tuple[str, str | None]:
     """
     HTTP fallback for server-rendered slot pages (e.g. reservierung.padel4fun.at).
     Used when Playwright fails (timeout, crash) on Render's resource-constrained env.
+
+    Slot matching uses EXACT start-time comparison (begin == target_ts).
+    A slot that merely contains the target time (range-based overlap) is NOT a match —
+    only slots whose start timestamp equals the requested time count.
     """
     try:
         r = _requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
@@ -64,10 +68,9 @@ def _http_scrape(url: str, target_ts: int) -> tuple[str, str | None]:
         for s in slots:
             try:
                 begin = int(s["data-begin"])
-                size  = float(s.get("data-size") or "1")
             except (ValueError, KeyError):
                 continue
-            if begin <= target_ts < begin + size * 3600:
+            if begin == target_ts:           # exact start match only
                 matching.append(s)
         if not matching:
             return "no_slot", None
@@ -127,12 +130,12 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
         result = await page.evaluate(
             """(ts) => {
                 const slots    = [...document.querySelectorAll('.slot[data-begin]')];
-                const matching = slots.filter(s => {
-                    const begin = parseInt(s.dataset.begin);
-                    const size  = parseFloat(s.dataset.size || '1');
-                    return begin <= ts && ts < begin + size * 3600;
-                });
-                const avCount = matching.filter(s => s.classList.contains('av')).length;
+                // Exact start-time match only: a slot is considered only when its
+                // begin timestamp equals the requested time exactly.
+                // Range-based overlap (begin <= ts < begin + size*3600) is intentionally
+                // NOT used — a slot starting at 06:30 must not satisfy a 07:00 query.
+                const matching = slots.filter(s => parseInt(s.dataset.begin) === ts);
+                const avCount  = matching.filter(s => s.classList.contains('av')).length;
                 return {
                     total:    slots.length,
                     matching: matching.length,
