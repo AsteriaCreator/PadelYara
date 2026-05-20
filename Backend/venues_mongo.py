@@ -39,9 +39,10 @@ def _normalize(doc: dict) -> dict:
         "booking_url":     doc.get("booking_url", ""),
         "lat":             float(lat) if lat is not None else None,
         "lon":             float(lon) if lon is not None else None,
-        "platform_id":     doc.get("platform_id") or doc.get("etennis_id") or None,
-        "eversports_slug": doc.get("eversports_slug") or None,
-        "issues":          doc.get("issues") or None,
+        "platform_id":           doc.get("platform_id") or doc.get("etennis_id") or None,
+        "eversports_slug":       doc.get("eversports_slug") or None,
+        "issues":                doc.get("issues") or None,
+        "slot_fallback_minutes": list(doc.get("slot_fallback_minutes") or []),
     }
 
 

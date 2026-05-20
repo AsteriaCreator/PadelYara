@@ -48,9 +48,16 @@ export default function VenueRow({ venue, pollingExpired }: Props) {
     <div className="px-4 py-3 border-b border-gray-700/50 last:border-0">
       <div className="flex items-center justify-between mb-1">
         <span className="font-medium text-white truncate">{venue.name}</span>
-        <span className={`text-xs font-medium px-2 py-0.5 rounded-full shrink-0 ml-3 ${STATUS_STYLES[displayStatus]}`}>
-          {STATUS_LABEL[displayStatus]}
-        </span>
+        <div className="flex flex-col items-end shrink-0 ml-3">
+          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
+            {STATUS_LABEL[displayStatus]}
+          </span>
+          {venue.time_adjusted && venue.adjustment_label && (
+            <span className="text-xs text-green-400 mt-0.5 whitespace-nowrap">
+              {venue.adjustment_label}
+            </span>
+          )}
+        </div>
       </div>
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1 min-w-0">

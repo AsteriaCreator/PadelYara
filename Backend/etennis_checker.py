@@ -30,12 +30,12 @@ _PLAYWRIGHT_SEM = threading.Semaphore(1)  # one Playwright browser at a time on 
 
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
-    return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
+    return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:%M')}"
 
 
 def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
-    """Stable key for a set of venues at a given date+hour, used to deduplicate in-flight scrapes."""
-    return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:00')}"
+    """Stable key for a set of venues at a given date+hour+minute, used to deduplicate in-flight scrapes."""
+    return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:%M')}"
 
 
 def _page_url(booking_url: str, date) -> str:
@@ -44,8 +44,8 @@ def _page_url(booking_url: str, date) -> str:
     return f"{booking_url}&t={ts}"
 
 
-def _target_ts(date, hour: int) -> int:
-    return int(datetime(date.year, date.month, date.day, hour, tzinfo=VIENNA_TZ).timestamp())
+def _target_ts(date, hour: int, minute: int = 0) -> int:
+    return int(datetime(date.year, date.month, date.day, hour, minute, tzinfo=VIENNA_TZ).timestamp())
 
 
 def _http_scrape(url: str, target_ts: int) -> tuple[str, str | None]:
@@ -90,7 +90,7 @@ def _store_result(venue_id: str, status: str, dt: datetime) -> None:
 
 async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str | None]:
     url       = _page_url(venue["booking_url"], dt.date())
-    target_ts = _target_ts(dt.date(), dt.hour)
+    target_ts = _target_ts(dt.date(), dt.hour, dt.minute)
     vid       = venue["id"]
     page      = None
     t0        = time.monotonic()

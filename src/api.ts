@@ -33,6 +33,10 @@ type RawVenue = {
   availability_status?: string
   booking_url: string
   weather: Venue["weather"]
+  time_adjusted?: boolean
+  matched_time?: string
+  requested_time?: string
+  adjustment_label?: string
 }
 
 function mapVenue(v: RawVenue): Venue {
@@ -45,6 +49,10 @@ function mapVenue(v: RawVenue): Venue {
     status: (v.availability_status as Status) ?? "pending",
     weather: v.weather,
     distance_km: v.distance_km,
+    time_adjusted: v.time_adjusted,
+    matched_time: v.matched_time,
+    requested_time: v.requested_time,
+    adjustment_label: v.adjustment_label,
   }
 }
 

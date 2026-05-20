@@ -9,7 +9,7 @@ Phase 3/4 will wire in real scrapers.
 import asyncio
 import os
 from concurrent.futures import ThreadPoolExecutor
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from dotenv import load_dotenv
@@ -135,15 +135,85 @@ async def _fetch_platform_async(
     return {vid: smap.get(st, "check_failed") for vid, st in cached.items()}
 
 
-async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[str, str]:
+async def _check_venue_fallback(
+    loop,
+    venue: dict,
+    current_status: str,
+    dt: datetime,
+) -> dict | None:
+    """
+    For a venue with slot_fallback_minutes, check each fallback offset when the
+    primary slot returned a non-free result.
+
+    Returns a metadata dict when a fallback free slot is found:
+      {time_adjusted, matched_time, requested_time, adjustment_label}
+    Returns None if no usable fallback exists yet (fires background scrape if cache is cold).
+    Only supported for eTennis venues.
+    """
+    fallback_minutes: list[int] = venue.get("slot_fallback_minutes") or []
+    if not fallback_minutes:
+        return None
+
+    # Skip if primary is still pending — we don't know it's unavailable yet
+    if current_status in ("free", "pending"):
+        return None
+
+    if venue.get("platform") != "eTennis":
+        return None
+
+    requested_time_str = dt.strftime("%H:%M")
+    vid = venue["id"]
+
+    for minutes in fallback_minutes:
+        dt_fb = dt + timedelta(minutes=minutes)
+        fb_time_str = dt_fb.strftime("%H:%M")
+
+        try:
+            cached_fb = await loop.run_in_executor(
+                _executor, get_etennis_cached, [venue], dt_fb
+            )
+        except Exception as exc:
+            print(f"[fallback] {vid} +{minutes}m cache read failed: {exc}")
+            cached_fb = {}
+
+        raw = cached_fb.get(vid)
+
+        if raw is None:
+            # Cache cold — fire background scrape for fallback time and move on
+            print(f"[fallback] {vid} +{minutes}m ({fb_time_str}): cache miss — firing background scrape")
+            loop.run_in_executor(_executor, check_etennis_venues, [venue], dt_fb)
+            continue
+
+        canonical = _SCRAPER_STATUS.get(raw, "check_failed")
+        print(f"[fallback] {vid} +{minutes}m ({fb_time_str}): cached raw={raw} canonical={canonical}")
+
+        if canonical == "free":
+            return {
+                "time_adjusted":    True,
+                "matched_time":     fb_time_str,
+                "requested_time":   requested_time_str,
+                "adjustment_label": f"Nächster Slot ab {fb_time_str}",
+            }
+
+    return None
+
+
+async def _fetch_availability_async(
+    venues: list[dict], dt: datetime
+) -> tuple[dict[str, str], dict[str, dict]]:
     """
     Run eTennis and Eversports availability fetches in parallel.
     Both use the same non-blocking two-phase pattern:
       Phase 1 — instant cache read.
       Phase 2 — background scrape if cache is cold (never delays the response).
 
-    Returns {venue_id: availability_status} for ALL venues:
-      "free" | "busy" | "check_failed" | "pending" | "phone_only"
+    For venues with slot_fallback_minutes configured (e.g. padel-union-wien):
+      If the primary slot is not free, additionally check the fallback offset(s).
+      If a fallback slot is free, override status to "free" and attach metadata.
+
+    Returns:
+      statuses:      {venue_id: availability_status}
+      fallback_meta: {venue_id: {time_adjusted, matched_time, ...}} (only populated on free fallback)
     """
     etennis_venues        = [v for v in venues if v["platform"] == "eTennis"]
     eversports_scrapeable = [v for v in venues if v["platform"] == "Eversports"
@@ -158,19 +228,46 @@ async def _fetch_availability_async(venues: list[dict], dt: datetime) -> dict[st
 
     resolved = {**etennis_result, **eversports_result}
 
-    # Assign explicit status to every venue
-    out: dict[str, str] = {}
+    statuses: dict[str, str] = {}
     for v in venues:
         vid = v["id"]
         if v.get("issues") == "phone_only":
-            out[vid] = "phone_only"
+            statuses[vid] = "phone_only"
         else:
-            out[vid] = resolved.get(vid, "pending")
-    return out
+            statuses[vid] = resolved.get(vid, "pending")
+
+    # Per-venue fallback checks (non-blocking; runs against cache + fires background scrapes)
+    fallback_venues = [v for v in venues if v.get("slot_fallback_minutes")]
+    fallback_meta: dict[str, dict] = {}
+
+    if fallback_venues:
+        # Preemptive: when the primary is still pending (cache cold), fire fallback
+        # scrapers immediately so they run in parallel with the primary scrape.
+        # This way the fallback result is ready sooner on subsequent polls.
+        for v in fallback_venues:
+            if statuses[v["id"]] == "pending" and v.get("platform") == "eTennis":
+                for minutes in (v.get("slot_fallback_minutes") or []):
+                    dt_fb = dt + timedelta(minutes=minutes)
+                    print(
+                        f"[fallback] {v['id']} +{minutes}m: preemptive fire at "
+                        f"{dt_fb.strftime('%H:%M')} (primary still pending)"
+                    )
+                    loop.run_in_executor(_executor, check_etennis_venues, [v], dt_fb)
+
+        fb_results = await asyncio.gather(*[
+            _check_venue_fallback(loop, v, statuses[v["id"]], dt)
+            for v in fallback_venues
+        ])
+        for v, meta in zip(fallback_venues, fb_results):
+            if meta is not None:
+                fallback_meta[v["id"]] = meta
+                statuses[v["id"]] = "free"  # upgrade: fallback found a free slot
+
+    return statuses, fallback_meta
 
 
-def _build_result(venue: dict, status: str) -> dict:
-    return {
+def _build_result(venue: dict, status: str, fallback: dict | None = None) -> dict:
+    result: dict = {
         "venue_id":             venue["id"],
         "name":                 venue["name"],
         "platform":             venue["platform"],
@@ -182,6 +279,12 @@ def _build_result(venue: dict, status: str) -> dict:
         "booking_url":          venue["booking_url"],
         "weather":              venue.get("weather"),
     }
+    if fallback:
+        result["time_adjusted"]    = fallback.get("time_adjusted", False)
+        result["matched_time"]     = fallback.get("matched_time")
+        result["requested_time"]   = fallback.get("requested_time")
+        result["adjustment_label"] = fallback.get("adjustment_label")
+    return result
 
 
 @app.get("/api/search")
@@ -244,7 +347,7 @@ async def search(
     # Weather: one task per venue. Availability: one task for all eTennis venues.
     # Both run concurrently so Playwright doesn't add to the weather latency.
     async with httpx.AsyncClient() as client:
-        all_weather, availability = await asyncio.gather(
+        all_weather, (availability, fallback_meta) = await asyncio.gather(
             asyncio.gather(*[_fetch_weather_async(client, v, dt) for v in venues]),
             _fetch_availability_async(venues, dt),
         )
@@ -256,7 +359,10 @@ async def search(
     else:
         with_weather.sort(key=lambda v: v.get("distance_km") or 0)
 
-    results = [_build_result(v, availability[v["id"]]) for v in with_weather]
+    results = [
+        _build_result(v, availability[v["id"]], fallback_meta.get(v["id"]))
+        for v in with_weather
+    ]
     return {
         "results":              results,
         "date":                 dt.strftime("%Y-%m-%d"),

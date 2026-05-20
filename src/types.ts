@@ -27,6 +27,10 @@ export interface Venue {
   status: Status
   weather: Weather | null
   distance_km?: number | null
+  time_adjusted?: boolean
+  matched_time?: string
+  requested_time?: string
+  adjustment_label?: string
 }
 
 export interface SearchResponse {

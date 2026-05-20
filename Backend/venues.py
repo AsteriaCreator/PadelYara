@@ -12,6 +12,13 @@ def _parse_int(val: str) -> int | None:
     return int(v) if v else None
 
 
+def _parse_fallback_minutes(val: str) -> list[int]:
+    v = val.strip()
+    if not v:
+        return []
+    return [int(x) for x in v.split(",") if x.strip()]
+
+
 def _parse_court_ids(val: str) -> list[int]:
     v = val.strip()
     if not v:
@@ -62,4 +69,5 @@ def _parse_row(row: dict) -> dict:
         "eversports_facility_id":  _parse_int(row.get("eversports_facility_id", "")),
         "eversports_court_ids":    _parse_court_ids(row.get("eversports_court_ids", "")),
         "issues":                  (row.get("issues") or "").strip(),
+        "slot_fallback_minutes":   _parse_fallback_minutes(row.get("slot_fallback_minutes", "")),
     }
