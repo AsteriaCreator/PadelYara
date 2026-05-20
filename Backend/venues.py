@@ -12,8 +12,8 @@ def _parse_int(val: str) -> int | None:
     return int(v) if v else None
 
 
-def _parse_fallback_minutes(val: str) -> list[int]:
-    v = val.strip()
+def _parse_fallback_minutes(val: str | None) -> list[int]:
+    v = (val or "").strip()
     if not v:
         return []
     return [int(x) for x in v.split(",") if x.strip()]
