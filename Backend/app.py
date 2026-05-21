@@ -25,6 +25,10 @@ from analytics import (
     track_search_failed,
 )
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
+
+# Eversports venues have standard 1-hour slots on the hour — only check +60.
+# eTennis venues can have :30-offset 90-min slots, so [30, 60] is needed there.
+EV_DEFAULT_FALLBACK: list[int] = [60]
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
@@ -364,7 +368,7 @@ def search(
             # Fallback: if primary is busy/no_slot, find nearest free slot via
             # sequential Railway calls (HTTP only, no extra browsers).
             if status in ("busy", "no_slot"):
-                fb_offsets = venue.get("slot_fallback_minutes") or ET_DEFAULT_FALLBACK
+                fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
                     dt_fb    = dt + timedelta(minutes=offset_min)
                     fb_status = _call_eversports_service(
