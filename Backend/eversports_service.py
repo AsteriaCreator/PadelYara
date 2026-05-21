@@ -751,14 +751,20 @@ async def check(
                         f"{date} {time_hhmm} → platform_check_required"
                     )
                     slot_status = "platform_check_required"
-                elif all(cid in booked_courts for cid in cids):
-                    print(f"[check] all {len(cids)} courts booked at {date} {time_hhmm} → busy")
+                elif booked_courts:
+                    # ANY court has a booking entry at target time → venue is busy.
+                    # We intentionally avoid "all()" here: the API may only include
+                    # the booking's start-time entry for one court but not the other
+                    # when both courts are occupied (different booking durations).
+                    # Using any() prevents false "free" mid-booking results.
+                    print(
+                        f"[check] {len(booked_courts)}/{len(cids)} courts booked "
+                        f"at {date} {time_hhmm} → busy"
+                    )
                     slot_status = "busy"
                 else:
-                    free_count = len([c for c in cids if c not in booked_courts])
-                    print(
-                        f"[check] {free_count}/{len(cids)} courts free at {date} {time_hhmm} → free"
-                    )
+                    # No booking entries at this time — venue is free
+                    print(f"[check] no courts booked at {date} {time_hhmm}, scope covers → free")
                     slot_status = "free"
 
                 _log(slot_status, slots_count,
