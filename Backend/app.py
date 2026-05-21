@@ -26,9 +26,9 @@ from analytics import (
 )
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
 
-# Eversports venues have standard 1-hour slots on the hour — only check +60.
-# eTennis venues can have :30-offset 90-min slots, so [30, 60] is needed there.
-EV_DEFAULT_FALLBACK: list[int] = [60]
+# Eversports venues can have 30-min or 60-min slots depending on the court
+# (e.g. Traiskirchen Court 3 has 30-min slots), so check both offsets.
+EV_DEFAULT_FALLBACK: list[int] = [30, 60]
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
