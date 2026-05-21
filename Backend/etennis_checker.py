@@ -7,7 +7,7 @@ import asyncio
 import json
 import threading
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from zoneinfo import ZoneInfo
 
 import requests as _requests
@@ -17,6 +17,8 @@ from playwright.async_api import async_playwright
 from analytics import track_scraper_timeout
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
+
+DEFAULT_FALLBACK_MINUTES: list[int] = [30, 60]
 
 _CACHE: dict[str, dict] = {}
 _TTL = 300  # seconds
@@ -48,14 +50,21 @@ def _target_ts(date, hour: int, minute: int = 0) -> int:
     return int(datetime(date.year, date.month, date.day, hour, minute, tzinfo=VIENNA_TZ).timestamp())
 
 
-def _http_scrape(url: str, target_ts: int) -> tuple[str, str | None]:
+def _http_scrape(
+    url: str,
+    target_ts: int,
+    fallback_offsets: list[int] = (),
+) -> tuple[str, str | None, int | None]:
     """
     HTTP fallback for server-rendered slot pages (e.g. reservierung.padel4fun.at).
     Used when Playwright fails (timeout, crash) on Render's resource-constrained env.
 
+    Returns (status, error, next_free_ts).
     Slot matching uses EXACT start-time comparison (begin == target_ts).
     A slot that merely contains the target time (range-based overlap) is NOT a match —
     only slots whose start timestamp equals the requested time count.
+    If the primary slot is not free, fallback_offsets are scanned to find the nearest
+    free slot, returned as a Unix timestamp in next_free_ts.
     """
     try:
         r = _requests.get(url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
@@ -63,35 +72,69 @@ def _http_scrape(url: str, target_ts: int) -> tuple[str, str | None]:
         soup = _BS(r.text, "html.parser")
         slots = soup.select(".slot[data-begin]")
         if not slots:
-            return "unknown", "http_fallback: no .slot[data-begin] found"
-        matching = []
+            return "unknown", "http_fallback: no .slot[data-begin] found", None
+        # Build a map of begin_ts → is_available for fast offset lookups
+        slot_map: dict[int, bool] = {}
         for s in slots:
             try:
                 begin = int(s["data-begin"])
+                slot_map[begin] = "av" in (s.get("class") or [])
             except (ValueError, KeyError):
                 continue
-            if begin == target_ts:           # exact start match only
-                matching.append(s)
-        if not matching:
-            return "no_slot", None
-        av_count = sum(1 for s in matching if "av" in (s.get("class") or []))
-        return ("free" if av_count > 0 else "busy"), None
+        if target_ts not in slot_map:
+            primary_status = "no_slot"
+        else:
+            primary_status = "free" if slot_map[target_ts] else "busy"
+        # Find next free slot in fallback window
+        next_free_ts: int | None = None
+        if primary_status != "free":
+            for offset in fallback_offsets:
+                fb_ts = target_ts + offset * 60
+                if slot_map.get(fb_ts):          # True = available
+                    next_free_ts = fb_ts
+                    break
+        return primary_status, None, next_free_ts
     except Exception as exc:
-        return "unknown", f"http_fallback: {exc}"
+        return "unknown", f"http_fallback: {exc}", None
 
 
-def _store_result(venue_id: str, status: str, dt: datetime) -> None:
+def _store_result(
+    venue_id: str,
+    status: str,
+    dt: datetime,
+    next_free_ts: int | None = None,
+) -> None:
     """Write one venue result to cache immediately — called per-venue as scraping completes."""
     store_ts = time.time()
     print(f"[eTennis] cached: {venue_id} -> {status}")
     if status == "unknown":
         _COOLDOWN[venue_id] = store_ts
     else:
-        _CACHE[_cache_key(venue_id, dt)] = {"status": status, "timestamp": store_ts}
+        entry: dict = {"status": status, "timestamp": store_ts}
+        if next_free_ts is not None:
+            entry["next_free_ts"] = next_free_ts
+        _CACHE[_cache_key(venue_id, dt)] = entry
         _COOLDOWN.pop(venue_id, None)
 
 
-async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str | None]:
+async def _check_one(
+    browser,
+    venue: dict,
+    dt: datetime,
+    fallback_offsets: list[int] = (),
+) -> tuple[str, str, str | None, int | None]:
+    """
+    Scrape one eTennis venue at the given datetime.
+
+    Returns (venue_id, status, error, next_free_ts) where:
+      - status:       "free" | "busy" | "no_slot" | "unknown"
+      - error:        non-None when something went wrong
+      - next_free_ts: Unix timestamp of the nearest free fallback slot,
+                      or None if primary is free or no fallback found.
+
+    fallback_offsets are checked in a single JS pass over the already-loaded DOM —
+    no extra page loads or browser sessions.
+    """
     url       = _page_url(venue["booking_url"], dt.date())
     target_ts = _target_ts(dt.date(), dt.hour, dt.minute)
     vid       = venue["id"]
@@ -123,29 +166,46 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             except Exception:
                 print(f"[eTennis] {vid}  .slot[data-begin] not found, diag eval also failed: {sel_exc}")
             print(f"[eTennis] {vid}  selector timeout — trying HTTP fallback")
-            status, fallback_err = await asyncio.to_thread(_http_scrape, url, target_ts)
-            print(f"[eTennis] {vid}  HTTP fallback: {status}  err={fallback_err!r}")
-            return vid, status, fallback_err
+            status, fallback_err, next_free_ts = await asyncio.to_thread(
+                _http_scrape, url, target_ts, fallback_offsets
+            )
+            print(f"[eTennis] {vid}  HTTP fallback: {status}  err={fallback_err!r}  next_free_ts={next_free_ts}")
+            return vid, status, fallback_err, next_free_ts
 
         result = await page.evaluate(
-            """(ts) => {
+            """([ts, fallbackOffsets]) => {
                 const slots    = [...document.querySelectorAll('.slot[data-begin]')];
-                // Exact start-time match only: a slot is considered only when its
-                // begin timestamp equals the requested time exactly.
+                // Exact start-time match only.
                 const matching = slots.filter(s => parseInt(s.dataset.begin) === ts);
                 const avCount  = matching.filter(s => s.classList.contains('av')).length;
-                // Diagnostic: first 8 begin values so we can compare against target_ts
                 const sampleBegins = slots.slice(0, 8).map(s => parseInt(s.dataset.begin));
+                const status   = matching.length === 0 ? 'no_slot'
+                                 : avCount > 0 ? 'free' : 'busy';
+
+                // Single-pass fallback scan: find the nearest free slot among offsets.
+                let nextFreeTs = null;
+                if (status !== 'free') {
+                    for (const offsetMin of fallbackOffsets) {
+                        const fbTs    = ts + offsetMin * 60;
+                        const fbSlots = slots.filter(s => parseInt(s.dataset.begin) === fbTs);
+                        const fbFree  = fbSlots.filter(s => s.classList.contains('av'));
+                        if (fbFree.length > 0) {
+                            nextFreeTs = fbTs;
+                            break;
+                        }
+                    }
+                }
+
                 return {
                     total:        slots.length,
                     matching:     matching.length,
                     avCount:      avCount,
                     sampleBegins: sampleBegins,
-                    status:       matching.length === 0 ? 'no_slot'
-                                  : avCount > 0 ? 'free' : 'busy',
+                    status:       status,
+                    nextFreeTs:   nextFreeTs,
                 };
             }""",
-            target_ts,
+            [target_ts, list(fallback_offsets)],
         )
         print(json.dumps({
             "event":          "etennis_scrape_result",
@@ -157,24 +217,28 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             "total_slots":    result["total"],
             "matching_slots": result["matching"],
             "sample_begins":  result["sampleBegins"],
+            "next_free_ts":   result["nextFreeTs"],
             "duration_ms":    round((time.monotonic() - t0) * 1000),
         }))
-        return vid, result["status"], None
+        return vid, result["status"], None, result["nextFreeTs"]
     except Exception as exc:
         print(f"[eTennis] {vid}  exception: {exc} — trying HTTP fallback")
         try:
-            status, fallback_err = await asyncio.to_thread(_http_scrape, url, target_ts)
+            status, fallback_err, next_free_ts = await asyncio.to_thread(
+                _http_scrape, url, target_ts, fallback_offsets
+            )
             print(f"[eTennis] {vid}  HTTP fallback: {status}  err={fallback_err!r}")
             print(json.dumps({
-                "event":       "etennis_scrape_result",
-                "venue_id":    vid,
-                "date":        dt.strftime("%Y-%m-%d"),
-                "time":        dt.strftime("%H:%M"),
-                "status":      status,
-                "duration_ms": round((time.monotonic() - t0) * 1000),
-                "via":         "http_fallback",
+                "event":        "etennis_scrape_result",
+                "venue_id":     vid,
+                "date":         dt.strftime("%Y-%m-%d"),
+                "time":         dt.strftime("%H:%M"),
+                "status":       status,
+                "next_free_ts": next_free_ts,
+                "duration_ms":  round((time.monotonic() - t0) * 1000),
+                "via":          "http_fallback",
             }))
-            return vid, status, fallback_err
+            return vid, status, fallback_err, next_free_ts
         except Exception as fallback_exc:
             print(f"[eTennis] {vid}  HTTP fallback also failed: {fallback_exc}")
         print(json.dumps({
@@ -186,7 +250,7 @@ async def _check_one(browser, venue: dict, dt: datetime) -> tuple[str, str, str 
             "duration_ms": round((time.monotonic() - t0) * 1000),
             "error":       f"{type(exc).__name__}: {exc}",
         }))
-        return vid, "unknown", str(exc)
+        return vid, "unknown", str(exc), None
     finally:
         if page:
             try:
@@ -221,13 +285,17 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         out: dict[str, str] = {}
         try:
             for venue in venues:
+                # Use venue-specific offsets if configured; fall back to module default.
+                fb_offsets: list[int] = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
                 try:
-                    vid, status, err = await asyncio.wait_for(
-                        _check_one(browser, venue, dt),
+                    vid, status, err, next_free_ts = await asyncio.wait_for(
+                        _check_one(browser, venue, dt, fallback_offsets=fb_offsets),
                         timeout=_PER_VENUE_TIMEOUT,
                     )
                 except asyncio.TimeoutError:
-                    vid, status, err = venue["id"], "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s"
+                    vid, status, err, next_free_ts = (
+                        venue["id"], "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s", None
+                    )
                     timeout_ms = _PER_VENUE_TIMEOUT * 1000
                     print(json.dumps({
                         "event":      "etennis_scrape_timeout",
@@ -240,38 +308,9 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
                 if err:
                     print(f"[eTennis] {vid} error: {err}")
                 out[vid] = status
-                _store_result(vid, status, dt)  # write primary result to cache immediately
-
-                # Inline fallback: for venues with slot_fallback_minutes configured,
-                # check each fallback offset in the SAME browser session right now.
-                # This avoids a separate browser launch and semaphore wait — the
-                # fallback result is cached before this scrape thread exits, so
-                # app.py's next cache read will find it without timing issues.
-                fallback_mins: list[int] = venue.get("slot_fallback_minutes") or []
-                if fallback_mins and status != "free":
-                    for fb_min in fallback_mins:
-                        dt_fb   = dt + timedelta(minutes=fb_min)
-                        fb_time = dt_fb.strftime("%H:%M")
-                        print(f"[fallback] {vid} +{fb_min}m ({fb_time}): checking inline")
-                        try:
-                            _, fb_status, fb_err = await asyncio.wait_for(
-                                _check_one(browser, venue, dt_fb),
-                                timeout=_PER_VENUE_TIMEOUT,
-                            )
-                            if fb_err:
-                                print(f"[fallback] {vid} +{fb_min}m err: {fb_err}")
-                        except asyncio.TimeoutError:
-                            fb_status = "unknown"
-                            print(f"[fallback] {vid} +{fb_min}m: inline check timed out")
-                        _store_result(vid, fb_status, dt_fb)
-                        print(json.dumps({
-                            "event":    "etennis_fallback_result",
-                            "venue_id": vid,
-                            "date":     dt_fb.strftime("%Y-%m-%d"),
-                            "time":     fb_time,
-                            "primary":  status,
-                            "fallback": fb_status,
-                        }))
+                # Cache primary result together with next_free_ts in one atomic write.
+                # next_free_ts was found in the same JS evaluate pass — no extra scrapes.
+                _store_result(vid, status, dt, next_free_ts=next_free_ts)
 
         finally:
             try:
@@ -298,6 +337,23 @@ def get_cached_statuses(venues: list[dict], dt: datetime) -> dict[str, str]:
             out[venue["id"]] = entry["status"]
         elif venue["id"] in _COOLDOWN and now - _COOLDOWN[venue["id"]] < _COOLDOWN_TTL:
             out[venue["id"]] = "unknown"  # maps to check_failed in main.py
+    return out
+
+
+def get_cached_entries(venues: list[dict], dt: datetime) -> dict[str, dict]:
+    """
+    Like get_cached_statuses but returns the full cache entry per venue_id.
+    Each entry contains {"status": str, "timestamp": float} and optionally
+    {"next_free_ts": int} when a nearby free fallback slot was found.
+    Cooldown venues are excluded (they have no entry to return).
+    """
+    now = time.time()
+    out: dict[str, dict] = {}
+    for venue in venues:
+        key = _cache_key(venue["id"], dt)
+        entry = _CACHE.get(key)
+        if entry and now - entry["timestamp"] < _TTL:
+            out[venue["id"]] = entry
     return out
 
 
