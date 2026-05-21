@@ -335,6 +335,7 @@ def search(
         v for v in venues
         if v.get("slot_fallback_minutes") and v["platform"] == "eTennis"
     ]
+    print(f"[fallback_debug] app.py: _fb_venues={[v['id'] for v in _fb_venues]}")
     for fv in _fb_venues:
         vid           = fv["id"]
         res           = next((r for r in results if r["venue_id"] == vid), None)

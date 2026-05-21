@@ -248,6 +248,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
                 # fallback result is cached before this scrape thread exits, so
                 # app.py's next cache read will find it without timing issues.
                 fallback_mins: list[int] = venue.get("slot_fallback_minutes") or []
+                print(f"[fallback_debug] {vid}: slot_fallback_minutes={fallback_mins!r} status={status!r}")
                 if fallback_mins and status != "free":
                     for fb_min in fallback_mins:
                         dt_fb   = dt + timedelta(minutes=fb_min)
