@@ -677,15 +677,15 @@ async def check(
             print("[check] cal-post failed (likely Cloudflare block) — trying /api/slot")
 
         # ── Method 2: /api/slot — primary path on Railway ─────────────────────
-        # Returns AVAILABLE (free) slots for the queried courts from startDate.
+        # Returns OCCUPIED slots (existing bookings per court) from startDate on.
         # Two JSON formats from the API:
-        #   • {"slots":[{...},...]}          ← flat list  (has free slots)
-        #   • {"slots":{"slots":[], ...}}    ← nested obj (no free slots / all booked)
+        #   • {"slots":[{...},...]}          ← flat list  (has bookings)
+        #   • {"slots":{"slots":[], ...}}    ← nested obj (no bookings / fully free)
         # _parse_slots handles both and returns a list (possibly empty) or None.
         #
-        # Status logic (API returns FREE slots, not booked slots):
-        #   • Target time present in response          → FREE to book
-        #   • Target time absent AND scope covers      → BUSY (already booked)
+        # Status logic (API returns BOOKED slots, not free slots):
+        #   • Target time present in response          → BUSY (court is booked)
+        #   • Target time absent AND scope covers      → FREE (no booking at this time)
         #   • Scope does not reach target date/time    → AMBIGUOUS → platform_check_required
         slot_status = "platform_check_required"
         slots_count = 0
@@ -733,33 +733,33 @@ async def check(
                 ]
                 max_same_day_start = max(same_day_starts) if same_day_starts else ""
 
-                # Free slot present at exact target date+time?
-                free_at_target = any(
-                    s.get("date") == date and s.get("start") == time_hhmm
-                    for s in slots
-                )
+                # Courts confirmed booked at the exact target date+time
+                booked_courts = {
+                    s.get("court") for s in slots
+                    if s.get("date") == date and s.get("start") == time_hhmm
+                    and s.get("court") is not None
+                }
 
                 # Scope covers target date when:
-                #   (a) free slots exist on a later date (strongest proof), or
-                #   (b) a same-day free slot exists after the target time
+                #   (a) bookings exist on a later date (strongest proof), or
+                #   (b) a same-day booking exists after the target time
                 scope_covers = scope_max_date > date or max_same_day_start > time_hhmm
 
-                if free_at_target:
-                    print(f"[check] free slot at {date} {time_hhmm} → free")
-                    slot_status = "free"
-                elif scope_covers:
-                    print(
-                        f"[check] no free slot at {date} {time_hhmm}, "
-                        f"scope covers (max_date={scope_max_date or 'none'}, "
-                        f"same_day_max={max_same_day_start or 'none'}) → busy"
-                    )
-                    slot_status = "busy"
-                else:
+                if not scope_covers:
                     print(
                         f"[check] scope ({scope_max_date or 'empty'}) does not cover "
                         f"{date} {time_hhmm} → platform_check_required"
                     )
                     slot_status = "platform_check_required"
+                elif all(cid in booked_courts for cid in cids):
+                    print(f"[check] all {len(cids)} courts booked at {date} {time_hhmm} → busy")
+                    slot_status = "busy"
+                else:
+                    free_count = len([c for c in cids if c not in booked_courts])
+                    print(
+                        f"[check] {free_count}/{len(cids)} courts free at {date} {time_hhmm} → free"
+                    )
+                    slot_status = "free"
 
                 _log(slot_status, slots_count,
                      first_starts=first_starts, last_starts=last_starts,
