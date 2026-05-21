@@ -363,6 +363,16 @@ def search(
                 res["adjustment_label"]    = f"Nächster Slot ab {fb_time}"
                 print(f"[fallback] {vid}: upgraded to free at {fb_time}")
                 break
+            elif raw_fb is None:
+                # Inline fallback not cached yet — if the scrape is still running,
+                # keep this venue as pending so the frontend polls again.
+                et_key = _run_key("eTennis", dt)
+                with _RUNNING_LOCK:
+                    still_running = et_key in _RUNNING
+                if still_running:
+                    res["availability_status"] = "pending"
+                    print(f"[fallback] {vid} +{minutes}m: scrape in-flight, keeping pending")
+                break  # sequential: if +30 is None then +60 is also None
 
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
