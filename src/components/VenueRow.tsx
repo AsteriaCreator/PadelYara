@@ -53,7 +53,7 @@ export default function VenueRow({ venue, pollingExpired }: Props) {
             {STATUS_LABEL[displayStatus]}
           </span>
           {venue.time_adjusted && venue.adjustment_label && (
-            <span className="text-xs text-green-400 mt-0.5 whitespace-nowrap">
+            <span className="text-xs text-amber-400 mt-0.5 whitespace-nowrap">
               {venue.adjustment_label}
             </span>
           )}

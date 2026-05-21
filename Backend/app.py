@@ -356,12 +356,13 @@ def search(
             print(f"[fallback] {vid} +{minutes}m ({fb_time}): cached={raw_fb!r}")
 
             if raw_fb == "free":
-                res["availability_status"] = "free"
-                res["time_adjusted"]       = True
-                res["matched_time"]        = fb_time
-                res["requested_time"]      = dt.strftime("%H:%M")
-                res["adjustment_label"]    = f"Nächster Slot ab {fb_time}"
-                print(f"[fallback] {vid}: upgraded to free at {fb_time}")
+                # Keep status as no_slot (requested time has no slot) but
+                # attach the label so the frontend can show "Nächster Slot ab HH:MM".
+                res["time_adjusted"]    = True
+                res["matched_time"]     = fb_time
+                res["requested_time"]   = dt.strftime("%H:%M")
+                res["adjustment_label"] = f"Nächster Slot ab {fb_time}"
+                print(f"[fallback] {vid}: nearby free slot at {fb_time}")
                 break
             elif raw_fb is None:
                 # Inline fallback not cached yet — if the scrape is still running,
