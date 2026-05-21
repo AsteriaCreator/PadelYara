@@ -36,23 +36,27 @@ def _make_slot(hour: int, minute: int = 0, size: float = 1.5, av: bool = True) -
     return {"begin": _ts(hour, minute), "size": size, "av": av}
 
 
-def _match_exact(slots: list[dict], target_ts: int) -> list[dict]:
-    """
-    Mirrors the exact-start matching used in both the Playwright JS evaluation
-    and the _http_scrape Python fallback in etennis_checker.py.
-
-    A slot matches only when  begin == target_ts  (not begin <= ts < begin+size*3600).
-    """
-    return [s for s in slots if s["begin"] == target_ts]
-
-
 def _status(slots: list[dict], target_ts: int) -> str:
-    """Derive the scraper status string from matched slots."""
-    matching = _match_exact(slots, target_ts)
-    if not matching:
-        return "no_slot"
-    av_count = sum(1 for s in matching if s.get("av"))
-    return "free" if av_count > 0 else "busy"
+    """
+    Derive the scraper status string from matched slots.
+
+    Mirrors the logic in _check_one (JS evaluate) and _http_scrape:
+      1. Exact start-time match → 'free' or 'busy'
+      2. No exact match, but a running slot covers this time → 'busy'
+      3. No slot at all → 'no_slot'
+    """
+    matching = [s for s in slots if s["begin"] == target_ts]
+    if matching:
+        av_count = sum(1 for s in matching if s.get("av"))
+        return "free" if av_count > 0 else "busy"
+    # Range check: is any BOOKED (non-av) slot running at target_ts?
+    # A free slot that contains the time means the court is empty but no new
+    # booking can start here — that is still "no_slot", not "busy".
+    occupied = any(
+        not s.get("av") and s["begin"] < target_ts < s["begin"] + s.get("size", 1.5) * 3600
+        for s in slots
+    )
+    return "busy" if occupied else "no_slot"
 
 
 # ── Test cases ─────────────────────────────────────────────────────────────────
@@ -134,15 +138,29 @@ def test_1800_only_1730_slot_neither_primary_nor_fallback():
     )
 
 
-def test_range_overlap_never_matches():
+def test_range_overlap_free_slot_never_matches():
     """
-    Exhaustive overlap check: a 90-min slot at 09:00 must not match 09:30.
-    Only 09:00 itself is valid.
+    A FREE (unbooked) slot at 09:00 (size=1.5h):
+      - 09:00 exact start → 'free'
+      - 09:30 inside the free slot → 'no_slot' (court empty, but can't start new booking here)
+      - 10:00 after the slot ends → 'no_slot'
+    Only a BOOKED (non-av) overlapping slot produces 'busy'.
     """
     slots = [_make_slot(9, 0, size=1.5, av=True)]
-    assert _status(slots, _ts(9, 0)) == "free",    "09:00 must match its own start"
-    assert _status(slots, _ts(9, 30)) == "no_slot", "09:30 must not match a slot starting at 09:00"
-    assert _status(slots, _ts(10, 0)) == "no_slot", "10:00 must not match a slot starting at 09:00"
+    assert _status(slots, _ts(9, 0))  == "free",    "09:00 must match its own start as free"
+    assert _status(slots, _ts(9, 30)) == "no_slot", "09:30 inside unbooked slot — no new booking possible, court empty"
+    assert _status(slots, _ts(10, 0)) == "no_slot", "10:00 is after the slot ends"
+
+
+def test_occupied_slot_shows_busy_not_no_slot():
+    """
+    Schwechat-style: a BUSY 90-min slot starting at 10:30.
+    Searching at 11:00 should return 'busy' (court occupied), not 'no_slot'.
+    """
+    slots = [_make_slot(10, 30, size=1.5, av=False)]   # busy slot 10:30–12:00
+    assert _status(slots, _ts(10, 30)) == "busy",   "10:30 exact start is busy"
+    assert _status(slots, _ts(11, 0))  == "busy",   "11:00 inside running busy slot must be busy"
+    assert _status(slots, _ts(12, 0))  == "no_slot", "12:00 is after the slot ends"
 
 
 # ── Runner ─────────────────────────────────────────────────────────────────────
@@ -155,7 +173,8 @@ if __name__ == "__main__":
         test_0800_exact_match_is_busy,
         test_1800_no_slot_fallback_1830_is_free,
         test_1800_only_1730_slot_neither_primary_nor_fallback,
-        test_range_overlap_never_matches,
+        test_range_overlap_free_slot_never_matches,
+        test_occupied_slot_shows_busy_not_no_slot,
     ]
     passed = 0
     for t in tests:

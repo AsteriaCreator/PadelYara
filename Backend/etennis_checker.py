@@ -73,24 +73,37 @@ def _http_scrape(
         slots = soup.select(".slot[data-begin]")
         if not slots:
             return "unknown", "http_fallback: no .slot[data-begin] found", None
-        # Build a map of begin_ts → is_available for fast offset lookups
-        slot_map: dict[int, bool] = {}
+        # Build slot data: begin_ts → (is_available, duration_seconds)
+        slot_data: dict[int, tuple[bool, float]] = {}
         for s in slots:
             try:
                 begin = int(s["data-begin"])
-                slot_map[begin] = "av" in (s.get("class") or [])
+                av    = "av" in (s.get("class") or [])
+                try:
+                    size_secs = float(s.get("data-size") or 1.5) * 3600
+                except (ValueError, TypeError):
+                    size_secs = 1.5 * 3600
+                slot_data[begin] = (av, size_secs)
             except (ValueError, KeyError):
                 continue
-        if target_ts not in slot_map:
-            primary_status = "no_slot"
+        if target_ts in slot_data:
+            av, _ = slot_data[target_ts]
+            primary_status = "free" if av else "busy"
         else:
-            primary_status = "free" if slot_map[target_ts] else "busy"
-        # Find next free slot in fallback window
+            # No exact start match — check if a BOOKED slot covers this time.
+            # A free slot covering the time means the court is empty but no new
+            # booking can start here — that is still "no_slot", not "busy".
+            occupied = any(
+                not av and begin < target_ts < begin + size_secs
+                for begin, (av, size_secs) in slot_data.items()
+            )
+            primary_status = "busy" if occupied else "no_slot"
+        # Find next free slot in fallback window (exact start match only)
         next_free_ts: int | None = None
         if primary_status != "free":
             for offset in fallback_offsets:
                 fb_ts = target_ts + offset * 60
-                if slot_map.get(fb_ts):          # True = available
+                if slot_data.get(fb_ts, (False, 0))[0]:   # is_available=True
                     next_free_ts = fb_ts
                     break
         return primary_status, None, next_free_ts
@@ -175,12 +188,29 @@ async def _check_one(
         result = await page.evaluate(
             """([ts, fallbackOffsets]) => {
                 const slots    = [...document.querySelectorAll('.slot[data-begin]')];
-                // Exact start-time match only.
+                const sampleBegins = slots.slice(0, 8).map(s => parseInt(s.dataset.begin));
+
+                // Primary: exact start-time match.
                 const matching = slots.filter(s => parseInt(s.dataset.begin) === ts);
                 const avCount  = matching.filter(s => s.classList.contains('av')).length;
-                const sampleBegins = slots.slice(0, 8).map(s => parseInt(s.dataset.begin));
-                const status   = matching.length === 0 ? 'no_slot'
-                                 : avCount > 0 ? 'free' : 'busy';
+
+                let status;
+                if (matching.length > 0) {
+                    status = avCount > 0 ? 'free' : 'busy';
+                } else {
+                    // No slot starts at this exact time.
+                    // Check whether a currently-running BOOKED slot covers this time.
+                    // Only non-available (busy) slots count: a free slot that merely
+                    // contains the time means the court is empty but no new booking
+                    // can start at this exact minute — that is still 'no_slot'.
+                    const occupied = slots.some(s => {
+                        const begin = parseInt(s.dataset.begin);
+                        const size  = parseFloat(s.dataset.size || '1.5');
+                        const isBusy = !s.classList.contains('av');
+                        return isBusy && begin < ts && ts < begin + size * 3600;
+                    });
+                    status = occupied ? 'busy' : 'no_slot';
+                }
 
                 // Single-pass fallback scan: find the nearest free slot among offsets.
                 let nextFreeTs = null;
