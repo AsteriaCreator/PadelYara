@@ -299,7 +299,9 @@ async def _check_one(
     finally:
         if page:
             try:
-                await page.close()
+                # Hard 5 s cap: a hanging page.close() would otherwise block
+                # asyncio.wait_for's cancellation path and deadlock _PLAYWRIGHT_SEM.
+                await asyncio.wait_for(page.close(), timeout=5)
             except Exception:
                 pass
 
@@ -368,7 +370,8 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
             await asyncio.gather(*[fetch_one(v) for v in venues])
         finally:
             try:
-                await browser.close()
+                # Hard 10 s cap: prevents a hung browser from holding _PLAYWRIGHT_SEM.
+                await asyncio.wait_for(browser.close(), timeout=10)
             except Exception:
                 pass
 
