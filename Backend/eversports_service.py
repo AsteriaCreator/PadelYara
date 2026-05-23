@@ -733,12 +733,35 @@ async def check(
                 ]
                 max_same_day_start = max(same_day_starts) if same_day_starts else ""
 
-                # Courts confirmed booked at the exact target date+time
-                booked_courts = {
+                # Helper: HHMM string → minutes since midnight
+                def _hhmm_to_min(hhmm: str) -> int:
+                    return int(hhmm[:2]) * 60 + int(hhmm[2:])
+
+                target_min = _hhmm_to_min(time_hhmm)
+                # Max booking duration we look back.  Strict window (> not >=) ensures
+                # a booking that ENDS at target_min is not mis-flagged as mid-booking.
+                MAX_LOOKBACK_MIN = 60
+
+                # Courts with an explicit booking starting exactly at the target time
+                booked_at_target = {
                     s.get("court") for s in slots
                     if s.get("date") == date and s.get("start") == time_hhmm
                     and s.get("court") is not None
                 }
+
+                # Courts likely mid-booking: have a recent entry strictly within
+                # (target - 60 min, target).  These courts are occupied even though
+                # their booking started before the target time.
+                mid_booking_courts = {
+                    s.get("court") for s in slots
+                    if s.get("date") == date
+                    and s.get("court") is not None
+                    and s.get("court") not in booked_at_target
+                    and s.get("start")
+                    and target_min - MAX_LOOKBACK_MIN < _hhmm_to_min(s["start"]) < target_min
+                }
+
+                effectively_booked = booked_at_target | mid_booking_courts
 
                 # Scope covers target date when:
                 #   (a) bookings exist on a later date (strongest proof), or
@@ -751,20 +774,19 @@ async def check(
                         f"{date} {time_hhmm} → platform_check_required"
                     )
                     slot_status = "platform_check_required"
-                elif booked_courts:
-                    # ANY court has a booking entry at target time → venue is busy.
-                    # We intentionally avoid "all()" here: the API may only include
-                    # the booking's start-time entry for one court but not the other
-                    # when both courts are occupied (different booking durations).
-                    # Using any() prevents false "free" mid-booking results.
+                elif all(cid in effectively_booked for cid in cids):
                     print(
-                        f"[check] {len(booked_courts)}/{len(cids)} courts booked "
-                        f"at {date} {time_hhmm} → busy"
+                        f"[check] all {len(cids)} courts booked/mid-booking "
+                        f"at {date} {time_hhmm} "
+                        f"(at_target={len(booked_at_target)}, mid={len(mid_booking_courts)}) → busy"
                     )
                     slot_status = "busy"
                 else:
-                    # No booking entries at this time — venue is free
-                    print(f"[check] no courts booked at {date} {time_hhmm}, scope covers → free")
+                    free_count = sum(1 for cid in cids if cid not in effectively_booked)
+                    print(
+                        f"[check] {free_count}/{len(cids)} courts free at {date} {time_hhmm} "
+                        f"(at_target={len(booked_at_target)}, mid={len(mid_booking_courts)}) → free"
+                    )
                     slot_status = "free"
 
                 _log(slot_status, slots_count,
