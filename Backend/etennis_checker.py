@@ -30,6 +30,10 @@ _RUNNING: set[str] = set()  # scrape keys currently in-flight
 _RUNNING_LOCK = threading.Lock()
 _PLAYWRIGHT_SEM = threading.Semaphore(1)  # one Playwright browser at a time on Render
 
+# 2 concurrent pages balances speed vs Render RAM: each page adds ~30 MB (Linux
+# Chromium renderer). _PLAYWRIGHT_SEM already limits to one browser at a time.
+_CONCURRENCY = 2  # max eTennis venues scraped in parallel within one browser
+
 
 def _cache_key(venue_id: str, dt: datetime) -> str:
     return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:%M')}"
@@ -151,14 +155,22 @@ async def _check_one(
     url       = _page_url(venue["booking_url"], dt.date())
     target_ts = _target_ts(dt.date(), dt.hour, dt.minute)
     vid       = venue["id"]
+    vname     = venue.get("name", vid)
     page      = None
     t0        = time.monotonic()
+    print(json.dumps({
+        "event":      "etennis_venue_start",
+        "venue_id":   vid,
+        "venue_name": vname,
+        "date":       dt.strftime("%Y-%m-%d"),
+        "time":       dt.strftime("%H:%M"),
+    }))
     try:
         page = await browser.new_page()
-        await page.goto(url, wait_until="domcontentloaded", timeout=30_000)
+        await page.goto(url, wait_until="domcontentloaded", timeout=20_000)
 
         try:
-            await page.wait_for_selector(".slot[data-begin]", state="attached", timeout=20_000)
+            await page.wait_for_selector(".slot[data-begin]", state="attached", timeout=10_000)
         except Exception as sel_exc:
             # Selector not found — log what the page actually contains
             try:
@@ -240,6 +252,7 @@ async def _check_one(
         print(json.dumps({
             "event":          "etennis_scrape_result",
             "venue_id":       vid,
+            "venue_name":     vname,
             "date":           dt.strftime("%Y-%m-%d"),
             "time":           dt.strftime("%H:%M"),
             "target_ts":      target_ts,
@@ -261,6 +274,7 @@ async def _check_one(
             print(json.dumps({
                 "event":        "etennis_scrape_result",
                 "venue_id":     vid,
+                "venue_name":   vname,
                 "date":         dt.strftime("%Y-%m-%d"),
                 "time":         dt.strftime("%H:%M"),
                 "status":       status,
@@ -274,6 +288,7 @@ async def _check_one(
         print(json.dumps({
             "event":       "etennis_scrape_result",
             "venue_id":    vid,
+            "venue_name":  vname,
             "date":        dt.strftime("%Y-%m-%d"),
             "time":        dt.strftime("%H:%M"),
             "status":      "unknown",
@@ -289,16 +304,18 @@ async def _check_one(
                 pass
 
 
-_PER_VENUE_TIMEOUT = 90  # seconds — comfortably above goto(30s) + selector(20s) + eval
+_PER_VENUE_TIMEOUT = 40  # seconds — goto(20s) + selector(10s) + eval + buffer
 
 
 async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
     t0 = time.monotonic()
     print(json.dumps({
-        "event":  "etennis_scraper_start",
-        "venues": [v["id"] for v in venues],
-        "date":   dt.strftime("%Y-%m-%d"),
-        "time":   dt.strftime("%H:%M"),
+        "event":       "etennis_scraper_start",
+        "venues":      [v["id"] for v in venues],
+        "venue_count": len(venues),
+        "concurrency": _CONCURRENCY,
+        "date":        dt.strftime("%Y-%m-%d"),
+        "time":        dt.strftime("%H:%M"),
     }))
 
     async with async_playwright() as pw:
@@ -313,35 +330,42 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
             return {v["id"]: "unknown" for v in venues}
 
         out: dict[str, str] = {}
-        try:
-            for venue in venues:
-                # Use venue-specific offsets if configured; fall back to module default.
-                fb_offsets: list[int] = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
+        sem = asyncio.Semaphore(_CONCURRENCY)
+
+        async def fetch_one(venue: dict) -> None:
+            vid   = venue["id"]
+            vname = venue.get("name", vid)
+            # Use venue-specific offsets if configured; fall back to module default.
+            fb_offsets: list[int] = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
+            t_venue = time.monotonic()
+            async with sem:
                 try:
                     vid, status, err, next_free_ts = await asyncio.wait_for(
                         _check_one(browser, venue, dt, fallback_offsets=fb_offsets),
                         timeout=_PER_VENUE_TIMEOUT,
                     )
                 except asyncio.TimeoutError:
-                    vid, status, err, next_free_ts = (
-                        venue["id"], "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s", None
-                    )
+                    status, err, next_free_ts = "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s", None
                     timeout_ms = _PER_VENUE_TIMEOUT * 1000
                     print(json.dumps({
-                        "event":      "etennis_scrape_timeout",
-                        "venue_id":   vid,
-                        "date":       dt.strftime("%Y-%m-%d"),
-                        "time":       dt.strftime("%H:%M"),
-                        "timeout_ms": timeout_ms,
+                        "event":       "etennis_scrape_timeout",
+                        "venue_id":    vid,
+                        "venue_name":  vname,
+                        "date":        dt.strftime("%Y-%m-%d"),
+                        "time":        dt.strftime("%H:%M"),
+                        "timeout_ms":  timeout_ms,
+                        "duration_ms": round((time.monotonic() - t_venue) * 1000),
                     }))
                     track_scraper_timeout(venue_id=vid, platform="eTennis", timeout_ms=timeout_ms)
-                if err:
-                    print(f"[eTennis] {vid} error: {err}")
-                out[vid] = status
-                # Cache primary result together with next_free_ts in one atomic write.
-                # next_free_ts was found in the same JS evaluate pass — no extra scrapes.
-                _store_result(vid, status, dt, next_free_ts=next_free_ts)
+            if err and "timeout" not in err:
+                print(f"[eTennis] {vid} error: {err}")
+            out[vid] = status
+            # Cache primary result together with next_free_ts in one atomic write.
+            # next_free_ts was found in the same JS evaluate pass — no extra scrapes.
+            _store_result(vid, status, dt, next_free_ts=next_free_ts)
 
+        try:
+            await asyncio.gather(*[fetch_one(v) for v in venues])
         finally:
             try:
                 await browser.close()
@@ -351,6 +375,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
     print(json.dumps({
         "event":       "etennis_scraper_done",
         "statuses":    out,
+        "venue_count": len(venues),
         "duration_ms": round((time.monotonic() - t0) * 1000),
     }))
     return out
