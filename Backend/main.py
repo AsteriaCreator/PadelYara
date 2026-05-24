@@ -1,9 +1,12 @@
 """
-Padel Checker – public MVP entry point.
-Replaces app.py for the refactored backend. app.py is kept as a backup.
+LEGACY / UNUSED — do not run or import.
 
-Phase 1: availability is mocked (always true).
-Phase 3/4 will wire in real scrapers.
+Production entry point is Backend/app.py.
+Start locally with: npm run backend  (uvicorn app:app --app-dir Backend)
+Deployed on Render via: uvicorn app:app
+
+This file is an old MVP stub with mocked availability and stale imports.
+It will cause an ImportError on startup and must not be used.
 """
 
 import asyncio
