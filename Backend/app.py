@@ -138,6 +138,24 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 _RUNNING: set[str] = set()   # tracks in-flight background checks
 _RUNNING_LOCK = threading.Lock()
 
+# ── Response cache (TTL) ─────────────────────────────────────────────────────
+# key → (response_dict, stored_at_monotonic, ttl_seconds)
+# No inflight coordination: the pending-first design means the FIRST response
+# returns quickly (eTennis = pending, Eversports = real status). Inflight
+# coordination was removed because it blocked all polls behind the first
+# request's full Eversports scan (up to 60 s per venue × 8 venues).
+_SEARCH_CACHE: dict[str, tuple[dict, float, float]] = {}
+_SEARCH_LOCK = threading.Lock()
+_SEARCH_CACHE_TTL_COMPLETE = 45   # s — no pending scrapes; safe to serve for 45 s
+_SEARCH_CACHE_TTL_PENDING   = 8   # s — eTennis still scraping; absorbs burst but
+                                  #     lets clients poll for real statuses quickly
+
+# ── Eversports venue-level result cache ──────────────────────────────────────
+# key → (status_string, stored_at_monotonic)
+_EV_RESULT_CACHE: dict[str, tuple[str, float]] = {}
+_EV_RESULT_LOCK = threading.Lock()
+_EV_RESULT_TTL = 300  # s — match eTennis _TTL
+
 
 def _run_key(platform: str, dt: datetime) -> str:
     return f"{platform}*{dt.strftime('%Y-%m-%d')}*{dt.hour:02d}"
@@ -230,6 +248,126 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
 
 ET_BATCH = 5  # eTennis venues checked per request (Render free-tier limit)
 
+_MAX_FUTURE_DAYS = 42   # absolute ceiling: beyond this → 400
+_FAR_FUTURE_DAYS = 14   # soft threshold: beyond this → allowed but with notice
+_BOOKING_WINDOW_NOTICE = (
+    "Viele Anbieter erlauben Buchungen nur bis 14 Tage im Voraus. "
+    "Angezeigte Ergebnisse können daher unvollständig sein."
+)
+
+
+def _validate_date(date_str: str | None) -> tuple[str | None, JSONResponse | None]:
+    """
+    Validate the date query param before any cache or scraper work.
+
+    Returns (date_bucket, error_response):
+      - error_response is non-None → return it immediately to the client.
+      - date_bucket: "normal" | "far_future" (only meaningful when error is None).
+    """
+    today = datetime.now(VIENNA_TZ).date()
+
+    if date_str is None:
+        return "normal", None
+
+    try:
+        search_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+    except ValueError:
+        print(json.dumps({"event": "invalid_date_format", "date": date_str}))
+        return None, JSONResponse(
+            status_code=400,
+            content={"ok": False, "error": f"Ungültiges Datum: '{date_str}'. Erwartet: JJJJ-MM-TT."},
+        )
+
+    if search_date < today:
+        print(json.dumps({"event": "search_date_in_past", "date": date_str, "today": str(today)}))
+        return None, JSONResponse(
+            status_code=400,
+            content={"ok": False, "error": "Suchen in der Vergangenheit sind nicht möglich."},
+        )
+
+    if search_date > today + timedelta(days=_MAX_FUTURE_DAYS):
+        print(json.dumps({
+            "event":    "search_date_beyond_max_window",
+            "date":     date_str,
+            "today":    str(today),
+            "max_days": _MAX_FUTURE_DAYS,
+        }))
+        return None, JSONResponse(
+            status_code=400,
+            content={"ok": False, "error": "Suchen sind maximal 6 Wochen im Voraus möglich."},
+        )
+
+    if search_date > today + timedelta(days=_FAR_FUTURE_DAYS):
+        print(json.dumps({
+            "event":     "search_date_far_future_allowed",
+            "date":      date_str,
+            "today":     str(today),
+            "days_ahead": (search_date - today).days,
+        }))
+        return "far_future", None
+
+    return "normal", None
+
+
+def _search_cache_key(
+    date: str | None, time_str: str | None, lat: float | None, lon: float | None,
+    radius: float | None, court_type: str | None, et_offset: int,
+) -> str:
+    return f"{date}|{time_str}|{lat}|{lon}|{radius}|{court_type}|{et_offset}"
+
+
+def _ev_result_key(venue_id: str, date_str: str, time_hhmm: str) -> str:
+    return f"{venue_id}*{date_str}*{time_hhmm}"
+
+
+def _purge_ev_result_cache() -> None:
+    """Evict expired entries. Must be called with _EV_RESULT_LOCK held."""
+    now_t = time_monotonic()
+    expired = [k for k, (_, ts) in _EV_RESULT_CACHE.items() if now_t - ts >= _EV_RESULT_TTL]
+    for k in expired:
+        del _EV_RESULT_CACHE[k]
+
+
+def _purge_search_cache() -> None:
+    """Evict expired entries. Must be called with _SEARCH_LOCK held."""
+    now_t = time_monotonic()
+    expired = [k for k, (_, ts, ttl) in _SEARCH_CACHE.items() if now_t - ts >= ttl]
+    for k in expired:
+        del _SEARCH_CACHE[k]
+
+
+def _call_eversports_cached(
+    fid: int, cids: list[int], date_str: str, time_hhmm: str,
+    venue_id: str = "unknown", booking_url: str = "",
+) -> str:
+    """TTL-cached wrapper around _call_eversports_service (5-min cache per venue+time)."""
+    key = _ev_result_key(venue_id, date_str, time_hhmm)
+    now_t = time_monotonic()
+    with _EV_RESULT_LOCK:
+        entry = _EV_RESULT_CACHE.get(key)
+        if entry is not None:
+            status, ts = entry
+            age = now_t - ts
+            if age < _EV_RESULT_TTL:
+                print(json.dumps({
+                    "event":    "ev_cache_hit",
+                    "venue_id": venue_id,
+                    "status":   status,
+                    "age_s":    round(age, 1),
+                }))
+                return status
+            del _EV_RESULT_CACHE[key]
+    status = _call_eversports_service(fid, cids, date_str, time_hhmm, venue_id, booking_url)
+    # Only cache definitive slot statuses — never cache platform_check_required
+    # or other failure values. Caching failures locks the venue into a broken
+    # state for 5 minutes and prevents Railway retries on the next request.
+    if status in ("free", "busy", "no_slot"):
+        with _EV_RESULT_LOCK:
+            if len(_EV_RESULT_CACHE) > 500:
+                _purge_ev_result_cache()
+            _EV_RESULT_CACHE[key] = (status, time_monotonic())
+    return status
+
 
 @app.get("/api/search")
 def search(
@@ -242,6 +380,34 @@ def search(
     et_offset:  int          = Query(default=0),
 ):
     t0 = time_monotonic()
+
+    # ── Date validation — runs before cache, inflight, or any scraper work ────
+    date_bucket, date_error = _validate_date(date)
+    if date_error is not None:
+        return date_error
+
+    # ── Phase 0: response cache ───────────────────────────────────────────────
+    # Cache key covers every dimension that affects results.
+    # No inflight coordination: requests run independently. Cache hits return
+    # immediately; misses proceed through the full pipeline. This preserves the
+    # pending-first architecture where the first response is fast (eTennis
+    # pending + Eversports real status) and polls pick up updated statuses.
+    cache_key = _search_cache_key(date, time, lat, lon, radius, court_type, et_offset)
+
+    with _SEARCH_LOCK:
+        cached_entry = _SEARCH_CACHE.get(cache_key)
+        if cached_entry is not None:
+            resp, cached_at, cached_ttl = cached_entry
+            age = time_monotonic() - cached_at
+            if age < cached_ttl:
+                print(json.dumps({"event": "cache_hit", "cache_key": cache_key, "age_s": round(age, 1)}))
+                return resp
+            del _SEARCH_CACHE[cache_key]
+            print(json.dumps({"event": "cache_expired", "cache_key": cache_key, "age_s": round(age, 1)}))
+
+    print(json.dumps({"event": "cache_miss", "cache_key": cache_key}))
+
+    # ── Phase 1: datetime + venue filtering ──────────────────────────────────
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
         track_search_failed(reason="invalid_datetime", court_type=court_type)
@@ -285,7 +451,7 @@ def search(
     scrape_ids = {v["id"] for v in batch}
     has_more   = len(et_by_dist) > et_offset + ET_BATCH
 
-    # ── Phase 2: eTennis — serve cached, background-fetch the rest ───────
+    # ── Phase 2: eTennis — serve cached, background-fetch the rest ───────────
     etennis_venues = [v for v in venues if v["platform"] == "eTennis"]
     if etennis_venues:
         cached  = get_etennis_cached(etennis_venues, dt)   # dict[str, str] — for status + to_fetch logic
@@ -337,7 +503,6 @@ def search(
                     "venues": [v["id"] for v in to_fetch],
                 }))
 
-
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
     #    skip the Railway round-trips to avoid redundant work.
@@ -360,7 +525,7 @@ def search(
                 continue
             time_hhmm   = dt.strftime("%H%M")
             booking_url = venue.get("booking_url", "") if venue else ""
-            status = _call_eversports_service(
+            status = _call_eversports_cached(
                 fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm,
                 venue_id=result["venue_id"], booking_url=booking_url,
             )
@@ -371,7 +536,7 @@ def search(
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
                     dt_fb    = dt + timedelta(minutes=offset_min)
-                    fb_status = _call_eversports_service(
+                    fb_status = _call_eversports_cached(
                         fid, cids,
                         dt_fb.strftime("%Y-%m-%d"),
                         dt_fb.strftime("%H%M"),
@@ -442,7 +607,7 @@ def search(
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
 
-    return {
+    response = {
         "ok":                   True,
         "results":              results,
         "date":                 dt.strftime("%Y-%m-%d"),
@@ -450,6 +615,18 @@ def search(
         "availability_pending": availability_pending,
         "has_more":             has_more,
     }
+    if date_bucket == "far_future":
+        response["booking_window_notice"] = _BOOKING_WINDOW_NOTICE
+
+    # Store in response cache. Pending responses use a shorter TTL so clients
+    # can poll for real statuses once eTennis scraping completes.
+    search_ttl = _SEARCH_CACHE_TTL_PENDING if availability_pending else _SEARCH_CACHE_TTL_COMPLETE
+    with _SEARCH_LOCK:
+        if len(_SEARCH_CACHE) > 100:
+            _purge_search_cache()
+        _SEARCH_CACHE[cache_key] = (response, time_monotonic(), search_ttl)
+
+    return response
 
 
 class BookingClickBody(BaseModel):

@@ -108,5 +108,6 @@ export async function fetchAvailability(
     // Prefer the explicit backend field; fall back to client-side check for old servers
     availability_pending: data.availability_pending ?? results.some((v) => v.status === "pending"),
     has_more: data.has_more ?? false,
+    booking_window_notice: data.booking_window_notice as string | undefined,
   }
 }

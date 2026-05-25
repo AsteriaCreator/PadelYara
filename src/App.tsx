@@ -29,11 +29,11 @@ export default function App() {
   const [etOffset, setEtOffset]             = useState(0)
   const [error, setError]                   = useState<string | null>(null)
   const [searched, setSearched]             = useState(false)
-  const [pollingExpired, setPollingExpired] = useState(false)
-  const [lastUpdated, setLastUpdated]       = useState<number | null>(null)
-  const [secondsSince, setSecondsSince]     = useState(0)
-  const [farFuture, setFarFuture]           = useState(false)
-  const [searchLabel, setSearchLabel]       = useState<string | null>(null)
+  const [pollingExpired, setPollingExpired]         = useState(false)
+  const [lastUpdated, setLastUpdated]               = useState<number | null>(null)
+  const [secondsSince, setSecondsSince]             = useState(0)
+  const [bookingWindowNotice, setBookingWindowNotice] = useState<string | null>(null)
+  const [searchLabel, setSearchLabel]               = useState<string | null>(null)
   const [showImprint, setShowImprint]       = useState(false)
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -89,8 +89,7 @@ export default function App() {
     setHasMore(false)
     setEtOffset(0)
     setSearchLabel(null)
-    const msPerDay = 86_400_000
-    setFarFuture((new Date(params.date).getTime() - Date.now()) > 14 * msPerDay)
+    setBookingWindowNotice(null)
 
     let coords: { lat: number; lon: number } | null
     try {
@@ -132,6 +131,7 @@ export default function App() {
       setLastUpdated(Date.now())
       setSearched(true)
       setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
+      setBookingWindowNotice(res.booking_window_notice ?? null)
       if (res.availability_pending) {
         scheduleRefresh(params, geo, 1)
       }
@@ -204,9 +204,9 @@ export default function App() {
           </p>
         )}
 
-        {searched && !isLoading && farFuture && (
+        {searched && !isLoading && bookingWindowNotice && (
           <p className="text-xs text-gray-500 mb-3 px-1">
-            ℹ️ Viele Plattformen erlauben Buchungen nur bis 14 Tage im Voraus.
+            ℹ️ {bookingWindowNotice}
           </p>
         )}
 

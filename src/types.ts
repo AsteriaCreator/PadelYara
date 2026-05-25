@@ -41,4 +41,5 @@ export interface SearchResponse {
   availability_pending?: boolean
   has_more?: boolean
   error?: string
+  booking_window_notice?: string
 }
