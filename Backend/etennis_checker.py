@@ -337,10 +337,11 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         async def fetch_one(venue: dict) -> None:
             vid   = venue["id"]
             vname = venue.get("name", vid)
-            # Only scan fallback offsets when explicitly configured per-venue.
-            # Do NOT apply DEFAULT_FALLBACK_MINUTES globally — it produces false
-            # "next slot +30m" labels on venues that were never configured for it.
-            fb_offsets: list[int] = venue.get("slot_fallback_minutes") or []
+            # Use venue-specific fallback offsets if configured; otherwise use the
+            # module default so all venues benefit from "next free slot" scanning.
+            # The scraper only sets next_free_ts when the primary slot is NOT free,
+            # so this never produces a fallback label when 18:00 is already free.
+            fb_offsets: list[int] = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
             t_venue = time.monotonic()
             async with sem:
                 try:

@@ -469,10 +469,14 @@ def search(
             vid = result["venue_id"]
             if vid in cached:
                 result["availability_status"] = cached[vid]
-                # Propagate next_free_ts from cache entry; generic pass below converts it.
-                nft = entries.get(vid, {}).get("next_free_ts")
-                if nft is not None:
-                    result["next_available_time"] = nft
+                # Propagate next_free_ts only when the primary slot is not free.
+                # Guard: if the scraper cached a free result, next_free_ts should
+                # already be absent, but this explicit check makes the invariant
+                # bulletproof against race conditions or future cache changes.
+                if cached[vid] != "free":
+                    nft = entries.get(vid, {}).get("next_free_ts")
+                    if nft is not None:
+                        result["next_available_time"] = nft
             elif result["platform"] == "eTennis":
                 if vid in scrape_ids:
                     result["availability_status"] = "pending"
@@ -536,14 +540,14 @@ def search(
                 venue_id=result["venue_id"], booking_url=booking_url,
             )
             result["availability_status"] = status
-            # Fallback: only for venues with explicit slot_fallback_minutes config.
-            # Do NOT apply EV_DEFAULT_FALLBACK globally — it produces false
-            # "next slot +30m" labels on venues that never had fallback intent,
-            # and adds extra Railway round-trips that inflate response latency.
+            # Fallback: if the exact requested slot is busy/no_slot, scan nearby
+            # offsets to find the next free slot. Uses venue-specific config when
+            # present, otherwise the module default covers mixed 30/60/90-min patterns.
+            # The primary status check (busy/no_slot) ensures this never runs for
+            # venues where 18:00 is already free.
             if status in ("busy", "no_slot"):
-                fb_offsets = venue.get("slot_fallback_minutes")
-                if fb_offsets:
-                    for offset_min in fb_offsets:
+                fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
+                for offset_min in fb_offsets:
                         dt_fb    = dt + timedelta(minutes=offset_min)
                         fb_status = _call_eversports_cached(
                             fid, cids,
@@ -584,6 +588,13 @@ def search(
     for result in results:
         nft = result.get("next_available_time")
         if nft is None:
+            continue
+        # Hard invariant: never show a "next slot" label when the exact requested
+        # time is already free. This is the final firewall — upstream logic should
+        # never set next_available_time on a free result, but stale cache entries
+        # or race conditions could theoretically cause it. Strip and skip.
+        if result.get("availability_status") == "free":
+            result.pop("next_available_time", None)
             continue
         dt_next = datetime.fromtimestamp(nft, tz=VIENNA_TZ)
         fb_time = dt_next.strftime("%H:%M")
