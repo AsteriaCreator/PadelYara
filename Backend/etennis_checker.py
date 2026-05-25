@@ -337,8 +337,10 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         async def fetch_one(venue: dict) -> None:
             vid   = venue["id"]
             vname = venue.get("name", vid)
-            # Use venue-specific offsets if configured; fall back to module default.
-            fb_offsets: list[int] = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
+            # Only scan fallback offsets when explicitly configured per-venue.
+            # Do NOT apply DEFAULT_FALLBACK_MINUTES globally — it produces false
+            # "next slot +30m" labels on venues that were never configured for it.
+            fb_offsets: list[int] = venue.get("slot_fallback_minutes") or []
             t_venue = time.monotonic()
             async with sem:
                 try:

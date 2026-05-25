@@ -358,10 +358,13 @@ def _call_eversports_cached(
                 return status
             del _EV_RESULT_CACHE[key]
     status = _call_eversports_service(fid, cids, date_str, time_hhmm, venue_id, booking_url)
-    # Only cache definitive slot statuses — never cache platform_check_required
-    # or other failure values. Caching failures locks the venue into a broken
-    # state for 5 minutes and prevents Railway retries on the next request.
-    if status in ("free", "busy", "no_slot"):
+    # Cache only structurally stable statuses:
+    #   "free"    — a confirmed open slot; stable within the TTL window.
+    #   "no_slot" — no slot starts at this exact time; structural, very stable.
+    # Do NOT cache "busy" — a booked slot can be cancelled and become free
+    # within the TTL window, which would cause stale "busy" results (regression).
+    # Do NOT cache platform_check_required / failures — they prevent Railway retries.
+    if status in ("free", "no_slot"):
         with _EV_RESULT_LOCK:
             if len(_EV_RESULT_CACHE) > 500:
                 _purge_ev_result_cache()
@@ -506,15 +509,19 @@ def search(
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
     #    skip the Railway round-trips to avoid redundant work.
+    #    All venue checks run in parallel — latency is bounded by the slowest
+    #    single Railway round-trip, not N × RTT.
     if et_offset == 0:
-        for result in results:
-            if result["platform"] != "Eversports":
-                continue
-            venue = next((v for v in venues if v["id"] == result["venue_id"]), None)
+        ev_venue_map = {v["id"]: v for v in venues}
+        time_hhmm    = dt.strftime("%H%M")
+        date_str_ev  = dt.strftime("%Y-%m-%d")
+
+        def _check_ev(result: dict) -> None:
+            venue = ev_venue_map.get(result["venue_id"])
             fid   = venue.get("eversports_facility_id") if venue else None
             cids  = venue.get("eversports_court_ids")   if venue else None
             if not (fid and cids):
-                issues = venue.get("issues", "") if venue else ""
+                issues = (venue.get("issues", "") if venue else "")
                 status = "not_checked" if issues == "phone_booking_only" else "platform_check_required"
                 print(json.dumps({
                     "event":    "eversports_skip",
@@ -522,43 +529,55 @@ def search(
                     "reason":   "phone_only" if issues == "phone_booking_only" else "no_fid_cids",
                 }))
                 result["availability_status"] = status
-                continue
-            time_hhmm   = dt.strftime("%H%M")
+                return
             booking_url = venue.get("booking_url", "") if venue else ""
             status = _call_eversports_cached(
-                fid, cids, dt.strftime("%Y-%m-%d"), time_hhmm,
+                fid, cids, date_str_ev, time_hhmm,
                 venue_id=result["venue_id"], booking_url=booking_url,
             )
             result["availability_status"] = status
-            # Fallback: if primary is busy/no_slot, find nearest free slot via
-            # sequential Railway calls (HTTP only, no extra browsers).
+            # Fallback: only for venues with explicit slot_fallback_minutes config.
+            # Do NOT apply EV_DEFAULT_FALLBACK globally — it produces false
+            # "next slot +30m" labels on venues that never had fallback intent,
+            # and adds extra Railway round-trips that inflate response latency.
             if status in ("busy", "no_slot"):
-                fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
-                for offset_min in fb_offsets:
-                    dt_fb    = dt + timedelta(minutes=offset_min)
-                    fb_status = _call_eversports_cached(
-                        fid, cids,
-                        dt_fb.strftime("%Y-%m-%d"),
-                        dt_fb.strftime("%H%M"),
-                        venue_id=result["venue_id"],
-                        booking_url=booking_url,
-                    )
-                    print(json.dumps({
-                        "event":      "eversports_fallback_result",
-                        "venue_id":   result["venue_id"],
-                        "date":       dt_fb.strftime("%Y-%m-%d"),
-                        "time":       dt_fb.strftime("%H:%M"),
-                        "offset_min": offset_min,
-                        "primary":    status,
-                        "fallback":   fb_status,
-                    }))
-                    if fb_status == "free":
-                        result["next_available_time"] = int(
-                            dt_fb.replace(tzinfo=VIENNA_TZ).timestamp()
+                fb_offsets = venue.get("slot_fallback_minutes")
+                if fb_offsets:
+                    for offset_min in fb_offsets:
+                        dt_fb    = dt + timedelta(minutes=offset_min)
+                        fb_status = _call_eversports_cached(
+                            fid, cids,
+                            dt_fb.strftime("%Y-%m-%d"),
+                            dt_fb.strftime("%H%M"),
+                            venue_id=result["venue_id"],
+                            booking_url=booking_url,
                         )
-                        break
-                    if fb_status not in ("busy", "no_slot"):
-                        break  # unknown / platform_check_required — stop scanning
+                        print(json.dumps({
+                            "event":      "eversports_fallback_result",
+                            "venue_id":   result["venue_id"],
+                            "date":       dt_fb.strftime("%Y-%m-%d"),
+                            "time":       dt_fb.strftime("%H:%M"),
+                            "offset_min": offset_min,
+                            "primary":    status,
+                            "fallback":   fb_status,
+                        }))
+                        if fb_status == "free":
+                            result["next_available_time"] = int(
+                                dt_fb.replace(tzinfo=VIENNA_TZ).timestamp()
+                            )
+                            break
+                        if fb_status not in ("busy", "no_slot"):
+                            break  # unknown / platform_check_required — stop scanning
+
+        ev_results = [r for r in results if r["platform"] == "Eversports"]
+        if ev_results:
+            with ThreadPoolExecutor(max_workers=len(ev_results)) as pool:
+                ev_futures = [pool.submit(_check_ev, r) for r in ev_results]
+                for f in as_completed(ev_futures):
+                    try:
+                        f.result()
+                    except Exception as exc:
+                        print(json.dumps({"event": "eversports_thread_error", "error": str(exc)}))
 
     # ── Generic fallback label pass — applies to both eTennis and Eversports ──
     # Converts next_available_time (Unix ts) → display fields for the frontend.
