@@ -60,10 +60,14 @@ export default function App() {
     return () => clearInterval(interval)
   }, [lastUpdated])
 
-  // attempt=1 fires after 15s, attempt=2 fires after 45s. Max 2 auto-refreshes.
-  // Always polls et_offset=0 (initial batch); merges into the accumulated list.
+  // Polling schedule (from first response):
+  //   attempt 1 → +15 s  (catches warm-server eTennis ~40-50 s scrapes on poll 2)
+  //   attempt 2 → +30 s  (T+45 s total — covers warm Render scrape completion)
+  //   attempt 3 → +60 s  (T+105 s total — covers cold-start Render where browser
+  //                        launch adds 20-30 s and scrape takes 60-80 s)
+  // Max 3 auto-refreshes. Always polls et_offset=0; merges into the accumulated list.
   function scheduleRefresh(params: SearchParams, geo: GeoParams | undefined, attempt: number) {
-    const delay = attempt === 1 ? 15_000 : 45_000
+    const delay = attempt === 1 ? 15_000 : attempt === 2 ? 30_000 : 60_000
     refreshTimer.current = setTimeout(async () => {
       refreshTimer.current = null
       const refreshed = await fetchAvailability(params, geo, 0).catch(() => null)
@@ -73,7 +77,7 @@ export default function App() {
       }
       setResults((prev) => mergeResults(prev, refreshed.results))
       setLastUpdated(Date.now())
-      if (refreshed.availability_pending && attempt < 2) {
+      if (refreshed.availability_pending && attempt < 3) {
         scheduleRefresh(params, geo, attempt + 1)
       } else {
         if (refreshed.availability_pending) setPollingExpired(true)
