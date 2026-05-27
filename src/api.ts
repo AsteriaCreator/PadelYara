@@ -94,7 +94,7 @@ export async function fetchAvailability(
       results: [],
       date: params.date,
       time: params.time,
-      error: body.message ?? "Server error",
+      error: body.error ?? "Server error",
     }
   }
 
