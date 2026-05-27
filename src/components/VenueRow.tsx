@@ -46,8 +46,10 @@ export default function VenueRow({ venue, pollingExpired }: Props) {
 
   return (
     <div className="px-4 py-3 border-b border-gray-700/50 last:border-0">
-      <div className="flex items-center justify-between mb-1">
-        <span className="font-medium text-white truncate">{venue.name}</span>
+      {/* min-w-0 on the row is required so the truncate span can actually shrink.
+          Without it, flex items default to min-width:auto and ignore overflow:hidden. */}
+      <div className="flex items-center justify-between mb-1 min-w-0">
+        <span className="font-medium text-white truncate min-w-0">{venue.name}</span>
         <div className="flex flex-col items-end shrink-0 ml-3">
           <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
             {STATUS_LABEL[displayStatus]}

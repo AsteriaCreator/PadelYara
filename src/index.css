@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Prevent horizontal page scroll on mobile (no touch with fixed modal) */
+#root {
+  overflow-x: hidden;
+}
+
+/* Belt-and-suspenders: ensure all form controls meet the 16 px iOS zoom threshold */
+input,
+select,
+textarea {
+  font-size: max(16px, 1em);
+}

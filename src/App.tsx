@@ -179,7 +179,7 @@ export default function App() {
   const skeletonCount = results.length > 0 ? results.length : SKELETON_COUNT
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "#080810" }}>
+    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: "#080810" }}>
       <div className="max-w-2xl mx-auto px-4 py-6">
         <h1 className="text-white text-xl font-bold mb-6">Padel Checker</h1>
         <SearchCard onSearch={onSearch} isLoading={isLoading} />

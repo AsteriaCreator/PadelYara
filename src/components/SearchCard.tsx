@@ -2,7 +2,9 @@ import { useState } from "react"
 import type { SearchParams, CourtType } from "../types"
 import { TIME_SLOTS } from "../constants"
 
-const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white w-full focus:outline-none focus:border-gray-500"
+// text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
+// text-sm (14 px) is below the 16 px threshold that triggers the zoom.
+const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-base text-white w-full focus:outline-none focus:border-gray-500"
 
 const VALID_RADII = [5, 10, 20, 25, 50]
 const LS_LOCATION = "padel_location"
@@ -177,7 +179,9 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             ))}
           </select>
         </div>
-        <div className="flex flex-col gap-1">
+        {/* col-span-2 so the court select always fills the full row instead of
+            sitting alone in the left cell of a two-column grid on mobile */}
+        <div className="flex flex-col gap-1 col-span-2">
           <label className="text-xs text-gray-500">Court</label>
           <select
             value={courtType}
