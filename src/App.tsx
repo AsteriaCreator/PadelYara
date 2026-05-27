@@ -30,6 +30,10 @@ export default function App() {
   const [error, setError]                   = useState<string | null>(null)
   const [searched, setSearched]             = useState(false)
   const [pollingExpired, setPollingExpired]         = useState(false)
+  // true while a refresh setTimeout is scheduled and hasn't resolved yet.
+  // Distinct from pollingExpired: pollingActive=false means nothing is running;
+  // pollingExpired=true means it ran out of attempts with venues still pending.
+  const [pollingActive,  setPollingActive]          = useState(false)
   const [lastUpdated, setLastUpdated]               = useState<number | null>(null)
   const [secondsSince, setSecondsSince]             = useState(0)
   const [bookingWindowNotice, setBookingWindowNotice] = useState<string | null>(null)
@@ -46,6 +50,7 @@ export default function App() {
       refreshTimer.current = null
     }
     setPollingExpired(false)
+    setPollingActive(false)
   }
 
   useEffect(() => cancelRefresh, [])
@@ -67,19 +72,27 @@ export default function App() {
   //                        launch adds 20-30 s and scrape takes 60-80 s)
   // Max 3 auto-refreshes. Always polls et_offset=0; merges into the accumulated list.
   function scheduleRefresh(params: SearchParams, geo: GeoParams | undefined, attempt: number) {
+    // Signal immediately that a timer is running so venue rows can show
+    // "Wird noch geprüft …" instead of "Wird geprüft" / "Konnte nicht geprüft werden".
+    setPollingActive(true)
     const delay = attempt === 1 ? 15_000 : attempt === 2 ? 30_000 : 60_000
     refreshTimer.current = setTimeout(async () => {
       refreshTimer.current = null
       const refreshed = await fetchAvailability(params, geo, 0).catch(() => null)
       if (!refreshed?.ok) {
+        // Network failure — stop polling, mark expired so pending rows convert
+        setPollingActive(false)
         setPollingExpired(true)
         return
       }
       setResults((prev) => mergeResults(prev, refreshed.results))
       setLastUpdated(Date.now())
       if (refreshed.availability_pending && attempt < 3) {
+        // Still pending venues — schedule next attempt (sets pollingActive again)
         scheduleRefresh(params, geo, attempt + 1)
       } else {
+        // All attempts exhausted (or everything resolved)
+        setPollingActive(false)
         if (refreshed.availability_pending) setPollingExpired(true)
       }
     }, delay)
@@ -217,7 +230,7 @@ export default function App() {
         {searched && !isLoading && !error && results.length > 0 && (
           <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
             {results.map((venue) => (
-              <VenueRow key={venue.id} venue={venue} pollingExpired={pollingExpired} />
+              <VenueRow key={venue.id} venue={venue} pollingActive={pollingActive} />
             ))}
           </div>
         )}

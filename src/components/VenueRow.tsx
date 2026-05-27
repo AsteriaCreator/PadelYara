@@ -5,8 +5,12 @@ import WeatherCell from "./WeatherCell"
 const STATUS_STYLES: Record<string, string> = {
   free:                    "bg-green-900/40 text-green-400",
   busy:                    "bg-red-900/40 text-red-400",
+  // pending_active: timer is running — pulse to signal active background work
+  pending_active:          "bg-blue-900/40 text-blue-400 animate-pulse",
+  // pending (fallback, should not appear in normal operation)
   pending:                 "bg-blue-900/40 text-blue-400 animate-pulse",
   unknown:                 "bg-amber-900/40 text-amber-400",
+  // check_failed: polling ended with this venue still unresolved
   check_failed:            "bg-amber-900/40 text-amber-400",
   phone_only:              "bg-blue-900/40 text-blue-400",
   platform_check_required: "bg-amber-900/40 text-amber-400",
@@ -18,11 +22,17 @@ const STATUS_STYLES: Record<string, string> = {
 const STATUS_LABEL: Record<string, string> = {
   free:                    "Frei",
   busy:                    "Belegt",
-  pending:                 "Wird geprüft",
+  // While a poll timer is running — "noch" signals ongoing activity
+  pending_active:          "Wird noch geprüft …",
+  // Defensive fallback only; not shown in normal operation
+  pending:                 "Wird noch geprüft …",
+  // Structural failures — venue type/platform cannot be checked
   unknown:                 "Konnte nicht geprüft werden",
-  check_failed:            "Konnte nicht geprüft werden",
-  phone_only:              "Nur telefonisch",
   platform_check_required: "Konnte nicht geprüft werden",
+  // Polling ran out of attempts with this venue still unresolved
+  // "noch nicht" vs "nicht" distinguishes timeout from structural failure
+  check_failed:            "Konnte noch nicht geprüft werden",
+  phone_only:              "Nur telefonisch",
   not_checked:             "Nicht geprüft",
   no_slot:                 "Kein Slot",
   error:                   "Fehler",
@@ -30,13 +40,19 @@ const STATUS_LABEL: Record<string, string> = {
 
 interface Props {
   venue: Venue
-  pollingExpired: boolean
+  pollingActive: boolean
 }
 
-export default function VenueRow({ venue, pollingExpired }: Props) {
-  // After polling expires, treat still-pending venues as check_failed
-  const displayStatus = pollingExpired && venue.status === "pending"
-    ? "check_failed"
+export default function VenueRow({ venue, pollingActive }: Props) {
+  // Derive an honest display status for pending venues based on poll state.
+  //
+  //   pollingActive=true              → a timer is scheduled; show "Wird noch geprüft …"
+  //   pollingExpired=true             → all attempts exhausted; show "Konnte noch nicht …"
+  //   both false (no polling at all)  → treat as expired; show "Konnte noch nicht …"
+  //
+  // Non-pending statuses pass through unchanged.
+  const displayStatus = venue.status === "pending"
+    ? (pollingActive ? "pending_active" : "check_failed")
     : venue.status
 
   const bookingLabel = venue.status === "free" ? "JETZT BUCHEN ↗" : "LINK ↗"
