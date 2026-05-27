@@ -4,6 +4,10 @@ interface Props {
   onClose: () => void
 }
 
+const eUser = "cornelia.mayer"
+const eDomain = "adventure-it.at"
+const email = `${eUser}@${eDomain}`
+
 export default function ImprintModal({ onClose }: Props) {
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -42,10 +46,10 @@ export default function ImprintModal({ onClose }: Props) {
           <p>Österreich</p>
           <p>
             <a
-              href="mailto:cornelia.mayer@adventure-it.at"
+              href={`mailto:${email}`}
               className="text-indigo-400 hover:text-indigo-300 transition-colors"
             >
-              cornelia.mayer@adventure-it.at
+              {email}
             </a>
           </p>
         </div>
