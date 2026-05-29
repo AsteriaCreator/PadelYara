@@ -29,7 +29,7 @@ export default function App() {
   const [etOffset, setEtOffset]             = useState(0)
   const [error, setError]                   = useState<string | null>(null)
   const [searched, setSearched]             = useState(false)
-  const [pollingExpired, setPollingExpired]         = useState(false)
+  const [_pollingExpired, setPollingExpired]        = useState(false)
   // true while a refresh setTimeout is scheduled and hasn't resolved yet.
   // Distinct from pollingExpired: pollingActive=false means nothing is running;
   // pollingExpired=true means it ran out of attempts with venues still pending.
