@@ -194,7 +194,8 @@ export default function App() {
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: "#080810" }}>
       <div className="max-w-2xl mx-auto px-4 py-6">
-        <h1 className="text-white text-xl font-bold mb-6">Padel Checker</h1>
+        <h1 className="text-white text-xl font-bold">PadelYara</h1>
+        <p className="text-gray-400 text-sm mb-6">Dein Match. Dein Moment.</p>
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
