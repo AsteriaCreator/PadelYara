@@ -253,7 +253,7 @@ export default function App() {
         )}
 
         {searched && !isLoading && !error && results.length > 0 && lastParamsRef.current && (
-          <p className="text-xs text-gray-500 mb-2 px-1">
+          <p className="mb-2 px-1 font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1rem", color: "rgba(212,245,60,0.7)" }}>
             {results.length === 1
               ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
               : `${results.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
@@ -293,9 +293,12 @@ export default function App() {
         {hasMore && !isLoadingMore && !isLoading && searched && (
           <button
             onClick={onLoadMore}
-            className="w-full py-3 rounded-xl border border-gray-700 text-gray-400 text-sm hover:border-gray-500 hover:text-gray-200 transition-colors mb-4 cursor-pointer"
+            className="w-full py-3 rounded-xl text-sm font-bold tracking-wide transition-colors mb-4 cursor-pointer"
+            style={{ border: "1px solid rgba(212,245,60,0.3)", color: "rgba(212,245,60,0.7)", fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1rem" }}
+            onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(212,245,60,0.7)")}
+            onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(212,245,60,0.3)")}
           >
-            Mehr Ergebnisse
+            MEHR ERGEBNISSE
           </button>
         )}
 
