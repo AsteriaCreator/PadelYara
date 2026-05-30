@@ -192,21 +192,36 @@ export default function App() {
   const skeletonCount = results.length > 0 ? results.length : SKELETON_COUNT
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: "#080810" }}>
+    <div className="min-h-screen overflow-x-hidden" style={{
+      backgroundColor: "#080810",
+      backgroundImage: `
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212,245,60,0.18) 0%, transparent 70%),
+        repeating-linear-gradient(45deg, rgba(212,245,60,0.12) 0px 1px, transparent 1px 14px),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
+      `,
+      backgroundSize: "auto, auto, 200px 200px",
+    }}>
       <div className="max-w-2xl mx-auto px-4 py-6">
-        <div className="mb-4">
+        <div className="mb-6">
           <img
             src="/lockup-horizontal-dark.svg"
             alt="PadelYara"
-            className="h-32 w-auto block"
+            className="h-24 w-auto block"
           />
         </div>
 
-        <div className="mb-4 border-b border-gray-800">
+        <div className="mb-2 border-b border-gray-800">
           <span className="inline-block pb-2 text-base font-semibold text-white border-b-2 mr-6" style={{ borderColor: "#d4f53c" }}>
             Court Finder
           </span>
         </div>
+
+        <p
+          className="text-base italic mb-4 mt-2"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
+        >
+          Yara findet einen freien Court für dich. Wo willst du spielen?
+        </p>
 
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 

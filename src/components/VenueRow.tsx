@@ -27,8 +27,8 @@ const STATUS_LABEL: Record<string, string> = {
   // Defensive fallback only; not shown in normal operation
   pending:                 "Wird noch geprüft …",
   // Structural failures — venue type/platform cannot be checked
-  unknown:                 "Konnte nicht geprüft werden",
-  platform_check_required: "Konnte nicht geprüft werden",
+  unknown:                 "Nicht online prüfbar",
+  platform_check_required: "Nicht online prüfbar",
   // Polling ran out of attempts with this venue still unresolved
   // "noch nicht" vs "nicht" distinguishes timeout from structural failure
   check_failed:            "Konnte noch nicht geprüft werden",
@@ -55,7 +55,9 @@ export default function VenueRow({ venue, pollingActive }: Props) {
     ? (pollingActive ? "pending_active" : "check_failed")
     : venue.status
 
-  const bookingLabel = venue.status === "free" ? "JETZT BUCHEN ↗" : "LINK ↗"
+  const courtIcon = venue.court_type === "Indoor" ? "🏠" : venue.court_type === "Outdoor" ? "☀️" : "🏠☀️"
+
+  const bookingLabel = venue.status === "free" ? "JETZT BUCHEN →" : "LINK →"
   const bookingStyle = venue.status === "free"
     ? "bg-green-600 hover:bg-green-500 text-white"
     : "bg-gray-700 hover:bg-gray-600 text-gray-300"
@@ -79,15 +81,12 @@ export default function VenueRow({ venue, pollingActive }: Props) {
       </div>
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-x-1.5 text-xs text-gray-500">
+          <div className="flex flex-wrap items-center gap-x-2 text-xs text-gray-500">
             <span>{venue.platform}</span>
-            <span>·</span>
-            <span>{venue.court_type}</span>
+            <span className="text-gray-700">·</span>
+            <span>{courtIcon} {venue.court_type}</span>
             {venue.distance_km != null && (
-              <>
-                <span>·</span>
-                <span className="whitespace-nowrap">{venue.distance_km.toFixed(1)} km entfernt</span>
-              </>
+              <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
             )}
           </div>
           <WeatherCell weather={venue.weather} />

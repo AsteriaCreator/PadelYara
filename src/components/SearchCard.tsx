@@ -6,6 +6,8 @@ import { suggest, type Suggestion, type Coords } from "../geocode"
 // text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
 // text-sm (14 px) is below the 16 px threshold that triggers the zoom.
 const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-base text-white w-full focus:outline-none focus:border-gray-500"
+const labelClass = "text-xs font-semibold uppercase tracking-wide pl-1"
+const labelStyle = { color: "rgba(212,245,60,0.55)" }
 
 const VALID_RADII = [5, 10, 20, 25, 50]
 const LS_LOCATION = "padel_location"
@@ -147,7 +149,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       {/* Location + Radius */}
       <div className="flex flex-row gap-3 mb-3">
         <div className="flex flex-col gap-1 flex-1 min-w-0" ref={wrapperRef}>
-          <label className="text-xs text-gray-500">PLZ oder Ort</label>
+          <label className={labelClass} style={labelStyle}>Wo?</label>
           <div className="relative">
             <input
               type="text"
@@ -202,7 +204,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
           </div>
         </div>
         <div className="flex flex-col gap-1 w-28 shrink-0">
-          <label className="text-xs text-gray-500">Radius</label>
+          <label className={labelClass} style={labelStyle}>Umkreis</label>
           <select
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
@@ -218,7 +220,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       {/* Date + Time + Court */}
       <div className="grid grid-cols-2 gap-3 mb-3">
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Datum</label>
+          <label className={labelClass} style={labelStyle}>Wann?</label>
           <input
             type="date"
             value={date}
@@ -227,7 +229,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className="text-xs text-gray-500">Uhrzeit</label>
+          <label className={labelClass} style={labelStyle}>Ab wann?</label>
           <select
             value={time}
             onChange={(e) => handleTimeChange(e.target.value)}
@@ -243,7 +245,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         {/* col-span-2 so the court select always fills the full row instead of
             sitting alone in the left cell of a two-column grid on mobile */}
         <div className="flex flex-col gap-1 col-span-2">
-          <label className="text-xs text-gray-500">Court</label>
+          <label className={labelClass} style={labelStyle}>Court-Typ</label>
           <select
             value={courtType}
             onChange={(e) => setCourtType(e.target.value as CourtType)}
