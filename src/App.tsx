@@ -194,13 +194,20 @@ export default function App() {
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: "#080810" }}>
       <div className="max-w-2xl mx-auto px-4 py-6">
-        <div className="mb-3">
+        <div className="mb-4">
           <img
             src="/lockup-horizontal-dark.svg"
             alt="PadelYara"
             className="h-32 w-auto block"
           />
         </div>
+
+        <div className="mb-4 border-b border-gray-800">
+          <span className="inline-block pb-2 text-base font-semibold text-white border-b-2 mr-6" style={{ borderColor: "#d4f53c" }}>
+            Court Finder
+          </span>
+        </div>
+
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
