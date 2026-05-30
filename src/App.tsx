@@ -225,6 +225,13 @@ export default function App() {
 
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 
+        {!searched && !isLoading && !error && (
+          <div className="text-center py-8 text-gray-600 text-sm">
+            <img src="/cat-head.svg" alt="Yara" className="h-16 w-auto mx-auto mb-3 opacity-30" />
+            <p>Yara wartet schon. Gib deinen Ort ein und los geht's.</p>
+          </div>
+        )}
+
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
         {isLoading && (
@@ -270,9 +277,11 @@ export default function App() {
         )}
 
         {searched && !isLoading && !error && results.length === 0 && (
-          <p className="text-gray-500 text-sm px-1 mb-4">
-            Keine Ergebnisse in diesem Umkreis gefunden.
-          </p>
+          <div className="text-center py-10 mb-4">
+            <p className="text-3xl mb-3">🎾</p>
+            <p className="text-white font-semibold mb-1">Kein freier Court gefunden.</p>
+            <p className="text-gray-500 text-sm">Versuch einen größeren Umkreis oder einen anderen Tag.</p>
+          </div>
         )}
 
         {isLoadingMore && (
