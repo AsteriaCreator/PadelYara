@@ -1,43 +1,75 @@
 import time
 import httpx
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 _WEATHER_CACHE: dict = {}
 _WEATHER_TTL = 900  # 15 minutes
 
-OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
+MET_URL = "https://api.met.no/weatherapi/locationforecast/2.0/compact"
+# met.no requires a descriptive User-Agent identifying the application
+MET_UA  = "PadelYara/1.0 github.com/AsteriaCreator/NeoPadelChecker"
 
-_WMO: dict[int, tuple[str, str]] = {
-    0:  ("sun",     "Klar"),
-    1:  ("sun",     "Überwiegend klar"),
-    2:  ("cloud",   "Teils bewölkt"),
-    3:  ("cloud",   "Bedeckt"),
-    45: ("fog",     "Nebel"),
-    48: ("fog",     "Reifnebel"),
-    51: ("drizzle", "Leichter Nieselregen"),
-    53: ("drizzle", "Nieselregen"),
-    55: ("drizzle", "Starker Nieselregen"),
-    61: ("rain",    "Leichter Regen"),
-    63: ("rain",    "Regen"),
-    65: ("rain",    "Starker Regen"),
-    71: ("snow",    "Leichter Schneefall"),
-    73: ("snow",    "Schneefall"),
-    75: ("snow",    "Starker Schneefall"),
-    77: ("snow",    "Schneekörner"),
-    80: ("rain",    "Leichte Regenschauer"),
-    81: ("rain",    "Regenschauer"),
-    82: ("rain",    "Starke Regenschauer"),
-    85: ("snow",    "Schneeschauer"),
-    86: ("snow",    "Starke Schneeschauer"),
-    95: ("thunder", "Gewitter"),
-    96: ("thunder", "Gewitter mit Hagel"),
-    99: ("thunder", "Gewitter mit starkem Hagel"),
+# Vienna offset: UTC+2 in summer (CEST), UTC+1 in winter (CET)
+# We use a fixed +1 as a conservative base; zoneinfo is not guaranteed on Render
+_VIENNA_TZ = timezone(timedelta(hours=2))  # CEST (May–Oct)
+
+_SYMBOL_TO_ICON: dict[str, str] = {
+    "clearsky":        "sun",
+    "fair":            "sun",
+    "partlycloudy":    "cloud",
+    "cloudy":          "cloud",
+    "fog":             "fog",
+    "lightrainshowers":   "rain",
+    "rainshowers":        "rain",
+    "heavyrainshowers":   "rain",
+    "lightrain":       "rain",
+    "rain":            "rain",
+    "heavyrain":       "rain",
+    "lightdrizzle":    "drizzle",
+    "drizzle":         "drizzle",
+    "lightsleet":      "rain",
+    "sleet":           "rain",
+    "heavysleet":      "rain",
+    "lightsnow":       "snow",
+    "snow":            "snow",
+    "heavysnow":       "snow",
+    "snowshowers":     "snow",
+    "thunder":         "thunder",
+    "lightrainandthunder":  "thunder",
+    "rainandthunder":       "thunder",
+    "heavyrainandthunder":  "thunder",
+    "sleetandthunder":      "thunder",
+}
+
+_ICON_DESC: dict[str, str] = {
+    "sun":     "Sonnig",
+    "cloud":   "Bewölkt",
+    "fog":     "Neblig",
+    "rain":    "Regen",
+    "drizzle": "Nieselregen",
+    "snow":    "Schnee",
+    "thunder": "Gewitter",
 }
 
 
-def _wmo_to_weather(code: int, temp: float, rain_prob: int) -> dict:
-    icon, desc = _WMO.get(code, ("cloud", "Unbekannt"))
-    return {"icon": icon, "desc": desc, "temp": temp, "rain_prob": rain_prob, "code": code}
+def _symbol_to_icon(code: str) -> str:
+    """Strip _day/_night suffix then match."""
+    base = code.replace("_day", "").replace("_night", "").replace("_polartwilight", "")
+    return _SYMBOL_TO_ICON.get(base, "cloud")
+
+
+def _precip_to_rain_prob(mm: float, symbol: str) -> int:
+    """Estimate rain probability from precipitation amount + symbol code."""
+    if mm > 2.0:   return 90
+    if mm > 0.5:   return 70
+    if mm > 0.1:   return 40
+    if mm > 0.0:   return 20
+    # No precipitation expected — check if symbol implies rain chance
+    icon = _symbol_to_icon(symbol)
+    if icon in ("rain", "drizzle", "thunder"): return 60
+    if icon == "snow":   return 50
+    if icon == "cloud":  return 10
+    return 0
 
 
 def _cache_key(lat: float, lon: float, dt: datetime) -> str:
@@ -53,29 +85,46 @@ async def get_weather_for_hour(
     if entry and now - entry["timestamp"] < _WEATHER_TTL:
         return entry["weather"]
 
-    params = {
-        "latitude":      lat,
-        "longitude":     lon,
-        "hourly":        "temperature_2m,precipitation_probability,weather_code",
-        "forecast_days": 7,
-        "timezone":      "Europe/Vienna",
-    }
-    target = dt.strftime("%Y-%m-%dT%H:00")
+    # Convert Vienna local time → UTC for matching met.no timeseries
+    dt_utc = dt.replace(tzinfo=_VIENNA_TZ).astimezone(timezone.utc)
+    target = dt_utc.strftime("%Y-%m-%dT%H:00:00Z")
+
     try:
-        resp = await client.get(OPEN_METEO_URL, params=params, timeout=8)
+        resp = await client.get(
+            MET_URL,
+            params={"lat": round(lat, 4), "lon": round(lon, 4)},
+            headers={"User-Agent": MET_UA},
+            timeout=8,
+        )
         resp.raise_for_status()
         data = resp.json()
-        times = data["hourly"]["time"]
-        if target not in times:
+
+        timeseries = data["properties"]["timeseries"]
+        slot = next((t for t in timeseries if t["time"] == target), None)
+        if slot is None:
+            print(f"[weather] target {target} not in timeseries (first: {timeseries[0]['time']})")
             return None
-        i = times.index(target)
-        weather = _wmo_to_weather(
-            code=data["hourly"]["weather_code"][i],
-            temp=data["hourly"]["temperature_2m"][i],
-            rain_prob=data["hourly"]["precipitation_probability"][i],
-        )
+
+        instant  = slot["data"]["instant"]["details"]
+        next_1h  = slot["data"].get("next_1_hours") or slot["data"].get("next_6_hours") or {}
+        summary  = next_1h.get("summary", {})
+        details  = next_1h.get("details", {})
+
+        symbol   = summary.get("symbol_code", "cloudy")
+        precip   = float(details.get("precipitation_amount", 0))
+        icon     = _symbol_to_icon(symbol)
+        temp     = round(instant["air_temperature"], 1)
+        rain_prob = _precip_to_rain_prob(precip, symbol)
+
+        weather = {
+            "icon":      icon,
+            "desc":      _ICON_DESC.get(icon, "Bewölkt"),
+            "temp":      temp,
+            "rain_prob": rain_prob,
+        }
         _WEATHER_CACHE[key] = {"weather": weather, "timestamp": now}
         return weather
+
     except Exception as exc:
         print(f"[weather] fetch failed: {type(exc).__name__}: {exc}")
         return None
