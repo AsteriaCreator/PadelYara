@@ -77,7 +77,8 @@ async def get_weather_for_hour(
                 temp=data["hourly"]["temperature_2m"][i],
                 rain_prob=data["hourly"]["precipitation_probability"][i],
             )
-        except Exception:
+        except Exception as exc:
+            print(f"[weather] attempt {attempt+1}/{retries} failed: {type(exc).__name__}: {exc}")
             if attempt == retries - 1:
                 return None
 
