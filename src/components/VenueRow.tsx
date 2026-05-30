@@ -55,7 +55,7 @@ export default function VenueRow({ venue, pollingActive }: Props) {
     ? (pollingActive ? "pending_active" : "check_failed")
     : venue.status
 
-  const courtIcon = venue.court_type === "Indoor" ? "🏠" : venue.court_type === "Outdoor" ? "☀️" : "🏠☀️"
+  const courtIcon = venue.court_type === "indoor" ? "🏠" : venue.court_type === "outdoor" ? "☀️" : "🏠☀️"
 
   const bookingLabel = venue.status === "free" ? "JETZT BUCHEN →" : "LINK →"
   const bookingStyle = venue.status === "free"
