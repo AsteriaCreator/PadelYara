@@ -252,7 +252,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       <div className="mb-3">
         <label className={`${labelClass} block mb-1`} style={labelStyle}>Court-Typ</label>
         <div>
-          <label className={labelClass} style={labelStyle}>Court-Typ</label>
           <select
             value={courtType}
             onChange={(e) => setCourtType(e.target.value as CourtType)}
