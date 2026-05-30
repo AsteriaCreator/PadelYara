@@ -21,7 +21,16 @@ export interface Suggestion {
 
 const PLACE_CLASSES = new Set(["place", "boundary", "landuse"])
 
-export async function suggest(query: string): Promise<Suggestion[]> {
+function distanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371
+  const dLat = (lat2 - lat1) * Math.PI / 180
+  const dLon = (lon2 - lon1) * Math.PI / 180
+  const a = Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+export async function suggest(query: string, userLocation?: Coords): Promise<Suggestion[]> {
   query = query.trim()
   if (query.length < 3) return []
   const url = new URL("https://nominatim.openstreetmap.org/search")
@@ -40,9 +49,14 @@ export async function suggest(query: string): Promise<Suggestion[]> {
         PLACE_CLASSES.has(r.class as string) &&
         parseFloat(r.importance as string ?? "0") >= 0.01
       )
-      .sort((a: Record<string, unknown>, b: Record<string, unknown>) =>
-        parseFloat(b.importance as string ?? "0") - parseFloat(a.importance as string ?? "0")
-      )
+      .sort((a: Record<string, unknown>, b: Record<string, unknown>) => {
+        if (userLocation) {
+          const da = distanceKm(userLocation.lat, userLocation.lon, parseFloat(a.lat as string), parseFloat(a.lon as string))
+          const db = distanceKm(userLocation.lat, userLocation.lon, parseFloat(b.lat as string), parseFloat(b.lon as string))
+          return da - db
+        }
+        return parseFloat(b.importance as string ?? "0") - parseFloat(a.importance as string ?? "0")
+      })
       .slice(0, 5)
       .map((r: Record<string, unknown>) => {
         const addr = r.address as Record<string, string> | undefined

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import type { SearchParams, CourtType } from "../types"
 import { TIME_SLOTS } from "../constants"
-import { suggest, type Suggestion } from "../geocode"
+import { suggest, type Suggestion, type Coords } from "../geocode"
 
 // text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
 // text-sm (14 px) is below the 16 px threshold that triggers the zoom.
@@ -81,6 +81,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const [showSugg, setShowSugg]       = useState(false)
   const debounceRef                   = useRef<ReturnType<typeof setTimeout> | null>(null)
   const wrapperRef                    = useRef<HTMLDivElement>(null)
+  const userLocationRef               = useRef<Coords | undefined>(undefined)
 
   useEffect(() => {
     function onPointerDown(e: PointerEvent) {
@@ -158,7 +159,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
                 if (debounceRef.current) clearTimeout(debounceRef.current)
                 if (val.trim().length >= 3) {
                   debounceRef.current = setTimeout(async () => {
-                    const results = await suggest(val)
+                    const results = await suggest(val, userLocationRef.current)
                     setSuggestions(results)
                     setShowSugg(results.length > 0)
                   }, 300)
@@ -167,7 +168,15 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
                   setShowSugg(false)
                 }
               }}
-              onFocus={() => { if (suggestions.length > 0) setShowSugg(true) }}
+              onFocus={() => {
+                if (suggestions.length > 0) setShowSugg(true)
+                if (!userLocationRef.current && navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(
+                    (pos) => { userLocationRef.current = { lat: pos.coords.latitude, lon: pos.coords.longitude } },
+                    () => { /* permission denied — fall back to importance sort */ }
+                  )
+                }
+              }}
               placeholder="z.B. 2500 oder Baden"
               className={inputClass}
               autoComplete="off"
