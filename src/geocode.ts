@@ -50,6 +50,12 @@ export async function suggest(query: string, userLocation?: Coords): Promise<Sug
         parseFloat(r.importance as string ?? "0") >= 0.01
       )
       .sort((a: Record<string, unknown>, b: Record<string, unknown>) => {
+        const aName = ((a.name as string) ?? "").toLowerCase()
+        const bName = ((b.name as string) ?? "").toLowerCase()
+        const q = query.toLowerCase()
+        const aPrefix = aName.startsWith(q) ? 0 : 1
+        const bPrefix = bName.startsWith(q) ? 0 : 1
+        if (aPrefix !== bPrefix) return aPrefix - bPrefix
         if (userLocation) {
           const da = distanceKm(userLocation.lat, userLocation.lon, parseFloat(a.lat as string), parseFloat(a.lon as string))
           const db = distanceKm(userLocation.lat, userLocation.lon, parseFloat(b.lat as string), parseFloat(b.lon as string))
