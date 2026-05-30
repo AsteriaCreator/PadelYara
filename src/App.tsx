@@ -253,7 +253,7 @@ export default function App() {
         )}
 
         {searched && !isLoading && !error && results.length > 0 && lastParamsRef.current && (
-          <p className="mb-2 px-1 font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "1rem", color: "rgba(212,245,60,0.7)" }}>
+          <p className="mb-2 px-1" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.4)" }}>
             {results.length === 1
               ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
               : `${results.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
