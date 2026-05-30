@@ -47,7 +47,8 @@ export async function suggest(query: string, userLocation?: Coords): Promise<Sug
     return data
       .filter((r: Record<string, unknown>) =>
         PLACE_CLASSES.has(r.class as string) &&
-        parseFloat(r.importance as string ?? "0") >= 0.01
+        parseFloat(r.importance as string ?? "0") >= 0.01 &&
+        ((r.name as string) ?? "").toLowerCase().startsWith(query.toLowerCase())
       )
       .sort((a: Record<string, unknown>, b: Record<string, unknown>) => {
         const aName = ((a.name as string) ?? "").toLowerCase()
