@@ -14,6 +14,7 @@ export class GeocodeTimeoutError extends Error {
 const GEOCODE_TIMEOUT_MS = 5_000
 
 export async function geocode(query: string): Promise<Coords | null> {
+  query = query.trim()
   const url = new URL("https://nominatim.openstreetmap.org/search")
   url.searchParams.set("q", query)
   url.searchParams.set("countrycodes", "at")
@@ -33,7 +34,7 @@ export async function geocode(query: string): Promise<Coords | null> {
     // Treat results with extremely low importance as not-found.
     // All real Austrian cities, towns, and PLZs score well above 0.1;
     // only spurious/junk matches fall this low.
-    const MIN_IMPORTANCE = 0.1
+    const MIN_IMPORTANCE = 0.05
     const importance = parseFloat(data[0].importance ?? "1")
     if (importance < MIN_IMPORTANCE) return null
 
