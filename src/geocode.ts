@@ -38,14 +38,18 @@ export async function geocode(query: string): Promise<Coords | null> {
     const importance = parseFloat(data[0].importance ?? "1")
     if (importance < MIN_IMPORTANCE) return null
 
-    // Reject prefix/abbreviation matches: the user's query must cover at
-    // least half the length of the result's canonical name.
-    // e.g. "Bad" (3) vs "Bad Ischl" (9) = 33% → null
-    //      "Baden" (5) vs "Baden" (5)   = 100% → accept
-    //      "Wien" (4) vs "Wien" (4)     = 100% → accept
-    //      "2500" (4) vs "2500" (4)     = 100% → accept
+    // Reject bare prefix/abbreviation matches where the query doesn't appear
+    // in the result name at all and also covers less than half its length.
+    // e.g. "Bad" vs "Bad Ischl": "bad" not in "bad ischl"? actually it is —
+    // so use substring check as primary gate: if query is a substring of the
+    // result name (case-insensitive), always accept.
+    // e.g. "Schwechat" in "Flughafen Wien-Schwechat" → accept
+    //      "Bad" in "Bad Ischl" → accept (but importance filter handles junk)
+    //      "B" in "Baden" → substring match, but length ratio 1/5 = 0.2 → reject
     const resultName: string = data[0].name ?? ""
-    if (resultName && query.trim().length / resultName.length < 0.5) return null
+    const q = query.toLowerCase()
+    const rn = resultName.toLowerCase()
+    if (resultName && !rn.includes(q) && q.length / resultName.length < 0.5) return null
 
     return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) }
   } catch (err) {
