@@ -308,10 +308,11 @@ export default function App() {
         )}
       </div>
 
-      <footer className="text-center py-6">
+      <footer className="text-center py-8 mt-4">
+        <p className="text-xs text-gray-700 mb-2 tracking-widest uppercase">PadelYara</p>
         <button
           onClick={() => setShowImprint(true)}
-          className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+          className="text-xs text-gray-700 hover:text-gray-400 transition-colors"
         >
           Impressum
         </button>
