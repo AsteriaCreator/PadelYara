@@ -218,8 +218,12 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       </div>
 
       {/* Date + Time + Court */}
-      <div className="grid grid-cols-2 gap-3 mb-3">
-        <div className="flex flex-col gap-1 min-w-0">
+      {/* grid-cols-[minmax(0,1fr)_minmax(0,1fr)] forces columns to shrink below
+          content size — plain grid-cols-2 uses `auto` as the min which lets the
+          native iOS date input overflow its cell. overflow-hidden clips any
+          remaining visual bleed. */}
+      <div className="grid gap-3 mb-3" style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}>
+        <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
           <label className={labelClass} style={labelStyle}>Wann?</label>
           <input
             type="date"
@@ -228,7 +232,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             className={inputClass}
           />
         </div>
-        <div className="flex flex-col gap-1 min-w-0">
+        <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
           <label className={labelClass} style={labelStyle}>Ab wann?</label>
           <select
             value={time}
@@ -244,7 +248,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         </div>
         {/* col-span-2 so the court select always fills the full row instead of
             sitting alone in the left cell of a two-column grid on mobile */}
-        <div className="flex flex-col gap-1 col-span-2">
+        <div className="flex flex-col gap-1" style={{ gridColumn: "1 / -1" }}>
           <label className={labelClass} style={labelStyle}>Court-Typ</label>
           <select
             value={courtType}
