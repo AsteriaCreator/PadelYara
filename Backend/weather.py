@@ -1,3 +1,4 @@
+import asyncio
 import time
 import httpx
 from datetime import datetime
@@ -51,8 +52,13 @@ def _cache_key(lat: float, lon: float, dt: datetime) -> str:
     return f"{lat:.4f},{lon:.4f}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
 
 
+def _area_key(lat: float, lon: float) -> tuple[float, float]:
+    """Round to ~1 km grid to deduplicate nearby venues."""
+    return (round(lat, 2), round(lon, 2))
+
+
 async def get_weather_for_hour(
-    client: httpx.AsyncClient, lat: float, lon: float, dt: datetime, retries: int = 3
+    client: httpx.AsyncClient, lat: float, lon: float, dt: datetime, retries: int = 2
 ) -> dict | None:
     params = {
         "latitude":      lat,
@@ -65,7 +71,7 @@ async def get_weather_for_hour(
 
     for attempt in range(retries):
         try:
-            resp = await client.get(OPEN_METEO_URL, params=params, timeout=5)
+            resp = await client.get(OPEN_METEO_URL, params=params, timeout=8)
             resp.raise_for_status()
             data = resp.json()
             times = data["hourly"]["time"]
@@ -98,3 +104,63 @@ async def get_weather_cached(
     if weather is not None:
         _WEATHER_CACHE[key] = {"weather": weather, "timestamp": now}
     return weather
+
+
+async def fetch_weather_for_venues(venues: list[dict], dt: datetime) -> dict[str, dict | None]:
+    """
+    Fetch weather for a list of venue dicts (each must have 'id', 'lat', 'lon').
+    Deduplicates by ~1 km area so nearby venues share one HTTP request.
+    Requests are sequential to avoid rate-limiting on Open-Meteo's free tier.
+    Returns a dict mapping venue_id → weather dict (or None).
+    """
+    now = time.time()
+
+    # Split into cache hits and misses, deduplicating by area key
+    area_to_fetch: dict[tuple, tuple[float, float]] = {}  # area_key → (lat, lon)
+    venue_area: dict[str, tuple] = {}  # venue_id → area_key
+
+    for v in venues:
+        lat, lon = v.get("lat"), v.get("lon")
+        if lat is None or lon is None:
+            continue
+        ak = _area_key(lat, lon)
+        venue_area[v["id"]] = ak
+        # Check per-venue cache first (exact coords)
+        ck = _cache_key(lat, lon, dt)
+        entry = _WEATHER_CACHE.get(ck)
+        if not (entry and now - entry["timestamp"] < _WEATHER_TTL):
+            # Not cached — queue the area for fetching
+            if ak not in area_to_fetch:
+                area_to_fetch[ak] = (lat, lon)
+
+    # Fetch missing areas sequentially to stay within rate limits
+    area_results: dict[tuple, dict | None] = {}
+    async with httpx.AsyncClient() as client:
+        for ak, (lat, lon) in area_to_fetch.items():
+            weather = await get_weather_for_hour(client, lat, lon, dt)
+            area_results[ak] = weather
+            # Cache under the exact coords used
+            if weather is not None:
+                ck = _cache_key(lat, lon, dt)
+                _WEATHER_CACHE[ck] = {"weather": weather, "timestamp": now}
+            # Small pause between requests to avoid 429
+            if len(area_to_fetch) > 1:
+                await asyncio.sleep(0.3)
+
+    # Build result map per venue
+    result: dict[str, dict | None] = {}
+    for v in venues:
+        lat, lon = v.get("lat"), v.get("lon")
+        if lat is None or lon is None:
+            result[v["id"]] = None
+            continue
+        ak = venue_area.get(v["id"])
+        if ak in area_results:
+            result[v["id"]] = area_results[ak]
+        else:
+            # Was a cache hit — read from cache
+            ck = _cache_key(lat, lon, dt)
+            entry = _WEATHER_CACHE.get(ck)
+            result[v["id"]] = entry["weather"] if entry else None
+
+    return result

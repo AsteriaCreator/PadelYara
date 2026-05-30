@@ -33,7 +33,7 @@ from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
 from venues import load_venues
-from weather import get_weather_cached, get_weather_for_hour
+from weather import fetch_weather_for_venues, get_weather_for_hour
 
 
 # Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
@@ -421,24 +421,26 @@ def search(
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
                 "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
 
-    results: list = [None] * len(venues)
-    with ThreadPoolExecutor(max_workers=5) as pool:
-        futures = {pool.submit(_fetch_venue_weather, v, dt): i for i, v in enumerate(venues)}
-        for future in as_completed(futures):
-            idx = futures[future]
-            try:
-                results[idx] = future.result()
-            except Exception as exc:
-                v = venues[idx]
-                print(json.dumps({
-                    "event":    "venue_weather_error",
-                    "venue_id": v.get("id", "unknown"),
-                    "error":    f"{type(exc).__name__}: {exc}",
-                }))
-                # Leave slot as None — filtered out below
+    # Fetch weather for all venues in one sequential-deduplicated batch to avoid
+    # rate-limiting on Open-Meteo's free tier (one request per ~1 km area).
+    weather_map = _run_async(fetch_weather_for_venues(venues, dt))
 
-    # Drop any venues whose weather fetch raised an unhandled exception
-    results = [r for r in results if r is not None]
+    results = []
+    for v in venues:
+        results.append({
+            "venue_id":            v["id"],
+            "name":                v["name"],
+            "region":              v["region"],
+            "court_type":          v["court_type"],
+            "platform":            v["platform"],
+            "priority":            v["priority"],
+            "booking_url":         v["booking_url"],
+            "distance_km":         v.get("distance_km"),
+            "availability_status": "unknown",
+            "error":               None,
+            "weather":             weather_map.get(v["id"]),
+        })
+
     if not results:
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
                 "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
