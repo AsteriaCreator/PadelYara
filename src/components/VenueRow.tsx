@@ -3,14 +3,11 @@ import type { Venue } from "../types"
 import WeatherCell from "./WeatherCell"
 
 const STATUS_STYLES: Record<string, string> = {
-  free:                    "bg-green-900/40 text-green-400",
+  free:                    "text-[#080810] font-bold",
   busy:                    "bg-red-900/40 text-red-400",
-  // pending_active: timer is running — pulse to signal active background work
   pending_active:          "bg-blue-900/40 text-blue-400 animate-pulse",
-  // pending (fallback, should not appear in normal operation)
   pending:                 "bg-blue-900/40 text-blue-400 animate-pulse",
   unknown:                 "bg-amber-900/40 text-amber-400",
-  // check_failed: polling ended with this venue still unresolved
   check_failed:            "bg-amber-900/40 text-amber-400",
   phone_only:              "bg-blue-900/40 text-blue-400",
   platform_check_required: "bg-amber-900/40 text-amber-400",
@@ -59,17 +56,20 @@ export default function VenueRow({ venue, pollingActive }: Props) {
 
   const bookingLabel = venue.status === "free" ? "JETZT BUCHEN →" : "LINK →"
   const bookingStyle = venue.status === "free"
-    ? "bg-green-600 hover:bg-green-500 text-white"
-    : "bg-gray-700 hover:bg-gray-600 text-gray-300"
+    ? "font-bold text-[#080810] hover:opacity-90"
+    : "bg-gray-800 hover:bg-gray-700 text-gray-500 border border-gray-700"
 
   return (
     <div className="px-4 py-3 border-b border-gray-700/50 last:border-0">
       {/* min-w-0 on the row is required so the truncate span can actually shrink.
           Without it, flex items default to min-width:auto and ignore overflow:hidden. */}
       <div className="flex items-center justify-between mb-1 min-w-0">
-        <span className="font-medium text-white truncate min-w-0">{venue.name}</span>
+        <span className="font-semibold text-white truncate min-w-0 text-sm">{venue.name}</span>
         <div className="flex flex-col items-end shrink-0 ml-3">
-          <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
+          <span
+            className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}
+            style={displayStatus === "free" ? { backgroundColor: "#d4f53c" } : undefined}
+          >
             {STATUS_LABEL[displayStatus]}
           </span>
           {venue.time_adjusted && venue.adjustment_label && (
@@ -96,7 +96,8 @@ export default function VenueRow({ venue, pollingActive }: Props) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackBookingClick(venue.id, venue.platform)}
-          className={`text-xs font-semibold px-3 py-1 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
+          className={`text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
+          style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
         >
           {bookingLabel}
         </a>
