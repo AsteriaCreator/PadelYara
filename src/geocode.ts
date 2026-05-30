@@ -19,16 +19,9 @@ export interface Suggestion {
   lon: number
 }
 
-function distanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
-  const R = 6371
-  const dLat = (lat2 - lat1) * Math.PI / 180
-  const dLon = (lon2 - lon1) * Math.PI / 180
-  const a = Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon / 2) ** 2
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-}
 
-const PHOTON_PLACE_TYPES = new Set(["city", "town", "village", "municipality", "borough", "suburb", "hamlet", "district"])
+// Only keep settlement-level results
+const PHOTON_PLACE_KEYS = new Set(["place", "boundary"])
 
 export async function suggest(query: string, userLocation?: Coords): Promise<Suggestion[]> {
   query = query.trim()
@@ -36,7 +29,7 @@ export async function suggest(query: string, userLocation?: Coords): Promise<Sug
   const url = new URL("https://photon.komoot.io/api/")
   url.searchParams.set("q", query)
   url.searchParams.set("countrycode", "at")
-  url.searchParams.set("limit", "10")
+  url.searchParams.set("limit", "15")
   url.searchParams.set("lang", "de")
   if (userLocation) {
     url.searchParams.set("lat", String(userLocation.lat))
@@ -47,25 +40,21 @@ export async function suggest(query: string, userLocation?: Coords): Promise<Sug
     if (!res.ok) return []
     const data = await res.json()
     const features: Record<string, unknown>[] = data?.features ?? []
-    const q = query.toLowerCase()
-    return features
-      .filter((f) => {
-        const p = f.properties as Record<string, unknown>
-        const name = ((p.name as string) ?? "").toLowerCase()
-        return PHOTON_PLACE_TYPES.has(p.type as string) && name.startsWith(q)
-      })
-      .slice(0, 5)
-      .map((f) => {
-        const p = f.properties as Record<string, unknown>
-        const geo = f.geometry as { coordinates: [number, number] }
-        const name = (p.name as string) ?? ""
-        const state = (p.state as string) ?? ""
-        return {
-          label: state ? `${name}, ${state}` : name,
-          lat: geo.coordinates[1],
-          lon: geo.coordinates[0],
-        }
-      })
+    const seen = new Set<string>()
+    const results: Suggestion[] = []
+    for (const f of features) {
+      const p = f.properties as Record<string, unknown>
+      const geo = f.geometry as { coordinates: [number, number] }
+      if (!PHOTON_PLACE_KEYS.has(p.osm_key as string)) continue
+      const name = (p.name as string) ?? ""
+      const state = (p.state as string) ?? ""
+      const label = state ? `${name}, ${state}` : name
+      if (seen.has(label)) continue
+      seen.add(label)
+      results.push({ label, lat: geo.coordinates[1], lon: geo.coordinates[0] })
+      if (results.length === 5) break
+    }
+    return results
   } catch {
     return []
   }

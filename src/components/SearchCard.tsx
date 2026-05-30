@@ -262,10 +262,12 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
       <button
         type="submit"
-        disabled={isLoading}
-        style={{ backgroundColor: "#d4f53c" }}
-        className="w-full py-2.5 rounded-lg text-sm font-bold text-gray-900 tracking-wide disabled:opacity-50"
+        style={{ backgroundColor: "#d4f53c", opacity: isLoading ? 0.7 : 1 }}
+        className="w-full py-2.5 rounded-lg text-sm font-bold text-gray-900 tracking-wide flex items-center justify-center gap-2"
       >
+        {isLoading && (
+          <span className="animate-spin inline-block h-4 w-4 rounded-full border-2 border-gray-900 border-t-transparent" />
+        )}
         {isLoading ? "LADEN…" : "SUCHEN"}
       </button>
     </form>
