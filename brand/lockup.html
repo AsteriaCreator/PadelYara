@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>PadelYara Lockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d0d0d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 0;
+      padding: 80px 60px;
+    }
+
+    .section-label {
+      font-family: sans-serif;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      width: 100%;
+      max-width: 800px;
+      padding: 40px 0 16px;
+      border-top: 1px solid #1a1a1a;
+    }
+    .section-label:first-child { border-top: none; padding-top: 0; }
+
+    /* ── HORIZONTAL LOCKUP ── */
+    .lockup-h {
+      display: flex;
+      align-items: flex-end;
+      gap: 28px;
+      padding: 40px 48px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+    }
+    .lockup-h.dark  { background: #111111; }
+    .lockup-h.light { background: #ffffff; }
+
+    .logo {
+      flex-shrink: 0;
+      height: 110px;
+      width: auto;
+    }
+
+    .text-h {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 7px;
+    }
+
+    .text-h .wordmark {
+      text-align: left;
+      margin-left: 0;
+    }
+    .text-h .tagline {
+      text-align: left;
+      margin-left: 5px;
+    }
+
+    .wordmark {
+      font-family: 'Cinzel', serif;
+      line-height: 1;
+      letter-spacing: 5px;
+    }
+    .wordmark .light { font-weight: 400; }
+    .wordmark .bold  { font-weight: 600; }
+
+    .wordmark.on-dark  { font-size: 46px; color: #ffffff; }
+    .wordmark.on-light { font-size: 46px; color: #111111; }
+
+    .tagline {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+    .tagline.on-dark  { color: #ccc; }
+    .tagline.on-light { color: #555; }
+
+    /* ── VERTICAL LOCKUP ── */
+    .lockup-v {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 48px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+    }
+    .lockup-v.dark  { background: #111111; }
+    .lockup-v.light { background: #ffffff; }
+
+    .logo-v {
+      height: 140px;
+      width: auto;
+    }
+
+    .text-v {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .wordmark-v {
+      font-family: 'Cinzel', serif;
+      font-size: 42px;
+      letter-spacing: 8px;
+      line-height: 1;
+      position: relative;
+    }
+    .wordmark-v .light { font-weight: 400; }
+    .wordmark-v .bold  { font-weight: 600; }
+    .wordmark-v.on-dark  { color: #ffffff; }
+    .wordmark-v.on-light { color: #111111; }
+
+    /* Tagline stretches to match wordmark width via JS-free trick:
+       same container, justify via letter-spacing tuned to fit */
+    .text-v {
+      position: relative;
+    }
+
+    .tagline-v {
+      font-family: 'Cinzel', serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .tagline-v.on-dark  { color: #ccc; }
+    .tagline-v.on-light { color: #555; }
+
+    /* ── ICON ONLY ── */
+    .icon-row {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+      padding: 32px 48px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+    }
+    .icon-row.dark  { background: #111111; }
+
+    .icon-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .icon-label {
+      font-family: sans-serif;
+      font-size: 9px;
+      color: #555;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HORIZONTAL DARK -->
+  <p class="section-label">1 — Horizontal · Dunkel (Website, Social)</p>
+  <div class="lockup-h dark">
+    <img class="logo" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg" alt="PadelYara">
+    <div class="text-h">
+      <div class="wordmark on-dark"><span class="light">Padel</span><span class="bold">Yara</span></div>
+      <div class="tagline on-dark">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- HORIZONTAL LIGHT -->
+  <p class="section-label">2 — Horizontal · Hell (Dokumente, Druck)</p>
+  <div class="lockup-h light">
+    <img class="logo" src="../.agents/Designoptionen Logo/End/logo-transparent-black.svg" alt="PadelYara">
+    <div class="text-h">
+      <div class="wordmark on-light"><span class="light">Padel</span><span class="bold">Yara</span></div>
+      <div class="tagline on-light">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- VERTICAL DARK -->
+  <p class="section-label">3 — Vertikal · Dunkel (App Splash, Poster)</p>
+  <div class="lockup-v dark">
+    <img class="logo-v" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg" alt="PadelYara">
+    <div class="text-v">
+      <div class="wordmark-v on-dark"><span class="light">Padel</span><span class="bold">Yara</span></div>
+      <div class="tagline-v on-dark">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- VERTICAL LIGHT -->
+  <p class="section-label">4 — Vertikal · Hell (Visitenkarte, Merch)</p>
+  <div class="lockup-v light">
+    <img class="logo-v" src="../.agents/Designoptionen Logo/End/logo-transparent-black.svg" alt="PadelYara">
+    <div class="text-v">
+      <div class="wordmark-v on-light"><span class="light">Padel</span><span class="bold">Yara</span></div>
+      <div class="tagline-v on-light">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- ICON SIZES -->
+  <p class="section-label">5 — Icon · Verschiedene Größen</p>
+  <div class="icon-row dark">
+    <div class="icon-box">
+      <img style="height:96px" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg">
+      <span class="icon-label">96px</span>
+    </div>
+    <div class="icon-box">
+      <img style="height:64px" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg">
+      <span class="icon-label">64px</span>
+    </div>
+    <div class="icon-box">
+      <img style="height:48px" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg">
+      <span class="icon-label">48px</span>
+    </div>
+    <div class="icon-box">
+      <img style="height:32px" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg">
+      <span class="icon-label">32px</span>
+    </div>
+    <div class="icon-box">
+      <img style="height:20px" src="../.agents/Designoptionen Logo/End/logo-transparent-white.svg">
+      <span class="icon-label">20px</span>
+    </div>
+  </div>
+
+<script>
+  document.fonts.ready.then(() => {
+    document.querySelectorAll('.text-v').forEach(block => {
+      const wordmark = block.querySelector('.wordmark-v');
+      const tagline  = block.querySelector('.tagline-v');
+      if (!wordmark || !tagline) return;
+
+      // Set tagline exactly as wide as the wordmark
+      const targetWidth = wordmark.getBoundingClientRect().width;
+      tagline.style.width = targetWidth + 'px';
+    });
+  });
+</script>
+</body>
+</html>

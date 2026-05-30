@@ -194,13 +194,12 @@ export default function App() {
   return (
     <div className="min-h-screen overflow-x-hidden" style={{ backgroundColor: "#080810" }}>
       <div className="max-w-2xl mx-auto px-4 py-6">
-        <div className="mb-6">
+        <div className="mb-3">
           <img
-            src="/lockup-horizontal-light.svg"
+            src="/lockup-horizontal-dark.svg"
             alt="PadelYara"
-            className="h-10 w-auto"
+            className="h-32 w-auto block"
           />
-          <p className="text-gray-400 text-sm mt-1">Dein Match. Dein Moment.</p>
         </div>
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>PadelYara Wordmark</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Jost:wght@200;300;600&family=Montserrat:wght@200;300;700&family=Josefin+Sans:wght@100;300;700&family=Raleway:wght@200;300;700&family=Barlow:wght@300;700&family=Nunito+Sans:wght@200;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d0d0d;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 0;
+      padding: 60px;
+    }
+
+    .section-label {
+      font-family: sans-serif;
+      font-size: 10px;
+      color: #333;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      width: 100%;
+      max-width: 760px;
+      padding: 36px 0 20px;
+      border-top: 1px solid #1a1a1a;
+    }
+    .section-label:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .lockup {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      width: 100%;
+      max-width: 760px;
+      padding-bottom: 36px;
+    }
+
+    .logo-wrap {
+      width: 90px;
+      height: 110px;
+      flex-shrink: 0;
+      background: #ffffff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .logo-img {
+      width: 80px;
+      height: auto;
+    }
+
+    .text-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .name { color: #ffffff; line-height: 1; }
+    .name .l { font-weight: 300; }
+    .name .b { font-weight: 700; }
+    .tag  { color: #666; }
+
+    /* ── SERIF REFERENZ ── */
+    .cinzel      { font-family: 'Cinzel', serif; font-size: 52px; letter-spacing: 7px; text-transform: uppercase; }
+    .cinzel .l   { font-weight: 400; }
+    .cinzel .b   { font-weight: 600; }
+    .cinzel-tag  { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #666; }
+
+    /* ── SANS SERIF ── */
+
+    /* 1. JOST — Futura-ähnlich, geometrisch, sehr clean */
+    .jost      { font-family: 'Jost', sans-serif; font-size: 54px; letter-spacing: 10px; text-transform: uppercase; }
+    .jost .l   { font-weight: 200; }
+    .jost .b   { font-weight: 600; }
+    .jost-tag  { font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: #666; font-weight: 200; }
+
+    /* 2. MONTSERRAT — Modern, klar, sehr bekannt */
+    .mont      { font-family: 'Montserrat', sans-serif; font-size: 48px; letter-spacing: 8px; text-transform: uppercase; }
+    .mont .l   { font-weight: 200; }
+    .mont .b   { font-weight: 700; }
+    .mont-tag  { font-family: 'Montserrat', sans-serif; font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: #666; font-weight: 200; }
+
+    /* 3. JOSEFIN SANS — Geometrisch, elegant, fein */
+    .jos      { font-family: 'Josefin Sans', sans-serif; font-size: 52px; letter-spacing: 12px; text-transform: uppercase; }
+    .jos .l   { font-weight: 100; }
+    .jos .b   { font-weight: 700; }
+    .jos-tag  { font-family: 'Josefin Sans', sans-serif; font-size: 12px; letter-spacing: 6px; text-transform: uppercase; color: #666; font-weight: 100; }
+
+    /* 4. RALEWAY — Sanft, feminin, fließend */
+    .ral      { font-family: 'Raleway', sans-serif; font-size: 54px; letter-spacing: 8px; text-transform: uppercase; }
+    .ral .l   { font-weight: 200; }
+    .ral .b   { font-weight: 700; }
+    .ral-tag  { font-family: 'Raleway', sans-serif; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: #666; font-weight: 200; }
+
+    /* 5. BARLOW — Modern, sportlich-elegant */
+    .bar      { font-family: 'Barlow', sans-serif; font-size: 54px; letter-spacing: 8px; text-transform: uppercase; }
+    .bar .l   { font-weight: 300; }
+    .bar .b   { font-weight: 700; }
+    .bar-tag  { font-family: 'Barlow', sans-serif; font-size: 12px; letter-spacing: 5px; text-transform: uppercase; color: #666; font-weight: 300; }
+
+    /* 6. NUNITO SANS — Warm, rund, freundlich */
+    .nun      { font-family: 'Nunito Sans', sans-serif; font-size: 52px; letter-spacing: 6px; text-transform: uppercase; }
+    .nun .l   { font-weight: 200; }
+    .nun .b   { font-weight: 700; }
+    .nun-tag  { font-family: 'Nunito Sans', sans-serif; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: #666; font-weight: 200; }
+  </style>
+</head>
+<body>
+
+  <!-- REFERENZ -->
+  <p class="section-label">⭐ Cinzel · Dein Favorit (Referenz, Serif)</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name cinzel"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="cinzel-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- SANS 1 -->
+  <p class="section-label">1 — Jost · Futura-ähnlich, geometrisch, sehr clean</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name jost"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="jost-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- SANS 2 -->
+  <p class="section-label">2 — Montserrat · Modern, klar, universell</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name mont"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="mont-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- SANS 3 -->
+  <p class="section-label">3 — Josefin Sans · Geometrisch, minimalistisch, fein</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name jos"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="jos-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- SANS 4 -->
+  <p class="section-label">4 — Raleway · Sanft, feminin, fließend</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name ral"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="ral-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- SANS 5 -->
+  <p class="section-label">5 — Barlow · Modern, sportlich-elegant</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name bar"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="bar-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+  <!-- SANS 6 -->
+  <p class="section-label">6 — Nunito Sans · Warm, rund, freundlich</p>
+  <div class="lockup">
+    <div class="logo-wrap"><img class="logo-img" src="../.agents/Designoptionen Logo/End/logo.svg" alt="PadelYara Logo"></div>
+    <div class="text-block">
+      <div class="name nun"><span class="l">Padel</span><span class="b">Yara</span></div>
+      <div class="nun-tag">Dein Match. Dein Moment.</div>
+    </div>
+  </div>
+
+</body>
+</html>
