@@ -19,8 +19,6 @@ export interface Suggestion {
   lon: number
 }
 
-const PLACE_CLASSES = new Set(["place", "boundary", "landuse"])
-
 function distanceKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371
   const dLat = (lat2 - lat1) * Math.PI / 180
@@ -30,50 +28,42 @@ function distanceKm(lat1: number, lon1: number, lat2: number, lon2: number): num
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
+const PHOTON_PLACE_TYPES = new Set(["city", "town", "village", "municipality", "borough", "suburb", "hamlet", "district"])
+
 export async function suggest(query: string, userLocation?: Coords): Promise<Suggestion[]> {
   query = query.trim()
   if (query.length < 3) return []
-  const url = new URL("https://nominatim.openstreetmap.org/search")
+  const url = new URL("https://photon.komoot.io/api/")
   url.searchParams.set("q", query)
-  url.searchParams.set("countrycodes", "at")
-  url.searchParams.set("format", "json")
+  url.searchParams.set("countrycode", "at")
   url.searchParams.set("limit", "10")
-  url.searchParams.set("addressdetails", "1")
+  url.searchParams.set("lang", "de")
+  if (userLocation) {
+    url.searchParams.set("lat", String(userLocation.lat))
+    url.searchParams.set("lon", String(userLocation.lon))
+  }
   try {
     const res = await fetch(url.toString(), { signal: AbortSignal.timeout(5_000) })
     if (!res.ok) return []
     const data = await res.json()
-    if (!Array.isArray(data)) return []
-    return data
-      .filter((r: Record<string, unknown>) =>
-        PLACE_CLASSES.has(r.class as string) &&
-        parseFloat(r.importance as string ?? "0") >= 0.01 &&
-        ((r.name as string) ?? "").toLowerCase().startsWith(query.toLowerCase())
-      )
-      .sort((a: Record<string, unknown>, b: Record<string, unknown>) => {
-        const aName = ((a.name as string) ?? "").toLowerCase()
-        const bName = ((b.name as string) ?? "").toLowerCase()
-        const q = query.toLowerCase()
-        const aPrefix = aName.startsWith(q) ? 0 : 1
-        const bPrefix = bName.startsWith(q) ? 0 : 1
-        if (aPrefix !== bPrefix) return aPrefix - bPrefix
-        if (userLocation) {
-          const da = distanceKm(userLocation.lat, userLocation.lon, parseFloat(a.lat as string), parseFloat(a.lon as string))
-          const db = distanceKm(userLocation.lat, userLocation.lon, parseFloat(b.lat as string), parseFloat(b.lon as string))
-          return da - db
-        }
-        return parseFloat(b.importance as string ?? "0") - parseFloat(a.importance as string ?? "0")
+    const features: Record<string, unknown>[] = data?.features ?? []
+    const q = query.toLowerCase()
+    return features
+      .filter((f) => {
+        const p = f.properties as Record<string, unknown>
+        const name = ((p.name as string) ?? "").toLowerCase()
+        return PHOTON_PLACE_TYPES.has(p.type as string) && name.startsWith(q)
       })
       .slice(0, 5)
-      .map((r: Record<string, unknown>) => {
-        const addr = r.address as Record<string, string> | undefined
-        const name = (r.name as string) || ""
-        const state = addr?.state ?? ""
-        const label = state ? `${name}, ${state}` : name
+      .map((f) => {
+        const p = f.properties as Record<string, unknown>
+        const geo = f.geometry as { coordinates: [number, number] }
+        const name = (p.name as string) ?? ""
+        const state = (p.state as string) ?? ""
         return {
-          label: label || (r.display_name as string),
-          lat: parseFloat(r.lat as string),
-          lon: parseFloat(r.lon as string),
+          label: state ? `${name}, ${state}` : name,
+          lat: geo.coordinates[1],
+          lon: geo.coordinates[0],
         }
       })
   } catch {
