@@ -3,7 +3,7 @@ import type { Venue } from "../types"
 import WeatherCell from "./WeatherCell"
 
 const STATUS_STYLES: Record<string, string> = {
-  free:                    "text-[#080810] font-bold",
+  free:                    "bg-green-900/40 text-green-400 font-semibold",
   busy:                    "bg-red-900/40 text-red-400",
   pending_active:          "bg-blue-900/40 text-blue-400 animate-pulse",
   pending:                 "bg-blue-900/40 text-blue-400 animate-pulse",
@@ -68,8 +68,7 @@ export default function VenueRow({ venue, pollingActive }: Props) {
         <div className="flex flex-col items-end shrink-0 ml-3">
           <span
             className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}
-            style={displayStatus === "free" ? { backgroundColor: "#d4f53c" } : undefined}
-          >
+            >
             {STATUS_LABEL[displayStatus]}
           </span>
           {venue.time_adjusted && venue.adjustment_label && (
