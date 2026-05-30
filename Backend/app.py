@@ -33,7 +33,7 @@ from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
 from venues import load_venues
-from weather import fetch_weather_for_venues, get_weather_for_hour
+from weather import get_weather_for_hour
 
 
 # Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
@@ -214,8 +214,8 @@ def _filter_venues(
     return result
 
 
-def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
-    base = {
+def _build_venue_result(venue: dict) -> dict:
+    return {
         "venue_id":            venue["id"],
         "name":                venue["name"],
         "region":              venue["region"],
@@ -226,24 +226,7 @@ def _fetch_venue_weather(venue: dict, dt: datetime) -> dict:
         "distance_km":         venue.get("distance_km"),
         "availability_status": "unknown",
         "error":               None,
-        "weather":             None,
     }
-
-    if venue["lat"] is None or venue["lon"] is None:
-        base["error"] = "no_coordinates"
-        return base
-
-    async def _get():
-        async with httpx.AsyncClient() as client:
-            return await get_weather_cached(client, venue["lat"], venue["lon"], dt)
-
-    weather = _run_async(_get())
-    if weather is None:
-        base["error"] = "weather_unavailable"
-    else:
-        base["weather"] = weather
-
-    return base
 
 
 ET_BATCH = 5  # eTennis venues checked per request (Render free-tier limit)
@@ -421,29 +404,19 @@ def search(
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
                 "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
 
-    # Fetch weather for all venues in one sequential-deduplicated batch to avoid
-    # rate-limiting on Open-Meteo's free tier (one request per ~1 km area).
-    weather_map = _run_async(fetch_weather_for_venues(venues, dt))
-
-    results = []
-    for v in venues:
-        results.append({
-            "venue_id":            v["id"],
-            "name":                v["name"],
-            "region":              v["region"],
-            "court_type":          v["court_type"],
-            "platform":            v["platform"],
-            "priority":            v["priority"],
-            "booking_url":         v["booking_url"],
-            "distance_km":         v.get("distance_km"),
-            "availability_status": "unknown",
-            "error":               None,
-            "weather":             weather_map.get(v["id"]),
-        })
+    results = [_build_venue_result(v) for v in venues]
 
     if not results:
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
                 "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
+
+    # Fetch weather once for the search location (one request, no per-venue calls)
+    search_weather = None
+    if lat is not None and lon is not None:
+        async def _get_weather():
+            async with httpx.AsyncClient() as client:
+                return await get_weather_for_hour(client, lat, lon, dt)
+        search_weather = _run_async(_get_weather())
 
     # In radius mode paginate eTennis scraping so Render's free tier
     # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
@@ -646,6 +619,7 @@ def search(
         "time":                 dt.strftime("%H:%M"),
         "availability_pending": availability_pending,
         "has_more":             has_more,
+        "weather":              search_weather,
     }
     if date_bucket == "far_future":
         response["booking_window_notice"] = _BOOKING_WINDOW_NOTICE

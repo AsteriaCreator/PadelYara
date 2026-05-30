@@ -25,7 +25,6 @@ export interface Venue {
   platform: "eTennis" | "Eversports" | "Andere"
   booking_url: string
   status: Status
-  weather: Weather | null
   distance_km?: number | null
   time_adjusted?: boolean
   matched_time?: string
@@ -42,4 +41,5 @@ export interface SearchResponse {
   has_more?: boolean
   error?: string
   booking_window_notice?: string
+  weather?: Weather | null
 }

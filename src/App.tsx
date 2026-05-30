@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react"
-import type { Venue, SearchParams } from "./types"
+import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
 import SearchCard from "./components/SearchCard"
@@ -39,6 +39,7 @@ export default function App() {
   const [secondsSince, setSecondsSince]             = useState(0)
   const [bookingWindowNotice, setBookingWindowNotice] = useState<string | null>(null)
   const [searchLabel, setSearchLabel]               = useState<string | null>(null)
+  const [searchWeather, setSearchWeather]           = useState<Weather | null>(null)
   const [showImprint, setShowImprint]       = useState(false)
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -107,6 +108,7 @@ export default function App() {
     setHasMore(false)
     setEtOffset(0)
     setSearchLabel(null)
+    setSearchWeather(null)
     setBookingWindowNotice(null)
 
     let coords: { lat: number; lon: number } | null
@@ -149,6 +151,7 @@ export default function App() {
       setLastUpdated(Date.now())
       setSearched(true)
       setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
+      setSearchWeather(res.weather ?? null)
       setBookingWindowNotice(res.booking_window_notice ?? null)
       if (res.availability_pending) {
         scheduleRefresh(params, geo, 1)
@@ -258,6 +261,23 @@ export default function App() {
               ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
               : `${results.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
           </p>
+        )}
+
+        {searched && !isLoading && searchWeather && (
+          <div className="flex items-center gap-3 mb-3 px-3 py-2 rounded-lg bg-gray-900 border border-gray-800 text-sm">
+            <span className="text-xl">
+              {searchWeather.icon === "sun" ? "☀️"
+                : searchWeather.icon === "cloud" ? "☁️"
+                : searchWeather.icon === "rain" || searchWeather.icon === "drizzle" ? "🌧️"
+                : searchWeather.icon === "snow" ? "❄️"
+                : searchWeather.icon === "thunder" ? "⛈️"
+                : searchWeather.icon === "fog" ? "🌫️"
+                : "🌡️"}
+            </span>
+            <span className="font-semibold text-white">{searchWeather.temp}°C</span>
+            <span className="text-gray-400">{searchWeather.desc}</span>
+            <span className="ml-auto text-blue-400 text-xs">{searchWeather.rain_prob}% Regen</span>
+          </div>
         )}
 
         {searched && !isLoading && bookingWindowNotice && (

@@ -1,6 +1,5 @@
 import { trackBookingClick } from "../api"
 import type { Venue } from "../types"
-import WeatherCell from "./WeatherCell"
 
 const STATUS_STYLES: Record<string, string> = {
   free:                    "bg-green-900/40 text-green-400 font-semibold",
@@ -86,7 +85,6 @@ export default function VenueRow({ venue, pollingActive }: Props) {
               <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
             )}
           </div>
-          <WeatherCell weather={venue.weather} />
         </div>
         <a
           href={venue.booking_url}

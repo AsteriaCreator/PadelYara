@@ -32,7 +32,6 @@ type RawVenue = {
   court_type: string
   availability_status?: string
   booking_url: string
-  weather: Venue["weather"]
   time_adjusted?: boolean
   matched_time?: string
   requested_time?: string
@@ -47,7 +46,6 @@ function mapVenue(v: RawVenue): Venue {
     platform: v.platform as Venue["platform"],
     booking_url: v.booking_url,
     status: (v.availability_status as Status) ?? "pending",
-    weather: v.weather,
     distance_km: v.distance_km,
     time_adjusted: v.time_adjusted,
     matched_time: v.matched_time,
@@ -105,9 +103,9 @@ export async function fetchAvailability(
     results,
     date: data.date,
     time: data.time,
-    // Prefer the explicit backend field; fall back to client-side check for old servers
     availability_pending: data.availability_pending ?? results.some((v) => v.status === "pending"),
     has_more: data.has_more ?? false,
     booking_window_notice: data.booking_window_notice as string | undefined,
+    weather: data.weather ?? null,
   }
 }
