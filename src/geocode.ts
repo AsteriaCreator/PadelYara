@@ -19,6 +19,8 @@ export interface Suggestion {
   lon: number
 }
 
+const PLACE_CLASSES = new Set(["place", "boundary", "landuse"])
+
 export async function suggest(query: string): Promise<Suggestion[]> {
   query = query.trim()
   if (query.length < 3) return []
@@ -26,7 +28,7 @@ export async function suggest(query: string): Promise<Suggestion[]> {
   url.searchParams.set("q", query)
   url.searchParams.set("countrycodes", "at")
   url.searchParams.set("format", "json")
-  url.searchParams.set("limit", "5")
+  url.searchParams.set("limit", "10")
   url.searchParams.set("addressdetails", "1")
   try {
     const res = await fetch(url.toString(), { signal: AbortSignal.timeout(5_000) })
@@ -34,15 +36,21 @@ export async function suggest(query: string): Promise<Suggestion[]> {
     const data = await res.json()
     if (!Array.isArray(data)) return []
     return data
-      .filter((r: Record<string, unknown>) => parseFloat(r.importance as string ?? "0") >= 0.01)
+      .filter((r: Record<string, unknown>) =>
+        PLACE_CLASSES.has(r.class as string) &&
+        parseFloat(r.importance as string ?? "0") >= 0.01
+      )
+      .sort((a: Record<string, unknown>, b: Record<string, unknown>) =>
+        parseFloat(b.importance as string ?? "0") - parseFloat(a.importance as string ?? "0")
+      )
+      .slice(0, 5)
       .map((r: Record<string, unknown>) => {
         const addr = r.address as Record<string, string> | undefined
-        const parts = [
-          addr?.city || addr?.town || addr?.village || addr?.municipality || (r.name as string),
-          addr?.state,
-        ].filter(Boolean)
+        const name = (r.name as string) || ""
+        const state = addr?.state ?? ""
+        const label = state ? `${name}, ${state}` : name
         return {
-          label: parts.join(", ") || (r.display_name as string),
+          label: label || (r.display_name as string),
           lat: parseFloat(r.lat as string),
           lon: parseFloat(r.lon as string),
         }
