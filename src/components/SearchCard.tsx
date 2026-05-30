@@ -219,7 +219,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
       {/* Date + Time + Court */}
       <div className="grid grid-cols-2 gap-3 mb-3">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 min-w-0">
           <label className={labelClass} style={labelStyle}>Wann?</label>
           <input
             type="date"
@@ -228,7 +228,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             className={inputClass}
           />
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 min-w-0">
           <label className={labelClass} style={labelStyle}>Ab wann?</label>
           <select
             value={time}
