@@ -57,7 +57,7 @@ async def get_weather_for_hour(
     params = {
         "latitude":      lat,
         "longitude":     lon,
-        "hourly":        "temperature_2m,precipitation_probability,weathercode",
+        "hourly":        "temperature_2m,precipitation_probability,weather_code",
         "forecast_days": 7,
         "timezone":      "Europe/Vienna",
     }
@@ -73,7 +73,7 @@ async def get_weather_for_hour(
                 return None
             i = times.index(target)
             return _wmo_to_weather(
-                code=data["hourly"]["weathercode"][i],
+                code=data["hourly"]["weather_code"][i],
                 temp=data["hourly"]["temperature_2m"][i],
                 rain_prob=data["hourly"]["precipitation_probability"][i],
             )
