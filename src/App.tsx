@@ -6,6 +6,7 @@ import SearchCard from "./components/SearchCard"
 import VenueRow from "./components/VenueRow"
 import SkeletonRow from "./components/SkeletonRow"
 import ImprintModal from "./components/ImprintModal"
+import LoadingCat from "./components/LoadingCat"
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -236,10 +237,7 @@ export default function App() {
 
         {isLoading && (
           <>
-            <div className="flex items-center gap-2 mb-3 px-1">
-              <span className="animate-spin inline-block h-4 w-4 rounded-full border-2 border-[#d4f53c] border-t-transparent shrink-0" />
-              <span className="text-sm text-[#d4f53c] font-medium">Yara ist auf der Jagd…</span>
-            </div>
+            <LoadingCat />
             <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
               {Array.from({ length: skeletonCount }).map((_, i) => (
                 <SkeletonRow key={i} />
