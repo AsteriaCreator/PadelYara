@@ -46,12 +46,12 @@ function getNextFullHour(): { date: string; time: string } {
   let nextHour = v.hour + 1
 
   if (nextHour > 22) {
-    // No useful slots remain today — default to tomorrow 18:00
+    // No useful slots remain today — default to tomorrow 07:00
     const tomorrow = new Date(year, month - 1, day + 1)
     year     = tomorrow.getFullYear()
     month    = tomorrow.getMonth() + 1
     day      = tomorrow.getDate()
-    nextHour = 18
+    nextHour = 7
   } else if (nextHour < 7) {
     // Early morning before first slot — snap to 07:00 today
     nextHour = 7
@@ -222,9 +222,10 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
           content size — plain grid-cols-2 uses `auto` as the min which lets the
           native iOS date input overflow its cell. overflow-hidden clips any
           remaining visual bleed. */}
-      <div className="grid gap-3 mb-3" style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}>
-        <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
-          <label className={labelClass} style={labelStyle}>Wann?</label>
+      <div className="mb-3">
+        <label className={`${labelClass} block mb-1`} style={labelStyle}>Wann?</label>
+        <div className="grid gap-3" style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}>
+        <div className="min-w-0 overflow-hidden">
           <input
             type="date"
             value={date}
@@ -232,8 +233,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             className={inputClass}
           />
         </div>
-        <div className="flex flex-col gap-1 min-w-0 overflow-hidden">
-          <label className={labelClass} style={labelStyle}>Ab wann?</label>
+        <div className="min-w-0 overflow-hidden">
           <select
             value={time}
             onChange={(e) => handleTimeChange(e.target.value)}
@@ -246,9 +246,12 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             ))}
           </select>
         </div>
-        {/* col-span-2 so the court select always fills the full row instead of
-            sitting alone in the left cell of a two-column grid on mobile */}
-        <div className="flex flex-col gap-1" style={{ gridColumn: "1 / -1" }}>
+        </div>
+      </div>
+
+      <div className="mb-3">
+        <label className={`${labelClass} block mb-1`} style={labelStyle}>Court-Typ</label>
+        <div>
           <label className={labelClass} style={labelStyle}>Court-Typ</label>
           <select
             value={courtType}
