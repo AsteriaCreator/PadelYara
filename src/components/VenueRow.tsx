@@ -82,8 +82,6 @@ export default function VenueRow({ venue, pollingActive }: Props) {
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-1 min-w-0">
           <div className="flex flex-wrap items-center gap-x-2 text-xs text-gray-500">
-            <span>{venue.platform}</span>
-            <span className="text-gray-700">·</span>
             <span>{courtIcon} {venue.court_type}</span>
             {venue.distance_km != null && (
               <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
