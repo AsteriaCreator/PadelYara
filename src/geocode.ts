@@ -13,6 +13,45 @@ export class GeocodeTimeoutError extends Error {
 
 const GEOCODE_TIMEOUT_MS = 5_000
 
+export interface Suggestion {
+  label: string
+  lat: number
+  lon: number
+}
+
+export async function suggest(query: string): Promise<Suggestion[]> {
+  query = query.trim()
+  if (query.length < 3) return []
+  const url = new URL("https://nominatim.openstreetmap.org/search")
+  url.searchParams.set("q", query)
+  url.searchParams.set("countrycodes", "at")
+  url.searchParams.set("format", "json")
+  url.searchParams.set("limit", "5")
+  url.searchParams.set("addressdetails", "1")
+  try {
+    const res = await fetch(url.toString(), { signal: AbortSignal.timeout(5_000) })
+    if (!res.ok) return []
+    const data = await res.json()
+    if (!Array.isArray(data)) return []
+    return data
+      .filter((r: Record<string, unknown>) => parseFloat(r.importance as string ?? "0") >= 0.01)
+      .map((r: Record<string, unknown>) => {
+        const addr = r.address as Record<string, string> | undefined
+        const parts = [
+          addr?.city || addr?.town || addr?.village || addr?.municipality || (r.name as string),
+          addr?.state,
+        ].filter(Boolean)
+        return {
+          label: parts.join(", ") || (r.display_name as string),
+          lat: parseFloat(r.lat as string),
+          lon: parseFloat(r.lon as string),
+        }
+      })
+  } catch {
+    return []
+  }
+}
+
 export async function geocode(query: string): Promise<Coords | null> {
   query = query.trim()
   const url = new URL("https://nominatim.openstreetmap.org/search")

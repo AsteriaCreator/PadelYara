@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import type { SearchParams, CourtType } from "../types"
 import { TIME_SLOTS } from "../constants"
+import { suggest, type Suggestion } from "../geocode"
 
 // text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
 // text-sm (14 px) is below the 16 px threshold that triggers the zoom.
@@ -73,9 +74,23 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
   const [date, setDate]           = useState(defaultDate)
   const [time, setTime]           = useState(defaultTime)
   const [courtType, setCourtType] = useState<CourtType>("both")
-  const [location, setLocation]   = useState(getStoredLocation)
-  const [radius, setRadius]       = useState(getStoredRadius)
-  const [formError, setFormError] = useState<string | null>(null)
+  const [location, setLocation]       = useState(getStoredLocation)
+  const [radius, setRadius]           = useState(getStoredRadius)
+  const [formError, setFormError]     = useState<string | null>(null)
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([])
+  const [showSugg, setShowSugg]       = useState(false)
+  const debounceRef                   = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const wrapperRef                    = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function onPointerDown(e: PointerEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setShowSugg(false)
+      }
+    }
+    document.addEventListener("pointerdown", onPointerDown)
+    return () => document.removeEventListener("pointerdown", onPointerDown)
+  }, [])
 
   const v       = getNowVienna()
   const isToday = date === v.dateStr
@@ -130,15 +145,52 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
 
       {/* Location + Radius */}
       <div className="flex flex-row gap-3 mb-3">
-        <div className="flex flex-col gap-1 flex-1 min-w-0">
+        <div className="flex flex-col gap-1 flex-1 min-w-0" ref={wrapperRef}>
           <label className="text-xs text-gray-500">PLZ oder Ort</label>
-          <input
-            type="text"
-            value={location}
-            onChange={(e) => { setLocation(e.target.value); setFormError(null) }}
-            placeholder="z.B. 2500 oder Baden"
-            className={inputClass}
-          />
+          <div className="relative">
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => {
+                const val = e.target.value
+                setLocation(val)
+                setFormError(null)
+                if (debounceRef.current) clearTimeout(debounceRef.current)
+                if (val.trim().length >= 3) {
+                  debounceRef.current = setTimeout(async () => {
+                    const results = await suggest(val)
+                    setSuggestions(results)
+                    setShowSugg(results.length > 0)
+                  }, 300)
+                } else {
+                  setSuggestions([])
+                  setShowSugg(false)
+                }
+              }}
+              onFocus={() => { if (suggestions.length > 0) setShowSugg(true) }}
+              placeholder="z.B. 2500 oder Baden"
+              className={inputClass}
+              autoComplete="off"
+            />
+            {showSugg && (
+              <ul className="absolute z-50 left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-lg overflow-hidden shadow-lg">
+                {suggestions.map((s, i) => (
+                  <li
+                    key={i}
+                    onPointerDown={(e) => {
+                      e.preventDefault()
+                      setLocation(s.label)
+                      setSuggestions([])
+                      setShowSugg(false)
+                    }}
+                    className="px-3 py-2 text-sm text-white cursor-pointer hover:bg-gray-700 truncate"
+                  >
+                    {s.label}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
         <div className="flex flex-col gap-1 w-28 shrink-0">
           <label className="text-xs text-gray-500">Radius</label>
