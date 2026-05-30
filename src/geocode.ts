@@ -47,6 +47,7 @@ export async function suggest(query: string, userLocation?: Coords): Promise<Sug
       const geo = f.geometry as { coordinates: [number, number] }
       if (!PHOTON_PLACE_KEYS.has(p.osm_key as string)) continue
       const name = (p.name as string) ?? ""
+      if (!name.toLowerCase().startsWith(query.toLowerCase())) continue
       const state = (p.state as string) ?? ""
       const label = state ? `${name}, ${state}` : name
       if (seen.has(label)) continue
