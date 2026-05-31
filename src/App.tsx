@@ -264,19 +264,32 @@ export default function App() {
         )}
 
         {searched && !isLoading && searchWeather && (
-          <div className="flex items-center gap-3 mb-3 px-3 py-2 rounded-lg bg-gray-900 border border-gray-800 text-sm">
-            <span className="text-xl">
-              {searchWeather.icon === "sun" ? "☀️"
-                : searchWeather.icon === "cloud" ? "☁️"
-                : searchWeather.icon === "rain" || searchWeather.icon === "drizzle" ? "🌧️"
-                : searchWeather.icon === "snow" ? "❄️"
-                : searchWeather.icon === "thunder" ? "⛈️"
-                : searchWeather.icon === "fog" ? "🌫️"
-                : "🌡️"}
-            </span>
-            <span className="font-semibold text-white">{searchWeather.temp}°C</span>
-            <span className="text-gray-400">{searchWeather.desc}</span>
-            <span className="ml-auto text-blue-400 text-xs">{searchWeather.rain_prob}% Regen</span>
+          <div className="mt-4 mb-6">
+            <p className="text-xs text-gray-500 mb-2 px-1 tracking-wide uppercase">
+              Das Wetter in deiner Suchlocation
+            </p>
+            <div
+              className="flex items-center gap-4 px-4 py-3 rounded-xl border text-sm"
+              style={{ background: "rgba(212,245,60,0.05)", borderColor: "rgba(212,245,60,0.2)" }}
+            >
+              <span className="text-3xl leading-none">
+                {searchWeather.icon === "sun" ? "☀️"
+                  : searchWeather.icon === "cloud" ? "☁️"
+                  : searchWeather.icon === "rain" || searchWeather.icon === "drizzle" ? "🌧️"
+                  : searchWeather.icon === "snow" ? "❄️"
+                  : searchWeather.icon === "thunder" ? "⛈️"
+                  : searchWeather.icon === "fog" ? "🌫️"
+                  : "🌡️"}
+              </span>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-xl font-bold text-white leading-none">{searchWeather.temp}°C</span>
+                <span className="text-gray-400 text-xs">{searchWeather.desc}</span>
+              </div>
+              <div className="ml-auto text-right">
+                <span className="text-blue-400 text-sm font-semibold">{searchWeather.rain_prob}%</span>
+                <p className="text-gray-600 text-xs">Regenwahrsch.</p>
+              </div>
+            </div>
           </div>
         )}
 
