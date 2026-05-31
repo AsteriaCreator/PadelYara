@@ -102,7 +102,9 @@ async def get_weather_for_hour(
         timeseries = data["properties"]["timeseries"]
         slot = next((t for t in timeseries if t["time"] == target), None)
         if slot is None:
-            print(f"[weather] target {target} not in timeseries (first: {timeseries[0]['time']})")
+            # Target hour is likely in the past — fall back to the first available slot
+            slot = timeseries[0] if timeseries else None
+        if slot is None:
             return None
 
         instant  = slot["data"]["instant"]["details"]

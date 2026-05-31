@@ -412,13 +412,11 @@ def search(
 
     # Fetch weather once for the search location (one request, no per-venue calls)
     search_weather = None
-    print(json.dumps({"event": "weather_fetch_start", "lat": lat, "lon": lon, "dt": dt.isoformat()}))
     if lat is not None and lon is not None:
         async def _get_weather():
             async with httpx.AsyncClient() as client:
                 return await get_weather_for_hour(client, lat, lon, dt)
         search_weather = _run_async(_get_weather())
-    print(json.dumps({"event": "weather_fetch_done", "result": str(search_weather)}))
 
     # In radius mode paginate eTennis scraping so Render's free tier
     # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
