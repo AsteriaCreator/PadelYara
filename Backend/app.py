@@ -32,26 +32,22 @@ EV_DEFAULT_FALLBACK: list[int] = [30, 60]
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
+from eversports_service import check_eversports_slot
 from venues import load_venues
 from weather import get_weather_for_hour
 
 
-# Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
 def _call_eversports_service(
     fid: int, cids: list[int], date_str: str, time_hhmm: str,
     venue_id: str = "unknown", booking_url: str = "",
 ) -> str:
-    """Call the Railway Eversports microservice. Falls back to platform_check_required."""
-    url = os.environ.get("EVERSPORTS_SERVICE_URL")
-    if not url:
-        return "platform_check_required"
-
+    """Call the Eversports checker directly (in-process). Falls back to platform_check_required."""
     t0 = time.monotonic()
     time_colon = f"{time_hhmm[:2]}:{time_hhmm[2:]}"  # "1800" -> "18:00"
 
     def _log(status: str, error: str | None = None) -> None:
         entry: dict = {
-            "event":       "eversports_service_result",
+            "event":       "eversports_check_result",
             "venue_id":    venue_id,
             "facility_id": fid,
             "date":        date_str,
@@ -64,44 +60,32 @@ def _call_eversports_service(
         print(json.dumps(entry))
 
     try:
-        params = {
+        result = _run_async(check_eversports_slot(
+            facility_id=fid,
+            court_ids=",".join(str(c) for c in cids),
+            date=date_str,
+            time=time_colon,
+            venue_url=booking_url,
+            venue_id=venue_id,
+        ))
+        status = result.get("status", "platform_check_required")
+        slots_count = result.get("slots_count")
+        _log(status)
+        print(json.dumps({
+            "event":       "eversports_raw_response",
+            "venue_id":    venue_id,
             "facility_id": fid,
-            "court_ids":   ",".join(str(c) for c in cids),
             "date":        date_str,
             "time":        time_colon,
-            "venue_id":    venue_id,
-        }
-        if booking_url:
-            params["venue_url"] = booking_url
-        r = httpx.get(
-            f"{url.rstrip('/')}/check",
-            params=params,
-            timeout=60,  # /api/slot + CF cookie warmup max ~45s; DOM scrape removed
-        )
-        if r.status_code == 200:
-            body = r.json()
-            status = body.get("status", "platform_check_required")
-            slots_count = body.get("slots_count")
-            _log(status)
-            print(json.dumps({
-                "event":       "eversports_raw_response",
-                "venue_id":    venue_id,
-                "facility_id": fid,
-                "date":        date_str,
-                "time":        time_colon,
-                "status":      status,
-                "slots_count": slots_count,
-            }))
-            return status
-        _log("platform_check_required", error=f"http_{r.status_code}")
-        print(f"[Eversports service] HTTP {r.status_code} for facilityId={fid}")
-        return "platform_check_required"
+            "status":      status,
+            "slots_count": slots_count,
+        }))
+        return status
     except Exception as exc:
         elapsed_ms = round((time.monotonic() - t0) * 1000)
-        if isinstance(exc, httpx.TimeoutException):
-            track_scraper_timeout(venue_id=venue_id, platform="Eversports", timeout_ms=elapsed_ms)
+        track_scraper_timeout(venue_id=venue_id, platform="Eversports", timeout_ms=elapsed_ms)
         _log("platform_check_required", error=f"{type(exc).__name__}: {exc}")
-        print(f"[Eversports service] request failed: {type(exc).__name__}: {exc}")
+        print(f"[Eversports] direct call failed: {type(exc).__name__}: {exc}")
         return "platform_check_required"
 
 

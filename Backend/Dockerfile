@@ -1,12 +1,11 @@
-# Railway Eversports microservice
-# Build context = Backend/ (Railway Root Directory setting)
-# All COPY paths are relative to Backend/.
+# Consolidated PadelYara backend — eTennis + Eversports scrapers in one service
+# Build context = repo root; Railway Root Directory should be set to /
+# All COPY paths are relative to repo root.
 
 FROM mcr.microsoft.com/playwright/python:v1.44.0-jammy
 
 WORKDIR /app
 
-# Build context is the repo root; files are under Backend/
 COPY Backend/requirements.txt ./requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
@@ -14,14 +13,20 @@ RUN pip install --no-cache-dir -r requirements.txt
 # System dependencies are already in the base image; no --with-deps needed.
 RUN python -m playwright install chromium
 
-# Verify key imports at build time — catches missing libs before deploy
-RUN python -c "from curl_cffi.requests import AsyncSession; from fastapi import FastAPI; import uvicorn; print('[build] imports OK')"
-
+# Copy all Backend Python source files
+COPY Backend/app.py               ./app.py
 COPY Backend/eversports_service.py ./eversports_service.py
+COPY Backend/etennis_checker.py   ./etennis_checker.py
+COPY Backend/analytics.py         ./analytics.py
+COPY Backend/venues.py            ./venues.py
+COPY Backend/weather.py           ./weather.py
+
+# Verify key imports at build time — catches missing libs before deploy
+RUN python -c "from curl_cffi.requests import AsyncSession; from fastapi import FastAPI; import uvicorn; from eversports_service import check_eversports_slot; print('[build] imports OK')"
 
 # Railway injects $PORT at runtime; default to 8000 for local runs
 ENV PORT=8000
 EXPOSE 8000
 
 # Shell form so ${PORT} expands correctly at runtime
-CMD ["sh", "-c", "python -m uvicorn eversports_service:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "python -m uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}"]

@@ -7,9 +7,6 @@ from datetime import datetime
 from urllib.parse import urlencode
 
 from curl_cffi.requests import AsyncSession
-from fastapi import FastAPI, Query
-
-app = FastAPI()
 
 _SLOT_URL     = "https://www.eversports.at/api/slot"
 _CAL_URL      = "https://www.eversports.at/api/booking/calendar/update"
@@ -605,23 +602,21 @@ def _build_params(
 
 
 # ---------------------------------------------------------------------------
-# Endpoints
+# Public API — called directly by app.py (no HTTP hop)
 # ---------------------------------------------------------------------------
 
-@app.get("/health")
-async def health():
-    return {"ok": True, "service": "eversports-service"}
-
-
-@app.get("/check")
-async def check(
-    facility_id: int = Query(...),
-    court_ids:   str = Query(...),
-    date:        str = Query(...),
-    time:        str = Query(...),
-    venue_url:   str = Query(default=""),
-    venue_id:    str = Query(default=""),
-):
+async def check_eversports_slot(
+    facility_id: int,
+    court_ids:   str,
+    date:        str,
+    time:        str,
+    venue_url:   str = "",
+    venue_id:    str = "",
+) -> dict:
+    """
+    Core Eversports availability check.  Returns {"status": ..., "slots_count": ...}.
+    Replaces the former /check HTTP endpoint — call directly instead of via HTTP.
+    """
     time_hhmm = time.replace(":", "")
 
     print(json.dumps({
@@ -808,12 +803,11 @@ async def check(
         return {"status": "platform_check_required", "slots_count": 0}
 
 
-@app.get("/diag")
-async def diag(
-    facility_id: int = Query(default=79237),
-    court_ids:   str = Query(default="101686,101687,101688,101689"),
-    date:        str = Query(default="2026-05-09"),
-    time:        str = Query(default="18:00"),
+async def diag_eversports(
+    facility_id: int = 79237,
+    court_ids:   str = "101686,101687,101688,101689",
+    date:        str = "2026-05-09",
+    time:        str = "18:00",
 ):
     """Diagnostic endpoint: returns raw Eversports API response details."""
     params, _ = _build_params(facility_id, court_ids, date)
@@ -862,308 +856,3 @@ async def diag(
             "detail":    str(exc),
         }
 
-
-@app.get("/debug-pw-cal")
-async def debug_pw_cal(
-    facility_id: int = Query(default=83836),
-    venue_url:   str = Query(default="https://www.eversports.at/sb/padelzone-wiener-neustadt-or-achtersee"),
-    date:        str = Query(default="2026-05-13"),
-    time:        str = Query(default="18:00"),
-):
-    """
-    Playwright diagnostic: loads the booking page, runs the manual JS fetch
-    trigger, and returns everything needed to understand why td[data-state]
-    is not appearing.
-    """
-    from playwright.async_api import async_playwright
-
-    time_hhmm     = time.replace(":", "")
-    facility_slug = venue_url.rstrip("/").split("/")[-1]
-    dp            = _dp_date(date)
-
-    result: dict = {
-        "goto_ok":           False,
-        "goto_url":          "",
-        "api_calls":         [],
-        "td_after_goto":     0,
-        "ds_after_goto":     0,
-        "cal_html_200":      "",
-        "page_info":         {},
-        "trigger_result":    "",
-        "td_after_trigger":  0,
-        "ds_after_trigger":  0,
-        "post_body_500":     "",
-    }
-
-    try:
-        async with async_playwright() as p:
-            browser = await p.chromium.launch(headless=True, args=_PW_ARGS)
-            try:
-                context = await browser.new_context(
-                    user_agent=_PW_UA,
-                    viewport={"width": 1280, "height": 800},
-                    locale="de-AT",
-                    extra_http_headers={"Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
-                )
-                await context.add_init_script(_WEBDRIVER_INIT)
-                page = await context.new_page()
-
-                _api_log: list[str] = []
-                _post_body: list[str] = []
-
-                def _on_req(req):
-                    if "/api/" in req.url:
-                        pd = (req.post_data or "")[:120]
-                        _api_log.append(f"REQ {req.method} {req.url.split('eversports.at')[1].split('?')[0]} post={pd!r}")
-
-                async def _on_resp(resp):
-                    if "/api/booking/calendar" in resp.url:
-                        try:
-                            body = await resp.text()
-                            _post_body.append(body[:500])
-                            _api_log.append(f"RESP {resp.status} {resp.url.split('eversports.at')[1].split('?')[0]} body={body[:200]!r}")
-                        except Exception:
-                            _api_log.append(f"RESP {resp.status} unreadable")
-
-                page.on("request",  _on_req)
-                page.on("response", _on_resp)
-
-                try:
-                    await page.goto(venue_url, wait_until="networkidle", timeout=45_000)
-                    result["goto_ok"]  = True
-                    result["goto_url"] = page.url
-                except Exception as e:
-                    result["goto_ok"]  = False
-                    result["goto_url"] = f"error: {e}"
-
-                result["api_calls"]     = _api_log[:]
-                result["td_after_goto"] = await page.evaluate("() => document.querySelectorAll('td[data-state]').length")
-                result["ds_after_goto"] = await page.evaluate("() => document.querySelectorAll('[data-state]').length")
-                result["cal_html_200"]  = await page.evaluate(
-                    "() => document.getElementById('booking-calendar-container')?.innerHTML?.substring(0,200) || 'empty'"
-                )
-
-                # Extract page info
-                page_info = await page.evaluate("""
-                    () => {
-                        const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
-                        const ct   = document.getElementById('calendar-title');
-                        const fid  = ct?.dataset?.id || ct?.getAttribute('data-id') || '';
-                        const slug = ct?.dataset?.facility || ct?.getAttribute('data-facility') || '';
-                        const calScript = Array.from(document.scripts).map(s => s.src || s.textContent.substring(0,50)).join(' | ').substring(0,300);
-                        return {csrf: csrf.substring(0,20), fid, slug, scripts_hint: calScript};
-                    }
-                """)
-                result["page_info"] = page_info
-
-                p_fid  = page_info.get("fid")  or str(facility_id)
-                p_slug = page_info.get("slug") or facility_slug
-                p_csrf = page_info.get("csrf") or ""
-
-                # Run the fetch trigger
-                trigger_result = await page.evaluate(f"""
-                    async () => {{
-                        try {{
-                            const body = new URLSearchParams({{
-                                date:       '{dp}',
-                                facilityId: '{p_fid}',
-                                facility:   '{p_slug}',
-                            }}).toString();
-                            const headers = {{
-                                'Content-Type':     'application/x-www-form-urlencoded; charset=UTF-8',
-                                'X-Requested-With': 'XMLHttpRequest',
-                            }};
-                            if ('{p_csrf}') headers['X-CSRF-TOKEN'] = '{p_csrf}';
-                            const r = await fetch('/api/booking/calendar/update', {{
-                                method:      'POST',
-                                headers:     headers,
-                                credentials: 'include',
-                                body:        body,
-                            }});
-                            const html = await r.text();
-                            const container = document.getElementById('booking-calendar-container');
-                            if (container && html.includes('<td')) {{
-                                container.innerHTML = html;
-                            }}
-                            return JSON.stringify({{status: r.status, len: html.length, has_td: html.includes('<td'), excerpt: html.substring(0,200)}});
-                        }} catch(e) {{
-                            return 'error:' + e.message;
-                        }}
-                    }}
-                """)
-                result["trigger_result"] = trigger_result
-                if _post_body:
-                    result["post_body_500"] = _post_body[-1]
-
-                # Wait briefly for DOM update then recount
-                try:
-                    await page.wait_for_selector("td[data-state]", timeout=5_000)
-                except Exception:
-                    pass
-
-                result["td_after_trigger"] = await page.evaluate("() => document.querySelectorAll('td[data-state]').length")
-                result["ds_after_trigger"] = await page.evaluate("() => document.querySelectorAll('[data-state]').length")
-                result["api_calls"]        = _api_log[:]
-
-            finally:
-                await browser.close()
-
-    except Exception as exc:
-        result["exception"] = f"{type(exc).__name__}: {exc}"
-
-    return result
-
-
-@app.get("/debug-cal-post")
-async def debug_cal_post(
-    facility_id: int = Query(default=83836),
-    venue_url:   str = Query(default="https://www.eversports.at/sb/padelzone-wiener-neustadt-or-achtersee"),
-    date:        str = Query(default="2026-05-12"),
-    time:        str = Query(default="20:00"),
-):
-    """
-    Debug endpoint: shows exactly what happens during the direct cal-post check.
-    Returns raw GET + POST results without scraping.
-    """
-    time_hhmm     = time.replace(":", "")
-    facility_slug = venue_url.rstrip("/").split("/")[-1]
-    dp            = _dp_date(date)
-
-    try:
-        async with AsyncSession(impersonate="chrome124") as session:
-            # GET the booking page
-            get_resp = await session.get(
-                venue_url,
-                headers={
-                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                    "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
-                    "Referer": "https://www.eversports.at/",
-                },
-                timeout=20,
-            )
-            page_html = get_resp.text
-
-            # Extract CSRF
-            csrf_token = ""
-            m = re.search(r'<meta[^>]+name=["\']csrf-token["\'][^>]+content=["\']([^"\']+)', page_html)
-            if not m:
-                m = re.search(r'<meta[^>]+content=["\']([^"\']+)["\'][^>]+name=["\']csrf-token', page_html)
-            if m:
-                csrf_token = m.group(1)
-
-            # Extract facilityId from page
-            fid_in_page = facility_id
-            m2 = re.search(r"data-id=['\"](\d+)['\"]", page_html)
-            if m2:
-                fid_in_page = int(m2.group(1))
-
-            # POST to calendar update
-            post_headers = {
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "X-Requested-With": "XMLHttpRequest",
-                "Accept": "*/*",
-                "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
-                "Referer": venue_url,
-                "Origin": _ES_BASE,
-            }
-            if csrf_token:
-                post_headers["X-CSRF-TOKEN"] = csrf_token
-
-            post_data = {
-                "date":       dp,
-                "facilityId": str(fid_in_page),
-                "facility":   facility_slug,
-            }
-
-            post_resp = await session.post(
-                _CAL_URL,
-                data=post_data,
-                headers=post_headers,
-                timeout=20,
-            )
-            cal_html    = post_resp.text
-            has_td      = "<td" in cal_html
-            td_count    = len(re.findall(r"<td\b", cal_html, re.IGNORECASE))
-            ds_count    = len(re.findall(r"data-state=", cal_html, re.IGNORECASE))
-
-            result = _parse_calendar_html(cal_html, date, time_hhmm) if has_td else None
-
-        return {
-            "get_status":        get_resp.status_code,
-            "get_body_len":      len(page_html),
-            "csrf_token_found":  bool(csrf_token),
-            "csrf_token_len":    len(csrf_token),
-            "fid_in_page":       fid_in_page,
-            "post_data":         post_data,
-            "post_status":       post_resp.status_code,
-            "post_body_len":     len(cal_html),
-            "post_body_500":     cal_html[:500],
-            "has_td":            has_td,
-            "td_count":          td_count,
-            "data_state_count":  ds_count,
-            "parsed_result":     result,
-        }
-
-    except Exception as exc:
-        return {
-            "exception": type(exc).__name__,
-            "detail":    str(exc),
-        }
-
-
-@app.get("/debug-slot")
-async def debug_slot(
-    facility_id:  int = Query(default=83836),
-    court_id:     int = Query(default=112892),
-    start_date:   str = Query(default="2026-05-21"),
-    end_date:     str = Query(default=""),
-    extra_params: str = Query(default=""),
-):
-    """
-    Test /api/slot with various parameters to discover what the API accepts.
-    extra_params: URL-encoded extra query string, e.g. 'limit=50&startTime=1900'
-    """
-    params: list[tuple] = [
-        ("facilityId", facility_id),
-        ("startDate",  start_date),
-        ("courts[]",   court_id),
-    ]
-    if end_date:
-        params.append(("endDate", end_date))
-
-    # Parse extra_params into the params list
-    if extra_params:
-        from urllib.parse import parse_qsl
-        params.extend(parse_qsl(extra_params))
-
-    try:
-        async with AsyncSession(impersonate="chrome124") as session:
-            r = await session.get(_SLOT_URL, params=params, timeout=15)
-        body = r.text
-        slots = []
-        parse_error = None
-        if r.status_code == 200:
-            try:
-                data = json.loads(body)
-                slots = data.get("slots", [])
-            except Exception as e:
-                parse_error = str(e)
-
-        return {
-            "http_status":   r.status_code,
-            "params_sent":   dict(params),
-            "slots_count":   len(slots),
-            "all_dates":     sorted(set(s.get("date","") for s in slots)),
-            "all_starts":    sorted(set(s.get("start","") for s in slots)),
-            "slots":         slots,
-            "parse_error":   parse_error,
-            "body_excerpt":  body[:300],
-        }
-    except Exception as exc:
-        return {"exception": type(exc).__name__, "detail": str(exc)}
-
-
-if __name__ == "__main__":
-    import uvicorn
-    port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("eversports_service:app", host="0.0.0.0", port=port, reload=False)
