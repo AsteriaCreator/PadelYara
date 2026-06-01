@@ -4,9 +4,15 @@ import os
 import re
 import time as _time
 from datetime import datetime
+from typing import TypedDict
 from urllib.parse import urlencode
 
 from playwright.async_api import Error as PlaywrightError
+
+
+class EversportsResult(TypedDict):
+    status:      str   # "free" | "busy" | "platform_check_required"
+    slots_count: int
 
 from curl_cffi.requests import AsyncSession
 
@@ -614,7 +620,7 @@ async def check_eversports_slot(
     time:        str,
     venue_url:   str = "",
     venue_id:    str = "",
-) -> dict:
+) -> EversportsResult:
     """
     Core Eversports availability check.  Returns {"status": ..., "slots_count": ...}.
     Replaces the former /check HTTP endpoint — call directly instead of via HTTP.

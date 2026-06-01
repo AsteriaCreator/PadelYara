@@ -7,6 +7,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta
 from time import monotonic as time_monotonic
+from typing import TypedDict
 from zoneinfo import ZoneInfo
 
 import httpx
@@ -34,7 +35,20 @@ from etennis_checker import get_cached_statuses as get_etennis_cached
 from eversports_service import check_eversports_slot
 from distance import filter_by_radius
 from venues import load_venues
-from weather import get_weather_for_hour
+from weather import WeatherResult, get_weather_for_hour
+
+
+class VenueResult(TypedDict):
+    venue_id:            str
+    name:                str
+    region:              str
+    court_type:          str
+    platform:            str
+    priority:            int
+    booking_url:         str
+    distance_km:         float | None
+    availability_status: str
+    error:               str | None
 
 
 def _call_eversports_service(
@@ -207,7 +221,7 @@ def _filter_venues(
     return result
 
 
-def _build_venue_result(venue: dict) -> dict:
+def _build_venue_result(venue: dict) -> VenueResult:
     return {
         "venue_id":            venue["id"],
         "name":                venue["name"],

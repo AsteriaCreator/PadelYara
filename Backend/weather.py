@@ -1,7 +1,15 @@
 import time
 import httpx
 from datetime import datetime, timezone
+from typing import TypedDict
 from zoneinfo import ZoneInfo
+
+
+class WeatherResult(TypedDict):
+    icon:      str   # "sun" | "cloud" | "fog" | "rain" | "drizzle" | "snow" | "thunder"
+    desc:      str   # German description e.g. "Sonnig"
+    temp:      float # °C
+    rain_prob: int   # 0–100
 
 _WEATHER_CACHE: dict = {}
 _WEATHER_TTL = 900  # 15 minutes
@@ -78,7 +86,7 @@ def _cache_key(lat: float, lon: float, dt: datetime) -> str:
 
 async def get_weather_for_hour(
     client: httpx.AsyncClient, lat: float, lon: float, dt: datetime
-) -> dict | None:
+) -> WeatherResult | None:
     key = _cache_key(lat, lon, dt)
     now = time.time()
     entry = _WEATHER_CACHE.get(key)
