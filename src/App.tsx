@@ -258,17 +258,6 @@ export default function App() {
 
         {error && <p className="text-red-400 text-sm mb-4">{error}</p>}
 
-        {isLoading && (
-          <>
-            <LoadingCat />
-            <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
-              {Array.from({ length: skeletonCount }).map((_, i) => (
-                <SkeletonRow key={i} />
-              ))}
-            </div>
-          </>
-        )}
-
         {searchWeather && (
           <div className="mb-5">
             <p className="text-xs text-gray-500 mb-2 px-1 tracking-wide uppercase">
@@ -298,6 +287,17 @@ export default function App() {
               </div>
             </div>
           </div>
+        )}
+
+        {isLoading && (
+          <>
+            <LoadingCat />
+            <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
+              {Array.from({ length: skeletonCount }).map((_, i) => (
+                <SkeletonRow key={i} />
+              ))}
+            </div>
+          </>
         )}
 
         {searched && !isLoading && searchLabel && (
