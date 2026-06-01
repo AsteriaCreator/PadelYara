@@ -1,6 +1,5 @@
 import asyncio
 import json
-import math
 import os
 import threading
 import time
@@ -33,6 +32,7 @@ from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
 from eversports_service import check_eversports_slot
+from distance import filter_by_radius
 from venues import load_venues
 from weather import get_weather_for_hour
 
@@ -189,14 +189,6 @@ def _parse_datetime(date_str: str | None, time_str: str | None) -> tuple[datetim
     return dt.replace(tzinfo=VIENNA_TZ), None
 
 
-def _haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    R = 6371.0
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = math.sin(dlat / 2) ** 2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2) ** 2
-    return R * 2 * math.asin(math.sqrt(a))
-
-
 def _filter_venues(
     court_type: str | None,
     lat: float | None = None,
@@ -206,13 +198,7 @@ def _filter_venues(
     result = VENUES
 
     if lat is not None and lon is not None and radius is not None:
-        with_dist = []
-        for v in result:
-            if v["lat"] is not None and v["lon"] is not None:
-                dist = _haversine_km(lat, lon, v["lat"], v["lon"])
-                if dist <= radius:
-                    with_dist.append({**v, "distance_km": round(dist, 1)})
-        result = with_dist
+        result = filter_by_radius(result, lat, lon, radius)
 
     if court_type and court_type != "both" and court_type != "all":
         allowed = _INDOOR_TYPES if court_type == "indoor" else _OUTDOOR_TYPES
