@@ -1,35 +1,44 @@
 # Next Steps
 
-_Last updated: 2026-05-16_
+_Last updated: 2026-06-01_
 
-## Current state (verified 2026-05-16)
+## Current state (verified 2026-06-01)
 
 - Eversports scraper: **working** — returns `free`/`busy` for all tested venues
 - eTennis scraper: **working** — returns `free`/`busy`/`no_slot` after background pass
-- Render backend: **working** at `https://neopadelchecker.onrender.com`
-- Railway Eversports service: **working** at `https://neo-padel-checker-backend-production.up.railway.app`
-- Region-based personal mode: fully functional
+- Backend: **single Railway service** at `https://neo-padel-checker-backend-production.up.railway.app`
+- Frontend: **Vercel** pointing directly to Railway (Render retired)
+- Architecture: consolidated — eTennis + Eversports in one `app.py` on Railway
+
+## Infrastructure completed
+
+- ✅ Merged `consolidate-railway-backend` → `main`
+- ✅ Render retired — no longer in traffic path
+- ✅ Vercel `VITE_API_URL` updated to Railway URL
+- ✅ Railway tracks `main` branch, auto-deploys on push
 
 ## Ready to do next
 
-### Option A — Public location search (recommended first)
-The `/api/search` endpoint already accepts `lat`/`lon`/`radius` for location-based queries.
-The frontend just needs a location input field wired to geocoding + those params.
-This unlocks the app for anyone, not just personal-mode regions.
+### Option A — Further UX improvements
+Location search, radius UX, result display improvements.
 
 ### Option B — MongoDB venue management
 `Backend/venues_mongo.py` and `Backend/main.py` are stubs ready for this.
-Would allow adding/editing venues without a Render redeploy.
-Do this **after** Option A is decided — CSV is fine for personal mode.
+Would allow adding/editing venues without a Railway redeploy.
+CSV is fine for now.
 
-### Option C — Verify remaining Wien Sued Eversports venues
-`padelzone-wien-c-c-wienerberg` (facility_id 77636) has not been tested end-to-end.
-Quick smoke test: `GET /api/search?region=Wien%20Sued&date=TOMORROW&time=18:00`
+### Option C — Verify remaining Eversports venues end-to-end
+Some venues may not have been smoke-tested since the consolidation.
+Quick check: search with `lat/lon/radius` for a date/time with expected availability.
+
+### Option D — Clean up Render
+Log into Render and delete/suspend the old `neopadelchecker` service.
+It's no longer receiving traffic but may still be billing.
 
 ## Constraints (do not change)
 
-- Do NOT rewrite the app
-- Do NOT change scraper logic
-- Do NOT change deployment branches (`main` for Render, `claude/affectionate-goodall-0ededf` for Railway)
-- Preserve current region-based personal mode
-- Do NOT start MongoDB migration until Option A is decided
+- Do NOT split backend into microservices again
+- Do NOT rewrite working scraper systems
+- Do NOT introduce Render back into the architecture
+- Eversports async code must use `run_coroutine_threadsafe` (not `_run_async`)
+- `RAILWAY_ENVIRONMENT` gates Eversports — do not remove this guard
