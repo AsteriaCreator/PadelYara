@@ -294,6 +294,7 @@ export default function App() {
               <div className="ml-auto text-right">
                 <span className="text-blue-400 text-sm font-semibold">{searchWeather.rain_prob}%</span>
                 <p className="text-gray-600 text-xs">Regenwahrsch.</p>
+                {(() => { const h = getWeatherHint(searchWeather.rain_prob); return h ? <p className={`text-xs font-medium mt-0.5 ${h.color}`}>{h.text}</p> : null })()}
               </div>
             </div>
           </div>
