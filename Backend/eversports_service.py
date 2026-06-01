@@ -46,6 +46,16 @@ _cf_cookies_ts: float       = 0.0
 _cf_cookies_ttl = 3600      # seconds — refresh once per hour
 _cf_lock: asyncio.Lock | None = None  # created lazily on first use inside the event loop
 
+# If set, curl_cffi requests use this proxy (e.g. "http://user:pass@host:port").
+# Lets Railway route Eversports traffic through a residential IP to bypass CF WAF.
+_PROXY_URL: str | None = os.environ.get("EVERSPORTS_PROXY_URL")
+
+# Hard CF block flag: set True when Playwright itself gets 403 (IP-level block,
+# not a JS challenge). While set, skip all CF bypass attempts and fail fast.
+_cf_hard_blocked: bool  = False
+_cf_hard_blocked_ts: float = 0.0
+_CF_HARD_BLOCK_TTL = 300  # re-probe after 5 min in case IP rotates
+
 
 def _get_cf_lock() -> asyncio.Lock:
     """Return the module-level CF lock, creating it lazily on first call.
@@ -63,8 +73,11 @@ def _get_cf_lock() -> asyncio.Lock:
 async def _refresh_cf_cookies() -> dict | None:
     """
     Launch a headless Chromium, visit www.eversports.at, solve the Cloudflare
-    JS challenge, and return the resulting cookies dict.  Slow (~30–45 s).
+    JS challenge, and return the resulting cookies dict.  Slow (~12–30 s).
+    Skipped when a hard IP block is active (_cf_hard_blocked).
     """
+    global _cf_hard_blocked, _cf_hard_blocked_ts
+
     from playwright.async_api import async_playwright
     t0 = _time.monotonic()
     print(json.dumps({"event": "cf_cookies_refresh_start"}))
@@ -80,13 +93,27 @@ async def _refresh_cf_cookies() -> dict | None:
                 )
                 await context.add_init_script(_WEBDRIVER_INIT)
                 page = await context.new_page()
-                await page.goto(_ES_BASE + "/", wait_until="networkidle", timeout=45_000)
+                resp = await page.goto(_ES_BASE + "/", wait_until="networkidle", timeout=12_000)
+                http_code = resp.status if resp else 0
                 cookies = await context.cookies()
             finally:
                 await browser.close()  # always close, even on timeout/exception
 
+        # 403 from Playwright means IP-level block — JS challenge not even served.
+        if http_code == 403:
+            _cf_hard_blocked    = True
+            _cf_hard_blocked_ts = _time.monotonic()
+            print(json.dumps({
+                "event":       "cf_hard_block_detected",
+                "http_code":   http_code,
+                "duration_ms": round((_time.monotonic() - t0) * 1000),
+            }))
+            return None
+
         cdict = {c["name"]: c["value"] for c in cookies}
         has_clearance = "cf_clearance" in cdict
+        if has_clearance:
+            _cf_hard_blocked = False  # recovered
         print(json.dumps({
             "event":         "cf_cookies_refresh_done",
             "has_clearance": has_clearance,
@@ -104,10 +131,18 @@ async def _refresh_cf_cookies() -> dict | None:
 
 
 async def _get_cf_cookies() -> dict | None:
-    """Return cached CF cookies, refreshing if stale or absent."""
+    """Return cached CF cookies, refreshing if stale or absent.
+
+    Returns None immediately while a hard IP block is active (avoids launching
+    a Playwright browser that will just get 403 again).  Re-probes after
+    _CF_HARD_BLOCK_TTL seconds in case Railway's egress IP has rotated.
+    """
     global _cf_cookies, _cf_cookies_ts
     async with _get_cf_lock():
         now = _time.monotonic()
+        if _cf_hard_blocked and (now - _cf_hard_blocked_ts) < _CF_HARD_BLOCK_TTL:
+            print(json.dumps({"event": "cf_hard_block_skip", "ttl_remaining_s": round(_CF_HARD_BLOCK_TTL - (now - _cf_hard_blocked_ts))}))
+            return None
         if _cf_cookies and (now - _cf_cookies_ts) < _cf_cookies_ttl:
             return _cf_cookies
         cookies = await _refresh_cf_cookies()
@@ -529,7 +564,7 @@ async def _playwright_fetch(params: list[tuple]) -> tuple[int, str]:
             context = await browser.new_context(user_agent=_PW_UA)
             await context.add_init_script(_WEBDRIVER_INIT)
             page = await context.new_page()
-            resp = await page.goto(full_url, wait_until="networkidle", timeout=30_000)
+            resp = await page.goto(full_url, wait_until="networkidle", timeout=12_000)
             http_status = resp.status if resp else 0
             content = await page.evaluate("() => document.body.innerText")
             print(f"[playwright] HTTP {http_status}  content[:200]={content[:200]!r}")
@@ -543,13 +578,32 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
     Fetch /api/slot with Cloudflare bypass.
 
     Strategy (fastest first):
-      1. Try curl_cffi with cached cf_clearance cookies  (fast, ~0.5 s)
-      2. If blocked: invalidate inside _cf_lock (prevents concurrent double-refresh),
-         retry once with freshly obtained cookies
-      3. If still blocked: full Playwright page navigation
+      1. If EVERSPORTS_PROXY_URL is set: curl_cffi through proxy (no CF cookies needed)
+      2. Try curl_cffi with cached cf_clearance cookies  (fast, ~0.5 s)
+      3. If blocked: invalidate inside _cf_lock, retry with freshly obtained cookies
+      4. If still blocked: full Playwright page navigation
+         — skipped entirely when a hard IP block is active (_cf_hard_blocked)
     """
     global _cf_cookies, _cf_cookies_ts
 
+    # ── Strategy 1: proxy route (bypasses CF WAF entirely) ─────────────────
+    if _PROXY_URL:
+        proxies = {"https": _PROXY_URL, "http": _PROXY_URL}
+        try:
+            async with AsyncSession(impersonate="chrome124") as session:
+                r = await session.get(_SLOT_URL, params=params, proxies=proxies, timeout=15)
+            print(
+                f"[curl_cffi+proxy] HTTP {r.status_code}  "
+                f"body[:100]={r.text[:100]!r}"
+            )
+            if not _is_cloudflare_block(r.status_code, r.text):
+                return r.status_code, r.text
+            print("[curl_cffi+proxy] still CF-blocked via proxy — falling through")
+        except Exception as exc:
+            print(f"[curl_cffi+proxy] exception: {type(exc).__name__}: {exc} — falling through")
+
+    # ── Strategy 2+3: CF clearance cookie dance ─────────────────────────────
+    # _get_cf_cookies() returns None immediately when hard IP block is active.
     cookies = await _get_cf_cookies()
 
     if cookies:
@@ -580,7 +634,12 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
                 return r.status_code, r.text
         print(json.dumps({"event": "cf_cookies_retry_still_blocked"}))
 
-    # Playwright full-page navigation (slow but always works)
+    # ── Strategy 4: Playwright full-page navigation ──────────────────────────
+    # Skipped when hard IP block is active — would just get another 403.
+    if _cf_hard_blocked and (_time.monotonic() - _cf_hard_blocked_ts) < _CF_HARD_BLOCK_TTL:
+        print(json.dumps({"event": "cf_playwright_fetch_skipped", "reason": "hard_block"}))
+        return 403, "CF hard block — skipped Playwright fetch"
+
     print("[fetch-slots] falling back to Playwright page navigation")
     return await _playwright_fetch(params)
 
