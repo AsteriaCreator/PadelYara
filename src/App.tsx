@@ -269,7 +269,7 @@ export default function App() {
           </>
         )}
 
-        {(isLoading || searched) && searchWeather && (
+        {searchWeather && (
           <div className="mb-5">
             <p className="text-xs text-gray-500 mb-2 px-1 tracking-wide uppercase">
               Das Wetter in deiner Suchlocation
