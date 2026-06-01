@@ -1,4 +1,5 @@
 import asyncio
+import copy
 import json
 import os
 import threading
@@ -110,14 +111,6 @@ def _call_eversports_service(
         print(f"[Eversports] direct call failed: {type(exc).__name__}: {exc}")
         return "platform_check_required"
 
-
-def _run_async(coro):
-    """Run an async coroutine from any thread using a fresh event loop."""
-    loop = asyncio.new_event_loop()
-    try:
-        return loop.run_until_complete(coro)
-    finally:
-        loop.close()
 
 
 _main_loop: asyncio.AbstractEventLoop | None = None
@@ -363,7 +356,7 @@ def _call_eversports_cached(
 
 
 @app.get("/api/search")
-def search(
+async def search(
     date:       str | None   = Query(default=None),
     time:       str | None   = Query(default=None),
     court_type: str | None   = Query(default=None),
@@ -420,10 +413,8 @@ def search(
     # Fetch weather once for the search location (one request, no per-venue calls)
     search_weather = None
     if lat is not None and lon is not None:
-        async def _get_weather():
-            async with httpx.AsyncClient() as client:
-                return await get_weather_for_hour(client, lat, lon, dt)
-        search_weather = _run_async(_get_weather())
+        async with httpx.AsyncClient() as client:
+            search_weather = await get_weather_for_hour(client, lat, lon, dt)
 
     # In radius mode paginate eTennis scraping so Render's free tier
     # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
@@ -557,7 +548,7 @@ def search(
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
         if ev_results:
-            with ThreadPoolExecutor(max_workers=len(ev_results)) as pool:
+            with ThreadPoolExecutor(max_workers=min(len(ev_results), 6)) as pool:
                 ev_futures = [pool.submit(_check_ev, r) for r in ev_results]
                 for f in as_completed(ev_futures):
                     try:
@@ -637,7 +628,7 @@ def search(
     with _SEARCH_LOCK:
         if len(_SEARCH_CACHE) > 100:
             _purge_search_cache()
-        _SEARCH_CACHE[cache_key] = (response, time_monotonic(), search_ttl)
+        _SEARCH_CACHE[cache_key] = (copy.deepcopy(response), time_monotonic(), search_ttl)
 
     return response
 
@@ -655,7 +646,7 @@ async def booking_click(body: BookingClickBody):
 
 
 @app.get("/api/weather")
-def weather_endpoint(
+async def weather_endpoint(
     lat:  float = Query(),
     lon:  float = Query(),
     date: str | None = Query(default=None),
@@ -665,18 +656,15 @@ def weather_endpoint(
     if parse_error:
         return JSONResponse(status_code=400, content={"error": parse_error})
 
-    async def _get():
-        async with httpx.AsyncClient() as client:
-            return await get_weather_for_hour(client, lat, lon, dt)
-
-    weather = _run_async(_get())
+    async with httpx.AsyncClient() as client:
+        weather = await get_weather_for_hour(client, lat, lon, dt)
     if weather is None:
         return JSONResponse(status_code=502, content={"error": "weather_unavailable"})
     return weather
 
 
 @app.get("/api/weather-test")
-def weather_test(
+async def weather_test(
     venue_id: str | None = Query(default=None),
     date:     str | None = Query(default=None),
     time:     str | None = Query(default=None),
@@ -694,11 +682,8 @@ def weather_test(
     if parse_error:
         return JSONResponse(status_code=400, content={"error": "invalid_params", "detail": parse_error})
 
-    async def _get():
-        async with httpx.AsyncClient() as client:
-            return await get_weather_for_hour(client, venue["lat"], venue["lon"], dt)
-
-    weather = _run_async(_get())
+    async with httpx.AsyncClient() as client:
+        weather = await get_weather_for_hour(client, venue["lat"], venue["lon"], dt)
     if weather is None:
         return JSONResponse(status_code=502, content={"error": "weather_unavailable", "venue_id": vid})
 

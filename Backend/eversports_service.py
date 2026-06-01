@@ -44,7 +44,20 @@ _WEBDRIVER_INIT = (
 _cf_cookies:    dict | None = None
 _cf_cookies_ts: float       = 0.0
 _cf_cookies_ttl = 3600      # seconds — refresh once per hour
-_cf_lock        = asyncio.Lock()
+_cf_lock: asyncio.Lock | None = None  # created lazily on first use inside the event loop
+
+
+def _get_cf_lock() -> asyncio.Lock:
+    """Return the module-level CF lock, creating it lazily on first call.
+
+    asyncio.Lock() must be created inside a running event loop (Python ≤3.9
+    binds the lock to the loop at construction time). Deferring creation to
+    first use guarantees we're already inside the app's event loop.
+    """
+    global _cf_lock
+    if _cf_lock is None:
+        _cf_lock = asyncio.Lock()
+    return _cf_lock
 
 
 async def _refresh_cf_cookies() -> dict | None:
@@ -93,7 +106,7 @@ async def _refresh_cf_cookies() -> dict | None:
 async def _get_cf_cookies() -> dict | None:
     """Return cached CF cookies, refreshing if stale or absent."""
     global _cf_cookies, _cf_cookies_ts
-    async with _cf_lock:
+    async with _get_cf_lock():
         now = _time.monotonic()
         if _cf_cookies and (now - _cf_cookies_ts) < _cf_cookies_ttl:
             return _cf_cookies
@@ -392,41 +405,42 @@ async def _check_via_playwright_dom(
                 p_csrf = page_info.get("csrf") or ""
 
                 # Trigger calendar update via vanilla JS fetch (works even without jQuery)
-                trigger_result = await page.evaluate(f"""
-                    async () => {{
-                        try {{
-                            const body = new URLSearchParams({{
-                                date:       '{dp}',
-                                facilityId: '{p_fid}',
-                                facility:   '{p_slug}',
-                            }}).toString();
-                            const headers = {{
+                # Pass values as an argument object — never interpolate into JS strings
+                trigger_result = await page.evaluate("""
+                    async (args) => {
+                        try {
+                            const body = new URLSearchParams({
+                                date:       args.dp,
+                                facilityId: args.p_fid,
+                                facility:   args.p_slug,
+                            }).toString();
+                            const headers = {
                                 'Content-Type':     'application/x-www-form-urlencoded; charset=UTF-8',
                                 'X-Requested-With': 'XMLHttpRequest',
-                            }};
-                            if ('{p_csrf}') headers['X-CSRF-TOKEN'] = '{p_csrf}';
+                            };
+                            if (args.p_csrf) headers['X-CSRF-TOKEN'] = args.p_csrf;
 
-                            const r = await fetch('/api/booking/calendar/update', {{
+                            const r = await fetch('/api/booking/calendar/update', {
                                 method:      'POST',
                                 headers:     headers,
                                 credentials: 'include',
                                 body:        body,
-                            }});
+                            });
                             const html = await r.text();
 
                             // Inject calendar HTML into container if we got something useful
                             const container = document.getElementById('booking-calendar-container');
-                            if (container && html.includes('<td')) {{
+                            if (container && html.includes('<td')) {
                                 container.innerHTML = html;
-                            }}
+                            }
                             return 'status:' + r.status + ' len:' + html.length +
                                    ' has_td:' + html.includes('<td') +
                                    ' excerpt:' + html.substring(0, 100);
-                        }} catch(e) {{
+                        } catch(e) {
                             return 'error:' + e.message;
-                        }}
-                    }}
-                """)
+                        }
+                    }
+                """, {"dp": dp, "p_fid": p_fid, "p_slug": p_slug, "p_csrf": p_csrf})
                 print(f"[pw-dom] fetch trigger result={trigger_result!r}  api_calls={_api_log}")
 
                 # Wait for td[data-state] after injection
@@ -551,7 +565,7 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
         # Invalidate inside the lock so concurrent requests don't race to reset.
         # The identity check (is cookies) ensures only the request that used the
         # stale batch clears it — a concurrent request may have already refreshed.
-        async with _cf_lock:
+        async with _get_cf_lock():
             if _cf_cookies is cookies:
                 _cf_cookies    = None
                 _cf_cookies_ts = 0.0
