@@ -6,6 +6,8 @@ import time as _time
 from datetime import datetime
 from urllib.parse import urlencode
 
+from playwright.async_api import Error as PlaywrightError
+
 from curl_cffi.requests import AsyncSession
 
 _SLOT_URL     = "https://www.eversports.at/api/slot"
@@ -73,7 +75,7 @@ async def _refresh_cf_cookies() -> dict | None:
             "duration_ms":   round((_time.monotonic() - t0) * 1000),
         }))
         return cdict
-    except Exception as exc:
+    except (PlaywrightError, asyncio.TimeoutError) as exc:
         print(json.dumps({
             "event":       "cf_cookies_refresh_failed",
             "error":       f"{type(exc).__name__}: {exc}",

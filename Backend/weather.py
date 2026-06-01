@@ -127,6 +127,9 @@ async def get_weather_for_hour(
         _WEATHER_CACHE[key] = {"weather": weather, "timestamp": now}
         return weather
 
-    except Exception as exc:
-        print(f"[weather] fetch failed: {type(exc).__name__}: {exc}")
+    except httpx.RequestError as exc:
+        print(f"[weather] request error: {type(exc).__name__}: {exc}")
+        return None
+    except httpx.HTTPStatusError as exc:
+        print(f"[weather] HTTP {exc.response.status_code}: {exc}")
         return None

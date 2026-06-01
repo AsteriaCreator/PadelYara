@@ -12,6 +12,8 @@ from zoneinfo import ZoneInfo
 
 import requests as _requests
 from bs4 import BeautifulSoup as _BS
+from playwright.async_api import Error as PlaywrightError
+from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright.async_api import async_playwright
 
 from analytics import track_scraper_timeout
@@ -171,7 +173,7 @@ async def _check_one(
 
         try:
             await page.wait_for_selector(".slot[data-begin]", state="attached", timeout=10_000)
-        except Exception as sel_exc:
+        except PlaywrightTimeoutError as sel_exc:
             # Selector not found — log what the page actually contains
             try:
                 diag = await page.evaluate(
@@ -324,7 +326,7 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         browser = None
         try:
             browser = await pw.chromium.launch(headless=True)
-        except Exception as exc:
+        except PlaywrightError as exc:
             print(json.dumps({
                 "event": "etennis_browser_launch_failed",
                 "error": f"{type(exc).__name__}: {exc}",
