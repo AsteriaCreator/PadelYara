@@ -1,6 +1,7 @@
 import time
 import httpx
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 _WEATHER_CACHE: dict = {}
 _WEATHER_TTL = 900  # 15 minutes
@@ -9,9 +10,8 @@ MET_URL = "https://api.met.no/weatherapi/locationforecast/2.0/compact"
 # met.no requires a descriptive User-Agent identifying the application
 MET_UA  = "PadelYara/1.0 github.com/AsteriaCreator/NeoPadelChecker"
 
-# Vienna offset: UTC+2 in summer (CEST), UTC+1 in winter (CET)
-# We use a fixed +1 as a conservative base; zoneinfo is not guaranteed on Render
-_VIENNA_TZ = timezone(timedelta(hours=2))  # CEST (May–Oct)
+# ZoneInfo handles CET/CEST transitions automatically (UTC+1 in winter, UTC+2 in summer)
+_VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
 _SYMBOL_TO_ICON: dict[str, str] = {
     "clearsky":        "sun",
