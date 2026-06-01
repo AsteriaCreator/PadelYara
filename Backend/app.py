@@ -90,7 +90,7 @@ def _call_eversports_service(
             venue_url=booking_url,
             venue_id=venue_id,
         )
-        result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=65)
+        result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=18)
         status = result.get("status", "platform_check_required")
         slots_count = result.get("slots_count")
         _log(status)
@@ -486,8 +486,8 @@ async def search(
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
     #    skip the Railway round-trips to avoid redundant work.
-    #    All venue checks run in parallel — latency is bounded by the slowest
-    #    single Railway round-trip, not N × RTT.
+    #    Checks run in a background thread (same pattern as eTennis) so the
+    #    response returns immediately with "pending"; polls fill in the real status.
     if et_offset == 0:
         ev_venue_map = {v["id"]: v for v in venues}
         time_hhmm    = dt.strftime("%H%M")
@@ -514,10 +514,7 @@ async def search(
             )
             result["availability_status"] = status
             # Fallback: if the exact requested slot is busy/no_slot, scan nearby
-            # offsets to find the next free slot. Uses venue-specific config when
-            # present, otherwise the module default covers mixed 30/60/90-min patterns.
-            # The primary status check (busy/no_slot) ensures this never runs for
-            # venues where 18:00 is already free.
+            # offsets to find the next free slot.
             if status in ("busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
@@ -548,13 +545,55 @@ async def search(
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
         if ev_results:
-            with ThreadPoolExecutor(max_workers=min(len(ev_results), 6)) as pool:
-                ev_futures = [pool.submit(_check_ev, r) for r in ev_results]
-                for f in as_completed(ev_futures):
-                    try:
-                        f.result()
-                    except Exception as exc:
-                        print(json.dumps({"event": "eversports_thread_error", "error": str(exc)}))
+            # Serve already-cached statuses immediately (mirror of eTennis cache lookup).
+            now_t = time_monotonic()
+            with _EV_RESULT_LOCK:
+                for r in ev_results:
+                    key = _ev_result_key(r["venue_id"], date_str_ev, time_hhmm)
+                    entry = _EV_RESULT_CACHE.get(key)
+                    if entry is not None:
+                        status, ts = entry
+                        if now_t - ts < _EV_RESULT_TTL:
+                            r["availability_status"] = status
+
+            # Mark remaining uncached results as pending; kick off background checks.
+            ev_pending = []
+            for r in ev_results:
+                if r.get("availability_status") in (None, "pending"):
+                    r["availability_status"] = "pending"
+                    ev_pending.append(r)
+
+            if ev_pending:
+                ev_key = _run_key("Eversports", dt)
+                with _RUNNING_LOCK:
+                    ev_should_start = ev_key not in _RUNNING
+                    if ev_should_start:
+                        _RUNNING.add(ev_key)
+                if ev_should_start:
+                    print(json.dumps({
+                        "event":  "eversports_bg_start",
+                        "key":    ev_key,
+                        "venues": [r["venue_id"] for r in ev_pending],
+                    }))
+                    def _ev_bg(pending=ev_pending, k=ev_key):
+                        try:
+                            with ThreadPoolExecutor(max_workers=min(len(pending), 6)) as pool:
+                                ev_futures = [pool.submit(_check_ev, r) for r in pending]
+                                for f in as_completed(ev_futures):
+                                    try:
+                                        f.result()
+                                    except Exception as exc:
+                                        print(json.dumps({"event": "eversports_thread_error", "error": str(exc)}))
+                        finally:
+                            with _RUNNING_LOCK:
+                                _RUNNING.discard(k)
+                    threading.Thread(target=_ev_bg, daemon=True).start()
+                else:
+                    print(json.dumps({
+                        "event":  "eversports_bg_deduplicated",
+                        "key":    ev_key,
+                        "venues": [r["venue_id"] for r in ev_pending],
+                    }))
 
     # ── Generic fallback label pass — applies to both eTennis and Eversports ──
     # Converts next_available_time (Unix ts) → display fields for the frontend.
