@@ -764,7 +764,11 @@ async def check_eversports_slot(
     try:
         # ── Method 1: direct curl_cffi POST to /api/booking/calendar/update ─
         # Works on non-Railway IPs; blocked by Cloudflare WAF from Railway's IP.
-        if venue_url:
+        # Skipped when a slot proxy is configured — /api/slot via proxy is faster
+        # and more reliable, so there's no point trying the calendar POST first.
+        if venue_url and _is_proxied_url:
+            print("[check] slot proxy configured — skipping cal-post, going straight to /api/slot")
+        if venue_url and not _is_proxied_url:
             result = await _check_via_calendar_post(facility_id, venue_url, date, time_hhmm)
             if result is not None:
                 status, count = result
