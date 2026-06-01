@@ -16,7 +16,10 @@ class EversportsResult(TypedDict):
 
 from curl_cffi.requests import AsyncSession
 
-_SLOT_URL     = "https://www.eversports.at/api/slot"
+# If EVERSPORTS_SLOT_PROXY is set, use that URL instead of hitting eversports.at
+# directly. Intended for the Vercel Edge Function proxy which runs on CF's own
+# network and is not subject to Railway's IP block.
+_SLOT_URL     = os.environ.get("EVERSPORTS_SLOT_PROXY") or "https://www.eversports.at/api/slot"
 _CAL_URL      = "https://www.eversports.at/api/booking/calendar/update"
 _ES_BASE      = "https://www.eversports.at"
 _PW_ARGS      = [
@@ -586,7 +589,25 @@ async def _fetch_slots(params: list[tuple]) -> tuple[int, str]:
     """
     global _cf_cookies, _cf_cookies_ts
 
-    # ── Strategy 1: proxy route (bypasses CF WAF entirely) ─────────────────
+    # ── Strategy 1a: Vercel Edge Function proxy ──────────────────────────────
+    # When _SLOT_URL has been overridden to a Vercel proxy, skip CF cookies
+    # entirely — the proxy runs on CF's own network and handles auth itself.
+    _is_proxied_url = _SLOT_URL != "https://www.eversports.at/api/slot"
+    if _is_proxied_url:
+        try:
+            async with AsyncSession(impersonate="chrome124") as session:
+                r = await session.get(_SLOT_URL, params=params, timeout=15)
+            print(
+                f"[curl_cffi+vercel-proxy] HTTP {r.status_code}  "
+                f"body[:100]={r.text[:100]!r}"
+            )
+            if not _is_cloudflare_block(r.status_code, r.text):
+                return r.status_code, r.text
+            print("[curl_cffi+vercel-proxy] still CF-blocked — falling through")
+        except Exception as exc:
+            print(f"[curl_cffi+vercel-proxy] exception: {type(exc).__name__}: {exc} — falling through")
+
+    # ── Strategy 1b: HTTP proxy route (bypasses CF WAF via residential IP) ──
     if _PROXY_URL:
         proxies = {"https": _PROXY_URL, "http": _PROXY_URL}
         try:

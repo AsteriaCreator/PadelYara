@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/eversports-slot.ts": {
+      "runtime": "edge"
+    }
+  }
+}
