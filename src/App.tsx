@@ -244,6 +244,35 @@ export default function App() {
         {isLoading && (
           <>
             <LoadingCat />
+            {searchWeather && (
+              <div className="mb-5">
+                <p className="text-xs text-gray-500 mb-2 px-1 tracking-wide uppercase">
+                  Das Wetter in deiner Suchlocation
+                </p>
+                <div
+                  className="flex items-center gap-4 px-4 py-3 rounded-xl border text-sm"
+                  style={{ background: "rgba(212,245,60,0.05)", borderColor: "rgba(212,245,60,0.2)" }}
+                >
+                  <span className="text-3xl leading-none">
+                    {searchWeather.icon === "sun" ? "☀️"
+                      : searchWeather.icon === "cloud" ? "☁️"
+                      : searchWeather.icon === "rain" || searchWeather.icon === "drizzle" ? "🌧️"
+                      : searchWeather.icon === "snow" ? "❄️"
+                      : searchWeather.icon === "thunder" ? "⛈️"
+                      : searchWeather.icon === "fog" ? "🌫️"
+                      : "🌡️"}
+                  </span>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-xl font-bold text-white leading-none">{searchWeather.temp}°C</span>
+                    <span className="text-gray-400 text-xs">{searchWeather.desc}</span>
+                  </div>
+                  <div className="ml-auto text-right">
+                    <span className="text-blue-400 text-sm font-semibold">{searchWeather.rain_prob}%</span>
+                    <p className="text-gray-600 text-xs">Regenwahrsch.</p>
+                  </div>
+                </div>
+              </div>
+            )}
             <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
               {Array.from({ length: skeletonCount }).map((_, i) => (
                 <SkeletonRow key={i} />
@@ -266,8 +295,8 @@ export default function App() {
           </p>
         )}
 
-        {searchWeather && (
-          <div className="mt-4 mb-6">
+        {searched && !isLoading && searchWeather && (
+          <div className="mb-5">
             <p className="text-xs text-gray-500 mb-2 px-1 tracking-wide uppercase">
               Das Wetter in deiner Suchlocation
             </p>
