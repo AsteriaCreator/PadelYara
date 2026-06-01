@@ -31,9 +31,8 @@ CSV is fine for now.
 Some venues may not have been smoke-tested since the consolidation.
 Quick check: search with `lat/lon/radius` for a date/time with expected availability.
 
-### Option D — Clean up Render
-Log into Render and delete/suspend the old `neopadelchecker` service.
-It's no longer receiving traffic but may still be billing.
+### ~~Option D — Clean up Render~~
+✅ Done — Render service deleted 2026-06-01.
 
 ## Constraints (do not change)
 

@@ -55,5 +55,5 @@ Railway:
 
 ## Retired Services
 
-- Render (`https://neopadelchecker.onrender.com`) — no longer used
+- Render (`https://neopadelchecker.onrender.com`) — deleted 2026-06-01
 - Old Railway Eversports microservice — consolidated into main `app.py`
