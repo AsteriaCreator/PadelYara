@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react"
 import type { Venue, SearchParams, Weather } from "./types"
-import { fetchAvailability, type GeoParams } from "./api"
+import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
 import SearchCard from "./components/SearchCard"
 import VenueRow from "./components/VenueRow"
@@ -140,6 +140,10 @@ export default function App() {
     lastParamsRef.current = params
     lastGeoRef.current    = geo
 
+    // Fire weather fetch in parallel — show it as soon as it resolves
+    fetchWeather(coords.lat, coords.lon, params.date, params.time)
+      .then((w) => { if (w) setSearchWeather(w) })
+
     try {
       const res = await fetchAvailability(params, geo, 0)
       if (!res.ok) {
@@ -151,7 +155,6 @@ export default function App() {
       setLastUpdated(Date.now())
       setSearched(true)
       setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
-      setSearchWeather(res.weather ?? null)
       setBookingWindowNotice(res.booking_window_notice ?? null)
       if (res.availability_pending) {
         scheduleRefresh(params, geo, 1)
@@ -263,7 +266,7 @@ export default function App() {
           </p>
         )}
 
-        {searched && !isLoading && searchWeather && (
+        {searchWeather && (
           <div className="mt-4 mb-6">
             <p className="text-xs text-gray-500 mb-2 px-1 tracking-wide uppercase">
               Das Wetter in deiner Suchlocation

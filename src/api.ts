@@ -1,4 +1,4 @@
-import type { SearchParams, SearchResponse, Venue, Status } from "./types"
+import type { SearchParams, SearchResponse, Venue, Status, Weather } from "./types"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -107,5 +107,25 @@ export async function fetchAvailability(
     has_more: data.has_more ?? false,
     booking_window_notice: data.booking_window_notice as string | undefined,
     weather: data.weather ?? null,
+  }
+}
+
+export async function fetchWeather(
+  lat: number,
+  lon: number,
+  date: string,
+  time: string,
+): Promise<Weather | null> {
+  const url = new URL(`${API_BASE}/api/weather`)
+  url.searchParams.set("lat", String(lat))
+  url.searchParams.set("lon", String(lon))
+  url.searchParams.set("date", date)
+  url.searchParams.set("time", time)
+  try {
+    const res = await fetch(url.toString())
+    if (!res.ok) return null
+    return await res.json() as Weather
+  } catch {
+    return null
   }
 }
