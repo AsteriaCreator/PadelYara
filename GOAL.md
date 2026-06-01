@@ -82,8 +82,7 @@ curl -s "$RENDER/api/search?region=Wien&date=$DATE&time=$TIME" | python -m json.
 
 | Service | Branch |
 |---------|--------|
-| Render backend | `main` |
-| Railway Eversports | `claude/affectionate-goodall-0ededf` |
+| Railway backend (consolidated) | `main` |
 
 ## Pass Criteria
 
