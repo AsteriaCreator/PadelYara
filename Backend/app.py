@@ -32,26 +32,26 @@ EV_DEFAULT_FALLBACK: list[int] = [30, 60]
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
+from eversports_service import check_eversports_slot
 from venues import load_venues
 from weather import get_weather_for_hour
 
 
-# Env var required on Render: EVERSPORTS_SERVICE_URL=https://<railway-service-url>
 def _call_eversports_service(
     fid: int, cids: list[int], date_str: str, time_hhmm: str,
     venue_id: str = "unknown", booking_url: str = "",
 ) -> str:
-    """Call the Railway Eversports microservice. Falls back to platform_check_required."""
-    url = os.environ.get("EVERSPORTS_SERVICE_URL")
-    if not url:
+    """Call the Eversports checker directly (in-process). Falls back to platform_check_required."""
+    # Only run on Railway — the Cloudflare bypass requires Railway's egress IPs.
+    # Locally (no RAILWAY_ENVIRONMENT set) skip immediately so dev searches are fast.
+    if not os.environ.get("RAILWAY_ENVIRONMENT"):
         return "platform_check_required"
-
     t0 = time.monotonic()
     time_colon = f"{time_hhmm[:2]}:{time_hhmm[2:]}"  # "1800" -> "18:00"
 
     def _log(status: str, error: str | None = None) -> None:
         entry: dict = {
-            "event":       "eversports_service_result",
+            "event":       "eversports_check_result",
             "venue_id":    venue_id,
             "facility_id": fid,
             "date":        date_str,
@@ -64,44 +64,36 @@ def _call_eversports_service(
         print(json.dumps(entry))
 
     try:
-        params = {
+        # Must use run_coroutine_threadsafe (not _run_async) so that asyncio
+        # primitives in eversports_service (e.g. _cf_lock) share the same
+        # event loop they were created on, avoiding "bound to a different loop".
+        coro = check_eversports_slot(
+            facility_id=fid,
+            court_ids=",".join(str(c) for c in cids),
+            date=date_str,
+            time=time_colon,
+            venue_url=booking_url,
+            venue_id=venue_id,
+        )
+        result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=65)
+        status = result.get("status", "platform_check_required")
+        slots_count = result.get("slots_count")
+        _log(status)
+        print(json.dumps({
+            "event":       "eversports_raw_response",
+            "venue_id":    venue_id,
             "facility_id": fid,
-            "court_ids":   ",".join(str(c) for c in cids),
             "date":        date_str,
             "time":        time_colon,
-            "venue_id":    venue_id,
-        }
-        if booking_url:
-            params["venue_url"] = booking_url
-        r = httpx.get(
-            f"{url.rstrip('/')}/check",
-            params=params,
-            timeout=60,  # /api/slot + CF cookie warmup max ~45s; DOM scrape removed
-        )
-        if r.status_code == 200:
-            body = r.json()
-            status = body.get("status", "platform_check_required")
-            slots_count = body.get("slots_count")
-            _log(status)
-            print(json.dumps({
-                "event":       "eversports_raw_response",
-                "venue_id":    venue_id,
-                "facility_id": fid,
-                "date":        date_str,
-                "time":        time_colon,
-                "status":      status,
-                "slots_count": slots_count,
-            }))
-            return status
-        _log("platform_check_required", error=f"http_{r.status_code}")
-        print(f"[Eversports service] HTTP {r.status_code} for facilityId={fid}")
-        return "platform_check_required"
+            "status":      status,
+            "slots_count": slots_count,
+        }))
+        return status
     except Exception as exc:
         elapsed_ms = round((time.monotonic() - t0) * 1000)
-        if isinstance(exc, httpx.TimeoutException):
-            track_scraper_timeout(venue_id=venue_id, platform="Eversports", timeout_ms=elapsed_ms)
+        track_scraper_timeout(venue_id=venue_id, platform="Eversports", timeout_ms=elapsed_ms)
         _log("platform_check_required", error=f"{type(exc).__name__}: {exc}")
-        print(f"[Eversports service] request failed: {type(exc).__name__}: {exc}")
+        print(f"[Eversports] direct call failed: {type(exc).__name__}: {exc}")
         return "platform_check_required"
 
 
@@ -114,8 +106,13 @@ def _run_async(coro):
         loop.close()
 
 
+_main_loop: asyncio.AbstractEventLoop | None = None
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    global _main_loop
+    _main_loop = asyncio.get_running_loop()
     await analytics.lifespan_startup()
     yield
 
@@ -713,6 +710,26 @@ def weather_test(
         "requested_time": dt.strftime("%Y-%m-%dT%H:%M"),
         "weather":        weather,
     }
+
+
+@app.get("/check")
+async def check_compat(
+    facility_id: int        = Query(...),
+    court_ids:   str        = Query(...),
+    date:        str        = Query(...),
+    time:        str        = Query(...),
+    venue_url:   str        = Query(default=""),
+    venue_id:    str        = Query(default=""),
+):
+    """Compatibility shim — keeps the old Render→Railway HTTP contract working."""
+    return await check_eversports_slot(
+        facility_id=facility_id,
+        court_ids=court_ids,
+        date=date,
+        time=time,
+        venue_url=venue_url,
+        venue_id=venue_id,
+    )
 
 
 if __name__ == "__main__":

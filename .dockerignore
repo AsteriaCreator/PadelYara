@@ -8,3 +8,4 @@ public/
 *.csv
 *.json
 !Backend/requirements.txt
+!Padel_Venues.csv
