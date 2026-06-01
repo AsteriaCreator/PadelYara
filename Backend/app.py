@@ -42,6 +42,10 @@ def _call_eversports_service(
     venue_id: str = "unknown", booking_url: str = "",
 ) -> str:
     """Call the Eversports checker directly (in-process). Falls back to platform_check_required."""
+    # Only run on Railway — the Cloudflare bypass requires Railway's egress IPs.
+    # Locally (no RAILWAY_ENVIRONMENT set) skip immediately so dev searches are fast.
+    if not os.environ.get("RAILWAY_ENVIRONMENT"):
+        return "platform_check_required"
     t0 = time.monotonic()
     time_colon = f"{time_hhmm[:2]}:{time_hhmm[2:]}"  # "1800" -> "18:00"
 
