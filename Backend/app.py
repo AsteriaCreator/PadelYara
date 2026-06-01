@@ -105,11 +105,21 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+_frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173").rstrip("/")
+_allowed_origins = [
+    _frontend_url,
+    "https://neo-padel-checker.vercel.app",
+]
+# Also allow Vercel preview deployments for this project (neo-padel-checker-*)
+_VERCEL_PREVIEW_PATTERN = r"https://neo-padel-checker-[a-z0-9-]+\.vercel\.app"
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=_allowed_origins,
+    allow_origin_regex=_VERCEL_PREVIEW_PATTERN,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
 )
 
 VENUES = load_venues()
@@ -629,6 +639,27 @@ async def booking_click(body: BookingClickBody):
     """Record booking intent. Frontend fires-and-forgets; opens the booking URL itself."""
     track_booking_clicked(venue_id=body.venue_id, platform=body.platform)
     return {"ok": True}
+
+
+@app.get("/api/weather")
+def weather_endpoint(
+    lat:  float = Query(),
+    lon:  float = Query(),
+    date: str | None = Query(default=None),
+    time: str | None = Query(default=None),
+):
+    dt, parse_error = _parse_datetime(date, time)
+    if parse_error:
+        return JSONResponse(status_code=400, content={"error": parse_error})
+
+    async def _get():
+        async with httpx.AsyncClient() as client:
+            return await get_weather_for_hour(client, lat, lon, dt)
+
+    weather = _run_async(_get())
+    if weather is None:
+        return JSONResponse(status_code=502, content={"error": "weather_unavailable"})
+    return weather
 
 
 @app.get("/api/weather-test")
