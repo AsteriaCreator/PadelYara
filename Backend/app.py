@@ -60,14 +60,18 @@ def _call_eversports_service(
         print(json.dumps(entry))
 
     try:
-        result = _run_async(check_eversports_slot(
+        # Must use run_coroutine_threadsafe (not _run_async) so that asyncio
+        # primitives in eversports_service (e.g. _cf_lock) share the same
+        # event loop they were created on, avoiding "bound to a different loop".
+        coro = check_eversports_slot(
             facility_id=fid,
             court_ids=",".join(str(c) for c in cids),
             date=date_str,
             time=time_colon,
             venue_url=booking_url,
             venue_id=venue_id,
-        ))
+        )
+        result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=65)
         status = result.get("status", "platform_check_required")
         slots_count = result.get("slots_count")
         _log(status)
@@ -98,8 +102,13 @@ def _run_async(coro):
         loop.close()
 
 
+_main_loop: asyncio.AbstractEventLoop | None = None
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    global _main_loop
+    _main_loop = asyncio.get_running_loop()
     await analytics.lifespan_startup()
     yield
 

@@ -13,6 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # System dependencies are already in the base image; no --with-deps needed.
 RUN python -m playwright install chromium
 
+# venues.py resolves CSV as Path(__file__).parent.parent / "Padel_Venues.csv"
+# With WORKDIR /app that means /Padel_Venues.csv
+COPY Padel_Venues.csv /Padel_Venues.csv
+
 # Copy all Backend Python source files
 COPY Backend/app.py               ./app.py
 COPY Backend/eversports_service.py ./eversports_service.py
