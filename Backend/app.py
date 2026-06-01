@@ -712,6 +712,26 @@ def weather_test(
     }
 
 
+@app.get("/check")
+async def check_compat(
+    facility_id: int        = Query(...),
+    court_ids:   str        = Query(...),
+    date:        str        = Query(...),
+    time:        str        = Query(...),
+    venue_url:   str        = Query(default=""),
+    venue_id:    str        = Query(default=""),
+):
+    """Compatibility shim — keeps the old Render→Railway HTTP contract working."""
+    return await check_eversports_slot(
+        facility_id=facility_id,
+        court_ids=court_ids,
+        date=date,
+        time=time,
+        venue_url=venue_url,
+        venue_id=venue_id,
+    )
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     # reload=False: avoids conflicts with Playwright's Chrome subprocess
