@@ -35,6 +35,7 @@ export default function App() {
   // Distinct from pollingExpired: pollingActive=false means nothing is running;
   // pollingExpired=true means it ran out of attempts with venues still pending.
   const [pollingActive,  setPollingActive]          = useState(false)
+  const activePollsRef = useRef(0)
   const [lastUpdated, setLastUpdated]               = useState<number | null>(null)
   const [secondsSince, setSecondsSince]             = useState(0)
   const [bookingWindowNotice, setBookingWindowNotice] = useState<string | null>(null)
@@ -51,6 +52,7 @@ export default function App() {
       clearTimeout(refreshTimer.current)
       refreshTimer.current = null
     }
+    activePollsRef.current = 0
     setPollingExpired(false)
     setPollingActive(false)
   }
@@ -179,6 +181,8 @@ export default function App() {
       setLastUpdated(Date.now())
       // One-shot poll for any pending results in this batch
       if (res.availability_pending) {
+        activePollsRef.current += 1
+        setPollingActive(true)
         setTimeout(async () => {
           const polled = await fetchAvailability(
             lastParamsRef.current!,
@@ -189,6 +193,8 @@ export default function App() {
             setResults((prev) => mergeResults(prev, polled.results))
             setLastUpdated(Date.now())
           }
+          activePollsRef.current -= 1
+          if (activePollsRef.current === 0) setPollingActive(false)
         }, 15_000)
       }
     } finally {
