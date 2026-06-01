@@ -198,6 +198,23 @@ export default function App() {
 
   const skeletonCount = results.length > 0 ? results.length : SKELETON_COUNT
 
+  const courtType = lastParamsRef.current?.court_type ?? "both"
+
+  function getWeatherHint(rain_prob: number): { text: string; color: string } | null {
+    if (courtType === "indoor") return null
+    if (courtType === "outdoor") {
+      if (rain_prob <= 20) return { text: "Bedingungen gut", color: "text-green-400" }
+      if (rain_prob <= 40) return { text: "Regen möglich", color: "text-amber-400" }
+      if (rain_prob <= 65) return { text: "Regen wahrscheinlich", color: "text-red-400" }
+      return { text: "Schlechte Bedingungen", color: "text-red-400" }
+    }
+    // both
+    if (rain_prob <= 20) return { text: "Outdoor gut möglich", color: "text-green-400" }
+    if (rain_prob <= 40) return { text: "Regen möglich — eher Indoor buchen", color: "text-amber-400" }
+    if (rain_prob <= 65) return { text: "Regen wahrscheinlich — Indoor empfohlen", color: "text-red-400" }
+    return { text: "Regen erwartet — Indoor empfohlen", color: "text-red-400" }
+  }
+
   return (
     <div className="min-h-screen overflow-x-hidden" style={{
       backgroundColor: "#080810",
@@ -269,6 +286,7 @@ export default function App() {
                   <div className="ml-auto text-right">
                     <span className="text-blue-400 text-sm font-semibold">{searchWeather.rain_prob}%</span>
                     <p className="text-gray-600 text-xs">Regenwahrsch.</p>
+                    {(() => { const h = getWeatherHint(searchWeather.rain_prob); return h ? <p className={`text-xs font-medium mt-1 ${h.color}`}>{h.text}</p> : null })()}
                   </div>
                 </div>
               </div>
