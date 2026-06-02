@@ -153,6 +153,11 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 _RUNNING: set[str] = set()   # tracks in-flight background checks
 _RUNNING_LOCK = threading.Lock()
 
+# Statuses that mean a venue has not yet been checked and needs a background
+# check. Defined as a named constant so gaps can't silently creep in when new
+# status values are introduced.
+_EV_UNCHECKED = {None, "pending", "unknown", "platform_check_required"}
+
 # ── Response cache (TTL) ─────────────────────────────────────────────────────
 # key → (response_dict, stored_at_monotonic, ttl_seconds)
 # No inflight coordination: the pending-first design means the FIRST response
@@ -570,9 +575,16 @@ async def search(
             # Mark remaining uncached results as pending; kick off async tasks.
             ev_pending = []
             for r in ev_results:
-                if r.get("availability_status") in (None, "pending", "unknown"):
+                if r.get("availability_status") in _EV_UNCHECKED:
                     r["availability_status"] = "pending"
                     ev_pending.append(r)
+
+            if not ev_pending and ev_results:
+                print(json.dumps({
+                    "event":    "eversports_bg_skipped",
+                    "reason":   "all_cached",
+                    "statuses": [r.get("availability_status") for r in ev_results],
+                }))
 
             if ev_pending:
                 ev_key = _run_key("Eversports", dt)
