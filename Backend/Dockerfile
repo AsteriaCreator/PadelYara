@@ -23,6 +23,7 @@ COPY Backend/eversports_service.py ./eversports_service.py
 COPY Backend/etennis_checker.py   ./etennis_checker.py
 COPY Backend/analytics.py         ./analytics.py
 COPY Backend/venues.py            ./venues.py
+COPY Backend/venues_mongo.py      ./venues_mongo.py
 COPY Backend/weather.py           ./weather.py
 COPY Backend/distance.py          ./distance.py
 
