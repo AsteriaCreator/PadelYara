@@ -131,6 +131,10 @@ _frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173").rstrip("/")
 _allowed_origins = [
     _frontend_url,
     "https://neo-padel-checker.vercel.app",
+    "https://www.padelyara.at",
+    "https://padelyara.at",
+    "https://www.padelyara.com",
+    "https://padelyara.com",
 ]
 # Also allow Vercel preview deployments for this project (neo-padel-checker-*)
 _VERCEL_PREVIEW_PATTERN = r"https://neo-padel-checker-[a-z0-9-]+\.vercel\.app"
