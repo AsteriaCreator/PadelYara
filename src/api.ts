@@ -2,13 +2,26 @@ import type { SearchParams, SearchResponse, Venue, Status, Weather } from "./typ
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
+// Anonymous session ID — random UUID persisted in localStorage.
+// No personal data: just a random string to distinguish unique vs. returning
+// browsers. Never tied to an account, IP, or fingerprint.
+function getSessionId(): string {
+  const KEY = "anon_session_id"
+  let id = localStorage.getItem(KEY)
+  if (!id) {
+    id = crypto.randomUUID()
+    localStorage.setItem(KEY, id)
+  }
+  return id
+}
+
 /**
  * Fire-and-forget booking intent signal. Never blocks navigation or throws.
- * Uses sendBeacon (survives tab close) with a fetch+keepalive fallback.
+ * Uses fetch+keepalive so it survives target="_blank" tab opens.
  */
 export function trackBookingClick(venueId: string, platform: string): void {
   const url = `${API_BASE}/api/booking-click`
-  const body = JSON.stringify({ venue_id: venueId, platform })
+  const body = JSON.stringify({ venue_id: venueId, platform, session_id: getSessionId() })
   // Defer by one tick so the click handler returns before the network request
   // goes out. This avoids colliding with the peak load of an active scrape on
   // the backend (target="_blank" keeps the current page alive, so keepalive
@@ -84,7 +97,9 @@ export async function fetchAvailability(
     url.searchParams.set("et_offset", String(etOffset))
   }
 
-  const res = await fetch(url.toString())
+  const res = await fetch(url.toString(), {
+    headers: { "X-Session-Id": getSessionId() },
+  })
   if (!res.ok) {
     const body = await res.json().catch(() => ({}))
     return {

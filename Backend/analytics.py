@@ -101,6 +101,7 @@ async def lifespan_startup() -> None:
 
     await col.create_index("timestamp")
     await col.create_index("event")
+    await col.create_index("session_id")
     print(json.dumps({"event": "analytics_indexes_ready"}))
 
     asyncio.create_task(_worker(col), name="analytics_worker")
@@ -115,6 +116,7 @@ def track_search_completed(
     court_type: str | None,
     results_count: int,
     response_ms: int,
+    session_id: str | None = None,
 ) -> None:
     """
     Fired after /api/search returns results successfully.
@@ -124,6 +126,7 @@ def track_search_completed(
       court_type    — "indoor" | "outdoor" | "all" | None
       results_count — number of venues returned
       response_ms   — wall-clock time from request entry to response build
+      session_id    — anonymous random UUID from the browser (localStorage)
     """
     _enqueue({
         "event":         "search_completed",
@@ -131,25 +134,28 @@ def track_search_completed(
         "court_type":    court_type,
         "results_count": results_count,
         "response_ms":   response_ms,
+        "session_id":    session_id,
     })
 
 
-def track_booking_clicked(*, venue_id: str, platform: str) -> None:
+def track_booking_clicked(*, venue_id: str, platform: str, session_id: str | None = None) -> None:
     """
     Fired on POST /api/booking-click (booking intent signal from the frontend).
 
     Stored:
-      venue_id — venue slug (e.g. "padelzone-traiskirchen")
-      platform — "eTennis" | "Eversports" | "Andere"
+      venue_id   — venue slug (e.g. "padelzone-traiskirchen")
+      platform   — "eTennis" | "Eversports" | "Andere"
+      session_id — anonymous random UUID from the browser (localStorage)
     """
     _enqueue({
-        "event":    "booking_clicked",
-        "venue_id": venue_id,
-        "platform": platform,
+        "event":      "booking_clicked",
+        "venue_id":   venue_id,
+        "platform":   platform,
+        "session_id": session_id,
     })
 
 
-def track_scraper_timeout(*, venue_id: str, platform: str, timeout_ms: int) -> None:
+def track_scraper_timeout(*, venue_id: str, platform: str, timeout_ms: int, session_id: str | None = None) -> None:
     """
     Fired when a scraper or downstream service call exceeds its timeout.
 
@@ -157,34 +163,38 @@ def track_scraper_timeout(*, venue_id: str, platform: str, timeout_ms: int) -> N
       venue_id   — venue slug
       platform   — "eTennis" | "Eversports"
       timeout_ms — configured or elapsed timeout in milliseconds
+      session_id — anonymous random UUID from the browser (localStorage)
     """
     _enqueue({
         "event":      "scraper_timeout",
         "venue_id":   venue_id,
         "platform":   platform,
         "timeout_ms": timeout_ms,
+        "session_id": session_id,
     })
 
 
-def track_search_failed(*, reason: str, court_type: str | None = None) -> None:
+def track_search_failed(*, reason: str, court_type: str | None = None, session_id: str | None = None) -> None:
     """
     Fired when /api/search cannot process the request (bad params, etc.).
 
     Stored:
       reason     — machine-readable label (e.g. "invalid_datetime")
       court_type — value passed in, for debugging
+      session_id — anonymous random UUID from the browser (localStorage)
     """
     _enqueue({
         "event":      "search_failed",
         "reason":     reason,
         "court_type": court_type,
+        "session_id": session_id,
     })
 
 
 # ── Aggregation reference (future admin dashboard) ────────────────────────────
 #
 # Collection: analytics_events
-# Indexes:    timestamp (range), event (point lookup)
+# Indexes:    timestamp (range), event (point lookup), session_id (point lookup)
 #
 # searches_today
 #   db.analytics_events.countDocuments({
@@ -210,4 +220,19 @@ def track_search_failed(*, reason: str, court_type: str | None = None) -> None:
 #       { $match: { event: "scraper_timeout",
 #                   timestamp: { $gte: <7d_ago> } } },
 #       { $group: { _id: "$platform", timeouts: { $sum: 1 } } }
+#   ])
+#
+# unique_sessions_today  (distinct anonymous browsers)
+#   db.analytics_events.distinct("session_id", {
+#       session_id: { $ne: null },
+#       timestamp:  { $gte: <today_00:00_UTC>, $lt: <tomorrow_00:00_UTC> }
+#   }).length
+#
+# returning_sessions  (session_id seen on >1 calendar day)
+#   db.analytics_events.aggregate([
+#       { $match: { session_id: { $ne: null } } },
+#       { $group: { _id: "$session_id",
+#                   days: { $addToSet: { $dateTrunc: { date: "$timestamp", unit: "day" } } } } },
+#       { $match: { "days.1": { $exists: true } } },
+#       { $count: "returning_sessions" }
 #   ])

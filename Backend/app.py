@@ -13,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 import httpx
 import uvicorn
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -144,7 +144,7 @@ app.add_middleware(
     allow_origins=_allowed_origins,
     allow_origin_regex=_VERCEL_PREVIEW_PATTERN,
     allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "X-Session-Id"],
 )
 
 VENUES = load_venues()
@@ -374,8 +374,10 @@ async def search(
     lon:        float | None = Query(default=None),
     radius:     float | None = Query(default=None),
     et_offset:  int          = Query(default=0),
+    request:    Request      = None,
 ):
     t0 = time_monotonic()
+    session_id: str | None = (request.headers.get("X-Session-Id") or None) if request else None
 
     # ── Date validation — runs before cache, inflight, or any scraper work ────
     date_bucket, date_error = _validate_date(date)
@@ -406,7 +408,7 @@ async def search(
     # ── Phase 1: datetime + venue filtering ──────────────────────────────────
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
-        track_search_failed(reason="invalid_datetime", court_type=court_type)
+        track_search_failed(reason="invalid_datetime", court_type=court_type, session_id=session_id)
         return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
     venues = _filter_venues(court_type, lat, lon, radius)
@@ -669,6 +671,7 @@ async def search(
         court_type=court_type,
         results_count=len(results),
         response_ms=response_ms,
+        session_id=session_id,
     )
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
@@ -697,14 +700,15 @@ async def search(
 
 
 class BookingClickBody(BaseModel):
-    venue_id: str
-    platform: str
+    venue_id:   str
+    platform:   str
+    session_id: str | None = None
 
 
 @app.post("/api/booking-click")
 async def booking_click(body: BookingClickBody):
     """Record booking intent. Frontend fires-and-forgets; opens the booking URL itself."""
-    track_booking_clicked(venue_id=body.venue_id, platform=body.platform)
+    track_booking_clicked(venue_id=body.venue_id, platform=body.platform, session_id=body.session_id)
     return {"ok": True}
 
 
