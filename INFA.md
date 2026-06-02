@@ -4,6 +4,9 @@
 
 Frontend (Vercel)
 https://neo-padel-checker.vercel.app
+Custom domains (purchased 2026-06-01, DNS not yet connected):
+- padelyara.at — primary domain
+- padelyara.com — redirects to padelyara.at
 
 Backend (Railway) — single consolidated service
 https://neo-padel-checker-backend-production.up.railway.app

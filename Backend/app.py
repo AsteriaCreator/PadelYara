@@ -35,7 +35,7 @@ from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
 from eversports_service import check_eversports_slot
 from distance import filter_by_radius
-from venues import load_venues
+from venues_mongo import load_venues
 from weather import WeatherResult, get_weather_for_hour
 
 
@@ -119,9 +119,14 @@ _main_loop: asyncio.AbstractEventLoop | None = None
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    global _main_loop
+    global _main_loop, VENUES, _ev_ids
     _main_loop = asyncio.get_running_loop()
     await analytics.lifespan_startup()
+    VENUES = await load_venues()
+    _ev_ids = [(v["id"], v["eversports_facility_id"], v["eversports_court_ids"])
+               for v in VENUES if v.get("eversports_facility_id")]
+    print(f"[startup] Loaded {len(VENUES)} venues from MongoDB")
+    print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
     yield
 
 
@@ -147,10 +152,8 @@ app.add_middleware(
     allow_headers=["Content-Type", "X-Session-Id"],
 )
 
-VENUES = load_venues()
-_ev_ids = [(v["id"], v["eversports_facility_id"], v["eversports_court_ids"])
-           for v in VENUES if v.get("eversports_facility_id")]
-print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
+VENUES: list[dict] = []
+_ev_ids: list[tuple] = []
 DEFAULT_VENUE_ID = "padelzone-traiskirchen"
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
