@@ -338,7 +338,7 @@ export default function App() {
           <div className="text-center py-10 mb-4">
             <p className="text-3xl mb-3">🎾</p>
             <p className="text-white font-semibold mb-1">Kein freier Court gefunden.</p>
-            <p className="text-gray-500 text-sm">Versuch einen größeren Umkreis oder einen anderen Tag.</p>
+            <p className="text-gray-500 text-sm">Versuch einen größeren Umkreis.</p>
           </div>
         )}
 
