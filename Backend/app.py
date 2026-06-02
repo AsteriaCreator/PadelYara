@@ -494,7 +494,7 @@ async def search(
         time_hhmm    = dt.strftime("%H%M")
         date_str_ev  = dt.strftime("%Y-%m-%d")
 
-        def _check_ev(result: dict) -> None:
+        async def _check_ev_async(result: dict) -> None:
             venue = ev_venue_map.get(result["venue_id"])
             fid   = venue.get("eversports_facility_id") if venue else None
             cids  = venue.get("eversports_court_ids")   if venue else None
@@ -509,44 +509,54 @@ async def search(
                 result["availability_status"] = status
                 return
             booking_url = venue.get("booking_url", "") if venue else ""
-            status = _call_eversports_cached(
-                fid, cids, date_str_ev, time_hhmm,
-                venue_id=result["venue_id"], booking_url=booking_url,
+            ev_result = await check_eversports_slot(
+                facility_id=fid,
+                court_ids=",".join(str(c) for c in cids),
+                date=date_str_ev,
+                time=f"{time_hhmm[:2]}:{time_hhmm[2:]}",
+                venue_url=booking_url,
+                venue_id=result["venue_id"],
             )
+            status = ev_result.get("status", "platform_check_required")
+            # Cache stable statuses for subsequent polls
+            if status in ("free", "no_slot"):
+                with _EV_RESULT_LOCK:
+                    if len(_EV_RESULT_CACHE) > 500:
+                        _purge_ev_result_cache()
+                    _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic())
             result["availability_status"] = status
-            # Fallback: if the exact requested slot is busy/no_slot, scan nearby
-            # offsets to find the next free slot.
+            # Fallback: if busy/no_slot, scan nearby offsets for next free slot.
             if status in ("busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
-                        dt_fb    = dt + timedelta(minutes=offset_min)
-                        fb_status = _call_eversports_cached(
-                            fid, cids,
-                            dt_fb.strftime("%Y-%m-%d"),
-                            dt_fb.strftime("%H%M"),
-                            venue_id=result["venue_id"],
-                            booking_url=booking_url,
+                    dt_fb = dt + timedelta(minutes=offset_min)
+                    fb_result = await check_eversports_slot(
+                        facility_id=fid,
+                        court_ids=",".join(str(c) for c in cids),
+                        date=dt_fb.strftime("%Y-%m-%d"),
+                        time=dt_fb.strftime("%H:%M"),
+                        venue_url=booking_url,
+                        venue_id=result["venue_id"],
+                    )
+                    fb_status = fb_result.get("status", "platform_check_required")
+                    print(json.dumps({
+                        "event":      "eversports_fallback_result",
+                        "venue_id":   result["venue_id"],
+                        "offset_min": offset_min,
+                        "primary":    status,
+                        "fallback":   fb_status,
+                    }))
+                    if fb_status == "free":
+                        result["next_available_time"] = int(
+                            dt_fb.replace(tzinfo=VIENNA_TZ).timestamp()
                         )
-                        print(json.dumps({
-                            "event":      "eversports_fallback_result",
-                            "venue_id":   result["venue_id"],
-                            "date":       dt_fb.strftime("%Y-%m-%d"),
-                            "time":       dt_fb.strftime("%H:%M"),
-                            "offset_min": offset_min,
-                            "primary":    status,
-                            "fallback":   fb_status,
-                        }))
-                        if fb_status == "free":
-                            result["next_available_time"] = int(
-                                dt_fb.replace(tzinfo=VIENNA_TZ).timestamp()
-                            )
-                            break
-                        if fb_status not in ("busy", "no_slot"):
-                            break  # unknown / platform_check_required — stop scanning
+                        break
+                    if fb_status not in ("busy", "no_slot"):
+                        break
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
         if ev_results:
-            # Serve already-cached statuses immediately (mirror of eTennis cache lookup).
+            # Serve already-cached statuses immediately.
             now_t = time_monotonic()
             with _EV_RESULT_LOCK:
                 for r in ev_results:
@@ -557,7 +567,7 @@ async def search(
                         if now_t - ts < _EV_RESULT_TTL:
                             r["availability_status"] = status
 
-            # Mark remaining uncached results as pending; kick off background checks.
+            # Mark remaining uncached results as pending; kick off async tasks.
             ev_pending = []
             for r in ev_results:
                 if r.get("availability_status") in (None, "pending"):
@@ -576,19 +586,16 @@ async def search(
                         "key":    ev_key,
                         "venues": [r["venue_id"] for r in ev_pending],
                     }))
-                    def _ev_bg(pending=ev_pending, k=ev_key):
+                    async def _ev_bg_async(pending=ev_pending, k=ev_key):
                         try:
-                            with ThreadPoolExecutor(max_workers=min(len(pending), 6)) as pool:
-                                ev_futures = [pool.submit(_check_ev, r) for r in pending]
-                                for f in as_completed(ev_futures):
-                                    try:
-                                        f.result()
-                                    except Exception as exc:
-                                        print(json.dumps({"event": "eversports_thread_error", "error": str(exc)}))
+                            await asyncio.gather(
+                                *[_check_ev_async(r) for r in pending],
+                                return_exceptions=True,
+                            )
                         finally:
                             with _RUNNING_LOCK:
                                 _RUNNING.discard(k)
-                    threading.Thread(target=_ev_bg, daemon=True).start()
+                    asyncio.create_task(_ev_bg_async())
                 else:
                     print(json.dumps({
                         "event":  "eversports_bg_deduplicated",
