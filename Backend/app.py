@@ -570,7 +570,7 @@ async def search(
             # Mark remaining uncached results as pending; kick off async tasks.
             ev_pending = []
             for r in ev_results:
-                if r.get("availability_status") in (None, "pending"):
+                if r.get("availability_status") in (None, "pending", "unknown"):
                     r["availability_status"] = "pending"
                     ev_pending.append(r)
 
