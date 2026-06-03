@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
@@ -23,6 +24,9 @@ function mergeResults(existing: Venue[], incoming: Venue[]): Venue[] {
 }
 
 export default function App() {
+  if (window.location.pathname === "/admin") {
+    return <AdminDashboard />
+  }
   const [results, setResults]               = useState<Venue[]>([])
   const [isLoading, setLoading]             = useState(false)
   const [isLoadingMore, setLoadingMore]     = useState(false)
