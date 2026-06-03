@@ -258,9 +258,9 @@ async def _check_one(
                     }
                 });
 
-                // Collect prices of available matching slots.
+                // Collect prices from all matching slots (av or busy) so we
+                // can show the price even when the court is occupied.
                 const prices = matching
-                    .filter(s => s.classList.contains('av'))
                     .map(s => {
                         const pc = [...s.classList].find(c => /^price\d+$/.test(c));
                         return pc ? (priceMap[pc] ?? null) : null;
