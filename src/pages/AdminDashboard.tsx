@@ -152,6 +152,7 @@ export default function AdminDashboard() {
   const [trends, setTrends] = useState<any>(null)
   const [insights, setInsights] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
+  const [refreshing, setRefreshing] = useState(false)
   const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
@@ -160,13 +161,14 @@ export default function AdminDashboard() {
   const excludeIds = excludeEnabled ? mySessions : []
 
   useEffect(() => {
-    setSummary(null)
-    setTrends(null)
-    setInsights(null)
+    // Don't wipe data — keep old values visible while refreshing so the
+    // toggle button stays on screen and the user sees the change immediately.
     setError(null)
+    setRefreshing(true)
     Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds)])
       .then(([s, t, i]) => { setSummary(s); setTrends(t); setInsights(i) })
       .catch((e: Error) => setError(e.message))
+      .finally(() => setRefreshing(false))
   }, [excludeEnabled, mySessions])
 
   function toggleExclude() {
@@ -221,10 +223,10 @@ export default function AdminDashboard() {
           <button
             className={`exclude-me-btn ${excludeEnabled && mySessions.length > 0 ? "active" : ""}`}
             onClick={toggleExclude}
-            disabled={mySessions.length === 0}
+            disabled={mySessions.length === 0 || refreshing}
             title={mySessions.length === 0 ? "Add this device first to enable filtering" : "Toggle filtering of your own visits"}
           >
-            {excludeEnabled && mySessions.length > 0 ? "🙈 Excluding my visits" : "👁️ Including my visits"}
+            {refreshing ? "⏳ Updating…" : excludeEnabled && mySessions.length > 0 ? "🙈 Excluding my visits" : "👁️ Including my visits"}
           </button>
         </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>
