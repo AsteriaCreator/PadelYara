@@ -485,14 +485,17 @@ async def search(
             vid = result["venue_id"]
             if vid in cached:
                 result["availability_status"] = cached[vid]
-                # Propagate next_free_ts only when the primary slot is not free.
-                # Guard: if the scraper cached a free result, next_free_ts should
-                # already be absent, but this explicit check makes the invariant
-                # bulletproof against race conditions or future cache changes.
+                entry = entries.get(vid, {})
                 if cached[vid] != "free":
-                    nft = entries.get(vid, {}).get("next_free_ts")
+                    nft = entry.get("next_free_ts")
                     if nft is not None:
                         result["next_available_time"] = nft
+                price = entry.get("price_eur")
+                if price is not None:
+                    result["price_eur"] = price
+                dur = entry.get("slot_duration_h")
+                if dur is not None:
+                    result["slot_duration_h"] = dur
             elif result["platform"] == "eTennis":
                 if vid in scrape_ids:
                     result["availability_status"] = "pending"

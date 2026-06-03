@@ -100,6 +100,11 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
             {venue.distance_km != null && (
               <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
             )}
+            {venue.price_eur != null && (
+              <span className="whitespace-nowrap text-gray-400">
+                € {venue.price_eur}{venue.slot_duration_h != null ? ` · ${venue.slot_duration_h}h` : ""}
+              </span>
+            )}
           </div>
         </div>
         <a

@@ -30,6 +30,8 @@ export interface Venue {
   matched_time?: string
   requested_time?: string
   adjustment_label?: string
+  price_eur?: number | null
+  slot_duration_h?: number | null
 }
 
 export interface SearchResponse {
