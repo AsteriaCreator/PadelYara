@@ -49,6 +49,8 @@ type RawVenue = {
   matched_time?: string
   requested_time?: string
   adjustment_label?: string
+  price_eur?: number | null
+  slot_duration_h?: number | null
 }
 
 function mapVenue(v: RawVenue): Venue {
@@ -64,6 +66,8 @@ function mapVenue(v: RawVenue): Venue {
     matched_time: v.matched_time,
     requested_time: v.requested_time,
     adjustment_label: v.adjustment_label,
+    price_eur: v.price_eur,
+    slot_duration_h: v.slot_duration_h,
   }
 }
 
