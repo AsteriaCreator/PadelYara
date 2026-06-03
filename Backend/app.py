@@ -748,7 +748,7 @@ async def _require_admin(token: str = Security(_api_key_header)):
 # ── Analytics endpoints ───────────────────────────────────────────────────────
 
 @app.get("/api/analytics", dependencies=[Depends(_require_admin)])
-async def get_analytics():
+async def get_analytics(exclude_session: str | None = Query(default=None)):
     from analytics import _DB_NAME, _COLLECTION
     from motor.motor_asyncio import AsyncIOMotorClient
     uri = os.environ.get("MONGODB_URI", "")
@@ -763,9 +763,12 @@ async def get_analytics():
     hours_elapsed = int((now - today_start).total_seconds())
     yesterday_window_end = yesterday_start + timedelta(seconds=hours_elapsed)
 
+    # Base filter: optionally exclude the owner's own session
+    _excl: dict = {"session_id": {"$ne": exclude_session}} if exclude_session else {}
+
     async def _session_count(start, end):
         pipeline = [
-            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}}},
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl}},
             {"$group": {"_id": "$session_id"}},
             {"$count": "count"},
         ]
@@ -774,22 +777,22 @@ async def get_analytics():
 
     async def _event_breakdown(start, end):
         pipeline = [
-            {"$match": {"timestamp": {"$gte": start, "$lt": end}}},
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}, **_excl}},
             {"$group": {"_id": "$event", "count": {"$sum": 1}}},
             {"$sort": {"count": -1}},
         ]
         rows = await col.aggregate(pipeline).to_list(20)
         return {r["_id"]: r["count"] for r in rows}
 
-    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}})
+    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}, **_excl})
     today_sessions   = await _session_count(today_start, now)
     today_breakdown  = await _event_breakdown(today_start, now)
-    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}})
+    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_excl})
     yday_sessions    = await _session_count(yesterday_start, yesterday_window_end)
     yday_breakdown   = await _event_breakdown(yesterday_start, yesterday_window_end)
 
     returning_pipeline = [
-        {"$match": {"session_id": {"$exists": True, "$ne": None}}},
+        {"$match": {"session_id": {"$exists": True, "$ne": None}, **_excl}},
         {"$group": {"_id": "$session_id", "first_seen": {"$min": "$timestamp"}, "last_seen": {"$max": "$timestamp"}}},
         {"$match": {"first_seen": {"$lt": today_start}, "last_seen": {"$gte": today_start}}},
         {"$count": "count"},
@@ -798,11 +801,11 @@ async def get_analytics():
     returning_sessions = ret_r[0]["count"] if ret_r else 0
 
     avg_today_r = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": today_start}, "response_ms": {"$exists": True}}},
+        {"$match": {"timestamp": {"$gte": today_start}, "response_ms": {"$exists": True}, **_excl}},
         {"$group": {"_id": None, "avg_ms": {"$avg": "$response_ms"}}},
     ]).to_list(1)
     avg_yday_r = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "response_ms": {"$exists": True}}},
+        {"$match": {"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "response_ms": {"$exists": True}, **_excl}},
         {"$group": {"_id": None, "avg_ms": {"$avg": "$response_ms"}}},
     ]).to_list(1)
     avg_ms       = round(avg_today_r[0]["avg_ms"]) if avg_today_r else None
@@ -833,7 +836,7 @@ async def get_analytics():
 
 
 @app.get("/api/analytics/trends", dependencies=[Depends(_require_admin)])
-async def get_analytics_trends():
+async def get_analytics_trends(exclude_session: str | None = Query(default=None)):
     from analytics import _DB_NAME, _COLLECTION
     from motor.motor_asyncio import AsyncIOMotorClient
     uri = os.environ.get("MONGODB_URI", "")
@@ -846,8 +849,10 @@ async def get_analytics_trends():
     seven_days_ago = (now - timedelta(days=6)).replace(hour=0, minute=0, second=0, microsecond=0)
     dates = [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]
 
+    _excl: dict = {"session_id": {"$ne": exclude_session}} if exclude_session else {}
+
     event_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, **_excl}},
         {"$group": {"_id": {
             "date":  {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
             "event": "$event",
@@ -856,7 +861,7 @@ async def get_analytics_trends():
     ]).to_list(500)
 
     session_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}, **_excl}},
         {"$group": {"_id": {
             "date":    {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
             "session": "$session_id",

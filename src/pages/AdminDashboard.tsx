@@ -151,12 +151,24 @@ export default function AdminDashboard() {
   const [summary, setSummary] = useState<any>(null)
   const [trends, setTrends] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
+  const [excludeMe, setExcludeMe] = useState<boolean>(() => {
+    try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
+  })
 
   useEffect(() => {
-    Promise.all([fetchAnalytics(), fetchAnalyticsTrends()])
+    setSummary(null)
+    setTrends(null)
+    setError(null)
+    Promise.all([fetchAnalytics(excludeMe), fetchAnalyticsTrends(excludeMe)])
       .then(([s, t]) => { setSummary(s); setTrends(t) })
       .catch((e: Error) => setError(e.message))
-  }, [])
+  }, [excludeMe])
+
+  function toggleExcludeMe() {
+    const next = !excludeMe
+    setExcludeMe(next)
+    try { localStorage.setItem("analytics_exclude_me", String(next)) } catch { /* */ }
+  }
 
   if (error)
     return (
@@ -185,7 +197,16 @@ export default function AdminDashboard() {
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
-        <h1>📊 Analytics Dashboard</h1>
+        <div className="admin-header-row">
+          <h1>📊 Analytics Dashboard</h1>
+          <button
+            className={`exclude-me-btn ${excludeMe ? "active" : ""}`}
+            onClick={toggleExcludeMe}
+            title="Your browser's session ID is used to filter your own visits"
+          >
+            {excludeMe ? "🙈 Excluding my visits" : "👁️ Including my visits"}
+          </button>
+        </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>
       </header>
 

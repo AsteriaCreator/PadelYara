@@ -131,15 +131,17 @@ function adminHeaders() {
   return { "Content-Type": "application/json", "X-Admin-Token": ADMIN_TOKEN }
 }
 
-export async function fetchAnalytics() {
-  const res = await fetch(`${API_BASE}/api/analytics`, { headers: adminHeaders() })
+export async function fetchAnalytics(excludeMySession = false) {
+  const params = excludeMySession ? `?exclude_session=${encodeURIComponent(getSessionId())}` : ""
+  const res = await fetch(`${API_BASE}/api/analytics${params}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch analytics")
   return res.json()
 }
 
-export async function fetchAnalyticsTrends() {
-  const res = await fetch(`${API_BASE}/api/analytics/trends`, { headers: adminHeaders() })
+export async function fetchAnalyticsTrends(excludeMySession = false) {
+  const params = excludeMySession ? `?exclude_session=${encodeURIComponent(getSessionId())}` : ""
+  const res = await fetch(`${API_BASE}/api/analytics/trends${params}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch trends")
   return res.json()
