@@ -102,7 +102,7 @@ async def get_weather_for_hour(
             MET_URL,
             params={"lat": round(lat, 4), "lon": round(lon, 4)},
             headers={"User-Agent": MET_UA},
-            timeout=8,
+            timeout=2,
         )
         resp.raise_for_status()
         data = resp.json()

@@ -436,11 +436,13 @@ async def search(
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
                 "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
 
-    # Fetch weather once for the search location (one request, no per-venue calls)
-    search_weather = None
-    if lat is not None and lon is not None:
-        async with httpx.AsyncClient() as client:
-            search_weather = await get_weather_for_hour(client, lat, lon, dt)
+    # Start weather fetch concurrently — don't block scraper setup behind it.
+    # Weather has a 2 s timeout so it never holds up the response.
+    _weather_client = httpx.AsyncClient()
+    _weather_task = (
+        asyncio.create_task(get_weather_for_hour(_weather_client, lat, lon, dt))
+        if lat is not None and lon is not None else None
+    )
 
     # In radius mode paginate eTennis scraping so Render's free tier
     # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
@@ -693,6 +695,17 @@ async def search(
     )
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
+
+    # Await weather now — scraper threads have been running during the setup
+    # above, so this wait overlaps with useful work rather than blocking cold.
+    search_weather = None
+    if _weather_task is not None:
+        try:
+            search_weather = await asyncio.wait_for(_weather_task, timeout=2.0)
+        except Exception:
+            pass
+        finally:
+            await _weather_client.aclose()
 
     response = {
         "ok":                   True,
