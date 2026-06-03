@@ -29,7 +29,7 @@ def _normalize(doc: dict) -> dict:
     lat = doc.get("lat")
     lon = doc.get("lon")
     return {
-        "id":              str(doc.get("_id") or doc.get("id", "")),
+        "id":              str(doc.get("id") or doc.get("_id", "")),
         "name":            doc.get("name", ""),
         "region":          doc.get("region_label", "") or doc.get("region", ""),
         "region_key":      doc.get("region_key", ""),
@@ -57,8 +57,14 @@ async def load_venues() -> list[dict]:
 
     db = _get_db()
     venues = []
+    seen_ids: set[str] = set()
     async for doc in db["venues"].find({"active": True}):
-        venues.append(_normalize(doc))
+        v = _normalize(doc)
+        if v["id"] in seen_ids:
+            print(f"[venues] duplicate id={v['id']!r} — skipping")
+            continue
+        seen_ids.add(v["id"])
+        venues.append(v)
 
     _venues_cache = venues
     _venues_cache_ts = now
