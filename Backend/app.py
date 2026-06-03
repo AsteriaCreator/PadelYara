@@ -172,8 +172,10 @@ _RUNNING_LOCK = threading.Lock()
 # Statuses that mean a venue has not yet been checked and needs a background
 # check. Defined as a named constant so gaps can't silently creep in when new
 # status values are introduced.
-_EV_UNCHECKED = {None, "pending", "unknown"}
-_EV_BUSY_TTL  = 60   # s — busy can flip free if a booking is cancelled; re-check sooner
+_EV_UNCHECKED  = {None, "pending", "unknown"}
+_EV_BUSY_TTL   = 60   # s — busy can flip free if a booking is cancelled; re-check sooner
+_EV_FAILED_TTL = 30   # s — cache platform_check_required briefly so it surfaces immediately
+                      #      instead of retrying as pending forever; retried after 30 s
 
 # ── Response cache (TTL) ─────────────────────────────────────────────────────
 # key → (response_dict, stored_at_monotonic, ttl_seconds)
@@ -370,8 +372,10 @@ def _call_eversports_cached(
     # Do NOT cache "busy" — a booked slot can be cancelled and become free
     # within the TTL window, which would cause stale "busy" results (regression).
     # Do NOT cache platform_check_required / failures — they prevent Railway retries.
-    if status in ("free", "no_slot", "busy"):
-        ttl = _EV_BUSY_TTL if status == "busy" else _EV_RESULT_TTL
+    if status in ("free", "no_slot", "busy", "platform_check_required"):
+        ttl = (_EV_BUSY_TTL   if status == "busy"
+               else _EV_FAILED_TTL if status == "platform_check_required"
+               else _EV_RESULT_TTL)
         with _EV_RESULT_LOCK:
             if len(_EV_RESULT_CACHE) > 500:
                 _purge_ev_result_cache()
@@ -555,8 +559,10 @@ async def search(
                     return "platform_check_required"
 
             status = _run(f"{time_hhmm[:2]}:{time_hhmm[2:]}", date_str_ev)
-            if status in ("free", "no_slot", "busy"):
-                ttl = _EV_BUSY_TTL if status == "busy" else _EV_RESULT_TTL
+            if status in ("free", "no_slot", "busy", "platform_check_required"):
+                ttl = (_EV_BUSY_TTL   if status == "busy"
+                       else _EV_FAILED_TTL if status == "platform_check_required"
+                       else _EV_RESULT_TTL)
                 with _EV_RESULT_LOCK:
                     if len(_EV_RESULT_CACHE) > 500:
                         _purge_ev_result_cache()
