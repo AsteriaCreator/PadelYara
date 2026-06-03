@@ -2,20 +2,29 @@ import asyncio
 import copy
 import json
 import os
+from pathlib import Path
+
+# Load .env from the Backend directory (local dev only; production uses real env vars)
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).parent / ".env")
+except ImportError:
+    pass
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from time import monotonic as time_monotonic
 from typing import TypedDict
 from zoneinfo import ZoneInfo
 
 import httpx
 import uvicorn
-from fastapi import FastAPI, Query, Request
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 
 import analytics
@@ -149,7 +158,7 @@ app.add_middleware(
     allow_origins=_allowed_origins,
     allow_origin_regex=_VERCEL_PREVIEW_PATTERN,
     allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", "X-Session-Id"],
+    allow_headers=["Content-Type", "X-Session-Id", "X-Admin-Token"],
 )
 
 VENUES: list[dict] = []
@@ -163,7 +172,8 @@ _RUNNING_LOCK = threading.Lock()
 # Statuses that mean a venue has not yet been checked and needs a background
 # check. Defined as a named constant so gaps can't silently creep in when new
 # status values are introduced.
-_EV_UNCHECKED = {None, "pending", "unknown", "platform_check_required"}
+_EV_UNCHECKED = {None, "pending", "unknown"}
+_EV_BUSY_TTL  = 60   # s — busy can flip free if a booking is cancelled; re-check sooner
 
 # ── Response cache (TTL) ─────────────────────────────────────────────────────
 # key → (response_dict, stored_at_monotonic, ttl_seconds)
@@ -319,7 +329,7 @@ def _ev_result_key(venue_id: str, date_str: str, time_hhmm: str) -> str:
 def _purge_ev_result_cache() -> None:
     """Evict expired entries. Must be called with _EV_RESULT_LOCK held."""
     now_t = time_monotonic()
-    expired = [k for k, (_, ts) in _EV_RESULT_CACHE.items() if now_t - ts >= _EV_RESULT_TTL]
+    expired = [k for k, (_, ts, ttl) in _EV_RESULT_CACHE.items() if now_t - ts >= ttl]
     for k in expired:
         del _EV_RESULT_CACHE[k]
 
@@ -342,9 +352,9 @@ def _call_eversports_cached(
     with _EV_RESULT_LOCK:
         entry = _EV_RESULT_CACHE.get(key)
         if entry is not None:
-            status, ts = entry
+            status, ts, ttl = entry
             age = now_t - ts
-            if age < _EV_RESULT_TTL:
+            if age < ttl:
                 print(json.dumps({
                     "event":    "ev_cache_hit",
                     "venue_id": venue_id,
@@ -360,11 +370,12 @@ def _call_eversports_cached(
     # Do NOT cache "busy" — a booked slot can be cancelled and become free
     # within the TTL window, which would cause stale "busy" results (regression).
     # Do NOT cache platform_check_required / failures — they prevent Railway retries.
-    if status in ("free", "no_slot"):
+    if status in ("free", "no_slot", "busy"):
+        ttl = _EV_BUSY_TTL if status == "busy" else _EV_RESULT_TTL
         with _EV_RESULT_LOCK:
             if len(_EV_RESULT_CACHE) > 500:
                 _purge_ev_result_cache()
-            _EV_RESULT_CACHE[key] = (status, time_monotonic())
+            _EV_RESULT_CACHE[key] = (status, time_monotonic(), ttl)
     return status
 
 
@@ -532,12 +543,14 @@ async def search(
                 venue_id=result["venue_id"],
             )
             status = ev_result.get("status", "platform_check_required")
-            # Cache stable statuses for subsequent polls
-            if status in ("free", "no_slot"):
+            # Cache real statuses so subsequent polls don't re-run the check.
+            # busy uses a shorter TTL since a cancellation can free the slot.
+            if status in ("free", "no_slot", "busy"):
+                ttl = _EV_BUSY_TTL if status == "busy" else _EV_RESULT_TTL
                 with _EV_RESULT_LOCK:
                     if len(_EV_RESULT_CACHE) > 500:
                         _purge_ev_result_cache()
-                    _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic())
+                    _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic(), ttl)
             result["availability_status"] = status
             # Fallback: if busy/no_slot, scan nearby offsets for next free slot.
             if status in ("busy", "no_slot"):
@@ -577,8 +590,8 @@ async def search(
                     key = _ev_result_key(r["venue_id"], date_str_ev, time_hhmm)
                     entry = _EV_RESULT_CACHE.get(key)
                     if entry is not None:
-                        status, ts = entry
-                        if now_t - ts < _EV_RESULT_TTL:
+                        status, ts, ttl = entry
+                        if now_t - ts < ttl:
                             r["availability_status"] = status
 
             # Mark remaining uncached results as pending; kick off async tasks.
@@ -700,6 +713,153 @@ async def search(
         _SEARCH_CACHE[cache_key] = (copy.deepcopy(response), time_monotonic(), search_ttl)
 
     return response
+
+
+# ── Admin auth ───────────────────────────────────────────────────────────────
+_ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
+_api_key_header = APIKeyHeader(name="X-Admin-Token", auto_error=False)
+
+async def _require_admin(token: str = Security(_api_key_header)):
+    if not _ADMIN_TOKEN or token != _ADMIN_TOKEN:
+        raise HTTPException(status_code=403, detail="Forbidden")
+
+
+# ── Analytics endpoints ───────────────────────────────────────────────────────
+
+@app.get("/api/analytics", dependencies=[Depends(_require_admin)])
+async def get_analytics():
+    from analytics import _DB_NAME, _COLLECTION
+    from motor.motor_asyncio import AsyncIOMotorClient
+    uri = os.environ.get("MONGODB_URI", "")
+    if not uri:
+        raise HTTPException(status_code=503, detail="Analytics not configured")
+    client = AsyncIOMotorClient(uri, serverSelectionTimeoutMS=5_000)
+    col = client[_DB_NAME][_COLLECTION]
+
+    now = datetime.now(timezone.utc)
+    today_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+    yesterday_start = today_start - timedelta(days=1)
+    hours_elapsed = int((now - today_start).total_seconds())
+    yesterday_window_end = yesterday_start + timedelta(seconds=hours_elapsed)
+
+    async def _session_count(start, end):
+        pipeline = [
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}}},
+            {"$group": {"_id": "$session_id"}},
+            {"$count": "count"},
+        ]
+        r = await col.aggregate(pipeline).to_list(1)
+        return r[0]["count"] if r else 0
+
+    async def _event_breakdown(start, end):
+        pipeline = [
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}}},
+            {"$group": {"_id": "$event", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+        ]
+        rows = await col.aggregate(pipeline).to_list(20)
+        return {r["_id"]: r["count"] for r in rows}
+
+    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}})
+    today_sessions   = await _session_count(today_start, now)
+    today_breakdown  = await _event_breakdown(today_start, now)
+    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}})
+    yday_sessions    = await _session_count(yesterday_start, yesterday_window_end)
+    yday_breakdown   = await _event_breakdown(yesterday_start, yesterday_window_end)
+
+    returning_pipeline = [
+        {"$match": {"session_id": {"$exists": True, "$ne": None}}},
+        {"$group": {"_id": "$session_id", "first_seen": {"$min": "$timestamp"}, "last_seen": {"$max": "$timestamp"}}},
+        {"$match": {"first_seen": {"$lt": today_start}, "last_seen": {"$gte": today_start}}},
+        {"$count": "count"},
+    ]
+    ret_r = await col.aggregate(returning_pipeline).to_list(1)
+    returning_sessions = ret_r[0]["count"] if ret_r else 0
+
+    avg_today_r = await col.aggregate([
+        {"$match": {"timestamp": {"$gte": today_start}, "response_ms": {"$exists": True}}},
+        {"$group": {"_id": None, "avg_ms": {"$avg": "$response_ms"}}},
+    ]).to_list(1)
+    avg_yday_r = await col.aggregate([
+        {"$match": {"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "response_ms": {"$exists": True}}},
+        {"$group": {"_id": None, "avg_ms": {"$avg": "$response_ms"}}},
+    ]).to_list(1)
+    avg_ms       = round(avg_today_r[0]["avg_ms"]) if avg_today_r else None
+    avg_ms_yday  = round(avg_yday_r[0]["avg_ms"])  if avg_yday_r  else None
+
+    def _delta(a, b):
+        if b is None or b == 0:
+            return None
+        return round(((a - b) / b) * 100)
+
+    return {
+        "total_events_today":      today_total,
+        "unique_sessions_today":   today_sessions,
+        "returning_sessions_today": returning_sessions,
+        "new_sessions_today":      today_sessions - returning_sessions,
+        "avg_response_ms":         avg_ms,
+        "event_breakdown_today":   today_breakdown,
+        "deltas": {
+            "total_events":    _delta(today_total,    yday_total),
+            "unique_sessions": _delta(today_sessions, yday_sessions),
+            "avg_response_ms": _delta(avg_ms, avg_ms_yday) if avg_ms and avg_ms_yday else None,
+            "events_by_type":  {
+                evt: _delta(today_breakdown.get(evt, 0), yday_breakdown.get(evt, 0))
+                for evt in set(list(today_breakdown) + list(yday_breakdown))
+            },
+        },
+    }
+
+
+@app.get("/api/analytics/trends", dependencies=[Depends(_require_admin)])
+async def get_analytics_trends():
+    from analytics import _DB_NAME, _COLLECTION
+    from motor.motor_asyncio import AsyncIOMotorClient
+    uri = os.environ.get("MONGODB_URI", "")
+    if not uri:
+        raise HTTPException(status_code=503, detail="Analytics not configured")
+    client = AsyncIOMotorClient(uri, serverSelectionTimeoutMS=5_000)
+    col = client[_DB_NAME][_COLLECTION]
+
+    now = datetime.now(timezone.utc)
+    seven_days_ago = (now - timedelta(days=6)).replace(hour=0, minute=0, second=0, microsecond=0)
+    dates = [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]
+
+    event_rows = await col.aggregate([
+        {"$match": {"timestamp": {"$gte": seven_days_ago}}},
+        {"$group": {"_id": {
+            "date":  {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
+            "event": "$event",
+        }, "count": {"$sum": 1}}},
+        {"$sort": {"_id.date": 1}},
+    ]).to_list(500)
+
+    session_rows = await col.aggregate([
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}}},
+        {"$group": {"_id": {
+            "date":    {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
+            "session": "$session_id",
+        }}},
+        {"$group": {"_id": "$_id.date", "unique_sessions": {"$sum": 1}}},
+        {"$sort": {"_id": 1}},
+    ]).to_list(100)
+
+    events_by_date: dict = {d: {} for d in dates}
+    all_event_types: set = set()
+    for row in event_rows:
+        d, e = row["_id"]["date"], row["_id"]["event"]
+        if d in events_by_date:
+            events_by_date[d][e] = row["count"]
+            all_event_types.add(e)
+
+    sessions_by_date = {r["_id"]: r["unique_sessions"] for r in session_rows}
+
+    return {
+        "dates":                    dates,
+        "event_types":              sorted(all_event_types),
+        "events_by_date":           events_by_date,
+        "unique_sessions_by_date":  {d: sessions_by_date.get(d, 0) for d in dates},
+    }
 
 
 class BookingClickBody(BaseModel):
