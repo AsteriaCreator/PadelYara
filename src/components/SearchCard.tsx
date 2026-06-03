@@ -217,15 +217,12 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
         </div>
       </div>
 
-      {/* Date + Time + Court */}
-      {/* grid-cols-[minmax(0,1fr)_minmax(0,1fr)] forces columns to shrink below
-          content size — plain grid-cols-2 uses `auto` as the min which lets the
-          native iOS date input overflow its cell. overflow-hidden clips any
-          remaining visual bleed. */}
-      <div className="mb-3">
-        <label className={`${labelClass} block mb-1`} style={labelStyle}>Wann?</label>
-        <div className="grid gap-3" style={{ gridTemplateColumns: "minmax(0,1fr) minmax(0,1fr)" }}>
-        <div className="min-w-0 overflow-hidden">
+      {/* Date + Time — stack vertically on mobile (<640px) so the native iOS
+          date picker (Tag/Monat/Jahr spinners) has enough width (~180px+).
+          Side-by-side only on sm: and above. */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+        <div className="flex flex-col gap-1">
+          <label className={labelClass} style={labelStyle}>Wann?</label>
           <input
             type="date"
             value={date}
@@ -233,7 +230,8 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
             className={inputClass}
           />
         </div>
-        <div className="min-w-0 overflow-hidden">
+        <div className="flex flex-col gap-1">
+          <label className={labelClass} style={labelStyle}>Ab wann?</label>
           <select
             value={time}
             onChange={(e) => handleTimeChange(e.target.value)}
@@ -245,7 +243,6 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
               </option>
             ))}
           </select>
-        </div>
         </div>
       </div>
 
