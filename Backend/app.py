@@ -519,7 +519,8 @@ async def search(
         time_hhmm    = dt.strftime("%H%M")
         date_str_ev  = dt.strftime("%Y-%m-%d")
 
-        async def _check_ev_async(result: dict) -> None:
+        def _check_ev_sync(result: dict) -> None:
+            """Run one Eversports venue check from a background thread."""
             venue = ev_venue_map.get(result["venue_id"])
             fid   = venue.get("eversports_facility_id") if venue else None
             cids  = venue.get("eversports_court_ids")   if venue else None
@@ -534,17 +535,24 @@ async def search(
                 result["availability_status"] = status
                 return
             booking_url = venue.get("booking_url", "") if venue else ""
-            ev_result = await check_eversports_slot(
-                facility_id=fid,
-                court_ids=",".join(str(c) for c in cids),
-                date=date_str_ev,
-                time=f"{time_hhmm[:2]}:{time_hhmm[2:]}",
-                venue_url=booking_url,
-                venue_id=result["venue_id"],
-            )
-            status = ev_result.get("status", "platform_check_required")
-            # Cache real statuses so subsequent polls don't re-run the check.
-            # busy uses a shorter TTL since a cancellation can free the slot.
+
+            def _run(time_str: str, date_str: str) -> str:
+                coro = check_eversports_slot(
+                    facility_id=fid,
+                    court_ids=",".join(str(c) for c in cids),
+                    date=date_str,
+                    time=time_str,
+                    venue_url=booking_url,
+                    venue_id=result["venue_id"],
+                )
+                try:
+                    ev_result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=30)
+                    return ev_result.get("status", "platform_check_required")
+                except Exception as exc:
+                    print(json.dumps({"event": "eversports_thread_error", "venue_id": result["venue_id"], "error": str(exc)}))
+                    return "platform_check_required"
+
+            status = _run(f"{time_hhmm[:2]}:{time_hhmm[2:]}", date_str_ev)
             if status in ("free", "no_slot", "busy"):
                 ttl = _EV_BUSY_TTL if status == "busy" else _EV_RESULT_TTL
                 with _EV_RESULT_LOCK:
@@ -552,20 +560,11 @@ async def search(
                         _purge_ev_result_cache()
                     _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic(), ttl)
             result["availability_status"] = status
-            # Fallback: if busy/no_slot, scan nearby offsets for next free slot.
             if status in ("busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
-                    dt_fb = dt + timedelta(minutes=offset_min)
-                    fb_result = await check_eversports_slot(
-                        facility_id=fid,
-                        court_ids=",".join(str(c) for c in cids),
-                        date=dt_fb.strftime("%Y-%m-%d"),
-                        time=dt_fb.strftime("%H:%M"),
-                        venue_url=booking_url,
-                        venue_id=result["venue_id"],
-                    )
-                    fb_status = fb_result.get("status", "platform_check_required")
+                    dt_fb    = dt + timedelta(minutes=offset_min)
+                    fb_status = _run(dt_fb.strftime("%H:%M"), dt_fb.strftime("%Y-%m-%d"))
                     print(json.dumps({
                         "event":      "eversports_fallback_result",
                         "venue_id":   result["venue_id"],
@@ -620,16 +619,19 @@ async def search(
                         "key":    ev_key,
                         "venues": [r["venue_id"] for r in ev_pending],
                     }))
-                    async def _ev_bg_async(pending=ev_pending, k=ev_key):
+                    def _ev_bg(pending=ev_pending, k=ev_key):
                         try:
-                            await asyncio.gather(
-                                *[_check_ev_async(r) for r in pending],
-                                return_exceptions=True,
-                            )
+                            with ThreadPoolExecutor(max_workers=min(len(pending), 6)) as pool:
+                                futures = [pool.submit(_check_ev_sync, r) for r in pending]
+                                for f in as_completed(futures):
+                                    try:
+                                        f.result()
+                                    except Exception as exc:
+                                        print(json.dumps({"event": "eversports_thread_error", "error": str(exc)}))
                         finally:
                             with _RUNNING_LOCK:
                                 _RUNNING.discard(k)
-                    asyncio.create_task(_ev_bg_async())
+                    threading.Thread(target=_ev_bg, daemon=True).start()
                 else:
                     print(json.dumps({
                         "event":  "eversports_bg_deduplicated",
