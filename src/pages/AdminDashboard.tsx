@@ -172,6 +172,12 @@ export default function AdminDashboard() {
   }, [excludeEnabled, mySessions])
 
   function toggleExclude() {
+    // If no devices registered yet, add this one first then enable
+    let sessions = mySessions
+    if (sessions.length === 0) {
+      sessions = registerThisDevice()
+      setMySessions(sessions)
+    }
     const next = !excludeEnabled
     setExcludeEnabled(next)
     try { localStorage.setItem("analytics_exclude_me", String(next)) } catch { /* */ }
@@ -180,7 +186,10 @@ export default function AdminDashboard() {
   function handleAddDevice() {
     const updated = registerThisDevice()
     setMySessions(updated)
-    if (!excludeEnabled) toggleExclude()  // auto-enable filter when adding first device
+    if (!excludeEnabled) {
+      setExcludeEnabled(true)
+      try { localStorage.setItem("analytics_exclude_me", "true") } catch { /* */ }
+    }
   }
 
   function handleRemoveSession(id: string) {
@@ -223,8 +232,8 @@ export default function AdminDashboard() {
           <button
             className={`exclude-me-btn ${excludeEnabled && mySessions.length > 0 ? "active" : ""}`}
             onClick={toggleExclude}
-            disabled={mySessions.length === 0 || refreshing}
-            title={mySessions.length === 0 ? "Add this device first to enable filtering" : "Toggle filtering of your own visits"}
+            disabled={refreshing}
+            title={mySessions.length === 0 ? "Click to register this device and exclude your visits" : "Toggle filtering of your own visits"}
           >
             {refreshing ? "⏳ Updating…" : excludeEnabled && mySessions.length > 0 ? "🙈 Excluding my visits" : "👁️ Including my visits"}
           </button>
