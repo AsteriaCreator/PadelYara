@@ -5,7 +5,7 @@ const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 // Anonymous session ID — random UUID persisted in localStorage.
 // No personal data: just a random string to distinguish unique vs. returning
 // browsers. Never tied to an account, IP, or fingerprint.
-function getSessionId(): string {
+export function getSessionId(): string {
   const KEY = "anon_session_id"
   let id = localStorage.getItem(KEY)
   if (!id) {
