@@ -335,7 +335,7 @@ export default function App() {
         {searched && !isLoading && !error && results.length > 0 && (
           <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
             {results.map((venue) => (
-              <VenueRow key={venue.id} venue={venue} pollingActive={pollingActive} />
+              <VenueRow key={venue.id} venue={venue} pollingActive={pollingActive} searchDate={lastParamsRef.current?.date} />
             ))}
           </div>
         )}

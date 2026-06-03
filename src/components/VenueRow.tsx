@@ -37,9 +37,16 @@ const STATUS_LABEL: Record<string, string> = {
 interface Props {
   venue: Venue
   pollingActive: boolean
+  searchDate?: string
 }
 
-export default function VenueRow({ venue, pollingActive }: Props) {
+function etennisBookingUrl(baseUrl: string, dateStr: string): string {
+  const [y, m, d] = dateStr.split("-").map(Number)
+  const ts = Math.floor(Date.UTC(y, m - 1, d) / 1000)
+  return `${baseUrl}&t=${ts}`
+}
+
+export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
   // Derive an honest display status for pending venues based on poll state.
   //
   //   pollingActive=true              → a timer is scheduled; show "Wird noch geprüft …"
@@ -87,7 +94,11 @@ export default function VenueRow({ venue, pollingActive }: Props) {
           </div>
         </div>
         <a
-          href={venue.booking_url}
+          href={
+            searchDate && venue.platform === "eTennis"
+              ? etennisBookingUrl(venue.booking_url, searchDate)
+              : venue.booking_url
+          }
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackBookingClick(venue.id, venue.platform)}
