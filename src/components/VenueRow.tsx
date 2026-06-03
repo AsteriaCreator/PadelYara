@@ -41,9 +41,18 @@ interface Props {
 }
 
 function etennisBookingUrl(baseUrl: string, dateStr: string): string {
+  // eTennis interprets &t= as Vienna midnight (matches the backend scraper).
+  // Derive Vienna's UTC offset at noon on that day (safe from DST transitions),
+  // then subtract it from UTC midnight to get Vienna midnight.
   const [y, m, d] = dateStr.split("-").map(Number)
-  const ts = Math.floor(Date.UTC(y, m - 1, d) / 1000)
-  return `${baseUrl}&t=${ts}`
+  const utcMidnight = Date.UTC(y, m - 1, d)
+  const noonUtc = utcMidnight + 12 * 3600 * 1000
+  const viennaHourAtNoon = parseInt(
+    new Intl.DateTimeFormat("en-US", { timeZone: "Europe/Vienna", hour: "numeric", hour12: false })
+      .format(new Date(noonUtc))
+  )
+  const offsetH = viennaHourAtNoon - 12  // +1 (CET) or +2 (CEST)
+  return `${baseUrl}&t=${Math.floor((utcMidnight - offsetH * 3600 * 1000) / 1000)}`
 }
 
 export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
