@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, getMySessionIds, registerThisDevice, removeMySession, getSessionId } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, getMySessionIds, registerThisDevice, removeMySession, getSessionId } from "../api"
 import "./AdminDashboard.css"
 
 // Plain-English labels for each event type
@@ -150,6 +150,7 @@ function SuccessRate({ breakdown }: { breakdown: Record<string, number> }) {
 export default function AdminDashboard() {
   const [summary, setSummary] = useState<any>(null)
   const [trends, setTrends] = useState<any>(null)
+  const [insights, setInsights] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
   const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
@@ -161,9 +162,10 @@ export default function AdminDashboard() {
   useEffect(() => {
     setSummary(null)
     setTrends(null)
+    setInsights(null)
     setError(null)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds)])
-      .then(([s, t]) => { setSummary(s); setTrends(t) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds)])
+      .then(([s, t, i]) => { setSummary(s); setTrends(t); setInsights(i) })
       .catch((e: Error) => setError(e.message))
   }, [excludeEnabled, mySessions])
 
@@ -342,6 +344,84 @@ export default function AdminDashboard() {
         </p>
         <BarChart dates={trends.dates} series={sessionSeries} />
       </section>
+
+      {/* Popular search locations */}
+      {insights && insights.top_locations.length > 0 && (
+        <section className="admin-section">
+          <h2>📍 Where Are People Searching? <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">The locations users typed in — which areas get the most searches.</p>
+          <div className="event-breakdown">
+            {insights.top_locations.map(({ location, count }: { location: string; count: number }) => {
+              const max = insights.top_locations[0].count
+              const pct = Math.round((count / max) * 100)
+              return (
+                <div key={location} className="event-row">
+                  <span className="event-emoji">📍</span>
+                  <div className="event-info">
+                    <div className="event-name">{location}</div>
+                    <div className="event-bar-bg">
+                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
+                    </div>
+                  </div>
+                  <span className="event-count">{count}</span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Peak hours heatmap */}
+      {insights && (
+        <section className="admin-section">
+          <h2>🕐 When Do People Search? <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">Which hours of the day get the most searches (Vienna time).</p>
+          <div className="hour-chart">
+            {insights.hourly_searches.map(({ hour, count }: { hour: number; count: number }) => {
+              const max = Math.max(...insights.hourly_searches.map((h: any) => h.count), 1)
+              const pct = Math.round((count / max) * 100)
+              const label = `${String(hour).padStart(2, "0")}:00`
+              return (
+                <div key={hour} className="hour-col" title={`${label}: ${count} searches`}>
+                  <div className="hour-bar-bg">
+                    <div className="hour-bar-fill" style={{ height: `${pct}%`, background: pct > 60 ? "#6366f1" : pct > 30 ? "#a5b4fc" : "#e0e7ff" }} />
+                  </div>
+                  {hour % 3 === 0 && <div className="hour-label">{label}</div>}
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Device breakdown */}
+      {insights && Object.keys(insights.device_breakdown).length > 0 && (
+        <section className="admin-section">
+          <h2>📱 Mobile vs Desktop <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">What kind of device people use to search.</p>
+          <div className="event-breakdown">
+            {Object.entries(insights.device_breakdown as Record<string, number>).map(([device, count]) => {
+              const total = Object.values(insights.device_breakdown as Record<string, number>).reduce((a, b) => a + b, 0)
+              const pct = Math.round((count / total) * 100)
+              const emoji = device === "mobile" ? "📱" : device === "tablet" ? "🗒️" : "🖥️"
+              const label = device === "mobile" ? "Mobile" : device === "tablet" ? "Tablet" : "Desktop"
+              return (
+                <div key={device} className="event-row">
+                  <span className="event-emoji">{emoji}</span>
+                  <div className="event-info">
+                    <div className="event-name">{label}</div>
+                    <div className="event-bar-bg">
+                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#f59e0b" }} />
+                    </div>
+                  </div>
+                  <span className="event-count">{count}</span>
+                  <span className="event-pct">{pct}%</span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Day-by-day table */}
       <section className="admin-section">

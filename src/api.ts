@@ -93,6 +93,11 @@ export async function fetchAvailability(
     url.searchParams.set("radius", String(geo.radius))
   }
 
+  // Pass the human-readable location name for analytics (no PII — user typed it)
+  if (params.location) {
+    url.searchParams.set("search_location", params.location)
+  }
+
   if (etOffset > 0) {
     url.searchParams.set("et_offset", String(etOffset))
   }
@@ -168,6 +173,13 @@ export async function fetchAnalytics(excludeIds: string[] = []) {
   const res = await fetch(`${API_BASE}/api/analytics${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch analytics")
+  return res.json()
+}
+
+export async function fetchAnalyticsInsights(excludeIds: string[] = []) {
+  const res = await fetch(`${API_BASE}/api/analytics/insights${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+  if (res.status === 403) throw new Error("Unauthorized")
+  if (!res.ok) throw new Error("Failed to fetch insights")
   return res.json()
 }
 

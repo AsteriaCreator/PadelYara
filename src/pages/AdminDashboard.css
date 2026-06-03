@@ -249,6 +249,48 @@
 .event-count { font-size: 1rem; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
 .event-pct { font-size: 0.72rem; color: #94a3b8; width: 34px; text-align: right; flex-shrink: 0; }
 
+/* Period hint */
+.period-hint {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: #94a3b8;
+  margin-left: 0.4rem;
+}
+
+/* Hour-of-day chart */
+.hour-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 100px;
+  margin-top: 0.5rem;
+}
+.hour-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+}
+.hour-bar-bg {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.hour-bar-fill {
+  width: 100%;
+  min-height: 2px;
+  border-radius: 2px 2px 0 0;
+  transition: height 0.4s ease;
+}
+.hour-label {
+  font-size: 0.55rem;
+  color: #94a3b8;
+  margin-top: 3px;
+  white-space: nowrap;
+}
+
 /* Bar chart */
 .bar-chart-wrapper { }
 .bar-chart-cols {

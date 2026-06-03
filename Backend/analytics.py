@@ -117,24 +117,30 @@ def track_search_completed(
     results_count: int,
     response_ms: int,
     session_id: str | None = None,
+    search_location: str | None = None,
+    device_type: str | None = None,
 ) -> None:
     """
     Fired after /api/search returns results successfully.
 
     Stored (no coordinates, no IPs):
-      radius        — search radius in km (lat/lon/radius mode), else None
-      court_type    — "indoor" | "outdoor" | "all" | None
-      results_count — number of venues returned
-      response_ms   — wall-clock time from request entry to response build
-      session_id    — anonymous random UUID from the browser (localStorage)
+      radius          — search radius in km (lat/lon/radius mode), else None
+      court_type      — "indoor" | "outdoor" | "all" | None
+      results_count   — number of venues returned
+      response_ms     — wall-clock time from request entry to response build
+      session_id      — anonymous random UUID from the browser (localStorage)
+      search_location — city/place name the user typed (user-provided, no PII)
+      device_type     — "mobile" | "tablet" | "desktop" (UA category only)
     """
     _enqueue({
-        "event":         "search_completed",
-        "radius":        radius,
-        "court_type":    court_type,
-        "results_count": results_count,
-        "response_ms":   response_ms,
-        "session_id":    session_id,
+        "event":           "search_completed",
+        "radius":          radius,
+        "court_type":      court_type,
+        "results_count":   results_count,
+        "response_ms":     response_ms,
+        "session_id":      session_id,
+        "search_location": search_location,
+        "device_type":     device_type,
     })
 
 

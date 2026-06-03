@@ -383,19 +383,30 @@ def _call_eversports_cached(
     return status
 
 
+def _device_type(user_agent: str) -> str:
+    ua = user_agent.lower()
+    if any(k in ua for k in ("iphone", "android", "mobile", "blackberry", "windows phone")):
+        return "mobile"
+    if any(k in ua for k in ("ipad", "tablet")):
+        return "tablet"
+    return "desktop"
+
+
 @app.get("/api/search")
 async def search(
-    date:       str | None   = Query(default=None),
-    time:       str | None   = Query(default=None),
-    court_type: str | None   = Query(default=None),
-    lat:        float | None = Query(default=None),
-    lon:        float | None = Query(default=None),
-    radius:     float | None = Query(default=None),
-    et_offset:  int          = Query(default=0),
-    request:    Request      = None,
+    date:            str | None   = Query(default=None),
+    time:            str | None   = Query(default=None),
+    court_type:      str | None   = Query(default=None),
+    lat:             float | None = Query(default=None),
+    lon:             float | None = Query(default=None),
+    radius:          float | None = Query(default=None),
+    et_offset:       int          = Query(default=0),
+    search_location: str | None   = Query(default=None),
+    request:         Request      = None,
 ):
     t0 = time_monotonic()
-    session_id: str | None = (request.headers.get("X-Session-Id") or None) if request else None
+    session_id:  str | None = (request.headers.get("X-Session-Id") or None) if request else None
+    device_type: str        = _device_type(request.headers.get("user-agent", "")) if request else "desktop"
 
     # ── Date validation — runs before cache, inflight, or any scraper work ────
     date_bucket, date_error = _validate_date(date)
@@ -698,6 +709,8 @@ async def search(
         results_count=len(results),
         response_ms=response_ms,
         session_id=session_id,
+        search_location=search_location,
+        device_type=device_type,
     )
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
@@ -887,6 +900,61 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
         "event_types":              sorted(all_event_types),
         "events_by_date":           events_by_date,
         "unique_sessions_by_date":  {d: sessions_by_date.get(d, 0) for d in dates},
+    }
+
+
+@app.get("/api/analytics/insights", dependencies=[Depends(_require_admin)])
+async def get_analytics_insights(exclude_sessions: str | None = Query(default=None)):
+    """Popular search locations, peak hours, and device breakdown — last 30 days."""
+    from analytics import _DB_NAME, _COLLECTION
+    from motor.motor_asyncio import AsyncIOMotorClient
+    uri = os.environ.get("MONGODB_URI", "")
+    if not uri:
+        raise HTTPException(status_code=503, detail="Analytics not configured")
+    client = AsyncIOMotorClient(uri, serverSelectionTimeoutMS=5_000)
+    col = client[_DB_NAME][_COLLECTION]
+
+    now = datetime.now(timezone.utc)
+    thirty_days_ago = now - timedelta(days=30)
+    _ids = [s for s in (exclude_sessions or "").split(",") if s]
+    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    base_match = {
+        "event": "search_completed",
+        "timestamp": {"$gte": thirty_days_ago},
+        **_excl,
+    }
+
+    # Top 10 search locations (last 30 days)
+    location_rows = await col.aggregate([
+        {"$match": {**base_match, "search_location": {"$exists": True, "$ne": None, "$ne": ""}}},
+        {"$group": {"_id": "$search_location", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10},
+    ]).to_list(10)
+
+    # Searches by hour of day (Vienna time, last 30 days)
+    hour_rows = await col.aggregate([
+        {"$match": base_match},
+        {"$addFields": {"hour_vienna": {"$hour": {"date": "$timestamp", "timezone": "Europe/Vienna"}}}},
+        {"$group": {"_id": "$hour_vienna", "count": {"$sum": 1}}},
+        {"$sort": {"_id": 1}},
+    ]).to_list(24)
+
+    # Device breakdown (last 30 days)
+    device_rows = await col.aggregate([
+        {"$match": {**base_match, "device_type": {"$exists": True}}},
+        {"$group": {"_id": "$device_type", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+    ]).to_list(10)
+
+    # Fill all 24 hours with 0 for missing hours
+    hours_map = {r["_id"]: r["count"] for r in hour_rows}
+    hourly = [{"hour": h, "count": hours_map.get(h, 0)} for h in range(24)]
+
+    return {
+        "top_locations":  [{"location": r["_id"], "count": r["count"]} for r in location_rows],
+        "hourly_searches": hourly,
+        "device_breakdown": {r["_id"]: r["count"] for r in device_rows},
     }
 
 
