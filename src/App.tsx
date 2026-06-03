@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
@@ -23,6 +24,10 @@ function mergeResults(existing: Venue[], incoming: Venue[]): Venue[] {
 }
 
 export default function App() {
+  if (window.location.pathname === "/admin") {
+    return <AdminDashboard />
+  }
+
   const [results, setResults]               = useState<Venue[]>([])
   const [isLoading, setLoading]             = useState(false)
   const [isLoadingMore, setLoadingMore]     = useState(false)
@@ -70,16 +75,18 @@ export default function App() {
   }, [lastUpdated])
 
   // Polling schedule (from first response):
-  //   attempt 1 → +15 s  (catches warm-server eTennis ~40-50 s scrapes on poll 2)
-  //   attempt 2 → +30 s  (T+45 s total — covers warm Render scrape completion)
-  //   attempt 3 → +60 s  (T+105 s total — covers cold-start Render where browser
-  //                        launch adds 20-30 s and scrape takes 60-80 s)
-  // Max 3 auto-refreshes. Always polls et_offset=0; merges into the accumulated list.
+  //   attempt 1 → +3 s   (catches Eversports via Vercel proxy, ~3-5 s)
+  //   attempt 2 → +5 s   (T+8 s  — catches any stragglers)
+  //   attempt 3 → +12 s  (T+20 s — catches warm eTennis scrapes)
+  //   attempt 4 → +25 s  (T+45 s — covers warm Render scrape completion)
+  //   attempt 5 → +60 s  (T+105 s — covers cold-start Render)
+  // Max 5 attempts. Always polls et_offset=0; merges into the accumulated list.
+  const POLL_DELAYS = [3_000, 5_000, 12_000, 25_000, 60_000]
   function scheduleRefresh(params: SearchParams, geo: GeoParams | undefined, attempt: number) {
     // Signal immediately that a timer is running so venue rows can show
-    // "Wird noch geprüft …" instead of "Wird geprüft" / "Konnte nicht geprüft werden".
+    // "Wird noch geprüft …" instead of "Konnte nicht geprüft werden".
     setPollingActive(true)
-    const delay = attempt === 1 ? 15_000 : attempt === 2 ? 30_000 : 60_000
+    const delay = POLL_DELAYS[attempt - 1] ?? 60_000
     refreshTimer.current = setTimeout(async () => {
       refreshTimer.current = null
       const refreshed = await fetchAvailability(params, geo, 0).catch(() => null)
@@ -91,7 +98,7 @@ export default function App() {
       }
       setResults((prev) => mergeResults(prev, refreshed.results))
       setLastUpdated(Date.now())
-      if (refreshed.availability_pending && attempt < 3) {
+      if (refreshed.availability_pending && attempt < POLL_DELAYS.length) {
         // Still pending venues — schedule next attempt (sets pollingActive again)
         scheduleRefresh(params, geo, attempt + 1)
       } else {

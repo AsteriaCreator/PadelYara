@@ -184,7 +184,7 @@ _EV_BUSY_TTL  = 60   # s — busy can flip free if a booking is cancelled; re-ch
 _SEARCH_CACHE: dict[str, tuple[dict, float, float]] = {}
 _SEARCH_LOCK = threading.Lock()
 _SEARCH_CACHE_TTL_COMPLETE = 45   # s — no pending scrapes; safe to serve for 45 s
-_SEARCH_CACHE_TTL_PENDING   = 8   # s — eTennis still scraping; absorbs burst but
+_SEARCH_CACHE_TTL_PENDING   = 3   # s — short so polls every ~3 s see fresh EV results
                                   #     lets clients poll for real statuses quickly
 
 # ── Eversports venue-level result cache ──────────────────────────────────────
