@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, getMySessionIds, registerThisDevice, removeMySession, getSessionId } from "../api"
 import "./AdminDashboard.css"
 
 // Plain-English labels for each event type
@@ -151,24 +151,41 @@ export default function AdminDashboard() {
   const [summary, setSummary] = useState<any>(null)
   const [trends, setTrends] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
-  const [excludeMe, setExcludeMe] = useState<boolean>(() => {
+  const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
+  const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
   })
+
+  const excludeIds = excludeEnabled ? mySessions : []
 
   useEffect(() => {
     setSummary(null)
     setTrends(null)
     setError(null)
-    Promise.all([fetchAnalytics(excludeMe), fetchAnalyticsTrends(excludeMe)])
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds)])
       .then(([s, t]) => { setSummary(s); setTrends(t) })
       .catch((e: Error) => setError(e.message))
-  }, [excludeMe])
+  }, [excludeEnabled, mySessions])
 
-  function toggleExcludeMe() {
-    const next = !excludeMe
-    setExcludeMe(next)
+  function toggleExclude() {
+    const next = !excludeEnabled
+    setExcludeEnabled(next)
     try { localStorage.setItem("analytics_exclude_me", String(next)) } catch { /* */ }
   }
+
+  function handleAddDevice() {
+    const updated = registerThisDevice()
+    setMySessions(updated)
+    if (!excludeEnabled) toggleExclude()  // auto-enable filter when adding first device
+  }
+
+  function handleRemoveSession(id: string) {
+    const updated = removeMySession(id)
+    setMySessions(updated)
+  }
+
+  const thisDeviceId = getSessionId()
+  const thisDeviceRegistered = mySessions.includes(thisDeviceId)
 
   if (error)
     return (
@@ -200,14 +217,42 @@ export default function AdminDashboard() {
         <div className="admin-header-row">
           <h1>📊 Analytics Dashboard</h1>
           <button
-            className={`exclude-me-btn ${excludeMe ? "active" : ""}`}
-            onClick={toggleExcludeMe}
-            title="Your browser's session ID is used to filter your own visits"
+            className={`exclude-me-btn ${excludeEnabled && mySessions.length > 0 ? "active" : ""}`}
+            onClick={toggleExclude}
+            disabled={mySessions.length === 0}
+            title={mySessions.length === 0 ? "Add this device first to enable filtering" : "Toggle filtering of your own visits"}
           >
-            {excludeMe ? "🙈 Excluding my visits" : "👁️ Including my visits"}
+            {excludeEnabled && mySessions.length > 0 ? "🙈 Excluding my visits" : "👁️ Including my visits"}
           </button>
         </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>
+
+        {/* My devices panel */}
+        <div className="my-devices-panel">
+          <div className="my-devices-header">
+            <span className="my-devices-label">🖥️ My devices</span>
+            {!thisDeviceRegistered && (
+              <button className="add-device-btn" onClick={handleAddDevice}>
+                ➕ Add this device
+              </button>
+            )}
+          </div>
+          {mySessions.length === 0 ? (
+            <p className="my-devices-empty">
+              No devices added yet. Click "Add this device" on each device you use for testing.
+            </p>
+          ) : (
+            <ul className="my-devices-list">
+              {mySessions.map((id, i) => (
+                <li key={id} className="my-devices-item">
+                  <span className="device-icon">{id === thisDeviceId ? "📱 This device" : `🖥️ Device ${i + 1}`}</span>
+                  <span className="device-id">{id.slice(0, 8)}…</span>
+                  <button className="remove-device-btn" onClick={() => handleRemoveSession(id)} title="Remove">✕</button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </header>
 
       {/* Today's numbers */}

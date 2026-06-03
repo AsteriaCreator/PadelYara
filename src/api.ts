@@ -131,17 +131,48 @@ function adminHeaders() {
   return { "Content-Type": "application/json", "X-Admin-Token": ADMIN_TOKEN }
 }
 
-export async function fetchAnalytics(excludeMySession = false) {
-  const params = excludeMySession ? `?exclude_session=${encodeURIComponent(getSessionId())}` : ""
-  const res = await fetch(`${API_BASE}/api/analytics${params}`, { headers: adminHeaders() })
+const MY_SESSIONS_KEY = "analytics_my_sessions"
+
+/** Returns the list of session IDs the owner has registered as "mine". */
+export function getMySessionIds(): string[] {
+  try {
+    const raw = localStorage.getItem(MY_SESSIONS_KEY)
+    return raw ? JSON.parse(raw) : []
+  } catch {
+    return []
+  }
+}
+
+/** Adds the current device's session ID to the "my sessions" list. */
+export function registerThisDevice(): string[] {
+  const id = getSessionId()
+  const current = getMySessionIds()
+  if (current.includes(id)) return current
+  const updated = [...current, id]
+  try { localStorage.setItem(MY_SESSIONS_KEY, JSON.stringify(updated)) } catch { /* */ }
+  return updated
+}
+
+/** Removes a session ID from the "my sessions" list. */
+export function removeMySession(id: string): string[] {
+  const updated = getMySessionIds().filter((s) => s !== id)
+  try { localStorage.setItem(MY_SESSIONS_KEY, JSON.stringify(updated)) } catch { /* */ }
+  return updated
+}
+
+function _excludeParam(ids: string[]): string {
+  return ids.length ? `?exclude_sessions=${encodeURIComponent(ids.join(","))}` : ""
+}
+
+export async function fetchAnalytics(excludeIds: string[] = []) {
+  const res = await fetch(`${API_BASE}/api/analytics${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch analytics")
   return res.json()
 }
 
-export async function fetchAnalyticsTrends(excludeMySession = false) {
-  const params = excludeMySession ? `?exclude_session=${encodeURIComponent(getSessionId())}` : ""
-  const res = await fetch(`${API_BASE}/api/analytics/trends${params}`, { headers: adminHeaders() })
+export async function fetchAnalyticsTrends(excludeIds: string[] = []) {
+  const res = await fetch(`${API_BASE}/api/analytics/trends${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch trends")
   return res.json()

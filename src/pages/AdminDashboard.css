@@ -21,6 +21,77 @@
 .admin-header h1 { font-size: 1.8rem; margin: 0; }
 .admin-subtitle { color: #64748b; margin: 0; font-size: 0.9rem; }
 
+/* My devices panel */
+.my-devices-panel {
+  margin-top: 1rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+}
+.my-devices-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.my-devices-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.my-devices-empty {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin: 0;
+}
+.my-devices-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.my-devices-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+}
+.device-icon { font-weight: 600; color: #334155; }
+.device-id {
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  flex: 1;
+}
+.add-device-btn {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 99px;
+  border: 1.5px solid #6366f1;
+  background: #eef2ff;
+  color: #4338ca;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.add-device-btn:hover { background: #e0e7ff; }
+.remove-device-btn {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #94a3b8;
+  cursor: pointer;
+  line-height: 1;
+}
+.remove-device-btn:hover { border-color: #ef4444; color: #ef4444; }
+
 .exclude-me-btn {
   font-size: 0.8rem;
   font-weight: 600;

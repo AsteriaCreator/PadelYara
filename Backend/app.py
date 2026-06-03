@@ -748,7 +748,7 @@ async def _require_admin(token: str = Security(_api_key_header)):
 # ── Analytics endpoints ───────────────────────────────────────────────────────
 
 @app.get("/api/analytics", dependencies=[Depends(_require_admin)])
-async def get_analytics(exclude_session: str | None = Query(default=None)):
+async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     from analytics import _DB_NAME, _COLLECTION
     from motor.motor_asyncio import AsyncIOMotorClient
     uri = os.environ.get("MONGODB_URI", "")
@@ -763,8 +763,9 @@ async def get_analytics(exclude_session: str | None = Query(default=None)):
     hours_elapsed = int((now - today_start).total_seconds())
     yesterday_window_end = yesterday_start + timedelta(seconds=hours_elapsed)
 
-    # Base filter: optionally exclude the owner's own session
-    _excl: dict = {"session_id": {"$ne": exclude_session}} if exclude_session else {}
+    # Base filter: optionally exclude one or more owner sessions (comma-separated)
+    _ids = [s for s in (exclude_sessions or "").split(",") if s]
+    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
 
     async def _session_count(start, end):
         pipeline = [
@@ -836,7 +837,7 @@ async def get_analytics(exclude_session: str | None = Query(default=None)):
 
 
 @app.get("/api/analytics/trends", dependencies=[Depends(_require_admin)])
-async def get_analytics_trends(exclude_session: str | None = Query(default=None)):
+async def get_analytics_trends(exclude_sessions: str | None = Query(default=None)):
     from analytics import _DB_NAME, _COLLECTION
     from motor.motor_asyncio import AsyncIOMotorClient
     uri = os.environ.get("MONGODB_URI", "")
@@ -849,7 +850,8 @@ async def get_analytics_trends(exclude_session: str | None = Query(default=None)
     seven_days_ago = (now - timedelta(days=6)).replace(hour=0, minute=0, second=0, microsecond=0)
     dates = [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]
 
-    _excl: dict = {"session_id": {"$ne": exclude_session}} if exclude_session else {}
+    _ids = [s for s in (exclude_sessions or "").split(",") if s]
+    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
 
     event_rows = await col.aggregate([
         {"$match": {"timestamp": {"$gte": seven_days_ago}, **_excl}},
