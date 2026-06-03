@@ -125,6 +125,26 @@ export async function fetchAvailability(
   }
 }
 
+const ADMIN_TOKEN = import.meta.env.VITE_ADMIN_TOKEN ?? ""
+
+function adminHeaders() {
+  return { "Content-Type": "application/json", "X-Admin-Token": ADMIN_TOKEN }
+}
+
+export async function fetchAnalytics() {
+  const res = await fetch(`${API_BASE}/api/analytics`, { headers: adminHeaders() })
+  if (res.status === 403) throw new Error("Unauthorized")
+  if (!res.ok) throw new Error("Failed to fetch analytics")
+  return res.json()
+}
+
+export async function fetchAnalyticsTrends() {
+  const res = await fetch(`${API_BASE}/api/analytics/trends`, { headers: adminHeaders() })
+  if (res.status === 403) throw new Error("Unauthorized")
+  if (!res.ok) throw new Error("Failed to fetch trends")
+  return res.json()
+}
+
 export async function fetchWeather(
   lat: number,
   lon: number,
