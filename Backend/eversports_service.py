@@ -868,9 +868,17 @@ async def check_eversports_slot(
                 # Scope covers target date when:
                 #   (a) bookings exist on a later date (strongest proof), or
                 #   (b) a same-day booking exists after the target time
+                #   (c) slots list is empty — the API returns only BOOKED slots,
+                #       so an empty response with HTTP 200 means no courts are
+                #       booked from startDate onwards → all courts free.
+                #       This correctly handles far-future dates where no one has
+                #       booked yet, instead of returning platform_check_required.
                 scope_covers = scope_max_date > date or max_same_day_start > time_hhmm
 
-                if not scope_covers:
+                if slots_count == 0:
+                    print(f"[check] empty slot list → no bookings from {date} onwards → free")
+                    slot_status = "free"
+                elif not scope_covers:
                     print(
                         f"[check] scope ({scope_max_date or 'empty'}) does not cover "
                         f"{date} {time_hhmm} → platform_check_required"
