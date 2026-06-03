@@ -259,6 +259,15 @@ export default function App() {
           Yara findet einen freien Court für dich. Wo willst du spielen?
         </p>
 
+        <p className="mb-4 text-xs" style={{ color: "#6b7280" }}>
+          PadelYara ist im Testbetrieb – Ergebnisse können unvollständig oder fehlerhaft sein.
+          Feedback oder neuen Court melden?{" "}
+          <a href="mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback" style={{ color: "#9ca3af", textDecoration: "underline" }}>
+            Schreib Yara ein Mail
+          </a>
+          .
+        </p>
+
         <SearchCard onSearch={onSearch} isLoading={isLoading} />
 
         {!searched && !isLoading && !error && (
