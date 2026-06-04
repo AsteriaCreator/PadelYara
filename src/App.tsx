@@ -46,6 +46,7 @@ export default function App() {
   const [searchLabel, setSearchLabel]               = useState<string | null>(null)
   const [searchWeather, setSearchWeather]           = useState<Weather | null>(null)
   const [showImprint, setShowImprint]       = useState(false)
+  const [courtFilter, setCourtFilter]       = useState<{ indoor: boolean; outdoor: boolean }>({ indoor: true, outdoor: true })
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastParamsRef = useRef<SearchParams | null>(null)
@@ -118,6 +119,7 @@ export default function App() {
     setSearchLabel(null)
     setSearchWeather(null)
     setBookingWindowNotice(null)
+    setCourtFilter({ indoor: true, outdoor: true })
 
     let coords: { lat: number; lon: number } | null
     try {
@@ -208,19 +210,25 @@ export default function App() {
     }
   }
 
+  const filteredResults = results.filter((v) => {
+    if (v.court_type === "indoor") return courtFilter.indoor
+    if (v.court_type === "outdoor") return courtFilter.outdoor
+    // indoor+outdoor venues: show if either type is visible
+    return courtFilter.indoor || courtFilter.outdoor
+  })
+
   const skeletonCount = results.length > 0 ? results.length : SKELETON_COUNT
 
-  const courtType = lastParamsRef.current?.court_type ?? "both"
-
   function getWeatherHint(rain_prob: number): { text: string; color: string } | null {
-    if (courtType === "indoor") return null
-    if (courtType === "outdoor") {
+    const { indoor, outdoor } = courtFilter
+    if (indoor && !outdoor) return null
+    if (!indoor && outdoor) {
       if (rain_prob <= 20) return { text: "Bedingungen gut", color: "text-green-400" }
       if (rain_prob <= 40) return { text: "Regen möglich", color: "text-amber-400" }
       if (rain_prob <= 65) return { text: "Regen wahrscheinlich", color: "text-red-400" }
       return { text: "Schlechte Bedingungen", color: "text-red-400" }
     }
-    // both
+    // both shown
     if (rain_prob <= 20) return { text: "Outdoor gut möglich", color: "text-green-400" }
     if (rain_prob <= 40) return { text: "Regen möglich — eher Indoor buchen", color: "text-amber-400" }
     if (rain_prob <= 65) return { text: "Regen wahrscheinlich — Indoor empfohlen", color: "text-red-400" }
@@ -268,7 +276,7 @@ export default function App() {
           .
         </p>
 
-        <SearchCard onSearch={onSearch} isLoading={isLoading} />
+        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} />
 
         {!searched && !isLoading && !error && (
           <div className="text-center py-8 text-gray-600 text-sm">
@@ -327,11 +335,11 @@ export default function App() {
           </p>
         )}
 
-        {searched && !isLoading && !error && results.length > 0 && lastParamsRef.current && (
+        {searched && !isLoading && !error && filteredResults.length > 0 && lastParamsRef.current && (
           <p className="mb-2 px-1" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.4)" }}>
-            {results.length === 1
+            {filteredResults.length === 1
               ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
-              : `${results.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
+              : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
           </p>
         )}
 
@@ -341,15 +349,15 @@ export default function App() {
           </p>
         )}
 
-        {searched && !isLoading && !error && results.length > 0 && (
+        {searched && !isLoading && !error && filteredResults.length > 0 && (
           <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
-            {results.map((venue) => (
+            {filteredResults.map((venue) => (
               <VenueRow key={venue.id} venue={venue} pollingActive={pollingActive} searchDate={lastParamsRef.current?.date} />
             ))}
           </div>
         )}
 
-        {searched && !isLoading && !error && results.length === 0 && (
+        {searched && !isLoading && !error && filteredResults.length === 0 && (
           <div className="text-center py-10 mb-4">
             <p className="text-3xl mb-3">🎾</p>
             <p className="text-white font-semibold mb-1">Kein Court gefunden.</p>

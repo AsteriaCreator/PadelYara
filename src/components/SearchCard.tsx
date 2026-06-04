@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import type { SearchParams, CourtType } from "../types"
+import type { SearchParams } from "../types"
 import { TIME_SLOTS } from "../constants"
 import { suggest, type Suggestion, type Coords } from "../geocode"
 
@@ -26,6 +26,8 @@ function getStoredRadius(): number {
 interface Props {
   onSearch: (params: SearchParams) => void
   isLoading: boolean
+  courtFilter: { indoor: boolean; outdoor: boolean }
+  onCourtFilterChange: (filter: { indoor: boolean; outdoor: boolean }) => void
 }
 
 // "sv-SE" locale produces "YYYY-MM-DD HH:mm:ss" — stable cross-browser
@@ -70,12 +72,11 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   return parseInt(timeStr) <= v.hour
 }
 
-export default function SearchCard({ onSearch, isLoading }: Props) {
+export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange }: Props) {
   const { date: defaultDate, time: defaultTime } = getNextFullHour()
 
   const [date, setDate]           = useState(defaultDate)
   const [time, setTime]           = useState(defaultTime)
-  const [courtType, setCourtType] = useState<CourtType>("both")
   const [location, setLocation]       = useState(getStoredLocation)
   const [radius, setRadius]           = useState(getStoredRadius)
   const [formError, setFormError]     = useState<string | null>(null)
@@ -140,7 +141,7 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
     }
 
     setFormError(null)
-    onSearch({ date, time, court_type: courtType, location: trimmedLocation, radius })
+    onSearch({ date, time, court_type: "both", location: trimmedLocation, radius })
   }
 
   return (
@@ -247,17 +248,19 @@ export default function SearchCard({ onSearch, isLoading }: Props) {
       </div>
 
       <div className="mb-3">
-        <label className={`${labelClass} block mb-1`} style={labelStyle}>Court-Typ</label>
-        <div>
-          <select
-            value={courtType}
-            onChange={(e) => setCourtType(e.target.value as CourtType)}
-            className={inputClass}
-          >
-            <option value="both">Indoor & Outdoor</option>
-            <option value="indoor">Indoor</option>
-            <option value="outdoor">Outdoor</option>
-          </select>
+        <label className={`${labelClass} block mb-2`} style={labelStyle}>Court-Typ</label>
+        <div className="flex gap-4">
+          {(["indoor", "outdoor"] as const).map((type) => (
+            <label key={type} className="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={courtFilter[type]}
+                onChange={(e) => onCourtFilterChange({ ...courtFilter, [type]: e.target.checked })}
+                className="w-4 h-4 rounded accent-[#d4f53c] cursor-pointer"
+              />
+              <span className="text-sm text-white capitalize">{type === "indoor" ? "Indoor" : "Outdoor"}</span>
+            </label>
+          ))}
         </div>
       </div>
 
