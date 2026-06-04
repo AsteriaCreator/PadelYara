@@ -136,6 +136,8 @@ async def lifespan(_app: FastAPI):
                for v in VENUES if v.get("eversports_facility_id")]
     print(f"[startup] Loaded {len(VENUES)} venues from MongoDB")
     print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
+    from eversports_service import _CALENDAR_PROXY_URL, _SLOT_URL
+    print(json.dumps({"event": "startup_ev_config", "calendar_proxy": _CALENDAR_PROXY_URL, "slot_url": _SLOT_URL}))
     yield
 
 
