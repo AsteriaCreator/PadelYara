@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react"
-import { Routes, Route, NavLink } from "react-router-dom"
+import { Routes, Route, NavLink, useSearchParams } from "react-router-dom"
 import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
@@ -26,6 +26,13 @@ function mergeResults(existing: Venue[], incoming: Venue[]): Venue[] {
 }
 
 function FinderPage() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const urlLocation = searchParams.get("ort") ?? ""
+  const urlDate     = searchParams.get("datum") ?? ""
+  const urlTime     = searchParams.get("zeit") ?? ""
+  const urlRadius   = Number(searchParams.get("radius")) || 0
+
   const [results, setResults]               = useState<Venue[]>([])
   const [isLoading, setLoading]             = useState(false)
   const [isLoadingMore, setLoadingMore]     = useState(false)
@@ -60,6 +67,13 @@ function FinderPage() {
   }
 
   useEffect(() => cancelRefresh, [])
+
+  // Auto-trigger search when URL params are present (shared link)
+  useEffect(() => {
+    if (urlLocation && urlDate && urlTime && urlRadius) {
+      onSearch({ location: urlLocation, date: urlDate, time: urlTime, radius: urlRadius, court_type: "both" })
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Tick the "last updated" counter every second
   useEffect(() => {
@@ -164,6 +178,7 @@ function FinderPage() {
       setSearched(true)
       setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
       setBookingWindowNotice(res.booking_window_notice ?? null)
+      setSearchParams({ ort: params.location!, datum: params.date, zeit: params.time, radius: String(params.radius) }, { replace: true })
       if (res.availability_pending) {
         scheduleRefresh(params, geo, 1)
       }
@@ -269,7 +284,7 @@ function FinderPage() {
           .
         </p>
 
-        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} />
+        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} initialLocation={urlLocation || undefined} initialDate={urlDate || undefined} initialTime={urlTime || undefined} initialRadius={urlRadius || undefined} />
 
         {!searched && !isLoading && !error && (
           <div className="text-center py-8 text-gray-600 text-sm">

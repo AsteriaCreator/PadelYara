@@ -30,6 +30,10 @@ interface Props {
   onCourtFilterChange: (filter: { indoor: boolean; outdoor: boolean }) => void
   statusFilter: { frei: boolean; belegt: boolean }
   onStatusFilterChange: (filter: { frei: boolean; belegt: boolean }) => void
+  initialLocation?: string
+  initialDate?: string
+  initialTime?: string
+  initialRadius?: number
 }
 
 // "sv-SE" locale produces "YYYY-MM-DD HH:mm:ss" — stable cross-browser
@@ -74,13 +78,13 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   return parseInt(timeStr) <= v.hour
 }
 
-export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange, statusFilter, onStatusFilterChange }: Props) {
+export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange, statusFilter, onStatusFilterChange, initialLocation, initialDate, initialTime, initialRadius }: Props) {
   const { date: defaultDate, time: defaultTime } = getNextFullHour()
 
-  const [date, setDate]           = useState(defaultDate)
-  const [time, setTime]           = useState(defaultTime)
-  const [location, setLocation]       = useState(getStoredLocation)
-  const [radius, setRadius]           = useState(getStoredRadius)
+  const [date, setDate]           = useState(initialDate || defaultDate)
+  const [time, setTime]           = useState(initialTime || defaultTime)
+  const [location, setLocation]       = useState(initialLocation || getStoredLocation())
+  const [radius, setRadius]           = useState(initialRadius || getStoredRadius())
   const [formError, setFormError]     = useState<string | null>(null)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [showSugg, setShowSugg]       = useState(false)
