@@ -33,6 +33,7 @@ RUN python -c "from curl_cffi.requests import AsyncSession; from fastapi import 
 
 # Railway injects $PORT at runtime; default to 8000 for local runs
 ENV PORT=8000
+ENV PYTHONUNBUFFERED=1
 EXPOSE 8000
 
 # Shell form so ${PORT} expands correctly at runtime

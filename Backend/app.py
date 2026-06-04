@@ -1044,6 +1044,22 @@ async def weather_test(
     }
 
 
+@app.get("/api/price-cache")
+async def price_cache_check():
+    """Diagnostic: show current Eversports price cache status."""
+    import eversports_prices as _ep
+    with _ep._PRICE_LOCK:
+        return {
+            venue_id: {
+                "slot_count":  len(entry["slots"]),
+                "prices":      sorted(set(s["price"] for s in entry["slots"])),
+                "dates":       sorted(set(s["date"]  for s in entry["slots"])),
+                "age_minutes": round((time.monotonic() - entry["scraped_at"]) / 60, 1),
+            }
+            for venue_id, entry in _ep._PRICE_CACHE.items()
+        }
+
+
 @app.get("/api/env-check")
 async def env_check():
     """Temporary diagnostic: confirm which env vars the running process sees."""
