@@ -137,8 +137,7 @@ async def lifespan(_app: FastAPI):
                for v in VENUES if v.get("eversports_facility_id")]
     print(f"[startup] Loaded {len(VENUES)} venues from MongoDB")
     print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
-    # Kick off background Eversports price scraping in the main event loop
-    asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
+    # Price scraping is triggered lazily on first search (see _maybe_refresh_prices)
     yield
 
 
@@ -613,6 +612,12 @@ async def search(
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
         if ev_results:
+            # Lazily kick off price scraping if cache is empty — runs in the
+            # request's event loop where asyncio.create_task is reliable.
+            with eversports_prices._PRICE_LOCK:
+                price_cache_empty = not eversports_prices._PRICE_CACHE
+            if price_cache_empty:
+                asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
             # Serve already-cached statuses immediately.
             now_t = time_monotonic()
             with _EV_RESULT_LOCK:
