@@ -84,7 +84,7 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
           <div className="flex items-center gap-2">
             {venue.price_eur != null && (
               <span className="text-xs font-semibold text-white whitespace-nowrap">
-                € {venue.price_eur}{venue.slot_duration_h != null ? ` / ${venue.slot_duration_h}h` : ""}
+                € {venue.price_eur}/h
               </span>
             )}
             <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
