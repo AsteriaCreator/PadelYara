@@ -8,6 +8,7 @@ import VenueRow from "./components/VenueRow"
 import SkeletonRow from "./components/SkeletonRow"
 import ImprintModal from "./components/ImprintModal"
 import LoadingCat from "./components/LoadingCat"
+import AboutSection from "./components/AboutSection"
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -46,6 +47,7 @@ export default function App() {
   const [searchLabel, setSearchLabel]               = useState<string | null>(null)
   const [searchWeather, setSearchWeather]           = useState<Weather | null>(null)
   const [showImprint, setShowImprint]       = useState(false)
+  const [activeTab, setActiveTab]           = useState<"finder" | "about">("finder")
   const [courtFilter, setCourtFilter]       = useState<{ indoor: boolean; outdoor: boolean }>({ indoor: true, outdoor: true })
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -255,12 +257,24 @@ export default function App() {
         </div>
 
         <div className="mb-2 border-b border-gray-800">
-          <span className="inline-block pb-2 text-base font-semibold text-white border-b-2 mr-6" style={{ borderColor: "#d4f53c" }}>
-            Court Finder
-          </span>
+          {(["finder", "about"] as const).map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className="inline-block pb-2 text-base font-semibold mr-6 transition-colors cursor-pointer bg-transparent border-0 outline-none"
+              style={{
+                color: activeTab === tab ? "#ffffff" : "#4b5563",
+                borderBottom: activeTab === tab ? "2px solid #d4f53c" : "2px solid transparent",
+              }}
+            >
+              {tab === "finder" ? "Court Finder" : "Über Yara"}
+            </button>
+          ))}
         </div>
 
-        <p
+        {activeTab === "about" && <AboutSection />}
+
+        {activeTab === "finder" && <><p
           className="text-base italic mb-4 mt-2"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
         >
@@ -390,6 +404,7 @@ export default function App() {
             Zuletzt aktualisiert {secondsSince < 10 ? "gerade eben" : `vor ${secondsSince} Sekunden`}
           </p>
         )}
+        </>}
       </div>
 
       <footer className="text-center py-8 mt-4">
