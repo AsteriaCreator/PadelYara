@@ -311,9 +311,10 @@ function FinderPage() {
           </div>
         )}
 
+        {(isLoading || pollingActive) && <LoadingCat />}
+
         {isLoading && (
           <>
-            <LoadingCat />
             <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
               {Array.from({ length: skeletonCount }).map((_, i) => (
                 <SkeletonRow key={i} />
