@@ -93,37 +93,37 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
           )}
         </div>
       </div>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-x-2 text-xs text-gray-500">
-            <span>{courtIcon} {venue.court_type}</span>
-            {venue.distance_km != null && (
-              <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
-            )}
-          </div>
+      <div className="flex items-end justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-x-2 text-xs text-gray-500 min-w-0">
+          <span>{courtIcon} {venue.court_type}</span>
+          {venue.distance_km != null && (
+            <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
+          )}
+        </div>
+        <div className="flex flex-col items-end gap-1.5 shrink-0">
           {venue.price_eur != null && (
             <div className="flex items-baseline gap-1">
-              <span className="text-sm font-semibold text-white">€ {venue.price_eur}</span>
+              <span className="text-base font-bold text-white">€ {venue.price_eur}</span>
               {venue.slot_duration_h != null && (
                 <span className="text-xs text-gray-400">/ {venue.slot_duration_h}h</span>
               )}
             </div>
           )}
+          <a
+            href={
+              searchDate && venue.platform === "eTennis"
+                ? etennisBookingUrl(venue.booking_url, searchDate)
+                : venue.booking_url
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackBookingClick(venue.id, venue.platform)}
+            className={`text-xs font-semibold px-3 py-1.5 rounded whitespace-nowrap ${bookingStyle}`}
+            style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
+          >
+            {bookingLabel}
+          </a>
         </div>
-        <a
-          href={
-            searchDate && venue.platform === "eTennis"
-              ? etennisBookingUrl(venue.booking_url, searchDate)
-              : venue.booking_url
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackBookingClick(venue.id, venue.platform)}
-          className={`text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
-          style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
-        >
-          {bookingLabel}
-        </a>
       </div>
     </div>
   )
