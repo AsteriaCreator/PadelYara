@@ -249,7 +249,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
         </div>
       </div>
 
-      <div className="mb-3 flex flex-wrap gap-x-6 gap-y-3">
+      <div className="mb-3 flex items-start justify-between flex-wrap gap-y-3">
         <div>
           <label className={`${labelClass} block mb-2`} style={labelStyle}>Court-Typ</label>
           <div className="flex gap-4">
