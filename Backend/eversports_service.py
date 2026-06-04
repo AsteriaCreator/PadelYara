@@ -364,6 +364,7 @@ async def _check_via_calendar_proxy(
             f"[cal-proxy] response  status={r.status_code}"
             f"  has_td={'<td' in r.text}"
             f"  csrf_found={r.headers.get('X-CSRF-Found', '?')}"
+            f"  csrf_source={r.headers.get('X-CSRF-Source', '?')}"
             f"  body[:200]={r.text[:200]!r}"
         )
         if r.status_code != 200:

@@ -27,27 +27,35 @@ const BROWSER_HEADERS = {
 }
 
 /** Parse name=value pairs out of Set-Cookie headers, drop attributes. */
-function extractCookies(headers: Headers): string {
+function extractCookiePairs(headers: Headers): string[] {
   const pairs: string[] = []
-  // CF Workers / Vercel Edge: headers.getAll is available for set-cookie
   const raw: string[] =
     typeof (headers as any).getAll === "function"
       ? (headers as any).getAll("set-cookie")
       : [headers.get("set-cookie") ?? ""].filter(Boolean)
-
   for (const line of raw) {
     const pair = line.split(";")[0].trim()
     if (pair) pairs.push(pair)
   }
-  return pairs.join("; ")
+  return pairs
 }
 
-/** Extract CSRF token from Laravel meta tag in page HTML. */
-function extractCsrf(html: string): string {
+/** Extract CSRF token — tries meta tag first, then XSRF-TOKEN cookie. */
+function extractCsrf(html: string, cookiePairs: string[]): string {
+  // 1. Laravel meta tag (present when page is fully server-rendered)
   const m =
     html.match(/<meta[^>]+name=["']csrf-token["'][^>]+content=["']([^"']+)/i) ||
     html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']csrf-token/i)
-  return m ? m[1] : ""
+  if (m) return m[1]
+
+  // 2. XSRF-TOKEN cookie — Laravel always sets this, even without full HTML.
+  //    The cookie value is URL-encoded; decode it before sending as X-CSRF-TOKEN.
+  const xsrf = cookiePairs.find(c => c.startsWith("XSRF-TOKEN="))
+  if (xsrf) {
+    try { return decodeURIComponent(xsrf.split("=").slice(1).join("=")) } catch { /* */ }
+  }
+
+  return ""
 }
 
 /** DD/MM/YYYY from YYYY-MM-DD */
@@ -110,8 +118,10 @@ export default async function handler(request: Request): Promise<Response> {
   }
 
   const pageHtml = await getResp.text()
-  const csrfToken = extractCsrf(pageHtml)
-  const cookieHeader = extractCookies(getResp.headers)
+  const cookiePairs = extractCookiePairs(getResp.headers)
+  const cookieHeader = cookiePairs.join("; ")
+  const csrfToken = extractCsrf(pageHtml, cookiePairs)
+  const csrfSource = pageHtml.includes("csrf-token") ? "meta" : cookiePairs.some(c => c.startsWith("XSRF-TOKEN=")) ? "cookie" : "none"
 
   console.log(
     JSON.stringify({
@@ -119,7 +129,9 @@ export default async function handler(request: Request): Promise<Response> {
       venue_url,
       get_status: getResp.status,
       csrf_found: !!csrfToken,
-      cookie_count: cookieHeader.split(";").filter(Boolean).length,
+      csrf_source: csrfSource,
+      cookie_count: cookiePairs.length,
+      html_snippet: pageHtml.substring(0, 200),
     }),
   )
 
@@ -174,6 +186,7 @@ export default async function handler(request: Request): Promise<Response> {
       "Content-Type": postResp.headers.get("Content-Type") ?? "text/html",
       "X-Proxy-Status": String(postResp.status),
       "X-CSRF-Found": csrfToken ? "1" : "0",
+      "X-CSRF-Source": csrfSource,
       "X-Has-Td": hasTd ? "1" : "0",
     },
   })
