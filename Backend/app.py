@@ -1034,6 +1034,18 @@ async def weather_test(
     }
 
 
+@app.get("/api/env-check")
+async def env_check():
+    """Temporary diagnostic: confirm which env vars the running process sees."""
+    import eversports_service as _ev
+    return {
+        "EVERSPORTS_CALENDAR_PROXY": os.environ.get("EVERSPORTS_CALENDAR_PROXY"),
+        "EVERSPORTS_SLOT_PROXY_set": bool(os.environ.get("EVERSPORTS_SLOT_PROXY")),
+        "_CALENDAR_PROXY_URL_at_import": _ev._CALENDAR_PROXY_URL,
+        "runtime_read": os.environ.get("EVERSPORTS_CALENDAR_PROXY"),
+    }
+
+
 @app.get("/check")
 async def check_compat(
     facility_id: int        = Query(...),
