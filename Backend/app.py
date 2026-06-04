@@ -137,12 +137,8 @@ async def lifespan(_app: FastAPI):
                for v in VENUES if v.get("eversports_facility_id")]
     print(f"[startup] Loaded {len(VENUES)} venues from MongoDB")
     print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
-    # Kick off background Eversports price scraping (non-blocking)
-    threading.Thread(
-        target=eversports_prices.refresh_prices,
-        args=(VENUES,),
-        daemon=True,
-    ).start()
+    # Kick off background Eversports price scraping in the main event loop
+    asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
     yield
 
 

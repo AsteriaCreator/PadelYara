@@ -16,7 +16,6 @@ Usage in app.py:
 
 import asyncio
 import json
-import threading
 import time
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -28,7 +27,6 @@ VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
 _TTL = 43_200           # 12 h — re-scrape each venue twice a day
 _PW_TIMEOUT = 45_000    # ms — page load timeout
-_SCRAPE_SEM = threading.Semaphore(1)  # one Playwright browser at a time
 
 _PW_ARGS = [
     "--no-sandbox",
@@ -126,46 +124,32 @@ async def _scrape_venue_async(venue: dict) -> list[dict]:
                 pass
 
 
-def _scrape_in_thread(venue: dict) -> None:
-    """Run _scrape_venue_async in a dedicated event loop, guarded by semaphore."""
-    with _SCRAPE_SEM:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        try:
-            slots = loop.run_until_complete(_scrape_venue_async(venue))
-            if slots:
-                with _PRICE_LOCK:
-                    _PRICE_CACHE[venue["id"]] = {
-                        "slots":      slots,
-                        "scraped_at": time.monotonic(),
-                    }
-        except Exception as exc:
-            print(json.dumps({
-                "event":    "ev_price_thread_error",
-                "venue_id": venue["id"],
-                "error":    str(exc),
-            }))
-        finally:
-            loop.close()
+_STAGGER_SECONDS = 30  # delay between venue scrapes
+_ASYNC_SEM = asyncio.Semaphore(1)  # one Playwright browser at a time
 
 
-_STAGGER_SECONDS = 30  # delay between launching each venue scrape at startup
+async def _scrape_and_cache(venue: dict) -> None:
+    async with _ASYNC_SEM:
+        slots = await _scrape_venue_async(venue)
+        if slots:
+            with _PRICE_LOCK:
+                _PRICE_CACHE[venue["id"]] = {
+                    "slots":      slots,
+                    "scraped_at": time.monotonic(),
+                }
 
 
-def refresh_prices(venues: list[dict]) -> None:
+async def refresh_prices_async(venues: list[dict]) -> None:
     """
-    Kick off background price scraping for all active Eversports venues
-    whose cache has expired (or is absent).  Non-blocking — returns immediately.
-
-    Venues are staggered by _STAGGER_SECONDS so they don't all launch
-    Playwright at once and spike Railway's CPU/RAM on startup.
+    Async background task — scrape all stale Eversports venues with a stagger
+    delay.  Call via asyncio.create_task() so it runs in the main event loop.
     """
     print(json.dumps({"event": "ev_price_refresh_called", "venue_count": len(venues)}))
     ev_venues = [
         v for v in venues
         if v.get("platform") == "Eversports"
         and v.get("booking_url")
-        and not v.get("issues")   # skip phone-only etc.
+        and not v.get("issues")
     ]
     now = time.monotonic()
     stale = [
@@ -175,23 +159,15 @@ def refresh_prices(venues: list[dict]) -> None:
             and now - entry["scraped_at"] < _TTL
         )
     ]
-
-    if not stale:
-        return
-
-    def _staggered():
-        for i, venue in enumerate(stale):
-            if i > 0:
-                time.sleep(_STAGGER_SECONDS)
-            print(json.dumps({
-                "event":    "ev_price_refresh_queued",
-                "venue_id": venue["id"],
-                "index":    i,
-                "total":    len(stale),
-            }))
-            _scrape_in_thread(venue)   # blocks until done (semaphore inside)
-
-    threading.Thread(target=_staggered, daemon=True).start()
+    print(json.dumps({"event": "ev_price_stale_venues", "stale": [v["id"] for v in stale]}))
+    for i, venue in enumerate(stale):
+        if i > 0:
+            await asyncio.sleep(_STAGGER_SECONDS)
+        print(json.dumps({
+            "event": "ev_price_refresh_queued", "venue_id": venue["id"],
+            "index": i, "total": len(stale),
+        }))
+        await _scrape_and_cache(venue)
 
 
 def get_price(venue_id: str, date_str: str, time_hhmm: str) -> int | None:
