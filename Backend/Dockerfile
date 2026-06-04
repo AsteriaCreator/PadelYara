@@ -26,6 +26,7 @@ COPY Backend/venues.py            ./venues.py
 COPY Backend/venues_mongo.py      ./venues_mongo.py
 COPY Backend/weather.py           ./weather.py
 COPY Backend/distance.py          ./distance.py
+COPY Backend/eversports_prices.py ./eversports_prices.py
 
 # Verify key imports at build time — catches missing libs before deploy
 RUN python -c "from curl_cffi.requests import AsyncSession; from fastapi import FastAPI; import uvicorn; from eversports_service import check_eversports_slot; print('[build] imports OK')"

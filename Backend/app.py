@@ -35,6 +35,7 @@ from analytics import (
     track_search_failed,
 )
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
+import eversports_prices
 
 # Eversports venues can have 30-min or 60-min slots depending on the court
 # (e.g. Traiskirchen Court 3 has 30-min slots), so check both offsets.
@@ -136,8 +137,12 @@ async def lifespan(_app: FastAPI):
                for v in VENUES if v.get("eversports_facility_id")]
     print(f"[startup] Loaded {len(VENUES)} venues from MongoDB")
     print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
-    from eversports_service import _CALENDAR_PROXY_URL, _SLOT_URL
-    print(json.dumps({"event": "startup_ev_config", "calendar_proxy": _CALENDAR_PROXY_URL, "slot_url": _SLOT_URL}))
+    # Kick off background Eversports price scraping (non-blocking)
+    threading.Thread(
+        target=eversports_prices.refresh_prices,
+        args=(VENUES,),
+        daemon=True,
+    ).start()
     yield
 
 
@@ -589,6 +594,13 @@ async def search(
                 result["price_eur"] = ev_result["price_eur"]
             if ev_result.get("slot_duration_h") is not None:
                 result["slot_duration_h"] = ev_result["slot_duration_h"]
+            # Look up price from Playwright-scraped cache if not already set
+            if result.get("price_eur") is None:
+                cached_price = eversports_prices.get_price(
+                    result["venue_id"], date_str_ev, time_hhmm
+                )
+                if cached_price is not None:
+                    result["price_eur"] = cached_price
             if status in ("busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
