@@ -594,13 +594,6 @@ async def search(
                 result["price_eur"] = ev_result["price_eur"]
             if ev_result.get("slot_duration_h") is not None:
                 result["slot_duration_h"] = ev_result["slot_duration_h"]
-            # Look up price from Playwright-scraped cache if not already set
-            if result.get("price_eur") is None:
-                cached_price = eversports_prices.get_price(
-                    result["venue_id"], date_str_ev, time_hhmm
-                )
-                if cached_price is not None:
-                    result["price_eur"] = cached_price
             if status in ("busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
@@ -634,6 +627,11 @@ async def search(
                         status, ts, ttl = entry
                         if now_t - ts < ttl:
                             r["availability_status"] = status
+                            cached_price = eversports_prices.get_price(
+                                r["venue_id"], date_str_ev, time_hhmm
+                            )
+                            if cached_price is not None:
+                                r["price_eur"] = cached_price
 
             # Mark remaining uncached results as pending; kick off async tasks.
             ev_pending = []
