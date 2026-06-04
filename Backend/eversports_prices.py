@@ -160,6 +160,7 @@ def refresh_prices(venues: list[dict]) -> None:
     Venues are staggered by _STAGGER_SECONDS so they don't all launch
     Playwright at once and spike Railway's CPU/RAM on startup.
     """
+    print(json.dumps({"event": "ev_price_refresh_called", "venue_count": len(venues)}))
     ev_venues = [
         v for v in venues
         if v.get("platform") == "Eversports"
