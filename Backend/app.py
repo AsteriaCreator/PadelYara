@@ -567,12 +567,13 @@ async def search(
                 )
                 try:
                     ev_result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=30)
-                    return ev_result.get("status", "platform_check_required")
+                    return ev_result
                 except Exception as exc:
                     print(json.dumps({"event": "eversports_thread_error", "venue_id": result["venue_id"], "error": str(exc)}))
-                    return "platform_check_required"
+                    return {"status": "platform_check_required", "slots_count": 0}
 
-            status = _run(f"{time_hhmm[:2]}:{time_hhmm[2:]}", date_str_ev)
+            ev_result = _run(f"{time_hhmm[:2]}:{time_hhmm[2:]}", date_str_ev)
+            status = ev_result.get("status", "platform_check_required")
             if status in ("free", "no_slot", "busy", "platform_check_required"):
                 ttl = (_EV_BUSY_TTL   if status == "busy"
                        else _EV_FAILED_TTL if status == "platform_check_required"
@@ -582,11 +583,16 @@ async def search(
                         _purge_ev_result_cache()
                     _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic(), ttl)
             result["availability_status"] = status
+            if ev_result.get("price_eur") is not None:
+                result["price_eur"] = ev_result["price_eur"]
+            if ev_result.get("slot_duration_h") is not None:
+                result["slot_duration_h"] = ev_result["slot_duration_h"]
             if status in ("busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
-                    dt_fb    = dt + timedelta(minutes=offset_min)
-                    fb_status = _run(dt_fb.strftime("%H:%M"), dt_fb.strftime("%Y-%m-%d"))
+                    dt_fb     = dt + timedelta(minutes=offset_min)
+                    fb_result = _run(dt_fb.strftime("%H:%M"), dt_fb.strftime("%Y-%m-%d"))
+                    fb_status = fb_result.get("status", "platform_check_required")
                     print(json.dumps({
                         "event":      "eversports_fallback_result",
                         "venue_id":   result["venue_id"],

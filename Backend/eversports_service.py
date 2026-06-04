@@ -19,7 +19,8 @@ from curl_cffi.requests import AsyncSession
 # If EVERSPORTS_SLOT_PROXY is set, use that URL instead of hitting eversports.at
 # directly. Intended for the Vercel Edge Function proxy which runs on CF's own
 # network and is not subject to Railway's IP block.
-_SLOT_URL     = os.environ.get("EVERSPORTS_SLOT_PROXY") or "https://www.eversports.at/api/slot"
+_SLOT_URL          = os.environ.get("EVERSPORTS_SLOT_PROXY") or "https://www.eversports.at/api/slot"
+_CALENDAR_PROXY_URL: str | None = os.environ.get("EVERSPORTS_CALENDAR_PROXY")
 _CAL_URL      = "https://www.eversports.at/api/booking/calendar/update"
 _ES_BASE      = "https://www.eversports.at"
 _PW_ARGS      = [
@@ -164,37 +165,57 @@ def _dp_date(iso_date: str) -> str:
     return datetime.strptime(iso_date, "%Y-%m-%d").strftime("%d/%m/%Y")
 
 
-def _parse_calendar_html(html: str, date: str, time_hhmm: str) -> tuple[str, int] | None:
+def _parse_calendar_html(
+    html: str, date: str, time_hhmm: str
+) -> tuple[str, int, int | None, float | None] | None:
     """
     Scan raw calendar HTML for <td data-date=... data-start=... data-state=...>.
-    Returns (status, matched_cell_count) or None when no matching cells found.
+    Returns (status, matched_cell_count, min_price_eur, slot_duration_h) or None.
+    price and duration are None when not present in the HTML.
     """
     all_states: list[str] = []
     matched: list[str] = []
+    prices: list[int] = []
+    duration_h: float | None = None
     total_cells = 0
 
     for m in re.finditer(r"<td\b([^>]*)>", html, re.IGNORECASE):
         attrs = m.group(1)
-        d = re.search(r'data-date="([^"]*)"',  attrs)
-        s = re.search(r'data-start="([^"]*)"', attrs)
+        d  = re.search(r'data-date="([^"]*)"',  attrs)
+        s  = re.search(r'data-start="([^"]*)"', attrs)
         st = re.search(r'data-state="([^"]*)"', attrs)
         if d and s and st:
             total_cells += 1
             all_states.append(st.group(1))
             if d.group(1) == date and s.group(1) == time_hhmm:
                 matched.append(st.group(1))
+                p = re.search(r'data-price="([^"]*)"', attrs)
+                if p and p.group(1).isdigit():
+                    prices.append(int(p.group(1)))
+                if duration_h is None:
+                    e = re.search(r'data-end="([^"]*)"', attrs)
+                    if e:
+                        try:
+                            start_m = int(time_hhmm[:2]) * 60 + int(time_hhmm[2:])
+                            end_s   = e.group(1)
+                            end_m   = int(end_s[:2]) * 60 + int(end_s[2:])
+                            if end_m > start_m:
+                                duration_h = (end_m - start_m) / 60.0
+                        except (ValueError, IndexError):
+                            pass
 
+    min_price = min(prices) if prices else None
     print(
         f"[cal-html] total_cells={total_cells}  matched={matched}  "
-        f"date={date}  time={time_hhmm}"
+        f"date={date}  time={time_hhmm}  min_price={min_price}  duration_h={duration_h}"
     )
     if not matched:
         return None
     if "free" in matched:
-        return "free", len(matched)
+        return "free", len(matched), min_price, duration_h
     if all(s == "busy" for s in matched):
-        return "busy", len(matched)
-    return "platform_check_required", len(matched)
+        return "busy", len(matched), min_price, duration_h
+    return "platform_check_required", len(matched), min_price, duration_h
 
 
 # ---------------------------------------------------------------------------
@@ -203,7 +224,7 @@ def _parse_calendar_html(html: str, date: str, time_hhmm: str) -> tuple[str, int
 
 async def _check_via_calendar_post(
     facility_id: int, venue_url: str, date: str, time_hhmm: str
-) -> tuple[str, int] | None:
+) -> tuple[str, int, int | None, float | None] | None:
     """
     Fast path: use curl_cffi (Chrome TLS fingerprint) to:
       1. GET the booking page → extract CSRF token + session cookies
@@ -301,11 +322,64 @@ async def _check_via_calendar_post(
                 print(f"[cal-post] no cells matched {date}/{time_hhmm}")
                 return None
 
-            print(f"[cal-post] result={result[0]}  matched_cells={result[1]}")
+            print(f"[cal-post] result={result[0]}  matched_cells={result[1]}  price={result[2]}  duration_h={result[3]}")
             return result
 
     except Exception as e:
         print(f"[cal-post] exception: {type(e).__name__}: {e}")
+        return None
+
+
+# ---------------------------------------------------------------------------
+# Method 1b: Vercel edge proxy for calendar HTML (Railway-safe, returns prices)
+# ---------------------------------------------------------------------------
+
+async def _check_via_calendar_proxy(
+    facility_id: int, venue_url: str, date: str, time_hhmm: str
+) -> tuple[str, int, int | None, float | None] | None:
+    """
+    Call the Vercel edge proxy (EVERSPORTS_CALENDAR_PROXY) to fetch calendar HTML.
+    The proxy does the GET→POST session dance from CF's own network, bypassing
+    the Cloudflare WAF block that affects Railway's egress IPs.
+
+    Returns (status, count, min_price_eur, slot_duration_h) or None on failure.
+    """
+    if not _CALENDAR_PROXY_URL:
+        return None
+
+    print(f"[cal-proxy] start  facility_id={facility_id}  url={venue_url}  date={date}  time={time_hhmm}")
+    try:
+        async with AsyncSession(impersonate="chrome124") as session:
+            r = await session.post(
+                _CALENDAR_PROXY_URL,
+                json={
+                    "venue_url":   venue_url,
+                    "facility_id": str(facility_id),
+                    "date":        date,
+                    "time_hhmm":   time_hhmm,
+                },
+                timeout=25,
+            )
+        print(
+            f"[cal-proxy] response  status={r.status_code}"
+            f"  has_td={'<td' in r.text}"
+            f"  csrf_found={r.headers.get('X-CSRF-Found', '?')}"
+            f"  body[:200]={r.text[:200]!r}"
+        )
+        if r.status_code != 200:
+            return None
+        cal_html = r.text
+        if not cal_html.strip() or "<td" not in cal_html:
+            print("[cal-proxy] response has no <td> — empty or wrong format")
+            return None
+        result = _parse_calendar_html(cal_html, date, time_hhmm)
+        if result is None:
+            print(f"[cal-proxy] no cells matched {date}/{time_hhmm}")
+            return None
+        print(f"[cal-proxy] result={result[0]}  cells={result[1]}  price={result[2]}  duration_h={result[3]}")
+        return result
+    except Exception as e:
+        print(f"[cal-proxy] exception: {type(e).__name__}: {e}")
         return None
 
 
@@ -762,20 +836,32 @@ async def check_eversports_slot(
         print(json.dumps(entry))
 
     try:
-        # ── Method 1: direct curl_cffi POST to /api/booking/calendar/update ─
+        # ── Method 1a: Vercel calendar proxy — Railway-safe, returns prices ─────
+        # When EVERSPORTS_CALENDAR_PROXY is set, try it first. The Vercel edge
+        # function runs on CF's own network so the calendar POST is not blocked.
+        # This is the preferred path on Railway because it also returns data-price.
+        if venue_url and _CALENDAR_PROXY_URL:
+            result = await _check_via_calendar_proxy(facility_id, venue_url, date, time_hhmm)
+            if result is not None:
+                status, count, price_eur, duration_h = result
+                print(f"[check] cal-proxy succeeded  status={status}  count={count}  price={price_eur}")
+                _log(status, count)
+                return {"status": status, "slots_count": count, "price_eur": price_eur, "slot_duration_h": duration_h}
+            print("[check] cal-proxy failed — falling through to /api/slot")
+
+        # ── Method 1b: direct curl_cffi POST to /api/booking/calendar/update ──
         # Works on non-Railway IPs; blocked by Cloudflare WAF from Railway's IP.
-        # Skipped when a slot proxy is configured — /api/slot via proxy is faster
-        # and more reliable, so there's no point trying the calendar POST first.
+        # Skipped when a slot proxy is configured (Railway uses /api/slot instead).
         _slot_proxied = _SLOT_URL != "https://www.eversports.at/api/slot"
         if venue_url and _slot_proxied:
             print("[check] slot proxy configured — skipping cal-post, going straight to /api/slot")
         if venue_url and not _slot_proxied:
             result = await _check_via_calendar_post(facility_id, venue_url, date, time_hhmm)
             if result is not None:
-                status, count = result
-                print(f"[check] cal-post succeeded  status={status}  count={count}")
+                status, count, price_eur, duration_h = result
+                print(f"[check] cal-post succeeded  status={status}  count={count}  price={price_eur}")
                 _log(status, count)
-                return {"status": status, "slots_count": count}
+                return {"status": status, "slots_count": count, "price_eur": price_eur, "slot_duration_h": duration_h}
             print("[check] cal-post failed (likely Cloudflare block) — trying /api/slot")
 
         # ── Method 2: /api/slot — primary path on Railway ─────────────────────
