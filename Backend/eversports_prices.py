@@ -149,10 +149,16 @@ def _scrape_in_thread(venue: dict) -> None:
             loop.close()
 
 
+_STAGGER_SECONDS = 30  # delay between launching each venue scrape at startup
+
+
 def refresh_prices(venues: list[dict]) -> None:
     """
     Kick off background price scraping for all active Eversports venues
     whose cache has expired (or is absent).  Non-blocking — returns immediately.
+
+    Venues are staggered by _STAGGER_SECONDS so they don't all launch
+    Playwright at once and spike Railway's CPU/RAM on startup.
     """
     ev_venues = [
         v for v in venues
@@ -161,20 +167,30 @@ def refresh_prices(venues: list[dict]) -> None:
         and not v.get("issues")   # skip phone-only etc.
     ]
     now = time.monotonic()
-    for venue in ev_venues:
-        with _PRICE_LOCK:
-            entry = _PRICE_CACHE.get(venue["id"])
-            if entry and now - entry["scraped_at"] < _TTL:
-                continue   # cache still fresh — skip
-        print(json.dumps({
-            "event":    "ev_price_refresh_queued",
-            "venue_id": venue["id"],
-        }))
-        threading.Thread(
-            target=_scrape_in_thread,
-            args=(venue,),
-            daemon=True,
-        ).start()
+    stale = [
+        v for v in ev_venues
+        if not (
+            (entry := _PRICE_CACHE.get(v["id"]))
+            and now - entry["scraped_at"] < _TTL
+        )
+    ]
+
+    if not stale:
+        return
+
+    def _staggered():
+        for i, venue in enumerate(stale):
+            if i > 0:
+                time.sleep(_STAGGER_SECONDS)
+            print(json.dumps({
+                "event":    "ev_price_refresh_queued",
+                "venue_id": venue["id"],
+                "index":    i,
+                "total":    len(stale),
+            }))
+            _scrape_in_thread(venue)   # blocks until done (semaphore inside)
+
+    threading.Thread(target=_staggered, daemon=True).start()
 
 
 def get_price(venue_id: str, date_str: str, time_hhmm: str) -> int | None:
