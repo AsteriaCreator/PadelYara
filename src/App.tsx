@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect } from "react"
+import { Routes, Route, NavLink } from "react-router-dom"
 import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
@@ -24,10 +25,7 @@ function mergeResults(existing: Venue[], incoming: Venue[]): Venue[] {
   ]
 }
 
-export default function App() {
-  if (window.location.pathname === "/admin") {
-    return <AdminDashboard />
-  }
+function FinderPage() {
   const [results, setResults]               = useState<Venue[]>([])
   const [isLoading, setLoading]             = useState(false)
   const [isLoadingMore, setLoadingMore]     = useState(false)
@@ -36,9 +34,6 @@ export default function App() {
   const [error, setError]                   = useState<string | null>(null)
   const [searched, setSearched]             = useState(false)
   const [_pollingExpired, setPollingExpired]        = useState(false)
-  // true while a refresh setTimeout is scheduled and hasn't resolved yet.
-  // Distinct from pollingExpired: pollingActive=false means nothing is running;
-  // pollingExpired=true means it ran out of attempts with venues still pending.
   const [pollingActive,  setPollingActive]          = useState(false)
   const activePollsRef = useRef(0)
   const [lastUpdated, setLastUpdated]               = useState<number | null>(null)
@@ -47,8 +42,8 @@ export default function App() {
   const [searchLabel, setSearchLabel]               = useState<string | null>(null)
   const [searchWeather, setSearchWeather]           = useState<Weather | null>(null)
   const [showImprint, setShowImprint]       = useState(false)
-  const [activeTab, setActiveTab]           = useState<"finder" | "about">("finder")
   const [courtFilter, setCourtFilter]       = useState<{ indoor: boolean; outdoor: boolean }>({ indoor: true, outdoor: true })
+  const [statusFilter, setStatusFilter]     = useState<{ frei: boolean; belegt: boolean }>({ frei: true, belegt: true })
 
   const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
   const lastParamsRef = useRef<SearchParams | null>(null)
@@ -122,6 +117,7 @@ export default function App() {
     setSearchWeather(null)
     setBookingWindowNotice(null)
     setCourtFilter({ indoor: true, outdoor: true })
+    setStatusFilter({ frei: true, belegt: true })
 
     let coords: { lat: number; lon: number } | null
     try {
@@ -213,10 +209,17 @@ export default function App() {
   }
 
   const filteredResults = results.filter((v) => {
-    if (v.court_type === "indoor") return courtFilter.indoor
-    if (v.court_type === "outdoor") return courtFilter.outdoor
-    // indoor+outdoor venues: show if either type is visible
-    return courtFilter.indoor || courtFilter.outdoor
+    if (v.court_type === "indoor" && !courtFilter.indoor) return false
+    if (v.court_type === "outdoor" && !courtFilter.outdoor) return false
+    if (v.court_type !== "indoor" && v.court_type !== "outdoor") {
+      if (!courtFilter.indoor && !courtFilter.outdoor) return false
+    }
+    if (v.status !== "pending") {
+      const isFree = v.status === "free"
+      if (isFree && !statusFilter.frei) return false
+      if (!isFree && !statusFilter.belegt) return false
+    }
+    return true
   })
 
   const skeletonCount = results.length > 0 ? results.length : SKELETON_COUNT
@@ -238,15 +241,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{
-      backgroundColor: "#080810",
-      backgroundImage: `
-        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212,245,60,0.18) 0%, transparent 70%),
-        repeating-linear-gradient(45deg, rgba(212,245,60,0.12) 0px 1px, transparent 1px 14px),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
-      `,
-      backgroundSize: "auto, auto, 200px 200px",
-    }}>
+    <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
       <div className="max-w-2xl mx-auto px-4 py-6">
         <div className="mb-6">
           <img
@@ -256,25 +251,9 @@ export default function App() {
           />
         </div>
 
-        <div className="mb-2 border-b border-gray-800">
-          {(["finder", "about"] as const).map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className="inline-block pb-2 text-base font-semibold mr-6 transition-colors cursor-pointer bg-transparent border-0 outline-none"
-              style={{
-                color: activeTab === tab ? "#ffffff" : "#4b5563",
-                borderBottom: activeTab === tab ? "2px solid #d4f53c" : "2px solid transparent",
-              }}
-            >
-              {tab === "finder" ? "Court Finder" : "Über Yara"}
-            </button>
-          ))}
-        </div>
+        <Nav />
 
-        {activeTab === "about" && <AboutSection />}
-
-        {activeTab === "finder" && <><p
+        <p
           className="text-base italic mb-4 mt-2"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
         >
@@ -290,7 +269,7 @@ export default function App() {
           .
         </p>
 
-        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} />
+        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} />
 
         {!searched && !isLoading && !error && (
           <div className="text-center py-8 text-gray-600 text-sm">
@@ -404,7 +383,6 @@ export default function App() {
             Zuletzt aktualisiert {secondsSince < 10 ? "gerade eben" : `vor ${secondsSince} Sekunden`}
           </p>
         )}
-        </>}
       </div>
 
       <footer className="text-center py-8 mt-4">
@@ -419,5 +397,56 @@ export default function App() {
 
       {showImprint && <ImprintModal onClose={() => setShowImprint(false)} />}
     </div>
+  )
+}
+
+const NAV_LINK_STYLE = ({ isActive }: { isActive: boolean }) => ({
+  display: "inline-block",
+  paddingBottom: "8px",
+  fontSize: "1rem",
+  fontWeight: 600,
+  marginRight: "24px",
+  color: isActive ? "#ffffff" : "#4b5563",
+  borderBottom: isActive ? "2px solid #d4f53c" : "2px solid transparent",
+  textDecoration: "none",
+  transition: "color 0.15s",
+})
+
+function Nav() {
+  return (
+    <div className="mb-2 border-b border-gray-800">
+      <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
+      <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
+    </div>
+  )
+}
+
+const BG_STYLE: React.CSSProperties = {
+  backgroundColor: "#080810",
+  backgroundImage: `
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212,245,60,0.18) 0%, transparent 70%),
+    repeating-linear-gradient(45deg, rgba(212,245,60,0.12) 0px 1px, transparent 1px 14px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")
+  `,
+  backgroundSize: "auto, auto, 200px 200px",
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/about" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <AboutSection />
+          </div>
+        </div>
+      } />
+      <Route path="/*" element={<FinderPage />} />
+    </Routes>
   )
 }

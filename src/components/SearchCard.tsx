@@ -28,6 +28,8 @@ interface Props {
   isLoading: boolean
   courtFilter: { indoor: boolean; outdoor: boolean }
   onCourtFilterChange: (filter: { indoor: boolean; outdoor: boolean }) => void
+  statusFilter: { frei: boolean; belegt: boolean }
+  onStatusFilterChange: (filter: { frei: boolean; belegt: boolean }) => void
 }
 
 // "sv-SE" locale produces "YYYY-MM-DD HH:mm:ss" — stable cross-browser
@@ -72,7 +74,7 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   return parseInt(timeStr) <= v.hour
 }
 
-export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange }: Props) {
+export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange, statusFilter, onStatusFilterChange }: Props) {
   const { date: defaultDate, time: defaultTime } = getNextFullHour()
 
   const [date, setDate]           = useState(defaultDate)
@@ -247,20 +249,38 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
         </div>
       </div>
 
-      <div className="mb-3">
-        <label className={`${labelClass} block mb-2`} style={labelStyle}>Court-Typ</label>
-        <div className="flex gap-4">
-          {(["indoor", "outdoor"] as const).map((type) => (
-            <label key={type} className="flex items-center gap-2 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                checked={courtFilter[type]}
-                onChange={(e) => onCourtFilterChange({ ...courtFilter, [type]: e.target.checked })}
-                className="w-4 h-4 rounded accent-[#d4f53c] cursor-pointer"
-              />
-              <span className="text-sm text-white capitalize">{type === "indoor" ? "Indoor" : "Outdoor"}</span>
-            </label>
-          ))}
+      <div className="mb-3 flex flex-wrap gap-x-6 gap-y-3">
+        <div>
+          <label className={`${labelClass} block mb-2`} style={labelStyle}>Court-Typ</label>
+          <div className="flex gap-4">
+            {(["indoor", "outdoor"] as const).map((type) => (
+              <label key={type} className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={courtFilter[type]}
+                  onChange={(e) => onCourtFilterChange({ ...courtFilter, [type]: e.target.checked })}
+                  className="w-4 h-4 rounded accent-[#d4f53c] cursor-pointer"
+                />
+                <span className="text-sm text-white capitalize">{type === "indoor" ? "Indoor" : "Outdoor"}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+        <div>
+          <label className={`${labelClass} block mb-2`} style={labelStyle}>Verfügbarkeit</label>
+          <div className="flex gap-4">
+            {(["frei", "belegt"] as const).map((s) => (
+              <label key={s} className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={statusFilter[s]}
+                  onChange={(e) => onStatusFilterChange({ ...statusFilter, [s]: e.target.checked })}
+                  className="w-4 h-4 rounded accent-[#d4f53c] cursor-pointer"
+                />
+                <span className="text-sm text-white capitalize">{s === "frei" ? "Frei" : "Belegt"}</span>
+              </label>
+            ))}
+          </div>
         </div>
       </div>
 
