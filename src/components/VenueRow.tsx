@@ -81,11 +81,16 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
       <div className="flex items-center justify-between mb-1 min-w-0">
         <span className="font-semibold text-white truncate min-w-0 text-sm">{venue.name}</span>
         <div className="flex flex-col items-end shrink-0 ml-3">
-          <span
-            className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}
-            >
-            {STATUS_LABEL[displayStatus]}
-          </span>
+          <div className="flex items-center gap-2">
+            {venue.price_eur != null && (
+              <span className="text-xs font-semibold text-white whitespace-nowrap">
+                € {venue.price_eur}{venue.slot_duration_h != null ? ` / ${venue.slot_duration_h}h` : ""}
+              </span>
+            )}
+            <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
+              {STATUS_LABEL[displayStatus]}
+            </span>
+          </div>
           {venue.time_adjusted && venue.adjustment_label && (
             <span className="text-xs text-amber-400 mt-0.5 whitespace-nowrap">
               {venue.adjustment_label}
@@ -93,37 +98,27 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
           )}
         </div>
       </div>
-      <div className="flex items-end justify-between gap-3">
+      <div className="flex items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-x-2 text-xs text-gray-500 min-w-0">
           <span>{courtIcon} {venue.court_type}</span>
           {venue.distance_km != null && (
             <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
           )}
         </div>
-        <div className="flex flex-col items-end gap-1.5 shrink-0">
-          {venue.price_eur != null && (
-            <div className="flex items-baseline gap-1">
-              <span className="text-base font-bold text-white">€ {venue.price_eur}</span>
-              {venue.slot_duration_h != null && (
-                <span className="text-xs text-gray-400">/ {venue.slot_duration_h}h</span>
-              )}
-            </div>
-          )}
-          <a
-            href={
-              searchDate && venue.platform === "eTennis"
-                ? etennisBookingUrl(venue.booking_url, searchDate)
-                : venue.booking_url
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackBookingClick(venue.id, venue.platform)}
-            className={`text-xs font-semibold px-3 py-1.5 rounded whitespace-nowrap ${bookingStyle}`}
-            style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
-          >
-            {bookingLabel}
-          </a>
-        </div>
+        <a
+          href={
+            searchDate && venue.platform === "eTennis"
+              ? etennisBookingUrl(venue.booking_url, searchDate)
+              : venue.booking_url
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackBookingClick(venue.id, venue.platform)}
+          className={`text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
+          style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
+        >
+          {bookingLabel}
+        </a>
       </div>
     </div>
   )
