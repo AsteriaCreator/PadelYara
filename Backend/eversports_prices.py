@@ -122,7 +122,7 @@ async def refresh_prices_async(venues: list[dict]) -> None:
     with a stagger delay. Use asyncio.create_task() to run in background.
     Deduplication: only one refresh runs at a time.
     """
-    global _refresh_running
+    global _refresh_running  # noqa: PLW0603
     async with _refresh_lock:
         if _refresh_running:
             print("[ev-prices] refresh already in progress — skipping")
@@ -160,7 +160,6 @@ async def refresh_prices_async(venues: list[dict]) -> None:
                         "scraped_at": time.monotonic(),
                     }
     finally:
-        global _refresh_running
         _refresh_running = False
         print("[ev-prices] refresh_done")
 
