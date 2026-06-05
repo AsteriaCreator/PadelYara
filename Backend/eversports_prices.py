@@ -71,12 +71,16 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         **_PADEL_SPORT,
     }
 
+    # Build body with literal square brackets — dict encoding would escape them
+    # as %5B/%5D which the Eversports server doesn't recognise as sport[] params.
+    raw_body = "&".join(f"{k}={v}" for k, v in post_data.items())
+
     print(f"[ev-prices] post_start  venue={vid}  facility={facility_id}  date={date_str}")
     try:
         async with AsyncSession(impersonate="chrome124") as session:
             r = await session.post(
                 _CAL_URL,
-                data=post_data,
+                data=raw_body,
                 headers={
                     "Content-Type":     "application/x-www-form-urlencoded; charset=UTF-8",
                     "X-Requested-With": "XMLHttpRequest",
@@ -88,8 +92,9 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
                 timeout=20,
             )
 
-        has_td = "<td" in r.text
-        print(f"[ev-prices] post_response  venue={vid}  status={r.status_code}  has_td={has_td}  body[:80]={r.text[:80]!r}")
+        has_td    = "<td" in r.text
+        has_price = "data-price" in r.text
+        print(f"[ev-prices] post_response  venue={vid}  status={r.status_code}  has_td={has_td}  has_price={has_price}  body[:80]={r.text[:80]!r}")
 
         if r.status_code != 200 or not has_td:
             return []
