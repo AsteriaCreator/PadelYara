@@ -304,7 +304,7 @@ Stable production behavior is extremely valuable.
 
 **Use `add_venue.py` → `patch_venue.py`** when you only have the URL and need Claude to fetch platform data (facility ID, court IDs) automatically.
 
-**Skip both scripts and write directly to MongoDB** when you already have the complete JSON from the Claude browser prompt. In that case, a single `$set` upsert with all fields populated + `active: true` is faster and avoids the interactive prompt in `patch_venue.py`:
+**Skip both scripts and write directly to MongoDB** when you already have the complete JSON from the Claude browser prompt. Before inserting, always display the full document in chat for review. Only write to MongoDB after confirmation. In that case, a single `$set` upsert with all fields populated + `active: true` is faster and avoids the interactive prompt in `patch_venue.py`:
 
 ```python
 col.update_one(
