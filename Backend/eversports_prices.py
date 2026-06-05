@@ -101,6 +101,10 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         if r.status_code != 200 or not has_td:
             return []
 
+        # Show first data-price occurrence in context to understand structure
+        idx = r.text.find("data-price")
+        print(f"[ev-prices] price_context  venue={vid}  ctx={r.text[max(0,idx-80):idx+80]!r}")
+
         # Parse td[data-date][data-start][data-price] elements
         slots: list[dict] = []
         for m in re.finditer(r"<td\b([^>]*)>", r.text, re.IGNORECASE):
