@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import type { SearchParams } from "../types"
+import type { SearchParams, CourtType } from "../types"
 import { TIME_SLOTS } from "../constants"
 import { suggest, type Suggestion, type Coords } from "../geocode"
 
@@ -147,7 +147,12 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
     }
 
     setFormError(null)
-    onSearch({ date, time, court_type: "both", location: trimmedLocation, radius })
+    const court_type: CourtType =
+      courtFilter.indoor && courtFilter.outdoor ? "both"
+      : courtFilter.indoor ? "indoor"
+      : courtFilter.outdoor ? "outdoor"
+      : "both"
+    onSearch({ date, time, court_type, location: trimmedLocation, radius })
   }
 
   return (

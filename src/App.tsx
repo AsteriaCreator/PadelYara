@@ -130,7 +130,6 @@ function FinderPage() {
     setSearchLabel(null)
     setSearchWeather(null)
     setBookingWindowNotice(null)
-    setCourtFilter({ indoor: true, outdoor: true })
 
     let coords: { lat: number; lon: number } | null
     try {
