@@ -92,9 +92,11 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
                 timeout=20,
             )
 
-        has_td    = "<td" in r.text
-        has_price = "data-price" in r.text
-        print(f"[ev-prices] post_response  venue={vid}  status={r.status_code}  has_td={has_td}  has_price={has_price}  body[:80]={r.text[:80]!r}")
+        has_td       = "<td" in r.text
+        has_price    = "data-price" in r.text
+        has_price_td = bool(re.search(r'<td[^>]*data-price', r.text, re.IGNORECASE))
+        td_count     = r.text.count("<td")
+        print(f"[ev-prices] post_response  venue={vid}  status={r.status_code}  has_price_td={has_price_td}  td_count={td_count}  body[:200]={r.text[:200]!r}")
 
         if r.status_code != 200 or not has_td:
             return []
