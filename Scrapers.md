@@ -321,10 +321,11 @@ The two-step pipeline exists for when you *don't* have the data yet. If you do, 
 
 - `operator` — brand only (e.g. `Padelzone`, `Padeldome`, `Padel4Fun`)
 - `name` — location label only (e.g. `Traiskirchen`, `Wien Floridsdorf`, `Alt Erlaa`)
-- Frontend displays as `{operator} {name}`
+- Frontend displays as `{operator} {name}` — but if they're equal or one contains the other, it shows only one. For self-operated venues with no separate brand, set both to the full venue name (e.g. `"Sportzentrum Marswiese"` / `"Sportzentrum Marswiese"`).
 - `court_type` — `indoor`, `outdoor`, or `indoor+outdoor`
 - `courts` — array of `{id: "123", type: "indoor_normal"}` — parallel to `eversports_court_ids`
 - Court type values: `indoor_normal`, `indoor_single`, `outdoor_normal`, `outdoor_single`
+- `issues` — set to `"phone_booking_only"` for venues that have an Eversports/eTennis page but don't offer online booking. Leave `eversports_facility_id: null` and `eversports_court_ids: []` — the scraper won't run but the venue still appears in results.
 
 ---
 
