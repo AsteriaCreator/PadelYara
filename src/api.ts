@@ -40,6 +40,7 @@ export function trackBookingClick(venueId: string, platform: string): void {
 type RawVenue = {
   venue_id: string
   name: string
+  operator?: string
   platform: string
   distance_km: number | null
   court_type: string
@@ -57,6 +58,7 @@ function mapVenue(v: RawVenue): Venue {
   return {
     id: v.venue_id,
     name: v.name,
+    operator: v.operator,
     court_type: v.court_type as Venue["court_type"],
     platform: v.platform as Venue["platform"],
     booking_url: v.booking_url,

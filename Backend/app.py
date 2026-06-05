@@ -245,6 +245,7 @@ def _build_venue_result(venue: dict) -> VenueResult:
     return {
         "venue_id":            venue["id"],
         "name":                venue["name"],
+        "operator":            venue.get("operator", ""),
         "region":              venue["region"],
         "court_type":          venue["court_type"],
         "platform":            venue["platform"],

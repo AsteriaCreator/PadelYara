@@ -21,6 +21,7 @@ export interface Weather {
 export interface Venue {
   id: string
   name: string
+  operator?: string
   court_type: "indoor" | "outdoor" | "indoor+outdoor"
   platform: "eTennis" | "Eversports" | "Andere"
   booking_url: string
