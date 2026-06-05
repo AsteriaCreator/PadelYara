@@ -43,6 +43,7 @@ def _normalize(doc: dict) -> dict:
         "eversports_slug":        doc.get("eversports_slug") or None,
         "eversports_facility_id": doc.get("eversports_facility_id") or None,
         "eversports_court_ids":   list(doc.get("eversports_court_ids") or []),
+        "courts":                 list(doc.get("courts") or []),
         "issues":                 doc.get("issues") or None,
         "slot_fallback_minutes":  list(doc.get("slot_fallback_minutes") or []),
     }
