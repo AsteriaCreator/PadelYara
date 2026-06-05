@@ -60,7 +60,8 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         print(f"[ev-prices] skip  venue={vid}  reason=no_facility_id")
         return []
 
-    date_str = datetime.now(VIENNA_TZ).strftime("%Y-%m-%d")
+    from datetime import timedelta
+    date_str = (datetime.now(VIENNA_TZ).date() + timedelta(days=1)).strftime("%Y-%m-%d")
 
     post_data = {
         "facilityId":   str(facility_id),
