@@ -57,7 +57,7 @@ async def _scrape_venue_async(venue: dict) -> list[dict]:
     if not url:
         return []
 
-    print(json.dumps({"event": "ev_price_scrape_start", "venue_id": vid, "url": url}))
+    print(f"[ev-prices] scrape_start  venue={vid}  url={url}")
     t0 = time.monotonic()
 
     async with async_playwright() as pw:
@@ -76,25 +76,20 @@ async def _scrape_venue_async(venue: dict) -> list[dict]:
 
             try:
                 await page.goto(url, wait_until="networkidle", timeout=_PW_TIMEOUT)
+                print(f"[ev-prices] goto_ok  venue={vid}")
             except Exception as exc:
-                print(json.dumps({
-                    "event": "ev_price_goto_failed", "venue_id": vid, "error": str(exc)
-                }))
+                print(f"[ev-prices] goto_failed  venue={vid}  error={exc}")
                 return []
 
             # Wait for server-rendered price cells — no AJAX needed
             try:
                 await page.wait_for_selector("td[data-price]", timeout=10_000)
+                print(f"[ev-prices] cells_found  venue={vid}")
             except PWTimeout:
-                # Page loaded but no price cells — check if it's a CF challenge
                 body_snippet = await page.evaluate(
                     "() => document.body?.innerText?.slice(0, 200) || ''"
                 )
-                print(json.dumps({
-                    "event":        "ev_price_no_cells",
-                    "venue_id":     vid,
-                    "body_snippet": body_snippet,
-                }))
+                print(f"[ev-prices] no_cells  venue={vid}  body={body_snippet[:120]!r}")
                 return []
 
             slots: list[dict] = await page.evaluate("""
@@ -109,13 +104,8 @@ async def _scrape_venue_async(venue: dict) -> list[dict]:
             """)
 
             unique_prices = sorted(set(s["price"] for s in slots))
-            print(json.dumps({
-                "event":       "ev_price_scrape_done",
-                "venue_id":    vid,
-                "slot_count":  len(slots),
-                "prices":      unique_prices,
-                "duration_ms": round((time.monotonic() - t0) * 1000),
-            }))
+            ms = round((time.monotonic() - t0) * 1000)
+            print(f"[ev-prices] scrape_done  venue={vid}  slots={len(slots)}  prices={unique_prices}  ms={ms}")
             return slots
 
         finally:
@@ -145,7 +135,7 @@ async def refresh_prices_async(venues: list[dict]) -> None:
     Async background task — scrape all stale Eversports venues with a stagger
     delay.  Call via asyncio.create_task() so it runs in the main event loop.
     """
-    print(json.dumps({"event": "ev_price_refresh_called", "venue_count": len(venues)}))
+    print(f"[ev-prices] refresh_called  venues={len(venues)}")
     ev_venues = [
         v for v in venues
         if v.get("platform") == "Eversports"
@@ -160,14 +150,11 @@ async def refresh_prices_async(venues: list[dict]) -> None:
             and now - entry["scraped_at"] < _TTL
         )
     ]
-    print(json.dumps({"event": "ev_price_stale_venues", "stale": [v["id"] for v in stale]}))
+    print(f"[ev-prices] stale_venues={[v['id'] for v in stale]}")
     for i, venue in enumerate(stale):
         if i > 0:
             await asyncio.sleep(_STAGGER_SECONDS)
-        print(json.dumps({
-            "event": "ev_price_refresh_queued", "venue_id": venue["id"],
-            "index": i, "total": len(stale),
-        }))
+        print(f"[ev-prices] queued  venue={venue['id']}  {i+1}/{len(stale)}")
         await _scrape_and_cache(venue)
 
 
