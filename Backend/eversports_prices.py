@@ -109,9 +109,9 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         slots: list[dict] = []
         for m in re.finditer(r"<td\b([^>]*)>", r.text, re.IGNORECASE):
             attrs = m.group(1)
-            d  = re.search(r'data-date="([^"]*)"',  attrs)
-            s  = re.search(r'data-start="([^"]*)"', attrs)
-            p  = re.search(r'data-price="([^"]*)"', attrs)
+            d  = re.search(r'data-date=["\']([^"\']*)["\']',  attrs)
+            s  = re.search(r'data-start=["\']([^"\']*)["\']', attrs)
+            p  = re.search(r'data-price=["\']([^"\']*)["\']', attrs)
             if d and s and p and p.group(1).isdigit():
                 slots.append({
                     "date":  d.group(1),
