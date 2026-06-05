@@ -2,7 +2,7 @@
 
 ## Purpose
 
-NeoPadelChecker depends on two fundamentally different scraping systems:
+PadelYara depends on two fundamentally different scraping systems:
 
 - eTennis
 - Eversports
@@ -17,7 +17,7 @@ They should remain operationally and architecturally separated.
 
 ## Current Strategy
 
-eTennis runs directly on Render.
+eTennis runs directly on Railway (the single backend service).
 
 Implementation:
 - Playwright-based scraper
@@ -35,7 +35,7 @@ Main file:
 
 Goals:
 - very fast initial API response
-- stable Render RAM usage
+- stable Railway RAM usage
 - avoid browser explosion
 - reliable final status resolution
 
@@ -51,10 +51,9 @@ Current implementation:
 
 ## Important Constraints
 
-Render limits:
-- 512 MB RAM
-- Chromium instances are expensive
-- excessive parallelism can kill deployments
+Railway limits:
+- Chromium instances are expensive in memory
+- excessive parallelism can destabilize the deployment
 
 Important:
 Final slot resolution speed matters more than the initial pending response.
@@ -133,18 +132,18 @@ Do NOT:
 
 ## Current Architecture
 
-Eversports scraping does NOT run directly on Render.
+Eversports scraping runs on Railway, inside the same backend process as eTennis.
 
 Reason:
-Cloudflare protections make Render-based scraping unreliable.
+Cloudflare protections require browser-capable infrastructure and TLS impersonation — both available on Railway.
 
 Current architecture:
-- Render backend orchestrates requests
-- Railway microservice performs scraping
-- Playwright fallback runs on Railway
+- `eversports_service.py` is imported directly into `app.py`
+- Playwright fallback runs on the same Railway service
+- Vercel edge function proxy used for Cloudflare calendar endpoint bypass
 
 Main file:
-- `eversports_service.py`
+- `Backend/eversports_service.py`
 
 ---
 
@@ -254,13 +253,13 @@ Critical metrics:
 Frontend:
 - Vercel
 
-Backend orchestration:
-- Render
-
-Hostile scraping zone:
+Backend (all scraping — eTennis + Eversports):
 - Railway
 
-This separation is intentional.
+Cloudflare calendar bypass:
+- Vercel edge function proxy (`EVERSPORTS_CALENDAR_PROXY`)
+
+There is no longer a separate scraping microservice. Everything runs in the single Railway backend.
 
 ---
 
@@ -298,6 +297,23 @@ Stable production behavior is extremely valuable.
 | `audit_pending.py` | `python audit_pending.py` | Shows all `active: false` venues and missing fields |
 
 `patch_venue.py` accepts: Eversports slug, eTennis ID, booking URL fragment, or name fragment.
+
+---
+
+## Which Path to Use
+
+**Use `add_venue.py` → `patch_venue.py`** when you only have the URL and need Claude to fetch platform data (facility ID, court IDs) automatically.
+
+**Skip both scripts and write directly to MongoDB** when you already have the complete JSON from the Claude browser prompt. In that case, a single `$set` upsert with all fields populated + `active: true` is faster and avoids the interactive prompt in `patch_venue.py`:
+
+```python
+col.update_one(
+    {"eversports_slug": "<slug>"},          # or {"etennis_id": "<id>"}
+    {"$set": {<all fields>, "active": True}},
+)
+```
+
+The two-step pipeline exists for when you *don't* have the data yet. If you do, skip it.
 
 ---
 
