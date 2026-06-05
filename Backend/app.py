@@ -611,11 +611,11 @@ async def search(
                         break
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
+        print(json.dumps({"event": "ev_debug", "ev_count": len(ev_results), "cache_size": len(eversports_prices._PRICE_CACHE)}))
         if ev_results:
-            # Lazily kick off price scraping if cache is empty — runs in the
-            # request's event loop where asyncio.create_task is reliable.
             with eversports_prices._PRICE_LOCK:
                 price_cache_empty = not eversports_prices._PRICE_CACHE
+            print(json.dumps({"event": "ev_price_cache_check", "empty": price_cache_empty}))
             if price_cache_empty:
                 print(json.dumps({"event": "ev_price_task_creating"}))
                 asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
