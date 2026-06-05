@@ -131,7 +131,6 @@ function FinderPage() {
     setSearchWeather(null)
     setBookingWindowNotice(null)
     setCourtFilter({ indoor: true, outdoor: true })
-    setStatusFilter({ frei: true, belegt: true })
 
     let coords: { lat: number; lon: number } | null
     try {
