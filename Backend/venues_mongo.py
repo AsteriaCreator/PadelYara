@@ -31,6 +31,7 @@ def _normalize(doc: dict) -> dict:
     return {
         "id":              str(doc.get("id") or doc.get("_id", "")),
         "name":            doc.get("name", ""),
+        "operator":        doc.get("operator", ""),
         "region":          doc.get("region_label", "") or doc.get("region", ""),
         "region_key":      doc.get("region_key", ""),
         "court_type":      _COURT_TYPE_MAP.get(court_type, court_type),
