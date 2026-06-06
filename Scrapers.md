@@ -315,6 +315,8 @@ col.update_one(
 
 The two-step pipeline exists for when you *don't* have the data yet. If you do, skip it.
 
+**After any insert:** Railway must be restarted to pick up new venues. `VENUES` is loaded once at startup in `app.py` and never refreshed mid-run. Trigger a redeploy from the Railway dashboard — new venues won't appear in search results until then.
+
 ---
 
 ## Venue Schema Conventions
@@ -362,6 +364,18 @@ Use on any open booking page to extract all fields at once:
 - Alte Donau indoor: `c=3216` · Alte Donau outdoor: `c=3218`
 
 **Padelzone** — venue pages at `padelzone.at/<location>` contain Eversports links. Homepage has none.
+
+---
+
+## Known Backend Bug — Eversports Availability Blocked by Price Refresh (fixed)
+
+**Symptom:** All Eversports venues show "Nicht online prüfbar" after a Railway restart.
+
+**Root cause:** `eversports_prices._refresh_running = True` was gating the entire Eversports availability check, not just the price task. With 12 venues × 30 s stagger, the price refresh ran for ~6 min, during which all Eversports checks were skipped and venues returned `unknown`.
+
+**Fix (app.py):** The availability check (pending marking + background scraper) now always runs. Only the price-refresh task creation is gated on `_refresh_running`.
+
+**Regression test:** `Backend/test_ev_refresh_gate.py` — run with `python test_ev_refresh_gate.py`.
 
 ---
 
