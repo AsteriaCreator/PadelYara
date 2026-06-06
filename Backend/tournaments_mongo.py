@@ -21,7 +21,7 @@ BUNDESLAENDER = [
 
 CATEGORIES = ["Starter", "Advanced", "Expert", "Professional", "Elite"]
 
-COMPETITIONS = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb"]
+COMPETITIONS = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb", "Newcomer"]
 
 WEEKDAYS = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 

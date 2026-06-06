@@ -10,7 +10,7 @@ const BUNDESLAENDER = [
   "Tirol", "Kärnten", "Salzburg", "Vorarlberg", "Burgenland",
 ]
 const KATEGORIEN = ["Starter", "Advanced", "Expert", "Professional", "Elite"]
-const WETTBEWERBE = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb"]
+const WETTBEWERBE = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb", "Newcomer"]
 const WOCHENTAGE = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 
 const LS_KEY = "turnierjager_filters"
