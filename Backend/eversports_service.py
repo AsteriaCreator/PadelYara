@@ -189,11 +189,11 @@ def _parse_calendar_html(
             all_states.append(st.group(1))
             if d.group(1) == date and s.group(1) == time_hhmm:
                 matched.append(st.group(1))
-                p = re.search(r'data-price="([^"]*)"', attrs)
+                p = re.search(r'data-price=["\']([^"\']*)["\']', attrs)
                 if p and p.group(1).isdigit():
                     prices.append(int(p.group(1)))
                 if duration_h is None:
-                    e = re.search(r'data-end="([^"]*)"', attrs)
+                    e = re.search(r'data-end=["\']([^"\']*)["\']', attrs)
                     if e:
                         try:
                             start_m = int(time_hhmm[:2]) * 60 + int(time_hhmm[2:])
