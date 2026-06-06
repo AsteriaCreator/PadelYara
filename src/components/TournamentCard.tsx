@@ -61,16 +61,37 @@ function StatusBadge({ t }: { t: Tournament }) {
   return null
 }
 
-function formatDate(isoStr: string | null): string {
+function formatDate(isoStr: string | null, includeYear = true): string {
   if (!isoStr) return ""
   const d = new Date(isoStr)
-  return d.toLocaleDateString("de-AT", { weekday: "short", day: "2-digit", month: "2-digit", year: "numeric" })
+  return d.toLocaleDateString("de-AT", {
+    weekday: "short", day: "2-digit", month: "2-digit",
+    ...(includeYear ? { year: "numeric" } : {}),
+  })
 }
 
 function formatTime(isoStr: string | null): string {
   if (!isoStr) return ""
   const d = new Date(isoStr)
   return d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" })
+}
+
+function isSameDay(a: string, b: string): boolean {
+  return a.slice(0, 10) === b.slice(0, 10)
+}
+
+function formatDateRange(starts: string | null, ends: string | null): string {
+  if (!starts) return ""
+  if (!ends || ends === starts) {
+    // No end info — just show start
+    return `${formatDate(starts)}, ${formatTime(starts)} Uhr`
+  }
+  if (isSameDay(starts, ends)) {
+    // Same day — show date once, time range
+    return `${formatDate(starts)}, ${formatTime(starts)} – ${formatTime(ends)} Uhr`
+  }
+  // Multi-day — show date range (omit year on start to save space)
+  return `${formatDate(starts, false)} – ${formatDate(ends)}`
 }
 
 function CategoryPill({ label }: { label: string }) {
@@ -117,9 +138,7 @@ export default function TournamentCard({ t }: { t: Tournament }) {
 
           {/* Date + time */}
           <p className="text-xs text-gray-400 mb-2">
-            {formatDate(t.starts_at)}
-            {t.starts_at ? `, ${formatTime(t.starts_at)} Uhr` : ""}
-            {t.ends_at && t.ends_at !== t.starts_at ? ` – ${formatDate(t.ends_at)}` : ""}
+            {formatDateRange(t.starts_at, t.ends_at)}
           </p>
 
           {/* Pills */}
