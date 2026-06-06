@@ -151,10 +151,9 @@ def _parse_row(row) -> dict[str, Any] | None:
             break
 
     # Newcomer override: if title contains "newcomer" (case-insensitive),
-    # treat competition as "Newcomer" regardless of the scraped value.
-    # Newcomer is a sub-type of Starter tournaments.
+    # treat category as "Newcomer" (sub-type of Starter skill level).
     if "newcomer" in title.lower():
-        competition = "Newcomer"
+        category = "Newcomer"
 
     # Participants: "X/Y" or "X/Y (Z)"
     participants_current = 0

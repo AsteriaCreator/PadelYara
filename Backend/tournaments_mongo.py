@@ -19,9 +19,9 @@ BUNDESLAENDER = [
     "Tirol", "Kärnten", "Salzburg", "Vorarlberg", "Burgenland",
 ]
 
-CATEGORIES = ["Starter", "Advanced", "Expert", "Professional", "Elite"]
+CATEGORIES = ["Newcomer", "Starter", "Advanced", "Expert", "Professional", "Elite"]
 
-COMPETITIONS = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb", "Newcomer"]
+COMPETITIONS = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb"]
 
 WEEKDAYS = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 

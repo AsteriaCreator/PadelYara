@@ -9,8 +9,8 @@ const BUNDESLAENDER = [
   "Wien", "Niederösterreich", "Oberösterreich", "Steiermark",
   "Tirol", "Kärnten", "Salzburg", "Vorarlberg", "Burgenland",
 ]
-const KATEGORIEN = ["Starter", "Advanced", "Expert", "Professional", "Elite"]
-const WETTBEWERBE = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb", "Newcomer"]
+const KATEGORIEN = ["Newcomer", "Starter", "Advanced", "Expert", "Professional", "Elite"]
+const WETTBEWERBE = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb"]
 const WOCHENTAGE = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 
 const LS_KEY = "turnierjager_filters"
@@ -401,7 +401,7 @@ export default function TurnierjagerPage() {
       <div className="mb-6 space-y-3 px-1">
         <p className="text-white text-lg font-semibold">Turnierjäger</p>
         <p className="text-gray-400 text-base leading-relaxed">
-          Padel Austria zeigt dir Turniere einzeln. Ein Bundesland nach dem anderen.
+          Turniere liegen überall verstreut. Ein Bundesland nach dem anderen.
           Eine Kategorie nach der anderen. Niemand hat dafür Zeit.
           Ich durchsuche alles auf einmal. Eine Liste. Fertig.
         </p>
