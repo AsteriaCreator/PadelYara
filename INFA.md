@@ -4,7 +4,7 @@
 
 Frontend (Vercel)
 https://neo-padel-checker.vercel.app
-Custom domains (purchased 2026-06-01, DNS not yet connected):
+Custom domains (live):
 - padelyara.at — primary domain
 - padelyara.com — redirects to padelyara.at
 
@@ -37,7 +37,8 @@ Eversports checker (in-process, no HTTP hop):
 Backend/eversports_service.py
 
 Venue source:
-Padel_Venues.csv
+MongoDB Atlas — db: padel_checker, collection: venues
+(Padel_Venues.csv kept as backup; no longer read by the app)
 
 Railway config:
 railway.json

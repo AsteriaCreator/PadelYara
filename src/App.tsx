@@ -274,12 +274,10 @@ function FinderPage() {
         </p>
 
         <p className="mb-4 text-xs" style={{ color: "#6b7280" }}>
-          PadelYara ist im Testbetrieb – Ergebnisse können unvollständig oder fehlerhaft sein.
-          Feedback oder neuen Court melden?{" "}
+          PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?{" "}
           <a href="mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback" style={{ color: "#9ca3af", textDecoration: "underline" }}>
-            Schreib Yara ein Mail
+            Schreib Yara.
           </a>
-          .
         </p>
 
         <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} initialLocation={urlLocation || undefined} initialDate={urlDate || undefined} initialTime={urlTime || undefined} initialRadius={urlRadius || undefined} />
@@ -287,7 +285,7 @@ function FinderPage() {
         {!searched && !isLoading && !error && (
           <div className="text-center py-8 text-gray-600 text-sm">
             <img src="/cat-head.svg" alt="Yara" className="h-16 w-auto mx-auto mb-3 opacity-30" />
-            <p>Yara wartet schon. Gib deinen Ort ein und los geht's.</p>
+            <p>Courts jagen. Sag mir wo.</p>
           </div>
         )}
 
@@ -343,11 +341,14 @@ function FinderPage() {
         )}
 
         {searched && !isLoading && !error && filteredResults.length > 0 && lastParamsRef.current && (
-          <p className="mb-2 px-1" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.4)" }}>
-            {filteredResults.length === 1
-              ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
-              : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
-          </p>
+          <div className="mb-2 px-1 flex items-center justify-between">
+            <p style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.4)" }}>
+              {filteredResults.length === 1
+                ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
+                : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
+            </p>
+            <ShareButton />
+          </div>
         )}
 
         {searched && !isLoading && bookingWindowNotice && (
@@ -367,8 +368,8 @@ function FinderPage() {
         {searched && !isLoading && !error && filteredResults.length === 0 && (
           <div className="text-center py-10 mb-4">
             <p className="text-3xl mb-3">🎾</p>
-            <p className="text-white font-semibold mb-1">Kein Court gefunden.</p>
-            <p className="text-gray-500 text-sm">Versuch einen größeren Umkreis.</p>
+            <p className="text-white font-semibold mb-1">Keine Ergebnisse.</p>
+            <p className="text-gray-500 text-sm">Lösungsvorschlag: woanders wohnen.</p>
           </div>
         )}
 
@@ -411,6 +412,32 @@ function FinderPage() {
 
       {showImprint && <ImprintModal onClose={() => setShowImprint(false)} />}
     </div>
+  )
+}
+
+function ShareButton() {
+  const [copied, setCopied] = useState(false)
+
+  function handleShare() {
+    const url = window.location.href
+    if (navigator.share) {
+      navigator.share({ url }).catch(() => {})
+    } else {
+      navigator.clipboard.writeText(url).then(() => {
+        setCopied(true)
+        setTimeout(() => setCopied(false), 2000)
+      })
+    }
+  }
+
+  return (
+    <button
+      onClick={handleShare}
+      className="text-xs tracking-wide transition-colors"
+      style={{ fontFamily: "'Barlow Condensed', sans-serif", color: copied ? "#d4f53c" : "rgba(212,245,60,0.4)" }}
+    >
+      {copied ? "KOPIERT" : "TEILEN"}
+    </button>
   )
 }
 

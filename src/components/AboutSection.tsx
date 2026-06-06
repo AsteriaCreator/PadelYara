@@ -100,7 +100,7 @@ export default function AboutSection() {
           Dir fehlt ein Platz?
         </p>
         <a
-          href="mailto:kontakt@padelyara.at"
+          href="mailto:cornelia.mayer@adventure-it.at"
           className="inline-block text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
           style={{
             border: "1px solid rgba(212,245,60,0.3)",
