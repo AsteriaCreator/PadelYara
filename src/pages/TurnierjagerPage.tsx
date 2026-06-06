@@ -446,7 +446,7 @@ export default function TurnierjagerPage() {
 
         {/* Venue / Standort — collapsible multi-select checkbox list */}
         {venueOptions.length > 0 && (
-          <div className="mb-4">
+          <div className="mb-4 mt-4">
             <div className="flex items-center justify-between mb-2">
               <button
                 onClick={() => setVenueExpanded(v => !v)}
