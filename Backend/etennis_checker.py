@@ -248,10 +248,13 @@ async def _check_one(
                 }
 
                 // Build priceId → price map from the legend at the bottom of the page.
-                // Each legend entry looks like: <div class="price price26379"> € 36</div>
+                // Two formats exist across eTennis deployments:
+                //   tennisplatz.info:     <div class="price price26379"> € 36</div>
+                //   buchung-padelbase.at: <div class="price price-1"> € 32</div>
+                const priceClassRe = /^price[-\d][\d]*$/;
                 const priceMap = {};
                 document.querySelectorAll('.price').forEach(el => {
-                    const pc = [...el.classList].find(c => /^price\d+$/.test(c));
+                    const pc = [...el.classList].find(c => priceClassRe.test(c));
                     if (pc) {
                         const m = el.textContent.match(/\d+/);
                         if (m) priceMap[pc] = parseInt(m[0]);
@@ -262,7 +265,7 @@ async def _check_one(
                 // can show the price even when the court is occupied.
                 const prices = matching
                     .map(s => {
-                        const pc = [...s.classList].find(c => /^price\d+$/.test(c));
+                        const pc = [...s.classList].find(c => priceClassRe.test(c));
                         return pc ? (priceMap[pc] ?? null) : null;
                     })
                     .filter(p => p !== null);
