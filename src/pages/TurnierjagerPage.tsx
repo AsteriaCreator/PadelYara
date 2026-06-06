@@ -17,7 +17,9 @@ const LS_KEY = "turnierjager_filters"
 
 interface Filters {
   bundesland: string[]
-  bezirk: string[]
+  // Per-bundesland bezirk selection — keys are bundesland names, values are selected bezirke.
+  // Preserved across bundesland toggles so selections survive deselect/reselect.
+  bezirkByBundesland: Record<string, string[]>
   kategorie: string[]
   wettbewerb: string[]
   wochentag: string[]
@@ -28,7 +30,7 @@ interface Filters {
 function defaultFilters(): Filters {
   return {
     bundesland: [],
-    bezirk: [],
+    bezirkByBundesland: {},
     kategorie: [],
     wettbewerb: [],
     wochentag: [],
@@ -49,6 +51,11 @@ function saveFilters(f: Filters): void {
   try { localStorage.setItem(LS_KEY, JSON.stringify(f)) } catch { /* ignore */ }
 }
 
+// Flat list of all selected bezirke across all selected bundesländer (for the API)
+function allSelectedBezirke(f: Filters): string[] {
+  return f.bundesland.flatMap(bl => f.bezirkByBundesland[bl] ?? [])
+}
+
 // ── Multi-select chip group ────────────────────────────────────────────────
 
 function MultiChip({
@@ -60,15 +67,9 @@ function MultiChip({
   onChange: (v: string[]) => void
 }) {
   function toggle(opt: string) {
-    onChange(
-      selected.includes(opt)
-        ? selected.filter(x => x !== opt)
-        : [...selected, opt]
-    )
+    onChange(selected.includes(opt) ? selected.filter(x => x !== opt) : [...selected, opt])
   }
-
   const allSelected = selected.length === 0
-
   return (
     <div className="mb-4">
       <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">{label}</p>
@@ -106,21 +107,100 @@ function MultiChip({
   )
 }
 
-// ── Main page ─────────────────────────────────────────────────────────────
+// ── Per-bundesland bezirk picker ───────────────────────────────────────────
 
-// Compute available bezirke from static data based on selected bundesländer
-function bezirkeForSelection(bundesland: string[]): string[] {
-  if (bundesland.length === 0) return []
-  const seen = new Set<string>()
-  const result: string[] = []
-  for (const bl of bundesland) {
-    for (const b of BEZIRKE_BY_BUNDESLAND[bl] ?? []) {
-      if (!seen.has(b)) { seen.add(b); result.push(b) }
-    }
+function BezirkPicker({
+  bundesland,
+  selected,
+  onChange,
+}: {
+  bundesland: string
+  selected: string[]
+  onChange: (bezirke: string[]) => void
+}) {
+  const options = BEZIRKE_BY_BUNDESLAND[bundesland] ?? []
+  if (options.length === 0) return null
+
+  function toggle(b: string) {
+    onChange(selected.includes(b) ? selected.filter(x => x !== b) : [...selected, b])
   }
-  // If multiple bundesländer selected, sort alphabetically (Wien numerics first)
-  return bundesland.length === 1 ? result : result.sort()
+
+  // Wien has 23 entries — use a 2-column checkbox grid; others use chip row
+  const useGrid = options.length > 12
+
+  return (
+    <div
+      className="mb-3 rounded-lg border px-3 pt-2.5 pb-3"
+      style={{ borderColor: "rgba(107,114,128,0.2)", background: "rgba(0,0,0,0.2)" }}
+    >
+      <div className="flex items-center justify-between mb-2">
+        <p className="text-[10px] text-gray-600 tracking-widest uppercase">{bundesland}</p>
+        {selected.length > 0 && (
+          <button
+            onClick={() => onChange([])}
+            className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
+          >
+            alle abwählen
+          </button>
+        )}
+      </div>
+
+      {useGrid ? (
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+          {options.map(b => {
+            const active = selected.includes(b)
+            return (
+              <label key={b} className="flex items-center gap-1.5 cursor-pointer group">
+                <span
+                  className="flex-shrink-0 w-3.5 h-3.5 rounded-sm border flex items-center justify-center transition-colors"
+                  style={{
+                    borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
+                    background: active ? "rgba(212,245,60,0.15)" : "transparent",
+                  }}
+                >
+                  {active && (
+                    <svg viewBox="0 0 10 10" className="w-2.5 h-2.5">
+                      <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#d4f53c" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  )}
+                </span>
+                <input type="checkbox" checked={active} onChange={() => toggle(b)} className="sr-only" />
+                <span
+                  className="text-[11px] leading-tight transition-colors"
+                  style={{ color: active ? "#d4f53c" : "#6b7280" }}
+                >
+                  {b}
+                </span>
+              </label>
+            )
+          })}
+        </div>
+      ) : (
+        <div className="flex flex-wrap gap-1.5">
+          {options.map(b => {
+            const active = selected.includes(b)
+            return (
+              <button
+                key={b}
+                onClick={() => toggle(b)}
+                className="text-[11px] px-2 py-0.5 rounded-full border transition-colors"
+                style={{
+                  borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.3)",
+                  color: active ? "#d4f53c" : "#6b7280",
+                  background: active ? "rgba(212,245,60,0.08)" : "transparent",
+                }}
+              >
+                {b}
+              </button>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
 }
+
+// ── Main page ─────────────────────────────────────────────────────────────
 
 export default function TurnierjagerPage() {
   const [filters, setFilters] = useState<Filters>(loadFilters)
@@ -131,9 +211,18 @@ export default function TurnierjagerPage() {
 
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters(prev => {
-      // When bundesland changes, reset bezirk — stale district selections don't make sense
-      const extra = key === "bundesland" ? { bezirk: [] } : {}
-      const next = { ...prev, [key]: value, ...extra }
+      const next = { ...prev, [key]: value }
+      saveFilters(next)
+      return next
+    })
+  }
+
+  function updateBezirk(bundesland: string, bezirke: string[]) {
+    setFilters(prev => {
+      const next = {
+        ...prev,
+        bezirkByBundesland: { ...prev.bezirkByBundesland, [bundesland]: bezirke },
+      }
       saveFilters(next)
       return next
     })
@@ -145,7 +234,8 @@ export default function TurnierjagerPage() {
     try {
       const params = new URLSearchParams()
       if (f.bundesland.length) params.set("bundesland", f.bundesland.join(","))
-      if (f.bezirk.length) params.set("bezirk", f.bezirk.join(","))
+      const bezirke = allSelectedBezirke(f)
+      if (bezirke.length) params.set("bezirk", bezirke.join(","))
       if (f.kategorie.length) params.set("category", f.kategorie.join(","))
       if (f.wettbewerb.length) params.set("competition", f.wettbewerb.join(","))
       if (f.wochentag.length) params.set("weekday", f.wochentag.join(","))
@@ -164,7 +254,6 @@ export default function TurnierjagerPage() {
     }
   }, [])
 
-  // Fetch when filters change
   useEffect(() => {
     fetchTournaments(filters)
   }, [filters, fetchTournaments])
@@ -175,9 +264,10 @@ export default function TurnierjagerPage() {
     setFilters(f)
   }
 
+  const totalBezirkeSelected = allSelectedBezirke(filters).length
   const hasActiveFilters = (
     filters.bundesland.length > 0 ||
-    filters.bezirk.length > 0 ||
+    totalBezirkeSelected > 0 ||
     filters.kategorie.length > 0 ||
     filters.wettbewerb.length > 0 ||
     filters.wochentag.length > 0
@@ -216,26 +306,19 @@ export default function TurnierjagerPage() {
           onChange={v => updateFilter("bundesland", v)}
         />
 
-        {/* Bezirk — dropdown, static list from selected bundesland(s) */}
-        {filters.bundesland.length > 0 && (() => {
-          const options = bezirkeForSelection(filters.bundesland)
-          return (
-            <div className="mb-4">
-              <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">Bezirk</p>
-              <select
-                value={filters.bezirk[0] ?? ""}
-                onChange={e => updateFilter("bezirk", e.target.value ? [e.target.value] : [])}
-                className="w-full rounded-lg border px-3 py-2 text-sm bg-gray-950 text-gray-300 appearance-none"
-                style={{ borderColor: filters.bezirk.length ? "#d4f53c" : "rgba(107,114,128,0.4)" }}
-              >
-                <option value="">Alle Bezirke</option>
-                {options.map(b => (
-                  <option key={b} value={b}>{b}</option>
-                ))}
-              </select>
-            </div>
-          )
-        })()}
+        {/* Bezirk pickers — one per selected bundesland, in selection order */}
+        {filters.bundesland.length > 0 && (
+          <div className="mb-4 -mt-1">
+            {filters.bundesland.map(bl => (
+              <BezirkPicker
+                key={bl}
+                bundesland={bl}
+                selected={filters.bezirkByBundesland[bl] ?? []}
+                onChange={bezirke => updateBezirk(bl, bezirke)}
+              />
+            ))}
+          </div>
+        )}
 
         <MultiChip
           label="Wochentag"
@@ -256,7 +339,7 @@ export default function TurnierjagerPage() {
           onChange={v => updateFilter("wettbewerb", v)}
         />
 
-        {/* Show full / show closed checkboxes */}
+        {/* Show full / show closed */}
         <div className="mt-3 flex flex-col gap-2 border-t border-gray-800 pt-3">
           <label className="flex items-center gap-2 cursor-pointer select-none">
             <input
@@ -298,19 +381,16 @@ export default function TurnierjagerPage() {
         </div>
       )}
 
-      {/* Loading state */}
       {loading && (
         <div className="text-center py-10">
           <p className="text-gray-600 text-sm">Yara jagt …</p>
         </div>
       )}
 
-      {/* Error state */}
       {error && !loading && (
         <p className="text-red-400 text-sm px-1">{error}</p>
       )}
 
-      {/* Results list */}
       {!loading && !error && tournaments.length > 0 && (
         <div className="rounded-xl border border-gray-800 bg-gray-900 divide-y divide-gray-800 mb-6">
           {tournaments.map(t => (
@@ -319,7 +399,6 @@ export default function TurnierjagerPage() {
         </div>
       )}
 
-      {/* Empty state */}
       {!loading && !error && tournaments.length === 0 && (
         <div className="text-center py-10">
           <p className="text-3xl mb-3">🎾</p>
@@ -340,7 +419,6 @@ export default function TurnierjagerPage() {
         <p className="text-xs text-gray-700 italic">Benachrichtigungen kommen bald.</p>
       </div>
 
-      {/* Source attribution */}
       <p className="text-center text-xs text-gray-800 mt-6">
         Daten von{" "}
         <a
