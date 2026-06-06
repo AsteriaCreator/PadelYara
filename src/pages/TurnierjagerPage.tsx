@@ -401,9 +401,8 @@ export default function TurnierjagerPage() {
       <div className="mb-6 space-y-3 px-1">
         <p className="text-white text-lg font-semibold">Turnierjäger</p>
         <p className="text-gray-400 text-base leading-relaxed">
-          Turniere liegen überall verstreut. Ein Bundesland nach dem anderen.
-          Eine Kategorie nach der anderen. Niemand hat dafür Zeit.
-          Ich durchsuche alles auf einmal. Eine Liste. Fertig.
+          Turniere liegen überall verstreut. Viele Bundesländer, viele Kategorien.
+          Niemand hat dafür Zeit. Ich zeige dir nur was du brauchst. Eine Liste. Fertig.
         </p>
       </div>
 
@@ -515,7 +514,7 @@ export default function TurnierjagerPage() {
           onChange={v => updateFilter("wochentag", v)}
         />
         <MultiChip
-          label="Kategorie"
+          label="Level"
           options={KATEGORIEN}
           selected={filters.kategorie}
           onChange={v => updateFilter("kategorie", v)}
