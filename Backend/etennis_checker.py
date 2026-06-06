@@ -261,15 +261,18 @@ async def _check_one(
                     }
                 });
 
-                // Collect prices from all matching slots (av or busy) so we
-                // can show the price even when the court is occupied.
-                const prices = matching
-                    .map(s => {
-                        const pc = [...s.classList].find(c => priceClassRe.test(c));
-                        return pc ? (priceMap[pc] ?? null) : null;
-                    })
-                    .filter(p => p !== null);
-                const minPrice = prices.length > 0 ? Math.min(...prices) : null;
+                // Collect prices from matching slots; fall back to any slot on
+                // the page so we can show a price even for no_slot / busy results.
+                const priceFrom = (slotList) => {
+                    const ps = slotList
+                        .map(s => {
+                            const pc = [...s.classList].find(c => priceClassRe.test(c));
+                            return pc ? (priceMap[pc] ?? null) : null;
+                        })
+                        .filter(p => p !== null);
+                    return ps.length > 0 ? Math.min(...ps) : null;
+                };
+                const minPrice = priceFrom(matching) ?? priceFrom(slots);
 
                 // Slot duration from data-size (hours).
                 const sampleSlot = matching[0] || slots[0] || null;

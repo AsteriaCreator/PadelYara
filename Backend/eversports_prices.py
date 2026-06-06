@@ -101,6 +101,20 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         if r.status_code != 200 or not has_td:
             return []
 
+        if not has_price_td:
+            # POST returned a calendar but no price TDs — fall back to GET on the
+            # booking page, where prices are always in the server-rendered HTML.
+            print(f"[ev-prices] no_price_td_in_post  venue={vid}  trying GET fallback")
+            r = await session.get(
+                booking_url,
+                headers={
+                    "Accept":          "text/html,*/*",
+                    "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
+                },
+                timeout=20,
+            )
+            print(f"[ev-prices] get_response  venue={vid}  status={r.status_code}  has_price_td={bool(re.search(r'<td[^>]*data-price', r.text, re.IGNORECASE))}")
+
         # Show first data-price occurrence in context to understand structure
         idx = r.text.find("data-price")
         print(f"[ev-prices] price_context  venue={vid}  ctx={r.text[max(0,idx-80):idx+80]!r}")
@@ -202,4 +216,28 @@ def get_price(venue_id: str, date_str: str, time_hhmm: str) -> int | None:
     except (ValueError, KeyError):
         pass
 
+    return None
+
+
+def get_any_price(venue_id: str, date_str: str) -> int | None:
+    """Return any price for the venue on that date (any time), or None."""
+    with _PRICE_LOCK:
+        entry = _PRICE_CACHE.get(venue_id)
+    if not entry:
+        return None
+    slots = entry["slots"]
+    try:
+        target_dow = datetime.strptime(date_str, "%Y-%m-%d").weekday()
+    except ValueError:
+        return None
+    # Prefer slots on the exact date, then fall back to same day-of-week.
+    for s in slots:
+        if s["date"] == date_str:
+            return s["price"]
+    for s in slots:
+        try:
+            if datetime.strptime(s["date"], "%Y-%m-%d").weekday() == target_dow:
+                return s["price"]
+        except (ValueError, KeyError):
+            pass
     return None
