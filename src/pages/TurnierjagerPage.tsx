@@ -135,14 +135,12 @@ function BezirkPicker({
     >
       <div className="flex items-center justify-between mb-2">
         <p className="text-[10px] text-gray-600 tracking-widest uppercase">{bundesland}</p>
-        {selected.length > 0 && (
-          <button
-            onClick={() => onChange([])}
-            className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
-          >
-            alle abwählen
-          </button>
-        )}
+        <button
+          onClick={() => onChange(selected.length === options.length ? [] : options)}
+          className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
+        >
+          {selected.length === options.length ? "alle abwählen" : "alle auswählen"}
+        </button>
       </div>
 
       {useGrid ? (
