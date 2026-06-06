@@ -347,7 +347,7 @@ function FinderPage() {
                 ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
                 : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
             </p>
-            <ShareButton />
+            <ShareButton params={lastParamsRef.current} />
           </div>
         )}
 
@@ -415,15 +415,23 @@ function FinderPage() {
   )
 }
 
-function ShareButton() {
+function ShareButton({ params }: { params: SearchParams | null }) {
   const [copied, setCopied] = useState(false)
+
+  function buildShareText() {
+    if (!params) return ""
+    const [year, month, day] = params.date.split("-")
+    const dateFormatted = `${day}.${month}.${year}`
+    return `Schau mal, ob du am ${dateFormatted} um ${params.time} Uhr in ${params.location} spielen kannst:`
+  }
 
   function handleShare() {
     const url = window.location.href
+    const text = buildShareText()
     if (navigator.share) {
-      navigator.share({ url }).catch(() => {})
+      navigator.share({ text, url }).catch(() => {})
     } else {
-      navigator.clipboard.writeText(url).then(() => {
+      navigator.clipboard.writeText(`${text}\n${url}`).then(() => {
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
       })
