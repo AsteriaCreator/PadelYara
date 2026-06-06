@@ -401,9 +401,9 @@ export default function TurnierjagerPage() {
       <div className="mb-6 space-y-3 px-1">
         <p className="text-white text-lg font-semibold">Turnierjäger</p>
         <p className="text-gray-400 text-base leading-relaxed">
-          Padel Austria zeigt dir Turniere nur einzeln — ein Bundesland nach dem anderen,
-          eine Kategorie nach der anderen. Yara durchsucht alles auf einmal und zeigt dir
-          eine saubere Liste.
+          Padel Austria zeigt dir Turniere einzeln. Ein Bundesland nach dem anderen.
+          Eine Kategorie nach der anderen. Niemand hat dafür Zeit.
+          Ich durchsuche alles auf einmal. Eine Liste. Fertig.
         </p>
       </div>
 
