@@ -1,6 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from "react"
+import { useState, useEffect, useCallback } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
+import { BEZIRKE_BY_BUNDESLAND } from "../data/bezirke"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -51,13 +52,12 @@ function saveFilters(f: Filters): void {
 // ── Multi-select chip group ────────────────────────────────────────────────
 
 function MultiChip({
-  label, options, selected, onChange, loading = false,
+  label, options, selected, onChange,
 }: {
   label: string
   options: string[]
   selected: string[]
   onChange: (v: string[]) => void
-  loading?: boolean
 }) {
   function toggle(opt: string) {
     onChange(
@@ -71,10 +71,7 @@ function MultiChip({
 
   return (
     <div className="mb-4">
-      <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase flex items-center gap-2">
-        {label}
-        {loading && <span className="text-gray-700 normal-case tracking-normal">laden…</span>}
-      </p>
+      <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">{label}</p>
       <div className="flex flex-wrap gap-1.5">
         <button
           onClick={() => onChange([])}
@@ -111,45 +108,26 @@ function MultiChip({
 
 // ── Main page ─────────────────────────────────────────────────────────────
 
+// Compute available bezirke from static data based on selected bundesländer
+function bezirkeForSelection(bundesland: string[]): string[] {
+  if (bundesland.length === 0) return []
+  const seen = new Set<string>()
+  const result: string[] = []
+  for (const bl of bundesland) {
+    for (const b of BEZIRKE_BY_BUNDESLAND[bl] ?? []) {
+      if (!seen.has(b)) { seen.add(b); result.push(b) }
+    }
+  }
+  // If multiple bundesländer selected, sort alphabetically (Wien numerics first)
+  return bundesland.length === 1 ? result : result.sort()
+}
+
 export default function TurnierjagerPage() {
   const [filters, setFilters] = useState<Filters>(loadFilters)
   const [tournaments, setTournaments] = useState<Tournament[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
-
-  // Bezirk filter state — options loaded dynamically from API
-  const [bezirkOptions, setBezirkOptions] = useState<string[]>([])
-  const [bezirkLoading, setBezirkLoading] = useState(false)
-  const prevBundesland = useRef<string>("")
-
-  // Fetch bezirke options whenever bundesland selection changes
-  useEffect(() => {
-    const key = filters.bundesland.join(",")
-    if (key === prevBundesland.current) return
-    prevBundesland.current = key
-
-    setBezirkLoading(true)
-    const params = new URLSearchParams()
-    if (filters.bundesland.length) params.set("bundesland", filters.bundesland.join(","))
-
-    fetch(`${API_BASE}/api/tournaments/bezirke?${params}`)
-      .then(r => r.json())
-      .then(data => {
-        setBezirkOptions(data.bezirke ?? [])
-        // Drop any selected bezirke that don't exist in the new bundesland scope
-        setFilters(prev => {
-          const valid = new Set(data.bezirke ?? [])
-          const nextBezirk = prev.bezirk.filter(b => valid.has(b))
-          if (nextBezirk.length === prev.bezirk.length) return prev
-          const next = { ...prev, bezirk: nextBezirk }
-          saveFilters(next)
-          return next
-        })
-      })
-      .catch(() => setBezirkOptions([]))
-      .finally(() => setBezirkLoading(false))
-  }, [filters.bundesland])
 
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters(prev => {
@@ -238,16 +216,26 @@ export default function TurnierjagerPage() {
           onChange={v => updateFilter("bundesland", v)}
         />
 
-        {/* Bezirk — only shown when options exist */}
-        {(bezirkOptions.length > 0 || bezirkLoading) && (
-          <MultiChip
-            label="Bezirk"
-            options={bezirkOptions}
-            selected={filters.bezirk}
-            onChange={v => updateFilter("bezirk", v)}
-            loading={bezirkLoading}
-          />
-        )}
+        {/* Bezirk — dropdown, static list from selected bundesland(s) */}
+        {filters.bundesland.length > 0 && (() => {
+          const options = bezirkeForSelection(filters.bundesland)
+          return (
+            <div className="mb-4">
+              <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">Bezirk</p>
+              <select
+                value={filters.bezirk[0] ?? ""}
+                onChange={e => updateFilter("bezirk", e.target.value ? [e.target.value] : [])}
+                className="w-full rounded-lg border px-3 py-2 text-sm bg-gray-950 text-gray-300 appearance-none"
+                style={{ borderColor: filters.bezirk.length ? "#d4f53c" : "rgba(107,114,128,0.4)" }}
+              >
+                <option value="">Alle Bezirke</option>
+                {options.map(b => (
+                  <option key={b} value={b}>{b}</option>
+                ))}
+              </select>
+            </div>
+          )
+        })()}
 
         <MultiChip
           label="Wochentag"
