@@ -107,6 +107,98 @@ function MultiChip({
   )
 }
 
+// ── Bundesland chip group (with per-chip expand arrow) ─────────────────────
+
+function BundeslandChips({
+  selected,
+  expanded,
+  onChange,
+  onToggleExpand,
+}: {
+  selected: string[]
+  expanded: string[]
+  onChange: (v: string[]) => void
+  onToggleExpand: (bl: string) => void
+}) {
+  function toggle(bl: string) {
+    onChange(selected.includes(bl) ? selected.filter(x => x !== bl) : [...selected, bl])
+  }
+  const allSelected = selected.length === 0
+  return (
+    <div className="mb-1">
+      <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">Bundesland</p>
+      <div className="flex flex-wrap gap-1.5">
+        <button
+          onClick={() => onChange([])}
+          className="text-xs px-2.5 py-1 rounded-full border transition-colors"
+          style={{
+            borderColor: allSelected ? "#d4f53c" : "rgba(107,114,128,0.4)",
+            color: allSelected ? "#d4f53c" : "#6b7280",
+            background: allSelected ? "rgba(212,245,60,0.08)" : "transparent",
+          }}
+        >
+          Alle
+        </button>
+        {BUNDESLAENDER.map(bl => {
+          const active = selected.includes(bl)
+          const open = expanded.includes(bl)
+          const chipColor = active ? "#d4f53c" : "#6b7280"
+          const chipBorder = active ? "#d4f53c" : "rgba(107,114,128,0.4)"
+          const chipBg = active ? "rgba(212,245,60,0.08)" : "transparent"
+          return active ? (
+            // Selected: split chip — label toggles selection, arrow expands districts
+            <div
+              key={bl}
+              className="flex rounded-full border overflow-hidden"
+              style={{ borderColor: chipBorder, background: chipBg }}
+            >
+              <button
+                onClick={() => toggle(bl)}
+                className="text-xs pl-2.5 pr-1.5 py-1 transition-colors"
+                style={{ color: chipColor }}
+              >
+                {bl}
+              </button>
+              <button
+                onClick={() => onToggleExpand(bl)}
+                className="text-xs pr-2 py-1 transition-colors flex items-center"
+                style={{
+                  color: open ? chipColor : "rgba(107,114,128,0.6)",
+                  borderLeft: "1px solid rgba(212,245,60,0.2)",
+                }}
+                aria-label={open ? "Bezirke ausblenden" : "Bezirke auswählen"}
+              >
+                <svg
+                  viewBox="0 0 10 6"
+                  className="w-2.5 h-2.5 transition-transform"
+                  style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="1,1 5,5 9,1" />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            // Not selected: normal chip
+            <button
+              key={bl}
+              onClick={() => toggle(bl)}
+              className="text-xs px-2.5 py-1 rounded-full border transition-colors"
+              style={{ borderColor: chipBorder, color: chipColor, background: chipBg }}
+            >
+              {bl}
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
 // ── Per-bundesland bezirk picker ───────────────────────────────────────────
 
 function BezirkPicker({
@@ -206,10 +298,23 @@ export default function TurnierjagerPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
+  // UI-only: which bundesländer have their district picker open
+  const [expandedBl, setExpandedBl] = useState<string[]>([])
+
+  function toggleExpand(bl: string) {
+    setExpandedBl(prev =>
+      prev.includes(bl) ? prev.filter(x => x !== bl) : [...prev, bl]
+    )
+  }
 
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters(prev => {
       const next = { ...prev, [key]: value }
+      // Collapse district pickers for bundesländer that got deselected
+      if (key === "bundesland") {
+        const next_bl = value as string[]
+        setExpandedBl(e => e.filter(bl => next_bl.includes(bl)))
+      }
       saveFilters(next)
       return next
     })
@@ -297,24 +402,26 @@ export default function TurnierjagerPage() {
           )}
         </div>
 
-        <MultiChip
-          label="Bundesland"
-          options={BUNDESLAENDER}
+        <BundeslandChips
           selected={filters.bundesland}
+          expanded={expandedBl}
           onChange={v => updateFilter("bundesland", v)}
+          onToggleExpand={toggleExpand}
         />
 
-        {/* Bezirk pickers — one per selected bundesland, in selection order */}
-        {filters.bundesland.length > 0 && (
-          <div className="mb-4 -mt-1">
-            {filters.bundesland.map(bl => (
-              <BezirkPicker
-                key={bl}
-                bundesland={bl}
-                selected={filters.bezirkByBundesland[bl] ?? []}
-                onChange={bezirke => updateBezirk(bl, bezirke)}
-              />
-            ))}
+        {/* Bezirk pickers — only for expanded bundesländer */}
+        {expandedBl.filter(bl => filters.bundesland.includes(bl)).length > 0 && (
+          <div className="mt-3 mb-4">
+            {filters.bundesland
+              .filter(bl => expandedBl.includes(bl))
+              .map(bl => (
+                <BezirkPicker
+                  key={bl}
+                  bundesland={bl}
+                  selected={filters.bezirkByBundesland[bl] ?? []}
+                  onChange={bezirke => updateBezirk(bl, bezirke)}
+                />
+              ))}
           </div>
         )}
 
