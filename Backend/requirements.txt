@@ -9,3 +9,4 @@ curl-cffi==0.15.0
 motor==3.7.1
 dnspython==2.8.0
 python-dotenv==1.1.1
+apscheduler==3.11.2

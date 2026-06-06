@@ -11,6 +11,7 @@ import SkeletonRow from "./components/SkeletonRow"
 import ImprintModal from "./components/ImprintModal"
 import LoadingCat from "./components/LoadingCat"
 import AboutSection from "./components/AboutSection"
+import TurnierjagerPage from "./pages/TurnierjagerPage"
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -468,6 +469,7 @@ function Nav() {
   return (
     <div className="mb-2 border-b border-gray-800">
       <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
+      <NavLink to="/turnierjaeger" style={NAV_LINK_STYLE}>Turnierjäger</NavLink>
       <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
     </div>
   )
@@ -517,7 +519,7 @@ function NewsletterBanner() {
         className="text-sm mb-2"
         style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "rgba(212,245,60,0.7)", fontSize: "0.95rem" }}
       >
-        Neue Features kommen. Ob du das weißt, ist deine Entscheidung.
+        Neue Features kommen. Ob du das mitbekommst, ist deine Entscheidung.
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">
         <input
@@ -563,6 +565,17 @@ export default function App() {
   return (
     <Routes>
       <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/turnierjaeger" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <TurnierjagerPage />
+          </div>
+        </div>
+      } />
       <Route path="/about" element={
         <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
           <div className="max-w-2xl mx-auto px-4 py-6">

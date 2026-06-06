@@ -1,4 +1,4 @@
-# NeoPadelChecker – Project State
+# PadelYara – Project State
 
 ## Current Product State
 
@@ -78,6 +78,26 @@ Legacy/private mode:
 - `region`
 
 The public product should always prioritize location + radius architecture.
+
+---
+
+## Turnierjäger (Phase 1 — live)
+
+Standalone subpage at `/turnierjaeger`.
+
+Architecture:
+- Scraper: `Backend/padel_austria_scraper.py` — BeautifulSoup, paginates all pages of padel-austria.at/tournaments
+- Storage: MongoDB `tournaments` collection (separate from venues)
+- API: `GET /api/tournaments` with filter params (bundesland, category, competition, weekday, show_full, show_closed)
+- Scheduler: APScheduler inside app.py, runs daily at 06:00 Vienna time
+- Frontend: `src/pages/TurnierjagerPage.tsx` + `src/components/TournamentCard.tsx`
+- Filter state persisted in localStorage
+
+Data model fields: source, source_id, source_url, title, venue_name, bundesland, starts_at, ends_at, weekday, category, competition, participants_current, participants_max, participants_waitlist, registration_opens_at, registration_closes_at, status, first_seen_at, last_seen_at
+
+Phase 2 (not yet built): email notifications, Jagdaufträge (saved search orders), registration reminders.
+
+New dependency: `apscheduler==3.11.2`
 
 ---
 

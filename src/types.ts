@@ -35,6 +35,29 @@ export interface Venue {
   slot_duration_h?: number | null
 }
 
+export interface Tournament {
+  source: string
+  source_id: string
+  source_url: string
+  title: string
+  venue_name: string
+  city: string
+  bundesland: string
+  starts_at: string | null
+  ends_at: string | null
+  weekday: string
+  category: string
+  competition: string
+  participants_current: number
+  participants_max: number
+  participants_waitlist: number
+  registration_opens_at: string | null
+  registration_closes_at: string | null
+  status: "open" | "full" | "not_open_yet" | "closed" | "cancelled" | "unknown"
+  first_seen_at: string | null
+  last_seen_at: string | null
+}
+
 export interface SearchResponse {
   ok: boolean
   results: Venue[]
