@@ -1,4 +1,3 @@
-import React from "react"
 import type { Tournament } from "../types"
 
 const DAYS_NEW = 7
