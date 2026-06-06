@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
 
@@ -16,6 +16,7 @@ const LS_KEY = "turnierjager_filters"
 
 interface Filters {
   bundesland: string[]
+  bezirk: string[]
   kategorie: string[]
   wettbewerb: string[]
   wochentag: string[]
@@ -26,6 +27,7 @@ interface Filters {
 function defaultFilters(): Filters {
   return {
     bundesland: [],
+    bezirk: [],
     kategorie: [],
     wettbewerb: [],
     wochentag: [],
@@ -49,12 +51,13 @@ function saveFilters(f: Filters): void {
 // ── Multi-select chip group ────────────────────────────────────────────────
 
 function MultiChip({
-  label, options, selected, onChange,
+  label, options, selected, onChange, loading = false,
 }: {
   label: string
   options: string[]
   selected: string[]
   onChange: (v: string[]) => void
+  loading?: boolean
 }) {
   function toggle(opt: string) {
     onChange(
@@ -68,7 +71,10 @@ function MultiChip({
 
   return (
     <div className="mb-4">
-      <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">{label}</p>
+      <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase flex items-center gap-2">
+        {label}
+        {loading && <span className="text-gray-700 normal-case tracking-normal">laden…</span>}
+      </p>
       <div className="flex flex-wrap gap-1.5">
         <button
           onClick={() => onChange([])}
@@ -112,9 +118,44 @@ export default function TurnierjagerPage() {
   const [error, setError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
 
+  // Bezirk filter state — options loaded dynamically from API
+  const [bezirkOptions, setBezirkOptions] = useState<string[]>([])
+  const [bezirkLoading, setBezirkLoading] = useState(false)
+  const prevBundesland = useRef<string>("")
+
+  // Fetch bezirke options whenever bundesland selection changes
+  useEffect(() => {
+    const key = filters.bundesland.join(",")
+    if (key === prevBundesland.current) return
+    prevBundesland.current = key
+
+    setBezirkLoading(true)
+    const params = new URLSearchParams()
+    if (filters.bundesland.length) params.set("bundesland", filters.bundesland.join(","))
+
+    fetch(`${API_BASE}/api/tournaments/bezirke?${params}`)
+      .then(r => r.json())
+      .then(data => {
+        setBezirkOptions(data.bezirke ?? [])
+        // Drop any selected bezirke that don't exist in the new bundesland scope
+        setFilters(prev => {
+          const valid = new Set(data.bezirke ?? [])
+          const nextBezirk = prev.bezirk.filter(b => valid.has(b))
+          if (nextBezirk.length === prev.bezirk.length) return prev
+          const next = { ...prev, bezirk: nextBezirk }
+          saveFilters(next)
+          return next
+        })
+      })
+      .catch(() => setBezirkOptions([]))
+      .finally(() => setBezirkLoading(false))
+  }, [filters.bundesland])
+
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters(prev => {
-      const next = { ...prev, [key]: value }
+      // When bundesland changes, reset bezirk — stale district selections don't make sense
+      const extra = key === "bundesland" ? { bezirk: [] } : {}
+      const next = { ...prev, [key]: value, ...extra }
       saveFilters(next)
       return next
     })
@@ -126,6 +167,7 @@ export default function TurnierjagerPage() {
     try {
       const params = new URLSearchParams()
       if (f.bundesland.length) params.set("bundesland", f.bundesland.join(","))
+      if (f.bezirk.length) params.set("bezirk", f.bezirk.join(","))
       if (f.kategorie.length) params.set("category", f.kategorie.join(","))
       if (f.wettbewerb.length) params.set("competition", f.wettbewerb.join(","))
       if (f.wochentag.length) params.set("weekday", f.wochentag.join(","))
@@ -157,6 +199,7 @@ export default function TurnierjagerPage() {
 
   const hasActiveFilters = (
     filters.bundesland.length > 0 ||
+    filters.bezirk.length > 0 ||
     filters.kategorie.length > 0 ||
     filters.wettbewerb.length > 0 ||
     filters.wochentag.length > 0
@@ -175,10 +218,7 @@ export default function TurnierjagerPage() {
       </div>
 
       {/* Filters */}
-      <div
-        className="rounded-xl border p-4 mb-6"
-        style={{ borderColor: "rgba(212,245,60,0.15)", background: "rgba(212,245,60,0.03)" }}
-      >
+      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-6">
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs text-gray-500 tracking-widest uppercase">Filter</p>
           {hasActiveFilters && (
@@ -197,6 +237,18 @@ export default function TurnierjagerPage() {
           selected={filters.bundesland}
           onChange={v => updateFilter("bundesland", v)}
         />
+
+        {/* Bezirk — only shown when options exist */}
+        {(bezirkOptions.length > 0 || bezirkLoading) && (
+          <MultiChip
+            label="Bezirk"
+            options={bezirkOptions}
+            selected={filters.bezirk}
+            onChange={v => updateFilter("bezirk", v)}
+            loading={bezirkLoading}
+          />
+        )}
+
         <MultiChip
           label="Wochentag"
           options={WOCHENTAGE}

@@ -43,6 +43,7 @@ export interface Tournament {
   venue_name: string
   city: string
   bundesland: string
+  bezirk: string | null
   starts_at: string | null
   ends_at: string | null
   weekday: string

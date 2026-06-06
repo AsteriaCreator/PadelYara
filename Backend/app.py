@@ -1174,6 +1174,7 @@ async def check_compat(
 @app.get("/api/tournaments")
 async def get_tournaments(
     bundesland:  str = Query(default=""),
+    bezirk:      str = Query(default=""),
     category:    str = Query(default=""),
     competition: str = Query(default=""),
     weekday:     str = Query(default=""),
@@ -1191,6 +1192,7 @@ async def get_tournaments(
 
     tournaments = await tournaments_mongo.get_tournaments(
         bundesland=_split(bundesland),
+        bezirk=_split(bezirk),
         category=_split(category),
         competition=_split(competition),
         weekday=_split(weekday),
@@ -1199,6 +1201,14 @@ async def get_tournaments(
         show_closed=show_closed,
     )
     return {"tournaments": tournaments, "count": len(tournaments)}
+
+
+@app.get("/api/tournaments/bezirke")
+async def get_tournament_bezirke(bundesland: str = Query(default="")):
+    """Return distinct Bezirk names for the filter, optionally scoped to a Bundesland."""
+    bl = [p.strip() for p in bundesland.split(",") if p.strip()] if bundesland else None
+    bezirke = await tournaments_mongo.get_bezirke(bundesland=bl)
+    return {"bezirke": bezirke}
 
 
 @app.get("/api/tournaments/venues")

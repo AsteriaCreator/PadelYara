@@ -45,8 +45,70 @@ async def ensure_indexes() -> None:
     await col.create_index([("source", 1), ("source_id", 1)], unique=True)
     await col.create_index([("starts_at", 1)])
     await col.create_index([("bundesland", 1)])
+    await col.create_index([("bezirk", 1)])
     await col.create_index([("status", 1)])
     await col.create_index([("first_seen_at", 1)])
+
+
+import re as _re
+
+
+async def _build_venue_bezirk_cache() -> list[tuple[str, str | None]]:
+    """
+    Build a list of (normalized_combined_name, bezirk) pairs from the venues collection.
+    Key = operator + " " + name, normalized (| and - replaced with space, lowercase).
+    This prevents generic operator names ("Padelzone") from matching wrong venues.
+    """
+    db = _get_db()
+    docs = await db["venues"].find(
+        {"bezirk": {"$exists": True}},
+        {"name": 1, "operator": 1, "bezirk": 1, "_id": 0}
+    ).to_list(2000)
+    pairs: list[tuple[str, str | None]] = []
+    seen: set[str] = set()
+    for d in docs:
+        bezirk = d.get("bezirk")
+        operator = (d.get("operator") or "").strip()
+        name = (d.get("name") or "").strip()
+        # Primary key: combined operator + name
+        combined = _norm(f"{operator} {name}")
+        if combined and combined not in seen:
+            pairs.append((combined, bezirk))
+            seen.add(combined)
+        # Fallback keys: individual parts (only if they're specific enough — length > 6)
+        for part in (operator, name):
+            key = _norm(part)
+            if key and len(key) > 6 and key not in seen:
+                pairs.append((key, bezirk))
+                seen.add(key)
+    # Sort by length desc so longest (most specific) keys are tried first
+    pairs.sort(key=lambda p: len(p[0]), reverse=True)
+    return pairs
+
+
+def _norm(s: str) -> str:
+    """Normalize a venue name for matching: lowercase, replace separators with space, collapse."""
+    return _re.sub(r"\s+", " ", _re.sub(r"[\|\-]", " ", s.lower())).strip()
+
+
+def _fuzzy_bezirk(venue_name: str, pairs: list[tuple[str, str | None]]) -> str | None:
+    """
+    Fuzzy match a tournament venue_name against the venue DB.
+    Tries bidirectional substring; takes the LONGEST (most specific) matching key.
+    """
+    if not venue_name or not pairs:
+        return None
+    vn = _norm(venue_name)
+
+    best_len = 0
+    best_bezirk: str | None = None
+    for key, bezirk in pairs:
+        if key in vn or vn in key:
+            if len(key) > best_len:
+                best_len = len(key)
+                best_bezirk = bezirk
+
+    return best_bezirk
 
 
 async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int]:
@@ -54,6 +116,7 @@ async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int
     Upsert a list of tournament dicts.
     - Preserves first_seen_at on existing records.
     - Updates last_seen_at and all scraped fields on every run.
+    - Enriches each tournament with `bezirk` from the venues collection.
     Returns counts: {inserted, updated}.
     """
     col = _col()
@@ -61,7 +124,12 @@ async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int
     inserted = 0
     updated = 0
 
+    # Load venue → bezirk lookup once per scrape run
+    venue_bezirk_pairs = await _build_venue_bezirk_cache()
+
     for t in tournaments:
+        # Enrich with bezirk from venues collection using fuzzy matching
+        t["bezirk"] = _fuzzy_bezirk(t.get("venue_name", ""), venue_bezirk_pairs)
         source = t["source"]
         source_id = t["source_id"]
 
@@ -122,6 +190,7 @@ def _sort_key(t: dict) -> tuple:
 
 async def get_tournaments(
     bundesland: list[str] | None = None,
+    bezirk: list[str] | None = None,
     category: list[str] | None = None,
     competition: list[str] | None = None,
     weekday: list[str] | None = None,
@@ -138,6 +207,8 @@ async def get_tournaments(
 
     if bundesland:
         query["bundesland"] = {"$in": bundesland}
+    if bezirk:
+        query["bezirk"] = {"$in": bezirk}
     if category:
         query["category"] = {"$in": category}
     if competition:
@@ -170,6 +241,16 @@ async def get_tournaments(
 
     result.sort(key=_sort_key)
     return result
+
+
+async def get_bezirke(bundesland: list[str] | None = None) -> list[str]:
+    """Return sorted list of distinct Bezirk names, optionally filtered by Bundesland."""
+    col = _col()
+    query: dict = {"bezirk": {"$ne": None}}
+    if bundesland:
+        query["bundesland"] = {"$in": bundesland}
+    bezirke = await col.distinct("bezirk", query)
+    return sorted(b for b in bezirke if b)
 
 
 async def get_venues(bundesland: list[str] | None = None) -> list[str]:
