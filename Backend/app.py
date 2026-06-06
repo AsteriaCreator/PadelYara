@@ -612,11 +612,16 @@ async def search(
                         break
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
-        if ev_results and not eversports_prices._refresh_running:
-            with eversports_prices._PRICE_LOCK:
-                price_cache_empty = not eversports_prices._PRICE_CACHE
-            if price_cache_empty:
-                asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
+        if ev_results:
+            # Price refresh is best-effort — only kick it off when no refresh is
+            # already running. Crucially, _refresh_running does NOT gate the
+            # availability check below: the two are independent. A slow price
+            # refresh (up to ~6 min with staggering) must never block scrapers.
+            if not eversports_prices._refresh_running:
+                with eversports_prices._PRICE_LOCK:
+                    price_cache_empty = not eversports_prices._PRICE_CACHE
+                if price_cache_empty:
+                    asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
             # Serve already-cached statuses immediately.
             now_t = time_monotonic()
             with _EV_RESULT_LOCK:
