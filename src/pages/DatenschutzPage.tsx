@@ -68,7 +68,7 @@ export default function DatenschutzPage() {
         </p>
       </Section>
 
-      <Section title="4. Ortssuche und Geokodierung">
+      <Section title="4. Ortssuche und Geocodierung">
         <p>
           Für die Autovervollständigung von Ortsnamen während der Eingabe nutzen
           wir den Dienst <strong>Photon</strong> der <strong>komoot GmbH</strong>{" "}
