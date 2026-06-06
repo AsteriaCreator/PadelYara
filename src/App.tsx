@@ -478,7 +478,7 @@ function Nav() {
   return (
     <div className="mb-2 border-b border-gray-800">
       <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
-      <NavLink to="/turnierjaeger" style={NAV_LINK_STYLE}>Turnierjäger</NavLink>
+      <NavLink to="/turnierjaeger" style={NAV_LINK_STYLE}>Turnierjagd</NavLink>
       <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
     </div>
   )

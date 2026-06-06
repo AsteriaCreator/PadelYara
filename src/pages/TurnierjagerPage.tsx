@@ -13,6 +13,47 @@ const KATEGORIEN = ["Newcomer", "Starter", "Advanced", "Expert", "Professional",
 const WETTBEWERBE = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb"]
 const WOCHENTAGE = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
 
+// Result sections — tournaments are grouped by registration status so each
+// block is self-explanatory. Order runs most-actionable → least. Header colors
+// mirror the status badges on the cards (lime = open, blue = soon, etc.).
+const RESULT_SECTIONS: {
+  title: string
+  subtitle: string
+  color: string
+  match: (t: Tournament) => boolean
+}[] = [
+  {
+    title: "Anmeldung offen",
+    subtitle: "Plätze frei oder Warteliste — jetzt anmelden.",
+    color: "#d4f53c",
+    match: t => t.status === "open",
+  },
+  {
+    title: "Anmeldung noch nicht offen",
+    subtitle: "Schon angekündigt. Anmeldung öffnet später.",
+    color: "#60a5fa",
+    match: t => t.status === "not_open_yet",
+  },
+  {
+    title: "Ausgebucht",
+    subtitle: "Voll — nur noch Warteliste möglich.",
+    color: "#fbbf24",
+    match: t => t.status === "full",
+  },
+  {
+    title: "Vorbei & abgesagt",
+    subtitle: "Anmeldung geschlossen oder Turnier abgesagt.",
+    color: "#6b7280",
+    match: t => t.status === "closed" || t.status === "cancelled",
+  },
+  {
+    title: "Sonstige",
+    subtitle: "",
+    color: "#6b7280",
+    match: t => t.status === "unknown",
+  },
+]
+
 const LS_KEY = "turnierjager_filters"
 
 interface Filters {
@@ -400,7 +441,7 @@ export default function TurnierjagerPage() {
     <section className="mt-2 pb-12">
       {/* Intro */}
       <div className="mb-6 space-y-3 px-1">
-        <p className="text-white text-lg font-semibold">Turnierjäger</p>
+        <p className="text-white text-lg font-semibold">Turnierjagd</p>
         <p className="text-gray-400 text-base leading-relaxed">
           Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System.
           Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
@@ -604,10 +645,30 @@ export default function TurnierjagerPage() {
       )}
 
       {!loading && !error && tournaments.length > 0 && (
-        <div className="rounded-xl border border-gray-800 bg-gray-900 divide-y divide-gray-800 mb-6">
-          {tournaments.map(t => (
-            <TournamentCard key={`${t.source}:${t.source_id}`} t={t} />
-          ))}
+        <div className="space-y-6 mb-6">
+          {RESULT_SECTIONS.map(s => {
+            const items = tournaments.filter(s.match)
+            if (items.length === 0) return null
+            return (
+              <div key={s.title}>
+                <div className="px-1 mb-2">
+                  <p
+                    className="text-sm font-semibold"
+                    style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: s.color }}
+                  >
+                    {s.title.toUpperCase()}
+                    <span style={{ color: "rgba(107,114,128,0.7)" }}> · {items.length}</span>
+                  </p>
+                  {s.subtitle && <p className="text-xs text-gray-500 mt-0.5">{s.subtitle}</p>}
+                </div>
+                <div className="rounded-xl border border-gray-800 bg-gray-900 divide-y divide-gray-800">
+                  {items.map(t => (
+                    <TournamentCard key={`${t.source}:${t.source_id}`} t={t} />
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
       )}
 
