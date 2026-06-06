@@ -302,6 +302,7 @@ export default function TurnierjagerPage() {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
   // UI-only: which bundesländer have their district picker open
   const [expandedBl, setExpandedBl] = useState<string[]>([])
+  const [venueExpanded, setVenueExpanded] = useState(false)
   // Venue options fetched from API, scoped to selected bundesländer
   const [venueOptions, setVenueOptions] = useState<string[]>([])
 
@@ -401,8 +402,8 @@ export default function TurnierjagerPage() {
       <div className="mb-6 space-y-3 px-1">
         <p className="text-white text-lg font-semibold">Turnierjäger</p>
         <p className="text-gray-400 text-base leading-relaxed">
-          Turniere liegen überall verstreut. Viele Bundesländer, viele Kategorien.
-          Niemand hat dafür Zeit. Ich zeige dir nur was du brauchst. Eine Liste. Fertig.
+          Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System.
+          Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
         </p>
       </div>
 
@@ -443,11 +444,33 @@ export default function TurnierjagerPage() {
           </div>
         )}
 
-        {/* Venue / Standort — multi-select checkbox list */}
+        {/* Venue / Standort — collapsible multi-select checkbox list */}
         {venueOptions.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs text-gray-500 tracking-wide uppercase">Standort</p>
+              <button
+                onClick={() => setVenueExpanded(v => !v)}
+                className="flex items-center gap-1.5 group"
+              >
+                <p className="text-xs text-gray-500 tracking-wide uppercase">Standort</p>
+                {filters.venue.length > 0 && (
+                  <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>
+                    ({filters.venue.length})
+                  </span>
+                )}
+                <svg
+                  viewBox="0 0 10 6"
+                  className="w-2.5 h-2.5 transition-transform"
+                  style={{ transform: venueExpanded ? "rotate(180deg)" : "rotate(0deg)", color: venueExpanded ? "#d4f53c" : "#6b7280" }}
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polyline points="1,1 5,5 9,1" />
+                </svg>
+              </button>
               {filters.venue.length > 0 && (
                 <button
                   onClick={() => updateFilter("venue", [])}
@@ -457,53 +480,55 @@ export default function TurnierjagerPage() {
                 </button>
               )}
             </div>
-            <div
-              className="rounded-lg border overflow-y-auto"
-              style={{
-                borderColor: filters.venue.length ? "#d4f53c" : "rgba(107,114,128,0.3)",
-                maxHeight: "11rem",
-                background: "rgba(0,0,0,0.2)",
-              }}
-            >
-              {venueOptions.map(v => {
-                const active = filters.venue.includes(v)
-                return (
-                  <label
-                    key={v}
-                    className="flex items-center gap-2.5 px-3 py-1.5 cursor-pointer transition-colors"
-                    style={{ background: active ? "rgba(212,245,60,0.05)" : "transparent" }}
-                  >
-                    <span
-                      className="flex-shrink-0 w-3.5 h-3.5 rounded-sm border flex items-center justify-center"
-                      style={{
-                        borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
-                        background: active ? "rgba(212,245,60,0.15)" : "transparent",
-                      }}
+            {venueExpanded && (
+              <div
+                className="rounded-lg border overflow-y-auto"
+                style={{
+                  borderColor: filters.venue.length ? "#d4f53c" : "rgba(107,114,128,0.3)",
+                  maxHeight: "11rem",
+                  background: "rgba(0,0,0,0.2)",
+                }}
+              >
+                {venueOptions.map(v => {
+                  const active = filters.venue.includes(v)
+                  return (
+                    <label
+                      key={v}
+                      className="flex items-center gap-2.5 px-3 py-1.5 cursor-pointer transition-colors"
+                      style={{ background: active ? "rgba(212,245,60,0.05)" : "transparent" }}
                     >
-                      {active && (
-                        <svg viewBox="0 0 10 10" className="w-2.5 h-2.5">
-                          <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#d4f53c" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      )}
-                    </span>
-                    <input
-                      type="checkbox"
-                      checked={active}
-                      onChange={() => {
-                        const next = active
-                          ? filters.venue.filter(x => x !== v)
-                          : [...filters.venue, v]
-                        updateFilter("venue", next)
-                      }}
-                      className="sr-only"
-                    />
-                    <span className="text-xs truncate" style={{ color: active ? "#d4f53c" : "#9ca3af" }}>
-                      {v}
-                    </span>
-                  </label>
-                )
-              })}
-            </div>
+                      <span
+                        className="flex-shrink-0 w-3.5 h-3.5 rounded-sm border flex items-center justify-center"
+                        style={{
+                          borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
+                          background: active ? "rgba(212,245,60,0.15)" : "transparent",
+                        }}
+                      >
+                        {active && (
+                          <svg viewBox="0 0 10 10" className="w-2.5 h-2.5">
+                            <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#d4f53c" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </span>
+                      <input
+                        type="checkbox"
+                        checked={active}
+                        onChange={() => {
+                          const next = active
+                            ? filters.venue.filter(x => x !== v)
+                            : [...filters.venue, v]
+                          updateFilter("venue", next)
+                        }}
+                        className="sr-only"
+                      />
+                      <span className="text-xs truncate" style={{ color: active ? "#d4f53c" : "#9ca3af" }}>
+                        {v}
+                      </span>
+                    </label>
+                  )
+                })}
+              </div>
+            )}
           </div>
         )}
 
