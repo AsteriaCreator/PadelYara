@@ -20,7 +20,7 @@ interface Filters {
   // Per-bundesland bezirk selection — keys are bundesland names, values are selected bezirke.
   // Preserved across bundesland toggles so selections survive deselect/reselect.
   bezirkByBundesland: Record<string, string[]>
-  venue: string        // single venue_name, "" = all
+  venue: string[]
   kategorie: string[]
   wettbewerb: string[]
   wochentag: string[]
@@ -32,7 +32,7 @@ function defaultFilters(): Filters {
   return {
     bundesland: [],
     bezirkByBundesland: {},
-    venue: "",
+    venue: [],
     kategorie: [],
     wettbewerb: [],
     wochentag: [],
@@ -328,8 +328,8 @@ export default function TurnierjagerPage() {
         // Collapse district pickers for bundesländer that got deselected
         const next_bl = value as string[]
         setExpandedBl(e => e.filter(bl => next_bl.includes(bl)))
-        // Reset venue — it may not exist in the new bundesland scope
-        extra.venue = ""
+        // Reset venue — selections may not exist in the new bundesland scope
+        extra.venue = []
       }
       const next = { ...prev, ...extra, [key]: value }
       saveFilters(next)
@@ -356,7 +356,7 @@ export default function TurnierjagerPage() {
       if (f.bundesland.length) params.set("bundesland", f.bundesland.join(","))
       const bezirke = allSelectedBezirke(f)
       if (bezirke.length) params.set("bezirk", bezirke.join(","))
-      if (f.venue) params.set("venue_name", f.venue)
+      if (f.venue.length) params.set("venue_name", f.venue.join(","))
       if (f.kategorie.length) params.set("category", f.kategorie.join(","))
       if (f.wettbewerb.length) params.set("competition", f.wettbewerb.join(","))
       if (f.wochentag.length) params.set("weekday", f.wochentag.join(","))
@@ -389,7 +389,7 @@ export default function TurnierjagerPage() {
   const hasActiveFilters = (
     filters.bundesland.length > 0 ||
     totalBezirkeSelected > 0 ||
-    !!filters.venue ||
+    filters.venue.length > 0 ||
     filters.kategorie.length > 0 ||
     filters.wettbewerb.length > 0 ||
     filters.wochentag.length > 0
@@ -444,21 +444,69 @@ export default function TurnierjagerPage() {
           </div>
         )}
 
-        {/* Venue / Standort */}
-        <div className="mb-4">
-          <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">Standort</p>
-          <select
-            value={filters.venue}
-            onChange={e => updateFilter("venue", e.target.value)}
-            className="w-full rounded-lg border px-3 py-2 text-sm bg-gray-950 text-gray-300"
-            style={{ borderColor: filters.venue ? "#d4f53c" : "rgba(107,114,128,0.4)" }}
-          >
-            <option value="">Alle Standorte</option>
-            {venueOptions.map(v => (
-              <option key={v} value={v}>{v}</option>
-            ))}
-          </select>
-        </div>
+        {/* Venue / Standort — multi-select checkbox list */}
+        {venueOptions.length > 0 && (
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs text-gray-500 tracking-wide uppercase">Standort</p>
+              {filters.venue.length > 0 && (
+                <button
+                  onClick={() => updateFilter("venue", [])}
+                  className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
+                >
+                  alle abwählen
+                </button>
+              )}
+            </div>
+            <div
+              className="rounded-lg border overflow-y-auto"
+              style={{
+                borderColor: filters.venue.length ? "#d4f53c" : "rgba(107,114,128,0.3)",
+                maxHeight: "11rem",
+                background: "rgba(0,0,0,0.2)",
+              }}
+            >
+              {venueOptions.map(v => {
+                const active = filters.venue.includes(v)
+                return (
+                  <label
+                    key={v}
+                    className="flex items-center gap-2.5 px-3 py-1.5 cursor-pointer transition-colors"
+                    style={{ background: active ? "rgba(212,245,60,0.05)" : "transparent" }}
+                  >
+                    <span
+                      className="flex-shrink-0 w-3.5 h-3.5 rounded-sm border flex items-center justify-center"
+                      style={{
+                        borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
+                        background: active ? "rgba(212,245,60,0.15)" : "transparent",
+                      }}
+                    >
+                      {active && (
+                        <svg viewBox="0 0 10 10" className="w-2.5 h-2.5">
+                          <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="#d4f53c" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </span>
+                    <input
+                      type="checkbox"
+                      checked={active}
+                      onChange={() => {
+                        const next = active
+                          ? filters.venue.filter(x => x !== v)
+                          : [...filters.venue, v]
+                        updateFilter("venue", next)
+                      }}
+                      className="sr-only"
+                    />
+                    <span className="text-xs truncate" style={{ color: active ? "#d4f53c" : "#9ca3af" }}>
+                      {v}
+                    </span>
+                  </label>
+                )
+              })}
+            </div>
+          </div>
+        )}
 
         <MultiChip
           label="Wochentag"
