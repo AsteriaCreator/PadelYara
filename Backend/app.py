@@ -130,19 +130,26 @@ _main_loop: asyncio.AbstractEventLoop | None = None
 
 
 def _run_tournament_scrape() -> None:
-    """Blocking scrape + upsert, intended to run in a thread."""
-    import asyncio as _asyncio
+    """Blocking scrape + upsert, intended to run in a thread.
+    Upsert runs on the main event loop via run_coroutine_threadsafe to avoid
+    motor being called from a different loop than the one it was created on.
+    """
     print("[tournaments] Starting daily scrape...")
     tournaments = scrape_padel_austria()
-    if tournaments:
-        loop = _asyncio.new_event_loop()
-        try:
-            stats = loop.run_until_complete(tournaments_mongo.upsert_tournaments(tournaments))
-            print(f"[tournaments] Upsert done: {stats}")
-        finally:
-            loop.close()
-    else:
+    if not tournaments:
         print("[tournaments] Scrape returned 0 tournaments — skipping upsert.")
+        return
+    if _main_loop is None:
+        print("[tournaments] Main event loop not ready — skipping upsert.")
+        return
+    future = asyncio.run_coroutine_threadsafe(
+        tournaments_mongo.upsert_tournaments(tournaments), _main_loop
+    )
+    try:
+        stats = future.result(timeout=120)
+        print(f"[tournaments] Upsert done: {stats}")
+    except Exception as exc:
+        print(f"[tournaments] Upsert failed: {exc}")
 
 
 @asynccontextmanager
