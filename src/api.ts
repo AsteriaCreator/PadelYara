@@ -196,6 +196,27 @@ export async function fetchAnalyticsTrends(excludeIds: string[] = []) {
   return res.json()
 }
 
+export async function fetchSubscriberCount(): Promise<number> {
+  const res = await fetch(`${API_BASE}/api/subscribers/count`, { headers: adminHeaders() })
+  if (!res.ok) throw new Error("Failed to fetch subscriber count")
+  const data = await res.json()
+  return data.count as number
+}
+
+export async function subscribeEmail(email: string): Promise<{ ok: boolean; already?: boolean }> {
+  try {
+    const res = await fetch(`${API_BASE}/api/subscribe`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    })
+    const data = await res.json().catch(() => ({}))
+    return { ok: res.ok && data.ok, already: data.already ?? false }
+  } catch {
+    return { ok: false }
+  }
+}
+
 export async function fetchWeather(
   lat: number,
   lon: number,

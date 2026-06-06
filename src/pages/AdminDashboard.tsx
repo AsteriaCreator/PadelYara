@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, getMySessionIds, registerThisDevice, removeMySession, getSessionId } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, getMySessionIds, registerThisDevice, removeMySession, getSessionId } from "../api"
 import "./AdminDashboard.css"
 
 // Plain-English labels for each event type
@@ -151,6 +151,7 @@ export default function AdminDashboard() {
   const [summary, setSummary] = useState<any>(null)
   const [trends, setTrends] = useState<any>(null)
   const [insights, setInsights] = useState<any>(null)
+  const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
@@ -165,8 +166,8 @@ export default function AdminDashboard() {
     // toggle button stays on screen and the user sees the change immediately.
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds)])
-      .then(([s, t, i]) => { setSummary(s); setTrends(t); setInsights(i) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
+      .then(([s, t, i, sc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number) })
       .catch((e: Error) => setError(e.message))
       .finally(() => setRefreshing(false))
   }, [excludeEnabled, mySessions])
@@ -298,6 +299,13 @@ export default function AdminDashboard() {
               tip={`How fast the server responds to searches on average. Under 1000 ms is great. Yours is ${summary.avg_response_ms} ms — ${summary.avg_response_ms < 1000 ? "nice and fast! ✅" : "could be improved ⚠️"}`}
               color={summary.avg_response_ms < 1000 ? "#22c55e" : "#f59e0b"}
               delta={d.avg_response_ms} invertDelta
+            />
+          )}
+          {subscriberCount !== null && (
+            <StatCard
+              emoji="📬" label="Email Subscribers" value={subscriberCount}
+              tip="Total email addresses collected via the newsletter signup banner."
+              color="#d4f53c"
             />
           )}
         </div>

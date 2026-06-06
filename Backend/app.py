@@ -34,6 +34,8 @@ from analytics import (
     track_search_completed,
     track_search_failed,
 )
+import tournaments_mongo
+from padel_austria_scraper import scrape_all as scrape_padel_austria
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
 import eversports_prices
 
@@ -127,18 +129,51 @@ def _call_eversports_service(
 _main_loop: asyncio.AbstractEventLoop | None = None
 
 
+def _run_tournament_scrape() -> None:
+    """Blocking scrape + upsert, intended to run in a thread."""
+    import asyncio as _asyncio
+    print("[tournaments] Starting daily scrape...")
+    tournaments = scrape_padel_austria()
+    if tournaments:
+        loop = _asyncio.new_event_loop()
+        try:
+            stats = loop.run_until_complete(tournaments_mongo.upsert_tournaments(tournaments))
+            print(f"[tournaments] Upsert done: {stats}")
+        finally:
+            loop.close()
+    else:
+        print("[tournaments] Scrape returned 0 tournaments — skipping upsert.")
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     global _main_loop, VENUES, _ev_ids
     _main_loop = asyncio.get_running_loop()
     await analytics.lifespan_startup()
+    await tournaments_mongo.ensure_indexes()
     VENUES = await load_venues()
     _ev_ids = [(v["id"], v["eversports_facility_id"], v["eversports_court_ids"])
                for v in VENUES if v.get("eversports_facility_id")]
     print(f"[startup] Loaded {len(VENUES)} venues from MongoDB")
     print(f"[startup] Eversports venues with facility IDs: {_ev_ids}")
+
+    # Seed tournament data on first deploy if collection is empty
+    count = await tournaments_mongo.count_tournaments()
+    if count == 0:
+        print("[tournaments] Collection empty — running initial scrape in background.")
+        threading.Thread(target=_run_tournament_scrape, daemon=True).start()
+
+    # Daily scraper at 06:00 Vienna time
+    from apscheduler.schedulers.background import BackgroundScheduler
+    from apscheduler.triggers.cron import CronTrigger
+    scheduler = BackgroundScheduler(timezone="Europe/Vienna")
+    scheduler.add_job(_run_tournament_scrape, CronTrigger(hour=6, minute=0))
+    scheduler.start()
+    print("[tournaments] Daily scraper scheduled at 06:00 Vienna time.")
+
     # Price scraping is triggered lazily on first search (see _maybe_refresh_prices)
     yield
+    scheduler.shutdown(wait=False)
 
 
 app = FastAPI(lifespan=lifespan)
@@ -223,13 +258,13 @@ def _parse_datetime(date_str: str | None, time_str: str | None) -> tuple[datetim
     return dt.replace(tzinfo=VIENNA_TZ), None
 
 
-def _filter_venues(
+async def _filter_venues(
     court_type: str | None,
     lat: float | None = None,
     lon: float | None = None,
     radius: float | None = None,
 ) -> list[dict]:
-    result = VENUES
+    result = await load_venues()
 
     if lat is not None and lon is not None and radius is not None:
         result = filter_by_radius(result, lat, lon, radius)
@@ -443,7 +478,7 @@ async def search(
         track_search_failed(reason="invalid_datetime", court_type=court_type, session_id=session_id)
         return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
-    venues = _filter_venues(court_type, lat, lon, radius)
+    venues = await _filter_venues(court_type, lat, lon, radius)
     if not venues:
         return {"ok": True, "results": [], "date": dt.strftime("%Y-%m-%d"),
                 "time": dt.strftime("%H:%M"), "availability_pending": False, "has_more": False}
@@ -586,8 +621,11 @@ async def search(
                         _purge_ev_result_cache()
                     _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic(), ttl)
             result["availability_status"] = status
-            if ev_result.get("price_eur") is not None:
-                result["price_eur"] = ev_result["price_eur"]
+            live_price = ev_result.get("price_eur")
+            if live_price is None:
+                live_price = eversports_prices.get_any_price(result["venue_id"], date_str_ev)
+            if live_price is not None:
+                result["price_eur"] = live_price
             if ev_result.get("slot_duration_h") is not None:
                 result["slot_duration_h"] = ev_result["slot_duration_h"]
             if status in ("busy", "no_slot"):
@@ -618,10 +656,7 @@ async def search(
             # availability check below: the two are independent. A slow price
             # refresh (up to ~6 min with staggering) must never block scrapers.
             if not eversports_prices._refresh_running:
-                with eversports_prices._PRICE_LOCK:
-                    price_cache_empty = not eversports_prices._PRICE_CACHE
-                if price_cache_empty:
-                    asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
+                asyncio.create_task(eversports_prices.refresh_prices_async(await load_venues()))
             # Serve already-cached statuses immediately.
             now_t = time_monotonic()
             with _EV_RESULT_LOCK:
@@ -632,8 +667,9 @@ async def search(
                         status, ts, ttl = entry
                         if now_t - ts < ttl:
                             r["availability_status"] = status
-                            cached_price = eversports_prices.get_price(
-                                r["venue_id"], date_str_ev, time_hhmm
+                            cached_price = (
+                                eversports_prices.get_price(r["venue_id"], date_str_ev, time_hhmm)
+                                or eversports_prices.get_any_price(r["venue_id"], date_str_ev)
                             )
                             if cached_price is not None:
                                 r["price_eur"] = cached_price
@@ -997,6 +1033,37 @@ async def booking_click(body: BookingClickBody):
     return {"ok": True}
 
 
+class SubscribeBody(BaseModel):
+    email: str
+
+
+@app.get("/api/subscribers/count", dependencies=[Depends(_require_admin)])
+async def subscribers_count():
+    from venues_mongo import _get_db
+    db = _get_db()
+    count = await db["subscribers"].count_documents({})
+    return {"count": count}
+
+
+@app.post("/api/subscribe")
+async def subscribe(body: SubscribeBody):
+    import re
+    email = body.email.strip().lower()
+    if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
+        return JSONResponse(status_code=422, content={"ok": False, "error": "invalid_email"})
+    from venues_mongo import _get_db
+    db = _get_db()
+    existing = await db["subscribers"].find_one({"email": email})
+    if existing:
+        return {"ok": True, "already": True}
+    await db["subscribers"].insert_one({
+        "email": email,
+        "subscribed_at": datetime.now(timezone.utc).isoformat(),
+    })
+    print(json.dumps({"event": "subscriber_added", "email": email}))
+    return {"ok": True, "already": False}
+
+
 @app.get("/api/weather")
 async def weather_endpoint(
     lat:  float = Query(),
@@ -1023,7 +1090,7 @@ async def weather_test(
 ):
     vid = venue_id or DEFAULT_VENUE_ID
 
-    venue = next((v for v in VENUES if v["id"] == vid), None)
+    venue = next((v for v in await load_venues() if v["id"] == vid), None)
     if venue is None:
         return JSONResponse(status_code=404, content={"error": "venue_not_found", "venue_id": vid})
 
@@ -1095,6 +1162,51 @@ async def check_compat(
         venue_url=venue_url,
         venue_id=venue_id,
     )
+
+
+@app.get("/api/tournaments")
+async def get_tournaments(
+    bundesland:  str = Query(default=""),
+    category:    str = Query(default=""),
+    competition: str = Query(default=""),
+    weekday:     str = Query(default=""),
+    venue_name:  str = Query(default=""),
+    show_full:   bool = Query(default=False),
+    show_closed: bool = Query(default=False),
+):
+    """
+    Return filtered tournament list from MongoDB.
+    Multi-value params are comma-separated, e.g. bundesland=Wien,Tirol
+    """
+    def _split(s: str) -> list[str] | None:
+        parts = [p.strip() for p in s.split(",") if p.strip()]
+        return parts if parts else None
+
+    tournaments = await tournaments_mongo.get_tournaments(
+        bundesland=_split(bundesland),
+        category=_split(category),
+        competition=_split(competition),
+        weekday=_split(weekday),
+        venue_name=_split(venue_name),
+        show_full=show_full,
+        show_closed=show_closed,
+    )
+    return {"tournaments": tournaments, "count": len(tournaments)}
+
+
+@app.get("/api/tournaments/venues")
+async def get_tournament_venues(bundesland: str = Query(default="")):
+    """Return distinct venue names for the Standort filter."""
+    bl = [p.strip() for p in bundesland.split(",") if p.strip()] if bundesland else None
+    venues = await tournaments_mongo.get_venues(bundesland=bl)
+    return {"venues": venues}
+
+
+@app.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])
+async def trigger_tournament_scrape():
+    """Manually trigger a tournament scrape (admin only)."""
+    threading.Thread(target=_run_tournament_scrape, daemon=True).start()
+    return {"status": "scrape started"}
 
 
 if __name__ == "__main__":

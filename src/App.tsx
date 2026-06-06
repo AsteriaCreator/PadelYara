@@ -1,9 +1,10 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect, useCallback } from "react"
 import { Routes, Route, NavLink, useSearchParams } from "react-router-dom"
 import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
+import { subscribeEmail } from "./api"
 import SearchCard from "./components/SearchCard"
 import VenueRow from "./components/VenueRow"
 import SkeletonRow from "./components/SkeletonRow"
@@ -280,6 +281,8 @@ function FinderPage() {
           </a>
         </p>
 
+        <NewsletterBanner />
+
         <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} initialLocation={urlLocation || undefined} initialDate={urlDate || undefined} initialTime={urlTime || undefined} initialRadius={urlRadius || undefined} />
 
         {!searched && !isLoading && !error && (
@@ -466,6 +469,82 @@ function Nav() {
     <div className="mb-2 border-b border-gray-800">
       <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
       <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
+    </div>
+  )
+}
+
+function NewsletterBanner() {
+  const [email, setEmail] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle")
+  const [alreadySubscribed, setAlreadySubscribed] = useState(false)
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email.trim() || status === "loading") return
+    setStatus("loading")
+    try {
+      const res = await subscribeEmail(email.trim())
+      if (res.ok) {
+        setAlreadySubscribed(res.already ?? false)
+        setStatus("done")
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
+  }, [email, status])
+
+  if (status === "done") {
+    return (
+      <div
+        className="mb-4 px-4 py-3 rounded-xl text-sm"
+        style={{ background: "rgba(212,245,60,0.06)", border: "1px solid rgba(212,245,60,0.2)" }}
+      >
+        <p style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c", fontSize: "1rem" }}>
+          {alreadySubscribed ? "Ich weiß. Du bist schon auf der Liste." : "Gut. Ich informiere dich."}
+        </p>
+      </div>
+    )
+  }
+
+  return (
+    <div
+      className="mb-4 px-4 py-3 rounded-xl"
+      style={{ background: "rgba(212,245,60,0.04)", border: "1px solid rgba(212,245,60,0.12)" }}
+    >
+      <p
+        className="text-sm mb-2"
+        style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "rgba(212,245,60,0.7)", fontSize: "0.95rem" }}
+      >
+        Neue Features kommen. Ob du das weißt, ist deine Entscheidung.
+      </p>
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          type="email"
+          placeholder="deine@email.at"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          className="flex-1 bg-transparent rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-600 outline-none min-w-0"
+          style={{ border: "1px solid rgba(212,245,60,0.2)", fontFamily: "'Barlow Condensed', sans-serif" }}
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="px-4 py-1.5 rounded-lg text-sm font-bold tracking-wide transition-colors"
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            background: "rgba(212,245,60,0.12)",
+            color: "#d4f53c",
+            border: "1px solid rgba(212,245,60,0.3)",
+          }}
+        >
+          {status === "loading" ? "…" : "INFORMIER MICH"}
+        </button>
+      </form>
+      {status === "error" && (
+        <p className="text-red-400 text-xs mt-1">Etwas ist schiefgelaufen. Versuch es nochmal.</p>
+      )}
     </div>
   )
 }
