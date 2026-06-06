@@ -1,0 +1,186 @@
+"""
+MongoDB access layer for the tournaments collection.
+
+Each tournament document uses (source, source_id) as the unique key.
+This design allows future sources (Sunset Padel, etc.) to coexist
+without any schema changes.
+"""
+
+import os
+from datetime import datetime, timezone
+from typing import Any
+
+from motor.motor_asyncio import AsyncIOMotorClient
+
+_client: AsyncIOMotorClient | None = None
+
+BUNDESLAENDER = [
+    "Wien", "Niederösterreich", "Oberösterreich", "Steiermark",
+    "Tirol", "Kärnten", "Salzburg", "Vorarlberg", "Burgenland",
+]
+
+CATEGORIES = ["Starter", "Advanced", "Expert", "Professional", "Elite"]
+
+COMPETITIONS = ["Herren", "Damen", "Mixed", "Jugend", "Offener Bewerb"]
+
+WEEKDAYS = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
+
+
+def _get_db():
+    global _client
+    if _client is None:
+        uri = os.environ.get("MONGODB_URI", "")
+        if not uri:
+            raise RuntimeError("MONGODB_URI not set")
+        _client = AsyncIOMotorClient(uri)
+    return _client["padel_checker"]
+
+
+def _col():
+    return _get_db()["tournaments"]
+
+
+async def ensure_indexes() -> None:
+    col = _col()
+    await col.create_index([("source", 1), ("source_id", 1)], unique=True)
+    await col.create_index([("starts_at", 1)])
+    await col.create_index([("bundesland", 1)])
+    await col.create_index([("status", 1)])
+    await col.create_index([("first_seen_at", 1)])
+
+
+async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int]:
+    """
+    Upsert a list of tournament dicts.
+    - Preserves first_seen_at on existing records.
+    - Updates last_seen_at and all scraped fields on every run.
+    Returns counts: {inserted, updated}.
+    """
+    col = _col()
+    now = datetime.now(timezone.utc)
+    inserted = 0
+    updated = 0
+
+    for t in tournaments:
+        source = t["source"]
+        source_id = t["source_id"]
+
+        # Fields we always update from the scraper
+        update_fields = {k: v for k, v in t.items() if k not in ("source", "source_id")}
+        update_fields["last_seen_at"] = now
+
+        result = await col.update_one(
+            {"source": source, "source_id": source_id},
+            {
+                "$set": update_fields,
+                "$setOnInsert": {
+                    "source": source,
+                    "source_id": source_id,
+                    "first_seen_at": now,
+                },
+            },
+            upsert=True,
+        )
+
+        if result.upserted_id:
+            inserted += 1
+        else:
+            updated += 1
+
+    return {"inserted": inserted, "updated": updated}
+
+
+def _sort_key(t: dict) -> tuple:
+    """
+    Sort order:
+    1. Open tournaments with free spots (best)
+    2. Open but full (waitlist available)
+    3. Not open yet
+    4. Closed / cancelled / unknown (worst)
+    Within groups, sort by starts_at ascending.
+    """
+    status = t.get("status", "unknown")
+    current = t.get("participants_current", 0)
+    maximum = t.get("participants_max", 0)
+    starts_at = t.get("starts_at") or datetime(9999, 1, 1, tzinfo=timezone.utc)
+
+    if status == "open" and (maximum == 0 or current < maximum):
+        group = 0
+    elif status == "open":
+        group = 1
+    elif status == "not_open_yet":
+        group = 2
+    elif status == "full":
+        group = 3
+    elif status == "closed":
+        group = 4
+    else:
+        group = 5
+
+    return (group, starts_at)
+
+
+async def get_tournaments(
+    bundesland: list[str] | None = None,
+    category: list[str] | None = None,
+    competition: list[str] | None = None,
+    weekday: list[str] | None = None,
+    venue_name: list[str] | None = None,
+    show_full: bool = True,
+    show_closed: bool = False,
+) -> list[dict]:
+    """
+    Query tournaments from MongoDB with optional filters.
+    Returns sorted list of serializable tournament dicts.
+    """
+    col = _col()
+    query: dict[str, Any] = {}
+
+    if bundesland:
+        query["bundesland"] = {"$in": bundesland}
+    if category:
+        query["category"] = {"$in": category}
+    if competition:
+        query["competition"] = {"$in": competition}
+    if weekday:
+        query["weekday"] = {"$in": weekday}
+    if venue_name:
+        query["venue_name"] = {"$in": venue_name}
+    if not show_full:
+        # Exclude tournaments where participants_current >= participants_max AND status != open
+        query["status"] = {"$nin": ["full"]}
+    if not show_closed:
+        existing_status_filter = query.get("status", {})
+        if isinstance(existing_status_filter, dict) and "$nin" in existing_status_filter:
+            existing_status_filter["$nin"].extend(["closed", "cancelled"])
+        elif not existing_status_filter:
+            query["status"] = {"$nin": ["closed", "cancelled"]}
+
+    cursor = col.find(query, {"_id": 0})
+    docs = await cursor.to_list(length=2000)
+
+    # Convert datetime fields to ISO strings for JSON serialization
+    result = []
+    for doc in docs:
+        for field in ("starts_at", "ends_at", "first_seen_at", "last_seen_at",
+                      "registration_opens_at", "registration_closes_at"):
+            if isinstance(doc.get(field), datetime):
+                doc[field] = doc[field].isoformat()
+        result.append(doc)
+
+    result.sort(key=_sort_key)
+    return result
+
+
+async def get_venues(bundesland: list[str] | None = None) -> list[str]:
+    """Return sorted list of distinct venue names, optionally filtered by bundesland."""
+    col = _col()
+    query = {}
+    if bundesland:
+        query["bundesland"] = {"$in": bundesland}
+    venues = await col.distinct("venue_name", query)
+    return sorted(v for v in venues if v)
+
+
+async def count_tournaments() -> int:
+    return await _col().count_documents({})
