@@ -20,6 +20,7 @@ interface Filters {
   // Per-bundesland bezirk selection — keys are bundesland names, values are selected bezirke.
   // Preserved across bundesland toggles so selections survive deselect/reselect.
   bezirkByBundesland: Record<string, string[]>
+  venue: string        // single venue_name, "" = all
   kategorie: string[]
   wettbewerb: string[]
   wochentag: string[]
@@ -31,6 +32,7 @@ function defaultFilters(): Filters {
   return {
     bundesland: [],
     bezirkByBundesland: {},
+    venue: "",
     kategorie: [],
     wettbewerb: [],
     wochentag: [],
@@ -300,6 +302,8 @@ export default function TurnierjagerPage() {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
   // UI-only: which bundesländer have their district picker open
   const [expandedBl, setExpandedBl] = useState<string[]>([])
+  // Venue options fetched from API, scoped to selected bundesländer
+  const [venueOptions, setVenueOptions] = useState<string[]>([])
 
   function toggleExpand(bl: string) {
     setExpandedBl(prev =>
@@ -307,14 +311,27 @@ export default function TurnierjagerPage() {
     )
   }
 
+  // Fetch venue options whenever bundesland selection changes
+  useEffect(() => {
+    const params = new URLSearchParams()
+    if (filters.bundesland.length) params.set("bundesland", filters.bundesland.join(","))
+    fetch(`${API_BASE}/api/tournaments/venues?${params}`)
+      .then(r => r.json())
+      .then(data => setVenueOptions(data.venues ?? []))
+      .catch(() => setVenueOptions([]))
+  }, [filters.bundesland])
+
   function updateFilter<K extends keyof Filters>(key: K, value: Filters[K]) {
     setFilters(prev => {
-      const next = { ...prev, [key]: value }
-      // Collapse district pickers for bundesländer that got deselected
+      const extra: Partial<Filters> = {}
       if (key === "bundesland") {
+        // Collapse district pickers for bundesländer that got deselected
         const next_bl = value as string[]
         setExpandedBl(e => e.filter(bl => next_bl.includes(bl)))
+        // Reset venue — it may not exist in the new bundesland scope
+        extra.venue = ""
       }
+      const next = { ...prev, ...extra, [key]: value }
       saveFilters(next)
       return next
     })
@@ -339,6 +356,7 @@ export default function TurnierjagerPage() {
       if (f.bundesland.length) params.set("bundesland", f.bundesland.join(","))
       const bezirke = allSelectedBezirke(f)
       if (bezirke.length) params.set("bezirk", bezirke.join(","))
+      if (f.venue) params.set("venue_name", f.venue)
       if (f.kategorie.length) params.set("category", f.kategorie.join(","))
       if (f.wettbewerb.length) params.set("competition", f.wettbewerb.join(","))
       if (f.wochentag.length) params.set("weekday", f.wochentag.join(","))
@@ -371,6 +389,7 @@ export default function TurnierjagerPage() {
   const hasActiveFilters = (
     filters.bundesland.length > 0 ||
     totalBezirkeSelected > 0 ||
+    !!filters.venue ||
     filters.kategorie.length > 0 ||
     filters.wettbewerb.length > 0 ||
     filters.wochentag.length > 0
@@ -424,6 +443,22 @@ export default function TurnierjagerPage() {
               ))}
           </div>
         )}
+
+        {/* Venue / Standort */}
+        <div className="mb-4">
+          <p className="text-xs text-gray-500 mb-2 tracking-wide uppercase">Standort</p>
+          <select
+            value={filters.venue}
+            onChange={e => updateFilter("venue", e.target.value)}
+            className="w-full rounded-lg border px-3 py-2 text-sm bg-gray-950 text-gray-300"
+            style={{ borderColor: filters.venue ? "#d4f53c" : "rgba(107,114,128,0.4)" }}
+          >
+            <option value="">Alle Standorte</option>
+            {venueOptions.map(v => (
+              <option key={v} value={v}>{v}</option>
+            ))}
+          </select>
+        </div>
 
         <MultiChip
           label="Wochentag"
