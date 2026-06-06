@@ -1,0 +1,179 @@
+// Datenschutzerklärung für PadelYara.
+//
+// ENTWURF — inhaltlich auf die tatsächlichen Datenflüsse der App abgestimmt
+// (Hosting, Photon/Komoot, MET Norway, eigenes Tracking, Newsletter, MongoDB).
+// Vor dem produktiven Einsatz von einem Datenschutz-Generator/-Check gegenlesen
+// lassen. Verantwortliche & Adresse müssen mit dem Impressum übereinstimmen.
+
+const email = "cornelia.mayer@adventure-it.at"
+
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="mb-8">
+      <h2 className="text-white font-semibold text-lg mb-3">{title}</h2>
+      <div className="space-y-3 text-sm text-gray-400 leading-relaxed">{children}</div>
+    </section>
+  )
+}
+
+export default function DatenschutzPage() {
+  return (
+    <article className="text-gray-300">
+      <h1 className="text-white font-bold text-2xl mb-2">Datenschutzerklärung</h1>
+      <p className="text-xs text-gray-600 mb-8">Stand: Juni 2026</p>
+
+      <Section title="1. Verantwortliche">
+        <p>
+          Verantwortliche im Sinne der Datenschutz-Grundverordnung (DSGVO) ist:
+        </p>
+        <p className="text-gray-300">
+          Cornelia Mayer<br />
+          Griesgasse 2<br />
+          2340 Mödling<br />
+          Österreich<br />
+          <a href={`mailto:${email}`} className="text-indigo-400 hover:text-indigo-300">{email}</a>
+        </p>
+      </Section>
+
+      <Section title="2. Grundsätzliches">
+        <p>
+          Wir verarbeiten personenbezogene Daten nur im erforderlichen Umfang und
+          auf Grundlage der DSGVO. Diese Erklärung informiert Sie gemäß Art. 13
+          und 14 DSGVO über Art, Umfang und Zweck der Verarbeitung sowie über Ihre
+          Rechte.
+        </p>
+        <p>
+          PadelYara ist ein Dienst, der freie Padel-Court-Zeiten in Österreich
+          aus verschiedenen Buchungsplattformen zusammenführt. Eine Registrierung
+          oder ein Nutzerkonto ist für die Nutzung nicht erforderlich.
+        </p>
+      </Section>
+
+      <Section title="3. Hosting">
+        <p>
+          Die Website (Frontend) wird bei <strong>Vercel Inc.</strong> (USA),
+          die Programmschnittstelle (Backend) bei <strong>Railway Corporation</strong>{" "}
+          (USA) gehostet. Beim Aufruf der Seite werden technisch notwendige Daten
+          (insbesondere IP-Adresse, Datum/Uhrzeit, abgerufene Ressource,
+          Browser-/Geräteinformationen) in Server-Logfiles verarbeitet, um den
+          Betrieb, die Sicherheit und die Auslieferung der Inhalte zu
+          gewährleisten.
+        </p>
+        <p>
+          Rechtsgrundlage ist unser berechtigtes Interesse am sicheren und
+          stabilen Betrieb (Art. 6 Abs. 1 lit. f DSGVO). Die Übermittlung in die
+          USA erfolgt auf Grundlage der EU-Standardvertragsklauseln bzw. – soweit
+          zertifiziert – des EU-US Data Privacy Framework. Mit beiden Anbietern
+          besteht ein Auftragsverarbeitungsvertrag (Art. 28 DSGVO).
+        </p>
+      </Section>
+
+      <Section title="4. Ortssuche und Geokodierung">
+        <p>
+          Für die Autovervollständigung von Ortsnamen während der Eingabe nutzen
+          wir den Dienst <strong>Photon</strong> der <strong>komoot GmbH</strong>{" "}
+          (Deutschland). Zur Umwandlung des von Ihnen gewählten Ortes in
+          Koordinaten nutzen wir zusätzlich den Dienst <strong>Nominatim</strong>{" "}
+          der <strong>OpenStreetMap Foundation</strong> (Vereinigtes Königreich).
+          In beiden Fällen wird der von Ihnen eingegebene Ortsname direkt aus
+          Ihrem Browser an den jeweiligen Dienst übermittelt, um Vorschläge bzw.
+          Koordinaten zurückzugeben.
+        </p>
+        <p>
+          Rechtsgrundlage ist unser berechtigtes Interesse an einer funktionalen
+          Ortssuche (Art. 6 Abs. 1 lit. f DSGVO).
+        </p>
+      </Section>
+
+      <Section title="5. Wetterdaten">
+        <p>
+          Zur Anzeige der Wetterprognose für den gewählten Spielzeitpunkt
+          übermittelt unser Backend die Koordinaten des gesuchten Ortes an den
+          Wetterdienst <strong>MET Norway</strong> (Norwegisches Meteorologisches
+          Institut, <code>api.met.no</code>). Es werden dabei keine
+          personenbezogenen Identifikatoren übertragen. Rechtsgrundlage ist unser
+          berechtigtes Interesse an einer nützlichen Zusatzinformation
+          (Art. 6 Abs. 1 lit. f DSGVO).
+        </p>
+      </Section>
+
+      <Section title="6. Reichweitenmessung (eigene, cookielose Statistik)">
+        <p>
+          Zur Verbesserung des Dienstes erfassen wir anonyme Nutzungsstatistiken
+          auf unserem eigenen Server. Dabei werden <strong>keine Cookies</strong>{" "}
+          gesetzt und <strong>keine IP-Adressen oder genauen Standorte</strong>{" "}
+          gespeichert. Erfasst werden ausschließlich produktbezogene Ereignisse,
+          z. B. dass eine Suche durchgeführt wurde, deren Ergebnisanzahl, die
+          gewählte Region (vom Nutzer eingegebener Ortsname), die Gerätekategorie
+          (Mobil/Tablet/Desktop) sowie technische Antwortzeiten.
+        </p>
+        <p>
+          Zur Unterscheidung wiederkehrender Besuche speichert Ihr Browser eine
+          zufällig erzeugte Kennung (anonyme <code>session_id</code>) in seinem
+          lokalen Speicher (localStorage). Diese Kennung enthält keine
+          personenbezogenen Daten und lässt keinen Rückschluss auf Ihre Person zu.
+          Sie können sie jederzeit durch Leeren des lokalen Speichers Ihres
+          Browsers entfernen. Rechtsgrundlage ist unser berechtigtes Interesse an
+          einer datensparsamen Reichweitenmessung (Art. 6 Abs. 1 lit. f DSGVO).
+        </p>
+      </Section>
+
+      <Section title="7. Newsletter">
+        <p>
+          Wenn Sie sich für unseren Newsletter anmelden, verarbeiten wir die von
+          Ihnen angegebene E-Mail-Adresse, um Ihnen Informationen zu PadelYara zu
+          senden. Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a
+          DSGVO). Sie können diese Einwilligung jederzeit widerrufen, etwa über
+          den Abmeldelink in jeder E-Mail oder per Nachricht an{" "}
+          <a href={`mailto:${email}`} className="text-indigo-400 hover:text-indigo-300">{email}</a>.
+        </p>
+      </Section>
+
+      <Section title="8. Datenspeicherung (Datenbank)">
+        <p>
+          Die oben genannten Statistik- und Newsletter-Daten werden in einer
+          Datenbank bei <strong>MongoDB Atlas</strong> (MongoDB, Inc.) gespeichert.
+          Die Daten werden in einem Rechenzentrum innerhalb der EU verarbeitet,
+          sofern technisch nicht anders angegeben. Mit dem Anbieter besteht ein
+          Auftragsverarbeitungsvertrag (Art. 28 DSGVO).
+        </p>
+      </Section>
+
+      <Section title="9. Lokaler Speicher (localStorage)">
+        <p>
+          Wir verwenden den lokalen Speicher Ihres Browsers für technisch
+          notwendige bzw. funktionale Zwecke, insbesondere für die oben genannte
+          anonyme Statistik-Kennung und zur Speicherung Ihrer Einstellungen. Es
+          werden dabei keine Tracking-Cookies und keine Cookies von Drittanbietern
+          zu Werbezwecken eingesetzt.
+        </p>
+      </Section>
+
+      <Section title="10. Ihre Rechte">
+        <p>
+          Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung
+          (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
+          Datenübertragbarkeit (Art. 20) sowie ein Widerspruchsrecht (Art. 21).
+          Erteilte Einwilligungen können Sie jederzeit mit Wirkung für die Zukunft
+          widerrufen.
+        </p>
+        <p>
+          Zur Ausübung Ihrer Rechte genügt eine Nachricht an{" "}
+          <a href={`mailto:${email}`} className="text-indigo-400 hover:text-indigo-300">{email}</a>.
+        </p>
+        <p>
+          Ihnen steht zudem ein Beschwerderecht bei der Aufsichtsbehörde zu. In
+          Österreich ist dies die{" "}
+          <a
+            href="https://www.dsb.gv.at"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-indigo-400 hover:text-indigo-300"
+          >
+            Österreichische Datenschutzbehörde
+          </a>.
+        </p>
+      </Section>
+    </article>
+  )
+}

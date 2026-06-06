@@ -23,7 +23,7 @@ export interface Suggestion {
 // Only keep settlement-level results
 const PHOTON_PLACE_KEYS = new Set(["place", "boundary"])
 
-export async function suggest(query: string, userLocation?: Coords): Promise<Suggestion[]> {
+export async function suggest(query: string): Promise<Suggestion[]> {
   query = query.trim()
   if (query.length < 3) return []
   const url = new URL("https://photon.komoot.io/api/")
@@ -31,10 +31,6 @@ export async function suggest(query: string, userLocation?: Coords): Promise<Sug
   url.searchParams.set("countrycode", "at")
   url.searchParams.set("limit", "15")
   url.searchParams.set("lang", "de")
-  if (userLocation) {
-    url.searchParams.set("lat", String(userLocation.lat))
-    url.searchParams.set("lon", String(userLocation.lon))
-  }
   try {
     const res = await fetch(url.toString(), { signal: AbortSignal.timeout(5_000) })
     if (!res.ok) return []

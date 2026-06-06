@@ -12,6 +12,7 @@ import ImprintModal from "./components/ImprintModal"
 import LoadingCat from "./components/LoadingCat"
 import AboutSection from "./components/AboutSection"
 import TurnierjagerPage from "./pages/TurnierjagerPage"
+import DatenschutzPage from "./pages/DatenschutzPage"
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -406,12 +407,20 @@ function FinderPage() {
 
       <footer className="text-center py-8 mt-4">
         <p className="text-xs text-gray-700 mb-2 tracking-widest uppercase">PadelYara</p>
-        <button
-          onClick={() => setShowImprint(true)}
-          className="text-xs text-gray-700 hover:text-gray-400 transition-colors"
-        >
-          Impressum
-        </button>
+        <div className="flex items-center justify-center gap-4">
+          <button
+            onClick={() => setShowImprint(true)}
+            className="text-xs text-gray-700 hover:text-gray-400 transition-colors"
+          >
+            Impressum
+          </button>
+          <NavLink
+            to="/datenschutz"
+            className="text-xs text-gray-700 hover:text-gray-400 transition-colors"
+          >
+            Datenschutz
+          </NavLink>
+        </div>
       </footer>
 
       {showImprint && <ImprintModal onClose={() => setShowImprint(false)} />}
@@ -584,6 +593,17 @@ export default function App() {
             </div>
             <Nav />
             <AboutSection />
+          </div>
+        </div>
+      } />
+      <Route path="/datenschutz" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <DatenschutzPage />
           </div>
         </div>
       } />
