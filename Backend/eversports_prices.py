@@ -126,11 +126,66 @@ async def _save_venue_to_mongo(venue_id: str, slots: list[dict]) -> None:
         print(f"[ev-prices] _save_venue_to_mongo failed  venue={venue_id}  error={exc}")
 
 
+async def _fetch_one_date(
+    session, vid: str, facility_id: int, slug: str, booking_url: str, date_str: str
+) -> list[dict]:
+    """POST for a single date and parse price slots from the HTML."""
+    post_data = {
+        "facilityId":   str(facility_id),
+        "facilitySlug": slug,
+        "date":         date_str,
+        "type":         "user",
+        **_PADEL_SPORT,
+    }
+    raw_body = "&".join(f"{k}={v}" for k, v in post_data.items())
+    print(f"[ev-prices] post_start  venue={vid}  facility={facility_id}  date={date_str}")
+    r = await session.post(
+        _CAL_URL,
+        data=raw_body,
+        headers={
+            "Content-Type":     "application/x-www-form-urlencoded; charset=UTF-8",
+            "X-Requested-With": "XMLHttpRequest",
+            "Accept":           "*/*",
+            "Accept-Language":  "de-AT,de;q=0.9,en;q=0.8",
+            "Origin":           "https://www.eversports.at",
+            "Referer":          booking_url,
+        },
+        timeout=20,
+    )
+    has_td       = "<td" in r.text
+    has_price_td = bool(re.search(r'<td[^>]*data-price', r.text, re.IGNORECASE))
+    td_count     = r.text.count("<td")
+    print(f"[ev-prices] post_response  venue={vid}  date={date_str}  status={r.status_code}  has_price_td={has_price_td}  td_count={td_count}")
+
+    if r.status_code != 200 or not has_td:
+        return []
+
+    if not has_price_td:
+        print(f"[ev-prices] no_price_td_in_post  venue={vid}  date={date_str}  trying GET fallback")
+        r = await session.get(
+            booking_url,
+            headers={"Accept": "text/html,*/*", "Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
+            timeout=20,
+        )
+
+    slots: list[dict] = []
+    for m in re.finditer(r"<td\b([^>]*)>", r.text, re.IGNORECASE):
+        attrs = m.group(1)
+        d  = re.search(r'data-date=["\']([^"\']*)["\']',  attrs)
+        s  = re.search(r'data-start=["\']([^"\']*)["\']', attrs)
+        p  = re.search(r'data-price=["\']([^"\']*)["\']', attrs)
+        if d and s and p and p.group(1).isdigit():
+            slots.append({"date": d.group(1), "start": s.group(1), "price": int(p.group(1))})
+    return slots
+
+
 async def _fetch_venue_prices(venue: dict) -> list[dict]:
     """
-    POST to /api/booking/calendar/update with padel sport params and parse
-    td[data-price] from the returned HTML. Returns list of slot dicts.
-    Fetches starting from today so exact-date lookups work for current searches.
+    POST to /api/booking/calendar/update for today AND tomorrow, merge results.
+    Some venues (e.g. Ebreichsdorf) only release slots 1 day in advance, so
+    a single POST for today returns no tomorrow data. Fetching both dates
+    ensures the cache always covers at least the next 24 hours regardless of
+    how far in advance each venue publishes its schedule.
     """
     vid         = venue["id"]
     facility_id = venue.get("eversports_facility_id")
@@ -141,81 +196,28 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         print(f"[ev-prices] skip  venue={vid}  reason=no_facility_id")
         return []
 
-    # Fetch starting from today — the calendar API returns 14 days of slots,
-    # covering all days-of-week and giving exact-date matches for today's searches.
-    date_str = datetime.now(VIENNA_TZ).date().strftime("%Y-%m-%d")
+    from datetime import timedelta
+    today    = datetime.now(VIENNA_TZ).date()
+    tomorrow = today + timedelta(days=1)
 
-    post_data = {
-        "facilityId":   str(facility_id),
-        "facilitySlug": slug,
-        "date":         date_str,
-        "type":         "user",
-        **_PADEL_SPORT,
-    }
-
-    # Build body with literal square brackets — dict encoding would escape them
-    # as %5B/%5D which the Eversports server doesn't recognise as sport[] params.
-    raw_body = "&".join(f"{k}={v}" for k, v in post_data.items())
-
-    print(f"[ev-prices] post_start  venue={vid}  facility={facility_id}  date={date_str}")
     try:
         async with AsyncSession(impersonate="chrome124") as session:
-            r = await session.post(
-                _CAL_URL,
-                data=raw_body,
-                headers={
-                    "Content-Type":     "application/x-www-form-urlencoded; charset=UTF-8",
-                    "X-Requested-With": "XMLHttpRequest",
-                    "Accept":           "*/*",
-                    "Accept-Language":  "de-AT,de;q=0.9,en;q=0.8",
-                    "Origin":           "https://www.eversports.at",
-                    "Referer":          booking_url,
-                },
-                timeout=20,
-            )
+            today_slots    = await _fetch_one_date(session, vid, facility_id, slug, booking_url, today.strftime("%Y-%m-%d"))
+            tomorrow_slots = await _fetch_one_date(session, vid, facility_id, slug, booking_url, tomorrow.strftime("%Y-%m-%d"))
 
-        has_td       = "<td" in r.text
-        has_price_td = bool(re.search(r'<td[^>]*data-price', r.text, re.IGNORECASE))
-        td_count     = r.text.count("<td")
-        print(f"[ev-prices] post_response  venue={vid}  status={r.status_code}  has_price_td={has_price_td}  td_count={td_count}  body[:200]={r.text[:200]!r}")
-
-        if r.status_code != 200 or not has_td:
-            return []
-
-        if not has_price_td:
-            # POST returned a calendar but no price TDs — fall back to GET on the
-            # booking page, where prices are always in the server-rendered HTML.
-            print(f"[ev-prices] no_price_td_in_post  venue={vid}  trying GET fallback")
-            r = await session.get(
-                booking_url,
-                headers={
-                    "Accept":          "text/html,*/*",
-                    "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
-                },
-                timeout=20,
-            )
-            print(f"[ev-prices] get_response  venue={vid}  status={r.status_code}  has_price_td={bool(re.search(r'<td[^>]*data-price', r.text, re.IGNORECASE))}")
-
-        # Show first data-price occurrence in context to understand structure
-        idx = r.text.find("data-price")
-        print(f"[ev-prices] price_context  venue={vid}  ctx={r.text[max(0,idx-80):idx+80]!r}")
-
-        # Parse td[data-date][data-start][data-price] elements
+        # Merge and deduplicate by (date, start) — prefer today's data for overlapping slots
+        seen: set[tuple] = set()
         slots: list[dict] = []
-        for m in re.finditer(r"<td\b([^>]*)>", r.text, re.IGNORECASE):
-            attrs = m.group(1)
-            d  = re.search(r'data-date=["\']([^"\']*)["\']',  attrs)
-            s  = re.search(r'data-start=["\']([^"\']*)["\']', attrs)
-            p  = re.search(r'data-price=["\']([^"\']*)["\']', attrs)
-            if d and s and p and p.group(1).isdigit():
-                slots.append({
-                    "date":  d.group(1),
-                    "start": s.group(1),
-                    "price": int(p.group(1)),
-                })
+        for s in today_slots + tomorrow_slots:
+            key = (s["date"], s["start"])
+            if key not in seen:
+                seen.add(key)
+                slots.append(s)
 
-        prices = sorted(set(sl["price"] for sl in slots))
-        print(f"[ev-prices] parsed  venue={vid}  slots={len(slots)}  prices={prices}")
+        prices = sorted(set(s["price"] for s in slots))
+        today_count    = sum(1 for s in slots if s["date"] == today.strftime("%Y-%m-%d"))
+        tomorrow_count = sum(1 for s in slots if s["date"] == tomorrow.strftime("%Y-%m-%d"))
+        print(f"[ev-prices] parsed  venue={vid}  slots={len(slots)}  today={today_count}  tomorrow={tomorrow_count}  prices={prices}")
         return slots
 
     except Exception as exc:
