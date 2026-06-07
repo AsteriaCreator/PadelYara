@@ -69,7 +69,18 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
 
   const courtIcon = venue.court_type === "indoor" ? "🏠" : venue.court_type === "outdoor" ? "🌳" : "🏠🌳"
 
-  const bookingLabel = venue.status === "free" ? "JETZT BUCHEN →" : "LINK →"
+  // For phone-only venues: prefer their own website over the booking platform page.
+  // booking_url may be an Eversports/eTennis URL that has no online booking anyway.
+  const isPhoneOnly = venue.status === "phone_only"
+  const linkUrl = isPhoneOnly
+    ? (venue.public_url || venue.booking_url || "")
+    : venue.booking_url
+
+  const bookingLabel = venue.status === "free"
+    ? "JETZT BUCHEN →"
+    : isPhoneOnly
+      ? "WEBSITE →"
+      : "LINK →"
   const bookingStyle = venue.status === "free"
     ? "font-bold text-[#080810] hover:opacity-90"
     : "bg-gray-800 hover:bg-gray-700 text-gray-500 border border-gray-700"
@@ -107,20 +118,28 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
             <span className="whitespace-nowrap">📍 {venue.distance_km.toFixed(1)} km</span>
           )}
         </div>
-        <a
-          href={
-            searchDate && venue.platform === "eTennis"
-              ? etennisBookingUrl(venue.booking_url, searchDate)
-              : venue.booking_url
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={() => trackBookingClick(venue.id, venue.platform)}
-          className={`text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
-          style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
-        >
-          {bookingLabel}
-        </a>
+        {linkUrl ? (
+          <a
+            href={
+              !isPhoneOnly && searchDate && venue.platform === "eTennis"
+                ? etennisBookingUrl(venue.booking_url, searchDate)
+                : linkUrl
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackBookingClick(venue.id, venue.platform)}
+            className={`text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap ${bookingStyle}`}
+            style={venue.status === "free" ? { backgroundColor: "#d4f53c" } : undefined}
+          >
+            {bookingLabel}
+          </a>
+        ) : (
+          // No booking URL (e.g. phone-only venues) — render a non-clickable
+          // placeholder instead of a dead <a href=""> that reloads our own site.
+          <span className="text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap bg-gray-800 text-gray-600 border border-gray-700">
+            KEIN LINK
+          </span>
+        )}
       </div>
     </div>
   )

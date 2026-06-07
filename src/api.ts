@@ -46,6 +46,7 @@ type RawVenue = {
   court_type: string
   availability_status?: string
   booking_url: string
+  public_url?: string
   time_adjusted?: boolean
   matched_time?: string
   requested_time?: string
@@ -62,6 +63,7 @@ function mapVenue(v: RawVenue): Venue {
     court_type: v.court_type as Venue["court_type"],
     platform: v.platform as Venue["platform"],
     booking_url: v.booking_url,
+    public_url: v.public_url,
     status: (v.availability_status as Status) ?? "pending",
     distance_km: v.distance_km,
     time_adjusted: v.time_adjusted,

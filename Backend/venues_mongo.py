@@ -38,6 +38,7 @@ def _normalize(doc: dict) -> dict:
         "platform":        _PLATFORM_MAP.get(platform_raw, doc.get("platform", "")),
         "priority":        int(doc.get("priority", 0) or 0),
         "booking_url":     doc.get("booking_url", ""),
+        "public_url":      doc.get("public_url", ""),
         "lat":             float(lat) if lat is not None else None,
         "lon":             float(lon) if lon is not None else None,
         "platform_id":            doc.get("platform_id") or doc.get("etennis_id") or None,

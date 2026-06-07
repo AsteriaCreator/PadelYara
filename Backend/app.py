@@ -296,6 +296,7 @@ def _build_venue_result(venue: dict) -> VenueResult:
         "platform":            venue["platform"],
         "priority":            venue["priority"],
         "booking_url":         venue["booking_url"],
+        "public_url":          venue.get("public_url", ""),
         "distance_km":         venue.get("distance_km"),
         "availability_status": "unknown",
         "error":               None,

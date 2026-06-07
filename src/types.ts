@@ -25,6 +25,7 @@ export interface Venue {
   court_type: "indoor" | "outdoor" | "indoor+outdoor"
   platform: "eTennis" | "Eversports" | "Andere"
   booking_url: string
+  public_url?: string
   status: Status
   distance_km?: number | null
   time_adjusted?: boolean
