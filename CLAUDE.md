@@ -23,5 +23,18 @@ When fixing or adding a feature in any scraper (`eversports_service.py`, `eversp
 
 Also applies to the **Dockerfile**: any new Backend `.py` file must get a `COPY` line and be added to the build-time import check.
 
+## Working style & permissions
+The user works things out in chat first and finds the harness permission popups redundant. She is a beginner, so don't make her judge flagged commands — give a plain-language safe/unsafe verdict, and rewrite commands that can't be allowlisted (`$()`, backticks, brace expansion, etc.) into a safe equivalent.
+
+**Just do it — batched, no asking:** edit/create/read files, search code, run the app locally, tests, typecheck, read the database, read logs, and local git (`status`, `diff`, `log`, `commit`).
+
+**Commit + push = one step for agreed changes.** When we've discussed a change and it's verified (typecheck/preview passes), commit **and** push it together, then tell her it's deploying and live on padelyara.at in ~1–3 min. Do **not** re-ask about pushing something we already agreed on — that gap (committed but not pushed → "it's not on the site") is the exact thing to avoid. Remember: push → GitHub → auto-deploy is what makes a change go live.
+
+**Stop and ask her in chat first (plain words, not a popup)** only for genuinely consequential or irreversible actions:
+- Deleting files, or deleting/clearing/dropping anything in MongoDB
+- Mass writes to the **production** database (bulk update/insert/delete)
+- `git push --force`, deleting branches, history rewrites
+- Risky/experimental changes I'm unsure about, or anything not clearly agreed yet
+
 ## Voice
 User-facing copy is in German, written in **Yara's voice** (see `.agents/yara-voice.md`): mean, competent, unbothered.

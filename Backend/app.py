@@ -446,6 +446,11 @@ def _device_type(user_agent: str) -> str:
     return "desktop"
 
 
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
+
 @app.get("/api/search")
 async def search(
     date:            str | None   = Query(default=None),
@@ -1297,6 +1302,32 @@ async def get_tournament_venues(bundesland: str = Query(default="")):
     bl = [p.strip() for p in bundesland.split(",") if p.strip()] if bundesland else None
     venues = await tournaments_mongo.get_venues(bundesland=bl)
     return {"venues": venues}
+
+
+@app.get("/api/venues")
+async def get_venues():
+    """Static venue list for the Padelrevier map — no scraping, served from the
+    load_venues() cache. Returns only what the map needs (name, address, coords,
+    links), filtered to venues that actually have coordinates to place a pin."""
+    venues = await load_venues()
+    out = [
+        {
+            "id":          v["id"],
+            "name":        v["name"],
+            "operator":    v.get("operator", ""),
+            "address":     v.get("address", ""),
+            "region":      v.get("region", ""),
+            "court_type":  v["court_type"],
+            "platform":    v.get("platform", ""),
+            "booking_url": v.get("booking_url", ""),
+            "public_url":  v.get("public_url", ""),
+            "lat":         v["lat"],
+            "lon":         v["lon"],
+        }
+        for v in venues
+        if v.get("lat") is not None and v.get("lon") is not None
+    ]
+    return {"venues": out, "count": len(out)}
 
 
 @app.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])

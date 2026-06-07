@@ -39,3 +39,7 @@ experiments/
 Backend/*.html
 Backend/*.json
 .claude/
+
+# Local productivity board (private, never pushed)
+TASKS.md
+dashboard.html
