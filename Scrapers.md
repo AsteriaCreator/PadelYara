@@ -275,6 +275,54 @@ Potential future work:
 
 ---
 
+# Platforms to Build Next
+
+## tennis04 (priority: HIGH)
+
+4–5 Austrian venues currently, growing as tennis clubs add padel courts.
+
+**API — fully public, no auth, plain HTTP:**
+
+1. **Get club ID** (one-time per venue):
+   Fetch `https://app.tennis04.com/de/{slug}/buchungsplan`, regex `window\['_id'\] = (\d+)`.
+
+2. **Get Padel courtgroup UUID** (one-time per venue):
+   `GET https://app.tennis04.com/a/{club_id}/courtgroups`
+   Filter by name containing "padel".
+
+3. **Check availability** (per search):
+   `GET https://app.tennis04.com/a/{club_id}/bookings?datefrom=YYYY-MM-DD&dateto=YYYY-MM-DD&courtgroup={padel_uuid}`
+   Returns array of **booked** slots with `start`, `end`, `resourceId`.
+   Logic: if no booking covers the requested time → FREE, else BUSY.
+
+**MongoDB fields to add per venue:** `tennis04_club_id` (int), `tennis04_courtgroup_id` (UUID string).
+
+**Current tennis04 venues:** SV Lichtenberg, tcbw Feldkirch, TC Hard, Padelclub Mattersburg, UTC Sparkasse Scheibbs.
+
+---
+
+## Playtomic (priority: MEDIUM)
+
+3 Austrian venues currently. Global platform, likely has a public API.
+Worth investigating once tennis04 is live.
+
+---
+
+## ScrapeGraphAI — for venue onboarding, not availability scraping
+
+ScrapeGraphAI (LLM-powered scraper) is **not** useful for structured APIs like tennis04 or Eversports.
+It would add value in the **venue onboarding pipeline**:
+
+- `add_venue.py` currently uses regex to detect platform from HTML — ScrapeGraphAI could handle
+  arbitrary venue sites and return `{platform, booking_url, court_type, address}` without
+  platform-specific detection logic per site.
+- Phone-only venue websites: extract opening hours, phone, prices from unstructured HTML.
+- Venue discovery: structured extraction from directory pages.
+
+Install: `pip install scrapegraphai`. Uses the Anthropic key already in `.env`.
+
+---
+
 # Important Warning
 
 Do not rewrite working scraper systems without strong evidence and production measurements.
@@ -315,7 +363,7 @@ col.update_one(
 
 The two-step pipeline exists for when you *don't* have the data yet. If you do, skip it.
 
-**After any insert:** Railway must be restarted to pick up new venues. `VENUES` is loaded once at startup in `app.py` and never refreshed mid-run. Trigger a redeploy from the Railway dashboard — new venues won't appear in search results until then.
+**After any insert:** Railway must be restarted to pick up new venues. `VENUES` is loaded once at startup in `app.py` and never refreshed mid-run — the 5-minute TTL cache in `venues_mongo.py` is never re-invoked after startup. Trigger a redeploy from the Railway dashboard or via `railway redeploy --yes` — new venues won't appear in search results until then.
 
 ---
 
@@ -328,18 +376,94 @@ The two-step pipeline exists for when you *don't* have the data yet. If you do, 
 - `courts` — array of `{id: "123", type: "indoor_normal"}` — parallel to `eversports_court_ids`
 - Court type values: `indoor_normal`, `indoor_single`, `outdoor_normal`, `outdoor_single`
 - `issues` — set to `"phone_booking_only"` for venues that have an Eversports/eTennis page but don't offer online booking. Leave `eversports_facility_id: null` and `eversports_court_ids: []` — the scraper won't run but the venue still appears in results.
+- `lat` / `lon` — **required** (note: `lon`, not `lng`). Venues without coordinates are invisible in search (search is location + radius). Always include when writing directly to MongoDB. Use Google Maps or geocoding to get coordinates from the address.
+- `booking_url` — **required for all venues**. Used by the eTennis scraper to navigate to the booking page, and by the Eversports price fetcher as the slug source and Referer header. Without it the venue returns "Nicht online prüfbar" (eTennis) or shows no prices (Eversports). Patterns: `https://www.eversports.at/sb/<slug>` (Eversports), `https://www.buchung-padelbase.at/reservierung?c=<id>` (Padelbase), `https://www.padeldome.wien/reservierung?c=<id>` (Padeldome). Check an existing venue of the same operator if unsure.
 
 ---
 
-## Claude Browser Prompt
+## Venue Extractor Prompt
 
-Use on any open booking page to extract all fields at once:
+Use with the Claude Chrome extension **or** Playwright MCP (`browser_evaluate` + `browser_network_requests`). Returns clean JSON only.
 
-> *"On the currently open booking page, extract venue details. The page is either Eversports or eTennis.*
-> *If Eversports: monitor /api/slot network requests (navigate to a future date if needed). Extract: eversports_facility_id (int), eversports_court_ids (string array), courts (array of {id, type}), court_type.*
-> *If eTennis: extract etennis_id from the URL c= param or data-cid attribute. Extract courts from the court list on the page.*
-> *For both: court type values: indoor_normal, indoor_single, outdoor_normal, outdoor_single. court_type: indoor / outdoor / indoor+outdoor. name: venue's own name. operator: brand name. address: full street address.*
-> *Return clean JSON only."*
+---
+
+### PLATFORM DETECTION
+- `eversports.at` in URL → **Eversports**
+- `etennis`, `tennisplatz.info`, or custom domain with `data-cid` / `?c=` → **eTennis**
+
+---
+
+### EVERSPORTS — steps
+
+1. **Clear** network log, then navigate to `/sb/<slug>`. Wait for calendar to render.
+2. **Read** network requests filtered by `slot` → parse `facilityId` (int) and all `courts[]` values from the URL.
+3. **Run this JS** to get court→id→area in one call:
+
+```js
+const seen = new Set(), r = [];
+for (const row of document.querySelectorAll('tr.court')) {
+  const td = row.querySelector('td[data-court]');
+  const name = row.querySelector('.court-name')?.textContent.trim();
+  if (td && name && !seen.has(name)) {
+    seen.add(name);
+    r.push({ id: td.dataset.court, name, area: row.dataset.area });
+  }
+}
+JSON.stringify(r)
+```
+
+4. If **multiple sport tabs** exist (e.g. "Padel Indoor" / "Padel Outdoor"), click each tab and repeat steps 2–3. Collect all courts across tabs.
+5. Navigate to `/s/<slug>` → scroll to Location section → read address.
+6. `booking_link` = `https://www.eversports.at/sb/<slug>`
+
+**Court type mapping** (use `area` field from JS):
+- `area=indoor` + name contains "Single" → `indoor_single`
+- `area=indoor` → `indoor_normal`
+- `area=outdoor` + name contains "Single" → `outdoor_single`
+- `area=outdoor` → `outdoor_normal`
+
+---
+
+### eTENNIS — steps
+
+1. On the reservation page, run this JS to get cid + courts + booking link at once:
+
+```js
+const url = location.href;
+const cid = document.querySelector('[data-cid]')?.dataset?.cid
+  || new URLSearchParams(location.search).get('c');
+const dayCourts = document.querySelector('.day-courts');
+const src = dayCourts || document;
+const courts = [...new Set(
+  [...src.querySelectorAll('div.court')]
+    .map(el => el.textContent.trim())
+    .filter(t => t.length > 0 && t.length < 50)
+)];
+JSON.stringify({
+  cid,
+  booking_link: url.includes('?c=') ? url : location.origin + '/reservierung?c=' + cid,
+  courts
+})
+```
+
+2. **Court type + address**: navigate to the operator's full standort listing page. Use these known URLs:
+   - **Padelbase** → `padelbase.at/standort` (lists ALL locations with address, indoor/outdoor counts — use cached data if already fetched this session)
+   - **Padeldome** → `padeldome.at/standort/<slug>` (individual pages; find slug from `padeldome.at` nav if needed)
+   - **Others** → check operator's main domain for a `/standort/` or `/locations/` section
+
+3. **Court type mapping** (from court name):
+   - name contains "Single" → `indoor_single` or `outdoor_single`
+   - otherwise → `indoor_normal` or `outdoor_normal`
+
+---
+
+### RULES
+- Never call `read_page` — it's slow and unnecessary
+- Always batch JS extraction + operator page navigation where possible
+- **Padelbase**: always use `padelbase.at/standort` (the full listing); use cached data if already fetched this session
+- **Padeldome**: use `padeldome.at/standort/<slug>`; if 404, check nav links on `padeldome.at` for the correct slug
+- Scope court extraction to `.day-courts` to avoid noise on multi-sport sites
+- Output JSON only
 
 ---
 
