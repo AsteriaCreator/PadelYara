@@ -618,6 +618,9 @@ async def search(
                         nft = entry.get("next_free_ts")
                         if nft is not None:
                             result["next_available_time"] = nft
+                    price = entry.get("price_eur")
+                    if price is not None:
+                        result["price_eur"] = price
                     dur = entry.get("slot_duration_h")
                     if dur is not None:
                         result["slot_duration_h"] = dur

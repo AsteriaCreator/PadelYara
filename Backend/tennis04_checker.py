@@ -75,10 +75,19 @@ def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
     return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:%M')}"
 
 
+def _parse_date(iso: str):
+    """Parse a tennis04 date/datetime string to a date, or None."""
+    try:
+        return datetime.fromisoformat(iso).date()
+    except (ValueError, TypeError):
+        return None
+
+
 def _fetch_courtgroup_meta(club_id: int, courtgroup_id: str) -> dict | None:
     """
     Return {"courts": [str, ...], "hour_from": int, "hour_until": int,
-            "default_duration_min": int} for the padel courtgroup, or None on failure.
+            "default_duration_min": int, "seasons": [(id, begin_date, end_date|None)]}
+    for the padel courtgroup, or None on failure.
 
     Cached in-process for _CG_TTL. The courtgroup is matched by the exact UUID
     stored in MongoDB; if that is missing we fall back to the first group whose
@@ -113,14 +122,108 @@ def _fetch_courtgroup_meta(club_id: int, courtgroup_id: str) -> dict | None:
         print(f"[tennis04] no padel courtgroup found club={club_id} cg={courtgroup_id!r}")
         return None
 
+    seasons = []
+    for s in target.get("seasons", []) or []:
+        sid = s.get("id")
+        if sid is None:
+            continue
+        seasons.append((sid, _parse_date(s.get("seasonBegin")), _parse_date(s.get("seasonEnd"))))
+
     meta = {
         "courts":               [str(c["id"]) for c in target.get("courts", []) or []],
         "hour_from":            int(target.get("hourFrom") or 0),
         "hour_until":           int(target.get("hourUntil") or 24),
         "default_duration_min": int(target.get("defaultDurationMinutes") or 60),
+        "seasons":              seasons,
     }
     _CG_CACHE[ck] = (meta, now)
     return meta
+
+
+def _season_for(meta: dict, day) -> int | None:
+    """Pick the season id whose range covers `day`; else the open-ended one; else the last."""
+    seasons = meta.get("seasons") or []
+    if not seasons:
+        return None
+    for sid, begin, end in seasons:
+        if begin and begin <= day and (end is None or day <= end):
+            return sid
+    for sid, begin, end in seasons:
+        if end is None:
+            return sid
+    return seasons[-1][0]
+
+
+def _iso_time(iso: str):
+    """Extract the time component from a tennis04 tariff datetime ('1900-01-01T16:00:00')."""
+    try:
+        return datetime.fromisoformat(iso).time()
+    except (ValueError, TypeError):
+        return None
+
+
+def _fetch_tariff(club_id: int, courtgroup_id: str, season_id: int) -> tuple[int, list] | None:
+    """
+    Return (price_unit_minutes, tariff_groups) from the pricelegend endpoint, or
+    None on failure. Cached in-process for _CG_TTL (prices are static per season).
+    """
+    ck = f"price*{club_id}*{courtgroup_id}*{season_id}"
+    now = time.time()
+    cached = _CG_CACHE.get(ck)
+    if cached and now - cached[1] < _CG_TTL:
+        return cached[0]
+    try:
+        r = _requests.get(
+            f"{_BASE}/a/{club_id}/courtgroups/{courtgroup_id}/pricelegend",
+            params={"seasonId": season_id, "ts": str(int(time.time() * 1000))},
+            headers=_HEADERS, timeout=_HTTP_TIMEOUT,
+        )
+        r.raise_for_status()
+        data = r.json()
+    except Exception as exc:
+        print(f"[tennis04] pricelegend fetch failed club={club_id}: {exc}")
+        return None
+    result = (int(data.get("priceUnit") or 60), data.get("tariffTable") or [])
+    _CG_CACHE[ck] = (result, now)
+    return result
+
+
+def _price_at(meta: dict, club_id: int, courtgroup_id: str, dt: datetime) -> int | None:
+    """
+    Per-hour guest price (EUR, rounded) for the requested weekday + time, or None.
+
+    Prefers the "Gast" (guest) tariff group — the public, non-member rate —
+    falling back to the cheapest non-zero rate across all groups (member groups
+    are often €0 and would otherwise be misleading).
+    """
+    season_id = _season_for(meta, dt.date())
+    if season_id is None:
+        return None
+    tariff = _fetch_tariff(club_id, courtgroup_id, season_id)
+    if not tariff:
+        return None
+    price_unit, groups = tariff
+    wd = dt.isoweekday()  # 1=Mon..7=Sun, matches tennis04 weekDay
+    t = dt.time()
+
+    def _matches(p: dict) -> bool:
+        if p.get("weekDay") != wd:
+            return False
+        bt, et = _iso_time(p.get("beginTime")), _iso_time(p.get("endTime"))
+        return bt is not None and et is not None and bt <= t < et
+
+    guest = [g for g in groups if "gast" in (g.get("group") or "").lower()]
+    candidate_groups = guest if guest else groups
+    prices = [
+        p["price"]
+        for g in candidate_groups
+        for p in g.get("prices", []) or []
+        if _matches(p) and p.get("price")
+    ]
+    if not prices:
+        return None
+    per_hour = min(prices) * (60 / price_unit) if price_unit else min(prices)
+    return round(per_hour)
 
 
 def _fetch_bookings(club_id: int, courtgroup_id: str, date) -> list[dict] | None:
@@ -216,10 +319,13 @@ def _check_one(
 
     courts = meta["courts"]
     duration_h = (meta["default_duration_min"] / 60) if meta["default_duration_min"] else None
-    t_naive = dt.replace(tzinfo=None)
+    price_eur = _price_at(meta, int(club_id), cg_id or "", dt)
 
     def _status_at(d: datetime) -> str:
-        if not (meta["hour_from"] <= d.hour < meta["hour_until"]):
+        # hour_until is the last valid START hour (inclusive): a slot at hourUntil
+        # runs until hourUntil + defaultDurationMinutes/60, i.e. the venue closes
+        # after that. Using < would wrongly reject the last valid start time.
+        if not (meta["hour_from"] <= d.hour <= meta["hour_until"]):
             return "no_slot"
         return "free" if _free_courts_at(bookings, courts, d.replace(tzinfo=None)) else "busy"
 
@@ -244,10 +350,11 @@ def _check_one(
         "courts":       len(courts),
         "bookings":     len(bookings),
         "next_free_ts": next_free_ts,
+        "price_eur":    price_eur,
         "duration_h":   duration_h,
         "duration_ms":  round((time.monotonic() - t0) * 1000),
     }))
-    return vid, status, None, next_free_ts, None, duration_h
+    return vid, status, None, next_free_ts, price_eur, duration_h
 
 
 def _store_result(
@@ -255,6 +362,7 @@ def _store_result(
     status: str,
     dt: datetime,
     next_free_ts: int | None = None,
+    price_eur: int | None = None,
     slot_duration_h: float | None = None,
 ) -> None:
     """Write one venue result to cache immediately — called per-venue as checks complete."""
@@ -266,6 +374,8 @@ def _store_result(
         entry: dict = {"status": status, "timestamp": store_ts}
         if next_free_ts is not None:
             entry["next_free_ts"] = next_free_ts
+        if price_eur is not None:
+            entry["price_eur"] = price_eur
         if slot_duration_h is not None:
             entry["slot_duration_h"] = slot_duration_h
         _CACHE[_cache_key(venue_id, dt)] = entry
@@ -291,11 +401,11 @@ def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         fb_offsets = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
         t_venue = time.monotonic()
         try:
-            vid, status, err, next_free_ts, _price, slot_duration_h = _check_one(
+            vid, status, err, next_free_ts, price_eur, slot_duration_h = _check_one(
                 venue, dt, fallback_offsets=fb_offsets
             )
         except Exception as exc:
-            status, err, next_free_ts, slot_duration_h = "unknown", str(exc), None, None
+            status, err, next_free_ts, price_eur, slot_duration_h = "unknown", str(exc), None, None, None
             print(json.dumps({
                 "event":      "tennis04_scrape_error",
                 "venue_id":   vid,
@@ -305,7 +415,7 @@ def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         if err and "timeout" not in err:
             print(f"[tennis04] {vid} error: {err}")
         out[vid] = status
-        _store_result(vid, status, dt, next_free_ts=next_free_ts, slot_duration_h=slot_duration_h)
+        _store_result(vid, status, dt, next_free_ts=next_free_ts, price_eur=price_eur, slot_duration_h=slot_duration_h)
 
     with ThreadPoolExecutor(max_workers=min(_CONCURRENCY, len(venues))) as pool:
         futures = {pool.submit(fetch_one, v): v for v in venues}
