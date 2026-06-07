@@ -27,6 +27,13 @@ from fastapi.responses import JSONResponse
 from fastapi.security import APIKeyHeader
 from pydantic import BaseModel
 
+import sentry_sdk
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    traces_sample_rate=0.1,
+    environment=os.environ.get("RAILWAY_ENVIRONMENT", "development"),
+)
+
 import analytics
 from analytics import (
     track_booking_clicked,
