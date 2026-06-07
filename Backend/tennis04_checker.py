@@ -31,7 +31,7 @@ a small thread pool with no Playwright semaphore.
 import json
 import threading
 import time
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
@@ -290,7 +290,7 @@ def _check_one(
     Returns (venue_id, status, error, next_free_ts, price_eur, slot_duration_h):
       - status:          "free" | "busy" | "no_slot" | "unknown"
       - next_free_ts:    Unix ts of the nearest free fallback slot, or None
-      - price_eur:       always None (tennis04 prices are out of scope)
+      - price_eur:       per-hour guest price (EUR, rounded), or None
       - slot_duration_h: courtgroup default duration in hours, or None
     """
     vid = venue["id"]
@@ -332,10 +332,15 @@ def _check_one(
     status = _status_at(dt)
 
     # Single-pass fallback scan: nearest free slot among the configured offsets.
+    # Only consider candidates on the SAME calendar day — we fetched bookings for
+    # dt.date() only, so a post-midnight candidate would be checked against the
+    # wrong day's bookings (and is outside opening hours anyway).
     next_free_ts: int | None = None
     if status != "free":
         for offset_min in fallback_offsets:
             fb_dt = dt + timedelta(minutes=offset_min)
+            if fb_dt.date() != dt.date():
+                continue
             if _status_at(fb_dt) == "free":
                 next_free_ts = _target_ts(fb_dt)
                 break
@@ -419,8 +424,11 @@ def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
 
     with ThreadPoolExecutor(max_workers=min(_CONCURRENCY, len(venues))) as pool:
         futures = {pool.submit(fetch_one, v): v for v in venues}
-        for fut in as_completed(futures):
-            venue = futures[fut]
+        # Iterate in submission order with a real per-venue deadline. (as_completed
+        # would only yield already-finished futures, so result(timeout=) there can
+        # never actually time out.) Workers run concurrently; while we block on a
+        # slow one the rest keep going, so total wait stays ~_PER_VENUE_TIMEOUT.
+        for fut, venue in futures.items():
             try:
                 fut.result(timeout=_PER_VENUE_TIMEOUT)
             except Exception as exc:

@@ -23,7 +23,7 @@ export interface Venue {
   name: string
   operator?: string
   court_type: "indoor" | "outdoor" | "indoor+outdoor"
-  platform: "eTennis" | "Eversports" | "Andere"
+  platform: "eTennis" | "Eversports" | "tennis04" | "Andere"
   booking_url: string
   public_url?: string
   status: Status
@@ -34,6 +34,22 @@ export interface Venue {
   adjustment_label?: string
   price_eur?: number | null
   slot_duration_h?: number | null
+}
+
+// Lightweight venue shape for the Padelrevier map (GET /api/venues).
+// Distinct from `Venue` above, which carries live-availability/search fields.
+export interface MapVenue {
+  id: string
+  name: string
+  operator?: string
+  address: string
+  region?: string
+  court_type: "indoor" | "outdoor" | "indoor+outdoor"
+  platform?: string
+  booking_url: string
+  public_url?: string
+  lat: number
+  lon: number
 }
 
 export interface Tournament {

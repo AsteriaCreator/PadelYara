@@ -251,6 +251,56 @@ _EV_RESULT_TTL = 300  # s — match eTennis _TTL
 def _run_key(platform: str, dt: datetime) -> str:
     return f"{platform}*{dt.strftime('%Y-%m-%d')}*{dt.hour:02d}"
 
+
+def _apply_cached_entry(result: dict, status: str, entry: dict) -> None:
+    """
+    Write a cached availability status plus its optional detail fields onto a
+    result. Shared by the eTennis and tennis04 phases, whose checker modules
+    expose the same cache-entry shape ({status, next_free_ts?, price_eur?,
+    slot_duration_h?}). next_available_time is only set for non-free statuses.
+    """
+    result["availability_status"] = status
+    if status != "free":
+        nft = entry.get("next_free_ts")
+        if nft is not None:
+            result["next_available_time"] = nft
+    price = entry.get("price_eur")
+    if price is not None:
+        result["price_eur"] = price
+    dur = entry.get("slot_duration_h")
+    if dur is not None:
+        result["slot_duration_h"] = dur
+
+
+def _launch_bg_check(platform: str, dt: datetime, to_fetch: list[dict], check_fn) -> None:
+    """
+    Start one _RUNNING-deduplicated background thread running check_fn(to_fetch, dt).
+    No-op when to_fetch is empty or an identical run is already in flight. Shared
+    by the eTennis and tennis04 phases; log event names derive from the platform.
+    """
+    if not to_fetch:
+        return
+    key = _run_key(platform, dt)
+    venue_ids = [v["id"] for v in to_fetch]
+    with _RUNNING_LOCK:
+        should_start = key not in _RUNNING
+        if should_start:
+            _RUNNING.add(key)
+    if not should_start:
+        print(json.dumps({"event": f"{platform.lower()}_bg_deduplicated", "key": key, "venues": venue_ids}))
+        return
+    print(json.dumps({"event": f"{platform.lower()}_bg_start", "key": key, "venues": venue_ids}))
+
+    def _bg(vv=to_fetch, d=dt, k=key):
+        try:
+            check_fn(vv, d)
+        finally:
+            with _RUNNING_LOCK:
+                _RUNNING.discard(k)
+
+    threading.Thread(target=_bg, daemon=True).start()
+
+
 _INDOOR_TYPES  = {"indoor", "indoor+outdoor"}
 _OUTDOOR_TYPES = {"outdoor", "indoor+outdoor"}
 
@@ -543,50 +593,12 @@ async def search(
         for result in results:
             vid = result["venue_id"]
             if vid in cached:
-                result["availability_status"] = cached[vid]
-                entry = entries.get(vid, {})
-                if cached[vid] != "free":
-                    nft = entry.get("next_free_ts")
-                    if nft is not None:
-                        result["next_available_time"] = nft
-                price = entry.get("price_eur")
-                if price is not None:
-                    result["price_eur"] = price
-                dur = entry.get("slot_duration_h")
-                if dur is not None:
-                    result["slot_duration_h"] = dur
+                _apply_cached_entry(result, cached[vid], entries.get(vid, {}))
             elif result["platform"] == "eTennis":
-                if vid in scrape_ids:
-                    result["availability_status"] = "pending"
-                else:
-                    result["availability_status"] = "not_checked"
+                result["availability_status"] = "pending" if vid in scrape_ids else "not_checked"
         to_fetch = [v for v in etennis_venues
                     if v["id"] not in cached and v["id"] in scrape_ids]
-        if to_fetch:
-            key = _run_key("eTennis", dt)
-            with _RUNNING_LOCK:
-                et_should_start = key not in _RUNNING
-                if et_should_start:
-                    _RUNNING.add(key)
-            if et_should_start:
-                print(json.dumps({
-                    "event":  "etennis_bg_start",
-                    "key":    key,
-                    "venues": [v["id"] for v in to_fetch],
-                }))
-                def _et_bg(vv=to_fetch, d=dt, k=key):
-                    try:
-                        check_etennis_venues(vv, d)
-                    finally:
-                        with _RUNNING_LOCK:
-                            _RUNNING.discard(k)
-                threading.Thread(target=_et_bg, daemon=True).start()
-            else:
-                print(json.dumps({
-                    "event":  "etennis_bg_deduplicated",
-                    "key":    key,
-                    "venues": [v["id"] for v in to_fetch],
-                }))
+        _launch_bg_check("eTennis", dt, to_fetch, check_etennis_venues)
 
     # ── Phase 2.5: tennis04 — plain-HTTP public API, serve cached + bg-fetch ──
     #    Only on the initial load (et_offset == 0): like Eversports these venues
@@ -617,47 +629,12 @@ async def search(
                     )
                     continue
                 if vid in cached_t04:
-                    result["availability_status"] = cached_t04[vid]
-                    entry = entries_t04.get(vid, {})
-                    if cached_t04[vid] != "free":
-                        nft = entry.get("next_free_ts")
-                        if nft is not None:
-                            result["next_available_time"] = nft
-                    price = entry.get("price_eur")
-                    if price is not None:
-                        result["price_eur"] = price
-                    dur = entry.get("slot_duration_h")
-                    if dur is not None:
-                        result["slot_duration_h"] = dur
+                    _apply_cached_entry(result, cached_t04[vid], entries_t04.get(vid, {}))
                 else:
                     result["availability_status"] = "pending"
             to_fetch_t04 = [v for v in t04_venues
                             if v["id"] not in cached_t04 and v.get("tennis04_club_id")]
-            if to_fetch_t04:
-                t04_key = _run_key("tennis04", dt)
-                with _RUNNING_LOCK:
-                    t04_should_start = t04_key not in _RUNNING
-                    if t04_should_start:
-                        _RUNNING.add(t04_key)
-                if t04_should_start:
-                    print(json.dumps({
-                        "event":  "tennis04_bg_start",
-                        "key":    t04_key,
-                        "venues": [v["id"] for v in to_fetch_t04],
-                    }))
-                    def _t04_bg(vv=to_fetch_t04, d=dt, k=t04_key):
-                        try:
-                            check_tennis04_venues(vv, d)
-                        finally:
-                            with _RUNNING_LOCK:
-                                _RUNNING.discard(k)
-                    threading.Thread(target=_t04_bg, daemon=True).start()
-                else:
-                    print(json.dumps({
-                        "event":  "tennis04_bg_deduplicated",
-                        "key":    t04_key,
-                        "venues": [v["id"] for v in to_fetch_t04],
-                    }))
+            _launch_bg_check("tennis04", dt, to_fetch_t04, check_tennis04_venues)
 
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;
