@@ -1,13 +1,16 @@
 """
-discover_venues_vienna.py — padel venue discovery for Vienna
+discover_venues_vienna.py — padel venue discovery for Austria
 
-Searches Google Places for padel venues, detects their booking platform,
-and inserts each new venue into MongoDB as active: false for review.
+Searches Google Places for padel venues across Austria, detects their booking
+platform, and inserts each new venue into MongoDB as active: false for review.
 
 Usage:
     python discover_venues_vienna.py
 
 Safe to re-run — skips venues already in the DB.
+
+Scope: all of Austria (no locationBias — Google returns results nationwide).
+To limit to a specific region, add a locationBias circle back to search_places().
 """
 
 import re
@@ -41,16 +44,36 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
 # Results are deduplicated by Google Place ID.
 
 SEARCH_QUERIES = [
+    # Vienna
     "padel Wien",
     "padel court Wien",
     "Padelzone Wien",
     "Padeldome Wien",
     "padel tennis Wien",
     "padel club Wien",
+    # Graz & Styria
+    "padel Graz",
+    "padel Steiermark",
+    # Linz & Upper Austria
+    "padel Linz",
+    "padel Oberösterreich",
+    "padel Wels",
+    # Salzburg
+    "padel Salzburg",
+    # Innsbruck & Tyrol
+    "padel Innsbruck",
+    "padel Tirol",
+    # Lower Austria
+    "padel Niederösterreich",
+    "padel Wiener Neustadt",
+    "padel St. Pölten",
+    # Vorarlberg & Burgenland
+    "padel Vorarlberg",
+    "padel Burgenland",
+    # Carinthia
+    "padel Klagenfurt",
+    "padel Kärnten",
 ]
-
-# Vienna bounding box — keeps results focused on the city
-LOCATION_BIAS = "circle:30000@48.2082,16.3738"  # 30 km radius around Vienna centre
 
 # ── hardcoded venues ──────────────────────────────────────────────────
 # Venues whose booking platform can't be detected automatically
@@ -79,13 +102,10 @@ def search_places(query: str) -> list[dict]:
         r = requests.post(
             "https://places.googleapis.com/v1/places:searchText",
             json={
-                "textQuery":    query,
-                "locationBias": {
-                    "circle": {
-                        "center": {"latitude": 48.2082, "longitude": 16.3738},
-                        "radius": 30000.0,
-                    }
-                },
+                "textQuery":       query,
+                # No locationBias — searches all of Austria.
+                # Austria bounding box as a fallback filter if needed:
+                # locationRestriction: rectangle SW=46.37,9.53 NE=49.02,17.16
             },
             headers={
                 "X-Goog-Api-Key":   GOOGLE_API_KEY,
@@ -277,7 +297,7 @@ def build_venue(place: dict, platform: str, booking_url: str) -> dict:
 # ── main ──────────────────────────────────────────────────────────────
 
 def main():
-    print("PadelYara — Vienna venue discovery")
+    print("PadelYara — Austria-wide venue discovery")
     print("=" * 40)
 
     col = get_collection()
