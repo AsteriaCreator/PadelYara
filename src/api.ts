@@ -1,4 +1,4 @@
-import type { SearchParams, SearchResponse, Venue, Status, Weather } from "./types"
+import type { SearchParams, SearchResponse, Venue, Status, Weather, MapVenue } from "./types"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -136,6 +136,14 @@ export async function fetchAvailability(
     booking_window_notice: data.booking_window_notice as string | undefined,
     weather: data.weather ?? null,
   }
+}
+
+/** All active venues with static info (coords, address, links) for the Padelrevier map. */
+export async function fetchVenues(): Promise<MapVenue[]> {
+  const res = await fetch(`${API_BASE}/api/venues`)
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const data = await res.json()
+  return (data.venues ?? []) as MapVenue[]
 }
 
 const ADMIN_TOKEN = import.meta.env.VITE_ADMIN_TOKEN ?? ""

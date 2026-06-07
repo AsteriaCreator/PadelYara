@@ -34,6 +34,7 @@ def _normalize(doc: dict) -> dict:
         "operator":        doc.get("operator", ""),
         "region":          doc.get("region_label", "") or doc.get("region", ""),
         "region_key":      doc.get("region_key", ""),
+        "address":         doc.get("address", ""),
         "court_type":      _COURT_TYPE_MAP.get(court_type, court_type),
         "platform":        _PLATFORM_MAP.get(platform_raw, doc.get("platform", "")),
         "priority":        int(doc.get("priority", 0) or 0),

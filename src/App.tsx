@@ -12,6 +12,7 @@ import ImprintModal from "./components/ImprintModal"
 import LoadingCat from "./components/LoadingCat"
 import AboutSection from "./components/AboutSection"
 import TurnierjagerPage from "./pages/TurnierjagerPage"
+import PadelrevierPage from "./pages/PadelrevierPage"
 import DatenschutzPage from "./pages/DatenschutzPage"
 
 const SKELETON_COUNT = 5
@@ -35,6 +36,23 @@ function FinderPage() {
   const urlDate     = searchParams.get("datum") ?? ""
   const urlTime     = searchParams.get("zeit") ?? ""
   const urlRadius   = Number(searchParams.get("radius")) || 0
+  // Set by the Padelrevier map's "Verfügbarkeit prüfen" jump — highlight + scroll
+  // to this venue once results render. Captured in state so the search's URL
+  // rewrite (which drops the param) doesn't clear it.
+  const [highlightId, setHighlightId] = useState(() => searchParams.get("venueId") ?? "")
+  const didScrollRef = useRef(false)
+  // The map jump also passes the venue's exact coords so the search centers on
+  // it directly (no geocoding the venue name). Used only while the pre-filled
+  // location is unchanged; once she edits the field, normal geocoding resumes.
+  const prefillCoordsRef = useRef<{ location: string; lat: number; lon: number } | null>(
+    (() => {
+      const lat = Number(searchParams.get("lat"))
+      const lon = Number(searchParams.get("lon"))
+      return urlLocation && searchParams.get("lat") && searchParams.get("lon") && !isNaN(lat) && !isNaN(lon)
+        ? { location: urlLocation, lat, lon }
+        : null
+    })()
+  )
 
   const [results, setResults]               = useState<Venue[]>([])
   const [isLoading, setLoading]             = useState(false)
@@ -77,6 +95,18 @@ function FinderPage() {
       onSearch({ location: urlLocation, date: urlDate, time: urlTime, radius: urlRadius, court_type: "both" })
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Scroll to + briefly highlight the venue jumped-to from the Padelrevier map,
+  // once it appears in the results. Runs once (guarded by didScrollRef).
+  useEffect(() => {
+    if (!highlightId || didScrollRef.current) return
+    const el = document.getElementById(`venue-${highlightId}`)
+    if (!el) return
+    didScrollRef.current = true
+    el.scrollIntoView({ behavior: "smooth", block: "center" })
+    const t = setTimeout(() => setHighlightId(""), 3500)
+    return () => clearTimeout(t)
+  }, [results, highlightId])
 
   // Tick the "last updated" counter every second
   useEffect(() => {
@@ -135,16 +165,23 @@ function FinderPage() {
     setBookingWindowNotice(null)
 
     let coords: { lat: number; lon: number } | null
-    try {
-      coords = await geocode(params.location!)
-    } catch (err) {
-      setError(
-        err instanceof GeocodeTimeoutError
-          ? "Ortssuche hat zu lange gedauert — bitte nochmal versuchen."
-          : "Verbindung fehlgeschlagen"
-      )
-      setLoading(false)
-      return
+    const pre = prefillCoordsRef.current
+    if (pre && params.location === pre.location) {
+      // Jumped from the Padelrevier map — use the venue's exact coords so the
+      // search centers on it, instead of geocoding the venue name.
+      coords = { lat: pre.lat, lon: pre.lon }
+    } else {
+      try {
+        coords = await geocode(params.location!)
+      } catch (err) {
+        setError(
+          err instanceof GeocodeTimeoutError
+            ? "Ortssuche hat zu lange gedauert — bitte nochmal versuchen."
+            : "Verbindung fehlgeschlagen"
+        )
+        setLoading(false)
+        return
+      }
     }
     if (!coords) {
       setError("Ort nicht gefunden. Bitte gib den vollständigen Ortsnamen oder die PLZ ein.")
@@ -365,7 +402,7 @@ function FinderPage() {
         {searched && !isLoading && !error && filteredResults.length > 0 && (
           <div className="bg-gray-900 rounded-xl border border-gray-800 divide-y divide-gray-800 mb-4">
             {filteredResults.map((venue) => (
-              <VenueRow key={venue.id} venue={venue} pollingActive={pollingActive} searchDate={lastParamsRef.current?.date} />
+              <VenueRow key={venue.id} venue={venue} pollingActive={pollingActive} searchDate={lastParamsRef.current?.date} highlighted={venue.id === highlightId} />
             ))}
           </div>
         )}
@@ -478,6 +515,7 @@ function Nav() {
   return (
     <div className="mb-2 border-b border-gray-800">
       <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
+      <NavLink to="/padelrevier" style={NAV_LINK_STYLE}>Padelrevier</NavLink>
       <NavLink to="/turnierjaeger" style={NAV_LINK_STYLE}>Turnierjagd</NavLink>
       <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
     </div>
@@ -582,6 +620,17 @@ export default function App() {
             </div>
             <Nav />
             <TurnierjagerPage />
+          </div>
+        </div>
+      } />
+      <Route path="/padelrevier" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <PadelrevierPage />
           </div>
         </div>
       } />

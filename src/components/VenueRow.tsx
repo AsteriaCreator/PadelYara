@@ -38,6 +38,8 @@ interface Props {
   venue: Venue
   pollingActive: boolean
   searchDate?: string
+  // When jumped-to from the Padelrevier map, the matching row is briefly emphasized.
+  highlighted?: boolean
 }
 
 function eversportsBookingUrl(baseUrl: string, dateStr: string): string {
@@ -60,7 +62,7 @@ function etennisBookingUrl(baseUrl: string, dateStr: string): string {
   return `${baseUrl}&t=${Math.floor((utcMidnight - offsetH * 3600 * 1000) / 1000)}`
 }
 
-export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
+export default function VenueRow({ venue, pollingActive, searchDate, highlighted }: Props) {
   // Derive an honest display status for pending venues based on poll state.
   //
   //   pollingActive=true              → a timer is scheduled; show "Wird noch geprüft …"
@@ -91,7 +93,16 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
     : "bg-gray-800 hover:bg-gray-700 text-gray-500 border border-gray-700"
 
   return (
-    <div className="px-4 py-3 border-b border-gray-700/50 last:border-0">
+    <div
+      id={`venue-${venue.id}`}
+      className="px-4 py-3 border-b border-gray-700/50 last:border-0 scroll-mt-4"
+      style={{
+        transition: "box-shadow 0.4s, background 0.4s",
+        ...(highlighted
+          ? { boxShadow: "inset 0 0 0 2px #d4f53c", background: "rgba(212,245,60,0.06)" }
+          : {}),
+      }}
+    >
       {/* min-w-0 on the row is required so the truncate span can actually shrink.
           Without it, flex items default to min-width:auto and ignore overflow:hidden. */}
       <div className="flex items-center justify-between mb-1 min-w-0">

@@ -11,3 +11,30 @@ select,
 textarea {
   font-size: max(16px, 1em);
 }
+
+/* Padelrevier map — dark Leaflet popups to match the app theme.
+   !important: leaflet.css is imported after index.css and sets a white
+   background at equal specificity, so it would otherwise win. */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #11131a !important;
+  color: #e5e7eb !important;
+  border: 1px solid rgba(212, 245, 60, 0.2);
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+}
+.leaflet-popup-close-button {
+  color: #6b7280 !important;
+}
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #d4f53c !important;
+}
+/* Keep the OSM/CARTO attribution legible but unobtrusive on the dark basemap */
+.leaflet-control-attribution {
+  background: rgba(8, 8, 16, 0.7) !important;
+  color: #6b7280 !important;
+}
+.leaflet-control-attribution a {
+  color: #9ca3af !important;
+}
