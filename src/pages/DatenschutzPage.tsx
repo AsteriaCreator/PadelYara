@@ -97,14 +97,15 @@ export default function DatenschutzPage() {
         </p>
       </Section>
 
-      <Section title="6. Reichweitenmessung (eigene, cookielose Statistik)">
+      <Section title="6. Reichweitenmessung">
         <p>
-          Zur Verbesserung des Dienstes erfassen wir anonyme Nutzungsstatistiken
-          auf unserem eigenen Server. Dabei werden <strong>keine Cookies</strong>{" "}
-          gesetzt und <strong>keine IP-Adressen oder genauen Standorte</strong>{" "}
-          gespeichert. Erfasst werden ausschließlich produktbezogene Ereignisse,
-          z. B. dass eine Suche durchgeführt wurde, deren Ergebnisanzahl, die
-          gewählte Region (vom Nutzer eingegebener Ortsname), die Gerätekategorie
+          <strong>Eigene Statistik:</strong> Zur Verbesserung des Dienstes
+          erfassen wir anonyme Nutzungsstatistiken auf unserem eigenen Server.
+          Dabei werden <strong>keine Cookies</strong> gesetzt und{" "}
+          <strong>keine IP-Adressen oder genauen Standorte</strong> gespeichert.
+          Erfasst werden ausschließlich produktbezogene Ereignisse, z. B. dass
+          eine Suche durchgeführt wurde, deren Ergebnisanzahl, die gewählte Region
+          (vom Nutzer eingegebener Ortsname), die Gerätekategorie
           (Mobil/Tablet/Desktop) sowie technische Antwortzeiten.
         </p>
         <p>
@@ -113,8 +114,23 @@ export default function DatenschutzPage() {
           lokalen Speicher (localStorage). Diese Kennung enthält keine
           personenbezogenen Daten und lässt keinen Rückschluss auf Ihre Person zu.
           Sie können sie jederzeit durch Leeren des lokalen Speichers Ihres
-          Browsers entfernen. Rechtsgrundlage ist unser berechtigtes Interesse an
-          einer datensparsamen Reichweitenmessung (Art. 6 Abs. 1 lit. f DSGVO).
+          Browsers entfernen.
+        </p>
+        <p>
+          <strong>Vercel Web Analytics:</strong> Zusätzlich nutzen wir den
+          Dienst Web Analytics unseres Hosting-Anbieters{" "}
+          <strong>Vercel Inc.</strong> (USA) zur Messung allgemeiner
+          Zugriffszahlen (z. B. Seitenaufrufe, Herkunftsseiten, Land, verwendeter
+          Browsertyp). Auch dieser Dienst arbeitet <strong>ohne Cookies</strong>{" "}
+          und ohne dauerhafte Wiedererkennung einzelner Personen; es werden keine
+          Profile gebildet und keine Daten an Werbenetzwerke weitergegeben. Die
+          Übermittlung in die USA ist durch die in Abschnitt 3 genannten
+          Garantien abgesichert.
+        </p>
+        <p>
+          Rechtsgrundlage für die Reichweitenmessung ist unser berechtigtes
+          Interesse an einer datensparsamen, anonymen Statistik
+          (Art. 6 Abs. 1 lit. f DSGVO).
         </p>
       </Section>
 
