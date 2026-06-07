@@ -40,6 +40,11 @@ interface Props {
   searchDate?: string
 }
 
+function eversportsBookingUrl(baseUrl: string, dateStr: string): string {
+  // Eversports /sb/<slug> pages accept ?date=YYYY-MM-DD to jump to that day.
+  return `${baseUrl}?date=${dateStr}`
+}
+
 function etennisBookingUrl(baseUrl: string, dateStr: string): string {
   // eTennis interprets &t= as Vienna midnight (matches the backend scraper).
   // Derive Vienna's UTC offset at noon on that day (safe from DST transitions),
@@ -123,7 +128,9 @@ export default function VenueRow({ venue, pollingActive, searchDate }: Props) {
             href={
               !isPhoneOnly && searchDate && venue.platform === "eTennis"
                 ? etennisBookingUrl(venue.booking_url, searchDate)
-                : linkUrl
+                : !isPhoneOnly && searchDate && venue.platform === "Eversports"
+                  ? eversportsBookingUrl(venue.booking_url, searchDate)
+                  : linkUrl
             }
             target="_blank"
             rel="noopener noreferrer"
