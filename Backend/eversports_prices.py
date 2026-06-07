@@ -186,11 +186,13 @@ async def _fetch_one_date(
 
 async def _fetch_venue_prices(venue: dict) -> list[dict]:
     """
-    POST to /api/booking/calendar/update for today AND tomorrow, merge results.
-    Some venues (e.g. Ebreichsdorf) only release slots 1 day in advance, so
-    a single POST for today returns no tomorrow data. Fetching both dates
-    ensures the cache always covers at least the next 24 hours regardless of
-    how far in advance each venue publishes its schedule.
+    GET the booking page (to acquire session cookies), then POST to
+    /api/booking/calendar/update for today's date.
+
+    With a valid Eversports session cookie the API returns ~7 days of
+    slots starting from the requested date — enough to cover all searches
+    within the next week. Without cookies some venues (e.g. Ebreichsdorf)
+    ignore the date parameter and only return today's schedule.
     """
     vid         = venue["id"]
     facility_id = venue.get("eversports_facility_id")
@@ -201,15 +203,13 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         print(f"[ev-prices] skip  venue={vid}  reason=no_facility_id")
         return []
 
-    from datetime import timedelta
-    today    = datetime.now(VIENNA_TZ).date()
-    tomorrow = today + timedelta(days=1)
+    date_str = datetime.now(VIENNA_TZ).date().strftime("%Y-%m-%d")
 
     try:
         async with AsyncSession(impersonate="chrome124") as session:
-            # GET the booking page once to acquire Eversports session cookies.
+            # GET the booking page first to acquire Eversports session cookies.
             # Without them the cal-post API ignores the date param and always
-            # returns today's slots (observed for venues like Ebreichsdorf).
+            # returns today's slots (confirmed for venues like Ebreichsdorf).
             print(f"[ev-prices] cookie_get  venue={vid}  url={booking_url}")
             await session.get(
                 booking_url,
@@ -219,22 +219,11 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
                 },
                 timeout=15,
             )
-            today_slots    = await _fetch_one_date(session, vid, facility_id, slug, booking_url, today.strftime("%Y-%m-%d"))
-            tomorrow_slots = await _fetch_one_date(session, vid, facility_id, slug, booking_url, tomorrow.strftime("%Y-%m-%d"))
+            slots = await _fetch_one_date(session, vid, facility_id, slug, booking_url, date_str)
 
-        # Merge and deduplicate by (date, start) — prefer today's data for overlapping slots
-        seen: set[tuple] = set()
-        slots: list[dict] = []
-        for s in today_slots + tomorrow_slots:
-            key = (s["date"], s["start"])
-            if key not in seen:
-                seen.add(key)
-                slots.append(s)
-
+        dates = sorted(set(s["date"] for s in slots))
         prices = sorted(set(s["price"] for s in slots))
-        today_count    = sum(1 for s in slots if s["date"] == today.strftime("%Y-%m-%d"))
-        tomorrow_count = sum(1 for s in slots if s["date"] == tomorrow.strftime("%Y-%m-%d"))
-        print(f"[ev-prices] parsed  venue={vid}  slots={len(slots)}  today={today_count}  tomorrow={tomorrow_count}  prices={prices}")
+        print(f"[ev-prices] parsed  venue={vid}  slots={len(slots)}  dates={dates[0] if dates else '?'}..{dates[-1] if dates else '?'}  prices={prices}")
         return slots
 
     except Exception as exc:
