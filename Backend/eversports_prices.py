@@ -18,7 +18,6 @@ Usage in app.py:
 """
 
 import asyncio
-import os
 import re
 import threading
 import time
@@ -172,6 +171,9 @@ async def _fetch_one_date(
             headers={"Accept": "text/html,*/*", "Accept-Language": "de-AT,de;q=0.9,en;q=0.8"},
             timeout=20,
         )
+        if r.status_code != 200:
+            print(f"[ev-prices] get_fallback_failed  venue={vid}  status={r.status_code}")
+            return []
 
     slots: list[dict] = []
     for m in re.finditer(r"<td\b([^>]*)>", r.text, re.IGNORECASE):
