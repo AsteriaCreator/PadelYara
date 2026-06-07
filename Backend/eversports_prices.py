@@ -240,4 +240,8 @@ def get_any_price(venue_id: str, date_str: str) -> int | None:
                 return s["price"]
         except (ValueError, KeyError):
             pass
+    # Last resort: return any cached price — better than None for display purposes.
+    # Prices at a venue rarely vary by day, and this is already a best-effort function.
+    if slots:
+        return slots[0]["price"]
     return None
