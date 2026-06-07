@@ -30,9 +30,10 @@ COPY Backend/eversports_prices.py ./eversports_prices.py
 COPY Backend/tournaments_mongo.py  ./tournaments_mongo.py
 COPY Backend/padel_austria_scraper.py ./padel_austria_scraper.py
 COPY Backend/bezirk_utils.py      ./bezirk_utils.py
+COPY Backend/tennis04_checker.py  ./tennis04_checker.py
 
 # Verify key imports at build time — catches missing libs before deploy
-RUN python -c "from curl_cffi.requests import AsyncSession; from fastapi import FastAPI; import uvicorn; from eversports_service import check_eversports_slot; import eversports_prices; import tournaments_mongo; import padel_austria_scraper; import bezirk_utils; print('[build] imports OK')"
+RUN python -c "from curl_cffi.requests import AsyncSession; from fastapi import FastAPI; import uvicorn; from eversports_service import check_eversports_slot; import eversports_prices; import tournaments_mongo; import padel_austria_scraper; import bezirk_utils; import tennis04_checker; print('[build] imports OK')"
 
 # Railway injects $PORT at runtime; default to 8000 for local runs
 ENV PORT=8000
