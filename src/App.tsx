@@ -92,8 +92,8 @@ function FinderPage() {
   //   attempt 1 → +3 s   (catches Eversports via Vercel proxy, ~3-5 s)
   //   attempt 2 → +5 s   (T+8 s  — catches any stragglers)
   //   attempt 3 → +12 s  (T+20 s — catches warm eTennis scrapes)
-  //   attempt 4 → +25 s  (T+45 s — covers warm Render scrape completion)
-  //   attempt 5 → +60 s  (T+105 s — covers cold-start Render)
+  //   attempt 4 → +25 s  (T+45 s — covers warm backend scrape completion)
+  //   attempt 5 → +60 s  (T+105 s — covers cold-start backend)
   // Max 5 attempts. Always polls et_offset=0; merges into the accumulated list.
   const POLL_DELAYS = [3_000, 5_000, 12_000, 25_000, 60_000]
   function scheduleRefresh(params: SearchParams, geo: GeoParams | undefined, attempt: number) {

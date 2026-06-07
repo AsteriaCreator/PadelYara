@@ -30,9 +30,9 @@ _COOLDOWN_TTL = 60  # seconds
 
 _RUNNING: set[str] = set()  # scrape keys currently in-flight
 _RUNNING_LOCK = threading.Lock()
-_PLAYWRIGHT_SEM = threading.Semaphore(1)  # one Playwright browser at a time on Render
+_PLAYWRIGHT_SEM = threading.Semaphore(1)  # one Playwright browser at a time on the backend host
 
-# 2 concurrent pages balances speed vs Render RAM: each page adds ~30 MB (Linux
+# 2 concurrent pages balances speed vs backend RAM: each page adds ~30 MB (Linux
 # Chromium renderer). _PLAYWRIGHT_SEM already limits to one browser at a time.
 _CONCURRENCY = 2  # max eTennis venues scraped in parallel within one browser
 
@@ -63,7 +63,7 @@ def _http_scrape(
 ) -> tuple[str, str | None, int | None]:
     """
     HTTP fallback for server-rendered slot pages (e.g. reservierung.padel4fun.at).
-    Used when Playwright fails (timeout, crash) on Render's resource-constrained env.
+    Used when Playwright fails (timeout, crash) on the backend's resource-constrained env.
 
     Returns (status, error, next_free_ts).
     Slot matching uses EXACT start-time comparison (begin == target_ts).

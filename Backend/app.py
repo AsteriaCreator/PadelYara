@@ -299,7 +299,7 @@ def _build_venue_result(venue: dict) -> VenueResult:
     }
 
 
-ET_BATCH = 5  # eTennis venues checked per request (Render free-tier limit)
+ET_BATCH = 5  # eTennis venues checked per request (backend resource limit)
 
 _MAX_FUTURE_DAYS = 42   # absolute ceiling: beyond this → 400
 _FAR_FUTURE_DAYS = 14   # soft threshold: beyond this → allowed but with notice
@@ -504,8 +504,8 @@ async def search(
         if lat is not None and lon is not None else None
     )
 
-    # In radius mode paginate eTennis scraping so Render's free tier
-    # (0.1 CPU, 512 MB) never launches more than ET_BATCH browsers at once.
+    # In radius mode paginate eTennis scraping so the backend's constrained
+    # tier never launches more than ET_BATCH browsers at once.
     # et_offset lets the frontend request successive batches ("Mehr Ergebnisse").
     et_by_dist = sorted(
         [v for v in venues if v["platform"] == "eTennis"],
@@ -1160,7 +1160,7 @@ async def check_compat(
     venue_url:   str        = Query(default=""),
     venue_id:    str        = Query(default=""),
 ):
-    """Compatibility shim — keeps the old Render→Railway HTTP contract working."""
+    """Compatibility shim — keeps the legacy frontend→backend HTTP contract working."""
     return await check_eversports_slot(
         facility_id=facility_id,
         court_ids=court_ids,

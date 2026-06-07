@@ -1,7 +1,7 @@
 """
 Production smoke test for NeoPadelChecker.
 
-Hits the live Render backend and verifies all three verified regions return
+Hits the live Railway backend and verifies all three verified regions return
 real availability results (not pending/unknown).  Exits 0 on full pass, 1
 on any failure.
 
@@ -10,7 +10,6 @@ Usage (from repo root):
     python Backend/smoke_test.py --date 2026-05-18 --time 17:00
 
 Env vars:
-    RENDER_URL   override Render backend  (default: https://neopadelchecker.onrender.com)
     RAILWAY_URL  override Railway service (default: https://neo-padel-checker-backend-production.up.railway.app)
 """
 
@@ -29,7 +28,6 @@ except ImportError:
 # Config
 # ---------------------------------------------------------------------------
 
-RENDER_URL  = os.getenv("RENDER_URL",  "https://neopadelchecker.onrender.com")
 RAILWAY_URL = os.getenv("RAILWAY_URL", "https://neo-padel-checker-backend-production.up.railway.app")
 
 # region= param must use region_label from the CSV, never the slug.
@@ -53,7 +51,7 @@ PENDING = {"pending", "unknown"}
 
 def _search(region: str, date_str: str, time_str: str, timeout: int = 90) -> dict:
     r = requests.get(
-        f"{RENDER_URL}/api/search",
+        f"{RAILWAY_URL}/api/search",
         params={"region": region, "date": date_str, "time": time_str},
         timeout=timeout,
     )
@@ -203,7 +201,6 @@ def main() -> int:
     args = parser.parse_args()
 
     print(f"NeoPadelChecker smoke test — {args.date} {args.time}")
-    print(f"Render:  {RENDER_URL}")
     print(f"Railway: {RAILWAY_URL}")
     print()
 
