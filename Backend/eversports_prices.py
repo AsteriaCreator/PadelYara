@@ -10,22 +10,27 @@ Padel sport params are global constants on Eversports:
 
 Usage in app.py:
     import eversports_prices
-    # triggered lazily on first search with Eversports venues
+    # at startup:
+    eversports_prices.init_mongo(os.getenv("MONGODB_URI"))
+    await eversports_prices.load_cache_from_mongo()
+    # triggered lazily on first search with Eversports venues:
     price = eversports_prices.get_price(venue_id, "2026-06-10", "1800")
 """
 
 import asyncio
+import os
 import re
 import threading
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
 from curl_cffi.requests import AsyncSession
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 
-_TTL            = 43_200   # 12 h
+_TTL            = 43_200   # 12 h in-memory TTL
+_MONGO_TTL      = 86_400   # 24 h — discard MongoDB entries older than this
 _STAGGER_SECS   = 30       # delay between venues
 _CAL_URL        = "https://www.eversports.at/api/booking/calendar/update"
 
@@ -37,7 +42,7 @@ _PADEL_SPORT = {
     "sport[uuid]": "b388f5e3-69de-11e8-bdc6-02bd505aa7b2",
 }
 
-# Cache: venue_id → {"slots": [{date, start, price}], "scraped_at": monotonic}
+# In-memory cache: venue_id → {"slots": [{date, start, price}], "scraped_at": monotonic}
 _PRICE_CACHE: dict[str, dict] = {}
 _PRICE_LOCK  = threading.Lock()
 
@@ -45,11 +50,87 @@ _PRICE_LOCK  = threading.Lock()
 _refresh_running = False
 _refresh_lock    = asyncio.Lock()
 
+# MongoDB — initialised by init_mongo()
+_mongo_db = None
+
+
+def init_mongo(uri: str) -> None:
+    """Call once at startup with the MONGODB_URI."""
+    global _mongo_db  # noqa: PLW0603
+    if not uri:
+        print("[ev-prices] MONGODB_URI not set — price cache will not persist across restarts")
+        return
+    try:
+        from motor.motor_asyncio import AsyncIOMotorClient
+        _mongo_db = AsyncIOMotorClient(uri)["padel_checker"]
+        print("[ev-prices] MongoDB client initialised for price cache persistence")
+    except Exception as exc:
+        print(f"[ev-prices] MongoDB init failed: {exc} — prices will not persist")
+
+
+async def load_cache_from_mongo() -> None:
+    """
+    Load persisted price data from MongoDB into _PRICE_CACHE on startup.
+    Skips entries older than _MONGO_TTL seconds so stale prices don't survive forever.
+    """
+    if _mongo_db is None:
+        return
+    try:
+        col = _mongo_db["eversports_price_cache"]
+        cutoff = datetime.now(timezone.utc).timestamp() - _MONGO_TTL
+        loaded = 0
+        async for doc in col.find({}):
+            scraped_at_dt = doc.get("scraped_at")
+            if scraped_at_dt is None:
+                continue
+            # motor returns datetime objects (naive UTC or timezone-aware)
+            if hasattr(scraped_at_dt, "timestamp"):
+                scraped_ts = scraped_at_dt.timestamp()
+            else:
+                continue
+            if scraped_ts < cutoff:
+                continue  # too old
+            venue_id = doc.get("venue_id")
+            slots    = doc.get("slots", [])
+            if not venue_id or not slots:
+                continue
+            # Convert wall-clock age to monotonic for in-memory TTL check
+            age_secs = datetime.now(timezone.utc).timestamp() - scraped_ts
+            with _PRICE_LOCK:
+                _PRICE_CACHE[venue_id] = {
+                    "slots":      slots,
+                    "scraped_at": time.monotonic() - age_secs,
+                }
+            loaded += 1
+        print(f"[ev-prices] loaded {loaded} venue price entries from MongoDB")
+    except Exception as exc:
+        print(f"[ev-prices] load_cache_from_mongo failed: {exc}")
+
+
+async def _save_venue_to_mongo(venue_id: str, slots: list[dict]) -> None:
+    """Upsert scraped price slots for one venue into MongoDB."""
+    if _mongo_db is None:
+        return
+    try:
+        col = _mongo_db["eversports_price_cache"]
+        await col.update_one(
+            {"venue_id": venue_id},
+            {"$set": {
+                "venue_id":   venue_id,
+                "scraped_at": datetime.now(timezone.utc),
+                "slots":      slots,
+            }},
+            upsert=True,
+        )
+    except Exception as exc:
+        print(f"[ev-prices] _save_venue_to_mongo failed  venue={venue_id}  error={exc}")
+
 
 async def _fetch_venue_prices(venue: dict) -> list[dict]:
     """
     POST to /api/booking/calendar/update with padel sport params and parse
     td[data-price] from the returned HTML. Returns list of slot dicts.
+    Fetches starting from today so exact-date lookups work for current searches.
     """
     vid         = venue["id"]
     facility_id = venue.get("eversports_facility_id")
@@ -60,8 +141,9 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
         print(f"[ev-prices] skip  venue={vid}  reason=no_facility_id")
         return []
 
-    from datetime import timedelta
-    date_str = (datetime.now(VIENNA_TZ).date() + timedelta(days=1)).strftime("%Y-%m-%d")
+    # Fetch starting from today — the calendar API returns 14 days of slots,
+    # covering all days-of-week and giving exact-date matches for today's searches.
+    date_str = datetime.now(VIENNA_TZ).date().strftime("%Y-%m-%d")
 
     post_data = {
         "facilityId":   str(facility_id),
@@ -93,7 +175,6 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
             )
 
         has_td       = "<td" in r.text
-        has_price    = "data-price" in r.text
         has_price_td = bool(re.search(r'<td[^>]*data-price', r.text, re.IGNORECASE))
         td_count     = r.text.count("<td")
         print(f"[ev-prices] post_response  venue={vid}  status={r.status_code}  has_price_td={has_price_td}  td_count={td_count}  body[:200]={r.text[:200]!r}")
@@ -147,6 +228,7 @@ async def refresh_prices_async(venues: list[dict]) -> None:
     Async background task — scrape prices for all stale Eversports venues
     with a stagger delay. Use asyncio.create_task() to run in background.
     Deduplication: only one refresh runs at a time.
+    Persists each venue's prices to MongoDB after scraping.
     """
     global _refresh_running  # noqa: PLW0603
     async with _refresh_lock:
@@ -185,6 +267,8 @@ async def refresh_prices_async(venues: list[dict]) -> None:
                         "slots":      slots,
                         "scraped_at": time.monotonic(),
                     }
+                # Persist to MongoDB so prices survive redeploys
+                await _save_venue_to_mongo(venue["id"], slots)
     finally:
         _refresh_running = False
         print("[ev-prices] refresh_done")
@@ -220,7 +304,11 @@ def get_price(venue_id: str, date_str: str, time_hhmm: str) -> int | None:
 
 
 def get_any_price(venue_id: str, date_str: str) -> int | None:
-    """Return any price for the venue on that date (any time), or None."""
+    """
+    Return a price for the venue on that date (any time), or None.
+    Used as fallback when time is unavailable. Prefers exact date,
+    then same day-of-week. Does NOT return arbitrary prices across days.
+    """
     with _PRICE_LOCK:
         entry = _PRICE_CACHE.get(venue_id)
     if not entry:
@@ -240,8 +328,4 @@ def get_any_price(venue_id: str, date_str: str) -> int | None:
                 return s["price"]
         except (ValueError, KeyError):
             pass
-    # Last resort: return any cached price — better than None for display purposes.
-    # Prices at a venue rarely vary by day, and this is already a best-effort function.
-    if slots:
-        return slots[0]["price"]
     return None

@@ -161,6 +161,8 @@ async def lifespan(_app: FastAPI):
     _main_loop = asyncio.get_running_loop()
     await analytics.lifespan_startup()
     await tournaments_mongo.ensure_indexes()
+    eversports_prices.init_mongo(os.getenv("MONGODB_URI", ""))
+    await eversports_prices.load_cache_from_mongo()
     VENUES = await load_venues()
     _ev_ids = [(v["id"], v["eversports_facility_id"], v["eversports_court_ids"])
                for v in VENUES if v.get("eversports_facility_id")]
@@ -634,7 +636,7 @@ async def search(
             result["availability_status"] = status
             live_price = ev_result.get("price_eur")
             if live_price is None:
-                live_price = eversports_prices.get_any_price(result["venue_id"], date_str_ev)
+                live_price = eversports_prices.get_price(result["venue_id"], date_str_ev, time_hhmm)
             if live_price is not None:
                 result["price_eur"] = live_price
             if ev_result.get("slot_duration_h") is not None:
