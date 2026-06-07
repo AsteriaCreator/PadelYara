@@ -18,5 +18,10 @@ Both are registered in `.claude/launch.json` (`frontend`, `backend`). The previe
 - **Database:** query MongoDB via the **MongoDB MCP**, not throwaway Python scripts.
 - **Deploys & logs:** use the **Railway** and **Vercel** MCPs to check deploy status and runtime logs instead of guessing.
 
+## Scraper consistency rule
+When fixing or adding a feature in any scraper (`eversports_service.py`, `eversports_prices.py`, `etennis_checker.py`, `tennis04_checker.py`) — **always check whether the same fix or feature is needed in all other scrapers too**, and apply it if so. Examples: a parsing bug, a URL date param, a missing field, a caching pattern. Don't assume platforms behave differently without checking.
+
+Also applies to the **Dockerfile**: any new Backend `.py` file must get a `COPY` line and be added to the build-time import check.
+
 ## Voice
 User-facing copy is in German, written in **Yara's voice** (see `.agents/yara-voice.md`): mean, competent, unbothered.
