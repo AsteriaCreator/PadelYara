@@ -38,3 +38,21 @@ textarea {
 .leaflet-control-attribution a {
   color: #9ca3af !important;
 }
+
+/* Padelrevier cluster bubbles — brand lime instead of the default blue/green */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+  background: rgba(212, 245, 60, 0.25) !important;
+}
+.marker-cluster-small div,
+.marker-cluster-medium div,
+.marker-cluster-large div {
+  background: rgba(212, 245, 60, 0.9) !important;
+  color: #080810 !important;
+}
+.marker-cluster span {
+  font-family: "Barlow Condensed", sans-serif;
+  font-weight: 700;
+  line-height: 30px;
+}
