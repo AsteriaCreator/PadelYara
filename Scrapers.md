@@ -308,6 +308,17 @@ The checker fetches courtgroups (cached in-process for 1 h, since court lists +
 hours are static) and the day's bookings per check, so MongoDB only needs the
 two IDs below — court lists are read live and stay current.
 
+4. **Prices** (per check, shown as `€ X/h`):
+   `GET https://app.tennis04.com/a/{club_id}/courtgroups/{padel_uuid}/pricelegend?seasonId={id}`
+   Returns `priceUnit` (minutes — always 60 so far) and `tariffTable[]` of groups,
+   each with `prices[]` of `{weekDay, beginTime, endTime, price}`. `weekDay` is
+   1=Mon…7=Sun (matches Python `isoweekday()`; confirmed by venues that carry a
+   flat weekend rate on days 6/7). The checker picks the **"Gast" (guest) group**
+   — the public non-member rate (member groups are often €0) — and matches the
+   requested weekday + time range, falling back to the cheapest non-zero rate if
+   there's no guest group. `seasonId` comes from the courtgroup's `seasons[]` (the
+   one covering the search date); pricelegend is cached in-process for 1 h.
+
 **MongoDB fields per venue:** `tennis04_club_id` (int), `tennis04_courtgroup_id` (UUID string).
 
 **Current tennis04 venues (club_id):** SV Lichtenberg (369), tcbw Feldkirch (12),
