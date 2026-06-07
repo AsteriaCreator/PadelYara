@@ -15,15 +15,23 @@ const BUNDESLAENDER = [
   "Tirol", "Kärnten", "Salzburg", "Vorarlberg", "Burgenland",
 ]
 
-const COURT_TYPES: { key: MapVenue["court_type"]; label: string }[] = [
-  { key: "indoor", label: "Indoor" },
-  { key: "outdoor", label: "Outdoor" },
-  { key: "indoor+outdoor", label: "Indoor & Outdoor" },
-]
+// Labels for popups — includes the combined type (a venue can have both).
+const COURT_TYPE_LABELS: Record<string, string> = {
+  indoor: "Indoor",
+  outdoor: "Outdoor",
+  "indoor+outdoor": "Indoor & Outdoor",
+}
 
 function courtTypeLabel(ct: string): string {
-  return COURT_TYPES.find(c => c.key === ct)?.label ?? ct
+  return COURT_TYPE_LABELS[ct] ?? ct
 }
+
+// Filter chips: just Indoor / Outdoor. "Indoor & Outdoor" is dropped — it
+// duplicated "Alle" visually; instead a both-courts venue matches either chip.
+const COURT_TYPE_FILTERS = [
+  { key: "indoor", label: "Indoor" },
+  { key: "outdoor", label: "Outdoor" },
+]
 
 // Lime brand pin via divIcon — also sidesteps the well-known broken default
 // Leaflet marker icons under Vite (asset paths don't resolve through the bundler).
@@ -104,10 +112,14 @@ export default function PadelrevierPage() {
     return opts
   }, [venues])
 
-  const visible = useMemo(() => venues.filter(v =>
-    (bundesland.length === 0 || bundesland.includes(bundeslandFromAddress(v.address))) &&
-    (courtType.length === 0 || courtType.includes(v.court_type))
-  ), [venues, bundesland, courtType])
+  const visible = useMemo(() => venues.filter(v => {
+    const blOk = bundesland.length === 0 || bundesland.includes(bundeslandFromAddress(v.address))
+    // A both-courts venue matches the Indoor chip and the Outdoor chip.
+    const ctOk = courtType.length === 0
+      || courtType.includes(v.court_type)
+      || (v.court_type === "indoor+outdoor" && (courtType.includes("indoor") || courtType.includes("outdoor")))
+    return blOk && ctOk
+  }), [venues, bundesland, courtType])
 
   // Jump into the Court Finder pre-filled to this venue. We pass the venue's
   // exact coords (lat/lon) so the Finder centers on it directly — bare PLZ
@@ -135,12 +147,7 @@ export default function PadelrevierPage() {
       </p>
 
       <MultiChip label="Bundesland" options={blOptions} selected={bundesland} onChange={setBundesland} />
-      <MultiChip
-        label="Platztyp"
-        options={COURT_TYPES.map(c => ({ key: c.key, label: c.label }))}
-        selected={courtType}
-        onChange={setCourtType}
-      />
+      <MultiChip label="Platztyp" options={COURT_TYPE_FILTERS} selected={courtType} onChange={setCourtType} />
 
       {loading && (
         <p className="text-center py-10 text-gray-500 text-sm">Yara kartiert das Revier …</p>
