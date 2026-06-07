@@ -92,26 +92,63 @@
 }
 .remove-device-btn:hover { border-color: #ef4444; color: #ef4444; }
 
-.exclude-me-btn {
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.45rem 0.9rem;
-  border-radius: 99px;
-  border: 2px solid #cbd5e1;
-  background: #fff;
+.exclude-me-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+.exclude-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: none;
+  background: none;
   color: #475569;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s;
   white-space: nowrap;
 }
-.exclude-me-btn:hover {
-  border-color: #94a3b8;
-  color: #1e293b;
+.exclude-switch:disabled {
+  cursor: default;
+  opacity: 0.6;
 }
-.exclude-me-btn.active {
-  border-color: #6366f1;
-  background: #eef2ff;
+.exclude-switch-track {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  border-radius: 99px;
+  background: #cbd5e1;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.exclude-switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: transform 0.15s;
+}
+.exclude-switch.on .exclude-switch-track {
+  background: #6366f1;
+}
+.exclude-switch.on .exclude-switch-thumb {
+  transform: translateX(18px);
+}
+.exclude-switch.on .exclude-switch-text {
   color: #4338ca;
+}
+.exclude-switch-state {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #64748b;
+  text-align: right;
 }
 
 .admin-section {

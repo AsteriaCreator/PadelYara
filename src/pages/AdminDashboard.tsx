@@ -230,14 +230,29 @@ export default function AdminDashboard() {
       <header className="admin-header">
         <div className="admin-header-row">
           <h1>📊 Analytics Dashboard</h1>
-          <button
-            className={`exclude-me-btn ${excludeEnabled && mySessions.length > 0 ? "active" : ""}`}
-            onClick={toggleExclude}
-            disabled={refreshing}
-            title={mySessions.length === 0 ? "Click to register this device and exclude your visits" : "Toggle filtering of your own visits"}
-          >
-            {refreshing ? "⏳ Updating…" : excludeEnabled && mySessions.length > 0 ? "🙈 Excluding my visits" : "👁️ Including my visits"}
-          </button>
+          <div className="exclude-me-toggle">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={excludeEnabled && mySessions.length > 0}
+              className={`exclude-switch ${excludeEnabled && mySessions.length > 0 ? "on" : ""}`}
+              onClick={toggleExclude}
+              disabled={refreshing}
+              title="Turn on to hide your own visits from the stats"
+            >
+              <span className="exclude-switch-track">
+                <span className="exclude-switch-thumb" />
+              </span>
+              <span className="exclude-switch-text">Exclude my own visits</span>
+            </button>
+            <p className="exclude-switch-state">
+              {refreshing
+                ? "⏳ Updating…"
+                : excludeEnabled && mySessions.length > 0
+                  ? "🙈 Currently ON — your visits are hidden from the numbers below."
+                  : "👁️ Currently OFF — your visits are counted in the numbers below."}
+            </p>
+          </div>
         </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>
 
