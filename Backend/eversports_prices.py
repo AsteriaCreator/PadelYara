@@ -129,7 +129,12 @@ async def _save_venue_to_mongo(venue_id: str, slots: list[dict]) -> None:
 async def _fetch_one_date(
     session, vid: str, facility_id: int, slug: str, booking_url: str, date_str: str
 ) -> list[dict]:
-    """POST for a single date and parse price slots from the HTML."""
+    """POST for a single date and parse price slots from the HTML.
+
+    The caller must have already GETted the booking page in the same session
+    so that Eversports session cookies are present — without them the API
+    silently falls back to today's schedule regardless of the requested date.
+    """
     post_data = {
         "facilityId":   str(facility_id),
         "facilitySlug": slug,
@@ -202,6 +207,18 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
 
     try:
         async with AsyncSession(impersonate="chrome124") as session:
+            # GET the booking page once to acquire Eversports session cookies.
+            # Without them the cal-post API ignores the date param and always
+            # returns today's slots (observed for venues like Ebreichsdorf).
+            print(f"[ev-prices] cookie_get  venue={vid}  url={booking_url}")
+            await session.get(
+                booking_url,
+                headers={
+                    "Accept":          "text/html,application/xhtml+xml,*/*",
+                    "Accept-Language": "de-AT,de;q=0.9,en;q=0.8",
+                },
+                timeout=15,
+            )
             today_slots    = await _fetch_one_date(session, vid, facility_id, slug, booking_url, today.strftime("%Y-%m-%d"))
             tomorrow_slots = await _fetch_one_date(session, vid, facility_id, slug, booking_url, tomorrow.strftime("%Y-%m-%d"))
 
