@@ -7,7 +7,7 @@ without any schema changes.
 """
 
 import os
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any
 
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -111,16 +111,26 @@ def _fuzzy_bezirk(venue_name: str, pairs: list[tuple[str, str | None]]) -> str |
     return best_bezirk
 
 
-async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int]:
+async def upsert_tournaments(
+    tournaments: list[dict[str, Any]], is_seed: bool = False
+) -> dict[str, int]:
     """
     Upsert a list of tournament dicts.
     - Preserves first_seen_at on existing records.
     - Updates last_seen_at and all scraped fields on every run.
     - Enriches each tournament with `bezirk` from the venues collection.
+
+    `first_seen_at` drives the "NEU" badge, so it must reflect when a tournament
+    genuinely appeared to us. On a normal run that's "now". On a bulk `is_seed`
+    import (empty collection), "now" would flag the entire back-catalogue as new,
+    so we backdate it to the registration-open date (best estimate of when it
+    became available), or ~30 days ago when that's unknown.
+
     Returns counts: {inserted, updated}.
     """
     col = _col()
     now = datetime.now(timezone.utc)
+    seed_fallback = now - timedelta(days=30)
     inserted = 0
     updated = 0
 
@@ -137,6 +147,20 @@ async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int
         update_fields = {k: v for k, v in t.items() if k not in ("source", "source_id")}
         update_fields["last_seen_at"] = now
 
+        # Detail-page dates come from a per-tournament fetch that can transiently
+        # fail. Never overwrite a previously-stored registration date with None.
+        for f in ("registration_opens_at", "registration_closes_at"):
+            if update_fields.get(f) is None:
+                update_fields.pop(f, None)
+
+        # first_seen_at = now for genuine new sightings; backdated for seed imports
+        # so the whole back-catalogue doesn't light up as NEU on first load.
+        if is_seed:
+            reg_opens = t.get("registration_opens_at")
+            first_seen = reg_opens if isinstance(reg_opens, datetime) and reg_opens < now else seed_fallback
+        else:
+            first_seen = now
+
         result = await col.update_one(
             {"source": source, "source_id": source_id},
             {
@@ -144,7 +168,7 @@ async def upsert_tournaments(tournaments: list[dict[str, Any]]) -> dict[str, int
                 "$setOnInsert": {
                     "source": source,
                     "source_id": source_id,
-                    "first_seen_at": now,
+                    "first_seen_at": first_seen,
                 },
             },
             upsert=True,

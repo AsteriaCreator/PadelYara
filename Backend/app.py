@@ -129,10 +129,13 @@ def _call_eversports_service(
 _main_loop: asyncio.AbstractEventLoop | None = None
 
 
-def _run_tournament_scrape() -> None:
+def _run_tournament_scrape(is_seed: bool = False) -> None:
     """Blocking scrape + upsert, intended to run in a thread.
     Upsert runs on the main event loop via run_coroutine_threadsafe to avoid
     motor being called from a different loop than the one it was created on.
+
+    `is_seed` is True only for the initial import into an empty collection, so
+    first_seen_at gets backdated instead of flagging the whole catalogue as NEU.
     """
     print("[tournaments] Starting daily scrape...")
     tournaments = scrape_padel_austria()
@@ -143,7 +146,7 @@ def _run_tournament_scrape() -> None:
         print("[tournaments] Main event loop not ready — skipping upsert.")
         return
     future = asyncio.run_coroutine_threadsafe(
-        tournaments_mongo.upsert_tournaments(tournaments), _main_loop
+        tournaments_mongo.upsert_tournaments(tournaments, is_seed=is_seed), _main_loop
     )
     try:
         stats = future.result(timeout=120)
@@ -168,7 +171,7 @@ async def lifespan(_app: FastAPI):
     count = await tournaments_mongo.count_tournaments()
     if count == 0:
         print("[tournaments] Collection empty — running initial scrape in background.")
-        threading.Thread(target=_run_tournament_scrape, daemon=True).start()
+        threading.Thread(target=_run_tournament_scrape, kwargs={"is_seed": True}, daemon=True).start()
 
     # Daily scraper at 06:00 Vienna time
     from apscheduler.schedulers.background import BackgroundScheduler

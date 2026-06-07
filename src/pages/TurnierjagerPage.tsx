@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
+import { opensSoon } from "../tournamentBadges"
 import { BEZIRKE_BY_BUNDESLAND } from "../data/bezirke"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
@@ -48,7 +49,7 @@ const RESULT_SECTIONS: {
   },
   {
     title: "Sonstige",
-    subtitle: "",
+    subtitle: "Status unbekannt — Anmeldestatus konnte nicht ausgelesen werden.",
     color: "#6b7280",
     match: t => t.status === "unknown",
   },
@@ -67,6 +68,8 @@ interface Filters {
   wochentag: string[]
   showFull: boolean
   showClosed: boolean
+  // Client-side: show only tournaments whose registration opens in the next few days.
+  onlyOpensSoon: boolean
 }
 
 function defaultFilters(): Filters {
@@ -79,13 +82,16 @@ function defaultFilters(): Filters {
     wochentag: [],
     showFull: false,
     showClosed: false,
+    onlyOpensSoon: false,
   }
 }
 
 function loadFilters(): Filters {
   try {
     const raw = localStorage.getItem(LS_KEY)
-    if (raw) return { ...defaultFilters(), ...JSON.parse(raw) }
+    // onlyOpensSoon is a transient "show me just these" view — never restore it
+    // as active, or a return visit looks mysteriously empty.
+    if (raw) return { ...defaultFilters(), ...JSON.parse(raw), onlyOpensSoon: false }
   } catch { /* ignore */ }
   return defaultFilters()
 }
@@ -434,8 +440,15 @@ export default function TurnierjagerPage() {
     filters.venue.length > 0 ||
     filters.kategorie.length > 0 ||
     filters.wettbewerb.length > 0 ||
-    filters.wochentag.length > 0
+    filters.wochentag.length > 0 ||
+    filters.onlyOpensSoon
   )
+
+  // "Öffnet bald" is a time-derived label, so we filter client-side rather than
+  // round-tripping a date query to the API.
+  const visibleTournaments = filters.onlyOpensSoon
+    ? tournaments.filter(opensSoon)
+    : tournaments
 
   return (
     <section className="mt-2 pb-12">
@@ -612,6 +625,15 @@ export default function TurnierjagerPage() {
             />
             <span className="text-xs text-gray-500">Vergangene / geschlossene Turniere zeigen</span>
           </label>
+          <label className="flex items-center gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={filters.onlyOpensSoon}
+              onChange={e => updateFilter("onlyOpensSoon", e.target.checked)}
+              className="accent-lime-400"
+            />
+            <span className="text-xs" style={{ color: "#60a5fa" }}>Nur bald öffnende Anmeldungen</span>
+          </label>
         </div>
       </div>
 
@@ -622,11 +644,11 @@ export default function TurnierjagerPage() {
             className="text-sm"
             style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "rgba(212,245,60,0.5)" }}
           >
-            {tournaments.length === 0
+            {visibleTournaments.length === 0
               ? "Keine Turniere gefunden"
-              : tournaments.length === 1
+              : visibleTournaments.length === 1
               ? "1 Turnier"
-              : `${tournaments.length} Turniere`}
+              : `${visibleTournaments.length} Turniere`}
           </p>
           {lastUpdated && (
             <p className="text-xs text-gray-700">Stand: {lastUpdated}</p>
@@ -644,10 +666,10 @@ export default function TurnierjagerPage() {
         <p className="text-red-400 text-sm px-1">{error}</p>
       )}
 
-      {!loading && !error && tournaments.length > 0 && (
+      {!loading && !error && visibleTournaments.length > 0 && (
         <div className="space-y-6 mb-6">
           {RESULT_SECTIONS.map(s => {
-            const items = tournaments.filter(s.match)
+            const items = visibleTournaments.filter(s.match)
             if (items.length === 0) return null
             return (
               <div key={s.title}>
@@ -672,11 +694,15 @@ export default function TurnierjagerPage() {
         </div>
       )}
 
-      {!loading && !error && tournaments.length === 0 && (
+      {!loading && !error && visibleTournaments.length === 0 && (
         <div className="text-center py-10">
           <p className="text-3xl mb-3">🎾</p>
           <p className="text-white font-semibold mb-1">Keine Turniere gefunden.</p>
-          <p className="text-gray-500 text-sm">Filter anpassen oder mehr Optionen aktivieren.</p>
+          <p className="text-gray-500 text-sm">
+            {filters.onlyOpensSoon
+              ? "Gerade öffnet keine Anmeldung in den nächsten Tagen. Filter anpassen."
+              : "Filter anpassen oder mehr Optionen aktivieren."}
+          </p>
         </div>
       )}
 

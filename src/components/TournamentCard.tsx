@@ -1,12 +1,5 @@
 import type { Tournament } from "../types"
-
-const DAYS_NEW = 7
-
-function isNew(firstSeenAt: string | null): boolean {
-  if (!firstSeenAt) return false
-  const diffMs = Date.now() - new Date(firstSeenAt).getTime()
-  return diffMs < DAYS_NEW * 24 * 60 * 60 * 1000
-}
+import { isNew, opensSoon } from "../tournamentBadges"
 
 function spotsLeft(t: Tournament): number | null {
   if (!t.participants_max) return null
@@ -40,7 +33,9 @@ function StatusBadge({ t }: { t: Tournament }) {
   if (t.status === "not_open_yet") {
     return (
       <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(59,130,246,0.15)", color: "#60a5fa" }}>
-        Anmeldung noch nicht offen
+        {t.registration_opens_at
+          ? `Anmeldung ab ${formatDate(t.registration_opens_at, false)}`
+          : "Anmeldung noch nicht offen"}
       </span>
     )
   }
@@ -106,7 +101,8 @@ function CategoryPill({ label }: { label: string }) {
 }
 
 export default function TournamentCard({ t }: { t: Tournament }) {
-  const newBadge = isNew(t.first_seen_at)
+  const newBadge = isNew(t)
+  const soonBadge = opensSoon(t)
   const isOpen = t.status === "open" || t.status === "not_open_yet"
 
   return (
@@ -126,6 +122,11 @@ export default function TournamentCard({ t }: { t: Tournament }) {
             {newBadge && (
               <span className="text-xs font-bold px-1.5 py-0.5 rounded" style={{ background: "rgba(212,245,60,0.2)", color: "#d4f53c" }}>
                 NEU
+              </span>
+            )}
+            {soonBadge && (
+              <span className="text-xs font-bold px-1.5 py-0.5 rounded" style={{ background: "rgba(96,165,250,0.2)", color: "#60a5fa" }}>
+                ÖFFNET BALD
               </span>
             )}
             <span className="text-white text-sm font-semibold leading-snug">{t.title}</span>

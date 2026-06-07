@@ -66,6 +66,47 @@ def _parse_datetime(date_str: str, time_str: str) -> datetime | None:
         return None
 
 
+def _parse_detail_datetime(value: str) -> datetime | None:
+    """Parse a detail-table value like '21.05.2026, 12:00 Uhr' → UTC datetime."""
+    cleaned = value.replace("Uhr", "").strip().rstrip(",").strip()
+    try:
+        return datetime.strptime(cleaned, "%d.%m.%Y, %H:%M").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
+# Detail-page "Turnierinformationen" table labels → tournament dict keys.
+# Only the registration window: it's the authoritative source for when a
+# tournament became available, which drives the "NEU"/"öffnet bald" labels.
+# We deliberately do NOT take Startzeit/Endzeit here — the list page already
+# parses the full (possibly multi-day) date range, and the detail table's single
+# start/end pair would clobber a multi-day range with one day.
+_DETAIL_LABELS = {
+    "Registrierung Start": "registration_opens_at",
+    "Registrierung Ende": "registration_closes_at",
+}
+
+
+def _parse_detail(soup: BeautifulSoup) -> dict[str, Any]:
+    """
+    Parse the 'Turnierinformationen' table on a tournament detail page.
+    Returns only the date fields it successfully parsed (missing/garbled
+    values are omitted so they never overwrite good data on upsert).
+    """
+    out: dict[str, Any] = {}
+    for tr in soup.find_all("tr"):
+        cells = tr.find_all("td")
+        if len(cells) != 2:
+            continue
+        field = _DETAIL_LABELS.get(cells[0].get_text(strip=True))
+        if not field:
+            continue
+        dt = _parse_detail_datetime(cells[1].get_text(strip=True))
+        if dt:
+            out[field] = dt
+    return out
+
+
 def _parse_participants(text: str) -> tuple[int, int, int]:
     """
     Parse '16/16 (2)' → (current=16, max=16, waitlist=2).
@@ -170,6 +211,10 @@ def _parse_row(row) -> dict[str, Any] | None:
         if t in _STATUS_MAP:
             status = _STATUS_MAP[t]
             break
+        # Dynamic "not open yet" text: "Anmeldung öffnet am DD.MM.YYYY, HH:MM Uhr"
+        if re.match(r"Anmeldung öffnet am", t):
+            status = "not_open_yet"
+            break
 
     # Refine status: if registration is open but tournament is full (no waitlist shown)
     if status == "open" and participants_max > 0 and participants_current >= participants_max:
@@ -197,15 +242,19 @@ def _parse_row(row) -> dict[str, Any] | None:
     }
 
 
-def _fetch_page(page: int, session: requests.Session) -> BeautifulSoup | None:
-    url = TOURNAMENTS_URL if page == 1 else f"{TOURNAMENTS_URL}?page={page}"
+def _fetch_soup(url: str, session: requests.Session) -> BeautifulSoup | None:
     try:
         r = session.get(url, timeout=20)
         r.raise_for_status()
         return BeautifulSoup(r.text, "html.parser")
     except Exception as e:
-        print(f"[padel_austria_scraper] Error fetching page {page}: {e}")
+        print(f"[padel_austria_scraper] Error fetching {url}: {e}")
         return None
+
+
+def _fetch_page(page: int, session: requests.Session) -> BeautifulSoup | None:
+    url = TOURNAMENTS_URL if page == 1 else f"{TOURNAMENTS_URL}?page={page}"
+    return _fetch_soup(url, session)
 
 
 def _get_total_pages(soup: BeautifulSoup) -> int:
@@ -258,6 +307,30 @@ def scrape_all() -> list[dict[str, Any]]:
         print(f"[padel_austria_scraper] Page {page}/{total_pages} done. Total so far: {len(all_tournaments)}")
 
     print(f"[padel_austria_scraper] Scrape complete. {len(all_tournaments)} tournaments found.")
+
+    # Enrich with the registration window from each detail page (the list page
+    # doesn't expose it). Skip tournaments whose registration window can no longer
+    # matter — closed/cancelled, or already started — to avoid hundreds of
+    # pointless requests every run.
+    now = datetime.now(timezone.utc)
+    to_enrich = [
+        t for t in all_tournaments
+        if t.get("status") not in ("closed", "cancelled")
+        and not (isinstance(t.get("starts_at"), datetime) and t["starts_at"] < now)
+    ]
+    print(
+        f"[padel_austria_scraper] Fetching detail pages for {len(to_enrich)} "
+        f"of {len(all_tournaments)} tournaments..."
+    )
+    for i, t in enumerate(to_enrich):
+        time.sleep(0.3)  # be polite
+        detail_soup = _fetch_soup(t["source_url"], session)
+        if detail_soup:
+            t.update(_parse_detail(detail_soup))
+        if (i + 1) % 25 == 0:
+            print(f"[padel_austria_scraper] Detail {i + 1}/{len(to_enrich)} done.")
+
+    print("[padel_austria_scraper] Detail enrichment complete.")
     return all_tournaments
 
 
