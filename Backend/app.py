@@ -45,6 +45,9 @@ EV_DEFAULT_FALLBACK: list[int] = [30, 60]
 from etennis_checker import check_etennis_venues
 from etennis_checker import get_cached_entries as get_etennis_entries
 from etennis_checker import get_cached_statuses as get_etennis_cached
+from tennis04_checker import check_tennis04_venues
+from tennis04_checker import get_cached_entries as get_tennis04_entries
+from tennis04_checker import get_cached_statuses as get_tennis04_cached
 from eversports_service import check_eversports_slot
 from distance import filter_by_radius
 from venues_mongo import load_venues
@@ -579,6 +582,74 @@ async def search(
                     "key":    key,
                     "venues": [v["id"] for v in to_fetch],
                 }))
+
+    # ── Phase 2.5: tennis04 — plain-HTTP public API, serve cached + bg-fetch ──
+    #    Only on the initial load (et_offset == 0): like Eversports these venues
+    #    appear in the first response and "Mehr Ergebnisse" calls reuse them.
+    #    Checks run in a background thread (pending-first) so the response is fast.
+    if et_offset == 0:
+        t04_venues = [v for v in venues if v["platform"] == "tennis04"]
+        if t04_venues:
+            t04_map     = {v["id"]: v for v in t04_venues}
+            cached_t04  = get_tennis04_cached(t04_venues, dt)
+            entries_t04 = get_tennis04_entries(t04_venues, dt)
+            print(json.dumps({
+                "event":    "tennis04_cache_check",
+                "hits":     len(cached_t04),
+                "total":    len(t04_venues),
+                "statuses": dict(cached_t04),
+            }))
+            for result in results:
+                if result["platform"] != "tennis04":
+                    continue
+                vid   = result["venue_id"]
+                venue = t04_map.get(vid)
+                # Venues lacking tennis04 IDs can't be checked online.
+                if venue is None or not venue.get("tennis04_club_id"):
+                    issues = (venue.get("issues", "") if venue else "")
+                    result["availability_status"] = (
+                        "phone_only" if issues == "phone_booking_only" else "unknown"
+                    )
+                    continue
+                if vid in cached_t04:
+                    result["availability_status"] = cached_t04[vid]
+                    entry = entries_t04.get(vid, {})
+                    if cached_t04[vid] != "free":
+                        nft = entry.get("next_free_ts")
+                        if nft is not None:
+                            result["next_available_time"] = nft
+                    dur = entry.get("slot_duration_h")
+                    if dur is not None:
+                        result["slot_duration_h"] = dur
+                else:
+                    result["availability_status"] = "pending"
+            to_fetch_t04 = [v for v in t04_venues
+                            if v["id"] not in cached_t04 and v.get("tennis04_club_id")]
+            if to_fetch_t04:
+                t04_key = _run_key("tennis04", dt)
+                with _RUNNING_LOCK:
+                    t04_should_start = t04_key not in _RUNNING
+                    if t04_should_start:
+                        _RUNNING.add(t04_key)
+                if t04_should_start:
+                    print(json.dumps({
+                        "event":  "tennis04_bg_start",
+                        "key":    t04_key,
+                        "venues": [v["id"] for v in to_fetch_t04],
+                    }))
+                    def _t04_bg(vv=to_fetch_t04, d=dt, k=t04_key):
+                        try:
+                            check_tennis04_venues(vv, d)
+                        finally:
+                            with _RUNNING_LOCK:
+                                _RUNNING.discard(k)
+                    threading.Thread(target=_t04_bg, daemon=True).start()
+                else:
+                    print(json.dumps({
+                        "event":  "tennis04_bg_deduplicated",
+                        "key":    t04_key,
+                        "venues": [v["id"] for v in to_fetch_t04],
+                    }))
 
     # ── Phase 3: Eversports — only on the initial load (et_offset == 0).
     #    On "Mehr Ergebnisse" calls the frontend already has Eversports results;

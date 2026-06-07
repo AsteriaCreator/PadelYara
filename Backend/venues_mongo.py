@@ -6,7 +6,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 _client: AsyncIOMotorClient | None = None
 
 _COURT_TYPE_MAP = {"indoor_outdoor": "indoor+outdoor"}
-_PLATFORM_MAP = {"etennis": "eTennis", "eversports": "Eversports", "other": "Andere"}
+_PLATFORM_MAP = {"etennis": "eTennis", "eversports": "Eversports", "tennis04": "tennis04", "other": "Andere"}
 
 _venues_cache: list[dict] | None = None
 _venues_cache_ts: float = 0.0
@@ -45,6 +45,8 @@ def _normalize(doc: dict) -> dict:
         "eversports_slug":        doc.get("eversports_slug") or None,
         "eversports_facility_id": doc.get("eversports_facility_id") or None,
         "eversports_court_ids":   list(doc.get("eversports_court_ids") or []),
+        "tennis04_club_id":       doc.get("tennis04_club_id") or None,
+        "tennis04_courtgroup_id": doc.get("tennis04_courtgroup_id") or None,
         "courts":                 list(doc.get("courts") or []),
         "issues":                 doc.get("issues") or None,
         "slot_fallback_minutes":  list(doc.get("slot_fallback_minutes") or []),

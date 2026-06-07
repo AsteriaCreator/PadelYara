@@ -277,27 +277,41 @@ Potential future work:
 
 # Platforms to Build Next
 
-## tennis04 (priority: HIGH)
+## tennis04 (LIVE)
 
-4–5 Austrian venues currently, growing as tennis clubs add padel courts.
+5 Austrian venues, growing as tennis clubs add padel courts. Implemented in
+`Backend/tennis04_checker.py`, wired into `app.py` as "Phase 2.5" (alongside
+eTennis and Eversports). Plain-HTTP public API — no auth, no browser.
 
-**API — fully public, no auth, plain HTTP:**
+**API — fully public, no auth, plain `requests.get`:**
 
 1. **Get club ID** (one-time per venue):
    Fetch `https://app.tennis04.com/de/{slug}/buchungsplan`, regex `window\['_id'\] = (\d+)`.
 
-2. **Get Padel courtgroup UUID** (one-time per venue):
+2. **Get Padel courtgroup UUID + courts + opening hours** (one-time per venue):
    `GET https://app.tennis04.com/a/{club_id}/courtgroups`
-   Filter by name containing "padel".
+   Response is **nested**: a top-level array of groups, each holding a
+   `courtGroups` array. Flatten and pick the one whose `name` contains "padel".
+   That object gives `id` (UUID), `courts[].id`, `hourFrom`, `hourUntil`,
+   `defaultDurationMinutes`.
 
 3. **Check availability** (per search):
-   `GET https://app.tennis04.com/a/{club_id}/bookings?datefrom=YYYY-MM-DD&dateto=YYYY-MM-DD&courtgroup={padel_uuid}`
-   Returns array of **booked** slots with `start`, `end`, `resourceId`.
-   Logic: if no booking covers the requested time → FREE, else BUSY.
+   `GET https://app.tennis04.com/a/{club_id}/bookings?datefrom=YYYY-MM-DD&dateto=YYYY-MM-DD&courtgroup={padel_uuid}&useAccountingColors=false`
+   ⚠️ **`useAccountingColors=false` is REQUIRED** — omitting it returns a 404
+   ("No HTTP resource was found"). Returns an array of **booked** slots with
+   `start`, `end` (naive Vienna-local ISO) and `resourceId` (court id).
+   Logic: a court is busy if a booking covers the requested time
+   (`start <= T < end`). Venue is FREE if ≥1 court is free, BUSY if all booked,
+   `no_slot` if T is outside `hourFrom`–`hourUntil`.
 
-**MongoDB fields to add per venue:** `tennis04_club_id` (int), `tennis04_courtgroup_id` (UUID string).
+The checker fetches courtgroups (cached in-process for 1 h, since court lists +
+hours are static) and the day's bookings per check, so MongoDB only needs the
+two IDs below — court lists are read live and stay current.
 
-**Current tennis04 venues:** SV Lichtenberg, tcbw Feldkirch, TC Hard, Padelclub Mattersburg, UTC Sparkasse Scheibbs.
+**MongoDB fields per venue:** `tennis04_club_id` (int), `tennis04_courtgroup_id` (UUID string).
+
+**Current tennis04 venues (club_id):** SV Lichtenberg (369), tcbw Feldkirch (12),
+TC Hard (107), Padelclub Mattersburg (1183), UTC Sparkasse Scheibbs (505).
 
 ---
 
