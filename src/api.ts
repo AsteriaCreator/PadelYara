@@ -36,6 +36,45 @@ export function trackBookingClick(venueId: string, platform: string): void {
   }, 0)
 }
 
+// True only for the very first pageview after a full page load. The browser's
+// document.referrer does NOT change on client-side (SPA) route changes, so we
+// only attribute an external referrer on the entry view; later route changes
+// are internal navigations and send referrer_host = null.
+let _isFirstPageview = true
+
+/**
+ * Fire-and-forget, cookieless page view. Sends only the internal path, the
+ * bare hostname of an external referrer (or "direct"), and the anonymous
+ * session id. No full URLs, no query strings, no IPs. Never throws.
+ */
+export function trackPageview(path: string): void {
+  let referrer_host: string | null = null
+  if (_isFirstPageview) {
+    _isFirstPageview = false
+    try {
+      if (document.referrer) {
+        const ref = new URL(document.referrer)
+        // Only count genuinely external referrers
+        if (ref.host !== location.host) {
+          referrer_host = ref.hostname.replace(/^www\./, "")
+        }
+      } else {
+        referrer_host = "direct"
+      }
+    } catch { /* malformed referrer — leave null */ }
+  }
+  const url = `${API_BASE}/api/pageview`
+  const body = JSON.stringify({ path, referrer_host, session_id: getSessionId() })
+  setTimeout(() => {
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+    }).catch(() => {})
+  }, 0)
+}
+
 // Shape the backend actually returns
 type RawVenue = {
   venue_id: string

@@ -197,6 +197,37 @@ def track_search_failed(*, reason: str, court_type: str | None = None, session_i
     })
 
 
+def track_pageview(
+    *,
+    path: str,
+    referrer_host: str | None = None,
+    device_type: str | None = None,
+    session_id: str | None = None,
+) -> None:
+    """
+    Fired on each client-side page view (first-party, cookieless).
+
+    DSGVO note: no IPs, no full URLs, no query strings. Only the internal
+    route path and the bare hostname of an external referrer are stored.
+
+    Stored:
+      path           — internal route path, e.g. "/" or "/turnierjaeger"
+      referrer_host  — bare hostname of an external referrer (e.g.
+                       "google.com", "instagram.com"), "direct" when the
+                       visit had no referrer, or None for internal (same-site)
+                       navigations
+      device_type    — "mobile" | "tablet" | "desktop" (UA category only)
+      session_id     — anonymous random UUID from the browser (localStorage)
+    """
+    _enqueue({
+        "event":         "pageview",
+        "path":          path,
+        "referrer_host": referrer_host,
+        "device_type":   device_type,
+        "session_id":    session_id,
+    })
+
+
 # ── Aggregation reference (future admin dashboard) ────────────────────────────
 #
 # Collection: analytics_events

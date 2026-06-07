@@ -37,6 +37,7 @@ sentry_sdk.init(
 import analytics
 from analytics import (
     track_booking_clicked,
+    track_pageview,
     track_scraper_timeout,
     track_search_completed,
     track_search_failed,
@@ -928,20 +929,26 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
         return r[0]["count"] if r else 0
 
     async def _event_breakdown(start, end):
+        # Page views are tracked separately (see pageviews_*) and excluded here
+        # so the "Actions" breakdown stays about product events only.
         pipeline = [
-            {"$match": {"timestamp": {"$gte": start, "$lt": end}, **_excl}},
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "event": {"$ne": "pageview"}, **_excl}},
             {"$group": {"_id": "$event", "count": {"$sum": 1}}},
             {"$sort": {"count": -1}},
         ]
         rows = await col.aggregate(pipeline).to_list(20)
         return {r["_id"]: r["count"] for r in rows}
 
-    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}, **_excl})
+    # "Total Actions" / breakdown exclude pageviews; pageviews counted on their own.
+    _no_pv = {"event": {"$ne": "pageview"}}
+    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}, **_no_pv, **_excl})
     today_sessions   = await _session_count(today_start, now)
     today_breakdown  = await _event_breakdown(today_start, now)
-    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_excl})
+    today_pageviews  = await col.count_documents({"timestamp": {"$gte": today_start}, "event": "pageview", **_excl})
+    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_no_pv, **_excl})
     yday_sessions    = await _session_count(yesterday_start, yesterday_window_end)
     yday_breakdown   = await _event_breakdown(yesterday_start, yesterday_window_end)
+    yday_pageviews   = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "event": "pageview", **_excl})
 
     returning_pipeline = [
         {"$match": {"session_id": {"$exists": True, "$ne": None}, **_excl}},
@@ -970,6 +977,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
 
     return {
         "total_events_today":      today_total,
+        "pageviews_today":         today_pageviews,
         "unique_sessions_today":   today_sessions,
         "returning_sessions_today": returning_sessions,
         "new_sessions_today":      today_sessions - returning_sessions,
@@ -977,6 +985,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
         "event_breakdown_today":   today_breakdown,
         "deltas": {
             "total_events":    _delta(today_total,    yday_total),
+            "pageviews":       _delta(today_pageviews, yday_pageviews),
             "unique_sessions": _delta(today_sessions, yday_sessions),
             "avg_response_ms": _delta(avg_ms, avg_ms_yday) if avg_ms and avg_ms_yday else None,
             "events_by_type":  {
@@ -1005,13 +1014,19 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
 
     event_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}, **_excl}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": {"$ne": "pageview"}, **_excl}},
         {"$group": {"_id": {
             "date":  {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
             "event": "$event",
         }, "count": {"$sum": 1}}},
         {"$sort": {"_id.date": 1}},
     ]).to_list(500)
+
+    pageview_rows = await col.aggregate([
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": "pageview", **_excl}},
+        {"$group": {"_id": {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}}, "count": {"$sum": 1}}},
+        {"$sort": {"_id": 1}},
+    ]).to_list(100)
 
     session_rows = await col.aggregate([
         {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}, **_excl}},
@@ -1032,12 +1047,14 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
             all_event_types.add(e)
 
     sessions_by_date = {r["_id"]: r["unique_sessions"] for r in session_rows}
+    pageviews_by_date = {r["_id"]: r["count"] for r in pageview_rows}
 
     return {
         "dates":                    dates,
         "event_types":              sorted(all_event_types),
         "events_by_date":           events_by_date,
         "unique_sessions_by_date":  {d: sessions_by_date.get(d, 0) for d in dates},
+        "pageviews_by_date":        {d: pageviews_by_date.get(d, 0) for d in dates},
     }
 
 
@@ -1064,7 +1081,7 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
 
     # Top 10 search locations (last 30 days)
     location_rows = await col.aggregate([
-        {"$match": {**base_match, "search_location": {"$exists": True, "$ne": None, "$ne": ""}}},
+        {"$match": {**base_match, "search_location": {"$nin": [None, ""]}}},
         {"$group": {"_id": "$search_location", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 10},
@@ -1085,6 +1102,26 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         {"$sort": {"count": -1}},
     ]).to_list(10)
 
+    # Pageview-based insights (last 30 days). Separate match: event = "pageview".
+    pv_match = {"event": "pageview", "timestamp": {"$gte": thirty_days_ago}, **_excl}
+
+    # Top 10 referrer domains (where visitors come from). Internal (same-site)
+    # navigations carry referrer_host = null and are excluded; "direct" is kept.
+    referrer_rows = await col.aggregate([
+        {"$match": {**pv_match, "referrer_host": {"$nin": [None, ""]}}},
+        {"$group": {"_id": "$referrer_host", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10},
+    ]).to_list(10)
+
+    # Top 10 most-viewed pages
+    page_rows = await col.aggregate([
+        {"$match": {**pv_match, "path": {"$nin": [None, ""]}}},
+        {"$group": {"_id": "$path", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10},
+    ]).to_list(10)
+
     # Fill all 24 hours with 0 for missing hours
     hours_map = {r["_id"]: r["count"] for r in hour_rows}
     hourly = [{"hour": h, "count": hours_map.get(h, 0)} for h in range(24)]
@@ -1093,6 +1130,8 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         "top_locations":  [{"location": r["_id"], "count": r["count"]} for r in location_rows],
         "hourly_searches": hourly,
         "device_breakdown": {r["_id"]: r["count"] for r in device_rows},
+        "top_referrers":  [{"referrer": r["_id"], "count": r["count"]} for r in referrer_rows],
+        "top_pages":      [{"path": r["_id"], "count": r["count"]} for r in page_rows],
     }
 
 
@@ -1106,6 +1145,25 @@ class BookingClickBody(BaseModel):
 async def booking_click(body: BookingClickBody):
     """Record booking intent. Frontend fires-and-forgets; opens the booking URL itself."""
     track_booking_clicked(venue_id=body.venue_id, platform=body.platform, session_id=body.session_id)
+    return {"ok": True}
+
+
+class PageviewBody(BaseModel):
+    path:          str
+    referrer_host: str | None = None
+    session_id:    str | None = None
+
+
+@app.post("/api/pageview")
+async def pageview(body: PageviewBody, request: Request):
+    """Record a first-party, cookieless page view. Fire-and-forget from the frontend."""
+    device_type = _device_type(request.headers.get("user-agent", ""))
+    track_pageview(
+        path=body.path,
+        referrer_host=body.referrer_host,
+        device_type=device_type,
+        session_id=body.session_id,
+    )
     return {"ok": True}
 
 

@@ -106,7 +106,11 @@ export default function DatenschutzPage() {
           Erfasst werden ausschließlich produktbezogene Ereignisse, z. B. dass
           eine Suche durchgeführt wurde, deren Ergebnisanzahl, die gewählte Region
           (vom Nutzer eingegebener Ortsname), die Gerätekategorie
-          (Mobil/Tablet/Desktop) sowie technische Antwortzeiten.
+          (Mobil/Tablet/Desktop) sowie technische Antwortzeiten. Ebenso erfassen
+          wir Seitenaufrufe (welche Unterseite aufgerufen wurde) und – sofern Sie
+          über einen Link von einer anderen Website kommen – den{" "}
+          <strong>bloßen Domainnamen</strong> dieser Website (z. B.
+          „google.com"), nicht jedoch die vollständige Adresse.
         </p>
         <p>
           Zur Unterscheidung wiederkehrender Besuche speichert Ihr Browser eine
@@ -117,15 +121,16 @@ export default function DatenschutzPage() {
           Browsers entfernen.
         </p>
         <p>
-          <strong>Vercel Web Analytics:</strong> Zusätzlich nutzen wir den
-          Dienst Web Analytics unseres Hosting-Anbieters{" "}
-          <strong>Vercel Inc.</strong> (USA) zur Messung allgemeiner
-          Zugriffszahlen (z. B. Seitenaufrufe, Herkunftsseiten, Land, verwendeter
-          Browsertyp). Auch dieser Dienst arbeitet <strong>ohne Cookies</strong>{" "}
-          und ohne dauerhafte Wiedererkennung einzelner Personen; es werden keine
-          Profile gebildet und keine Daten an Werbenetzwerke weitergegeben. Die
-          Übermittlung in die USA ist durch die in Abschnitt 3 genannten
-          Garantien abgesichert.
+          <strong>Vercel Web Analytics &amp; Speed Insights:</strong> Zusätzlich
+          nutzen wir die Dienste Web Analytics und Speed Insights unseres
+          Hosting-Anbieters <strong>Vercel Inc.</strong> (USA). Web Analytics
+          misst allgemeine Zugriffszahlen (z. B. Seitenaufrufe, Herkunftsseiten,
+          Land, verwendeter Browsertyp); Speed Insights misst anonyme technische
+          Leistungswerte zur Ladegeschwindigkeit der Seite. Beide Dienste
+          arbeiten <strong>ohne Cookies</strong> und ohne dauerhafte
+          Wiedererkennung einzelner Personen; es werden keine Profile gebildet
+          und keine Daten an Werbenetzwerke weitergegeben. Die Übermittlung in
+          die USA ist durch die in Abschnitt 3 genannten Garantien abgesichert.
         </p>
         <p>
           Rechtsgrundlage für die Reichweitenmessung ist unser berechtigtes

@@ -225,6 +225,12 @@ export default function AdminDashboard() {
     data: trends.dates.map((date: string) => trends.unique_sessions_by_date[date] ?? 0),
   }]
 
+  const pageviewSeries = [{
+    label: "Page Views",
+    color: "#14b8a6",
+    data: trends.dates.map((date: string) => trends.pageviews_by_date?.[date] ?? 0),
+  }]
+
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
@@ -308,6 +314,11 @@ export default function AdminDashboard() {
             tip="Every search or booking click counts as one action. High numbers mean people are actively using the site."
             color="#3b82f6" delta={d.total_events}
           />
+          <StatCard
+            emoji="📄" label="Page Views Today" value={summary.pageviews_today ?? 0}
+            tip="Every page open counts as one view — including visitors who never search. The truest measure of raw traffic."
+            color="#14b8a6" delta={d.pageviews}
+          />
           {summary.avg_response_ms !== null && (
             <StatCard
               emoji="🚀" label="Avg Speed" value={`${summary.avg_response_ms} ms`}
@@ -378,6 +389,67 @@ export default function AdminDashboard() {
         </p>
         <BarChart dates={trends.dates} series={sessionSeries} />
       </section>
+
+      {/* 7-day pageviews chart */}
+      <section className="admin-section">
+        <h2>📄 Page Views This Week</h2>
+        <p className="section-hint">
+          Total page opens per day — counts everyone, including visitors who never search.
+        </p>
+        <BarChart dates={trends.dates} series={pageviewSeries} />
+      </section>
+
+      {/* Where does traffic come from? */}
+      {insights && insights.top_referrers && insights.top_referrers.length > 0 && (
+        <section className="admin-section">
+          <h2>🔗 Where Does Traffic Come From? <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">Which sites send you visitors. "direct" = typed the URL or opened a bookmark.</p>
+          <div className="event-breakdown">
+            {insights.top_referrers.map(({ referrer, count }: { referrer: string; count: number }) => {
+              const max = insights.top_referrers[0].count
+              const pct = Math.round((count / max) * 100)
+              return (
+                <div key={referrer} className="event-row">
+                  <span className="event-emoji">🔗</span>
+                  <div className="event-info">
+                    <div className="event-name">{referrer}</div>
+                    <div className="event-bar-bg">
+                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#14b8a6" }} />
+                    </div>
+                  </div>
+                  <span className="event-count">{count}</span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* Most-viewed pages */}
+      {insights && insights.top_pages && insights.top_pages.length > 0 && (
+        <section className="admin-section">
+          <h2>📑 Most-Viewed Pages <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">Which pages get opened the most.</p>
+          <div className="event-breakdown">
+            {insights.top_pages.map(({ path, count }: { path: string; count: number }) => {
+              const max = insights.top_pages[0].count
+              const pct = Math.round((count / max) * 100)
+              return (
+                <div key={path} className="event-row">
+                  <span className="event-emoji">📄</span>
+                  <div className="event-info">
+                    <div className="event-name">{path}</div>
+                    <div className="event-bar-bg">
+                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
+                    </div>
+                  </div>
+                  <span className="event-count">{count}</span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Popular search locations */}
       {insights && insights.top_locations.length > 0 && (

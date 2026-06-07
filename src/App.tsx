@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react"
-import { Routes, Route, NavLink, useSearchParams } from "react-router-dom"
+import { Routes, Route, NavLink, useSearchParams, useLocation } from "react-router-dom"
 import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
-import { fetchAvailability, fetchWeather, type GeoParams } from "./api"
+import { fetchAvailability, fetchWeather, trackPageview, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
 import { subscribeEmail } from "./api"
 import SearchCard from "./components/SearchCard"
@@ -609,6 +609,13 @@ const BG_STYLE: React.CSSProperties = {
 }
 
 export default function App() {
+  const location = useLocation()
+  useEffect(() => {
+    // Don't track the owner's own admin-dashboard visits
+    if (location.pathname.startsWith("/admin")) return
+    trackPageview(location.pathname)
+  }, [location.pathname])
+
   return (
     <Routes>
       <Route path="/admin" element={<AdminDashboard />} />
