@@ -184,7 +184,13 @@ export default function PadelrevierPage() {
                 subdomains="abcd"
                 maxZoom={20}
               />
-              <MarkerClusterGroup chunkedLoading>
+              <MarkerClusterGroup
+                chunkedLoading
+                maxClusterRadius={40}
+                disableClusteringAtZoom={10}
+                spiderfyOnMaxZoom
+                showCoverageOnHover={false}
+              >
                 {visible.map(v => (
                   <Marker key={v.id} position={[v.lat, v.lon]} icon={pinIcon}>
                     <Popup>
