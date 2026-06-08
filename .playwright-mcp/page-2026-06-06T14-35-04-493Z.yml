@@ -1,0 +1,174 @@
+- generic [ref=e3]:
+  - region "top of page"
+  - generic [ref=e10]:
+    - banner [ref=e11]:
+      - generic [ref=e17]:
+        - generic:
+          - generic:
+            - list "Social-Media-Leiste" [ref=e19]:
+              - listitem [ref=e20]:
+                - link "Instagram" [ref=e21] [cursor=pointer]:
+                  - /url: https://www.instagram.com/tirolerpadelverband/
+                  - img "Instagram" [ref=e22]
+            - generic "1 ICON.png" [ref=e23] [cursor=pointer]:
+              - link "Logo Tiroler Padelverband in rot und türkis" [ref=e24]:
+                - /url: https://www.tirolerpadelverband.at
+                - img "Logo Tiroler Padelverband in rot und türkis" [ref=e25]
+            - navigation "Website" [ref=e27]:
+              - list [ref=e28]:
+                - listitem [ref=e29] [cursor=pointer]:
+                  - link "Info" [ref=e30]:
+                    - /url: https://www.tirolerpadelverband.at
+                    - paragraph [ref=e33]: Info
+                - listitem [ref=e34] [cursor=pointer]:
+                  - link "Neuigkeiten" [ref=e35]:
+                    - /url: https://www.tirolerpadelverband.at/neuigkeiten
+                    - paragraph [ref=e38]: Neuigkeiten
+                - listitem [ref=e39] [cursor=pointer]:
+                  - link "Padel in Tirol" [ref=e40]:
+                    - /url: https://www.tirolerpadelverband.at/padelintirol
+                    - paragraph [ref=e43]: Padel in Tirol
+                - listitem [ref=e44] [cursor=pointer]:
+                  - link "Meisterschaft & Turniere" [ref=e45]:
+                    - /url: https://www.tirolerpadelverband.at/about-3
+                    - paragraph [ref=e48]: Meisterschaft & Turniere
+                  - button "Meisterschaft & Turniere-Seiten" [ref=e49]:
+                    - img [ref=e50]
+                - listitem [ref=e52] [cursor=pointer]:
+                  - link "Über uns" [ref=e53]:
+                    - /url: https://www.tirolerpadelverband.at/überuns
+                    - paragraph [ref=e56]: Über uns
+                - listitem [ref=e57] [cursor=pointer]:
+                  - link "Kontakt" [ref=e58]:
+                    - /url: https://www.tirolerpadelverband.at/kontakt
+                    - paragraph [ref=e61]: Kontakt
+    - main [ref=e62]:
+      - generic [ref=e68]:
+        - generic:
+          - generic:
+            - heading "Lust auf eine Runde Padel?" [level=4] [ref=e72]
+            - generic:
+              - paragraph [ref=e73]:
+                - generic [ref=e78]: Wir stellen euch die aktuellen Anlagen in Tirol vor. Aktuell sind es 8 Anlagen (eine davon Indoor).
+              - paragraph [ref=e79]:
+                - generic [ref=e84]: Wir haben für euch auch Padel-Anlagen in ganz Österreich verlinkt.
+            - img "Padel-Glenthof" [ref=e87]
+            - paragraph [ref=e88]: Glenthof Imst
+            - generic:
+              - paragraph [ref=e89]: 2 Plätze
+              - paragraph [ref=e90]: der Place to be im Oberland
+              - paragraph [ref=e91]:
+                - link "Mehr Infos" [ref=e94] [cursor=pointer]:
+                  - /url: https://www.tennismoitzi.at/padel/
+            - generic:
+              - generic:
+                - generic:
+                  - img "Padelschläger und Bälle" [ref=e97]
+                  - generic:
+                    - paragraph [ref=e98]: 2 Plätze
+                    - paragraph [ref=e99]: einzigste Anlage im Bezirk Reutte
+                    - paragraph [ref=e100]:
+                      - link "Mehr Infos" [ref=e102] [cursor=pointer]:
+                        - /url: https://www.svreutte-tennis.at
+            - paragraph [ref=e103]:
+              - generic [ref=e104]: SV Reutte
+            - paragraph [ref=e105]:
+              - generic [ref=e106]: TC Kramsach
+            - generic:
+              - generic:
+                - generic:
+                  - img "Padelschläger Icon" [ref=e109]
+                  - generic:
+                    - paragraph [ref=e110]: 1 Platz
+                    - paragraph [ref=e111]
+            - img "Casa Padel Seefeld" [ref=e114]
+            - heading "©David Johanson" [level=6] [ref=e115]:
+              - generic [ref=e116]: ©David Johanson
+            - img "Padelanlage in Weer" [ref=e119]
+            - paragraph [ref=e120]:
+              - generic [ref=e121]: Casa Padel Seefeld
+            - generic:
+              - paragraph [ref=e122]:
+                - generic [ref=e123]:
+                  - text: 6 Indoor Plätze
+                  - text: davon 2 Single Plätze
+              - paragraph [ref=e124]:
+                - link "Mehr Infos" [ref=e126] [cursor=pointer]:
+                  - /url: https://casapadel.de/home/casa-padel-seefeld/
+            - paragraph [ref=e127]:
+              - generic [ref=e128]: Padelfield Weer
+            - generic:
+              - paragraph [ref=e129]: 3 Plätze
+              - paragraph [ref=e130]: im Mai 2025 eröffnet
+              - paragraph [ref=e131]:
+                - link "Mehr Infos" [ref=e134] [cursor=pointer]:
+                  - /url: https://padel-field.at
+            - img "Padelplatz in Kitzbühel" [ref=e137]
+            - paragraph [ref=e138]:
+              - generic [ref=e139]: Kitzbühel Padel
+            - generic:
+              - paragraph [ref=e140]: 2 Plätze
+              - paragraph [ref=e141]: mit dem schönsten Ausblick
+              - paragraph [ref=e142]:
+                - link "Mehr Infos" [ref=e145] [cursor=pointer]:
+                  - /url: https://www.kitzbuehel.com/service/kitz-a-z/infrastruktur/kitzbuehel-padel-reith/
+              - paragraph [ref=e146]
+            - generic:
+              - generic:
+                - generic:
+                  - img "AdobeStock_1494502855.jpeg" [ref=e149]
+                  - generic:
+                    - paragraph [ref=e150]: 1 Platz
+                    - paragraph [ref=e151]
+            - paragraph [ref=e152]:
+              - generic [ref=e153]: USI Sportuniversität IBK
+            - img "Padelschläger Icon" [ref=e156]
+            - paragraph [ref=e157]:
+              - generic [ref=e158]: SV Kematen
+            - generic:
+              - paragraph [ref=e159]: 1 Platz
+              - paragraph [ref=e160]
+            - link "Standorte in Österreich" [ref=e162] [cursor=pointer]:
+              - /url: https://padel-austria.at/locations
+              - generic [ref=e164]: Standorte in Österreich
+    - contentinfo [ref=e165]:
+      - generic [ref=e171]:
+        - generic:
+          - generic:
+            - generic "Wilson_Script_Logo_PMS_186.png" [ref=e172] [cursor=pointer]:
+              - link "Logo Wilson in rot" [ref=e173]:
+                - /url: http://www.wilson.com
+                - img "Logo Wilson in rot" [ref=e174]
+            - generic "iDEALTOURS Logo mit Claim-4c.jpg" [ref=e175] [cursor=pointer]:
+              - link "Logo Idealtours Tirols erste Urlaubsadresse" [ref=e176]:
+                - /url: http://www.idealtours.at
+                - img "Logo Idealtours Tirols erste Urlaubsadresse" [ref=e177]
+            - generic "Logo_SalbeiOlive_KlaunzerKlausnerFlatsch" [ref=e178] [cursor=pointer]:
+              - link "Logo von Rechtsanwälte" [ref=e179]:
+                - /url: https://klaunzer.tirol
+                - img "Logo von Rechtsanwälte" [ref=e180]
+            - generic "1TennisproshopLogofrei_weissCYMK_edited." [ref=e181] [cursor=pointer]:
+              - link "Logo Tennisproshop" [ref=e182]:
+                - /url: https://tennisproshop.at
+                - img "Logo Tennisproshop" [ref=e183]
+            - 'heading "\"Follow us\" auf Instagram #tirolerpadelverband" [level=3] [ref=e184]':
+              - generic [ref=e186]: "\"Follow us\" auf Instagram #tirolerpadelverband"
+            - generic:
+              - paragraph [ref=e187]:
+                - generic [ref=e189]:
+                  - text: © 2023 TPV |
+                  - link "Kontakt" [ref=e191] [cursor=pointer]:
+                    - /url: https://www.tirolerpadelverband.at/kontakt
+                  - text: "|"
+                  - link "Datenschutz" [ref=e193] [cursor=pointer]:
+                    - /url: https://www.tirolerpadelverband.at/impressum
+                  - text: "|"
+                  - link "Impressum" [ref=e195] [cursor=pointer]:
+                    - /url: https://www.tirolerpadelverband.at/kopie-von-datenschutz
+              - paragraph [ref=e196]
+            - list "Social-Media-Leiste" [ref=e198]:
+              - listitem [ref=e199]:
+                - link "Instagram" [ref=e200] [cursor=pointer]:
+                  - /url: https://www.instagram.com/tirolerpadelverband/
+                  - img "Instagram" [ref=e201]
+  - region "bottom of page"

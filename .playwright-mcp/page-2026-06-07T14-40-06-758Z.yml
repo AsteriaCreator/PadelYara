@@ -1,0 +1,79 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - img "PadelYara"
+  - generic [ref=e6]:
+    - link "Court Finder" [ref=e7] [cursor=pointer]:
+      - /url: /
+    - link "Turnierjagd" [ref=e8] [cursor=pointer]:
+      - /url: /turnierjaeger
+    - link "Über Yara" [ref=e9] [cursor=pointer]:
+      - /url: /about
+  - generic [ref=e10]:
+    - generic [ref=e11]:
+      - paragraph [ref=e12]: Turnierjagd
+      - paragraph [ref=e13]: Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System. Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
+    - generic [ref=e14]:
+      - paragraph [ref=e16]: Filter
+      - generic [ref=e17]:
+        - paragraph [ref=e18]: Bundesland
+        - generic [ref=e19]:
+          - button "Alle" [ref=e20]
+          - button "Wien" [ref=e21]
+          - button "Niederösterreich" [ref=e22]
+          - button "Oberösterreich" [ref=e23]
+          - button "Steiermark" [ref=e24]
+          - button "Tirol" [ref=e25]
+          - button "Kärnten" [ref=e26]
+          - button "Salzburg" [ref=e27]
+          - button "Vorarlberg" [ref=e28]
+          - button "Burgenland" [ref=e29]
+      - generic [ref=e30]:
+        - paragraph [ref=e31]: Wochentag
+        - generic [ref=e32]:
+          - button "Alle" [ref=e33]
+          - button "Montag" [ref=e34]
+          - button "Dienstag" [ref=e35]
+          - button "Mittwoch" [ref=e36]
+          - button "Donnerstag" [ref=e37]
+          - button "Freitag" [ref=e38]
+          - button "Samstag" [ref=e39]
+          - button "Sonntag" [ref=e40]
+      - generic [ref=e41]:
+        - paragraph [ref=e42]: Level
+        - generic [ref=e43]:
+          - button "Alle" [ref=e44]
+          - button "Newcomer" [ref=e45]
+          - button "Starter" [ref=e46]
+          - button "Advanced" [ref=e47]
+          - button "Expert" [ref=e48]
+          - button "Professional" [ref=e49]
+          - button "Elite" [ref=e50]
+      - generic [ref=e51]:
+        - paragraph [ref=e52]: Wettbewerb
+        - generic [ref=e53]:
+          - button "Alle" [ref=e54]
+          - button "Herren" [ref=e55]
+          - button "Damen" [ref=e56]
+          - button "Mixed" [ref=e57]
+          - button "Jugend" [ref=e58]
+          - button "Offener Bewerb" [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61] [cursor=pointer]:
+          - checkbox "Volle Turniere zeigen" [ref=e62]
+          - generic [ref=e63]: Volle Turniere zeigen
+        - generic [ref=e64] [cursor=pointer]:
+          - checkbox "Vergangene / geschlossene Turniere zeigen" [ref=e65]
+          - generic [ref=e66]: Vergangene / geschlossene Turniere zeigen
+        - generic [ref=e67] [cursor=pointer]:
+          - checkbox "Nur bald öffnende Anmeldungen" [ref=e68]
+          - generic [ref=e69]: Nur bald öffnende Anmeldungen
+    - paragraph [ref=e71]: Yara jagt …
+    - generic [ref=e72]:
+      - paragraph [ref=e73]: Passende Turniere im Blick behalten?
+      - paragraph [ref=e74]: Yara benachrichtigt dich, wenn neue Turniere auftauchen — oder die Anmeldung öffnet.
+      - paragraph [ref=e75]: Benachrichtigungen kommen bald.
+    - paragraph [ref=e76]:
+      - text: Daten von
+      - link "padel-austria.at" [ref=e77] [cursor=pointer]:
+        - /url: https://padel-austria.at/tournaments
+      - text: · täglich aktualisiert

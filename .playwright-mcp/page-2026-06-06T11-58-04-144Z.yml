@@ -1,0 +1,637 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - list [ref=e4]:
+      - listitem [ref=e5]:
+        - button [ref=e6] [cursor=pointer]:
+          - img [ref=e7]
+      - listitem [ref=e10]:
+        - button [ref=e11] [cursor=pointer]:
+          - img [ref=e12]
+      - listitem [ref=e14]:
+        - button [ref=e15] [cursor=pointer]:
+          - img [ref=e16]
+      - listitem [ref=e18]:
+        - button [ref=e19] [cursor=pointer]:
+          - img [ref=e20]
+      - listitem [ref=e23]:
+        - button [ref=e24] [cursor=pointer]:
+          - img [ref=e25]
+      - listitem [ref=e28]:
+        - button [ref=e29] [cursor=pointer]:
+          - img [ref=e30]
+      - listitem [ref=e35]:
+        - button [ref=e36] [cursor=pointer]:
+          - img [ref=e37]
+      - listitem [ref=e43]:
+        - button [ref=e44] [cursor=pointer]:
+          - img [ref=e45]
+  - main [ref=e49]:
+    - main [ref=e50]:
+      - generic [ref=e52]:
+        - img "PADELFIELD Tirol - Padel in Weer Logo" [ref=e54]
+        - generic [ref=e56]:
+          - heading "Padel Tirol - PADELFIELD Weer in der Silberregion Karwendel" [level=1] [ref=e57]
+          - generic [ref=e58]: READY FOR THE PADEL?
+          - paragraph [ref=e59]: Seid ihr bereit, die aufregendste Trendsportart Europas zu entdecken? Bei PADELFIELD heißen wir euch herzlich willkommen und freuen uns, euch unsere Anlage in der wunderschönen Silberregion Karwendel vorzustellen!
+          - generic [ref=e60]:
+            - link "Platz buchen" [ref=e61] [cursor=pointer]:
+              - /url: https://www.eversports.at/sb/padelfield
+              - generic [ref=e62]: Platz buchen
+              - img [ref=e63]
+            - link "Mitglied werden" [ref=e65] [cursor=pointer]:
+              - /url: "#member-steps"
+              - generic [ref=e66]: Mitglied werden
+    - generic [ref=e71]:
+      - generic [ref=e72]:
+        - link "Strasser" [ref=e73] [cursor=pointer]:
+          - /url: https://www.ah-strasser.at/
+          - img "Strasser" [ref=e74]
+        - link "U1" [ref=e75] [cursor=pointer]:
+          - /url: https://u1-radio.at/
+          - img "U1" [ref=e76]
+        - link "Silberregion" [ref=e77] [cursor=pointer]:
+          - /url: https://www.silberregion-karwendel.com
+          - img "Silberregion" [ref=e78]
+        - link "Zugvogel" [ref=e79] [cursor=pointer]:
+          - /url: https://www.zugvogel.at
+          - img "Zugvogel" [ref=e80]
+      - paragraph [ref=e83]: Unsere Partner
+      - generic [ref=e87]:
+        - link "ASVÖ" [ref=e88] [cursor=pointer]:
+          - /url: https://www.asvoe.tirol/
+          - img "ASVÖ" [ref=e89]
+        - link "Cupra" [ref=e90] [cursor=pointer]:
+          - /url: https://www.cupraofficial.at/
+          - img "Cupra" [ref=e91]
+        - link "Der Feser" [ref=e92] [cursor=pointer]:
+          - /url: https://www.derfeser.at/
+          - img "Der Feser" [ref=e93]
+        - link "Fuwo" [ref=e94] [cursor=pointer]:
+          - /url: https://www.fuwo.at
+          - img "Fuwo" [ref=e95]
+        - link "Generali" [ref=e96] [cursor=pointer]:
+          - /url: https://www.generali.at
+          - img "Generali" [ref=e97]
+        - link "Invibe" [ref=e98] [cursor=pointer]:
+          - /url: https://www.invibe.at
+          - img "Invibe" [ref=e99]
+        - link "Lumagica" [ref=e100] [cursor=pointer]:
+          - /url: https://www.lumagica.com
+          - img "Lumagica" [ref=e101]
+        - link "MK" [ref=e102] [cursor=pointer]:
+          - /url: https://www.mk-illumination.com/
+          - img "MK" [ref=e103]
+        - link "ÖGB" [ref=e104] [cursor=pointer]:
+          - /url: https://www.oegb-aktirol-betriebssport.at/
+          - img "ÖGB" [ref=e105]
+        - link "Rowa" [ref=e106] [cursor=pointer]:
+          - /url: https://rowa-moser.at/
+          - img "Rowa" [ref=e107]
+        - link "Schreckenthal" [ref=e108] [cursor=pointer]:
+          - /url: https://www.schreckenthal.at/
+          - img "Schreckenthal" [ref=e109]
+        - link "Silberregion" [ref=e110] [cursor=pointer]:
+          - /url: https://www.silberregion-karwendel.com
+          - img "Silberregion" [ref=e111]
+        - link "Strasser" [ref=e112] [cursor=pointer]:
+          - /url: https://www.ah-strasser.at/
+          - img "Strasser" [ref=e113]
+        - link "Troger" [ref=e114] [cursor=pointer]:
+          - /url: https://www.trogerholz.at/
+          - img "Troger" [ref=e115]
+        - link "U1" [ref=e116] [cursor=pointer]:
+          - /url: https://u1-radio.at/
+          - img "U1" [ref=e117]
+        - link "Zugvogel" [ref=e118] [cursor=pointer]:
+          - /url: https://www.zugvogel.at
+          - img "Zugvogel" [ref=e119]
+        - link "ASVÖ" [ref=e120] [cursor=pointer]:
+          - /url: https://www.asvoe.tirol/
+          - img "ASVÖ" [ref=e121]
+        - link "Cupra" [ref=e122] [cursor=pointer]:
+          - /url: https://www.cupraofficial.at/
+          - img "Cupra" [ref=e123]
+        - link "Der Feser" [ref=e124] [cursor=pointer]:
+          - /url: https://www.derfeser.at/
+          - img "Der Feser" [ref=e125]
+        - link "Fuwo" [ref=e126] [cursor=pointer]:
+          - /url: https://www.fuwo.at
+          - img "Fuwo" [ref=e127]
+        - link "Generali" [ref=e128] [cursor=pointer]:
+          - /url: https://www.generali.at
+          - img "Generali" [ref=e129]
+        - link "Invibe" [ref=e130] [cursor=pointer]:
+          - /url: https://www.invibe.at
+          - img "Invibe" [ref=e131]
+        - link "Lumagica" [ref=e132] [cursor=pointer]:
+          - /url: https://www.lumagica.com
+          - img "Lumagica" [ref=e133]
+        - link "MK" [ref=e134] [cursor=pointer]:
+          - /url: https://www.mk-illumination.com/
+          - img "MK" [ref=e135]
+        - link "ÖGB" [ref=e136] [cursor=pointer]:
+          - /url: https://www.oegb-aktirol-betriebssport.at/
+          - img "ÖGB" [ref=e137]
+        - link "Rowa" [ref=e138] [cursor=pointer]:
+          - /url: https://rowa-moser.at/
+          - img "Rowa" [ref=e139]
+        - link "Schreckenthal" [ref=e140] [cursor=pointer]:
+          - /url: https://www.schreckenthal.at/
+          - img "Schreckenthal" [ref=e141]
+        - link "Silberregion" [ref=e142] [cursor=pointer]:
+          - /url: https://www.silberregion-karwendel.com
+          - img "Silberregion" [ref=e143]
+        - link "Strasser" [ref=e144] [cursor=pointer]:
+          - /url: https://www.ah-strasser.at/
+          - img "Strasser" [ref=e145]
+        - link "Troger" [ref=e146] [cursor=pointer]:
+          - /url: https://www.trogerholz.at/
+          - img "Troger" [ref=e147]
+        - link "U1" [ref=e148] [cursor=pointer]:
+          - /url: https://u1-radio.at/
+          - img "U1" [ref=e149]
+        - link "Zugvogel" [ref=e150] [cursor=pointer]:
+          - /url: https://www.zugvogel.at
+          - img "Zugvogel" [ref=e151]
+    - generic [ref=e155]:
+      - generic [ref=e156]:
+        - generic [ref=e157]: Ablauf
+        - heading "Dein Weg zum Spiel" [level=2] [ref=e158]
+        - paragraph [ref=e159]: In nur vier Schritten schaffst du es von der Couch direkt zu uns aufs Spielfeld. Egal ob Anfänger oder Profi – bei uns ist jeder willkommen. Alles was du brauchst, findest du bei uns vor Ort.
+      - generic [ref=e160]:
+        - generic [ref=e161]:
+          - generic [ref=e162] [cursor=pointer]:
+            - generic [ref=e163]:
+              - generic [ref=e164]: "1"
+              - img [ref=e165]
+            - generic [ref=e167]: Platz buchen
+          - generic [ref=e168] [cursor=pointer]:
+            - generic [ref=e169]:
+              - generic [ref=e170]: "2"
+              - img [ref=e171]
+            - generic [ref=e174]: Vorbeikommen
+          - generic [ref=e175] [cursor=pointer]:
+            - generic [ref=e176]:
+              - generic [ref=e177]: "3"
+              - img [ref=e178]
+            - generic [ref=e180]: Ausrüstung
+          - generic [ref=e181] [cursor=pointer]:
+            - generic [ref=e182]:
+              - generic [ref=e183]: "4"
+              - img [ref=e184]
+            - generic [ref=e187]: Spielen!
+        - generic [ref=e188]:
+          - generic [ref=e189] [cursor=pointer]:
+            - img "Platz buchen" [ref=e192]
+            - generic [ref=e193]: Platz buchen
+            - generic [ref=e194]: Reserviere deinen Wunschtermin ganz bequem online über unsere Buchungsplattform Eversports. Du siehst sofort welche Plätze verfügbar sind und kannst flexibel planen. Die Registrierung dauert nur wenige Minuten.
+            - link "Zur Buchungsplattform" [ref=e195]:
+              - /url: https://www.eversports.at/sb/padelfield
+              - text: Zur Buchungsplattform
+              - img [ref=e196]
+          - generic [ref=e199] [cursor=pointer]:
+            - img "Vorbeikommen" [ref=e202]
+            - generic [ref=e203]: Vorbeikommen
+            - generic [ref=e204]: Unsere Anlage liegt zentral in Weer und ist bequem mit Auto, Fahrrad oder öffentlichen Verkehrsmitteln erreichbar. Kostenlose Parkplätze stehen direkt neben der Anlage zur Verfügung.
+            - link "Anfahrt & Standort" [ref=e205]:
+              - /url: "#directions"
+              - text: Anfahrt & Standort
+              - img [ref=e206]
+          - generic [ref=e208] [cursor=pointer]:
+            - img "Ausrüstung" [ref=e211]
+            - generic [ref=e212]: Ausrüstung
+            - generic [ref=e213]: Bring deine eigene Ausrüstung mit oder leihe dir Schläger und Bälle direkt vor Ort über unseren Verleihautomaten aus. Einfach und unkompliziert – alles was du brauchst, findest du bei uns.
+            - link "Mehr zum Schlägerverleih" [ref=e214]:
+              - /url: "#equipment"
+              - text: Mehr zum Schlägerverleih
+              - img [ref=e215]
+          - generic [ref=e217] [cursor=pointer]:
+            - img "Spielen!" [ref=e220]
+            - generic [ref=e221]: Spielen!
+            - generic [ref=e222]: Ab aufs Spielfeld! Padel ist einfach zu lernen und macht von der ersten Minute an Spaß. Egal ob Anfänger oder Profi – die Spielregeln sind schnell verstanden.
+            - link "Spielregeln ansehen" [ref=e223]:
+              - /url: https://padel-austria.at/padel_rules
+              - text: Spielregeln ansehen
+              - img [ref=e224]
+    - generic [ref=e229]:
+      - generic [ref=e231]:
+        - generic [ref=e232]: Social Media
+        - heading "Du willst nichts mehr verpassen?" [level=2] [ref=e233]
+        - paragraph [ref=e234]: Dann lass uns in Verbindung bleiben! Informationen über aktuelle Veranstaltungen, Angebote und vieles mehr findet ihr auf unseren Social Media Kanälen.
+        - generic [ref=e235]:
+          - link "Instagram" [ref=e236] [cursor=pointer]:
+            - /url: https://www.instagram.com/padelfield_tirol/
+            - img [ref=e237]
+            - generic [ref=e240]: Instagram
+            - img [ref=e241]
+          - link "Facebook" [ref=e244] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e245]
+            - generic [ref=e247]: Facebook
+            - img [ref=e248]
+      - img "PADELFIELD auf Instagram" [ref=e254]
+    - generic [ref=e256]:
+      - generic [ref=e257]:
+        - generic [ref=e258]: Buchung & Preise
+        - heading "Buchung & Preise" [level=2] [ref=e259]
+        - paragraph [ref=e260]: Alles was du wissen musst, um deinen perfekten Platz zu buchen.
+      - generic [ref=e262]:
+        - button "Einzeln" [ref=e263] [cursor=pointer]
+        - button "10er-Block" [ref=e264] [cursor=pointer]
+      - generic [ref=e265]:
+        - generic [ref=e267]:
+          - heading "Stundentarif | A-Zeiten" [level=3] [ref=e269]
+          - generic [ref=e271]:
+            - generic [ref=e272]: "40"
+            - generic [ref=e273]: €
+          - list [ref=e274]:
+            - listitem [ref=e275]:
+              - img [ref=e276]
+              - text: 60 Minuten Spielzeit
+            - listitem [ref=e278]:
+              - img [ref=e279]
+              - text: inklusive Flutlicht (automatisch)
+          - generic [ref=e281]:
+            - link "Jetzt buchen" [ref=e282] [cursor=pointer]:
+              - /url: https://www.eversports.at/sb/padelfield
+              - img [ref=e283]
+              - text: Jetzt buchen
+              - img [ref=e285]
+            - paragraph [ref=e288]: Mo-Fr 16:00 - 22:00 | Sa, So & Feiertag 07:00 - 22:00
+        - generic [ref=e290]:
+          - heading "Stundentarif | B-Zeiten" [level=3] [ref=e292]
+          - generic [ref=e294]:
+            - generic [ref=e295]: "32"
+            - generic [ref=e296]: €
+          - list [ref=e297]:
+            - listitem [ref=e298]:
+              - img [ref=e299]
+              - text: 60 Minuten Spielzeit
+            - listitem [ref=e301]:
+              - img [ref=e302]
+              - text: inklusive Flutlicht (automatisch)
+          - generic [ref=e304]:
+            - link "Jetzt buchen" [ref=e305] [cursor=pointer]:
+              - /url: https://www.eversports.at/sb/padelfield
+              - img [ref=e306]
+              - text: Jetzt buchen
+              - img [ref=e308]
+            - paragraph [ref=e311]: Mo-Fr 07:00 - 16:00
+        - generic [ref=e313]:
+          - heading "Wertgutschein" [level=3] [ref=e315]
+          - generic [ref=e317]:
+            - generic [ref=e318]: flexibel
+            - generic [ref=e319]: €
+          - list [ref=e320]:
+            - listitem [ref=e321]:
+              - img [ref=e322]
+              - text: Beliebiges Guthaben kaufen
+            - listitem [ref=e324]:
+              - img [ref=e325]
+              - text: Guthabencode per Mail
+            - listitem [ref=e327]:
+              - img [ref=e328]
+              - text: Ideal als Geschenk
+            - listitem [ref=e330]:
+              - img [ref=e331]
+              - text: inklusive Flutlicht (automatisch)
+          - link "Guthaben kaufen" [ref=e334] [cursor=pointer]:
+            - /url: https://www.eversports.at/widget/w/z3en8n?list=voucher
+            - img [ref=e335]
+            - text: Guthaben kaufen
+            - img [ref=e339]
+      - generic [ref=e342]:
+        - generic [ref=e344]:
+          - img "Plätze reservieren war noch nie so einfach!" [ref=e346]
+          - generic [ref=e347]:
+            - heading "Plätze reservieren war noch nie so einfach!" [level=3] [ref=e348]
+            - paragraph [ref=e349]: Über unsere Online-Buchungsplattform kannst du ganz bequem von zuhause aus deinen Lieblingsplatz reservieren.
+            - link "Platz buchen" [ref=e351] [cursor=pointer]:
+              - /url: https://www.eversports.at/sb/padelfield
+              - img [ref=e352]
+              - text: Platz buchen
+              - img [ref=e354]
+        - generic [ref=e358]:
+          - button "Wie kann ich einen Platz buchen?" [ref=e360] [cursor=pointer]:
+            - generic [ref=e361]: Wie kann ich einen Platz buchen?
+            - img [ref=e363]
+          - button "Wie kann ich stornieren?" [ref=e366] [cursor=pointer]:
+            - generic [ref=e367]: Wie kann ich stornieren?
+            - img [ref=e369]
+          - button "Was passiert bei schlechtem Wetter?" [ref=e372] [cursor=pointer]:
+            - generic [ref=e373]: Was passiert bei schlechtem Wetter?
+            - img [ref=e375]
+          - button "Gibt es 10er-Blöcke?" [ref=e378] [cursor=pointer]:
+            - generic [ref=e379]: Gibt es 10er-Blöcke?
+            - img [ref=e381]
+          - button "Kann ich einen Rabattcode einlösen?" [ref=e384] [cursor=pointer]:
+            - generic [ref=e385]: Kann ich einen Rabattcode einlösen?
+            - img [ref=e387]
+          - button "Gibt es Flutlicht?" [ref=e390] [cursor=pointer]:
+            - generic [ref=e391]: Gibt es Flutlicht?
+            - img [ref=e393]
+          - button "Wo kann ich Gutscheine kaufen und einlösen?" [ref=e396] [cursor=pointer]:
+            - generic [ref=e397]: Wo kann ich Gutscheine kaufen und einlösen?
+            - img [ref=e399]
+    - generic [ref=e402]:
+      - generic [ref=e403]:
+        - generic [ref=e404]: Ausrüstung
+        - heading "Keine Ausrüstung? Kein Problem!" [level=2] [ref=e405]
+        - paragraph [ref=e406]: Alles was ihr braucht ist ein Smartphone und eine Kreditkarte. Ein Verleihautomat gibt euch die Möglichkeit, Schläger zu leihen und Bälle zu kaufen – ganz automatisiert.
+      - generic [ref=e407]:
+        - generic [ref=e409]:
+          - heading "So funktioniert's" [level=3] [ref=e410]
+          - list [ref=e412]:
+            - listitem [ref=e413]:
+              - generic [ref=e416]:
+                - generic [ref=e417]: Schritt 1
+                - paragraph [ref=e418]: Lade die Sportogo App herunter und erstelle ein Konto.
+                - link "App herunterladen":
+                  - /url: https://www.sportogo.at/#download
+                  - img
+                  - text: App herunterladen
+                  - img
+            - listitem [ref=e419]:
+              - generic [ref=e422]:
+                - generic [ref=e423]: Schritt 2
+                - paragraph [ref=e424]: Komm zu unserer Anlage – der Automat befindet sich im Container auf unserer Anlage.
+            - listitem [ref=e425]:
+              - generic [ref=e428]:
+                - generic [ref=e429]: Schritt 3
+                - paragraph [ref=e430]: Wähle in der App deinen Schläger oder Bälle und bezahle direkt.
+            - listitem [ref=e431]:
+              - generic [ref=e434]:
+                - generic [ref=e435]: Schritt 4
+                - paragraph [ref=e436]: Die Box kann nach Abschluss über die App geöffnet werden – Schläger entnehmen und losspielen!
+            - listitem [ref=e437]:
+              - generic [ref=e440]:
+                - generic [ref=e441]: Schritt 5
+                - paragraph [ref=e442]: Nach dem Spiel den Schläger ins gleiche Fach zurücklegen und die Leihe in der App abschließen.
+        - generic [ref=e443]:
+          - generic [ref=e445]:
+            - generic [ref=e446]:
+              - img "Schläger" [ref=e448]
+              - generic [ref=e449]:
+                - generic [ref=e450]: 4€
+                - generic [ref=e451]:
+                  - generic [ref=e452]: Schläger
+                  - generic [ref=e453]: Leihgebühr für die gesamte Spielzeit
+            - generic [ref=e454]:
+              - img "Bälle" [ref=e456]
+              - generic [ref=e457]:
+                - generic [ref=e458]: 6€
+                - generic [ref=e459]:
+                  - generic [ref=e460]: Bälle
+                  - generic [ref=e461]: Kaufpreis (wiederverwendbar)
+          - generic [ref=e463]:
+            - button "Wie leihe ich einen Schläger aus?" [ref=e465] [cursor=pointer]:
+              - generic [ref=e466]: Wie leihe ich einen Schläger aus?
+              - img [ref=e468]
+            - button "Muss ich Schläger vorher reservieren?" [ref=e471] [cursor=pointer]:
+              - generic [ref=e472]: Muss ich Schläger vorher reservieren?
+              - img [ref=e474]
+            - button "Wie lange kann ich den Schläger behalten?" [ref=e477] [cursor=pointer]:
+              - generic [ref=e478]: Wie lange kann ich den Schläger behalten?
+              - img [ref=e480]
+            - button "Was bedeutet der Countdown in der App?" [ref=e483] [cursor=pointer]:
+              - generic [ref=e484]: Was bedeutet der Countdown in der App?
+              - img [ref=e486]
+            - button "Muss ich die Bälle zurückgeben?" [ref=e489] [cursor=pointer]:
+              - generic [ref=e490]: Muss ich die Bälle zurückgeben?
+              - img [ref=e492]
+            - button "Was wenn etwas nicht funktioniert?" [ref=e495] [cursor=pointer]:
+              - generic [ref=e496]: Was wenn etwas nicht funktioniert?
+              - img [ref=e498]
+            - button "Muss ich den Schläger ins gleiche Fach zurücklegen?" [ref=e501] [cursor=pointer]:
+              - generic [ref=e502]: Muss ich den Schläger ins gleiche Fach zurücklegen?
+              - img [ref=e504]
+    - generic [ref=e507]:
+      - generic [ref=e508]:
+        - generic [ref=e509]: Unsere Anlage
+        - heading "Was erwartet dich bei uns?" [level=2] [ref=e510]
+        - paragraph [ref=e511]: Stell dir vor, du parkst direkt neben unserer Anlage und findest drei topmoderne Outdoor-Padelplätze vor, die dank All-Wetter-Ausstattung und kostenlosem Flutlicht zu jeder Tages- und Nachtzeit bespielbar sind. Nach dem Match kannst du es dir in unserer gemütlichen Lounge bequem machen, ein kühles Getränk genießen und mit deinen Freunden plaudern. Du brauchst keine eigene Ausrüstung – wir verleihen hochwertige Schläger und bieten frische Bälle direkt vor Ort an.
+      - generic [ref=e512]:
+        - generic [ref=e514]:
+          - img "Was erwartet dich bei uns?" [ref=e515]
+          - button "Platz 1" [ref=e516] [cursor=pointer]
+          - button "Platz 2" [ref=e519] [cursor=pointer]
+          - button "Platz 3" [ref=e522] [cursor=pointer]
+          - button "Schlägerverleih" [ref=e525] [cursor=pointer]
+          - button "Umkleidekabinen" [ref=e528] [cursor=pointer]
+          - button "Parkplatz" [ref=e531] [cursor=pointer]
+          - button "Toiletten" [ref=e534] [cursor=pointer]
+          - button "Vereinsheim" [ref=e537] [cursor=pointer]
+        - generic [ref=e541]:
+          - generic [ref=e542] [cursor=pointer]:
+            - img "Platz 1"
+          - generic [ref=e543] [cursor=pointer]:
+            - img "Platz 2"
+          - generic [ref=e544] [cursor=pointer]:
+            - img "Platz 3"
+          - generic [ref=e545] [cursor=pointer]:
+            - img "Schlägerverleih"
+          - generic [ref=e546] [cursor=pointer]:
+            - img "Umkleidekabinen"
+          - generic [ref=e547] [cursor=pointer]:
+            - img "Parkplatz"
+          - generic [ref=e548] [cursor=pointer]:
+            - img "Toiletten"
+          - generic [ref=e549] [cursor=pointer]:
+            - img "Vereinsheim"
+    - heading "Impressionen" [level=2] [ref=e553]
+    - generic [ref=e558]:
+      - generic [ref=e559]:
+        - generic [ref=e560]: Anreise
+        - heading "Wie kommst du zu uns?" [level=2] [ref=e561]
+        - paragraph [ref=e562]: Ganz wie du willst! PADELFIELD ist zu Fuß, am Fahrrad, mit dem Auto und mit den öffentlichen Verkehrsmitteln gut erreichbar. Wir liegen nur wenige Meter von der Bushaltestelle "Weer Brandstatt" entfernt.
+      - generic [ref=e563]:
+        - img "Anfahrt zu PADELFIELD - Padelplätze in Weer, Tirol (Silberregion Karwendel)" [ref=e566]
+        - generic [ref=e568]:
+          - generic [ref=e569]:
+            - img [ref=e571]
+            - generic [ref=e574]:
+              - text: Adresse
+              - paragraph [ref=e575]: Rinderweg 13A, 6116 Weer, Österreich
+          - generic [ref=e576]:
+            - img [ref=e578]
+            - generic [ref=e581]:
+              - text: Öffnungszeiten
+              - paragraph [ref=e582]: Mo-So von 07:00 bis 22:00
+          - generic [ref=e583]:
+            - img [ref=e585]
+            - generic [ref=e589]:
+              - text: Öffis
+              - paragraph [ref=e590]: Bushaltestelle "Weer Brandstatt"
+          - generic [ref=e591]:
+            - img [ref=e593]
+            - generic [ref=e596]:
+              - text: Parken
+              - paragraph [ref=e597]: Kostenlose Parkplätze direkt neben der Anlage
+          - link "Route planen" [ref=e598] [cursor=pointer]:
+            - /url: https://www.google.com/maps/dir//Rinderweg+13A,+6116+Weer
+            - img [ref=e599]
+            - text: Route planen
+            - img [ref=e601]
+    - generic [ref=e604]:
+      - generic [ref=e607]:
+        - generic [ref=e608]:
+          - generic [ref=e609]: Verein
+          - heading "Verein & Mitgliedschaft" [level=2] [ref=e610]
+          - paragraph [ref=e611]: Wusstest du, dass wir der erste Padelverein in Tirol sind? Und DU kannst Teil davon werden!
+        - generic [ref=e612]:
+          - generic [ref=e617]:
+            - generic [ref=e619]:
+              - img "PADELFIELD" [ref=e620]
+              - generic [ref=e621]: Mitglied
+            - generic [ref=e623]:
+              - generic [ref=e624]: Dein Name
+              - generic [ref=e625]:
+                - generic [ref=e626]: Mitglied seit 2025
+                - generic [ref=e627]: PF-2025-001
+          - generic [ref=e629]:
+            - paragraph [ref=e630]: Als erster Padelverein Tirols haben wir es uns zur Aufgabe gemacht, weit mehr als nur Plätze bereitzustellen – wir wollen ein lebendiges Zentrum für alle Padel-Begeisterten sein. Mit regelmäßigen Clubabenden, offenen Schnuppertrainings und freundschaftlich ausgetragenen Turnieren schaffen wir einen Ort, an dem alle willkommen sind.
+            - paragraph [ref=e631]: Besonderen Wert legen wir auf die Förderung des Breitensports. Durch gezielte Jugendarbeit – von Kids-Camps bis hin zu Schulkooperationen – begleiten wir Nachwuchstalente Schritt für Schritt und vermitteln Freude an Bewegung, Teamgeist und Fair Play.
+      - generic [ref=e632]:
+        - heading "So wirst du Mitglied" [level=3] [ref=e634]
+        - generic [ref=e636]:
+          - generic [ref=e637] [cursor=pointer]:
+            - generic [ref=e638]:
+              - generic [ref=e639]: "1"
+              - img [ref=e640]
+            - generic [ref=e643]: Kontaktinformationen
+            - paragraph [ref=e644]: Sende uns eine Mail an weer@padel-field.at mit deinem Namen, Telefonnummer und Mail-Adresse.
+          - generic [ref=e645] [cursor=pointer]:
+            - generic [ref=e646]:
+              - generic [ref=e647]: "2"
+              - img [ref=e648]
+            - generic [ref=e650]: Mitgliedsbeitrag überweisen
+            - paragraph [ref=e651]: "PADELFIELD Tirol IBAN: AT77 3632 2000 0019 2815 Betrag: 50€ Referenz: Mitgliedsbeitrag & Name"
+          - generic [ref=e652] [cursor=pointer]:
+            - generic [ref=e653]:
+              - generic [ref=e654]: "3"
+              - img [ref=e655]
+            - generic [ref=e659]: Kontofreischaltung
+            - paragraph [ref=e660]: Wir schalten dir dein Konto auf unserer Buchungsplattform frei. Nach Abschluss erhältst du eine Mail.
+          - generic [ref=e661] [cursor=pointer]:
+            - generic [ref=e662]:
+              - generic [ref=e663]: "4"
+              - img [ref=e664]
+            - generic [ref=e670]: Vorteile genießen
+            - paragraph [ref=e671]: Gutscheincodes erhältst du per Mail. Abo-Buchung per Mail an weer@padel-field.at.
+        - link "Jetzt Mitglied werden" [ref=e673] [cursor=pointer]:
+          - /url: mailto:weer@padel-field.at?subject=Mitgliedschaft&body=Liebes%20PADELFIELD%20Team%2C%0D%0A%0D%0AIch%20w%C3%BCrde%20gerne%20Mitglied%20werden.%0D%0A%0D%0AName%3A%0D%0ATelefon%3A%0D%0AMail%3A%0D%0A%0D%0ALiebe%20Gr%C3%BC%C3%9Fe
+          - img [ref=e674]
+          - text: Jetzt Mitglied werden
+    - generic [ref=e678]:
+      - generic [ref=e679]:
+        - generic [ref=e680]: Training
+        - heading "Du willst noch besser werden?" [level=2] [ref=e681]
+        - paragraph [ref=e682]: Egal ob Einsteiger oder Fortgeschritten – unser Coach holt dich genau dort ab, wo du stehst. Mit klaren spielnahen Match-Situationen verbessern wir Schritt für Schritt Schlagtechnik, Taktik und Fitness. Buche jetzt dein Training und erlebe, wie schnell sich dein Padelspiel entwickelt!
+      - link "Training buchen" [ref=e684] [cursor=pointer]:
+        - /url: mailto:training@padel-field.at?subject=Padel%20Training&body=Liebes%20PADELFIELD%20Trainer-Team%2C%0D%0A%0D%0AIch%20interessiere%20mich%20f%C3%BCr%20ein%20Training.%0D%0A%0D%0ALiebe%20Gr%C3%BC%C3%9Fe
+        - img [ref=e685]
+        - text: Training buchen
+        - img [ref=e688]
+      - generic [ref=e692]:
+        - img "Padel Training" [ref=e694]
+        - img "Padel Training" [ref=e696]
+        - img "Padel Training" [ref=e698]
+    - generic [ref=e700]:
+      - generic [ref=e701]:
+        - generic [ref=e702]: Firmenangebote
+        - heading "Work Hard, Padel Harder." [level=2] [ref=e703]
+        - paragraph [ref=e704]: Unsere maßgeschneiderten Unternehmensangebote bringen Bewegung in Ihr Business – ob als Teamevent, regelmäßiger Betriebssport oder strategische Partnerschaft.
+      - generic [ref=e705]:
+        - generic [ref=e707]:
+          - generic [ref=e708]: "01"
+          - img [ref=e710]
+          - heading "Partner-Pakete" [level=3] [ref=e715]
+          - paragraph [ref=e716]: "Unsere flexiblen Partner-Pakete liefern genau das Spielkontingent, das Ihr Unternehmen braucht: Sie erhalten ein Bündel individueller Buchungscodes, die sich unkompliziert an Mitarbeitende oder Kund:innen weitergeben lassen. Optional ergänzen wir Ihr Paket um sichtbares Sponsoring vor Ort und gemeinsame Social-Media-Features."
+        - generic [ref=e719]:
+          - generic [ref=e720]: "02"
+          - img [ref=e722]
+          - heading "Firmenevents" [level=3] [ref=e728]
+          - paragraph [ref=e729]: "Ob Sommerfest oder winterliche Challenge – unsere maßgeschneiderten Padel-Firmenevents verbinden Teambuilding und Kundenbindung in einem dynamischen Setting. Wir übernehmen die komplette Organisation: Turniermodus, Moderation, Scoring, Siegerehrung, Catering und Musik."
+        - generic [ref=e732]:
+          - generic [ref=e733]: "03"
+          - img [ref=e735]
+          - heading "Betriebssport" [level=3] [ref=e741]
+          - paragraph [ref=e742]: Bringen Sie Schwung in den Büroalltag, indem Sie für Ihr Team feste Wochentermine auf dem Padel-Court reservieren – ein steuerlich absetzbares Gesundheitsangebot, das Fitness fördert, Ausfälle reduziert und den Teamgeist stärkt.
+      - generic [ref=e745]:
+        - paragraph [ref=e746]: Interesse? Dann melden Sie sich für ein erstes Vorgespräch.
+        - link "Unverbindlich anfragen" [ref=e747] [cursor=pointer]:
+          - /url: mailto:weer@padel-field.at?subject=Firmenangebot&body=Liebes%20PADELFIELD%20Team%2C%0D%0A%0D%0AWir%20interessieren%20uns%20f%C3%BCr%20ein%20Firmenangebot.%0D%0A%0D%0AMit%20freundlichen%20Gr%C3%BC%C3%9Fen
+          - img [ref=e748]
+          - text: Unverbindlich anfragen
+          - img [ref=e751]
+  - contentinfo [ref=e754]:
+    - generic [ref=e755]:
+      - generic [ref=e756]:
+        - generic [ref=e757]:
+          - img "PADELFIELD" [ref=e758]
+          - generic [ref=e759]:
+            - link "weer@padel-field.at" [ref=e760] [cursor=pointer]:
+              - /url: mailto:weer@padel-field.at
+              - img [ref=e761]
+              - text: weer@padel-field.at
+            - generic [ref=e764]:
+              - img [ref=e765]
+              - text: Rinderweg 13A, 6116 Weer, Österreich
+            - generic [ref=e768]:
+              - img [ref=e769]
+              - text: Mo-So von 07:00 bis 22:00
+          - generic [ref=e772]:
+            - link [ref=e773] [cursor=pointer]:
+              - /url: https://www.instagram.com/padelfield_tirol/
+              - img [ref=e774]
+            - link [ref=e777] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e778]
+        - list [ref=e781]:
+          - listitem [ref=e782]:
+            - link "Ablauf" [ref=e783] [cursor=pointer]:
+              - /url: "#steps"
+          - listitem [ref=e784]:
+            - link "Social Media" [ref=e785] [cursor=pointer]:
+              - /url: "#social"
+          - listitem [ref=e786]:
+            - link "Buchung & Preise" [ref=e787] [cursor=pointer]:
+              - /url: "#booking"
+          - listitem [ref=e788]:
+            - link "Ausrüstung" [ref=e789] [cursor=pointer]:
+              - /url: "#equipment"
+          - listitem [ref=e790]:
+            - link "Unsere Anlage" [ref=e791] [cursor=pointer]:
+              - /url: "#facility"
+        - list [ref=e793]:
+          - listitem [ref=e794]:
+            - link "Anreise" [ref=e795] [cursor=pointer]:
+              - /url: "#directions"
+          - listitem [ref=e796]:
+            - link "Verein" [ref=e797] [cursor=pointer]:
+              - /url: "#club"
+          - listitem [ref=e798]:
+            - link "Mitgliedschaft" [ref=e799] [cursor=pointer]:
+              - /url: "#member-steps"
+          - listitem [ref=e800]:
+            - link "Training" [ref=e801] [cursor=pointer]:
+              - /url: "#training"
+          - listitem [ref=e802]:
+            - link "Firmenangebote" [ref=e803] [cursor=pointer]:
+              - /url: "#corporate"
+        - list [ref=e805]:
+          - listitem [ref=e806]:
+            - button "Impressum & Datenschutz" [ref=e807] [cursor=pointer]
+          - listitem [ref=e808]:
+            - button "Cookie-Einstellungen" [ref=e809] [cursor=pointer]
+      - generic [ref=e810]: © 2026 PADELFIELD Tirol. Alle Rechte vorbehalten.
+  - button "Switch language" [ref=e811] [cursor=pointer]:
+    - img [ref=e812]
+    - text: DE
+  - generic [ref=e816]:
+    - heading "Wir verwenden Cookies" [level=3] [ref=e817]
+    - paragraph [ref=e818]: Wir nutzen Cookies, um dir die bestmögliche Erfahrung zu bieten. Einige sind notwendig, andere helfen uns, die Website zu verbessern und externe Inhalte einzubinden.
+    - generic [ref=e819]:
+      - button "Alle akzeptieren" [ref=e820] [cursor=pointer]
+      - button "Nur notwendige" [ref=e821] [cursor=pointer]
+      - button "Einstellungen" [ref=e822] [cursor=pointer]

@@ -1,0 +1,88 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e39]:
+    - iframe [ref=e41]:
+      - generic [ref=f26e6]:
+        - region "Karte" [ref=f26e7]
+        - iframe [ref=f26e42]:
+          
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "Padel Challenge GmbH" [level=1] [ref=e44]
+        - generic [ref=e46]:
+          - strong [ref=e47]: "Adresse:"
+          - text: Pachergasse 8, 2601 Sollenau
+          - strong [ref=e48]: "Ansprechpartner:"
+          - text: Stefan Wöckl;
+          - strong [ref=e49]
+          - link "office@padel-challenge.at" [ref=e50] [cursor=pointer]:
+            - /url: mailto:office@padel-challenge.at
+          - text: ; 0664/88504994
+          - strong [ref=e51]: "Anzahl der Padel-Plätze:"
+          - text: 2 Outdoor
+      - img "Padel Challenge GmbH" [ref=e53]
+  - generic [ref=e54]:
+    - heading "Folge uns auf" [level=5] [ref=e55]
+    - generic [ref=e56]:
+      - link [ref=e57] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e58]
+      - link [ref=e60] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e61]
+    - generic [ref=e63]:
+      - link "Impressum" [ref=e64] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e65] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e66]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e67] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e68]:
+    - generic [ref=e69]:
+      - generic [ref=e70]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e71]
+        - paragraph [ref=e72]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - button "Alle akzeptieren" [ref=e75] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e76] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e78] [cursor=pointer]
+    - generic [ref=e81]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e82] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e83] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

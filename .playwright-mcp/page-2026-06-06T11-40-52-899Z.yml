@@ -1,0 +1,311 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e6]:
+      - img "Padelhouse Logo" [ref=e10]
+      - generic [ref=e11]:
+        - link "Padel" [ref=e12]:
+          - /url: /#padel
+          - text: Padel
+        - link "Erlebnis" [ref=e13]:
+          - /url: /#erlebnis
+          - text: Erlebnis
+        - link "Über uns" [ref=e14]:
+          - /url: /#team
+          - text: Über uns
+        - link "Angebot" [ref=e15]:
+          - /url: /#angebot
+          - text: Angebot
+        - link "Platz buchen" [ref=e16]:
+          - /url: https://wieselburg-padelhouse.tennisplatz.info/reservierung
+          - generic [ref=e18]: Platz buchen
+          - img [ref=e19]
+  - main [ref=e21]:
+    - generic [ref=e22]:
+      - generic [ref=e24]:
+        - img
+        - img
+        - img
+        - generic:
+          - img
+        - generic [ref=e27]:
+          - heading "Play. Connect. Enjoy." [level=1] [ref=e28]:
+            - generic [ref=e29]: Play.
+            - generic [ref=e30]: Connect.
+            - generic [ref=e31]: Enjoy.
+          - paragraph [ref=e32]: Der Padel-Hotspot im Mostviertel
+          - paragraph [ref=e33]: Indoor spielen. Ganzjährig. Modernste Courts, echte Matches und eine Community, die wächst.
+          - paragraph [ref=e34]: 4 Indoor Courts, 1 Single Court Indoor und ein Ort für alle, die Bewegung, Matches und echte Court-Momente lieben.
+          - generic [ref=e35]:
+            - link "Platz buchen" [ref=e36]:
+              - /url: https://wieselburg-padelhouse.tennisplatz.info/reservierung
+              - generic [ref=e38]: Platz buchen
+            - link "Mehr entdecken" [ref=e39]:
+              - /url: /#problem
+              - generic [ref=e41]: Mehr entdecken
+        - generic [ref=e43]:
+          - generic [ref=e44]: Scroll
+          - img [ref=e45]
+      - generic [ref=e49]:
+        - heading "Schluss mit Ausreden. Hol dir dein Match." [level=2] [ref=e50]
+        - generic [ref=e51]:
+          - generic:
+            - generic:
+              - img
+              - img
+            - paragraph: Draußen abhängig.
+            - generic:
+              - img
+            - paragraph: Drinnen jederzeit ready.
+          - generic:
+            - generic:
+              - img
+              - img
+            - paragraph: Wind, Sonne, Regen?
+            - generic:
+              - img
+            - paragraph: Egal. Wir spielen.
+          - generic:
+            - generic:
+              - img
+              - img
+            - paragraph: Ablenkung draußen.
+            - generic:
+              - img
+            - paragraph: Performance drinnen.
+        - paragraph [ref=e52]: Spielen. Verbessern. Wiederkommen.
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - 'heading "Padel: Ein Sport für alle. Einsteigen. Spielen. Süchtig werden." [level=2] [ref=e58]'
+          - paragraph [ref=e59]: "Padel ist schnell gelernt – aber schwer wieder aufzuhören. Egal ob erstes Match oder nächstes Level: du bist sofort mittendrin."
+          - list [ref=e60]:
+            - listitem [ref=e61]:
+              - generic:
+                - img
+              - generic [ref=e62]: Schneller Einstieg, sofort im Spiel
+            - listitem [ref=e63]:
+              - generic:
+                - img
+              - generic [ref=e64]: Perfekt für Freunde, Teams & After-Work
+            - listitem [ref=e65]:
+              - generic:
+                - img
+              - generic [ref=e66]: Dynamisch, schnell und richtig intensiv
+            - listitem [ref=e67]:
+              - generic:
+                - img
+              - generic [ref=e68]: Spaß ab der ersten Minute
+          - link "Jetzt ausprobieren" [ref=e70]:
+            - /url: https://wieselburg-padelhouse.tennisplatz.info/reservierung
+            - generic [ref=e71]: Jetzt ausprobieren
+        - img "Padel Spieler auf dem Court" [ref=e74]
+      - generic [ref=e77]:
+        - img
+        - generic [ref=e78]:
+          - generic [ref=e79]:
+            - heading "Mehr als nur ein Spiel." [level=2] [ref=e80]
+            - paragraph [ref=e81]: Jedes Match bringt dich in Bewegung. Und näher zusammen.
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - img [ref=e86]
+              - heading "Sport & Bewegung" [level=3] [ref=e88]
+              - paragraph [ref=e89]: Auspowern, abschalten, weitermachen. Auf Courts, die dein Spiel besser machen.
+            - generic [ref=e90]:
+              - img [ref=e93]
+              - heading "Community & Freunde" [level=3] [ref=e95]
+              - paragraph [ref=e96]: Du kommst zum Spielen. Du bleibst wegen den Leuten.
+            - generic [ref=e97]:
+              - img [ref=e100]
+              - heading "Erlebnis & Emotion" [level=3] [ref=e102]
+              - paragraph [ref=e103]: Schnelle Ballwechsel. Enge Matches. Und genau diese Momente, die hängen bleiben.
+      - generic [ref=e106]:
+        - heading "DAS Padel-Erlebnis im Mostviertel." [level=2] [ref=e107]:
+          - text: DAS Padel-Erlebnis
+          - text: im Mostviertel.
+        - paragraph [ref=e108]: Modernste Courts, perfekte Bedingungen und ein Ort, an dem Spiel, Community und Atmosphäre zusammenkommen.
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - img [ref=e113]
+            - generic [ref=e116]:
+              - heading "Indoor Anlage" [level=3] [ref=e117]
+              - paragraph [ref=e118]: Perfekt temperiert – für konstante Bedingungen und echtes Spielgefühl.
+          - generic [ref=e119]:
+            - img [ref=e122]
+            - generic [ref=e124]:
+              - heading "Premium Courts" [level=3] [ref=e125]
+              - paragraph [ref=e126]: Hochwertige Plätze, die dein Spiel schneller, sauberer und intensiver machen.
+          - generic [ref=e127]:
+            - img [ref=e130]
+            - generic [ref=e133]:
+              - heading "Lounge & Treffpunkt" [level=3] [ref=e134]
+              - paragraph [ref=e135]: Runterkommen, austauschen und das Match noch einmal durchgehen.
+          - generic [ref=e136]:
+            - img [ref=e139]
+            - generic [ref=e143]:
+              - heading "Events & Turniere" [level=3] [ref=e144]
+              - paragraph [ref=e145]: Regelmäßige Matches, Challenges und Turniere für jedes Level.
+        - paragraph [ref=e146]:
+          - generic [ref=e147]: Wir machen das Mostviertel zur Padelregion.
+      - generic [ref=e151]:
+        - heading "Mehr als ein Platz. Ein Treffpunkt." [level=2] [ref=e152]:
+          - generic [ref=e153]: Mehr
+          - generic [ref=e154]: als
+          - generic [ref=e155]: ein
+          - generic [ref=e156]: Platz.
+          - generic [ref=e157]: Ein
+          - generic [ref=e158]: Treffpunkt.
+        - paragraph [ref=e159]: Du kommst fürs Spiel. Du bleibst wegen der Menschen.
+        - generic [ref=e160]:
+          - generic [ref=e162]: Talente fördern
+          - generic [ref=e164]: Menschen verbinden
+          - generic [ref=e166]: Region stärken
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - img [ref=e172]
+          - generic [ref=e175]: Unsere Vision
+        - heading "Drei Köpfe, eine Vision." [level=2] [ref=e176]
+        - paragraph [ref=e177]: Der Padel Hotspot im Herzen des Mostviertels.
+        - paragraph [ref=e182]: Padelhouse Wieselburg ist der neue Treffpunkt für alle, die spielen, sich verbessern und gemeinsam Zeit am Court verbringen wollen.
+        - paragraph [ref=e183]: Padelhouse ist mehr als nur eine Sportanlage. Es ist ein Ort für Bewegung, Competition und echte Matches – egal ob du zum ersten Mal am Court stehst oder schon regelmäßig spielst. Mit 4 Indoor Courts und einem Single Court Indoor bringen wir Padel ins Mostviertel – wetterunabhängig, modern und auf Top-Niveau.
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - generic [ref=e188]:
+            - img [ref=e189]
+            - generic [ref=e191]: Die Leute hinter Padelhouse
+          - heading "Das sind wir" [level=2] [ref=e192]
+          - paragraph [ref=e193]: Gemeinsam bringen wir Padel ins Mostviertel.
+        - generic [ref=e194]:
+          - generic [ref=e196]:
+            - img "Philipp S." [ref=e200]
+            - heading "Philipp S." [level=3] [ref=e201]
+          - generic [ref=e204]:
+            - img "Thomas B." [ref=e208]
+            - heading "Thomas B." [level=3] [ref=e209]
+          - generic [ref=e212]:
+            - generic [ref=e216]: TA
+            - heading "Thomas A." [level=3] [ref=e217]
+      - generic [ref=e221]:
+        - heading "Dein Spiel. Deine Möglichkeiten." [level=2] [ref=e222]
+        - generic [ref=e223]:
+          - generic:
+            - generic:
+              - img
+            - generic:
+              - img
+            - generic:
+              - img
+          - generic [ref=e224]:
+            - generic [ref=e225]:
+              - generic [ref=e226]: Coming Soon
+              - img [ref=e229]
+              - heading "Plätze buchen" [level=3] [ref=e231]
+              - paragraph [ref=e232]: In Sekunden am Court – einfach, schnell und jederzeit online.
+            - generic [ref=e233]:
+              - img [ref=e236]
+              - heading "Events & Turniere" [level=3] [ref=e240]
+              - paragraph [ref=e241]: Von entspannten Matches bis zu echten Challenges – für jedes Level das passende Event.
+            - generic [ref=e242]:
+              - generic [ref=e243]: Coming Soon
+              - img [ref=e246]
+              - heading "Trainings & Coaching" [level=3] [ref=e250]
+              - paragraph [ref=e251]: Hol mehr aus deinem Spiel raus – mit Coaches, die dich wirklich weiterbringen.
+            - generic [ref=e252]:
+              - generic [ref=e253]: Coming Soon
+              - img [ref=e256]
+              - heading "Firmen-Events" [level=3] [ref=e258]
+              - paragraph [ref=e259]: Teambuilding, das nicht nach Arbeit aussieht – organisiert, aktiv und mit Spaßfaktor.
+      - generic [ref=e261]:
+        - img
+        - generic [ref=e263]:
+          - heading "B e r e i t f ü r d e i n M a t c h ?" [level=2] [ref=e264]:
+            - generic [ref=e265]:
+              - generic [ref=e266]: B
+              - generic [ref=e267]: e
+              - generic [ref=e268]: r
+              - generic [ref=e269]: e
+              - generic [ref=e270]: i
+              - generic [ref=e271]: t
+              - generic [ref=e273]: f
+              - generic [ref=e274]: ü
+              - generic [ref=e275]: r
+              - generic [ref=e277]: d
+              - generic [ref=e278]: e
+              - generic [ref=e279]: i
+              - generic [ref=e280]: "n"
+            - generic [ref=e281]:
+              - generic [ref=e282]: M
+              - generic [ref=e283]: a
+              - generic [ref=e284]: t
+              - generic [ref=e285]: c
+              - generic [ref=e286]: h
+              - generic [ref=e287]: "?"
+          - generic [ref=e288]:
+            - link "Jetzt Platz sichern" [ref=e289]:
+              - /url: https://wieselburg-padelhouse.tennisplatz.info/reservierung
+            - link "Event entdecken" [ref=e290]:
+              - /url: /#angebot
+          - paragraph [ref=e291]: Für Anfänger & Profis
+  - contentinfo [ref=e293]:
+    - generic [ref=e294]:
+      - generic [ref=e295]:
+        - generic [ref=e296]:
+          - img "Padelhouse Logo" [ref=e297]
+          - paragraph [ref=e298]: Padelhouse Wieselburg ist der neue Treffpunkt für alle, die spielen, sich verbessern und gemeinsam Zeit am Court verbringen wollen.
+          - generic [ref=e299]:
+            - link "+43 676 7511366" [ref=e300]:
+              - /url: tel:+436767511366
+              - img [ref=e301]
+              - text: +43 676 7511366
+            - link "office@padelhouse.at" [ref=e303]:
+              - /url: mailto:office@padelhouse.at
+              - img [ref=e304]
+              - text: office@padelhouse.at
+          - generic [ref=e306]:
+            - link "Facebook" [ref=e307]:
+              - /url: https://www.facebook.com/profile.php?id=61588663151605
+              - img [ref=e308]
+            - link "Instagram" [ref=e310]:
+              - /url: https://www.instagram.com/padelhouse.at/
+              - img [ref=e311]
+        - generic [ref=e313]:
+          - heading "Schnellzugriff" [level=4] [ref=e314]
+          - list [ref=e315]:
+            - listitem [ref=e316]:
+              - link "Padel" [ref=e317]:
+                - /url: /#padel
+            - listitem [ref=e318]:
+              - link "Erlebnis" [ref=e319]:
+                - /url: /#erlebnis
+            - listitem [ref=e320]:
+              - link "Über uns" [ref=e321]:
+                - /url: /#team
+            - listitem [ref=e322]:
+              - link "Angebot" [ref=e323]:
+                - /url: /#angebot
+        - generic [ref=e324]:
+          - heading "Öffnungszeiten" [level=4] [ref=e325]
+          - generic [ref=e326]:
+            - generic [ref=e327]:
+              - img [ref=e328]
+              - generic [ref=e330]: MO–SO 06:00 bis 24:00 Uhr
+            - link "Jetzt reservieren" [ref=e331]:
+              - /url: https://wieselburg-padelhouse.tennisplatz.info/reservierung
+              - text: Jetzt reservieren
+              - img [ref=e332]
+        - generic [ref=e334]:
+          - heading "Rechtliches" [level=4] [ref=e335]
+          - list [ref=e336]:
+            - listitem [ref=e337]:
+              - link "Impressum" [ref=e338]:
+                - /url: /impressum
+            - listitem [ref=e339]:
+              - link "Datenschutz" [ref=e340]:
+                - /url: /datenschutz
+      - generic [ref=e341]:
+        - generic [ref=e342]:
+          - generic [ref=e343]: Entwickelt von
+          - link "Indivision" [ref=e344]:
+            - /url: https://indivision.at
+            - img "Indivision" [ref=e345]
+          - generic [ref=e346]: "&"
+          - generic [ref=e347]: Zeus Production
+        - paragraph [ref=e348]: © 2026 Padelhouse Wieselburg GmbH. Alle Rechte vorbehalten.

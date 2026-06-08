@@ -1,0 +1,226 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e38]:
+    - heading "Austrian Padel Union - Mitglieder Standorte" [level=1] [ref=e41]
+    - generic [ref=e45]:
+      - combobox [ref=e46]:
+        - option "Alle Standorte"
+        - option "Wien"
+        - option "Niederösterreich"
+        - option "Oberösterreich"
+        - option "Steiermark"
+        - option "Kärnten"
+        - option "Salzburg"
+        - option "Vorarlberg"
+        - option "Burgenland"
+        - option "Tirol" [selected]
+      - generic [ref=e48] [cursor=pointer]:
+        - generic [ref=e49]:
+          - text: Tirol
+          - link "×" [ref=e50]:
+            - /url: javascript:void(0)
+        - combobox "Alle Standorte" [ref=e51]
+    - generic [ref=e52]:
+      - heading "Tirol" [level=3] [ref=e53]
+      - generic [ref=e55]:
+        - img "Alp Padel" [ref=e57]
+        - generic [ref=e58]:
+          - heading "Alp Padel" [level=4] [ref=e59]:
+            - link "Alp Padel" [ref=e60] [cursor=pointer]:
+              - /url: /locations/alp-padel
+          - paragraph
+          - paragraph [ref=e62]:
+            - strong [ref=e63]: "Adresse:"
+            - text: Birchfeld 52, 6162 Mutters
+            - strong [ref=e64]: "Ansprechpartner:"
+            - text: Mathias Nagl; office@alp-padel.at; 0680/1305614
+            - strong [ref=e65]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e67]:
+        - img "Casa Padel Seefeld" [ref=e69]
+        - generic [ref=e70]:
+          - heading "Casa Padel Seefeld" [level=4] [ref=e71]:
+            - link "Casa Padel Seefeld" [ref=e72] [cursor=pointer]:
+              - /url: /locations/casa-padel-seefeld
+          - paragraph
+          - generic [ref=e73]:
+            - generic [ref=e74]:
+              - strong [ref=e75]: "Adresse:"
+              - text: Möserer Straße 632, 6100 Seefeld in Tirol
+              - strong [ref=e76]: "Ansprechpartner:"
+              - text: Markus Kuhnen; info@casapadel.at; +43 676 3775238
+              - strong [ref=e77]: "Anzahl der Padel-Plätze:"
+              - text: 6 Indoor (4 Double Courts, 2 Single Courts)
+              - strong [ref=e78]: Homepage
+              - text: ":"
+              - link "http://www.casapadel.at/" [ref=e79] [cursor=pointer]:
+                - /url: http://www.casapadel.at/
+            - generic [ref=e80]:
+              - strong [ref=e81]: Platzbuchungen
+              - text: ":"
+              - link "www.playtomic.io/casa-padel-seefeld" [ref=e82] [cursor=pointer]:
+                - /url: https://playtomic.io/casa-padel-seefeld/8f8c346a-cb01-47ee-922f-9e3121f32f14?q=PADEL~2023-12-11~~~
+          - paragraph
+      - generic [ref=e86]:
+        - img "Casa Padel Wilder Kaiser" [ref=e88]
+        - generic [ref=e89]:
+          - heading "Casa Padel Wilder Kaiser" [level=4] [ref=e90]:
+            - link "Casa Padel Wilder Kaiser" [ref=e91] [cursor=pointer]:
+              - /url: /locations/casa-padel-wilder-kaiser
+          - paragraph
+          - generic [ref=e93]:
+            - strong [ref=e94]: "Adresse:"
+            - text: Sportplatzstraße 19, 83080 Oberaudorf (Deutschland)
+            - strong [ref=e95]: "Ansprechpartner:"
+            - text: Markus Kuhnen; markus@casapadel.at; 0676/3775238
+            - link:
+              - /url: mailto:alterlaa@padeldome.at
+            - strong [ref=e96]: "Anzahl der Padel-Plätze:"
+            - text: 3 Indoor, 3 Outdoor
+            - strong [ref=e97]: "Homepage:"
+            - text: www.caspadel.at
+          - paragraph
+      - generic [ref=e99]:
+        - img "Imst Glenthof" [ref=e101]
+        - generic [ref=e102]:
+          - heading "Imst Glenthof" [level=4] [ref=e103]:
+            - link "Imst Glenthof" [ref=e104] [cursor=pointer]:
+              - /url: /locations/glenthof-sportstaetten-gmbh
+          - paragraph
+          - generic [ref=e106]:
+            - strong [ref=e107]: "Adresse:"
+            - text: Am Raun 24, 6460 Imst
+            - strong [ref=e108]: "Ansprechpartner:"
+            - text: Lara Rundl, lararundl12@gmail.com, 0677/61575201
+            - strong [ref=e109]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e111]:
+        - img "PADELBASE Innsbruck" [ref=e113]
+        - generic [ref=e114]:
+          - heading "PADELBASE Innsbruck" [level=4] [ref=e115]:
+            - link "PADELBASE Innsbruck" [ref=e116] [cursor=pointer]:
+              - /url: /locations/padelbase-innsbruck
+          - paragraph
+          - paragraph [ref=e118]:
+            - strong [ref=e119]: Padelbase Innsbruck
+            - strong [ref=e120]: Adresse
+            - text: ": Archenweg 60a, 6020 Innsbruck"
+            - strong [ref=e121]: Plätze
+            - text: ": 2 Outdoor Courts"
+            - strong [ref=e122]: Ansprechpartner
+            - text: ":"
+            - link "office@padelbase.at" [ref=e123] [cursor=pointer]:
+              - /url: mailto:info@padelbase.at
+          - paragraph
+      - generic [ref=e125]:
+        - img "PADELFIELD Tirol" [ref=e127]
+        - generic [ref=e128]:
+          - heading "PADELFIELD Tirol" [level=4] [ref=e129]:
+            - link "PADELFIELD Tirol" [ref=e130] [cursor=pointer]:
+              - /url: /locations/padelfield-tirol
+          - paragraph
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - strong [ref=e133]: "Adresse:"
+              - text: Rinderweg 13, 6116 Weer
+              - strong [ref=e134]: "Ansprechpartner:"
+              - text: Dominik Hoflach; weer@padel-field.at; 0664/9691882
+              - strong [ref=e135]: "Anzahl der Padel-Plätze:"
+              - text: 3 Outdoor
+            - generic [ref=e136]:
+              - strong [ref=e137]: Webseite
+              - text: ":"
+              - link "https://padel-field.at/" [ref=e138] [cursor=pointer]:
+                - /url: https://padel-field.at/
+              - strong [ref=e139]: Platzbuchung
+              - text: ":"
+              - link "Eversports" [ref=e140] [cursor=pointer]:
+                - /url: https://www.eversports.at/sb/padelfield
+          - paragraph
+      - generic [ref=e142]:
+        - img "Sv Reutte Tennis and Padel" [ref=e144]
+        - generic [ref=e145]:
+          - heading "Sv Reutte Tennis and Padel" [level=4] [ref=e146]:
+            - link "Sv Reutte Tennis and Padel" [ref=e147] [cursor=pointer]:
+              - /url: /locations/sv-reutte-tennis
+          - paragraph
+          - generic [ref=e149]:
+            - strong [ref=e150]: "Adresse:"
+            - text: Dir. Franz Hosp Straße 1, 6600 Reutte
+            - strong [ref=e151]: "Ansprechpartner:"
+            - text: je.leuprecht@tnr.at, 0676/9263636
+            - link:
+              - /url: mailto:alterlaa@padeldome.at
+            - strong [ref=e152]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - link "Homepage" [ref=e153] [cursor=pointer]:
+              - /url: https://www.svreutte-tennis.at/
+              - strong [ref=e154]: Homepage
+          - paragraph
+  - generic [ref=e155]:
+    - heading "Folge uns auf" [level=5] [ref=e156]
+    - generic [ref=e157]:
+      - link [ref=e158] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e159]
+      - link [ref=e161] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e162]
+    - generic [ref=e164]:
+      - link "Impressum" [ref=e165] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e166] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e167]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e168] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e169]:
+    - generic [ref=e170]:
+      - generic [ref=e171]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e172]
+        - paragraph [ref=e173]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e174]:
+        - generic [ref=e175]:
+          - button "Alle akzeptieren" [ref=e176] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e177] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e179] [cursor=pointer]
+    - generic [ref=e182]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e183] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e184] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

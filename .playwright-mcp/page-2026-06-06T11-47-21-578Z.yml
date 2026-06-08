@@ -1,0 +1,212 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Playpadel Gänserndorf" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Playpadel Gänserndorf" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Playpadel Gänserndorf" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+      - link " Anmelden" [ref=e20] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e21]: 
+        - text: Anmelden
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "News" [ref=e28] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e29]:
+        - link "Veranstaltungen" [ref=e30] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e31]:
+        - link "Registrierung" [ref=e32] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e34]:
+      - heading "Startseite" [level=1] [ref=e35]
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - link "No wind – no rain – no excuse" [ref=e40] [cursor=pointer]:
+              - /url: /news-29729-No_wind_____no_rain_____no_excuse_
+              - img "No wind – no rain – no excuse" [ref=e41]
+            - generic [ref=e42]:
+              - heading "No wind – no rain – no excuse" [level=2] [ref=e43]:
+                - link "No wind – no rain – no excuse" [ref=e44] [cursor=pointer]:
+                  - /url: /news-29729-No_wind_____no_rain_____no_excuse_
+              - paragraph [ref=e45]: Seit Anfang des Jahres finden regelmäßig Events, organisiert durch die Team Krenn-Alten Academy, in der Padelhalle Gänserndorf statt. Aufgrund des großen Erfolges versuchen wir die Regelmäßigkeit zumindest bis Ende Juni fortzusetzen. Und das Beste dabei ist, wir sind NICHT wetterabhängig. Bei ausreichend Teilnehmern finden die Events somit fix statt.
+              - generic [ref=e46]:
+                - generic [ref=e47]:
+                  - img "User Image" [ref=e48]
+                  - text: Christoph Krenn
+                - text: ", 23. März 2026"
+              - link " Mehr dazu" [ref=e49] [cursor=pointer]:
+                - /url: /news-29729-No_wind_____no_rain_____no_excuse_
+                - generic [ref=e50]: 
+                - text: Mehr dazu
+          - generic [ref=e51]:
+            - link "Österreichs Elite mehrmals in Gänserndorf" [ref=e53] [cursor=pointer]:
+              - /url: /news-29160-Oesterreichs_Elite_mehrmals_in_Gaenserndorf
+              - img "Österreichs Elite mehrmals in Gänserndorf" [ref=e54]
+            - generic [ref=e55]:
+              - heading "Österreichs Elite mehrmals in Gänserndorf" [level=2] [ref=e56]:
+                - link "Österreichs Elite mehrmals in Gänserndorf" [ref=e57] [cursor=pointer]:
+                  - /url: /news-29160-Oesterreichs_Elite_mehrmals_in_Gaenserndorf
+              - paragraph [ref=e58]: Neben zahlreichen Aktivitäten mit Turniere, Come Togehter oder Turnieren für Beginner, Starter, Advanced und Expert wird in den kommenden Wochen auch Österreich Elite mehrmals zu Gast in der Playpadel Gänserndorf Halle sein.
+              - generic [ref=e59]:
+                - generic [ref=e60]:
+                  - img "User Image" [ref=e61]
+                  - text: Christoph Krenn
+                - text: ", 18. Februar 2026"
+              - link " Mehr dazu" [ref=e62] [cursor=pointer]:
+                - /url: /news-29160-Oesterreichs_Elite_mehrmals_in_Gaenserndorf
+                - generic [ref=e63]: 
+                - text: Mehr dazu
+          - generic [ref=e64]:
+            - link "Padeljahr 2026 erfolgreich eröffnet!" [ref=e66] [cursor=pointer]:
+              - /url: /news-28729-Padeljahr_2026_erfolgreich_eroeffnet_
+              - img "Padeljahr 2026 erfolgreich eröffnet!" [ref=e67]
+            - generic [ref=e68]:
+              - heading "Padeljahr 2026 erfolgreich eröffnet!" [level=2] [ref=e69]:
+                - link "Padeljahr 2026 erfolgreich eröffnet!" [ref=e70] [cursor=pointer]:
+                  - /url: /news-28729-Padeljahr_2026_erfolgreich_eroeffnet_
+              - paragraph [ref=e71]: Die Playpadelhalle in Gänserndorf ist ambitioniert mit einer Eventreihe von 10 Events in 10 Tagen in das Jahr 2026 gestartet. Die Turniere (vom Starter bis Professional), die Workshops (für Starter und Damen) oder das Come Together zählten alle gemeinsam über 200 Teilnehmer/innen. Zusätzlich lockte die Exhibition von Kabarettist Klaus Eckel, Ex-Tennisprofi Jürgen Melzer mit den Padelpionieren Christoph Krenn und David Alten zahlreiche Zuseher in die Halle. Zum Abschluss des Tages matchten sich die besten Spieler der Ukraine und Österreich in einem sehr hochklassiken Doppel. Auch am Sonntag gab es noch die Möglichkeit mit Bürgermeister Rene Lobner zu padeln.
+              - generic [ref=e72]:
+                - generic [ref=e73]:
+                  - img "User Image" [ref=e74]
+                  - text: Christoph Krenn
+                - text: ", 07. Januar 2026"
+              - link " Mehr dazu" [ref=e75] [cursor=pointer]:
+                - /url: /news-28729-Padeljahr_2026_erfolgreich_eroeffnet_
+                - generic [ref=e76]: 
+                - text: Mehr dazu
+          - generic [ref=e77]:
+            - link "Playpadel Gänserndorf GUTSCHEINE schenken!" [ref=e79] [cursor=pointer]:
+              - /url: /news-28551-Playpadel_Gaenserndorf_GUTSCHEINE_schenken_
+              - img "Playpadel Gänserndorf GUTSCHEINE schenken!" [ref=e80]
+            - generic [ref=e81]:
+              - heading "Playpadel Gänserndorf GUTSCHEINE schenken!" [level=2] [ref=e82]:
+                - link "Playpadel Gänserndorf GUTSCHEINE schenken!" [ref=e83] [cursor=pointer]:
+                  - /url: /news-28551-Playpadel_Gaenserndorf_GUTSCHEINE_schenken_
+              - paragraph [ref=e84]: Braucht ihr noch ein Weihnachtsgeschenk für eure sportbegeisterten Freunde? Dann schenkt doch ganz einfach einen Gutschein für PADEL in der modernen Padelhalle von Playpadel Gänserndorf. In nur wenigen Minuten könnt ihr ihn Online lösen und den Betrag könnt ihr frei wählen.
+              - generic [ref=e85]:
+                - generic [ref=e86]:
+                  - img "User Image" [ref=e87]
+                  - text: Christoph Krenn
+                - text: ", 18. Dezember 2025"
+              - link " Mehr dazu" [ref=e88] [cursor=pointer]:
+                - /url: /news-28551-Playpadel_Gaenserndorf_GUTSCHEINE_schenken_
+                - generic [ref=e89]: 
+                - text: Mehr dazu
+          - generic [ref=e90]:
+            - link "10 Tage - 10 Events Eröffnung Padeljahr 2026" [ref=e92] [cursor=pointer]:
+              - /url: /news-28517-10_Tage___10_Events_Eroeffnung_Padeljahr_2026
+              - img "10 Tage - 10 Events Eröffnung Padeljahr 2026" [ref=e93]
+            - generic [ref=e94]:
+              - heading "10 Tage - 10 Events Eröffnung Padeljahr 2026" [level=2] [ref=e95]:
+                - link "10 Tage - 10 Events Eröffnung Padeljahr 2026" [ref=e96] [cursor=pointer]:
+                  - /url: /news-28517-10_Tage___10_Events_Eroeffnung_Padeljahr_2026
+              - paragraph [ref=e97]: Wir starten das Padeljahr 2026 mit einem echten Highlight, denn soetwas gab es in dieser Form noch nirgends! Von 02.–11. Jänner erwarten euch bei playpadel Gänserndorf nämlich 10 Tage lang eine Aktivität - perfekt zum mitmachen oder zuschauen! Es gibt Turniere für alle Levels, Workshops, Ladies Night, Come Together, einen Vergleichskampf mit Top-Spielern aus 4 Nationen & vieles mehr.
+              - paragraph [ref=e98]: "Anmeldungen & Infos wie gewohnt unter: www.padelgf.at. Lasst uns gemeinsam ins neue Padeljahr starten!"
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - img "User Image" [ref=e101]
+                  - text: Christoph Krenn
+                - text: ", 15. Dezember 2025"
+              - link " Mehr dazu" [ref=e102] [cursor=pointer]:
+                - /url: /news-28517-10_Tage___10_Events_Eroeffnung_Padeljahr_2026
+                - generic [ref=e103]: 
+                - text: Mehr dazu
+          - link " weitere News im Archiv" [ref=e105] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e106]: 
+            - text: weitere News im Archiv
+        - generic [ref=e108]:
+          - generic [ref=e109]: 
+          - heading "aktuelle Termine" [level=2] [ref=e110]
+          - generic [ref=e112]:
+            - generic [ref=e113]: Turnier
+            - heading "APU ADVANCED LIGHT TURNIER" [level=4] [ref=e114]
+            - text: ", Playpadel Gänserndorf"
+            - paragraph [ref=e115]: Sonntag, 7. Juni 2026 16:30 - 21:30 Uhr
+            - paragraph [ref=e116]:
+              - link " Mehr dazu" [ref=e117] [cursor=pointer]:
+                - /url: /event-70064-apu_advanced_light_turnier
+                - generic [ref=e118]: 
+                - text: Mehr dazu
+          - generic [ref=e120]:
+            - generic [ref=e121]: Workshop
+            - heading "Workshop für Starter/Newcomer" [level=4] [ref=e122]
+            - text: ", Playpadel Gänserndorf"
+            - paragraph [ref=e123]: Montag, 8. Juni 2026 18:30 - 20:30 Uhr
+            - paragraph [ref=e124]:
+              - link " Mehr dazu" [ref=e125] [cursor=pointer]:
+                - /url: /event-70575-workshop_fuer_starter_newcomer
+                - generic [ref=e126]: 
+                - text: Mehr dazu
+          - generic [ref=e128]:
+            - generic [ref=e129]: Turnier
+            - heading "APU STARTER TURNIER" [level=4] [ref=e130]
+            - text: ", Playpadel Gänserndorf"
+            - paragraph [ref=e131]: Mittwoch, 10. Juni 2026 17:30 - 22:30 Uhr
+            - paragraph [ref=e132]:
+              - link " Mehr dazu" [ref=e133] [cursor=pointer]:
+                - /url: /event-70066-apu_starter_turnier
+                - generic [ref=e134]: 
+                - text: Mehr dazu
+          - generic [ref=e136]:
+            - generic [ref=e137]: Turnier
+            - heading "APU NEWCOMER TURNIER" [level=4] [ref=e138]
+            - text: ", Playpadel Gänserndorf"
+            - paragraph [ref=e139]: Sonntag, 14. Juni 2026 16:30 - 21:30 Uhr
+            - paragraph [ref=e140]:
+              - link " Mehr dazu" [ref=e141] [cursor=pointer]:
+                - /url: /event-70069-apu_newcomer_turnier
+                - generic [ref=e142]: 
+                - text: Mehr dazu
+          - generic [ref=e144]:
+            - generic [ref=e145]: Turnier
+            - heading "APU ADVANCED TURNIER" [level=4] [ref=e146]
+            - text: ", Playpadel Gänserndorf"
+            - paragraph [ref=e147]: Mittwoch, 17. Juni 2026 17:30 - 22:30 Uhr
+            - paragraph [ref=e148]:
+              - link " Mehr dazu" [ref=e149] [cursor=pointer]:
+                - /url: /event-70070-apu_advanced_turnier
+                - generic [ref=e150]: 
+                - text: Mehr dazu
+    - contentinfo [ref=e151]:
+      - generic [ref=e153]:
+        - generic [ref=e154]:
+          - text: Playpadel Gänserndorf |
+          - link "Impressum" [ref=e155] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e156]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e157] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e159]:
+    - paragraph [ref=e160]:
+      - generic [ref=e161]:
+        - paragraph [ref=e162]:
+          - img "Playpadel Gänserndorf" [ref=e163]
+          - text: Playpadel Gänserndorf
+        - paragraph [ref=e164]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e165]:
+      - link "Einstellungen verwalten" [ref=e166] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e167]:
+        - button "Alle ablehnen" [ref=e168] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e169] [cursor=pointer]

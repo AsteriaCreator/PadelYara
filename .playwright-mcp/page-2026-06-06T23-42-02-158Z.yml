@@ -1,0 +1,184 @@
+- generic [ref=e4]:
+  - img "PadelYara" [ref=e6]
+  - generic [ref=e7]:
+    - link "Court Finder" [ref=e8] [cursor=pointer]:
+      - /url: /
+    - link "Turnierjagd" [ref=e9] [cursor=pointer]:
+      - /url: /turnierjaeger
+    - link "Über Yara" [ref=e10] [cursor=pointer]:
+      - /url: /about
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - paragraph [ref=e13]: Turnierjagd
+      - paragraph [ref=e14]: Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System. Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
+    - generic [ref=e15]:
+      - paragraph [ref=e17]: Filter
+      - generic [ref=e18]:
+        - paragraph [ref=e19]: Bundesland
+        - generic [ref=e20]:
+          - button "Alle" [ref=e21]
+          - button "Wien" [ref=e22]
+          - button "Niederösterreich" [ref=e23]
+          - button "Oberösterreich" [ref=e24]
+          - button "Steiermark" [ref=e25]
+          - button "Tirol" [ref=e26]
+          - button "Kärnten" [ref=e27]
+          - button "Salzburg" [ref=e28]
+          - button "Vorarlberg" [ref=e29]
+          - button "Burgenland" [ref=e30]
+      - generic [ref=e31]:
+        - paragraph [ref=e32]: Wochentag
+        - generic [ref=e33]:
+          - button "Alle" [ref=e34]
+          - button "Montag" [ref=e35]
+          - button "Dienstag" [ref=e36]
+          - button "Mittwoch" [ref=e37]
+          - button "Donnerstag" [ref=e38]
+          - button "Freitag" [ref=e39]
+          - button "Samstag" [ref=e40]
+          - button "Sonntag" [ref=e41]
+      - generic [ref=e42]:
+        - paragraph [ref=e43]: Level
+        - generic [ref=e44]:
+          - button "Alle" [ref=e45]
+          - button "Newcomer" [ref=e46]
+          - button "Starter" [ref=e47]
+          - button "Advanced" [ref=e48]
+          - button "Expert" [ref=e49]
+          - button "Professional" [ref=e50]
+          - button "Elite" [ref=e51]
+      - generic [ref=e52]:
+        - paragraph [ref=e53]: Wettbewerb
+        - generic [ref=e54]:
+          - button "Alle" [ref=e55]
+          - button "Herren" [ref=e56]
+          - button "Damen" [ref=e57]
+          - button "Mixed" [ref=e58]
+          - button "Jugend" [ref=e59]
+          - button "Offener Bewerb" [ref=e60]
+      - generic [ref=e61]:
+        - generic [ref=e62] [cursor=pointer]:
+          - checkbox "Volle Turniere zeigen" [checked] [active] [ref=e63]
+          - generic [ref=e64]: Volle Turniere zeigen
+        - generic [ref=e65] [cursor=pointer]:
+          - checkbox "Vergangene / geschlossene Turniere zeigen" [ref=e66]
+          - generic [ref=e67]: Vergangene / geschlossene Turniere zeigen
+    - generic [ref=e75]:
+      - paragraph [ref=e76]: 6 Turniere
+      - paragraph [ref=e77]: "Stand: 01:42"
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - paragraph [ref=e81]:
+            - text: ANMELDUNG OFFEN
+            - generic [ref=e82]: · 2
+          - paragraph [ref=e83]: Plätze frei oder Warteliste — jetzt anmelden.
+        - generic [ref=e84]:
+          - link "NEU Sunday Breakfast Cup Padel4Fun Wr. Neudorf · Niederösterreich So., 21.06.2026, 09:00 Uhr DAMEN STARTER 8 Plätze frei 4/12" [ref=e85] [cursor=pointer]:
+            - /url: https://padel-austria.at/
+            - generic [ref=e86]:
+              - generic [ref=e87]:
+                - generic [ref=e88]:
+                  - generic [ref=e89]: NEU
+                  - generic [ref=e90]: Sunday Breakfast Cup
+                - paragraph [ref=e91]: Padel4Fun Wr. Neudorf · Niederösterreich
+                - paragraph [ref=e92]: So., 21.06.2026, 09:00 Uhr
+                - generic [ref=e93]:
+                  - generic [ref=e94]: DAMEN
+                  - generic [ref=e95]: STARTER
+              - generic [ref=e96]:
+                - generic [ref=e97]: 8 Plätze frei
+                - generic [ref=e98]: 4/12
+          - link "Ladies Night Open Padel4Fun Wr. Neudorf · Niederösterreich So., 28.06.2026, 18:00 Uhr DAMEN STARTER 1 Platz frei 11/12" [ref=e99] [cursor=pointer]:
+            - /url: https://padel-austria.at/
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - generic [ref=e103]: Ladies Night Open
+                - paragraph [ref=e104]: Padel4Fun Wr. Neudorf · Niederösterreich
+                - paragraph [ref=e105]: So., 28.06.2026, 18:00 Uhr
+                - generic [ref=e106]:
+                  - generic [ref=e107]: DAMEN
+                  - generic [ref=e108]: STARTER
+              - generic [ref=e109]:
+                - generic [ref=e110]: 1 Platz frei
+                - generic [ref=e111]: 11/12
+      - generic [ref=e112]:
+        - generic [ref=e113]:
+          - paragraph [ref=e114]:
+            - text: ANMELDUNG NOCH NICHT OFFEN
+            - generic [ref=e115]: · 1
+          - paragraph [ref=e116]: Schon angekündigt. Anmeldung öffnet später.
+        - link "Summer Slam Advanced Padel4Fun Wr. Neudorf · Niederösterreich So., 12.07.2026, 10:00 Uhr DAMEN ADVANCED Anmeldung noch nicht offen 4/12" [ref=e118] [cursor=pointer]:
+          - /url: https://padel-austria.at/
+          - generic [ref=e119]:
+            - generic [ref=e120]:
+              - generic [ref=e122]: Summer Slam Advanced
+              - paragraph [ref=e123]: Padel4Fun Wr. Neudorf · Niederösterreich
+              - paragraph [ref=e124]: So., 12.07.2026, 10:00 Uhr
+              - generic [ref=e125]:
+                - generic [ref=e126]: DAMEN
+                - generic [ref=e127]: ADVANCED
+            - generic [ref=e128]:
+              - generic [ref=e129]: Anmeldung noch nicht offen
+              - generic [ref=e130]: 4/12
+      - generic [ref=e131]:
+        - generic [ref=e132]:
+          - paragraph [ref=e133]:
+            - text: AUSGEBUCHT
+            - generic [ref=e134]: · 1
+          - paragraph [ref=e135]: Voll — nur noch Warteliste möglich.
+        - link "Mixed Masters Padel4Fun Wr. Neudorf · Niederösterreich So., 14.06.2026, 09:00 Uhr MIXED STARTER Ausgebucht · Warteliste (5) 12/12" [ref=e137] [cursor=pointer]:
+          - /url: https://padel-austria.at/
+          - generic [ref=e138]:
+            - generic [ref=e139]:
+              - generic [ref=e141]: Mixed Masters
+              - paragraph [ref=e142]: Padel4Fun Wr. Neudorf · Niederösterreich
+              - paragraph [ref=e143]: So., 14.06.2026, 09:00 Uhr
+              - generic [ref=e144]:
+                - generic [ref=e145]: MIXED
+                - generic [ref=e146]: STARTER
+            - generic [ref=e147]:
+              - generic [ref=e148]: Ausgebucht · Warteliste (5)
+              - generic [ref=e149]: 12/12
+      - generic [ref=e150]:
+        - generic [ref=e151]:
+          - paragraph [ref=e152]:
+            - text: VORBEI & ABGESAGT
+            - generic [ref=e153]: · 2
+          - paragraph [ref=e154]: Anmeldung geschlossen oder Turnier abgesagt.
+        - generic [ref=e155]:
+          - link "Spring Cup (vorbei) Padel4Fun Wr. Neudorf · Niederösterreich Sa., 30.05.2026, 09:00 Uhr DAMEN STARTER Anmeldung geschlossen 4/12" [ref=e156] [cursor=pointer]:
+            - /url: https://padel-austria.at/
+            - generic [ref=e157]:
+              - generic [ref=e158]:
+                - generic [ref=e160]: Spring Cup (vorbei)
+                - paragraph [ref=e161]: Padel4Fun Wr. Neudorf · Niederösterreich
+                - paragraph [ref=e162]: Sa., 30.05.2026, 09:00 Uhr
+                - generic [ref=e163]:
+                  - generic [ref=e164]: DAMEN
+                  - generic [ref=e165]: STARTER
+              - generic [ref=e166]:
+                - generic [ref=e167]: Anmeldung geschlossen
+                - generic [ref=e168]: 4/12
+          - link "Rainout Cup Padel4Fun Wr. Neudorf · Niederösterreich Mo., 01.06.2026, 09:00 Uhr DAMEN STARTER Abgesagt 4/12" [ref=e169] [cursor=pointer]:
+            - /url: https://padel-austria.at/
+            - generic [ref=e170]:
+              - generic [ref=e171]:
+                - generic [ref=e173]: Rainout Cup
+                - paragraph [ref=e174]: Padel4Fun Wr. Neudorf · Niederösterreich
+                - paragraph [ref=e175]: Mo., 01.06.2026, 09:00 Uhr
+                - generic [ref=e176]:
+                  - generic [ref=e177]: DAMEN
+                  - generic [ref=e178]: STARTER
+              - generic [ref=e179]:
+                - generic [ref=e180]: Abgesagt
+                - generic [ref=e181]: 4/12
+    - generic [ref=e69]:
+      - paragraph [ref=e70]: Passende Turniere im Blick behalten?
+      - paragraph [ref=e71]: Yara benachrichtigt dich, wenn neue Turniere auftauchen — oder die Anmeldung öffnet.
+      - paragraph [ref=e72]: Benachrichtigungen kommen bald.
+    - paragraph [ref=e73]:
+      - text: Daten von
+      - link "padel-austria.at" [ref=e74] [cursor=pointer]:
+        - /url: https://padel-austria.at/tournaments
+      - text: · täglich aktualisiert

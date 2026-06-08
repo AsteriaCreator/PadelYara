@@ -1,0 +1,461 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Padelbase - deine Padelplattform" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Padelbase - deine Padelplattform" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Padelbase - deine Padelplattform" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+          - link " Shop" [ref=e21] [cursor=pointer]:
+            - /url: "#login"
+            - generic [ref=e22]: 
+            - text: Shop
+          - link "  Academy" [ref=e23] [cursor=pointer]:
+            - /url: https://padelbase.at/einzel-gruppentrainings/
+            - generic [ref=e24]:  
+            - text: Academy
+          - link "  Events / Turniere" [ref=e25] [cursor=pointer]:
+            - /url: https://padelbase.at/eventkalender/
+            - generic [ref=e26]:  
+            - text: Events / Turniere
+          - link "  Gutschein" [ref=e27] [cursor=pointer]:
+            - /url: https://www.buchung-padelbase.at/gutscheine
+            - generic [ref=e28]:  
+            - text: Gutschein
+      - link " Anmelden" [ref=e30] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e31]: 
+        - text: Anmelden
+    - list [ref=e36]:
+      - listitem [ref=e37]:
+        - link "News" [ref=e38] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e39]:
+        - link "Veranstaltungen" [ref=e40] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e41]:
+        - link "Mitgliedschaft" [ref=e42] [cursor=pointer]:
+          - /url: /mitgliedschaft
+      - listitem [ref=e43]:
+        - link "Registrierung" [ref=e44] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e46]:
+      - heading "Startseite" [level=1] [ref=e47]
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - link "Spielpartnersuche" [ref=e52] [cursor=pointer]:
+              - /url: /news-30637-Spielpartnersuche__
+              - img "Spielpartnersuche" [ref=e53]
+            - generic [ref=e54]:
+              - heading "Spielpartnersuche" [level=2] [ref=e55]:
+                - link "Spielpartnersuche" [ref=e56] [cursor=pointer]:
+                  - /url: /news-30637-Spielpartnersuche__
+              - paragraph [ref=e57]:
+                - strong [ref=e58]:
+                  - text: Kein Spielpartner? Kein Problem!
+                  - emphasis [ref=e59]:
+                    - link "Video-Anleitung" [ref=e60] [cursor=pointer]:
+                      - /url: https://www.instagram.com/reel/DXMmDD_NG6B/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==
+              - paragraph [ref=e61]:
+                - text: Mit der
+                - strong [ref=e62]: Spielpartnersuche in etenni
+                - strong [ref=e63]: s
+                - text: kannst du ganz einfach deine neuen Spielpartner finden!
+              - paragraph [ref=e64]: Sieh dir unsere Schritt für Schritt - Anleitung an und leg los!
+              - paragraph [ref=e65]: Jetzt hast du keine Ausreden mehr und kannst noch mehr Padel spielen! ⭐️
+              - generic [ref=e66]:
+                - generic [ref=e67]:
+                  - img "User Image" [ref=e68]
+                  - text: Jana Weinberger
+                - text: ", 29. April 2026"
+              - link " Mehr dazu" [ref=e69] [cursor=pointer]:
+                - /url: /news-30637-Spielpartnersuche__
+                - generic [ref=e70]: 
+                - text: Mehr dazu
+          - generic [ref=e71]:
+            - link "Padelbase Kids Summer Camps" [ref=e73] [cursor=pointer]:
+              - /url: /news-30596-Padelbase_Kids_Summer_Camps
+              - img "Padelbase Kids Summer Camps" [ref=e74]
+            - generic [ref=e75]:
+              - heading "Padelbase Kids Summer Camps" [level=2] [ref=e76]:
+                - link "Padelbase Kids Summer Camps" [ref=e77] [cursor=pointer]:
+                  - /url: /news-30596-Padelbase_Kids_Summer_Camps
+              - paragraph [ref=e78]:
+                - text: Die Padelbase Kids Summer Camps sind
+                - strong [ref=e79]: das perfekte Ferienprogramm für Kinder und Jugendliche.
+                - text: Im Mittelpunkt stehen Padel, Bewegung und ein abwechslungsreiches Sportprogramm.
+              - generic [ref=e80]:
+                - generic [ref=e81]:
+                  - img "User Image" [ref=e82]
+                  - text: Björn Nareyka PB
+                - text: ", 27. April 2026"
+              - link " Mehr dazu" [ref=e83] [cursor=pointer]:
+                - /url: /news-30596-Padelbase_Kids_Summer_Camps
+                - generic [ref=e84]: 
+                - text: Mehr dazu
+          - generic [ref=e85]:
+            - link "Padelbase Trainingscamps 2026 - Workshops & Bootcamps" [ref=e87] [cursor=pointer]:
+              - /url: /news-30086-Padelbase_Trainingscamps_2026___Workshops___Bootcamps
+              - img "Padelbase Trainingscamps 2026 - Workshops & Bootcamps" [ref=e88]
+            - generic [ref=e89]:
+              - heading "Padelbase Trainingscamps 2026 - Workshops & Bootcamps" [level=2] [ref=e90]:
+                - link "Padelbase Trainingscamps 2026 - Workshops & Bootcamps" [ref=e91] [cursor=pointer]:
+                  - /url: /news-30086-Padelbase_Trainingscamps_2026___Workshops___Bootcamps
+              - paragraph [ref=e92]:
+                - strong [ref=e93]: Padelbase Trainingscamps 2026 - Workshops, Bootcamps & Kids Camps
+              - paragraph [ref=e94]:
+                - text: Auch diese Saison haben wir wieder ein Angebot an Camps und Workshops. In Salzburg und Linz, finden sowohl indoor als auch outdoor,
+                - strong [ref=e95]: Workshops
+                - text: und
+                - strong [ref=e96]: Bootcamps
+                - text: an verschiedenen Terminen statt.
+              - paragraph [ref=e97]:
+                - strong [ref=e98]: "Die genauen Daten sowie die Möglichkeit zur Anmeldung findest du hier:"
+                - link "https://www.buchung-padelbase.at/veranstaltungen" [ref=e99] [cursor=pointer]:
+                  - /url: https://www.buchung-padelbase.at/veranstaltungen
+                  - strong [ref=e100]: https://www.buchung-padelbase.at/veranstaltungen
+              - generic [ref=e101]:
+                - generic [ref=e102]:
+                  - img "User Image" [ref=e103]
+                  - text: Jana Weinberger
+                - text: ", 10. April 2026"
+              - link " Mehr dazu" [ref=e104] [cursor=pointer]:
+                - /url: /news-30086-Padelbase_Trainingscamps_2026___Workshops___Bootcamps
+                - generic [ref=e105]: 
+                - text: Mehr dazu
+          - generic [ref=e106]:
+            - link "Coming Soon - Padelbase CUPRA Arena in Salzburg" [ref=e108] [cursor=pointer]:
+              - /url: /news-30084-Coming_Soon___Padelbase_CUPRA_Arena_in_Salzburg_
+              - img "Coming Soon - Padelbase CUPRA Arena in Salzburg" [ref=e109]
+            - generic [ref=e110]:
+              - heading "Coming Soon - Padelbase CUPRA Arena in Salzburg" [level=2] [ref=e111]:
+                - link "Coming Soon - Padelbase CUPRA Arena in Salzburg" [ref=e112] [cursor=pointer]:
+                  - /url: /news-30084-Coming_Soon___Padelbase_CUPRA_Arena_in_Salzburg_
+              - paragraph [ref=e113]:
+                - strong [ref=e114]: Padelbase CUPRA Arena - Eröffnung Frühling 2026
+              - paragraph [ref=e115]: In Salzburg entsteht mit der sogenannten „Padelbase CUPRA Arena“ die erste Indoor-Padelhalle im Stadtgebiet. Die Bauarbeiten laufen auf Hochtouren, der genaue Eröffnungstermin wird noch bekanntgegeben. Neben den drei modernen Indoor-Courts sind noch weitere Angebote geplant. Ein besonderes Highlight des Projekts „Salzburg indoor“ ist die Partnerschaft mit CUPRA als Naming Partner.
+              - paragraph [ref=e116]:
+                - text: Um keine Neuigkeiten oder Updates zu verpassen, folge uns auf Instagram
+                - emphasis [ref=e117]: padelbase.at
+                - text: .
+              - generic [ref=e118]:
+                - generic [ref=e119]:
+                  - img "User Image" [ref=e120]
+                  - text: Jana Weinberger
+                - text: ", 08. April 2026"
+              - link " Mehr dazu" [ref=e121] [cursor=pointer]:
+                - /url: /news-30084-Coming_Soon___Padelbase_CUPRA_Arena_in_Salzburg_
+                - generic [ref=e122]: 
+                - text: Mehr dazu
+          - generic [ref=e123]:
+            - link "HEAD ELITE TOUR IN SALZBURG" [ref=e125] [cursor=pointer]:
+              - /url: /news-30945-HEAD_ELITE_TOUR_IN_SALZBURG_
+              - img "HEAD ELITE TOUR IN SALZBURG" [ref=e126]
+            - generic [ref=e127]:
+              - heading "HEAD ELITE TOUR IN SALZBURG" [level=2] [ref=e128]:
+                - link "HEAD ELITE TOUR IN SALZBURG" [ref=e129] [cursor=pointer]:
+                  - /url: /news-30945-HEAD_ELITE_TOUR_IN_SALZBURG_
+              - paragraph [ref=e130]: Wir haben die Ehre auch heuer wieder drei von neun Head Elite Turnieren der APU auf unseren Padelbase-Anlagen auszurichten.
+              - paragraph [ref=e131]:
+                - strong [ref=e132]: Am 30 und 31 Mai findet das Elite Turnier in der Padelbase Salzburg statt!!
+              - paragraph [ref=e133]: Hast du Lust auf ein Wochenende voller Padel auf Topniveau, Drinks, DJ und vieles mehr und das auch noch mit der besten Padel-Community Österreichs? Dann sei dabei und feuere unsere Profis an!
+              - paragraph [ref=e134]:
+                - text: Und an alle Elite-Spieler:innen - es sind sowohl bei den Damen als auch bei den Herren noch Plätze sei, also meldet euch gerne noch bei der APU an!
+                - strong [ref=e135]:
+                  - link "HIER ANMELDEN" [ref=e136] [cursor=pointer]:
+                    - /url: https://padel-austria.at/ranked/tournaments/6f45c066-5314-4d16-a5bd-470203df314a
+                  - text: "!"
+              - generic [ref=e137]:
+                - generic [ref=e138]:
+                  - img "User Image" [ref=e139]
+                  - text: Jana Weinberger
+                - text: ", 11. Mai 2026"
+              - link " Mehr dazu" [ref=e140] [cursor=pointer]:
+                - /url: /news-30945-HEAD_ELITE_TOUR_IN_SALZBURG_
+                - generic [ref=e141]: 
+                - text: Mehr dazu
+          - generic [ref=e142]:
+            - link "Sommer Padel Abo 2026 - Fixer Platz. Kein Buchungsstress." [ref=e144] [cursor=pointer]:
+              - /url: /news-29251-Sommer_Padel_Abo_2026___Fixer_Platz__Kein_Buchungsstress_
+              - img "Sommer Padel Abo 2026 - Fixer Platz. Kein Buchungsstress." [ref=e145]
+            - generic [ref=e146]:
+              - heading "Sommer Padel Abo 2026 - Fixer Platz. Kein Buchungsstress." [level=2] [ref=e147]:
+                - link "Sommer Padel Abo 2026 - Fixer Platz. Kein Buchungsstress." [ref=e148] [cursor=pointer]:
+                  - /url: /news-29251-Sommer_Padel_Abo_2026___Fixer_Platz__Kein_Buchungsstress_
+              - paragraph [ref=e149]:
+                - strong [ref=e150]: Sommer Padel Abo 2026 - dein fixer Court von Mai bis Oktober.
+                - text: Ein Termin pro Woche zur gleichen Zeit, 60–120 Minuten Spielzeit, 10–20 % günstiger und garantiert ohne Buchungsstress. Ideal für alle, die regelmäßig spielen und sich ihren Slot sichern wollen, bevor die Prime-Time weg ist.
+              - paragraph [ref=e151]: "Jetzt Platz sichern: office@padelbase.at"
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - img "User Image" [ref=e154]
+                  - text: Carla Maria Nareyka
+                - text: ", 25. Februar 2026"
+              - link " Mehr dazu" [ref=e155] [cursor=pointer]:
+                - /url: /news-29251-Sommer_Padel_Abo_2026___Fixer_Platz__Kein_Buchungsstress_
+                - generic [ref=e156]: 
+                - text: Mehr dazu
+          - generic [ref=e157]:
+            - link "Padelbase Wies - Eröffnung am 18. April 2026" [ref=e159] [cursor=pointer]:
+              - /url: /news-29253-Padelbase_Wies___Eroeffnung_am_18__April_2026
+              - img "Padelbase Wies - Eröffnung am 18. April 2026" [ref=e160]
+            - generic [ref=e161]:
+              - heading "Padelbase Wies - Eröffnung am 18. April 2026" [level=2] [ref=e162]:
+                - link "Padelbase Wies - Eröffnung am 18. April 2026" [ref=e163] [cursor=pointer]:
+                  - /url: /news-29253-Padelbase_Wies___Eroeffnung_am_18__April_2026
+              - paragraph [ref=e164]:
+                - strong [ref=e165]: Padelbase Wies - Eröffnung am 18. April 2026
+              - paragraph [ref=e166]:
+                - text: In Wies entstehen aktuell moderne Outdoor-Courts der Padelbase. Die Bauarbeiten laufen auf Hochtouren, die Eröffnung findet am 18.April statt.
+                - text: Schon jetzt kannst du dir dein Padel-Abo, eine Trainerstunde oder einen Spielguthaben-Gutschein sichern.
+              - paragraph [ref=e167]:
+                - link "Hier geht's zur Abo-Bestellung." [ref=e168] [cursor=pointer]:
+                  - /url: https://faninvest.fillout.com/abo-padelbase
+                  - strong [ref=e169]: Hier geht's zur Abo-Bestellung.
+              - paragraph [ref=e170]:
+                - link "Hier geht's zu den Gutscheinen." [ref=e171] [cursor=pointer]:
+                  - /url: https://web.faninvest.com/padelbase-wies
+                  - strong [ref=e172]: Hier geht's zu den Gutscheinen.
+              - paragraph [ref=e173]:
+                - text: "Oder einfach per E-Mail an:"
+                - strong [ref=e174]: padelbase.wies@gmail.com
+              - generic [ref=e175]:
+                - generic [ref=e176]:
+                  - img "User Image" [ref=e177]
+                  - text: Carla Maria Nareyka
+                - text: ", 25. Februar 2026"
+              - link " Mehr dazu" [ref=e178] [cursor=pointer]:
+                - /url: /news-29253-Padelbase_Wies___Eroeffnung_am_18__April_2026
+                - generic [ref=e179]: 
+                - text: Mehr dazu
+          - generic [ref=e180]:
+            - 'link "TRAIN THE TRAINER: Unser Programm für starke Coaches" [ref=e182] [cursor=pointer]':
+              - /url: /news-28390-TRAIN_THE_TRAINER__Unser_Programm_fuer_starke_Coaches
+              - 'img "TRAIN THE TRAINER: Unser Programm für starke Coaches" [ref=e183]'
+            - generic [ref=e184]:
+              - 'heading "TRAIN THE TRAINER: Unser Programm für starke Coaches" [level=2] [ref=e185]':
+                - 'link "TRAIN THE TRAINER: Unser Programm für starke Coaches" [ref=e186] [cursor=pointer]':
+                  - /url: /news-28390-TRAIN_THE_TRAINER__Unser_Programm_fuer_starke_Coaches
+              - paragraph [ref=e187]: Seit zwei Jahren fördern wir unsere Trainer:innen mit einem eigenen Weiterbildungsprogramm - kostenlos, praxisnah und international anerkannt.
+              - generic [ref=e188]:
+                - generic [ref=e189]:
+                  - img "User Image" [ref=e190]
+                  - text: Carla Maria Nareyka
+                - text: ", 28. November 2025"
+              - link " Mehr dazu" [ref=e191] [cursor=pointer]:
+                - /url: /news-28390-TRAIN_THE_TRAINER__Unser_Programm_fuer_starke_Coaches
+                - generic [ref=e192]: 
+                - text: Mehr dazu
+          - generic [ref=e193]:
+            - link "PADELBASE REVIEW - BUNDESLIGA 2025" [ref=e195] [cursor=pointer]:
+              - /url: /news-28139-PADELBASE_REVIEW___BUNDESLIGA_2025
+              - img "PADELBASE REVIEW - BUNDESLIGA 2025" [ref=e196]
+            - generic [ref=e197]:
+              - heading "PADELBASE REVIEW - BUNDESLIGA 2025" [level=2] [ref=e198]:
+                - link "PADELBASE REVIEW - BUNDESLIGA 2025" [ref=e199] [cursor=pointer]:
+                  - /url: /news-28139-PADELBASE_REVIEW___BUNDESLIGA_2025
+              - paragraph [ref=e200]: Bei der Padel Bundesliga 2025 war Padelbase mit 18 Teams und über 140 Spieler:innen vertreten und zeigte einmal mehr, warum wir die größte Padel-Community Österreichs sind.
+              - generic [ref=e201]:
+                - generic [ref=e202]:
+                  - img "User Image" [ref=e203]
+                  - text: Carla Maria Nareyka
+                - text: ", 03. November 2025"
+              - link " Mehr dazu" [ref=e204] [cursor=pointer]:
+                - /url: /news-28139-PADELBASE_REVIEW___BUNDESLIGA_2025
+                - generic [ref=e205]: 
+                - text: Mehr dazu
+          - generic [ref=e206]:
+            - link "PADEL BUNDESLIGA 2025 - PADELBASE STARK VERTRETEN!" [ref=e208] [cursor=pointer]:
+              - /url: /news-28090-PADEL_BUNDESLIGA_2025___PADELBASE_STARK_VERTRETEN__
+              - img "PADEL BUNDESLIGA 2025 - PADELBASE STARK VERTRETEN!" [ref=e209]
+            - generic [ref=e210]:
+              - heading "PADEL BUNDESLIGA 2025 - PADELBASE STARK VERTRETEN!" [level=2] [ref=e211]:
+                - link "PADEL BUNDESLIGA 2025 - PADELBASE STARK VERTRETEN!" [ref=e212] [cursor=pointer]:
+                  - /url: /news-28090-PADEL_BUNDESLIGA_2025___PADELBASE_STARK_VERTRETEN__
+              - paragraph [ref=e213]:
+                - text: Von
+                - strong [ref=e214]: 31. Oktober bis 2. November 2025
+                - text: trifft sich die österreichische Padel-Community in Wien und Umgebung zur
+                - strong [ref=e215]: Padel Bundesliga der Damen und Herren.
+                - text: Mit
+                - strong [ref=e216]: 18 Teams und ca. 140 Spieler:innen
+                - text: ist Padelbase quer durch alle Ligen vertreten - ein starkes Zeichen für Zusammenhalt, Engagement und die stetig wachsende
+                - strong [ref=e217]: Padelbase-Familie.
+              - generic [ref=e218]:
+                - generic [ref=e219]:
+                  - img "User Image" [ref=e220]
+                  - text: Carla Maria Nareyka
+                - text: ", 29. Oktober 2025"
+              - link " Mehr dazu" [ref=e221] [cursor=pointer]:
+                - /url: /news-28090-PADEL_BUNDESLIGA_2025___PADELBASE_STARK_VERTRETEN__
+                - generic [ref=e222]: 
+                - text: Mehr dazu
+          - generic [ref=e223]:
+            - link "Padelbase Winter Team League – Outdoor Edition in OÖ & Salzburg" [ref=e225] [cursor=pointer]:
+              - /url: /news-28074-Padelbase_Winter_Team_League_____Outdoor_Edition_in_OOe___Salzburg
+              - img "Padelbase Winter Team League – Outdoor Edition in OÖ & Salzburg" [ref=e226]
+            - generic [ref=e227]:
+              - heading "Padelbase Winter Team League – Outdoor Edition in OÖ & Salzburg" [level=2] [ref=e228]:
+                - link "Padelbase Winter Team League – Outdoor Edition in OÖ & Salzburg" [ref=e229] [cursor=pointer]:
+                  - /url: /news-28074-Padelbase_Winter_Team_League_____Outdoor_Edition_in_OOe___Salzburg
+              - paragraph [ref=e230]:
+                - text: Keine Pause im Winter - wir spielen weiter!
+                - text: Die Padelbase Winter Team League startet in Oberösterreich und Salzburg.
+                - text: Melde dein Team an, spiele spannende Matches und sammle Punkte bis März 2026.
+              - generic [ref=e231]:
+                - generic [ref=e232]:
+                  - img "User Image" [ref=e233]
+                  - text: Carla Maria Nareyka
+                - text: ", 27. Oktober 2025"
+              - link " Mehr dazu" [ref=e234] [cursor=pointer]:
+                - /url: /news-28074-Padelbase_Winter_Team_League_____Outdoor_Edition_in_OOe___Salzburg
+                - generic [ref=e235]: 
+                - text: Mehr dazu
+          - generic [ref=e236]:
+            - link "OUTDOOR SPECIAL & WINTER ABOS" [ref=e238] [cursor=pointer]:
+              - /url: /news-27741-OUTDOOR_SPECIAL___WINTER_ABOS_
+              - img "OUTDOOR SPECIAL & WINTER ABOS" [ref=e239]
+            - generic [ref=e240]:
+              - heading "OUTDOOR SPECIAL & WINTER ABOS" [level=2] [ref=e241]:
+                - link "OUTDOOR SPECIAL & WINTER ABOS" [ref=e242] [cursor=pointer]:
+                  - /url: /news-27741-OUTDOOR_SPECIAL___WINTER_ABOS_
+              - paragraph [ref=e243]:
+                - text: "Auch in der kalten Jahreszeit heißt es bei PADELBASE:"
+                - strong [ref=e244]: raus auf den Court!
+                - text: Ab
+                - strong [ref=e245]: 01. November 2025 bis 28. Februar 2026
+                - text: bieten wir auf allen österreichischen Outdoor Anlagen ein
+                - strong [ref=e246]: exklusives Winter Special
+                - text: "an:"
+              - generic [ref=e247]:
+                - generic [ref=e248]:
+                  - img "User Image" [ref=e249]
+                  - text: Björn Nareyka PB
+                - text: ", 03. Oktober 2025"
+              - link " Mehr dazu" [ref=e250] [cursor=pointer]:
+                - /url: /news-27741-OUTDOOR_SPECIAL___WINTER_ABOS_
+                - generic [ref=e251]: 
+                - text: Mehr dazu
+          - link " weitere News im Archiv" [ref=e253] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e254]: 
+            - text: weitere News im Archiv
+        - generic [ref=e255]:
+          - generic [ref=e256]:
+            - generic [ref=e257]: 
+            - heading "aktuelle Termine" [level=2] [ref=e258]
+            - generic [ref=e260]:
+              - generic [ref=e261]: Bootcamps26
+              - link "BOOTCAMP SALZBURG | STARTER" [ref=e262] [cursor=pointer]:
+                - /url: /event-66716-bootcamp_salzburg___starter
+                - heading "BOOTCAMP SALZBURG | STARTER" [level=4] [ref=e263]
+              - text: ", Padelbase Salzburg"
+              - paragraph [ref=e264]:
+                - text: Donnerstag, 4. Juni 2026 bis
+                - text: Samstag, 6. Juni 2026
+              - paragraph [ref=e265]:
+                - link " Mehr dazu" [ref=e266] [cursor=pointer]:
+                  - /url: /event-66716-bootcamp_salzburg___starter
+                  - generic [ref=e267]: 
+                  - text: Mehr dazu
+            - generic [ref=e269]:
+              - generic [ref=e270]: Bootcamps26
+              - link "BOOTCAMP SALZBURG | INTERMEDIATE" [ref=e271] [cursor=pointer]:
+                - /url: /event-66719-bootcamp_salzburg___intermediate
+                - heading "BOOTCAMP SALZBURG | INTERMEDIATE" [level=4] [ref=e272]
+              - text: ", Padelbase Salzburg"
+              - paragraph [ref=e273]:
+                - text: Donnerstag, 4. Juni 2026 bis
+                - text: Samstag, 6. Juni 2026
+              - paragraph [ref=e274]:
+                - link " Mehr dazu" [ref=e275] [cursor=pointer]:
+                  - /url: /event-66719-bootcamp_salzburg___intermediate
+                  - generic [ref=e276]: 
+                  - text: Mehr dazu
+            - generic [ref=e278]:
+              - generic [ref=e279]: Bootcamps26
+              - link "BOOTCAMP SALZBURG | ADVANCED" [ref=e280] [cursor=pointer]:
+                - /url: /event-66720-bootcamp_salzburg___advanced
+                - heading "BOOTCAMP SALZBURG | ADVANCED" [level=4] [ref=e281]
+              - text: ", Padelbase Salzburg"
+              - paragraph [ref=e282]:
+                - text: Donnerstag, 4. Juni 2026 bis
+                - text: Samstag, 6. Juni 2026
+              - paragraph [ref=e283]:
+                - link " Mehr dazu" [ref=e284] [cursor=pointer]:
+                  - /url: /event-66720-bootcamp_salzburg___advanced
+                  - generic [ref=e285]: 
+                  - text: Mehr dazu
+          - generic [ref=e290]:
+            - paragraph [ref=e291]: Möchten Sie von Facebook bereitgestellte externe Inhalte laden?
+            - paragraph [ref=e292]:
+              - button "Ja" [ref=e293] [cursor=pointer]
+              - button "Immer" [ref=e294] [cursor=pointer]
+          - generic [ref=e295]:
+            - link "Babolat NEU" [ref=e297] [cursor=pointer]:
+              - /url: https://www.babolat.com/at/padel.html
+              - img "Babolat NEU" [ref=e298]
+            - link "Teampool" [ref=e300] [cursor=pointer]:
+              - /url: https://www.teampool.com/
+              - img "Teampool" [ref=e301]
+            - link "Segafredo" [ref=e303] [cursor=pointer]:
+              - /url: https://www.segafredo.at/
+              - img "Segafredo" [ref=e304]
+            - link "Cupra" [ref=e306] [cursor=pointer]:
+              - /url: https://www.cupraofficial.at/
+              - img "Cupra" [ref=e307]
+            - link "Starlim" [ref=e309] [cursor=pointer]:
+              - /url: https://www.starlim-sterner.com/
+              - img "Starlim" [ref=e310]
+            - link "Hervis neu" [ref=e312] [cursor=pointer]:
+              - /url: https://www.hervis.at/shop/
+              - img "Hervis neu" [ref=e313]
+            - link "Sparkasse NEU" [ref=e315] [cursor=pointer]:
+              - /url: https://www.sparkasse.at/oberoesterreich/privatkunden
+              - img "Sparkasse NEU" [ref=e316]
+    - contentinfo [ref=e317]:
+      - generic [ref=e319]:
+        - generic [ref=e320]:
+          - text: Padelbase - deine Padelplattform |
+          - link "Impressum" [ref=e321] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e322] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e323]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e324] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e326]:
+    - paragraph [ref=e327]:
+      - generic [ref=e328]:
+        - paragraph [ref=e329]:
+          - img "Padelbase - deine Padelplattform" [ref=e330]
+          - text: Padelbase - deine Padelplattform
+        - paragraph [ref=e331]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e332]:
+      - link "Einstellungen verwalten" [ref=e333] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e334]:
+        - button "Alle ablehnen" [ref=e335] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e336] [cursor=pointer]

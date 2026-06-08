@@ -1,0 +1,841 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Zum Inhalt springen" [ref=e3] [cursor=pointer]:
+      - /url: "#main"
+    - generic [ref=e4]:
+      - banner [ref=e5]:
+        - generic [ref=e6]:
+          - link "Das neue Padelerlebnis" [ref=e9] [cursor=pointer]:
+            - /url: https://padellounge.at/
+            - img "Das neue Padelerlebnis" [ref=e10]
+          - navigation [ref=e12]:
+            - list:
+              - listitem [ref=e13]:
+                - link "Preise & Infos" [ref=e14] [cursor=pointer]:
+                  - /url: https://padellounge.at/#preise
+                  - generic [ref=e15]:
+                    - text: Preise & Infos
+                    - img [ref=e16]: 
+              - listitem [ref=e17]:
+                - link "Der Verein" [ref=e18] [cursor=pointer]:
+                  - /url: https://padellounge.at/verein/
+              - listitem [ref=e19]:
+                - link "Standort-Partner" [ref=e20] [cursor=pointer]:
+                  - /url: https://padellounge.at/padel-anlage-eroeffnen/
+              - listitem [ref=e21]:
+                - link "Kontakt" [ref=e22] [cursor=pointer]:
+                  - /url: https://padellounge.at/#kontakt
+                  - generic [ref=e23]:
+                    - text: Kontakt
+                    - img [ref=e24]: 
+              - listitem [ref=e25]:
+                - link "Jetzt buchen" [ref=e26] [cursor=pointer]:
+                  - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                  - generic [ref=e27]: Jetzt buchen
+          - text: 
+      - main [ref=e28]:
+        - article [ref=e32]:
+          - generic [ref=e34]:
+            - generic [ref=e35]:
+              - img [ref=e37]
+              - region "Slider" [ref=e44]:
+                - generic [ref=e48]:
+                  - generic [ref=e51]:
+                    - generic [ref=e52]:
+                      - img "Padellounge Graz – Zwei Spielerinnen lachen beim Padel Training, Padel, Paddle, Paddel Tennis" [ref=e56]
+                      - img [ref=e61]
+                      - img [ref=e66]
+                    - generic [ref=e68]:
+                      - note [ref=e70]: We love the Game
+                      - button [ref=e72] [cursor=pointer]:
+                        - note [ref=e73]: Padellounge
+                      - note [ref=e76]: Standort
+                  - button "previous arrow" [ref=e78] [cursor=pointer]:
+                    - img "previous arrow" [ref=e79]
+                  - button "next arrow" [ref=e80] [cursor=pointer]:
+                    - img "next arrow" [ref=e81]
+            - generic [ref=e82]:
+              - generic:
+                - img
+              - generic:
+                - img
+              - generic [ref=e89]:
+                - heading "Padel spielen in Graz" [level=2] [ref=e90]
+                - paragraph [ref=e91]: Willkommen in der Padellounge
+                - link "Buche Deinen Court" [ref=e93] [cursor=pointer]:
+                  - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                  - img [ref=e95]
+                  - text: Buche Deinen Court
+                - generic [ref=e97]:
+                  - link "Instagram" [ref=e98] [cursor=pointer]:
+                    - /url: https://www.instagram.com/Padellounge.at/
+                    - img [ref=e99]
+                  - link "Facebook" [ref=e101] [cursor=pointer]:
+                    - /url: https://www.facebook.com/padellounge.at/
+                    - img [ref=e102]
+            - generic [ref=e104]:
+              - generic:
+                - img
+              - generic [ref=e111]:
+                - generic [ref=e112]:
+                  - generic [ref=e113]: TRANSPARENZ
+                  - heading "Unsere Preise" [level=2] [ref=e114]
+                  - paragraph [ref=e115]: Padelcourt · 60 Minuten
+                - generic [ref=e117]:
+                  - generic [ref=e118]:
+                    - generic [ref=e119]: Standard
+                    - heading "Regulärer Tarif" [level=3] [ref=e120]
+                    - generic [ref=e121]:
+                      - generic [ref=e122]:
+                        - strong [ref=e123]: Mo – Fr 07:00 – 15:00
+                        - generic [ref=e124]: Online bezahlen · Zugang per App
+                      - generic [ref=e125]: € 26
+                    - generic [ref=e126]:
+                      - generic [ref=e127]:
+                        - strong [ref=e128]: Mo – Fr 15:00 – 22:00
+                        - generic [ref=e129]: Bezahlung vor Ort möglich
+                      - generic [ref=e130]: € 36
+                    - generic [ref=e131]:
+                      - generic [ref=e132]:
+                        - strong [ref=e133]: Sa, So & Feiertag 07:00 – 22:00
+                        - generic [ref=e134]: Bedienung ab 15:00 Uhr
+                      - generic [ref=e135]: € 36
+                  - generic [ref=e136]:
+                    - generic [ref=e137]: Ermäßigt
+                    - heading "Schüler, Studenten & Senioren" [level=3] [ref=e138]
+                    - generic [ref=e139]:
+                      - generic [ref=e140]:
+                        - strong [ref=e141]: Mo – Fr 07:00 – 16:00
+                        - generic [ref=e142]: Ausweis erforderlich
+                      - generic [ref=e143]: € 22
+                    - generic [ref=e144]:
+                      - strong [ref=e146]: Sa, So & Feiertag 07:00 – 22:00
+                      - generic [ref=e148]: € 28
+                    - generic [ref=e149]:
+                      - text: "Ab 16 Jahre: Ausweis-Kopie (Schüler, Student, Senior) per Mail an"
+                      - link "office@padellounge.at" [ref=e150] [cursor=pointer]:
+                        - /url: mailto:office@padellounge.at
+                      - text: senden, um den Tarif zu aktivieren.
+                - generic [ref=e151]:
+                  - generic [ref=e152]:
+                    - generic [ref=e153]:
+                      - generic [ref=e154]: Equipment
+                      - generic [ref=e155]: Leihschläger
+                    - generic [ref=e157]:
+                      - text: € 3
+                      - generic [ref=e158]: pro Schläger
+                    - generic [ref=e160]:
+                      - text: Ab 15:00 an der Bar
+                      - text: 07:00 – 15:00 in der Kabine
+                  - generic [ref=e161]:
+                    - generic [ref=e162]:
+                      - generic [ref=e163]: Babolat Padel Tour X3
+                      - generic [ref=e164]: Bälle pro Dose
+                    - generic [ref=e166]:
+                      - text: € 8,50
+                      - generic [ref=e167]: ab 14:00 an der Bar
+                  - generic [ref=e168]:
+                    - generic [ref=e169]:
+                      - generic [ref=e170]: Kontakt
+                      - generic [ref=e171]: Wir sind für euch da
+                    - generic [ref=e172]:
+                      - link "✉ office@padellounge.at" [ref=e173] [cursor=pointer]:
+                        - /url: mailto:office@padellounge.at
+                        - generic [ref=e174]: ✉
+                        - text: office@padellounge.at
+                      - link "☎ +43 677 647 14 690" [ref=e175] [cursor=pointer]:
+                        - /url: tel:+436776471469
+                        - generic [ref=e176]: ☎
+                        - text: +43 677 647 14 690
+                      - link "WA WhatsApp" [ref=e177] [cursor=pointer]:
+                        - /url: https://wa.me/436776471469
+                        - generic [ref=e178]: WA
+                        - text: WhatsApp
+                - generic [ref=e179]:
+                  - link "Jetzt Court buchen" [ref=e180] [cursor=pointer]:
+                    - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                    - img [ref=e182]
+                    - text: Jetzt Court buchen
+                  - generic [ref=e184]: Online · Sicher · Sofort verfügbar
+            - generic [ref=e185]:
+              - img [ref=e187]
+              - generic [ref=e194]:
+                - generic [ref=e196]:
+                  - img [ref=e197]
+                  - img [ref=e198]
+                  - img [ref=e199]
+                  - img [ref=e200]
+                  - img [ref=e201]
+                  - img [ref=e202]
+                  - img [ref=e203]
+                  - img [ref=e204]
+                  - img [ref=e205]
+                  - img [ref=e206]
+                  - img [ref=e207]
+                  - img [ref=e208]
+                  - img [ref=e209]
+                  - img [ref=e210]
+                  - img [ref=e211]
+                  - img [ref=e212]
+                  - img [ref=e213]
+                  - img [ref=e214]
+                  - img [ref=e215]
+                  - img [ref=e216]
+                  - img [ref=e217]
+                  - img [ref=e218]
+                  - img [ref=e219]
+                  - img [ref=e220]
+                - generic [ref=e221]:
+                  - generic [ref=e222]:
+                    - generic [ref=e223]: 100% ACTION
+                    - heading "Padel für Kids & Teens in Graz" [level=2] [ref=e224]
+                    - paragraph [ref=e226]: Kurse, Feriencamps & Schulprogramme – spielerisch, professionell, mit Spaß!
+                  - generic [ref=e227]:
+                    - article [ref=e228]:
+                      - generic [ref=e229]:
+                        - img "Kind Padel Kurs" [ref=e230]
+                        - generic [ref=e231]: "START: 7. APRIL"
+                      - generic [ref=e232]:
+                        - heading "First Smash Kurs" [level=3] [ref=e233]
+                        - paragraph [ref=e234]: "Der perfekte Einstieg: 8 Wochen Technik, Koordination & Team-Spaß für Kids (6–14 J.)."
+                        - generic [ref=e235]: ⚡ "Bring a Friend" = 10% Rabatt für beide!
+                        - list [ref=e236]:
+                          - listitem [ref=e237]: "⚠️ Anmeldeschluss: 1. April"
+                          - listitem [ref=e238]:
+                            - strong [ref=e239]: Start KW 15
+                            - text: (Mo–Do wählbar)
+                          - listitem [ref=e240]:
+                            - strong [ref=e241]: Kleine Teams
+                            - text: (3–5 Kids)
+                          - listitem [ref=e242]:
+                            - strong [ref=e243]: Inkl. Leihschläger
+                            - text: "& Platz"
+                          - listitem [ref=e244]:
+                            - strong [ref=e245]: "Wetter-Garantie:"
+                            - text: Ersatztermine
+                        - generic [ref=e246]:
+                          - generic [ref=e247]: 8 Einheiten
+                          - generic [ref=e248]: ab 129 €
+                          - generic [ref=e249]: "Early (14/15 Uhr): 129€ | Prime (16 Uhr): 155€"
+                        - link "ℹ️ INFOS & ANMELDUNG" [ref=e250] [cursor=pointer]:
+                          - /url: https://forms.gle/js6hozVKETp4MgYMA
+                    - article [ref=e251]:
+                      - generic [ref=e252]:
+                        - img "Padel Camp Gruppe" [ref=e253]
+                        - generic [ref=e254]: OSTERN & SOMMER
+                      - generic [ref=e255]:
+                        - heading "Kids Feriencamps" [level=3] [ref=e256]
+                        - paragraph [ref=e257]: "Das volle Programm (7–14 J.): Padel, Taktik, Minigolf & Mittagessen im Sägewerk."
+                        - generic [ref=e258]: "🍽️ All Inclusive: Training + Essen + Betreuung"
+                        - list [ref=e259]:
+                          - listitem [ref=e260]: "⚠️ Limit: Max. 15 Kids / Woche"
+                          - listitem [ref=e261]:
+                            - strong [ref=e262]: Ostern
+                            - text: (3 Tage) &
+                            - strong [ref=e263]: 4 Sommer-Wochen
+                            - text: (Juli/Sept)
+                          - listitem [ref=e264]:
+                            - strong [ref=e265]: "Kernzeit:"
+                            - text: 09:00 – 15:00 Uhr
+                          - listitem [ref=e266]:
+                            - strong [ref=e267]: "Optional:"
+                            - text: Randbetreuung (ab 08:00 / +5€)
+                        - generic [ref=e268]:
+                          - generic [ref=e269]: Alles inklusive
+                          - generic [ref=e270]: ab 199 €
+                          - generic [ref=e271]: "Ostern: 199€ | Sommer-Woche: 325€"
+                        - link "ℹ️ INFOS & ANMELDUNG" [ref=e272] [cursor=pointer]:
+                          - /url: https://forms.gle/kGYp9ermLLwGjz3y5
+            - generic [ref=e273]:
+              - generic:
+                - img
+              - img [ref=e275]
+              - generic [ref=e282]:
+                - generic [ref=e284]:
+                  - heading "Abo-Anfrage 2026" [level=2] [ref=e285]: Abo-Anfrage 2026
+                  - paragraph [ref=e287]:
+                    - text: Herzlich willkommen zur Abo-Anmeldung! Wir freuen uns riesig, ab März (Abo ab April) wieder gemeinsam mit euch durchzustarten. 🚀
+                    - text: Bitte fülle das Formular sorgfältig aus, damit wir die Plätze fair vergeben können.
+                  - link "Anmeldung zur Saison 2026" [ref=e288] [cursor=pointer]:
+                    - /url: https://forms.gle/yyooQhNWemyHBSBu8
+                    - generic [ref=e289]: 🚀 JETZT ANMELDEN
+                - generic [ref=e292]:
+                  - article [ref=e293]:
+                    - heading "📅 ECKDATEN ZUR SAISON" [level=3] [ref=e294]
+                    - list [ref=e295]:
+                      - listitem [ref=e296]:
+                        - generic [ref=e297]: 🔹
+                        - generic [ref=e298]:
+                          - strong [ref=e299]: "Gastro-Start:"
+                          - text: Ab dem 09.03.2026 ist unsere Bar wieder geöffnet!
+                      - listitem [ref=e300]:
+                        - generic [ref=e301]: 🔹
+                        - generic [ref=e302]:
+                          - strong [ref=e303]: "Abo-Start:"
+                          - text: Die Abos beginnen in der 1. April-Woche.
+                      - listitem [ref=e304]:
+                        - generic [ref=e305]: 🔹
+                        - generic [ref=e306]:
+                          - strong [ref=e307]: "Abo-Ende:"
+                          - text: Die Abos enden in der 2. Oktober-Woche.
+                      - listitem [ref=e308]:
+                        - generic [ref=e309]: 🔹
+                        - generic [ref=e310]:
+                          - strong [ref=e311]: "Laufzeit:"
+                          - text: Das Abo umfasst insgesamt 28 Spielwochen (1 Fixtermin pro Woche).
+                      - listitem [ref=e312]:
+                        - generic [ref=e313]: 🔹
+                        - generic [ref=e314]:
+                          - strong [ref=e315]: "Dauer:"
+                          - text: Die Einheiten werden in 2-Stunden-Blöcken vergeben.
+                  - article [ref=e316]:
+                    - heading "🌟 DEINE ABO-VORTEILE" [level=3] [ref=e317]
+                    - list [ref=e318]:
+                      - listitem [ref=e319]:
+                        - generic [ref=e320]: ✅
+                        - generic [ref=e321]:
+                          - strong [ref=e322]: "Keine Vorauskasse:"
+                          - text: Du zahlst nur die Kaution vorab, die Spieltermine erst bei Nutzung.
+                      - listitem [ref=e323]:
+                        - generic [ref=e324]: ✅
+                        - generic [ref=e325]:
+                          - strong [ref=e326]: "Fixplatz-Garantie:"
+                          - text: Dein Lieblingsplatz reserviert – kein Buchungsstress!
+                      - listitem [ref=e327]:
+                        - generic [ref=e328]: ✅
+                        - generic [ref=e329]:
+                          - strong [ref=e330]: "Preissicherheit:"
+                          - text: Fixierter Abo-Preis für die ganze Saison.
+                      - listitem [ref=e331]:
+                        - generic [ref=e332]: ✅
+                        - generic [ref=e333]:
+                          - strong [ref=e334]: "Flexibilität:"
+                          - text: Kostenfreies Storno bis 72h vorher. Weitergabe möglich.
+                      - listitem [ref=e335]:
+                        - generic [ref=e336]: ✅
+                        - generic [ref=e337]:
+                          - strong [ref=e338]: "Stammgast-Status:"
+                          - text: Vorrang bei der Platzvergabe für Saison 2027.
+                  - article [ref=e339]:
+                    - heading "💰 PREISE" [level=3] [ref=e340]
+                    - paragraph [ref=e341]: (Kaution entspricht einer 2-Stunden-Einheit)
+                    - generic [ref=e342]:
+                      - generic [ref=e343]:
+                        - text: Early Bird
+                        - generic [ref=e344]: 14:00 – 16:00 Uhr
+                      - generic [ref=e345]: 62 €
+                    - generic [ref=e346]:
+                      - generic [ref=e347]:
+                        - text: Prime Time
+                        - generic [ref=e348]: ab 16:00 Uhr
+                      - generic [ref=e349]: 72 €
+                  - article [ref=e350]:
+                    - heading "🕒 PLÄTZE & SPIELZEITEN" [level=3] [ref=e351]
+                    - list [ref=e352]:
+                      - listitem [ref=e353]:
+                        - generic [ref=e354]: 🎾
+                        - generic [ref=e355]:
+                          - strong [ref=e356]: "Verfügbare Courts:"
+                          - text: Für die Saison-Abos sind exklusiv unsere
+                          - strong [ref=e357]: Plätze 1 & 2
+                          - text: reserviert.
+                      - listitem [ref=e358]:
+                        - generic [ref=e359]: 📅
+                        - generic [ref=e360]:
+                          - strong [ref=e361]: "Montag – Donnerstag:"
+                          - text: 14:00 – 16:00 • 16:00 – 18:00
+                          - text: 18:00 – 20:00 • 20:00 – 22:00
+                      - listitem [ref=e362]:
+                        - generic [ref=e363]: 🚀
+                        - generic [ref=e364]:
+                          - strong [ref=e365]: "Freitag:"
+                          - text: "Standard: 14:00 – 16:00 • 16:00 – 18:00"
+                          - generic [ref=e366]:
+                            - strong [ref=e367]: "Freitagabend Special:"
+                            - text: Die Slots 18–20 & 20–22 Uhr sind nur 14-tägig verfügbar, da im Wechsel unsere legendären Friday-Tournaments stattfinden.
+                  - article [ref=e368]:
+                    - heading "🛡️ DAS KAUTIONSSYSTEM" [level=3] [ref=e369]
+                    - list [ref=e370]:
+                      - listitem [ref=e371]:
+                        - generic [ref=e372]: 🔹
+                        - generic [ref=e373]:
+                          - strong [ref=e374]: "1. Sicherung deines Slots:"
+                          - text: Fix bestätigt, sobald Kaution (62€ / 72€) eingegangen ist.
+                      - listitem [ref=e375]:
+                        - generic [ref=e376]: 🔹
+                        - generic [ref=e377]:
+                          - strong [ref=e378]: "2. Fairplay-Regel:"
+                          - text: Bei "No-Shows" wird Kaution einbehalten und muss aufgefüllt werden.
+                      - listitem [ref=e379]:
+                        - generic [ref=e380]: 🔹
+                        - generic [ref=e381]:
+                          - strong [ref=e382]: "3. Wetter-Garantie:"
+                          - text: "Bei Regen am letzten Termin: Guthaben (keine Rücküberweisung)."
+                      - listitem [ref=e383]:
+                        - generic [ref=e384]: 🔹
+                        - generic [ref=e385]:
+                          - strong [ref=e386]: "4. Saisonabschluss:"
+                          - text: Kaution verfällt nicht! Sie deckt automatisch die letzte Einheit ab.
+                  - article [ref=e387]:
+                    - heading "⚖️ UNSERE VERGABE-REGELN" [level=3] [ref=e388]
+                    - paragraph [ref=e389]: "Um eine faire Vergabe zu garantieren, priorisieren wir Anfragen wie folgt:"
+                    - list [ref=e390]:
+                      - listitem [ref=e391]:
+                        - generic [ref=e392]: 1️⃣
+                        - generic [ref=e393]:
+                          - strong [ref=e394]: "Abo-Laufzeit:"
+                          - text: Abos über die volle Saison werden bevorzugt.
+                      - listitem [ref=e395]:
+                        - generic [ref=e396]: 2️⃣
+                        - generic [ref=e397]:
+                          - strong [ref=e398]: "Bestandskunden:"
+                          - text: Vorrang für Stammplätze aus dem Vorjahr.
+                      - listitem [ref=e399]:
+                        - generic [ref=e400]: 3️⃣
+                        - generic [ref=e401]:
+                          - strong [ref=e402]: "Zeitstempel:"
+                          - text: Bei Gleichstand entscheidet der Eingang ("First come, first served").
+                - generic [ref=e404]:
+                  - heading "SICHERE DIR DEINEN PLATZ" [level=2] [ref=e405]
+                  - generic [ref=e406]:
+                    - paragraph [ref=e407]: ⚠️ WICHTIGER HINWEIS ZUM ABLAUF
+                    - paragraph [ref=e408]:
+                      - text: Dies ist eine VORANMELDUNG. Bitte noch
+                      - strong [ref=e409]: KEINE ZAHLUNGEN
+                      - text: tätigen! 🚫
+                      - text: Wir senden dir eine Bestätigung und Rechnung.
+                  - link "Anmeldung zur Saison 2026" [ref=e410] [cursor=pointer]:
+                    - /url: https://forms.gle/yyooQhNWemyHBSBu8
+                    - generic [ref=e411]: 🚀 JETZT ANMELDEN
+                  - paragraph [ref=e412]: Wir freuen uns auf eine sportliche Saison 2026!
+            - text:                 
+            - generic [ref=e413]:
+              - img [ref=e415]
+              - generic [ref=e419]:
+                - heading "Die Padel-Schulaktion 2026" [level=4] [ref=e422]
+                - generic [ref=e424]:
+                  - generic [ref=e426]:
+                    - heading "Lade Dir den Info-Flyer" [level=2] [ref=e429]:
+                      - link "Lade Dir den Info-Flyer" [ref=e430] [cursor=pointer]:
+                        - /url: https://padellounge.at/wp-content/uploads/2025/01/Padel-Schule.pdf
+                    - generic [ref=e432]:
+                      - link "Padel-Schule":
+                        - /url: https://padellounge.at/wp-content/uploads/2026/01/Konzept-Padel-Schulaktion.pdf
+                        - img "Padel-Schule"
+                  - generic [ref=e434]:
+                    - heading "Downloads" [level=2] [ref=e440]:
+                      - link "Downloads" [ref=e441] [cursor=pointer]:
+                        - /url: https://padellounge.at/wp-content/uploads/2025/11/Padel-Schulaktion-2025_2026.pdf
+                    - list [ref=e444]:
+                      - listitem [ref=e445]:
+                        - link "Teilnahmebedingungen" [ref=e447] [cursor=pointer]:
+                          - /url: https://padellounge.at/wp-content/uploads/2026/01/Padel-Schulaktion.pdf
+                      - listitem [ref=e448]:
+                        - link "Gesamtinformation zur Padel-Schulaktion 2026" [ref=e450] [cursor=pointer]:
+                          - /url: https://padellounge.at/wp-content/uploads/2026/01/Konzept-Padel-Schulaktion.pdf
+                      - listitem [ref=e451]:
+                        - link "Zur Anmeldung" [ref=e453] [cursor=pointer]:
+                          - /url: https://forms.gle/HUE4YDSt4cd4P43u9
+            - generic [ref=e454]:
+              - img [ref=e456]
+              - generic [ref=e460]:
+                - heading "Gutscheine" [level=4] [ref=e463]
+                - generic [ref=e465]:
+                  - generic [ref=e470]:
+                    - img [ref=e472]
+                    - generic [ref=e474]:
+                      - img "Padel Graz – Outdoor Courts für Padel, Paddle und Paddel Tennis" [ref=e476]
+                      - heading "Liebes-Gutschein" [level=2] [ref=e477]
+                      - generic [ref=e478]: Schenke Deinen Liebsten einen Padel-Gutschein!
+                      - link "Online bestellen" [ref=e480] [cursor=pointer]:
+                        - /url: https://forms.gle/qGHR2y927Q5ahJwW8
+                  - generic [ref=e485]:
+                    - img [ref=e487]
+                    - generic [ref=e489]:
+                      - img "Padel Court Graz – Geburtstag Padel, Paddle oder Paddel Tennis" [ref=e491]
+                      - heading "Happy Birthday Gutschein" [level=2] [ref=e492]
+                      - generic [ref=e493]: Das perfekte Geschenk für das Geburtstagskind!
+                      - link "Online bestellen" [ref=e495] [cursor=pointer]:
+                        - /url: https://forms.gle/qGHR2y927Q5ahJwW8
+                  - generic [ref=e500]:
+                    - img [ref=e502]
+                    - generic [ref=e504]:
+                      - img "Padel Spiel Graz – Spaß und Bewegung bei Padel, Paddle Tennis" [ref=e506]
+                      - heading "No Pain-No Gain - Gutschein" [level=2] [ref=e507]
+                      - generic [ref=e508]: Dein:e Partner:in braucht noch Training?
+                      - link "Online bestellen" [ref=e510] [cursor=pointer]:
+                        - /url: https://forms.gle/qGHR2y927Q5ahJwW8
+                  - generic [ref=e515]:
+                    - img [ref=e517]
+                    - generic [ref=e519]:
+                      - img "Outdoor Padel Courts Graz Gutschein – Padel, Paddle, Paddel Tennis" [ref=e521]
+                      - heading "Gutschein" [level=2] [ref=e522]
+                      - generic [ref=e523]: Lass uns einfach gemeinsam Padelspielen
+                      - link "Online bestellen" [ref=e525] [cursor=pointer]:
+                        - /url: https://forms.gle/qGHR2y927Q5ahJwW8
+                - generic [ref=e527]:
+                  - generic [ref=e529]:
+                    - heading "Anleitung zum Buchen eines Platzes und Einlösen eines Gutscheins" [level=1] [ref=e532]
+                    - list [ref=e535]:
+                      - listitem [ref=e536]:
+                        - text: SportSofort-App herunterladen
+                        - list [ref=e537]:
+                          - listitem [ref=e538]:
+                            - text: Lade die
+                            - strong [ref=e539]: SportSofort-App
+                            - text: aus dem App Store (iOS) oder Google Play Store (Android) herunter.
+                          - listitem [ref=e540]:
+                            - text: Alternativ besuche die SportSofort-Webanwendung unter
+                            - generic [ref=e541]:
+                              - link "webapp.sportsofort.org" [ref=e542] [cursor=pointer]:
+                                - /url: https://webapp.sportsofort.org
+                              - text: .
+                      - listitem [ref=e543]:
+                        - text: Konto erstellen und Padellounge freischalten
+                        - list [ref=e544]:
+                          - listitem [ref=e545]: Registriere dich in der App oder auf der Website und erstelle ein Konto.
+                          - listitem [ref=e546]:
+                            - text: Suche nach der
+                            - strong [ref=e547]: Padellounge
+                            - text: und schalte sie frei, um Zugang zu den Buchungsfunktionen zu erhalten.
+                      - listitem [ref=e548]:
+                        - text: Gutschein einlösen
+                        - list [ref=e549]:
+                          - listitem [ref=e550]:
+                            - text: Öffne die App oder die Website und wähle die Option
+                            - strong [ref=e551]: „Gutschein einlösen“
+                            - text: .
+                          - listitem [ref=e552]: Scanne den QR-Code deines Gutscheins oder gib den Gutscheincode manuell ein.
+                      - listitem [ref=e553]:
+                        - text: Platz buchen
+                        - list [ref=e554]:
+                          - listitem [ref=e555]: Wähle deinen gewünschten Platz und die gewünschte Uhrzeit aus.
+                          - listitem [ref=e556]: Bestätige die Buchung und genieße dein Padel-Erlebnis!
+                  - generic [ref=e561]:
+                    - img [ref=e563]
+                    - img "Padel Court Buchung Graz – Plätze online reservieren für Padel, Paddle oder Paddel Tennis" [ref=e567]
+            - generic [ref=e568]:
+              - img [ref=e570]
+              - generic [ref=e574]:
+                - heading "Unser Konzept" [level=1] [ref=e577]
+                - paragraph [ref=e580]:
+                  - generic [ref=e581]: Spiele auf perfekten Padel-Plätzen, finde neue Partner:innen über unser innovatives Buchungssystem und genieße dein Lieblingsgetränk in der Padellounge am Center West im Süden von Graz.
+                - generic [ref=e583]:
+                  - generic [ref=e588]:
+                    - img "Padellounge Graz – Padel Court, Padel, Paddle und Paddel Tennis" [ref=e590]
+                    - generic [ref=e592]:
+                      - generic [ref=e595]: 
+                      - heading "Bezahlen" [level=2] [ref=e596]
+                      - generic [ref=e597]: Bei uns kannst du online, bar oder mit Karte vor Ort bezahlen.
+                      - link "Preise" [ref=e599] [cursor=pointer]:
+                        - /url: https://padellounge.at/#preise
+                  - generic [ref=e601]:
+                    - generic [ref=e604]:
+                      - img "Padellounge Graz – Padel Training mit Trainer, Padel, Paddle und Paddel Tennis" [ref=e606]
+                      - generic [ref=e608]:
+                        - generic [ref=e611]: 
+                        - heading "Buchungssystem" [level=2] [ref=e612]
+                        - generic [ref=e613]: Buche und verwalte deinen Platz online! Lade deine Padel-Freunde direkt in der App zu deiner Stunde ein! Finde neue Padel-Spieler:innen durch unsere innovative Partnersuche direkt in der APP!
+                    - link "Download_on_the_App_Store_Badge_DE_RGB_wht_092917" [ref=e617] [cursor=pointer]:
+                      - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                      - img "Download_on_the_App_Store_Badge_DE_RGB_wht_092917" [ref=e618]
+                    - link [ref=e650] [cursor=pointer]:
+                      - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                      - img [ref=e651]
+                - generic [ref=e665]:
+                  - generic [ref=e670]:
+                    - img "Padellounge Graz – Professionelles Padel Training, Paddle und Paddel Tennis Unterricht" [ref=e672]
+                    - generic [ref=e674]:
+                      - generic [ref=e677]: 
+                      - heading "Padellounge" [level=2] [ref=e678]
+                      - generic [ref=e679]: Ab 7:00 hast du Zugang zum Klubhaus und den Getränkeautomaten mit unserer Buchungs-APP! Ab 14:00 Bedienung an der Bar! Geöffnet tägl. von 7-22 Uhr!
+                  - generic [ref=e684]:
+                    - img "Padel Coaching Graz – Trainer unterstützt Spieler bei Padel, Paddle und Paddel Tennis" [ref=e686]
+                    - generic [ref=e688]:
+                      - generic [ref=e691]: 
+                      - heading "Padel-Platz" [level=2] [ref=e692]
+                      - generic [ref=e693]: Wir haben den original World Padel Tour-Belag NX Supercourt! Unsere Padel-Plätze sind mit Protectoren ausgestattet!
+                - paragraph [ref=e700]:
+                  - text: Unser Anspruch ist es, für unsere Spieler:innen, rund um die Uhr,
+                  - strong [ref=e702]: perfekte Bedingungen
+                  - text: zu schaffen. In der
+                  - strong [ref=e704]: Padellounge am Center West
+                  - text: soll sich jede:r wohlfühlen, das Padel-Spiel verbessern und Energie für den Alltag tanken.
+            - generic [ref=e705]:
+              - img [ref=e707]
+              - heading "Unser Standort" [level=1] [ref=e714]
+            - generic [ref=e716]:
+              - generic [ref=e718]:
+                - generic [ref=e721]:
+                  - link "Auto" [ref=e723] [cursor=pointer]:
+                    - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                    - generic [ref=e724]: 
+                  - heading "Auto" [level=3] [ref=e726]:
+                    - link "Auto" [ref=e727] [cursor=pointer]:
+                      - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                - generic [ref=e729]:
+                  - paragraph [ref=e730]:
+                    - text: Weblinger Gürtel 5
+                    - text: 8054 Graz
+                  - paragraph [ref=e731]: Direkte Parkmöglichkeiten vor Ort
+              - generic [ref=e733]:
+                - generic [ref=e736]:
+                  - link "Öffis" [ref=e738] [cursor=pointer]:
+                    - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                    - generic [ref=e739]: 
+                  - generic [ref=e740]:
+                    - heading "Öffis" [level=3] [ref=e741]:
+                      - link "Öffis" [ref=e742] [cursor=pointer]:
+                        - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                    - paragraph [ref=e743]: Linie 32
+                - generic [ref=e745]:
+                  - paragraph [ref=e746]:
+                    - text: Haltestelle
+                    - text: P+R Webling
+                  - paragraph [ref=e747]: 5 Gehminuten zur Padellounge
+              - generic [ref=e749]:
+                - generic [ref=e752]:
+                  - link "Öffis" [ref=e754] [cursor=pointer]:
+                    - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                    - generic [ref=e755]: 
+                  - generic [ref=e756]:
+                    - heading "Öffis" [level=3] [ref=e757]:
+                      - link "Öffis" [ref=e758] [cursor=pointer]:
+                        - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                    - paragraph [ref=e759]: Linie 65
+                - generic [ref=e761]:
+                  - paragraph [ref=e762]:
+                    - text: Haltestelle
+                    - text: Center West
+                  - paragraph [ref=e763]: 5 Gehminuten zur Padellounge
+            - generic [ref=e765]:
+              - generic [ref=e769]:
+                - link:
+                  - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+              - generic [ref=e773]:
+                - link "Padellounge Graz – Lageplan und Standort auf Google Maps, Padel, Paddle und Paddel Tennis":
+                  - /url: https://maps.app.goo.gl/fAgjSNPcUi1KFbC58?g_st=ic
+                  - img "Padellounge Graz – Lageplan und Standort auf Google Maps, Padel, Paddle und Paddel Tennis"
+            - generic [ref=e774]:
+              - img [ref=e776]
+              - heading "Kontaktiere uns" [level=1] [ref=e783]
+            - generic [ref=e786]:
+              - generic [ref=e788]:
+                - generic [ref=e794]: 
+                - heading "Fragen, Wünsche, Beschwerden?" [level=2] [ref=e797]
+                - generic [ref=e800]:
+                  - link "E-Mail" [ref=e802] [cursor=pointer]:
+                    - /url: mailto:office@padellounge.at?subject=Nachricht%20an%20die%20Padellounge!
+                    - generic [ref=e803]: 
+                  - generic [ref=e804]:
+                    - heading "E-Mail" [level=3] [ref=e805]:
+                      - link "E-Mail" [ref=e806] [cursor=pointer]:
+                        - /url: mailto:office@padellounge.at?subject=Nachricht%20an%20die%20Padellounge!
+                    - paragraph [ref=e807]: office@padellounge.at
+                - generic [ref=e810]:
+                  - link "Telefon" [ref=e812] [cursor=pointer]:
+                    - /url: tel:+436504004633
+                    - generic [ref=e813]: 
+                  - generic [ref=e814]:
+                    - heading "Telefon" [level=3] [ref=e815]:
+                      - link "Telefon" [ref=e816] [cursor=pointer]:
+                        - /url: tel:+436504004633
+                    - paragraph [ref=e817]: +43 677 647 14 690
+                - generic [ref=e820]:
+                  - link "WhatsApp" [ref=e822] [cursor=pointer]:
+                    - /url: https://api.whatsapp.com/send?phone=+436504004633
+                    - generic [ref=e823]: 
+                  - generic [ref=e824]:
+                    - heading "WhatsApp" [level=3] [ref=e825]:
+                      - link "WhatsApp" [ref=e826] [cursor=pointer]:
+                        - /url: https://api.whatsapp.com/send?phone=+436504004633
+                    - paragraph [ref=e827]: +43 677 647 14 690
+                - generic [ref=e830]:
+                  - link "Adresse" [ref=e832] [cursor=pointer]:
+                    - /url: https://www.google.at/maps/place/47%C2%B002'03.0%22N+15%C2%B024'50.7%22E/@47.0341676,15.4119056,17z/data=!4m9!1m2!10m1!1e2!3m5!1s0x476fcaad3ea8a11b:0x0!7e2!8m2!3d47.0341676!4d15.4140943?hl=de
+                    - generic [ref=e833]: 
+                  - generic [ref=e834]:
+                    - heading "Adresse" [level=3] [ref=e835]:
+                      - link "Adresse" [ref=e836] [cursor=pointer]:
+                        - /url: https://www.google.at/maps/place/47%C2%B002'03.0%22N+15%C2%B024'50.7%22E/@47.0341676,15.4119056,17z/data=!4m9!1m2!10m1!1e2!3m5!1s0x476fcaad3ea8a11b:0x0!7e2!8m2!3d47.0341676!4d15.4140943?hl=de
+                    - paragraph [ref=e837]: Weblinger Gürtel 25, 8054 Graz
+                - link "Download_on_the_App_Store_Badge_DE_RGB_wht_092917" [ref=e841] [cursor=pointer]:
+                  - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                  - img "Download_on_the_App_Store_Badge_DE_RGB_wht_092917" [ref=e842]
+                - link [ref=e874] [cursor=pointer]:
+                  - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                  - img [ref=e875]
+              - generic [ref=e889]:
+                - generic [ref=e895]: 
+                - heading "Wir freuen uns auf Dein Feedback" [level=3] [ref=e898]
+                - generic [ref=e902]:
+                  - generic [ref=e903]:
+                    - generic [ref=e904] [cursor=pointer]: Vorname
+                    - textbox "Vorname" [ref=e905]
+                  - generic [ref=e906]:
+                    - generic [ref=e907] [cursor=pointer]: Nachname
+                    - textbox "Nachname" [ref=e908]
+                  - generic [ref=e909]:
+                    - generic [ref=e910] [cursor=pointer]: Email Address
+                    - textbox "Email Address" [ref=e911]:
+                      - /placeholder: E-Mail
+                  - generic [ref=e912]:
+                    - generic [ref=e913] [cursor=pointer]: Nachricht
+                    - textbox "Nachricht" [ref=e914]:
+                      - /placeholder: Deine Nachricht an uns!
+                  - generic [ref=e915]:
+                    - generic [ref=e916] [cursor=pointer]: Datenschutzbutton
+                    - generic [ref=e918]:
+                      - checkbox "Datenschutzbutton Zustimmung zur Datenverarbeitung. Nähere Informationen zur Datenverarbeitung finden Sie in unserer Datenschutzerklärung." [ref=e919] [cursor=pointer]
+                      - generic [ref=e920]:
+                        - text: Zustimmung zur Datenverarbeitung. Nähere Informationen zur Datenverarbeitung finden Sie in unserer
+                        - link "Datenschutzerklärung" [ref=e921] [cursor=pointer]:
+                          - /url: https://padellounge.at/impressum
+                        - text: .
+                  - button "Nachricht verschicken" [ref=e923] [cursor=pointer]:
+                    - generic [ref=e924]:
+                      - generic [ref=e926]: 
+                      - generic [ref=e927]: Nachricht verschicken
+                - list [ref=e930]:
+                  - listitem [ref=e931]:
+                    - generic [ref=e932] [cursor=pointer]:
+                      - generic [ref=e933]: Facebook-f
+                      - generic [ref=e934]: 
+                  - listitem [ref=e935]:
+                    - generic [ref=e936] [cursor=pointer]:
+                      - generic [ref=e937]: Instagram
+                      - generic [ref=e938]: 
+                  - listitem [ref=e939]:
+                    - generic [ref=e940] [cursor=pointer]:
+                      - generic [ref=e941]: Youtube
+                      - generic [ref=e942]: 
+            - generic [ref=e949]:
+              - heading "Padellounge Graz – Padel, Padel-Tennis, Paddle & Paddel Tennis" [level=1] [ref=e950]
+              - paragraph [ref=e951]:
+                - text: Willkommen in der
+                - strong [ref=e952]: Padellounge Graz
+                - text: ", deinem Zentrum für Padel, Padel-Tennis, Paddle oder Paddel. Egal, ob du nach „Padel Graz“, „Paddle Graz“, „Paddel Graz“, „Padel-Tennis Graz“ oder „Paddle-Tennis Graz“ suchst – hier findest du alles für dein Spielvergnügen."
+              - heading "Outdoor-Courts" [level=2] [ref=e953]
+              - paragraph [ref=e954]: Drei top gepflegte Outdoor-Courts bieten dir Padel unter freiem Himmel. Genieße die Sonne, frische Luft und Vitamin D, während du dein Spiel verbesserst. Auch im Winter kannst du dank attraktiver Winterpreise das ganze Jahr über Padel, Paddle oder Paddel Tennis spielen.
+              - heading "Klubhaus" [level=2] [ref=e955]
+              - paragraph [ref=e956]: "Unser modernes Klubhaus ist die perfekte Ergänzung für dein Outdoor-Spiel:"
+              - list [ref=e957]:
+                - listitem [ref=e958]: Klimaanlage
+                - listitem [ref=e959]: Umkleidekabinen & WCs
+                - listitem [ref=e960]: Bar und TV
+                - listitem [ref=e961]:
+                  - text: Voll automatisiert durch unsere
+                  - link "SportSofort APP" [ref=e962] [cursor=pointer]:
+                    - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                  - text: – Plätze buchen, Workshops anmelden und Turniere entdecken.
+              - heading "Turniere, Workshops & Events" [level=2] [ref=e963]
+              - paragraph [ref=e964]: "Erlebe die Padellounge Community bei spannenden Turnieren und lehrreichen Workshops:"
+              - list [ref=e965]:
+                - listitem [ref=e966]: "Turniere: Newcomer, Starter, Advanced, Expert, Professional"
+                - listitem [ref=e967]: "Workshops: Newcomer, Starter, Advanced, Expert"
+                - listitem [ref=e968]:
+                  - text: Anmeldung zu Turnieren über die
+                  - link "Padel Austria Tournament Plattform" [ref=e969] [cursor=pointer]:
+                    - /url: https://padel-austria.at/tournaments?q%5Blocation_id%5D=61
+                - listitem [ref=e970]:
+                  - text: Anmeldung zu Workshops & Events über die
+                  - link "SportSofort APP" [ref=e971] [cursor=pointer]:
+                    - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+              - heading "Babolat Test Center" [level=2] [ref=e972]
+              - paragraph [ref=e973]: Teste alle Padel-Schläger von Babolat und finde den perfekten Schläger für Padel, Paddle oder Paddel Tennis.
+              - heading "Weitere Services" [level=2] [ref=e974]
+              - list [ref=e975]:
+                - listitem [ref=e976]:
+                  - text: "Platzbuchung: Schnell & bequem über die"
+                  - link "SportSofort APP" [ref=e977] [cursor=pointer]:
+                    - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+                - listitem [ref=e978]: "Leihschläger: Ab nur €3 pro Stunde"
+                - listitem [ref=e979]: "Gutscheine: Das perfekte Geschenk für Padel-, Paddle- und Paddel Tennis-Fans"
+              - heading "Kontakt & Buchung" [level=2] [ref=e980]
+              - paragraph [ref=e981]:
+                - strong [ref=e982]: "Adresse:"
+                - text: Weblinger Gürtel 25, 8054 Graz, Österreich
+                - strong [ref=e983]: "E-Mail:"
+                - link "office@padellounge.at" [ref=e984] [cursor=pointer]:
+                  - /url: mailto:office@padellounge.at
+                - strong [ref=e985]: "Telefon/WhatsApp:"
+                - text: +43 677 647 14 690
+                - link "Website besuchen" [ref=e986] [cursor=pointer]:
+                  - /url: https://padellounge.at/
+              - paragraph [ref=e987]: Spiele draußen, genieße Sonne, frische Luft und Padel-Spaß – die Padellounge Graz wartet auf dich!
+            - generic [ref=e988]:
+              - img [ref=e990]
+              - generic [ref=e994]:
+                - heading "Unsere Partner" [level=4] [ref=e997]
+                - generic [ref=e999]:
+                  - link [ref=e1004] [cursor=pointer]:
+                    - /url: https://www.babolat.com/at
+                    - img [ref=e1006]
+                  - img [ref=e1016]
+            - generic [ref=e1021]:
+              - generic [ref=e1023]:
+                - link [ref=e1026] [cursor=pointer]:
+                  - /url: https://padellounge.at
+                - paragraph [ref=e1029]: Das neue Padelerlebnis in Graz
+                - list [ref=e1032]:
+                  - listitem [ref=e1033]:
+                    - link "Instagram" [ref=e1034] [cursor=pointer]:
+                      - /url: https://www.instagram.com/Padellounge.at/
+                      - generic [ref=e1035]: Instagram
+                      - generic [ref=e1036]: 
+                  - listitem [ref=e1037]:
+                    - link "Facebook-f" [ref=e1038] [cursor=pointer]:
+                      - /url: https://www.facebook.com/padellounge.at/
+                      - generic [ref=e1039]: Facebook-f
+                      - generic [ref=e1040]: 
+                - generic [ref=e1042]:
+                  - img "GRAZ_farbig"
+              - generic [ref=e1044]:
+                - heading "Padellounge HSH GmbH" [level=2] [ref=e1047]
+                - list [ref=e1050]:
+                  - listitem [ref=e1051]:
+                    - generic [ref=e1052]: Gemeindeweg 12, 8046 Stattegg
+                  - listitem [ref=e1053]:
+                    - generic [ref=e1054]: www.padellounge.at
+                - list [ref=e1057]:
+                  - listitem [ref=e1058]:
+                    - link "office@padellounge.at" [ref=e1059] [cursor=pointer]:
+                      - /url: mailto:office@padellounge.at?subject=Nachricht%20an%20die%20Padellounge
+                      - generic [ref=e1060]: office@padellounge.at
+                  - listitem [ref=e1061]:
+                    - link "Impressum & Datenschutz" [ref=e1062] [cursor=pointer]:
+                      - /url: https://padellounge.at/impressum/
+                      - generic [ref=e1063]: Impressum & Datenschutz
+                - list [ref=e1066]:
+                  - listitem [ref=e1067]:
+                    - link "AGB" [ref=e1068] [cursor=pointer]:
+                      - /url: https://padellounge.at/agb
+                      - generic [ref=e1069]: AGB
+                - list [ref=e1072]:
+                  - listitem [ref=e1073]:
+                    - generic [ref=e1074]: © 2022 Padellounge HSH GmbH
+              - generic [ref=e1076]:
+                - heading "Öffnungszeiten" [level=2] [ref=e1079]
+                - list [ref=e1082]:
+                  - listitem [ref=e1083]:
+                    - generic [ref=e1084]: Ganzjährig
+                  - listitem [ref=e1085]:
+                    - generic [ref=e1086]: Mo-So 7:00 - 22:00
+                  - listitem [ref=e1087]:
+                    - generic [ref=e1088]: Barbetrieb ab 15:00
+                  - listitem [ref=e1089]:
+                    - generic [ref=e1090]: November - März
+                  - listitem [ref=e1091]:
+                    - generic [ref=e1092]: Mo-So 9:00 - 20:00
+                  - listitem [ref=e1093]:
+                    - generic [ref=e1094]: Barbetrieb wochenends ab 15:00
+                - button [ref=e1095] [cursor=pointer]:
+                  - generic [ref=e1096]: Hi! Frag mich - Im Chat helfe ich dir viel schneller als am Telefon. 👍
+  - text:  + +
+  - generic [ref=e1099]:
+    - generic [ref=e1100]: We use cookies on our website to give you the most relevant experience by remembering your preferences and repeat visits. By clicking “Accept All”, you consent to the use of ALL the cookies. However, you may visit "Cookie Settings" to provide a controlled consent.
+    - generic [ref=e1101]:
+      - button "Cookie Settings" [ref=e1102] [cursor=pointer]
+      - button "Accept All" [ref=e1103] [cursor=pointer]
+  - text: Mehr anzeigen  Deaktiviert Deaktiviert Deaktiviert Deaktiviert Deaktiviert
+  - generic [ref=e1104]: desktop

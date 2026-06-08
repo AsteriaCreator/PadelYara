@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PadelYara — Mockup Silver</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ── Palette ── */
+  :root {
+    --bg:           #141414;
+    --surface:      #1C1C1E;
+    --border:       #2C2C2E;
+    --input-bg:     #242426;
+
+    --silver:       #B8BCC4;   /* warm silver — main accent */
+    --silver-dim:   #6E727A;   /* muted silver for labels */
+    --silver-muted: #3E4046;   /* very muted / dividers */
+
+    --text:         #F2F2F3;
+    --text-sub:     #8A8E96;
+    --text-muted:   #545860;
+
+    --green:        #3DBE76;
+    --red:          #E05252;
+    --amber:        #C89A2A;
+    --blue:         #4D8FCC;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  .container { max-width: 480px; margin: 0 auto; }
+
+  /* ── Header ── */
+  header { margin-bottom: 24px; }
+  header .brand { display: flex; align-items: center; gap: 10px; }
+  header .brand-icon {
+    width: 36px; height: 36px;
+    background: var(--silver);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  header .brand-name {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: var(--text);
+  }
+  header .brand-name span { color: var(--silver); }
+  header .tagline {
+    font-size: 13px;
+    color: var(--text-sub);
+    margin-top: 4px;
+    padding-left: 46px;
+  }
+
+  /* ── Card ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  /* ── Form ── */
+  .form-row { display: flex; gap: 12px; margin-bottom: 12px; }
+  .form-row .field { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .form-row .field.narrow { flex: 0 0 100px; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .form-grid .field { display: flex; flex-direction: column; gap: 4px; }
+  .form-grid .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 11px;
+    color: var(--silver-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+  }
+
+  input, select {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 15px;
+    color: var(--text);
+    width: 100%;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.15s;
+  }
+  input:focus, select:focus { border-color: var(--silver-dim); }
+
+  /* ── Buttons ── */
+  .btn-search {
+    width: 100%;
+    padding: 11px;
+    border-radius: 9px;
+    border: none;
+    background: var(--silver);
+    color: #111;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-search:hover { background: #D0D4DC; }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    padding-left: 2px;
+  }
+  .section-count { font-size: 12px; color: var(--text-sub); margin-bottom: 8px; padding-left: 2px; }
+
+  /* ── Results ── */
+  .results-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .venue-row {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--silver-muted);
+  }
+  .venue-row:last-child { border-bottom: none; }
+
+  .venue-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    min-width: 0;
+  }
+
+  .venue-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: 10px;
+  }
+  .badge-free    { background: rgba(61,190,118,0.15); color: #3DBE76; }
+  .badge-busy    { background: rgba(224,82,82,0.15);  color: #E05252; }
+  .badge-pending { background: rgba(77,143,204,0.15); color: #4D8FCC; }
+  .badge-unknown { background: rgba(200,154,42,0.15); color: var(--amber); }
+
+  .venue-bottom {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .venue-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .venue-meta span { color: var(--border); }
+
+  .btn-book {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+  }
+  .btn-book-free { background: var(--green); color: #fff; }
+  .btn-book-link {
+    background: var(--silver-muted);
+    color: var(--silver);
+    border: 1px solid var(--border);
+  }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  /* ── Palette chips (info panel) ── */
+  .palette-panel {
+    margin-top: 36px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .palette-panel h3 { font-size: 12px; color: var(--silver-dim); margin-bottom: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    display: flex; align-items: center; gap: 8px;
+    background: #1A1A1C; border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 10px;
+  }
+  .chip-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  .chip-label { font-size: 11px; color: var(--text-sub); }
+  .chip-hex { font-size: 11px; color: var(--text-muted); font-family: monospace; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🐾</div>
+      <div class="brand-name">Padel<span>Yara</span></div>
+    </div>
+    <p class="tagline">Dein Match. Dein Moment.</p>
+  </header>
+
+  <!-- Search Card -->
+  <div class="card">
+    <div class="form-row">
+      <div class="field">
+        <label>PLZ oder Ort</label>
+        <input type="text" value="Baden" />
+      </div>
+      <div class="field narrow">
+        <label>Radius</label>
+        <select>
+          <option>20 km</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Datum</label>
+        <input type="text" value="2026-05-30" />
+      </div>
+      <div class="field">
+        <label>Uhrzeit</label>
+        <select><option>19:00</option></select>
+      </div>
+      <div class="field full">
+        <label>Court</label>
+        <select><option>Indoor &amp; Outdoor</option></select>
+      </div>
+    </div>
+
+    <button class="btn-search">SUCHEN</button>
+  </div>
+
+  <!-- Results -->
+  <p class="section-label">Baden · 20 km Umkreis</p>
+  <p class="section-count">4 Ergebnisse</p>
+
+  <div class="results-card">
+
+    <div class="venue-row">
+      <div class="venue-top">
+        <span class="venue-name">Padel Club Baden</span>
+        <span class="badge badge-free">Frei</span>
+      </div>
+      <div class="venue-bottom">
+        <div class="venue-meta">
+          <span>eTennis</span>·<span>Indoor</span>·<span>3.2 km entfernt</span>
+        </div>
+        <a class="btn-book btn-book-free">JETZT BUCHEN ↗</a>
+      </div>
+    </div>
+
+    <div class="venue-row">
+      <div class="venue-top">
+        <span class="venue-name">Wiener Neustadt Padel</span>
+        <span class="badge badge-busy">Belegt</span>
+      </div>
+      <div class="venue-bottom">
+        <div class="venue-meta">
+          <span>Eversports</span>·<span>Outdoor</span>·<span>11.7 km entfernt</span>
+        </div>
+        <a class="btn-book btn-book-link">LINK ↗</a>
+      </div>
+    </div>
+
+    <div class="venue-row">
+      <div class="venue-top">
+        <span class="venue-name">Sport & Padel Mödling</span>
+        <span class="badge badge-pending">Wird geprüft …</span>
+      </div>
+      <div class="venue-bottom">
+        <div class="venue-meta">
+          <span>eTennis</span>·<span>Indoor</span>·<span>14.1 km entfernt</span>
+        </div>
+        <a class="btn-book btn-book-link">LINK ↗</a>
+      </div>
+    </div>
+
+    <div class="venue-row">
+      <div class="venue-top">
+        <span class="venue-name">Padel Arena Gumpoldskirchen</span>
+        <span class="badge badge-free">Frei</span>
+      </div>
+      <div class="venue-bottom">
+        <div class="venue-meta">
+          <span>Eversports</span>·<span>Outdoor</span>·<span>18.4 km entfernt</span>
+        </div>
+        <a class="btn-book btn-book-free">JETZT BUCHEN ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Palette reference -->
+  <div class="palette-panel">
+    <h3>Farbpalette — Dark Charcoal + Warm Silver</h3>
+    <div class="chips">
+      <div class="chip">
+        <div class="chip-dot" style="background:#141414;border:1px solid #333"></div>
+        <span class="chip-label">Background</span>
+        <span class="chip-hex">#141414</span>
+      </div>
+      <div class="chip">
+        <div class="chip-dot" style="background:#1C1C1E"></div>
+        <span class="chip-label">Surface</span>
+        <span class="chip-hex">#1C1C1E</span>
+      </div>
+      <div class="chip">
+        <div class="chip-dot" style="background:#B8BCC4"></div>
+        <span class="chip-label">Silver</span>
+        <span class="chip-hex">#B8BCC4</span>
+      </div>
+      <div class="chip">
+        <div class="chip-dot" style="background:#6E727A"></div>
+        <span class="chip-label">Silver dim</span>
+        <span class="chip-hex">#6E727A</span>
+      </div>
+      <div class="chip">
+        <div class="chip-dot" style="background:#2C2C2E"></div>
+        <span class="chip-label">Border</span>
+        <span class="chip-hex">#2C2C2E</span>
+      </div>
+      <div class="chip">
+        <div class="chip-dot" style="background:#3DBE76"></div>
+        <span class="chip-label">Free / Frei</span>
+        <span class="chip-hex">#3DBE76</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>© 2026 PadelYara</footer>
+
+</div>
+</body>
+</html>

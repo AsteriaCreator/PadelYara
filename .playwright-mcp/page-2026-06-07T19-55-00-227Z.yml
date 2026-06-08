@@ -1,0 +1,263 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - img "PadelYara" [ref=e62]
+    - generic [ref=e6]:
+      - link "Court Finder" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Padelrevier" [ref=e8] [cursor=pointer]:
+        - /url: /padelrevier
+      - link "Turnierjagd" [ref=e9] [cursor=pointer]:
+        - /url: /turnierjaeger
+      - link "Über Yara" [ref=e10] [cursor=pointer]:
+        - /url: /about
+    - paragraph [ref=e11]: Yara findet einen freien Court für dich. Wo willst du spielen?
+    - paragraph [ref=e12]:
+      - text: PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?
+      - link "Schreib Yara." [ref=e13] [cursor=pointer]:
+        - /url: mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback
+    - generic [ref=e14]:
+      - paragraph [ref=e15]: Neue Features kommen. Ob du das mitbekommst, ist deine Entscheidung.
+      - generic [ref=e16]:
+        - textbox "deine@email.at" [ref=e17]
+        - button "INFORMIER MICH" [ref=e18]
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Wo?
+          - textbox "z.B. 2500 oder Baden" [ref=e24]: "1220"
+        - generic [ref=e25]:
+          - generic [ref=e26]: Umkreis
+          - combobox [ref=e27]:
+            - option "5 km"
+            - option "10 km"
+            - option "20 km" [selected]
+            - option "25 km"
+            - option "50 km"
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]: Wann?
+          - textbox [ref=e31]: 2026-06-07
+        - generic [ref=e32]:
+          - generic [ref=e33]: Ab wann?
+          - combobox [ref=e34]:
+            - option "07:00" [disabled]
+            - option "08:00" [disabled]
+            - option "09:00" [disabled]
+            - option "10:00" [disabled]
+            - option "11:00" [disabled]
+            - option "12:00" [disabled]
+            - option "13:00" [disabled]
+            - option "14:00" [disabled]
+            - option "15:00" [disabled]
+            - option "16:00" [disabled]
+            - option "17:00" [disabled]
+            - option "18:00" [disabled]
+            - option "19:00" [disabled]
+            - option "20:00" [disabled]
+            - option "21:00" [disabled]
+            - option "22:00" [selected]
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: Court-Typ
+          - generic [ref=e38]:
+            - generic [ref=e39] [cursor=pointer]:
+              - checkbox "Indoor" [checked] [ref=e40]
+              - generic [ref=e41]: Indoor
+            - generic [ref=e42] [cursor=pointer]:
+              - checkbox "Outdoor" [checked] [ref=e43]
+              - generic [ref=e44]: Outdoor
+        - generic [ref=e45]:
+          - generic [ref=e46]: Verfügbarkeit
+          - generic [ref=e47]:
+            - generic [ref=e48] [cursor=pointer]:
+              - checkbox "Frei" [checked] [ref=e49]
+              - generic [ref=e50]: Frei
+            - generic [ref=e51] [cursor=pointer]:
+              - checkbox "Belegt" [checked] [ref=e52]
+              - generic [ref=e53]: Belegt
+      - button "SUCHEN" [active] [ref=e54]
+    - generic [ref=e63]:
+      - paragraph [ref=e64]: Das Wetter in deiner Suchlocation
+      - generic [ref=e65]:
+        - generic [ref=e66]: ☀️
+        - generic [ref=e67]:
+          - generic [ref=e68]: 20.7°C
+          - generic [ref=e69]: Sonnig
+        - generic [ref=e70]:
+          - generic [ref=e71]: 0%
+          - paragraph [ref=e72]: Regenwahrsch.
+          - paragraph [ref=e73]: Outdoor gut möglich
+    - generic [ref=e74]:
+      - img "Yara" [ref=e76]
+      - generic [ref=e77]: Yara ist auf der Jagd…
+    - paragraph [ref=e78]: 1220 · 20 km Umkreis
+    - generic [ref=e79]:
+      - paragraph [ref=e80]: 15 Ergebnisse im Umkreis von 20 km
+      - button "TEILEN" [ref=e81]
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]: PadelDome Wien Stadlau
+          - generic [ref=e88]: Nicht online prüfbar
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: 🏠 indoor
+            - generic [ref=e92]: 📍 1.9 km
+          - link "LINK →" [ref=e93] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=5175&t=1780783200
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]: PadelUnion Wien Prater
+          - generic [ref=e98]:
+            - generic [ref=e99]: € 6/h
+            - generic [ref=e100]: Kein Slot
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - generic [ref=e103]: 🌳 outdoor
+            - generic [ref=e104]: 📍 5.9 km
+          - link "LINK →" [ref=e105] [cursor=pointer]:
+            - /url: https://www.padelunion.at/reservierung?c=3776&t=1780783200
+      - generic [ref=e106]:
+        - generic [ref=e107]:
+          - generic [ref=e108]: Sportcenter Donaucity
+          - generic [ref=e111]: Nicht geprüft
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - generic [ref=e114]: 🌳 outdoor
+            - generic [ref=e115]: 📍 6.5 km
+          - link "LINK →" [ref=e116] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/sportcenter-donaucity?date=2026-06-07
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - generic [ref=e119]: PadelDome Wien Erdberg
+          - generic [ref=e121]:
+            - generic [ref=e122]: € 32/h
+            - generic [ref=e123]: Belegt
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - generic [ref=e126]: 🏠 indoor
+            - generic [ref=e127]: 📍 6.5 km
+          - link "LINK →" [ref=e128] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=2665&t=1780783200
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - generic [ref=e131]: PadelDome Wien Süßenbrunn
+          - generic [ref=e133]:
+            - generic [ref=e134]: € 32/h
+            - generic [ref=e135]: Belegt
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - generic [ref=e138]: 🏠 indoor
+            - generic [ref=e139]: 📍 7.0 km
+          - link "LINK →" [ref=e140] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=2667&t=1780783200
+      - generic [ref=e141]:
+        - generic [ref=e142]:
+          - generic [ref=e143]: Alte Donau outdoor
+          - generic [ref=e145]:
+            - generic [ref=e146]: € 40/h
+            - generic [ref=e147]: Belegt
+        - generic [ref=e148]:
+          - generic [ref=e149]:
+            - generic [ref=e150]: 🌳 outdoor
+            - generic [ref=e151]: 📍 7.3 km
+          - link "LINK →" [ref=e152] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=3218&t=1780783200
+      - generic [ref=e153]:
+        - generic [ref=e154]:
+          - generic [ref=e155]: Wien Sportinsel
+          - generic [ref=e158]: Wird noch geprüft …
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - generic [ref=e161]: 🌳 outdoor
+            - generic [ref=e162]: 📍 8.3 km
+          - link "LINK →" [ref=e163] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-wien-or-spezi-sportinsel?date=2026-06-07
+      - generic [ref=e164]:
+        - generic [ref=e165]:
+          - generic [ref=e166]: Wien Floridsdorf
+          - generic [ref=e169]: Wird noch geprüft …
+        - generic [ref=e170]:
+          - generic [ref=e171]:
+            - generic [ref=e172]: 🏠🌳 indoor+outdoor
+            - generic [ref=e173]: 📍 10.0 km
+          - link "LINK →" [ref=e174] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-wien-or-floridsdorf-powered-by-cupra?date=2026-06-07
+      - generic [ref=e175]:
+        - generic [ref=e176]:
+          - generic [ref=e177]: Wien C&C Wienerberg
+          - generic [ref=e180]: Wird noch geprüft …
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - generic [ref=e183]: 🏠 indoor
+            - generic [ref=e184]: 📍 12.6 km
+          - link "LINK →" [ref=e185] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-wien-or-candc-wienerberg?date=2026-06-07
+      - generic [ref=e186]:
+        - generic [ref=e187]:
+          - generic [ref=e188]: Hagenbrunn Sport König
+          - generic [ref=e191]: Wird noch geprüft …
+        - generic [ref=e192]:
+          - generic [ref=e193]:
+            - generic [ref=e194]: 🏠🌳 indoor+outdoor
+            - generic [ref=e195]: 📍 13.0 km
+          - link "LINK →" [ref=e196] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-hagenbrunn-or-sport-koenig?date=2026-06-07
+      - generic [ref=e197]:
+        - generic [ref=e198]:
+          - generic [ref=e199]: Sportzentrum Marswiese
+          - generic [ref=e202]: Wird noch geprüft …
+        - generic [ref=e203]:
+          - generic [ref=e204]:
+            - generic [ref=e205]: 🌳 outdoor
+            - generic [ref=e206]: 📍 14.5 km
+          - link "LINK →" [ref=e207] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/sportzentrum-marswiese?sport=padel?date=2026-06-07
+      - generic [ref=e208]:
+        - generic [ref=e209]:
+          - generic [ref=e210]: Klosterneuburg Happyland
+          - generic [ref=e213]: Wird noch geprüft …
+        - generic [ref=e214]:
+          - generic [ref=e215]:
+            - generic [ref=e216]: 🌳 outdoor
+            - generic [ref=e217]: 📍 15.7 km
+          - link "LINK →" [ref=e218] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-klosterneuburg-or-happyland?date=2026-06-07
+      - generic [ref=e219]:
+        - generic [ref=e220]:
+          - generic [ref=e221]: PadelZone Vösendorf
+          - generic [ref=e224]: Wird noch geprüft …
+        - generic [ref=e225]:
+          - generic [ref=e226]:
+            - generic [ref=e227]: 🏠 indoor
+            - generic [ref=e228]: 📍 16.1 km
+          - link "LINK →" [ref=e229] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-voesendorf?date=2026-06-07
+      - generic [ref=e230]:
+        - generic [ref=e231]:
+          - generic [ref=e232]: Colony Club
+          - generic [ref=e235]: Wird noch geprüft …
+        - generic [ref=e236]:
+          - generic [ref=e237]:
+            - generic [ref=e238]: 🌳 outdoor
+            - generic [ref=e239]: 📍 17.6 km
+          - link "LINK →" [ref=e240] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-wien-or-colony-club?sport=padel?date=2026-06-07
+      - generic [ref=e241]:
+        - generic [ref=e242]:
+          - generic [ref=e243]: Korneuburg Masters of Dirt
+          - generic [ref=e246]: Wird noch geprüft …
+        - generic [ref=e247]:
+          - generic [ref=e248]:
+            - generic [ref=e249]: 🌳 outdoor
+            - generic [ref=e250]: 📍 18.6 km
+          - link "LINK →" [ref=e251] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-korneuburg-or-masters-of-dirt?date=2026-06-07
+    - button "MEHR ERGEBNISSE" [ref=e252] [cursor=pointer]
+    - paragraph [ref=e253]: Zuletzt aktualisiert gerade eben
+  - contentinfo [ref=e57]:
+    - paragraph [ref=e58]: PadelYara
+    - generic [ref=e59]:
+      - button "Impressum" [ref=e60]
+      - link "Datenschutz" [ref=e61] [cursor=pointer]:
+        - /url: /datenschutz

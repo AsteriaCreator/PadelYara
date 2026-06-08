@@ -1,0 +1,101 @@
+- generic [ref=e83]:
+  - generic [ref=e84]:
+    - img "PadelYara" [ref=e86]
+    - generic [ref=e87]:
+      - link "Court Finder" [ref=e88] [cursor=pointer]:
+        - /url: /
+      - link "Padelrevier" [ref=e89] [cursor=pointer]:
+        - /url: /padelrevier
+      - link "Turnierjagd" [ref=e90] [cursor=pointer]:
+        - /url: /turnierjaeger
+      - link "Über Yara" [ref=e91] [cursor=pointer]:
+        - /url: /about
+    - paragraph [ref=e92]: Yara findet einen freien Court für dich. Wo willst du spielen?
+    - paragraph [ref=e93]:
+      - text: PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?
+      - link "Schreib Yara." [ref=e94] [cursor=pointer]:
+        - /url: mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback
+    - generic [ref=e95]:
+      - paragraph [ref=e96]: Neue Features kommen. Ob du das mitbekommst, ist deine Entscheidung.
+      - generic [ref=e97]:
+        - textbox "deine@email.at" [ref=e98]
+        - button "INFORMIER MICH" [ref=e99]
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]: Wo?
+          - textbox "z.B. 2500 oder Baden" [ref=e105]: "3961"
+        - generic [ref=e106]:
+          - generic [ref=e107]: Umkreis
+          - combobox [ref=e108]:
+            - option "5 km" [selected]
+            - option "10 km"
+            - option "20 km"
+            - option "25 km"
+            - option "50 km"
+      - generic [ref=e109]:
+        - generic [ref=e110]:
+          - generic [ref=e111]: Wann?
+          - textbox [ref=e112]: 2026-06-07
+        - generic [ref=e113]:
+          - generic [ref=e114]: Ab wann?
+          - combobox [ref=e115]:
+            - option "07:00" [disabled]
+            - option "08:00" [disabled]
+            - option "09:00" [disabled]
+            - option "10:00" [disabled]
+            - option "11:00" [disabled]
+            - option "12:00" [disabled]
+            - option "13:00" [disabled]
+            - option "14:00" [disabled]
+            - option "15:00" [disabled]
+            - option "16:00" [disabled]
+            - option "17:00" [disabled]
+            - option "18:00" [disabled]
+            - option "19:00" [disabled]
+            - option "20:00" [disabled]
+            - option "21:00" [disabled]
+            - option "22:00" [selected]
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - generic [ref=e118]: Court-Typ
+          - generic [ref=e119]:
+            - generic [ref=e120] [cursor=pointer]:
+              - checkbox "Indoor" [checked] [ref=e121]
+              - generic [ref=e122]: Indoor
+            - generic [ref=e123] [cursor=pointer]:
+              - checkbox "Outdoor" [checked] [ref=e124]
+              - generic [ref=e125]: Outdoor
+        - generic [ref=e126]:
+          - generic [ref=e127]: Verfügbarkeit
+          - generic [ref=e128]:
+            - generic [ref=e129] [cursor=pointer]:
+              - checkbox "Frei" [checked] [ref=e130]
+              - generic [ref=e131]: Frei
+            - generic [ref=e132] [cursor=pointer]:
+              - checkbox "Belegt" [checked] [ref=e133]
+              - generic [ref=e134]: Belegt
+      - button "SUCHEN" [active] [ref=e135]
+    - generic [ref=e144]:
+      - paragraph [ref=e145]: Das Wetter in deiner Suchlocation
+      - generic [ref=e146]:
+        - generic [ref=e147]: ☀️
+        - generic [ref=e148]:
+          - generic [ref=e149]: 15.8°C
+          - generic [ref=e150]: Sonnig
+        - generic [ref=e151]:
+          - generic [ref=e152]: 0%
+          - paragraph [ref=e153]: Regenwahrsch.
+          - paragraph [ref=e154]: Outdoor gut möglich
+    - paragraph [ref=e155]: 3961 · 5 km Umkreis
+    - generic [ref=e156]:
+      - paragraph [ref=e157]: 🎾
+      - paragraph [ref=e158]: Keine Ergebnisse.
+      - paragraph [ref=e159]: "Lösungsvorschlag: woanders wohnen."
+    - paragraph [ref=e160]: Zuletzt aktualisiert gerade eben
+  - contentinfo [ref=e139]:
+    - paragraph [ref=e140]: PadelYara
+    - generic [ref=e141]:
+      - button "Impressum" [ref=e142]
+      - link "Datenschutz" [ref=e143] [cursor=pointer]:
+        - /url: /datenschutz

@@ -1,0 +1,173 @@
+- generic [active] [ref=e1]:
+  - link "Weiter zum Haupttext" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "TCE Bad Eisenkappel" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "TCE Bad Eisenkappel" [ref=e7]
+      - navigation [ref=e9]:
+        - generic:
+          - list
+        - list [ref=e10]:
+          - listitem [ref=e11]:
+            - link "Startseite" [ref=e12] [cursor=pointer]:
+              - /url: index.php
+          - listitem [ref=e13]:
+            - link "Reservierung" [ref=e14] [cursor=pointer]:
+              - /url: reservierung/Web/view-schedule.php
+          - listitem [ref=e15]:
+            - link "Berichte" [ref=e16] [cursor=pointer]:
+              - /url: berichte.php?sektion=1
+          - listitem [ref=e17]:
+            - link "Fotogalerie" [ref=e18] [cursor=pointer]:
+              - /url: fotogalerie.php
+          - listitem [ref=e19]:
+            - link "Meisterschaft" [ref=e20] [cursor=pointer]:
+              - /url: meisterschaft.php
+          - listitem [ref=e21]:
+            - link "Padel Tennis" [ref=e22] [cursor=pointer]:
+              - /url: padel_tennis.php
+              - text: Padel Tennis
+  - generic [ref=e25]:
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - img "TCE - Bad Eisenkappel" [ref=e29]
+        - generic [ref=e31]:
+          - heading "Herzlich Willkommen beim TCE Bad Eisenkappel!" [level=2] [ref=e32]:
+            - text: Herzlich Willkommen beim
+            - text: TCE Bad Eisenkappel!
+          - paragraph [ref=e33]
+    - link:
+      - /url: "#"
+      - img
+    - link:
+      - /url: "#"
+      - img
+    - list [ref=e37]:
+      - listitem [ref=e38]:
+        - link [ref=e39] [cursor=pointer]:
+          - /url: ""
+      - listitem [ref=e40]:
+        - link [ref=e41] [cursor=pointer]:
+          - /url: ""
+      - listitem [ref=e42]:
+        - link [ref=e43] [cursor=pointer]:
+          - /url: ""
+  - generic [ref=e45]:
+    - heading "Startseite" [level=1] [ref=e46]
+    - generic [ref=e47]:
+      - generic [ref=e48]:
+        - link "Nächsten Meisterschaftsspiele" [ref=e51] [cursor=pointer]:
+          - /url: berichte_detail.php?sektion=1&id=8
+          - img "Nächsten Meisterschaftsspiele" [ref=e52]
+        - generic [ref=e53]:
+          - paragraph [ref=e54]: 2026-05-28
+          - link "Nächsten Meisterschaftsspiele" [ref=e55] [cursor=pointer]:
+            - /url: berichte_detail.php?sektion=1&id=8
+            - heading "Nächsten Meisterschaftsspiele" [level=2] [ref=e56]
+          - paragraph
+          - link "> weiterlesen" [ref=e57] [cursor=pointer]:
+            - /url: berichte_detail.php?sektion=1&id=8
+      - generic [ref=e58]:
+        - link "Sommerabo 2026" [ref=e61] [cursor=pointer]:
+          - /url: berichte_detail.php?sektion=1&id=5
+          - img "Sommerabo 2026" [ref=e62]
+        - generic [ref=e63]:
+          - paragraph [ref=e64]: 2026-04-10
+          - link "Sommerabo 2026" [ref=e65] [cursor=pointer]:
+            - /url: berichte_detail.php?sektion=1&id=5
+            - heading "Sommerabo 2026" [level=2] [ref=e66]
+          - paragraph [ref=e67]: Liebe Tennisfreunde, dragi prijatelji tenisa! Die Plätze auf unserer Anlage sind saniert und es steht einer schönen und sportlich erfolgreichen Tenni...
+          - link "> weiterlesen" [ref=e68] [cursor=pointer]:
+            - /url: berichte_detail.php?sektion=1&id=5
+  - generic [ref=e71]:
+    - generic [ref=e72]:
+      - heading "Sitemap" [level=3] [ref=e73]:
+        - img [ref=e75]
+        - text: Sitemap
+      - list [ref=e85]:
+        - listitem [ref=e86]:
+          - link "Startseite" [ref=e87] [cursor=pointer]:
+            - /url: index.php
+        - listitem [ref=e88]:
+          - link "Reservierung" [ref=e89] [cursor=pointer]:
+            - /url: https://www.tc-badeisenkappel.at/reservierung/Web/view-schedule.php
+        - listitem [ref=e90]:
+          - link "Berichte" [ref=e91] [cursor=pointer]:
+            - /url: berichte.php
+        - listitem [ref=e92]:
+          - link "Meisterschaft" [ref=e93] [cursor=pointer]:
+            - /url: meisterschaft.php
+        - listitem [ref=e94]:
+          - link "Fotogalerie" [ref=e95] [cursor=pointer]:
+            - /url: fotogalerie.php
+        - listitem [ref=e96]:
+          - link "Padel Tennis" [ref=e97] [cursor=pointer]:
+            - /url: padel_tennis.php
+        - listitem [ref=e98]:
+          - link "Padel Tennis - Regelwerk" [ref=e99] [cursor=pointer]:
+            - /url: regelwerk.php
+    - generic [ref=e100]:
+      - heading "Social Media" [level=3] [ref=e101]:
+        - img [ref=e103]
+        - text: Social Media
+      - list [ref=e107]:
+        - listitem [ref=e108]:
+          - text: "Folge uns auf:"
+          - link [ref=e109] [cursor=pointer]:
+            - /url: https://www.facebook.com/TennisclubBadEisenkappel
+            - img [ref=e110]
+          - link [ref=e112] [cursor=pointer]:
+            - /url: https://www.instagram.com/tce_padel
+            - img [ref=e113]
+    - generic [ref=e117]:
+      - heading "Kontakt" [level=3] [ref=e118]:
+        - img [ref=e120]
+        - text: Kontakt
+      - list [ref=e124]:
+        - listitem [ref=e125]:
+          - paragraph [ref=e126]:
+            - strong [ref=e127]: TCE Bad Eisenkappel
+            - strong [ref=e128]: "Platzadresse:"
+            - text: Vellach 10 - Tenniszentrum
+            - text: 9135 Bad Eisenkappel
+          - paragraph [ref=e129]:
+            - strong [ref=e130]: "Postadresse:"
+            - text: Christian Morosz
+            - text: Eisenkappel 336
+            - text: 9135 Bad Eisenkappel
+        - listitem [ref=e131]:
+          - img [ref=e133]
+          - link "+43 664 8148140" [ref=e135] [cursor=pointer]:
+            - /url: tel:+43 664 8148140
+        - listitem [ref=e136]:
+          - img [ref=e138]
+          - link "christian.morosz@swietelsky.at" [ref=e141] [cursor=pointer]:
+            - /url: mailto:christian.morosz@swietelsky.at
+  - contentinfo [ref=e142]:
+    - generic [ref=e144]:
+      - generic [ref=e145]: © 2025 TCE Bad Eisenkappel
+      - generic [ref=e146]:
+        - link "Login" [ref=e147] [cursor=pointer]:
+          - /url: admins/index.php
+        - text: "|"
+        - link "Datenschutz" [ref=e148] [cursor=pointer]:
+          - /url: datenschutz.php
+        - text: "|"
+        - link "Impressum" [ref=e149] [cursor=pointer]:
+          - /url: impressum.php
+  - text: ´
+  - dialog "Datenschutzeinstellungen" [ref=e150]:
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - heading "Datenschutzeinstellungen" [level=2] [ref=e153]
+        - generic [ref=e154]:
+          - text: Wir nutzen Cookies auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung. Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer Datenschutzerklärung. Sie können Ihre Auswahl jederzeit unter Einstellungen widerrufen oder anpassen.
+          - link "Datenschutzbestimmungen" [ref=e155] [cursor=pointer]:
+            - /url: datenschutz.php
+      - generic [ref=e156]:
+        - button "Einstellungen" [ref=e158] [cursor=pointer]
+        - generic [ref=e159]:
+          - button "Widerrufen" [ref=e160] [cursor=pointer]
+          - button "Alle Akzeptieren" [ref=e161] [cursor=pointer]

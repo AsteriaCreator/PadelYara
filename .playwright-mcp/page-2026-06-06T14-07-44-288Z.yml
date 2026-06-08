@@ -1,0 +1,150 @@
+- generic [ref=e2]:
+  - region "Cookie-Banner" [ref=e3]:
+    - paragraph [ref=e4]: Durch die Nutzung dieser Website erklärst du dich mit unserer Verwendung von Cookies einverstanden. Wir verwenden Cookies, um dir ein tolles Erlebnis zu bieten und unsere Website wirksam zu betreiben.
+    - generic [ref=e5]:
+      - button "Ablehnen" [ref=e6] [cursor=pointer]:
+        - generic [ref=e7]: Ablehnen
+      - button "Annehmen" [ref=e8] [cursor=pointer]:
+        - generic [ref=e9]: Annehmen
+  - banner:
+    - generic [ref=e10]:
+      - link "Zum Inhalt springen" [ref=e11] [cursor=pointer]:
+        - /url: "#page"
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - link "Vorarlberger Padel Verband" [ref=e18] [cursor=pointer]:
+            - /url: /
+            - img "Vorarlberger Padel Verband" [ref=e19]
+          - navigation [ref=e22]:
+            - link "Team" [ref=e24] [cursor=pointer]:
+              - /url: /team
+            - link "VPV Winter Cup" [ref=e26] [cursor=pointer]:
+              - /url: /vpv-winter-cup
+            - link "Turnierkalender" [ref=e28] [cursor=pointer]:
+              - /url: https://vorarlberg.padel-austria.at/tournaments
+            - link "Rangliste" [ref=e30] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/rankings/males
+            - link "Partner" [ref=e32] [cursor=pointer]:
+              - /url: /partner
+            - link "Geschichte" [ref=e34] [cursor=pointer]:
+              - /url: /geschichte
+            - link "Standorte" [ref=e36] [cursor=pointer]:
+              - /url: /standorte
+            - link "Kontakt" [ref=e38] [cursor=pointer]:
+              - /url: /kontakt
+        - generic [ref=e40]:
+          - link "Facebook" [ref=e41] [cursor=pointer]:
+            - /url: https://www.facebook.com/Vorarlberger-Padel-Verband-107378304235856
+            - img [ref=e42]
+          - link "info@vorarlbergpadel.at" [ref=e44] [cursor=pointer]:
+            - /url: mailto:info@vorarlbergpadel.at
+            - img [ref=e45]
+  - main [ref=e47]:
+    - article [ref=e48]:
+      - heading "Standorte" [level=1] [ref=e60]
+      - heading "Der Padel Sport in Vorarlberg wächst immer schneller. Bereits 4 Vereine mit 5 Standorten sind Mitglied beim Vorarlberger Padel Verband." [level=3] [ref=e72]
+      - generic [ref=e79]:
+        - 'figure "Tennisclub Hard Walserstraße 20, 6971 Hard, Österreich Ansprechpartner: Felix Thaler / padel@tchard.at Anzahl der Padel-Plätze: 2 x Outdoor —> Hier geht’s zur Website —> Hier könnt ihr einen Platz buchen" [ref=e82]':
+          - generic [ref=e87]:
+            - heading "Tennisclub Hard" [level=3] [ref=e90]
+            - generic [ref=e92]:
+              - paragraph [ref=e93]:
+                - text: Walserstraße 20, 6971 Hard, Österreich
+                - text: "Ansprechpartner: Felix Thaler /"
+                - link "padel@tchard.at" [ref=e94] [cursor=pointer]:
+                  - /url: mailto:padel@tchard.at
+                - text: "Anzahl der Padel-Plätze: 2 x Outdoor"
+              - paragraph [ref=e95]:
+                - link "—> Hier geht’s zur Website" [ref=e96] [cursor=pointer]:
+                  - /url: https://www.tchard.at
+                - link "—> Hier könnt ihr einen Platz buchen" [ref=e97] [cursor=pointer]:
+                  - /url: http://www.tennis04.at/hard
+        - 'figure "1.-Padel Tennis Club Vorarlberg Zieglerweg 17, 6830 Rankweil, Österreich Ansprechpartner: Lukas Berthold / info@ptcv.at Anzahl der Padel-Plätze: 1 x Outdoor überdacht —> Hier geht’s zur Website —> Hier könnt ihr einen Platz buchen" [ref=e101]':
+          - img "Padel Standort 1. PTCV Rankweil" [ref=e105]
+          - generic [ref=e107]:
+            - heading "1.-Padel Tennis Club Vorarlberg" [level=3] [ref=e110]
+            - generic [ref=e112]:
+              - paragraph [ref=e113]:
+                - text: Zieglerweg 17, 6830 Rankweil, Österreich
+                - text: "Ansprechpartner: Lukas Berthold /"
+                - link "info@ptcv.at" [ref=e114] [cursor=pointer]:
+                  - /url: mailto:info@ptcv.at
+                - text: "Anzahl der Padel-Plätze: 1 x Outdoor überdacht"
+              - paragraph [ref=e115]:
+                - link "—> Hier geht’s zur Website" [ref=e116] [cursor=pointer]:
+                  - /url: https://www.ptcv.at
+                - link "—> Hier könnt ihr einen Platz buchen" [ref=e117] [cursor=pointer]:
+                  - /url: https://ptc.tennisplatz.info/reservierung
+        - 'figure "Tennis-Club Blau-Weiss Feldkirch Sägerstraße 75a, 6800 Feldkirch-Gisingen, Österreich Ansprechpartner: Stefan Patterer / stefan.patterer@tcbw.at Anzahl der Padel-Plätze: 2 x Outdoor —> Hier geht’s zur Website —> Hier könnt ihr einen Platz buchen" [ref=e121]':
+          - generic [ref=e126]:
+            - heading "Tennis-Club Blau-Weiss Feldkirch" [level=3] [ref=e129]:
+              - text: Tennis-Club
+              - text: Blau-Weiss Feldkirch
+            - generic [ref=e131]:
+              - paragraph [ref=e132]:
+                - text: Sägerstraße 75a, 6800 Feldkirch-Gisingen, Österreich
+                - text: "Ansprechpartner: Stefan Patterer /"
+                - link "stefan.patterer@tcbw.at" [ref=e133] [cursor=pointer]:
+                  - /url: mailto:stefan.patterer@tcbw.at
+                - text: "Anzahl der Padel-Plätze: 2 x Outdoor"
+              - paragraph [ref=e134]:
+                - link "—> Hier geht’s zur Website" [ref=e135] [cursor=pointer]:
+                  - /url: https://www.tcbw.at
+                - link "—> Hier könnt ihr einen Platz buchen" [ref=e136] [cursor=pointer]:
+                  - /url: https://app.tennis04.com/de/bwfv5/buchungsplan
+        - 'figure "PADELZONE Götzis Indoor Sportzentrum Mösleweg 23, 6840 Götzis, Österreich Ansprechpartner: Johannes Ager / ja@padelzone.at Anzahl der Padel-Plätze: 3 x Indoor —> Hier geht’s zur Website —> Hier könnt ihr einen Platz buchen —> Hier gibt’s Kursangebote" [ref=e140]':
+          - img "Padel Standort Padelzone Götzis Indoor Sporthalle" [ref=e144]
+          - generic [ref=e146]:
+            - heading "PADELZONE Götzis Indoor Sportzentrum" [level=3] [ref=e149]:
+              - text: PADELZONE Götzis
+              - text: Indoor Sportzentrum
+            - generic [ref=e151]:
+              - paragraph [ref=e152]:
+                - text: Mösleweg 23, 6840 Götzis, Österreich
+                - text: "Ansprechpartner: Johannes Ager /"
+                - link "ja@padelzone.at" [ref=e153] [cursor=pointer]:
+                  - /url: mailto:mk@padelzone.at
+                - text: "Anzahl der Padel-Plätze: 3 x Indoor"
+              - paragraph [ref=e154]:
+                - link "—> Hier geht’s zur Website" [ref=e155] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/padeltennis-goetzis
+                - link "—> Hier könnt ihr einen Platz buchen" [ref=e156] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/padeltennis-goetzis
+                - link "—> Hier gibt’s Kursangebote" [ref=e157] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/padeltennis-goetzis
+        - 'figure "PADELZONE Dornbirn beim TC Dornbirn Höchsterstraße 86, 6850 Dornbirn, Österreich Ansprechpartner: Johannes Ager / ja@padelzone.at Anzahl der Padel-Plätze: 1 x Outdoor —> Hier geht’s zur Website —> Hier könnt ihr einen Platz buchen —> Hier gibt’s Kursangebote" [ref=e160]':
+          - generic [ref=e165]:
+            - heading "PADELZONE Dornbirn beim TC Dornbirn" [level=3] [ref=e168]:
+              - text: PADELZONE Dornbirn
+              - text: beim TC Dornbirn
+            - generic [ref=e170]:
+              - paragraph [ref=e171]:
+                - text: Höchsterstraße 86, 6850 Dornbirn, Österreich
+                - text: "Ansprechpartner: Johannes Ager /"
+                - link "ja@padelzone.at" [ref=e172] [cursor=pointer]:
+                  - /url: mailto:mk@padelzone.at
+                - text: "Anzahl der Padel-Plätze: 1 x Outdoor"
+              - paragraph [ref=e173]:
+                - link "—> Hier geht’s zur Website" [ref=e174] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/dornbirn
+                - link "—> Hier könnt ihr einen Platz buchen" [ref=e175] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/dornbirn
+                - link "—> Hier gibt’s Kursangebote" [ref=e176] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/dornbirn
+        - figure "Weitere Standorte in Österreich. In Österreich gibt es bereits zahlreiche Anlagen auf denen Padel Tennis gespielt wird. Hier findet ihr eine Übersicht aller Standorte in Österreich. zu den Standorten in Österreich" [ref=e179]:
+          - generic [ref=e184]:
+            - generic [ref=e186]:
+              - heading "Weitere" [level=3] [ref=e187]
+              - heading "Standorte" [level=3] [ref=e188]
+              - paragraph
+              - heading "in Österreich." [level=3] [ref=e189]
+            - paragraph [ref=e192]: In Österreich gibt es bereits zahlreiche Anlagen auf denen Padel Tennis gespielt wird. Hier findet ihr eine Übersicht aller Standorte in Österreich.
+            - link "zu den Standorten in Österreich" [ref=e196] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/locations
+  - contentinfo [ref=e197]:
+    - paragraph [ref=e209]:
+      - link "Impressum" [ref=e210] [cursor=pointer]:
+        - /url: /impressum
+      - text: "| Säntisweg 25, 6971 Hard, Österreich | +43 664 92 79 72 9 |"
+      - link "info@vorarlbergpadel.at" [ref=e211] [cursor=pointer]:
+        - /url: mailto:info@vorarlbergpadel.at

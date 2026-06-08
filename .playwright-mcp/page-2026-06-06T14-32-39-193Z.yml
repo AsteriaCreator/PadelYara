@@ -1,0 +1,461 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - combobox [ref=e9] [cursor=pointer]:
+        - textbox "Deutsch" [ref=e10]:
+          - img [ref=e11]
+      - generic [ref=e13]:
+        - link "ThePadelPark" [ref=e14] [cursor=pointer]:
+          - /url: /
+          - img "ThePadelPark" [ref=e15]
+        - link "eTennis" [ref=e16] [cursor=pointer]:
+          - /url: https://www.etennis.at
+          - img "eTennis" [ref=e17]
+        - generic [ref=e18]:
+          - link "ThePadelPark" [ref=e19] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e20]:
+            - link "  Info" [ref=e21] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e22]:  
+              - text: Info
+            - link "  Reservierung" [ref=e23] [cursor=pointer]:
+              - /url: /reservierung
+              - generic [ref=e24]:  
+              - text: Reservierung
+        - link " Anmelden" [ref=e26] [cursor=pointer]:
+          - /url: "#login"
+          - generic [ref=e27]: 
+          - text: Anmelden
+    - list [ref=e32]:
+      - listitem [ref=e33]:
+        - link "Padel Semriach und Frohnleiten" [ref=e34] [cursor=pointer]:
+          - /url: /reservierung?c=3889
+      - listitem [ref=e35]:
+        - link "Tennis Semriach" [ref=e36] [cursor=pointer]:
+          - /url: /reservierung?c=3890
+      - listitem [ref=e37]:
+        - link "Pickleball Frohnleiten" [ref=e38] [cursor=pointer]:
+          - /url: /reservierung?c=5141
+      - listitem [ref=e39]:
+        - link "Badminton Frohnleiten" [ref=e40] [cursor=pointer]:
+          - /url: /reservierung?c=5142
+      - listitem [ref=e41]:
+        - link "Grundbeleuchtung" [ref=e42] [cursor=pointer]:
+          - /url: /reservierung?c=5235
+      - listitem [ref=e43]:
+        - link "Spielguthaben" [ref=e44] [cursor=pointer]:
+          - /url: /spielguthaben
+      - listitem [ref=e45]:
+        - link "Gutscheine" [ref=e46] [cursor=pointer]:
+          - /url: /gutscheine
+      - listitem [ref=e47]:
+        - link "Abo-Planer Sommer26 Padel" [ref=e48] [cursor=pointer]:
+          - /url: /aboplaner?a=5011
+      - listitem [ref=e49]:
+        - link "Registrierung" [ref=e50] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e52]:
+      - heading "Reservierung Padel Semriach und Frohnleiten" [level=1] [ref=e53]
+      - list [ref=e55]:
+        - listbox [ref=e57]:
+          - listitem [ref=e58]:
+            - link [ref=e59] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e60]
+          - listitem [ref=e61]:
+            - link [ref=e62] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e63]
+          - listitem [ref=e64]:
+            - link [ref=e65] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e66]
+          - listitem [ref=e67]:
+            - link [ref=e68] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e69]
+          - listitem [ref=e70]:
+            - link [ref=e71] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e72]
+          - listitem [ref=e73]:
+            - link [ref=e74] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e75]
+          - listitem [ref=e76]:
+            - link [ref=e77] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e78]
+          - listitem [ref=e79]:
+            - link [ref=e80] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e81]
+          - option "Athletes Essentials" [ref=e82]:
+            - link "Athletes Essentials" [ref=e83] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Athletes Essentials" [ref=e84]
+          - option "JOMA" [ref=e85]:
+            - link "JOMA" [ref=e86] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "JOMA" [ref=e87]
+          - option "Kaisermädl" [ref=e88]:
+            - link "Kaisermädl" [ref=e89] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Kaisermädl" [ref=e90]
+          - option "unbenannt" [ref=e91]:
+            - link "unbenannt" [ref=e92] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "unbenannt" [ref=e93]
+          - option "Shuster Schalk" [ref=e94]:
+            - link "Shuster Schalk" [ref=e95] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Shuster Schalk" [ref=e96]
+          - option "brandtner Physio" [ref=e97]:
+            - link "brandtner Physio" [ref=e98] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "brandtner Physio" [ref=e99]
+          - option "Murauer" [ref=e100]:
+            - link "Murauer" [ref=e101] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Murauer" [ref=e102]
+          - option "Sportunion" [ref=e103]:
+            - link "Sportunion" [ref=e104] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Sportunion" [ref=e105]
+          - option [ref=e106]:
+            - link [ref=e107] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e108]
+          - option [ref=e109]:
+            - link [ref=e110] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e111]
+          - option [ref=e112]:
+            - link [ref=e113] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e114]
+          - option [ref=e115]:
+            - link [ref=e116] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e117]
+          - option [ref=e118]:
+            - link [ref=e119] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e120]
+          - option [ref=e121]:
+            - link [ref=e122] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e123]
+          - option [ref=e124]:
+            - link [ref=e125] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e126]
+          - option [ref=e127]:
+            - link [ref=e128] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e129]
+          - listitem [ref=e130]:
+            - link [ref=e131] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e132]
+          - listitem [ref=e133]:
+            - link [ref=e134] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e135]
+          - listitem [ref=e136]:
+            - link [ref=e137] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e138]
+          - listitem [ref=e139]:
+            - link [ref=e140] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e141]
+          - listitem [ref=e142]:
+            - link [ref=e143] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e144]
+          - listitem [ref=e145]:
+            - link [ref=e146] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e147]
+          - listitem [ref=e148]:
+            - link [ref=e149] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e150]
+          - listitem [ref=e151]:
+            - link [ref=e152] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e153]
+      - generic [ref=e156]:
+        - list:
+          - listitem [ref=e157]: Bälle 6,-pro Dose ( erhältlich in The Padel Park Shop). Leihschläger 5,- pro Einheit (erhältlich in The Padel Park Shop)
+      - generic [ref=e158]:
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - generic [ref=e161]:
+              - generic [ref=e162] [cursor=pointer]: 
+              - generic [ref=e163] [cursor=pointer]: 
+            - generic [ref=e165]:
+              - link "Samstag 06.06.2026" [ref=e166] [cursor=pointer]:
+                - /url: "?c=3889&d=1780722000"
+                - generic [ref=e167]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e169]:
+              - link "Sonntag 07.06.2026" [ref=e170] [cursor=pointer]:
+                - /url: "?c=3889&d=1780808400"
+                - generic [ref=e171]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e173]:
+              - link "Montag 08.06.2026" [ref=e174] [cursor=pointer]:
+                - /url: "?c=3889&d=1780894800"
+                - generic [ref=e175]: Montag
+                - text: 08.06.2026
+              - text: 
+            - generic [ref=e176]:
+              - generic [ref=e177] [cursor=pointer]: 
+              - generic [ref=e178] [cursor=pointer]: 
+          - generic [ref=e179]:
+            - generic [ref=e181]: 07:00
+            - generic [ref=e183]: 08:00
+            - generic [ref=e185]: 09:00
+            - generic [ref=e187]: 10:00
+            - generic [ref=e189]: 11:00
+            - generic [ref=e191]: 12:00
+            - generic [ref=e193]: 13:00
+            - generic [ref=e195]: 14:00
+            - generic [ref=e197]: 15:00
+            - generic [ref=e199]: 16:00
+            - generic [ref=e201]: 17:00
+            - generic [ref=e203]: 18:00
+            - generic [ref=e205]: 19:00
+            - generic [ref=e207]: 20:00
+            - generic [ref=e209]: 21:00
+            - generic [ref=e211]: 22:00
+          - generic [ref=e213]:
+            - generic [ref=e214]:
+              - generic [ref=e216]:
+                - generic [ref=e217]: Semriach Platz 1
+                - generic [ref=e218]: Semriach Platz 2
+                - generic [ref=e219]: Semriach Platz 3
+                - generic [ref=e220]: Frohnleiten Pano 1
+                - generic [ref=e221]: Frohnleiten Pano 2
+                - generic [ref=e222]: Frohnleiten Premier
+                - generic [ref=e223]: Frohnleiten Center
+              - generic [ref=e303] [cursor=pointer]: H.K
+              - generic [ref=e342]:
+                - generic [ref=e343]: Semriach Platz 1
+                - generic [ref=e344]: Semriach Platz 2
+                - generic [ref=e345]: Semriach Platz 3
+                - generic [ref=e346]: Frohnleiten Pano 1
+                - generic [ref=e347]: Frohnleiten Pano 2
+                - generic [ref=e348]: Frohnleiten Premier
+                - generic [ref=e349]: Frohnleiten Center
+            - generic [ref=e350]:
+              - generic [ref=e352]:
+                - generic [ref=e353]: Semriach Platz 1
+                - generic [ref=e354]: Semriach Platz 2
+                - generic [ref=e355]: Semriach Platz 3
+                - generic [ref=e356]: Frohnleiten Pano 1
+                - generic [ref=e357]: Frohnleiten Pano 2
+                - generic [ref=e358]: Frohnleiten Premier
+                - generic [ref=e359]: Frohnleiten Center
+              - generic [ref=e360]:
+                - generic [ref=e371] [cursor=pointer]: Mixed Advanced
+                - generic [ref=e385] [cursor=pointer]: Mixed Advanced
+                - generic [ref=e399] [cursor=pointer]: Mixed Advanced
+              - generic [ref=e469]:
+                - generic [ref=e470]: Semriach Platz 1
+                - generic [ref=e471]: Semriach Platz 2
+                - generic [ref=e472]: Semriach Platz 3
+                - generic [ref=e473]: Frohnleiten Pano 1
+                - generic [ref=e474]: Frohnleiten Pano 2
+                - generic [ref=e475]: Frohnleiten Premier
+                - generic [ref=e476]: Frohnleiten Center
+            - generic [ref=e477]:
+              - generic [ref=e479]:
+                - generic [ref=e480]: Semriach Platz 1
+                - generic [ref=e481]: Semriach Platz 2
+                - generic [ref=e482]: Semriach Platz 3
+                - generic [ref=e483]: Frohnleiten Pano 1
+                - generic [ref=e484]: Frohnleiten Pano 2
+                - generic [ref=e485]: Frohnleiten Premier
+                - generic [ref=e486]: Frohnleiten Center
+              - generic [ref=e487]:
+                - generic [ref=e502] [cursor=pointer]: Team Training
+                - generic [ref=e519] [cursor=pointer]: Men’s Team Training
+                - generic [ref=e584] [cursor=pointer]: M.S
+              - generic [ref=e605]:
+                - generic [ref=e606]: Semriach Platz 1
+                - generic [ref=e607]: Semriach Platz 2
+                - generic [ref=e608]: Semriach Platz 3
+                - generic [ref=e609]: Frohnleiten Pano 1
+                - generic [ref=e610]: Frohnleiten Pano 2
+                - generic [ref=e611]: Frohnleiten Premier
+                - generic [ref=e612]: Frohnleiten Center
+          - generic [ref=e613]:
+            - generic [ref=e615]: 07:00
+            - generic [ref=e617]: 08:00
+            - generic [ref=e619]: 09:00
+            - generic [ref=e621]: 10:00
+            - generic [ref=e623]: 11:00
+            - generic [ref=e625]: 12:00
+            - generic [ref=e627]: 13:00
+            - generic [ref=e629]: 14:00
+            - generic [ref=e631]: 15:00
+            - generic [ref=e633]: 16:00
+            - generic [ref=e635]: 17:00
+            - generic [ref=e637]: 18:00
+            - generic [ref=e639]: 19:00
+            - generic [ref=e641]: 20:00
+            - generic [ref=e643]: 21:00
+            - generic [ref=e645]: 22:00
+        - generic [ref=e646]:
+          - heading "Preise/h" [level=3] [ref=e647]
+          - generic [ref=e648]: € 28
+          - generic [ref=e649]: € 32
+          - generic [ref=e650]: € 36
+        - generic [ref=e651]:
+          - heading "Farben" [level=3] [ref=e652]
+          - generic [ref=e653]: Abo
+          - generic [ref=e654]: Gastspieler
+          - generic [ref=e655]: TPP Verein
+          - generic [ref=e656]: Sommer PREMIUM
+          - generic [ref=e657]: Sommer PRO
+          - generic [ref=e658]: External Trainer
+      - list [ref=e660]:
+        - listbox [ref=e662]:
+          - listitem [ref=e663]:
+            - link [ref=e664] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e665]
+          - listitem [ref=e666]:
+            - link [ref=e667] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e668]
+          - listitem [ref=e669]:
+            - link [ref=e670] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e671]
+          - listitem [ref=e672]:
+            - link [ref=e673] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e674]
+          - listitem [ref=e675]:
+            - link [ref=e676] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e677]
+          - listitem [ref=e678]:
+            - link [ref=e679] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e680]
+          - listitem [ref=e681]:
+            - link [ref=e682] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e683]
+          - listitem [ref=e684]:
+            - link [ref=e685] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e686]
+          - option "brandtner Physio" [ref=e687]:
+            - link "brandtner Physio" [ref=e688] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "brandtner Physio" [ref=e689]
+          - option "JOMA" [ref=e690]:
+            - link "JOMA" [ref=e691] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "JOMA" [ref=e692]
+          - option "Murauer" [ref=e693]:
+            - link "Murauer" [ref=e694] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Murauer" [ref=e695]
+          - option "Shuster Schalk" [ref=e696]:
+            - link "Shuster Schalk" [ref=e697] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Shuster Schalk" [ref=e698]
+          - option "Kaisermädl" [ref=e699]:
+            - link "Kaisermädl" [ref=e700] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Kaisermädl" [ref=e701]
+          - option "brandtner Physio" [ref=e702]:
+            - link "brandtner Physio" [ref=e703] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "brandtner Physio" [ref=e704]
+          - option "JOMA" [ref=e705]:
+            - link "JOMA" [ref=e706] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "JOMA" [ref=e707]
+          - option "Murauer" [ref=e708]:
+            - link "Murauer" [ref=e709] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Murauer" [ref=e710]
+          - option [ref=e711]:
+            - link [ref=e712] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e713]
+          - option [ref=e714]:
+            - link [ref=e715] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e716]
+          - listitem [ref=e717]:
+            - link [ref=e718] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e719]
+          - listitem [ref=e720]:
+            - link [ref=e721] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e722]
+          - listitem [ref=e723]:
+            - link [ref=e724] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e725]
+          - listitem [ref=e726]:
+            - link [ref=e727] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e728]
+          - listitem [ref=e729]:
+            - link [ref=e730] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e731]
+          - listitem [ref=e732]:
+            - link [ref=e733] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e734]
+          - listitem [ref=e735]:
+            - link [ref=e736] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e737]
+          - listitem [ref=e738]:
+            - link [ref=e739] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img [ref=e740]
+    - contentinfo [ref=e741]:
+      - generic [ref=e743]:
+        - generic [ref=e744]:
+          - text: ThePadelPark |
+          - link "Impressum" [ref=e745] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e746] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e747]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e748] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e750]:
+    - paragraph [ref=e751]:
+      - generic [ref=e752]:
+        - paragraph [ref=e753]:
+          - img "ThePadelPark" [ref=e754]
+          - text: ThePadelPark
+        - paragraph [ref=e755]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e756]:
+      - link "Einstellungen verwalten" [ref=e757] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e758]:
+        - button "Alle ablehnen" [ref=e759] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e760] [cursor=pointer]

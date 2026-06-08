@@ -1,0 +1,560 @@
+- generic [active] [ref=e1]:
+  - alert [ref=e2]:
+    - generic [ref=e3]:
+      - strong [ref=e4]: padel-austria.at
+      - button "Close" [ref=e5] [cursor=pointer]
+    - generic [ref=e6]: Bei der Bearbeitung Ihres Auftrags ist leider ein Fehler aufgetreten. Bitte versuch es nochmal!
+  - generic [ref=e9]:
+    - link "Austrian Padel Union Logo" [ref=e11] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e12]
+    - link "ÖPV Logo" [ref=e14] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e15]
+    - heading "powered by" [level=5] [ref=e17]
+    - link "HEAD Logo" [ref=e19] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e20]
+  - navigation [ref=e21]:
+    - generic [ref=e23]:
+      - generic [ref=e24]:
+        - button "Turniere" [ref=e26] [cursor=pointer]
+        - button "Rangliste" [ref=e28] [cursor=pointer]
+        - button "Nationalkader" [ref=e30] [cursor=pointer]
+        - link "Workshops" [ref=e31] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e32] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e33] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e35] [cursor=pointer]
+        - link "Unterstützer" [ref=e36] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e38] [cursor=pointer]
+        - button "Über uns" [ref=e40] [cursor=pointer]
+      - link "Login" [ref=e42] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e44]:
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - img "Countdown zu den Österreichischen Meisterschaften 2026" [ref=e48]
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - heading "Countdown zu den Österreichischen Meisterschaften 2026" [level=2] [ref=e51]:
+              - link "Countdown zu den Österreichischen Meisterschaften 2026" [ref=e52] [cursor=pointer]:
+                - /url: /news/countdown-zu-den-oesterreichischen-meisterschaften-2026
+            - paragraph
+            - paragraph [ref=e54]:
+              - text: "Von 5. bis 7. Juni 2026 blickt die österreichische Padel-Community nach Niederösterreich: In der"
+              - strong [ref=e55]: Padelzone Hagenbrunn
+              - text: werden die Österreichischen Meisterschaften der Allgemeinen Klasse ausgetragen. Die besten Spielerinnen und Spieler des Landes kämpfen dabei um die begehrten nationalen Titel bei Damen und Herren.
+            - paragraph
+            - paragraph [ref=e56]:
+              - link "Weiter lesen" [ref=e57] [cursor=pointer]:
+                - /url: /news/countdown-zu-den-oesterreichischen-meisterschaften-2026
+          - generic [ref=e58]: Am 02.06.2026 erstellt
+      - separator [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - 'img "Österreichische Jugend Meisterschaften: Starke Leistungen und große Zukunftshoffnungen im österreichischen Padel" [ref=e64]'
+            - 'heading "Österreichische Jugend Meisterschaften: Starke Leistungen und große Zukunftshoffnungen im österreichischen Padel" [level=3] [ref=e67]':
+              - 'link "Österreichische Jugend Meisterschaften: Starke Leistungen und große Zukunftshoffnungen im österreichischen Padel" [ref=e68] [cursor=pointer]':
+                - /url: /news/oesterreichische-nachwuchsmeisterschaften-starke-leistungen-und-grosse-zukunftshoffnungen-im-oesterreichischen-padel
+          - generic [ref=e69]:
+            - paragraph
+            - generic [ref=e70]:
+              - paragraph [ref=e71]
+              - paragraph [ref=e72]: Die österreichischen Nachwuchsmeisterschaften im Padel sorgten im The Padel Park in Semriach für spannende Matches, hochklassige Ballwechsel und viele starke Leistungen der heimischen Nachwuchsspieler:innen. In den Altersklassen U14, U16 und U18 kämpften Talente aus mehreren Bundesländern um die österreichischen Meistertitel und zeigten eindrucksvoll die positive Entwicklung des Nachwuchspadels in Österreich.
+            - paragraph
+            - paragraph [ref=e73]:
+              - link "Weiter lesen" [ref=e74] [cursor=pointer]:
+                - /url: /news/oesterreichische-nachwuchsmeisterschaften-starke-leistungen-und-grosse-zukunftshoffnungen-im-oesterreichischen-padel
+          - generic [ref=e75]: Am 27.05.2026 erstellt
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - 'img "Generalversammlung 2026: Austrian Padel Union stellt Weichen für Aufnahme bei Sport Austria" [ref=e79]'
+            - 'heading "Generalversammlung 2026: Austrian Padel Union stellt Weichen für Aufnahme bei Sport Austria" [level=3] [ref=e82]':
+              - 'link "Generalversammlung 2026: Austrian Padel Union stellt Weichen für Aufnahme bei Sport Austria" [ref=e83] [cursor=pointer]':
+                - /url: /news/generalversammlung-2026-austrian-padel-union-stellt-weichen-fuer-aufnahme-bei-sport-austria
+          - generic [ref=e84]:
+            - paragraph
+            - paragraph [ref=e86]: Die Austrian Padel Union hat im Rahmen ihrer Generalversammlung 2026 einen weiteren Schritt in der Entwicklung von Padel in Österreich gesetzt. Neben einem umfassenden Rückblick auf ein äußerst erfolgreiches Jahr 2025 standen insbesondere richtungsweisende Beschlüsse im Mittelpunkt, die den Weg für die angestrebte Aufnahme als anerkannter Sportfachverband bei Sport Austria - Österreichische Bundes-Sportorganisation ebnen sollen.
+            - paragraph
+            - paragraph [ref=e87]:
+              - link "Weiter lesen" [ref=e88] [cursor=pointer]:
+                - /url: /news/generalversammlung-2026-austrian-padel-union-stellt-weichen-fuer-aufnahme-bei-sport-austria
+          - generic [ref=e89]: Am 01.05.2026 erstellt
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - img "Sportdirektor*in ab sofort gesucht!" [ref=e93]
+            - heading "Sportdirektor*in ab sofort gesucht!" [level=3] [ref=e96]:
+              - link "Sportdirektor*in ab sofort gesucht!" [ref=e97] [cursor=pointer]:
+                - /url: /news/sportdirektor-in-gesucht-austrian-padel-union-schreibt-position-neu-aus
+          - generic [ref=e98]:
+            - paragraph
+            - generic [ref=e99]:
+              - paragraph [ref=e100]:
+                - text: Die Position
+                - strong [ref=e101]: Sportdirektor*in Padel
+                - text: wird neu ausgeschrieben. Der bisherige Sportdirektor
+                - strong [ref=e102]: David Alten
+                - text: wird seine Funktion
+                - strong [ref=e103]: mit Ende Mai
+                - text: auf eigenen Wunsch beenden.
+              - paragraph [ref=e104]:
+                - text: "Alten dazu:"
+                - emphasis [ref=e105]: „Ich habe mich aus privaten und beruflichen Gründen dazu entschieden, meine Funktion als Sportdirektor niederzulegen. Ich bin dankbar für die Möglichkeit, in dieser Zeit mitgestalten zu dürfen, und wünsche dem Verband für die weitere Entwicklung viel Erfolg.“
+              - paragraph [ref=e106]:
+                - strong [ref=e107]: Die APU bedankt sich herzlich für sein Engagement und die geleistete Arbeit in einer wichtigen Phase der Weiterentwicklung des österreichischen Padelsports.
+              - paragraph [ref=e108]
+            - paragraph
+            - paragraph [ref=e109]:
+              - link "Weiter lesen" [ref=e110] [cursor=pointer]:
+                - /url: /news/sportdirektor-in-gesucht-austrian-padel-union-schreibt-position-neu-aus
+          - generic [ref=e111]: Am 17.04.2026 erstellt
+        - generic [ref=e112]:
+          - generic [ref=e113]:
+            - 'img "Padel wächst auch in Tirol: Head Elite Tour macht Station in Seefeld" [ref=e115]'
+            - 'heading "Padel wächst auch in Tirol: Head Elite Tour macht Station in Seefeld" [level=3] [ref=e118]':
+              - 'link "Padel wächst auch in Tirol: Head Elite Tour macht Station in Seefeld" [ref=e119] [cursor=pointer]':
+                - /url: /news/padel-waechst-auch-in-tirol-head-elite-tour-macht-station-in-seefeld
+          - generic [ref=e120]:
+            - paragraph
+            - generic [ref=e121]:
+              - paragraph [ref=e122]: Die Casa Padel Seefeld war am 11. und 12. April Schauplatz der Head Elite Tour der Austrian Padel Union. Das Turnier brachte einige der besten Spielerinnen und Spieler Österreichs sowie Teilnehmer aus Deutschland auf Tirols Hochplateau und unterstreicht die dynamische Entwicklung von Padel im gesamten Land.
+              - paragraph [ref=e123]
+            - paragraph
+            - paragraph [ref=e124]:
+              - link "Weiter lesen" [ref=e125] [cursor=pointer]:
+                - /url: /news/padel-waechst-auch-in-tirol-head-elite-tour-macht-station-in-seefeld
+          - generic [ref=e126]: Am 13.04.2026 erstellt
+        - generic [ref=e127]:
+          - generic [ref=e128]:
+            - img "Bundesliga NEU 2026 - Die Details" [ref=e130]
+            - heading "Bundesliga NEU 2026 - Die Details" [level=3] [ref=e133]:
+              - link "Bundesliga NEU 2026 - Die Details" [ref=e134] [cursor=pointer]:
+                - /url: /news/bundesliga-neu-2026-die-details-8f099c42-8b36-494f-85ce-fef3721ecfcb
+          - generic [ref=e135]:
+            - paragraph
+            - generic [ref=e136]:
+              - paragraph [ref=e137]:
+                - text: Mit der
+                - strong [ref=e138]: Bundesliga 2026
+                - text: führen wir eine
+                - strong [ref=e139]: neue Struktur für den wichtigsten nationalen Mannschaftsbewerb im Padel
+                - text: ein.
+              - paragraph [ref=e140]:
+                - text: Ziel ist es, den Wettbewerb übersichtlicher zu gestalten, klare Auf- und Abstiegswege zu schaffen und möglichst vielen Teams spannende Matches zu ermöglichen. Die Turniere werden in
+                - strong [ref=e141]: Kooperation mit dem Padeldome
+                - text: im neuen
+                - strong [ref=e142]: The Dome Stadlau
+                - text: mit 16 Indoor-Courts veranstaltet und bieten bis zu 124 Teams die Chance an der Bundesliga teilzunehmen!
+            - paragraph
+            - paragraph [ref=e143]:
+              - link "Weiter lesen" [ref=e144] [cursor=pointer]:
+                - /url: /news/bundesliga-neu-2026-die-details-8f099c42-8b36-494f-85ce-fef3721ecfcb
+          - generic [ref=e145]: Am 04.04.2026 erstellt
+        - generic [ref=e146]:
+          - generic [ref=e147]:
+            - img "Neue Funktionen auf der APU-Turnierplattform & Frohe Ostern! 🐰" [ref=e149]
+            - heading "Neue Funktionen auf der APU-Turnierplattform & Frohe Ostern! 🐰" [level=3] [ref=e152]:
+              - link "Neue Funktionen auf der APU-Turnierplattform & Frohe Ostern! 🐰" [ref=e153] [cursor=pointer]:
+                - /url: /news/neue-funktionen-auf-der-apu-turnierplattform-frohe-ostern
+          - generic [ref=e154]:
+            - paragraph
+            - generic [ref=e155]:
+              - paragraph [ref=e156]:
+                - strong [ref=e157]: Automatischer KO-Raster, Live-Ergebnisse und mehr Transparenz bei der APN – wir haben unsere Plattform weiter verbessert.
+              - paragraph [ref=e158]: "Unsere Turnierplattform wird laufend weiterentwickelt, damit Turniere für Veranstalter einfacher zu organisieren sind und für euch noch übersichtlicher werden. Zwei neue Funktionen bringen jetzt wieder spürbare Verbesserungen: ein automatisierter KO-Raster für Turniere sowie eine ausführliche Beschreibung der Austrian Padel Number (APN)."
+            - paragraph
+            - paragraph [ref=e159]:
+              - link "Weiter lesen" [ref=e160] [cursor=pointer]:
+                - /url: /news/neue-funktionen-auf-der-apu-turnierplattform-frohe-ostern
+          - generic [ref=e161]: Am 04.04.2026 erstellt
+        - generic [ref=e162]:
+          - generic [ref=e163]:
+            - 'img "Padel-Highlights 2026: Die großen Meisterschaften der Austrian Padel Union" [ref=e165]'
+            - 'heading "Padel-Highlights 2026: Die großen Meisterschaften der Austrian Padel Union" [level=3] [ref=e168]':
+              - 'link "Padel-Highlights 2026: Die großen Meisterschaften der Austrian Padel Union" [ref=e169] [cursor=pointer]':
+                - /url: /news/padel-highlights-2026-die-grossen-meisterschaften-der-austrian-padel-union-3e0b432b-4a39-41eb-9a15-7d788558a272
+          - generic [ref=e170]:
+            - paragraph
+            - generic [ref=e171]:
+              - paragraph [ref=e172]:
+                - text: Auch
+                - strong [ref=e173]: "2026"
+                - text: stehen wieder zahlreiche sportliche Höhepunkte im Kalender der
+                - strong [ref=e174]: Austrian Padel Union
+                - text: . Mit mehreren
+                - strong [ref=e175]: Österreichischen Meisterschaften
+                - text: in unterschiedlichen Kategorien sowie dem großen
+                - strong [ref=e176]: HEAD APU Masters
+                - text: erwartet Spieler:innen und Fans ein abwechslungsreiches Jahr voller spannender Matches und hochklassigem Padel.
+              - paragraph [ref=e177]
+            - paragraph
+            - paragraph [ref=e178]:
+              - link "Weiter lesen" [ref=e179] [cursor=pointer]:
+                - /url: /news/padel-highlights-2026-die-grossen-meisterschaften-der-austrian-padel-union-3e0b432b-4a39-41eb-9a15-7d788558a272
+          - generic [ref=e180]: Am 01.04.2026 erstellt
+        - generic [ref=e181]:
+          - generic [ref=e182]:
+            - img "Seniors Bundesliga 2026 - Spannende Duelle bis nach Mitternacht" [ref=e184]
+            - heading "Seniors Bundesliga 2026 - Spannende Duelle bis nach Mitternacht" [level=3] [ref=e187]:
+              - link "Seniors Bundesliga 2026 - Spannende Duelle bis nach Mitternacht" [ref=e188] [cursor=pointer]:
+                - /url: /news/seniors-bundesliga-2026-spannende-duelle-bis-nach-mitternacht
+          - generic [ref=e189]:
+            - paragraph
+            - paragraph [ref=e191]:
+              - text: Am vergangenen Samstag, den 21. März ging die
+              - strong [ref=e192]: Seniors Bundesliga
+              - text: über die Bühne – und das mit einem echten Padel-Marathon. Insgesamt 16 Teams – 12 Herren- und 4 Damenteams – kämpften an nur einem Spieltag um den Titel. Von
+              - strong [ref=e193]: 9 Uhr morgens bis kurz nach Mitternacht
+              - text: wurde auf hohem Niveau gespielt – mit vielen engen Matches, großem Einsatz und bester Stimmung.
+            - paragraph
+            - paragraph [ref=e194]:
+              - link "Weiter lesen" [ref=e195] [cursor=pointer]:
+                - /url: /news/seniors-bundesliga-2026-spannende-duelle-bis-nach-mitternacht
+          - generic [ref=e196]: Am 22.03.2026 erstellt
+      - link "Ältere News" [ref=e198] [cursor=pointer]:
+        - /url: /news
+    - generic [ref=e199]:
+      - generic [ref=e200]:
+        - heading "APU Events" [level=3] [ref=e202]:
+          - link "APU Events" [ref=e203] [cursor=pointer]:
+            - /url: /tournaments?q%5Bapu_event_eq%5D=true
+        - generic [ref=e204]:
+          - paragraph [ref=e205]:
+            - link "Österreichische Meisterschaften Mixed 2026" [ref=e206] [cursor=pointer]:
+              - /url: /ranked/tournaments/eb1027b9-4693-4b3a-98c4-d30016cc1c88
+          - paragraph [ref=e207]: Sa. 04.07.2026, 09:00 - So. 05.07.2026, 15:00
+        - generic [ref=e208]:
+          - paragraph [ref=e209]:
+            - link "Bundesliga Herren 2 - Qualifikationsturnier" [ref=e210] [cursor=pointer]:
+              - /url: /fun/solo_tournaments/d34996e6-cd74-430c-9695-9cd346c75979
+          - paragraph [ref=e211]: Sa. 08.08.2026, 10:00 - So. 09.08.2026, 16:00
+        - generic [ref=e212]:
+          - paragraph [ref=e213]:
+            - link "Bundesliga Herren 3 - Qualifikationsturnier" [ref=e214] [cursor=pointer]:
+              - /url: /fun/solo_tournaments/dfa42c9e-ee43-44b1-a933-f7582e8772ba
+          - paragraph [ref=e215]: Sa. 15.08.2026, 10:00 - So. 16.08.2026, 17:00
+        - generic [ref=e216]:
+          - paragraph [ref=e217]:
+            - link "Bundesliga Damen 2 - Qualifikationsturnier" [ref=e218] [cursor=pointer]:
+              - /url: /fun/solo_tournaments/ded8b349-5789-48e9-877a-4f24725fa413
+          - paragraph [ref=e219]: Sa. 29.08.2026, 10:00 - So. 30.08.2026, 17:00
+        - generic [ref=e220]:
+          - paragraph [ref=e221]:
+            - link "Bundesliga Herren 4 - Qualifikationsturnier" [ref=e222] [cursor=pointer]:
+              - /url: /fun/solo_tournaments/1814bfc7-8a87-44fc-9ec0-dbdc67ad2143
+          - paragraph [ref=e223]: Sa. 29.08.2026, 10:00 - So. 30.08.2026, 17:00
+        - generic [ref=e224]:
+          - paragraph [ref=e225]:
+            - link "Bundesliga Herren 1 - Finalturnier" [ref=e226] [cursor=pointer]:
+              - /url: /fun/solo_tournaments/ffa428fd-b27c-4731-b801-80248ac9ef0d
+          - paragraph [ref=e227]: Sa. 24.10.2026, 10:00 - Mo. 26.10.2026, 17:00
+        - generic [ref=e228]:
+          - paragraph [ref=e229]:
+            - link "Bundesliga Damen 1 - Finalturnier" [ref=e230] [cursor=pointer]:
+              - /url: /fun/solo_tournaments/495492da-3d47-4635-8e10-d6088ff02b88
+          - paragraph [ref=e231]: Sa. 24.10.2026, 12:00 - Mo. 26.10.2026, 17:00
+      - generic [ref=e232]:
+        - heading "Herren Rangliste" [level=3] [ref=e234]:
+          - link "Herren Rangliste" [ref=e235] [cursor=pointer]:
+            - /url: /rankings/males
+        - table [ref=e236]:
+          - rowgroup [ref=e237]:
+            - row "1 29050 Moritz Eiersebner" [ref=e238]:
+              - cell "1" [ref=e239]
+              - cell "29050" [ref=e240]
+              - cell "Moritz Eiersebner" [ref=e241]:
+                - link "Moritz Eiersebner" [ref=e242] [cursor=pointer]:
+                  - /url: /players/eiersebner-moritz
+            - row "2 27500 Bogdan Levchuk" [ref=e243]:
+              - cell "2" [ref=e244]
+              - cell "27500" [ref=e245]
+              - cell "Bogdan Levchuk" [ref=e246]:
+                - link "Bogdan Levchuk" [ref=e247] [cursor=pointer]:
+                  - /url: /players/levchuk-bogdan
+            - row "3 25450 Kristopher Sotiriu" [ref=e248]:
+              - cell "3" [ref=e249]
+              - cell "25450" [ref=e250]
+              - cell "Kristopher Sotiriu" [ref=e251]:
+                - link "Kristopher Sotiriu" [ref=e252] [cursor=pointer]:
+                  - /url: /players/sotiriu-kristopher
+            - row "4 24300 Rainhard Boisits" [ref=e253]:
+              - cell "4" [ref=e254]
+              - cell "24300" [ref=e255]
+              - cell "Rainhard Boisits" [ref=e256]:
+                - link "Rainhard Boisits" [ref=e257] [cursor=pointer]:
+                  - /url: /players/boisits-rainhard
+            - row "5 24000 Björn Nareyka" [ref=e258]:
+              - cell "5" [ref=e259]
+              - cell "24000" [ref=e260]
+              - cell "Björn Nareyka" [ref=e261]:
+                - link "Björn Nareyka" [ref=e262] [cursor=pointer]:
+                  - /url: /players/nareyka-bjoern
+            - row "6 23400 Michael Brus" [ref=e263]:
+              - cell "6" [ref=e264]
+              - cell "23400" [ref=e265]
+              - cell "Michael Brus" [ref=e266]:
+                - link "Michael Brus" [ref=e267] [cursor=pointer]:
+                  - /url: /players/brus-michael
+            - row "7 22950 Christopher Brunner" [ref=e268]:
+              - cell "7" [ref=e269]
+              - cell "22950" [ref=e270]
+              - cell "Christopher Brunner" [ref=e271]:
+                - link "Christopher Brunner" [ref=e272] [cursor=pointer]:
+                  - /url: /players/brunner-christopher
+            - row "8 22075 Christoph Krenn" [ref=e273]:
+              - cell "8" [ref=e274]
+              - cell "22075" [ref=e275]
+              - cell "Christoph Krenn" [ref=e276]:
+                - link "Christoph Krenn" [ref=e277] [cursor=pointer]:
+                  - /url: /players/krenn-christoph
+            - row "9 21750 Peter Kazianschütz" [ref=e278]:
+              - cell "9" [ref=e279]
+              - cell "21750" [ref=e280]
+              - cell "Peter Kazianschütz" [ref=e281]:
+                - link "Peter Kazianschütz" [ref=e282] [cursor=pointer]:
+                  - /url: /players/kazianschuetz-peter
+            - row "10 21700 Markus Krocker" [ref=e283]:
+              - cell "10" [ref=e284]
+              - cell "21700" [ref=e285]
+              - cell "Markus Krocker" [ref=e286]:
+                - link "Markus Krocker" [ref=e287] [cursor=pointer]:
+                  - /url: /players/krocker-markus
+      - generic [ref=e288]:
+        - heading "Damen Rangliste" [level=3] [ref=e290]:
+          - link "Damen Rangliste" [ref=e291] [cursor=pointer]:
+            - /url: /rankings/females
+        - table [ref=e292]:
+          - rowgroup [ref=e293]:
+            - row "1 28800 Anna Schmid" [ref=e294]:
+              - cell "1" [ref=e295]
+              - cell "28800" [ref=e296]
+              - cell "Anna Schmid" [ref=e297]:
+                - link "Anna Schmid" [ref=e298] [cursor=pointer]:
+                  - /url: /players/schmid-anna
+            - row "2 25800 Lisa-Marie Peleska" [ref=e299]:
+              - cell "2" [ref=e300]
+              - cell "25800" [ref=e301]
+              - cell "Lisa-Marie Peleska" [ref=e302]:
+                - link "Lisa-Marie Peleska" [ref=e303] [cursor=pointer]:
+                  - /url: /players/peleska-lisa-marie
+            - row "3 24750 Alexandra Pils" [ref=e304]:
+              - cell "3" [ref=e305]
+              - cell "24750" [ref=e306]
+              - cell "Alexandra Pils" [ref=e307]:
+                - link "Alexandra Pils" [ref=e308] [cursor=pointer]:
+                  - /url: /players/pils-alexandra
+            - row "4 23650 Chiara Ambros" [ref=e309]:
+              - cell "4" [ref=e310]
+              - cell "23650" [ref=e311]
+              - cell "Chiara Ambros" [ref=e312]:
+                - link "Chiara Ambros" [ref=e313] [cursor=pointer]:
+                  - /url: /players/ambros-chiara
+            - row "5 21600 Barbara Prenner" [ref=e314]:
+              - cell "5" [ref=e315]
+              - cell "21600" [ref=e316]
+              - cell "Barbara Prenner" [ref=e317]:
+                - link "Barbara Prenner" [ref=e318] [cursor=pointer]:
+                  - /url: /players/prenner-barbara
+            - row "6 17700 Sabrina Urban" [ref=e319]:
+              - cell "6" [ref=e320]
+              - cell "17700" [ref=e321]
+              - cell "Sabrina Urban" [ref=e322]:
+                - link "Sabrina Urban" [ref=e323] [cursor=pointer]:
+                  - /url: /players/urban-sabrina
+            - row "7 17550 Nina Dürnberger" [ref=e324]:
+              - cell "7" [ref=e325]
+              - cell "17550" [ref=e326]
+              - cell "Nina Dürnberger" [ref=e327]:
+                - link "Nina Dürnberger" [ref=e328] [cursor=pointer]:
+                  - /url: /players/duernberger-nina
+            - row "8 16750 Ingrid Resch" [ref=e329]:
+              - cell "8" [ref=e330]
+              - cell "16750" [ref=e331]
+              - cell "Ingrid Resch" [ref=e332]:
+                - link "Ingrid Resch" [ref=e333] [cursor=pointer]:
+                  - /url: /players/resch-ingrid
+            - row "9 15255 Alexandra Schöndorfer" [ref=e334]:
+              - cell "9" [ref=e335]
+              - cell "15255" [ref=e336]
+              - cell "Alexandra Schöndorfer" [ref=e337]:
+                - link "Alexandra Schöndorfer" [ref=e338] [cursor=pointer]:
+                  - /url: /players/schoendorfer-alexandra
+            - row "10 14300 Nina Geretschläger" [ref=e339]:
+              - cell "10" [ref=e340]
+              - cell "14300" [ref=e341]
+              - cell "Nina Geretschläger" [ref=e342]:
+                - link "Nina Geretschläger" [ref=e343] [cursor=pointer]:
+                  - /url: /players/geretschlaeger-nina
+      - generic [ref=e344]:
+        - heading "Jugend - U18 Rangliste" [level=3] [ref=e346]:
+          - link "Jugend - U18 Rangliste" [ref=e347] [cursor=pointer]:
+            - /url: /rankings/under_18
+        - table [ref=e348]:
+          - rowgroup [ref=e349]:
+            - row "1 17170 Sebastian Bernecker" [ref=e350]:
+              - cell "1" [ref=e351]
+              - cell "17170" [ref=e352]
+              - cell "Sebastian Bernecker" [ref=e353]:
+                - link "Sebastian Bernecker" [ref=e354] [cursor=pointer]:
+                  - /url: /players/bernecker-sebastian
+            - row "2 14555 Constantin Bernecker" [ref=e355]:
+              - cell "2" [ref=e356]
+              - cell "14555" [ref=e357]
+              - cell "Constantin Bernecker" [ref=e358]:
+                - link "Constantin Bernecker" [ref=e359] [cursor=pointer]:
+                  - /url: /players/bernecker-constantin
+            - row "3 10685 Theo Zmugg" [ref=e360]:
+              - cell "3" [ref=e361]
+              - cell "10685" [ref=e362]
+              - cell "Theo Zmugg" [ref=e363]:
+                - link "Theo Zmugg" [ref=e364] [cursor=pointer]:
+                  - /url: /players/zmugg-theo
+            - row "4 9855 Jonas Pichlbauer" [ref=e365]:
+              - cell "4" [ref=e366]
+              - cell "9855" [ref=e367]
+              - cell "Jonas Pichlbauer" [ref=e368]:
+                - link "Jonas Pichlbauer" [ref=e369] [cursor=pointer]:
+                  - /url: /players/pichlbauer-jonas-a1f9e6d3-05b9-4e03-a95d-744647eba23c
+            - row "5 9380 Paul Lukas Puaschitz" [ref=e370]:
+              - cell "5" [ref=e371]
+              - cell "9380" [ref=e372]
+              - cell "Paul Lukas Puaschitz" [ref=e373]:
+                - link "Paul Lukas Puaschitz" [ref=e374] [cursor=pointer]:
+                  - /url: /players/puaschitz-paul-lukas
+            - row "6 8005 Elias Krappinger" [ref=e375]:
+              - cell "6" [ref=e376]
+              - cell "8005" [ref=e377]
+              - cell "Elias Krappinger" [ref=e378]:
+                - link "Elias Krappinger" [ref=e379] [cursor=pointer]:
+                  - /url: /players/krappinger-elias
+            - row "7 7750 Nail Osmanov" [ref=e380]:
+              - cell "7" [ref=e381]
+              - cell "7750" [ref=e382]
+              - cell "Nail Osmanov" [ref=e383]:
+                - link "Nail Osmanov" [ref=e384] [cursor=pointer]:
+                  - /url: /players/osmanov-nail
+            - row "8 7550 Illia Churkin" [ref=e385]:
+              - cell "8" [ref=e386]
+              - cell "7550" [ref=e387]
+              - cell "Illia Churkin" [ref=e388]:
+                - link "Illia Churkin" [ref=e389] [cursor=pointer]:
+                  - /url: /players/churkin-illia
+            - row "9 6730 Paul Hosek" [ref=e390]:
+              - cell "9" [ref=e391]
+              - cell "6730" [ref=e392]
+              - cell "Paul Hosek" [ref=e393]:
+                - link "Paul Hosek" [ref=e394] [cursor=pointer]:
+                  - /url: /players/hosek-paul
+            - row "10 6630 Matthias Schenk" [ref=e395]:
+              - cell "10" [ref=e396]
+              - cell "6630" [ref=e397]
+              - cell "Matthias Schenk" [ref=e398]:
+                - link "Matthias Schenk" [ref=e399] [cursor=pointer]:
+                  - /url: /players/schenk-matthias
+      - generic [ref=e400]:
+        - heading "Jugend - U14 Rangliste" [level=3] [ref=e402]:
+          - link "Jugend - U14 Rangliste" [ref=e403] [cursor=pointer]:
+            - /url: /rankings/under_14
+        - table [ref=e404]:
+          - rowgroup [ref=e405]:
+            - row "1 14555 Constantin Bernecker" [ref=e406]:
+              - cell "1" [ref=e407]
+              - cell "14555" [ref=e408]
+              - cell "Constantin Bernecker" [ref=e409]:
+                - link "Constantin Bernecker" [ref=e410] [cursor=pointer]:
+                  - /url: /players/bernecker-constantin
+            - row "2 6260 Mathis Korsatko" [ref=e411]:
+              - cell "2" [ref=e412]
+              - cell "6260" [ref=e413]
+              - cell "Mathis Korsatko" [ref=e414]:
+                - link "Mathis Korsatko" [ref=e415] [cursor=pointer]:
+                  - /url: /players/korsatko-mathis
+            - row "3 4740 Maja Russ" [ref=e416]:
+              - cell "3" [ref=e417]
+              - cell "4740" [ref=e418]
+              - cell "Maja Russ" [ref=e419]:
+                - link "Maja Russ" [ref=e420] [cursor=pointer]:
+                  - /url: /players/russ-maja
+            - row "4 4370 Zoey Wolfsbauer" [ref=e421]:
+              - cell "4" [ref=e422]
+              - cell "4370" [ref=e423]
+              - cell "Zoey Wolfsbauer" [ref=e424]:
+                - link "Zoey Wolfsbauer" [ref=e425] [cursor=pointer]:
+                  - /url: /players/wolfsbauer-zoey
+            - row "5 4310 Gabriel Wilfling" [ref=e426]:
+              - cell "5" [ref=e427]
+              - cell "4310" [ref=e428]
+              - cell "Gabriel Wilfling" [ref=e429]:
+                - link "Gabriel Wilfling" [ref=e430] [cursor=pointer]:
+                  - /url: /players/wilfling-gabriel
+            - row "6 3260 Lino Klauser" [ref=e431]:
+              - cell "6" [ref=e432]
+              - cell "3260" [ref=e433]
+              - cell "Lino Klauser" [ref=e434]:
+                - link "Lino Klauser" [ref=e435] [cursor=pointer]:
+                  - /url: /players/klauser-lino
+            - row "7 3230 Elias Möst" [ref=e436]:
+              - cell "7" [ref=e437]
+              - cell "3230" [ref=e438]
+              - cell "Elias Möst" [ref=e439]:
+                - link "Elias Möst" [ref=e440] [cursor=pointer]:
+                  - /url: /players/moest-elias
+            - row "8 3100 Sarah Slavik" [ref=e441]:
+              - cell "8" [ref=e442]
+              - cell "3100" [ref=e443]
+              - cell "Sarah Slavik" [ref=e444]:
+                - link "Sarah Slavik" [ref=e445] [cursor=pointer]:
+                  - /url: /players/slavik-sarah-ac08e6ac-88ca-4c76-a61f-f117833306a8
+            - row "9 2610 Maximilian Krach" [ref=e446]:
+              - cell "9" [ref=e447]
+              - cell "2610" [ref=e448]
+              - cell "Maximilian Krach" [ref=e449]:
+                - link "Maximilian Krach" [ref=e450] [cursor=pointer]:
+                  - /url: /players/krach-maximilian
+            - row "10 2480 Niklas Wagner" [ref=e451]:
+              - cell "10" [ref=e452]
+              - cell "2480" [ref=e453]
+              - cell "Niklas Wagner" [ref=e454]:
+                - link "Niklas Wagner" [ref=e455] [cursor=pointer]:
+                  - /url: /players/wagner-niklas
+  - generic [ref=e456]:
+    - heading "Folge uns auf" [level=5] [ref=e457]
+    - generic [ref=e458]:
+      - link [ref=e459] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e460]
+      - link [ref=e462] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e463]
+    - generic [ref=e465]:
+      - link "Impressum" [ref=e466] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e467] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e468]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e469] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e470]:
+    - generic [ref=e471]:
+      - generic [ref=e472]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e473]
+        - paragraph [ref=e474]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e475]:
+        - generic [ref=e476]:
+          - button "Alle akzeptieren" [ref=e477] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e478] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e480] [cursor=pointer]
+    - generic [ref=e483]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e484] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e485] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

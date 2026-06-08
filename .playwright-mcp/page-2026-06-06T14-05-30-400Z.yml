@@ -1,0 +1,7 @@
+- dialog [ref=e2]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - button [ref=e6]: ×
+      - heading [level=4] [ref=e7]: Achtung
+    - paragraph [ref=e9]: Die angeforderte Seite wurde nicht gefunden.
+    - button [ref=e11]: OK

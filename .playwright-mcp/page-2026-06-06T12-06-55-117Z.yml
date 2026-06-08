@@ -1,0 +1,480 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "SVL-Logo" [ref=e8] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at
+        - navigation [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - link "Verein Verein Menü" [ref=e13] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/
+                - text: Verein
+                - button "Verein Menü" [ref=e14]: 
+            - listitem [ref=e15]:
+              - link "Fußball Fußball Menü" [ref=e16] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-fussball/
+                - text: Fußball
+                - button "Fußball Menü" [ref=e17]: 
+            - listitem [ref=e18]:
+              - link "Gymnastik & Trendsport Gymnastik & Trendsport Menü" [ref=e19] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-gymnastik/
+                - text: Gymnastik & Trendsport
+                - button "Gymnastik & Trendsport Menü" [ref=e20]: 
+            - listitem [ref=e21]:
+              - link "Schi & Bergsport Schi & Bergsport Menü" [ref=e22] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-schi-bergsport/
+                - text: Schi & Bergsport
+                - button "Schi & Bergsport Menü" [ref=e23]: 
+            - listitem [ref=e24]:
+              - link "Stock Stock Menü" [ref=e25] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-stock/
+                - text: Stock
+                - button "Stock Menü" [ref=e26]: 
+            - listitem [ref=e27]:
+              - link "Tennis & Padel Tennis & Padel Menü" [ref=e28] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-tennis-und-padel/
+                - text: Tennis & Padel
+                - button "Tennis & Padel Menü" [ref=e29]: 
+            - text: 
+    - main [ref=e30]:
+      - generic [ref=e31]:
+        - img [ref=e33]
+        - generic [ref=e39]:
+          - heading "ASVÖ Sportverein Lichtenberg" [level=1] [ref=e43]
+          - heading "Zielorientiert" [level=6] [ref=e45]:
+            - generic [ref=e46]: Zielorientiert
+      - generic [ref=e53]:
+        - heading "Alle Informationen über" [level=2] [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e62]:
+            - link "Neuigkeiten" [ref=e63] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/verein/news/
+              - generic [ref=e65]: 
+            - generic [ref=e66]:
+              - heading "Neuigkeiten" [level=4] [ref=e67]:
+                - link "Neuigkeiten" [ref=e68] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/verein/news/
+              - paragraph [ref=e70]: Entdecke hier alle Neuigkeiten & News rund um den Sportverein.
+          - generic [ref=e74]:
+            - link "Veranstaltungen" [ref=e75] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/verein/aktuelles/
+              - generic [ref=e77]: 
+            - generic [ref=e78]:
+              - heading "Veranstaltungen" [level=4] [ref=e79]:
+                - link "Veranstaltungen" [ref=e80] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/verein/aktuelles/
+              - paragraph [ref=e82]: Finde hier alle Informationen über kommende Termine & Veranstaltungen, sowie Bilder von vergangenen Events.
+          - generic [ref=e86]:
+            - link "Ergebnisse" [ref=e87] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/verein/news/
+              - generic [ref=e89]: 
+            - generic [ref=e90]:
+              - heading "Ergebnisse" [level=4] [ref=e91]:
+                - link "Ergebnisse" [ref=e92] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/verein/news/
+              - paragraph [ref=e94]: Finde hier alle Ergebnisse rund um den Sportverein und der einzelnen Sektionen.
+          - generic [ref=e98]:
+            - link "Menschen" [ref=e99] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/verein/vorstand/
+              - generic [ref=e101]: 
+            - generic [ref=e102]:
+              - heading "Menschen" [level=4] [ref=e103]:
+                - link "Menschen" [ref=e104] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/verein/vorstand/
+              - paragraph [ref=e106]: Erfahre, wer die freiwilligen Helfer & Funktionäre hinter dem Sportverein sind.
+      - generic [ref=e112]:
+        - heading "News" [level=2] [ref=e115]:
+          - strong [ref=e116]: News
+        - generic [ref=e119]:
+          - article [ref=e120]:
+            - generic [ref=e122]:
+              - generic [ref=e123]:
+                - generic [ref=e124]:
+                  - generic [ref=e125]:
+                    - link "Allgemein" [ref=e126] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/allgemein/
+                    - text: ","
+                    - link "Events und Training" [ref=e127] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/allgemein/events-und-training/
+                    - text: ","
+                    - link "Tennis" [ref=e128] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/tennis/
+                  - time [ref=e129]: 4. Juni 2026
+                - heading "Neues Angebot für TennisspielerinnenTESDA – Tennisspiel und Spaß für Damen" [level=3] [ref=e130]:
+                  - link "Neues Angebot für TennisspielerinnenTESDA – Tennisspiel und Spaß für Damen" [ref=e131] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/neues-angebot-fuer-tennisspielerinnentesda-tennisspiel-und-spass-fuer-damen/
+                - generic [ref=e132]: Der Tennissport erfreut sich großer Beliebtheit, kontinuierlich steigende Mitgliederzahlen verdeutlichen diese positive Entwicklung auch in Lichtenberg. Ausgebuchte Trainingskurse für Kinder und Erwachsene belegen, dass…
+                - link "Weiterlesen" [ref=e133] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/neues-angebot-fuer-tennisspielerinnentesda-tennisspiel-und-spass-fuer-damen/
+                  - generic [ref=e134]: Weiterlesen
+              - generic [ref=e135]:
+                - link "Neues Angebot für TennisspielerinnenTESDA – Tennisspiel und Spaß für Damen":
+                  - /url: https://www.sv-lichtenberg.at/neues-angebot-fuer-tennisspielerinnentesda-tennisspiel-und-spass-fuer-damen/
+          - article [ref=e137]:
+            - generic [ref=e139]:
+              - generic [ref=e140]:
+                - generic [ref=e141]:
+                  - generic [ref=e142]:
+                    - link "Allgemein" [ref=e143] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/allgemein/
+                    - text: ","
+                    - link "Events und Training" [ref=e144] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/allgemein/events-und-training/
+                    - text: ","
+                    - link "Tennis" [ref=e145] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/tennis/
+                  - time [ref=e146]: 4. Juni 2026
+                - heading "Tennis Vereinsmeisterschaft 2026" [level=3] [ref=e147]:
+                  - link "Tennis Vereinsmeisterschaft 2026" [ref=e148] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/tennis-vereinsmeisterschaft-2026/
+                - generic [ref=e149]: "Anmeldeschluss 12. Juli Unsere Tennisvereinsmeisterschaft startet am 13. Juli.Alle Tennisfreunde des Sportvereins Lichtenberg sind eingeladen mitzuspielen. Bewerbe: Herren Einzel, Damen Einzel, Herren Doppel, Mixed…"
+                - link "Weiterlesen" [ref=e150] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/tennis-vereinsmeisterschaft-2026/
+                  - generic [ref=e151]: Weiterlesen
+              - generic [ref=e152]:
+                - link "Tennis Vereinsmeisterschaft 2026":
+                  - /url: https://www.sv-lichtenberg.at/tennis-vereinsmeisterschaft-2026/
+          - article [ref=e154]:
+            - generic [ref=e156]:
+              - generic [ref=e157]:
+                - generic [ref=e158]:
+                  - link "Gymnastik" [ref=e160] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/category/gymnastik/
+                  - time [ref=e161]: 2. Juni 2026
+                - heading "Judo Erfolge, tolle Leistungen von Jakob Stengl" [level=3] [ref=e162]:
+                  - link "Judo Erfolge, tolle Leistungen von Jakob Stengl" [ref=e163] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/judo-erfolge-tolle-leistungen-von-jakob-stengl/
+                - generic [ref=e164]: Nach einem zweiten Platz in der ersten Runde des Bezirkscups im März 2026 fand am 26. April 2026 die Landesmannschaftsmeisterschaft der Schüler U10/U12 in…
+                - link "Weiterlesen" [ref=e165] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/judo-erfolge-tolle-leistungen-von-jakob-stengl/
+                  - generic [ref=e166]: Weiterlesen
+              - generic [ref=e167]:
+                - link "Judo Erfolge, tolle Leistungen von Jakob Stengl":
+                  - /url: https://www.sv-lichtenberg.at/judo-erfolge-tolle-leistungen-von-jakob-stengl/
+          - article [ref=e169]:
+            - generic [ref=e171]:
+              - generic [ref=e172]:
+                - generic [ref=e173]:
+                  - link "Stock" [ref=e175] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/category/stock/
+                  - time [ref=e176]: 1. Juni 2026
+                - heading "Sieg der Bundesliga Herren" [level=3] [ref=e177]:
+                  - link "Sieg der Bundesliga Herren" [ref=e178] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/sieg-der-bundesliga-herren/
+                - generic [ref=e179]: Bundesliga der Herren Unsere Herren bestritten am 30. Mai 2026 das letzte Vorrundenspiel auswärts gegen den SU Peuerbach. Unsere Herren Philipp Kolb, Christoph Wakolbinger,…
+                - link "Weiterlesen" [ref=e180] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/sieg-der-bundesliga-herren/
+                  - generic [ref=e181]: Weiterlesen
+              - generic [ref=e182]:
+                - link "Sieg der Bundesliga Herren":
+                  - /url: https://www.sv-lichtenberg.at/sieg-der-bundesliga-herren/
+        - link "Mehr News" [ref=e187] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/verein/news/
+          - generic [ref=e188]: Mehr News
+      - generic [ref=e195]:
+        - heading "Über uns" [level=2] [ref=e198]:
+          - strong [ref=e199]: Über uns
+        - generic [ref=e202]:
+          - paragraph [ref=e203]:
+            - text: Als Sportverein liegt es uns am Herzen, die
+            - strong [ref=e204]: Liebe und die Leidenschaft zum Sport möglichst vielen Menschen näher zu bringen
+            - text: .
+          - paragraph [ref=e205]:
+            - text: Wir sind stolz und dankbar, dass uns viele
+            - link "ehrenamtliche Funktionäre" [ref=e206] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/verein/vorstand/
+            - text: dabei unterstützen.
+          - paragraph [ref=e207]:
+            - text: Der ASVÖ Sportverein Lichtenberg ist ein
+            - strong [ref=e208]: traditionsreicher Sportverein
+            - text: ", der bis ins"
+            - link "Jahr 1955" [ref=e209] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/verein/geschichte/
+            - text: zurück geht und unter dem Dach des
+            - link "Allgemeinen Sportverbands Österreichs" [ref=e210] [cursor=pointer]:
+              - /url: https://www.asvoe.at/de
+            - text: (kurz ASVÖ) agiert.
+      - generic [ref=e216]:
+        - heading "Unser Credo" [level=2] [ref=e219]:
+          - strong [ref=e220]: Unser Credo
+        - generic [ref=e222]:
+          - generic [ref=e226]:
+            - link "Gemeinsames Miteinander" [ref=e227] [cursor=pointer]:
+              - /url: "[]"
+              - generic [ref=e229]: 
+            - generic [ref=e230]:
+              - heading "Gemeinsames Miteinander" [level=4] [ref=e231]:
+                - link "Gemeinsames Miteinander" [ref=e232] [cursor=pointer]:
+                  - /url: "[]"
+              - paragraph [ref=e234]: Wir wollen allen Menschen in unserer Region ein gesellschaftliches Miteinander im sportlichen und gesundheitlichen Sinn schmackhaft machen.
+          - generic [ref=e238]:
+            - link "Aktiv" [ref=e239] [cursor=pointer]:
+              - /url: "[]"
+              - generic [ref=e241]: 
+            - generic [ref=e242]:
+              - heading "Aktiv" [level=4] [ref=e243]:
+                - link "Aktiv" [ref=e244] [cursor=pointer]:
+                  - /url: "[]"
+              - paragraph [ref=e246]: Unser Bestreben ist es, in Menschen die Leidenschaft für Bewegung und ein gesünderes Leben zu entfachen.
+          - generic [ref=e250]:
+            - link "Regional" [ref=e251] [cursor=pointer]:
+              - /url: "[]"
+              - generic [ref=e253]: 
+            - generic [ref=e254]:
+              - heading "Regional" [level=4] [ref=e255]:
+                - link "Regional" [ref=e256] [cursor=pointer]:
+                  - /url: "[]"
+              - paragraph [ref=e258]: Wir sind bestens mit anderen Vereinen, Organisationen und Menschen in unserer Region vernetzt.
+      - generic [ref=e259]:
+        - img "rennbahn" [ref=e260]
+        - generic [ref=e266]:
+          - heading "Der SVL in Zahlen" [level=2] [ref=e270]:
+            - strong [ref=e271]: Der SVL in Zahlen
+          - generic [ref=e273]:
+            - generic [ref=e277]:
+              - generic [ref=e278]: 0+
+              - heading "Aktive Mitglieder" [level=6] [ref=e279]
+            - generic [ref=e283]:
+              - generic [ref=e284]: 0+
+              - heading "Funktionäre" [level=6] [ref=e285]
+            - generic [ref=e289]:
+              - generic [ref=e290]: 0+
+              - heading "Jahre Bestehen des SVL" [level=6] [ref=e291]
+            - generic [ref=e295]:
+              - generic [ref=e296]: "0"
+              - heading "Sektionen" [level=6] [ref=e297]
+      - generic [ref=e305]:
+        - generic [ref=e306]:
+          - heading "Unser „Sportreport“" [level=2] [ref=e307]
+          - paragraph [ref=e309]: Schmökere durch unseren aktuellen „Sportreport“ – unsere Vereinszeitung! Einfach auf das Titelbild klicken und durchblättern!
+        - link " Alle Ausgaben" [ref=e311] [cursor=pointer]:
+          - /url: /verein/sportreport/
+          - generic [ref=e312]: 
+          - generic [ref=e313]: Alle Ausgaben
+      - heading "Unsere Sektionen" [level=2] [ref=e322]:
+        - strong [ref=e323]: Unsere Sektionen
+      - generic [ref=e333]:
+        - generic [ref=e335]:
+          - heading "Gymnastik & Trendsport" [level=3] [ref=e336]:
+            - strong [ref=e337]: Gymnastik & Trendsport
+          - paragraph [ref=e338]: Bleib fit bis hin ins hohe Alter! Die Sektion Gymnastik & Trendsport unterstützt und fördert die Entwicklung der sportmotorischen Grundlagen vom Kleinkind bis ins Alter. Im Laufe unseres Lebens sollten wir nie die Neugier auf Bewegung verlieren. Die Sektion Gymnastik unterstützt dich mit ihrem Kursangebot und aktuellen trendigen Sportarten dabei!
+        - generic [ref=e340]:
+          - generic [ref=e344]:
+            - generic [ref=e346]: 
+            - heading "Gymnastik Kurse" [level=6] [ref=e348]
+          - generic [ref=e352]:
+            - generic [ref=e354]: 
+            - heading "Mountain-Bike" [level=6] [ref=e356]
+          - generic [ref=e360]:
+            - generic [ref=e362]: 
+            - heading "Nordic Walking" [level=6] [ref=e364]
+        - link "Mehr erfahren" [ref=e367] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/sektion-gymnastik/
+          - generic [ref=e368]: Mehr erfahren
+      - generic [ref=e374]:
+        - generic [ref=e376]:
+          - heading "Fußball" [level=3] [ref=e377]:
+            - strong [ref=e378]: Fußball
+          - paragraph [ref=e379]: In der Sektion Fußball wird die Gemeinschaft gelebt. Vom Fußballkindergarten bis zur Kampfmannschaft stehen der Spaß am Fußball und die persönliche Entwicklung im Vordergrund. Werte wie Teamgeist, Fairness und ein gesundes soziales Verhalten werden bei uns von klein auf gefördert. Wir würden uns freuen, dich einmal auf einer der schönsten Sportanlagen des Mühlviertels entweder als Zuschauer oder Spieler begrüßen zu dürfen.
+        - generic [ref=e381]:
+          - generic [ref=e385]:
+            - generic [ref=e387]: 
+            - heading "Meisterschaft" [level=6] [ref=e389]
+          - generic [ref=e393]:
+            - generic [ref=e395]: 
+            - heading "Nachwuchs" [level=6] [ref=e397]
+          - generic [ref=e401]:
+            - generic [ref=e403]: 
+            - heading "Fanshop" [level=6] [ref=e405]
+        - link "Mehr erfahren" [ref=e408] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/sektion-fussball/
+          - generic [ref=e409]: Mehr erfahren
+      - generic [ref=e424]:
+        - generic [ref=e426]:
+          - heading "Stocksport" [level=3] [ref=e427]:
+            - strong [ref=e428]: Stocksport
+          - paragraph [ref=e429]: Stocksport in Lichtenberg. Das ist die Symbiose aus österreichischem Spitzensport und Breitensport, aus Nachwuchs und Senioren, aus Sommer und Winter, aus Ehrgeiz und Geselligkeit. Die Lichtenberger „Einser“-Herren-Mannschaft spielt seit Jahren in der Staatsliga. Mixed- und Damenteams sind auf Landesmeisterschafts-Niveau. Und bei den Daubenschiebern sind auch Anfänger jederzeit willkommen. Und das in unserer großen Asphalt-Halle genauso wie auf Natureis am Reisingerteich.
+        - generic [ref=e431]:
+          - generic [ref=e435]:
+            - generic [ref=e437]: 
+            - heading "Meisterschaft" [level=6] [ref=e439]
+          - generic [ref=e443]:
+            - generic [ref=e445]: 
+            - heading "Ergebnisse" [level=6] [ref=e447]
+          - generic [ref=e451]:
+            - generic [ref=e453]: 
+            - heading "Geselligkeit" [level=6] [ref=e455]
+        - link "Mehr erfahren" [ref=e458] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/sektion-stock/
+          - generic [ref=e459]: Mehr erfahren
+      - generic [ref=e465]:
+        - generic [ref=e467]:
+          - heading "Schi & Bergsport" [level=3] [ref=e468]:
+            - strong [ref=e469]: Schi & Bergsport
+          - paragraph [ref=e470]: Ob Wandern, Bergsteigen, Skifahren oder Mountainbiken – die Natur ist unser Partner für lebenslange Fitness, Spaß und Gesundheit! Unsere Sektion bietet neben alpinem Schisport heute auch Langlauf, Schitouren und Freeriden im Winter und Wander- und Bergtouren im Sommer an.
+        - generic [ref=e472]:
+          - generic [ref=e476]:
+            - generic [ref=e478]: 
+            - heading "Schi & -touren" [level=6] [ref=e480]
+          - generic [ref=e484]:
+            - generic [ref=e486]: 
+            - heading "Bergtouren & Wandern" [level=6] [ref=e488]
+          - generic [ref=e492]:
+            - generic [ref=e494]: 
+            - heading "Aktivitäten" [level=6] [ref=e496]
+        - link "Mehr erfahren" [ref=e499] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/sektion-schi-bergsport/
+          - generic [ref=e500]: Mehr erfahren
+      - generic [ref=e515]:
+        - generic [ref=e517]:
+          - heading "Tennis & Padel" [level=3] [ref=e518]:
+            - strong [ref=e519]: Tennis & Padel
+          - paragraph [ref=e522]: Spiel, Spaß und Sport für alle Altersklassen! Tennis & Padel ist für unseren Club nicht allein Wettkampf, sondern auch Geselligkeit. Bei uns soll sich jedes Mitglied wohl fühlen, vom sportlich ambitionierten bis zum gelegentlich spielenden Hobbyspieler.
+        - generic [ref=e524]:
+          - generic [ref=e528]:
+            - generic [ref=e530]: 
+            - heading "Platzbetrieb" [level=6] [ref=e532]
+          - generic [ref=e536]:
+            - generic [ref=e538]: 
+            - heading "Padel" [level=6] [ref=e540]
+          - generic [ref=e544]:
+            - generic [ref=e546]: 
+            - heading "Meisterschaft" [level=6] [ref=e548]
+        - link "Mehr erfahren" [ref=e551] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/sektion-tennis-und-padel/
+          - generic [ref=e552]: Mehr erfahren
+      - generic [ref=e559]:
+        - heading "Jetzt Mitglied werden" [level=2] [ref=e561]
+        - link " Anfrage senden" [ref=e563] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/verein/mitglied-werden/
+          - generic [ref=e564]: 
+          - generic [ref=e565]: Anfrage senden
+  - contentinfo [ref=e566]:
+    - generic [ref=e569]:
+      - paragraph [ref=e575]: © 2024 Sportverein Lichtenberg
+      - paragraph [ref=e581]:
+        - link "Impressum" [ref=e582] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/impressum/
+        - text: "|"
+        - link "Kontakt" [ref=e583] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/verein/kontakt/
+      - paragraph [ref=e589]:
+        - text: Design von
+        - link "Christopher Rechberger" [ref=e590] [cursor=pointer]:
+          - /url: https://www.rechberger.io/
+  - button "Zurück nach oben" [ref=e591] [cursor=pointer]:
+    - generic [ref=e592]: 
+  - generic:
+    - dialog "Datenschutzeinstellungen":
+      - generic [ref=e595]:
+        - generic [ref=e599]:
+          - generic [ref=e600]:
+            - img [ref=e601]
+            - heading "Datenschutzeinstellungen" [level=3] [ref=e602]
+          - paragraph [ref=e603]:
+            - generic [ref=e604]: Wir nutzen Cookies auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern.
+            - generic [ref=e605]: Wenn Sie unter 16 Jahre alt sind und Ihre Zustimmung zu freiwilligen Diensten geben möchten, müssen Sie Ihre Erziehungsberechtigten um Erlaubnis bitten.
+            - text: Wir verwenden Cookies und andere Technologien auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung.
+            - generic [ref=e606]:
+              - text: Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer
+              - link "Datenschutzerklärung" [ref=e607] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+              - text: .
+            - generic [ref=e608]:
+              - text: Sie können Ihre Auswahl jederzeit unter
+              - link "Einstellungen" [ref=e609] [cursor=pointer]:
+                - /url: "#"
+              - text: widerrufen oder anpassen.
+          - group "Datenschutzeinstellungen" [ref=e610]:
+            - generic [ref=e611]: Datenschutzeinstellungen
+            - list [ref=e612]:
+              - listitem [ref=e613]:
+                - generic [ref=e614] [cursor=pointer]:
+                  - text: Essenziell
+                  - checkbox "Essenziell" [checked] [disabled] [ref=e615]: 
+              - listitem [ref=e617]:
+                - generic [ref=e618] [cursor=pointer]:
+                  - text: Statistiken
+                  - checkbox "Statistiken" [ref=e619]
+              - listitem [ref=e621]:
+                - generic [ref=e622] [cursor=pointer]:
+                  - text: Externe Medien
+                  - checkbox "Externe Medien" [ref=e623]
+          - paragraph [ref=e625]:
+            - button "Alle akzeptieren" [ref=e626] [cursor=pointer]
+          - paragraph [ref=e627]:
+            - button "Speichern" [active] [ref=e628] [cursor=pointer]
+          - paragraph [ref=e629]:
+            - button "Individuelle Datenschutzeinstellungen" [ref=e630] [cursor=pointer]
+          - paragraph [ref=e631]:
+            - button "Cookie-Details" [ref=e632] [cursor=pointer]
+            - generic [ref=e633]: "|"
+            - button "Datenschutzerklärung" [ref=e634] [cursor=pointer]
+            - generic [ref=e635]: "|"
+            - button "Impressum" [ref=e636] [cursor=pointer]
+        - generic [ref=e638]:
+          - generic [ref=e640]:
+            - generic [ref=e641]:
+              - img [ref=e642]
+              - heading [level=3] [ref=e643]: Datenschutzeinstellungen
+            - paragraph [ref=e644]:
+              - generic [ref=e645]: Wenn Sie unter 16 Jahre alt sind und Ihre Zustimmung zu freiwilligen Diensten geben möchten, müssen Sie Ihre Erziehungsberechtigten um Erlaubnis bitten.
+              - text: Wir verwenden Cookies und andere Technologien auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung.
+              - generic [ref=e646]:
+                - text: Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer
+                - link [ref=e647] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/impressum/
+                  - text: Datenschutzerklärung
+                - text: .
+              - generic [ref=e648]: Hier finden Sie eine Übersicht über alle verwendeten Cookies. Sie können Ihre Einwilligung zu ganzen Kategorien geben oder sich weitere Informationen anzeigen lassen und so nur bestimmte Cookies auswählen.
+            - generic [ref=e649]:
+              - paragraph [ref=e651]:
+                - button [ref=e652] [cursor=pointer]: Alle akzeptieren
+                - button [ref=e653] [cursor=pointer]: Speichern
+              - paragraph [ref=e655]:
+                - button [ref=e656] [cursor=pointer]: Zurück
+          - group [ref=e658]:
+            - generic [ref=e659]: Datenschutzeinstellungen
+            - generic [ref=e660]:
+              - heading [level=4] [ref=e663] [cursor=pointer]: Essenziell (2)
+              - generic [ref=e665]:
+                - paragraph [ref=e666]: Essenzielle Cookies ermöglichen grundlegende Funktionen und sind für die einwandfreie Funktion der Website erforderlich.
+                - paragraph [ref=e667]:
+                  - button [ref=e668] [cursor=pointer]: Cookie-Informationen anzeigen
+            - generic [ref=e669]:
+              - generic [ref=e670]:
+                - heading [level=4] [ref=e672] [cursor=pointer]: Statistiken (1)
+                - generic [ref=e674] [cursor=pointer]:
+                  - generic [ref=e675]: Statistiken
+                  - generic [ref=e677]: Aus
+              - generic [ref=e678]:
+                - paragraph [ref=e679]: Statistik Cookies erfassen Informationen anonym. Diese Informationen helfen uns zu verstehen, wie unsere Besucher unsere Website nutzen.
+                - paragraph [ref=e680]:
+                  - button [ref=e681] [cursor=pointer]: Cookie-Informationen anzeigen
+              - text: Aus
+            - generic [ref=e682]:
+              - generic [ref=e683]:
+                - heading [level=4] [ref=e685] [cursor=pointer]: Externe Medien (1)
+                - generic [ref=e687] [cursor=pointer]:
+                  - generic [ref=e688]: Externe Medien
+                  - generic [ref=e690]: Aus
+              - generic [ref=e691]:
+                - paragraph [ref=e692]: Inhalte von Videoplattformen und Social-Media-Plattformen werden standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert werden, bedarf der Zugriff auf diese Inhalte keiner manuellen Einwilligung mehr.
+                - paragraph [ref=e693]:
+                  - button [ref=e694] [cursor=pointer]: Cookie-Informationen anzeigen
+              - text: Aus
+          - generic [ref=e695]:
+            - paragraph [ref=e696]:
+              - link [ref=e697] [cursor=pointer]:
+                - /url: https://de.borlabs.io/borlabs-cookie/
+                - img [ref=e698]
+                - text: powered by Borlabs Cookie
+            - paragraph [ref=e699]:
+              - link [ref=e700] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+                - text: Datenschutzerklärung
+              - generic [ref=e701]: "|"
+              - link [ref=e702] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+                - text: Impressum

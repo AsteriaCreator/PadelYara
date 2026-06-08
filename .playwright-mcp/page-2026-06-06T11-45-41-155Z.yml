@@ -1,0 +1,197 @@
+- generic [ref=e3]:
+  - region "top of page"
+  - generic [ref=e9]:
+    - generic [ref=e10]:
+      - generic:
+        - generic:
+          - link [ref=e13] [cursor=pointer]:
+            - /url: https://www.padeltulln.com
+            - img [ref=e15]
+          - button [ref=e28] [cursor=pointer]:
+            - img [ref=e30]
+    - list "Social-Media-Leiste" [ref=e34]:
+      - listitem [ref=e35]:
+        - link "Facebook" [ref=e36] [cursor=pointer]:
+          - /url: https://www.facebook.com/padeltulln
+          - img "Facebook" [ref=e37]
+      - listitem [ref=e38]:
+        - link "Instagram" [ref=e39] [cursor=pointer]:
+          - /url: https://instagram.com/padeltulln
+          - img "Instagram" [ref=e40]
+      - listitem [ref=e41]:
+        - link "Grau Tripadvisor Icon" [ref=e42] [cursor=pointer]:
+          - /url: https://www.tripadvisor.de/Attraction_Review-g635552-d23340716-Reviews-Padel_Tulln-Tulln_Lower_Austria.html
+          - img "Grau Tripadvisor Icon" [ref=e43]
+    - banner [ref=e44]
+    - main [ref=e49]:
+      - generic [ref=e54]:
+        - generic:
+          - generic:
+            - generic:
+              - generic [ref=e55]:
+                - generic:
+                  - generic:
+                    - generic [ref=e63]:
+                      - generic [ref=e64]:
+                        - img "Foto Padel Tulln Winter.jpg" [ref=e69]
+                        - img "Schriftzug Padel das ganze Jahr.jpg" [ref=e72]
+                      - generic [ref=e73]:
+                        - generic:
+                          - generic:
+                            - img "padel tennis final gruen-02.png" [ref=e79]
+                            - link [ref=e81] [cursor=pointer]:
+                              - /url: https://www.padeltulln.com
+                              - img [ref=e83]
+                    - region "Willkommen bei Padel Tulln"
+                    - generic [ref=e91]:
+                      - generic:
+                        - generic:
+                          - heading "Willkommen bei Padel Tulln" [level=5] [ref=e95]:
+                            - link "Willkommen bei Padel Tulln" [ref=e99] [cursor=pointer]:
+                              - /url: https://www.padeltulln.com/über-padel-tulln
+                          - paragraph [ref=e100]:
+                            - generic [ref=e103]: täglich
+                          - heading "Wir haben geöffnet Täglich von 07:00–21:00 Uhr" [level=2] [ref=e104]:
+                            - generic [ref=e106]:
+                              - generic [ref=e107]: Wir haben geöffnet
+                              - generic [ref=e108]: Täglich von 07:00–21:00 Uhr
+                          - paragraph [ref=e109]:
+                            - generic [ref=e112]: Ganzjährig
+                          - paragraph [ref=e113]:
+                            - generic [ref=e116]: von 07:00–22:00 Uhr
+                          - paragraph [ref=e117]:
+                            - generic [ref=e120]: geöffnet
+                          - img [ref=e123]
+                          - paragraph [ref=e173]:
+                            - generic [ref=e176]:
+                              - text: Donaulände 76 in 3430 Tulln | Eingang direkt vom Aubad-Parkplatz |
+                              - link:
+                                - /url: mailto:info@padeltulln.at
+                              - link "info@padeltulln.at" [ref=e177] [cursor=pointer]:
+                                - /url: mailto:info@padeltulln.at
+                          - link "Padel Tulln Padelanlage" [ref=e179] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/über-padel-tulln
+                            - img "Padel Tulln Padelanlage" [ref=e180]
+                          - img [ref=e183]
+                          - heading "Über Padel Tulln" [level=5] [ref=e188]:
+                            - link "Über Padel Tulln" [ref=e193] [cursor=pointer]:
+                              - /url: https://www.padeltulln.com/über-padel-tulln
+                          - paragraph [ref=e194]:
+                            - generic [ref=e196]: Erfahren Sie mehr über die Padelsport-Anlage in Tulln an der Donau.
+                          - link "Mehr dazu >>" [ref=e198] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/über-padel-tulln
+                            - generic [ref=e199]: Mehr dazu >>
+                          - link "Was ist Padel Sportart" [ref=e201] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/was-ist-padel
+                            - img "Was ist Padel Sportart" [ref=e202]
+                          - img [ref=e205]
+                          - heading "Was ist Padel" [level=5] [ref=e220]:
+                            - link "Was ist Padel" [ref=e223] [cursor=pointer]:
+                              - /url: https://www.padeltulln.com/was-ist-padel
+                              - generic [ref=e225]: Was ist Padel
+                          - paragraph [ref=e226]:
+                            - generic [ref=e228]: Erfahren Sie was es mit der südländischen Trendsportart auf sich hat.
+                          - link "Mehr dazu >>" [ref=e230] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/was-ist-padel
+                            - generic [ref=e231]: Mehr dazu >>
+                          - link "Padeltraining Padel Tulln" [ref=e233] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/training
+                            - img "Padeltraining Padel Tulln" [ref=e234]
+                          - img [ref=e237]
+                          - heading "Training" [level=5] [ref=e240]:
+                            - generic [ref=e243]: Training
+                          - paragraph [ref=e244]:
+                            - generic [ref=e246]: Verbessern Sie Ihr Spiel mit professionellem Padel-Training bei Padel Tulln.
+                          - link "Mehr dazu >>" [ref=e248] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/training
+                            - generic [ref=e249]: Mehr dazu >>
+                          - link "Fragezeichen_edited.jpg" [ref=e251] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/faq-s
+                            - img "Fragezeichen_edited.jpg" [ref=e252]
+                          - img [ref=e255]
+                          - heading "FAQs" [level=5] [ref=e304]:
+                            - link "FAQs" [ref=e307] [cursor=pointer]:
+                              - /url: https://www.padeltulln.com/was-ist-padel
+                              - generic [ref=e308]: FAQs
+                          - paragraph [ref=e309]:
+                            - generic [ref=e311]: Alle weiteren Details zu Padel Tulln finden Sie in unseren FAQs.
+                          - link "Zu den FAQs >>" [ref=e313] [cursor=pointer]:
+                            - /url: https://www.padeltulln.com/faq-s
+                            - generic [ref=e314]: Zu den FAQs >>
+              - generic [ref=e315]:
+                - generic:
+                  - generic:
+                    - region "Diashow" [ref=e319]:
+                      - button "Zurück" [ref=e320] [cursor=pointer]:
+                        - img [ref=e321]
+                      - button "Weiter" [ref=e323] [cursor=pointer]:
+                        - img [ref=e324]
+                      - generic [ref=e327]:
+                        - generic:
+                          - generic:
+                            - paragraph [ref=e332]:
+                              - generic [ref=e334]: "\"Sorge gut für deinen Körper. Es ist der einzige Ort, den du zum Leben hast.\""
+                            - paragraph [ref=e335]:
+                              - generic [ref=e337]: Jim Rohn
+                    - heading "Motivation" [level=2] [ref=e338]:
+                      - link "Motivation" [ref=e341] [cursor=pointer]:
+                        - /url: https://www.padeltulln.com/training
+                    - generic [ref=e344]:
+                      - generic [ref=e348]:
+                        - heading [level=2] [ref=e351]
+                        - paragraph [ref=e353]
+                      - region [ref=e359]:
+                        - generic [ref=e361]:
+                          - generic [ref=e362] [cursor=pointer]:
+                            - 'button "✨ Save the Date ✨ 🗓️ 04.07.2026 📍Padel Tulln Für mehr Details folge uns weiterhin… Spoiler: Es wird genial! ☺️🤩🥳 #5yearsofsmashes #padeltulln #padelparty #tullnerleben #sportlandniederösterreich"'
+                            - generic [ref=e365]:
+                              - 'img "✨ Save the Date ✨ 🗓️ 04.07.2026 📍Padel Tulln Für mehr Details folge uns weiterhin… Spoiler: Es wird genial! ☺️🤩🥳 #5yearsofsmashes #padeltulln #padelparty #tullnerleben #sportlandniederösterreich" [ref=e366]'
+                              - 'img "✨ Save the Date ✨ 🗓️ 04.07.2026 📍Padel Tulln Für mehr Details folge uns weiterhin… Spoiler: Es wird genial! ☺️🤩🥳 #5yearsofsmashes #padeltulln #padelparty #tullnerleben #sportlandniederösterreich" [ref=e367]'
+                          - generic [ref=e368] [cursor=pointer]:
+                            - 'button "Padel & gutes Essen - das passt zusammen! 🤩😋 Deshalb ist morgen am Samstag, den 09.05. Narisa von Bäng Cook bei uns zu Gast. Sie verköstigt die SpielerInnen eines privaten Turniers. Aber Achtung, Geheimtipp: Ihre Speisen gibt es dort auch zum Mitnehmen 🇹🇭🍜☺️ Sa., 09.05.2026 ab 12:00 Uhr bei Padel Tulln, Donaulände 76 #tullnerleben #essenintulln #padeltulln #thaifoodlover"'
+                            - generic [ref=e371]:
+                              - 'img "Padel & gutes Essen - das passt zusammen! 🤩😋 Deshalb ist morgen am Samstag, den 09.05. Narisa von Bäng Cook bei uns zu Gast. Sie verköstigt die SpielerInnen eines privaten Turniers. Aber Achtung, Geheimtipp: Ihre Speisen gibt es dort auch zum Mitnehmen 🇹🇭🍜☺️ Sa., 09.05.2026 ab 12:00 Uhr bei Padel Tulln, Donaulände 76 #tullnerleben #essenintulln #padeltulln #thaifoodlover" [ref=e372]'
+                              - 'img "Padel & gutes Essen - das passt zusammen! 🤩😋 Deshalb ist morgen am Samstag, den 09.05. Narisa von Bäng Cook bei uns zu Gast. Sie verköstigt die SpielerInnen eines privaten Turniers. Aber Achtung, Geheimtipp: Ihre Speisen gibt es dort auch zum Mitnehmen 🇹🇭🍜☺️ Sa., 09.05.2026 ab 12:00 Uhr bei Padel Tulln, Donaulände 76 #tullnerleben #essenintulln #padeltulln #thaifoodlover" [ref=e373]'
+                          - generic [ref=e374] [cursor=pointer]:
+                            - 'button "Andoni is back! 🤩🎾 🗓️ Di., 19.05. - Fr., 22.05. Alle Informationen und verfügbare Slots bei unseren News ➡️ Link in Bio Schreib uns eine Message oder eine Mail an info@padeltulln.at und buche jetzt dein Training! Happy Training! 🥳 #padeltrainings #padeltulln #padelwien #padelniederösterreich #padel"'
+                            - generic [ref=e376]:
+                              - generic [ref=e377]:
+                                - 'img "Andoni is back! 🤩🎾 🗓️ Di., 19.05. - Fr., 22.05. Alle Informationen und verfügbare Slots bei unseren News ➡️ Link in Bio Schreib uns eine Message oder eine Mail an info@padeltulln.at und buche jetzt dein Training! Happy Training! 🥳 #padeltrainings #padeltulln #padelwien #padelniederösterreich #padel" [ref=e378]'
+                                - 'img "Andoni is back! 🤩🎾 🗓️ Di., 19.05. - Fr., 22.05. Alle Informationen und verfügbare Slots bei unseren News ➡️ Link in Bio Schreib uns eine Message oder eine Mail an info@padeltulln.at und buche jetzt dein Training! Happy Training! 🥳 #padeltrainings #padeltulln #padelwien #padelniederösterreich #padel" [ref=e379]'
+                              - iframe [ref=e380]:
+                                
+                      - generic [ref=e381]:
+                        - heading "Follow us on Instagram" [level=2] [ref=e384]
+                        - link "@padeltulln" [ref=e388] [cursor=pointer]:
+                          - /url: https://www.instagram.com/padeltulln
+                          - generic [ref=e390]: "@padeltulln"
+              - heading "Follow us" [level=5] [ref=e404]:
+                - link "Follow us" [ref=e407] [cursor=pointer]:
+                  - /url: https://instagram.com/padeltulln
+    - link "Zur Platzbuchung" [ref=e409] [cursor=pointer]:
+      - /url: https://buchung.padeltulln.at/reservierung
+      - generic [ref=e411]: Zur Platzbuchung
+    - contentinfo [ref=e412]:
+      - generic [ref=e418]:
+        - generic:
+          - generic:
+            - link "unsere-lage.jpg" [ref=e420] [cursor=pointer]:
+              - /url: https://www.google.at/maps/place/Padel+Tulln/@48.3315454,16.0703956,17z/data=!3m1!4b1!4m5!3m4!1s0x476d731c90b24fd9:0x6bd983935db26dc2!8m2!3d48.3315419!4d16.0725896
+              - img "unsere-lage.jpg" [ref=e421]
+            - generic:
+              - paragraph [ref=e422]:
+                - generic [ref=e424]: Donaulände 76
+              - paragraph [ref=e425]:
+                - generic [ref=e427]: 3430 Tulln an der Donau
+            - paragraph [ref=e428]:
+              - link "info@padeltulln.at" [ref=e432] [cursor=pointer]:
+                - /url: mailto:info@padeltulln.at?subject=Website Anfrage
+            - generic:
+              - paragraph [ref=e434]:
+                - generic [ref=e436]: ©2024 by Padel Tulln
+              - paragraph [ref=e437]
+              - paragraph [ref=e438]:
+                - link "Impressum" [ref=e441] [cursor=pointer]:
+                  - /url: https://www.padeltulln.com/impressum
+                  - generic [ref=e442]: Impressum
+  - region "bottom of page"

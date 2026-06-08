@@ -1,0 +1,172 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Zu Haupt Inhalt springen" [ref=e6] [cursor=pointer]:
+          - /url: "#main"
+        - link "Eversports Startseite" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+        - link "Suche nach Sport oder Anlage" [ref=e13] [cursor=pointer]:
+          - /url: /?show=search
+          - img [ref=e14]
+          - generic [ref=e17]: Suche nach Sport oder Anlage
+        - navigation [ref=e19]:
+          - list [ref=e20]:
+            - listitem [ref=e21]:
+              - link "Für Unternehmen" [ref=e22] [cursor=pointer]:
+                - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - listitem [ref=e23]:
+              - link "Für Sportanbieter" [ref=e24] [cursor=pointer]:
+                - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+            - listitem [ref=e25]: "|"
+            - listitem [ref=e26]:
+              - link "Login" [ref=e27] [cursor=pointer]:
+                - /url: /auth/
+            - listitem [ref=e28]:
+              - link "Registrieren" [ref=e29] [cursor=pointer]:
+                - /url: /auth/register
+    - main [ref=e30]:
+      - generic [ref=e33]:
+        - generic:
+          - generic [ref=e36]: 
+          - generic:
+            - generic [ref=e37] [cursor=pointer]:
+              - img "Tennishotel Khail"
+            - img "Tennishotel Khail" [ref=e39] [cursor=pointer]
+          - generic [ref=e42]: 
+        - text: 
+      - generic [ref=e43]:
+        - link "Zurück zum Tennishotel Khail Profil" [ref=e45] [cursor=pointer]:
+          - /url: /s/tennishotel-khail
+          - generic [ref=e47]: TK
+        - list [ref=e51]:
+          - listitem [ref=e52]:
+            - link "Übersicht" [ref=e53] [cursor=pointer]:
+              - /url: /s/tennishotel-khail
+          - listitem [ref=e54]:
+            - link "Sportplätze" [ref=e55]:
+              - /url: "#"
+          - listitem [ref=e56]:
+            - link "Matches" [ref=e57] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e58]:
+            - link "Preise" [ref=e59] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e60]:
+            - link "Bewertungen" [ref=e61] [cursor=pointer]:
+              - /url: /s/tennishotel-khail#gotoratings
+        - generic:
+          - generic:  
+      - generic [ref=e62]:
+        - heading "Tennishotel Khail - Belegungsplan" [level=1] [ref=e65]
+        - generic [ref=e69]:
+          - navigation "Sportart auswählen" [ref=e71]:
+            - list [ref=e72]:
+              - listitem [ref=e73] [cursor=pointer]: Tennis
+              - listitem [ref=e74] [cursor=pointer]: Padel
+          - generic [ref=e76]:
+            - generic [ref=e78]:
+              - textbox "Datum auswählen" [ref=e79]: 08.06.2026
+              - generic [ref=e80] [cursor=pointer]: 
+            - generic [ref=e82]:
+              - button "" [disabled]:
+                - generic: 
+              - button "Heute" [ref=e83] [cursor=pointer]
+              - button "" [ref=e84] [cursor=pointer]:
+                - generic [ref=e85]: 
+        - progressbar [ref=e91]: lade Kalender...
+    - contentinfo [ref=e92]:
+      - generic [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - heading "Mehr über Eversports" [level=2] [ref=e97]
+              - list [ref=e98]:
+                - listitem [ref=e99]:
+                  - link "Über uns" [ref=e100] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/uber-uns/
+                - listitem [ref=e101]:
+                  - link "Blog" [ref=e102] [cursor=pointer]:
+                    - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+                - listitem [ref=e103]:
+                  - link "Karriere" [ref=e104] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/jobs/
+                - listitem [ref=e105]:
+                  - link "Sicherheit" [ref=e106] [cursor=pointer]:
+                    - /url: /h/security
+                - listitem [ref=e107]:
+                  - link "Für Unternehmen" [ref=e108] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - generic [ref=e109]:
+              - heading "Eversports Manager" [level=2] [ref=e110]
+              - list [ref=e111]:
+                - listitem [ref=e112]:
+                  - link "Zur Website" [ref=e113] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+                - listitem [ref=e114]:
+                  - link "Preise" [ref=e115] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+                - listitem [ref=e116]:
+                  - link "Kostenlose Demo" [ref=e117] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+          - generic [ref=e118]:
+            - generic [ref=e119]:
+              - heading "Kontakt" [level=2] [ref=e120]
+              - list [ref=e121]:
+                - listitem [ref=e122]:
+                  - link "Kontakt" [ref=e123] [cursor=pointer]:
+                    - /url: /h/contact
+                - listitem [ref=e124]:
+                  - link "Impressum" [ref=e125] [cursor=pointer]:
+                    - /url: /h/about
+                - listitem [ref=e126]:
+                  - link "Datenschutz" [ref=e127] [cursor=pointer]:
+                    - /url: /h/privacy
+                - listitem [ref=e128]:
+                  - link "AGB" [ref=e129] [cursor=pointer]:
+                    - /url: /h/terms
+                - listitem [ref=e130]:
+                  - link "Erklärung zur Barrierefreiheit" [ref=e131] [cursor=pointer]:
+                    - /url: /h/accessibility
+                - listitem [ref=e132]:
+                  - link "Cookie-Einstellungen" [ref=e133] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e134]:
+                  - link "Memberships kündigen" [ref=e135] [cursor=pointer]:
+                    - /url: /h/cancel-membership
+            - generic [ref=e136]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e137]
+              - link "Facebook Profil" [ref=e138] [cursor=pointer]:
+                - /url: //fb.com/eversports
+                - img [ref=e139]
+              - link "YouTube Profil" [ref=e141] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                - img [ref=e142]
+              - link "Instagram Profil" [ref=e145] [cursor=pointer]:
+                - /url: https://www.instagram.com/eversports_official
+                - img [ref=e146]
+              - heading "Apps" [level=2] [ref=e149]
+              - link "iOS App Store" [ref=e150] [cursor=pointer]:
+                - /url: https://apps.apple.com/de/app/id946460861
+                - img "iOS App Store" [ref=e151]
+              - link "Android" [ref=e152] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - img "Android" [ref=e153]
+        - generic [ref=e154]:
+          - img [ref=e155]
+          - paragraph [ref=e159]: 2026 Eversports Gmbh. Alle Rechte vorbehalten
+    - dialog [active] [ref=e165]:
+      - document [ref=e167]:
+        - generic [ref=e168]:
+          - generic [ref=e169]:
+            - heading "Cookie-Einstellungen" [level=3] [ref=e170]
+            - button "Close"
+          - generic [ref=e171]:
+            - paragraph [ref=e173]: Wir verwenden Cookies, um dir ein optimales Webseiten-Erlebnis zu bieten. Du kannst dabei entscheiden, welche Kategorien von Cookies du erlaubst. Natürlich kannst du deine Cookie-Einstellungen jederzeit ändern.
+            - button "Cookie-Einstellungen" [ref=e175] [cursor=pointer]:
+              - generic [ref=e176]:
+                - text: Cookie-Einstellungen
+                - img [ref=e177]
+          - button "Alle akzeptieren" [ref=e181] [cursor=pointer]
+  - text:  

@@ -1,0 +1,384 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link [ref=e4] [cursor=pointer]:
+        - /url: https://www.smash-house.at
+        - img [ref=e5]
+      - generic [ref=e23]:
+        - list [ref=e24]:
+          - listitem [ref=e25]:
+            - link "Angebot" [ref=e26] [cursor=pointer]:
+              - /url: https://www.smash-house.at/angebot
+          - listitem [ref=e27]:
+            - link "Preise" [ref=e28] [cursor=pointer]:
+              - /url: https://www.smash-house.at/preise
+          - listitem [ref=e29]:
+            - link "FAQs" [ref=e30] [cursor=pointer]:
+              - /url: https://www.smash-house.at/faqs
+          - listitem [ref=e31]:
+            - link "Über uns" [ref=e32] [cursor=pointer]:
+              - /url: https://www.smash-house.at/about
+          - listitem [ref=e33]:
+            - link "News" [ref=e34] [cursor=pointer]:
+              - /url: https://www.smash-house.at/category/news
+          - listitem [ref=e35]:
+            - link "Kontakt" [ref=e36] [cursor=pointer]:
+              - /url: https://www.smash-house.at/kontakt
+        - list [ref=e37]:
+          - listitem [ref=e38]:
+            - link " buchen" [ref=e39] [cursor=pointer]:
+              - /url: https://www.smash-house.at/buchung-allgemein
+              - generic [ref=e40]: 
+              - text: buchen
+          - listitem [ref=e41]:
+            - link "" [ref=e42] [cursor=pointer]:
+              - /url: https://www.instagram.com/smash_house_at/
+              - generic [ref=e43]: 
+  - main [ref=e44]:
+    - article [ref=e45]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - figure [ref=e49]
+          - generic [ref=e52]:
+            - heading "Padel & Badminton in Lanzenkirchen" [level=1] [ref=e53]
+            - paragraph [ref=e54]: In der 2.500 m2 großen Sporthalle erwarten dich 5 Padeltennis- und 3 Badmintonplätze, ein Shop, eine Sportsbar und komfortable Umkleiden und Duschen.
+            - link "jetzt buchen!" [ref=e55] [cursor=pointer]:
+              - /url: https://www.smash-house.at/buchung-allgemein
+              - strong [ref=e56]: jetzt buchen!
+        - generic [ref=e59]:
+          - figure [ref=e61]:
+            - img "Frau spielt Padel-Tennis im Smash House Lanzenkirchen" [ref=e62]
+            - generic [ref=e63]:
+              - heading "Padel-Tennis" [level=2] [ref=e64]
+              - generic [ref=e65]:
+                - link "mehr Infos" [ref=e67] [cursor=pointer]:
+                  - /url: https://www.smash-house.at/angebot#padel
+                  - strong [ref=e68]: mehr Infos
+                - link "jetzt buchen!" [ref=e70] [cursor=pointer]:
+                  - /url: https://www.smash-house.at/buchung-padel
+                  - strong [ref=e71]: jetzt buchen!
+          - figure [ref=e73]:
+            - img "Mann spielt Badminton im Smash House Lanzenkirchen" [ref=e74]
+            - generic [ref=e75]:
+              - heading "Badminton" [level=2] [ref=e76]
+              - generic [ref=e77]:
+                - link "mehr Infos" [ref=e79] [cursor=pointer]:
+                  - /url: https://www.smash-house.at/angebot#badminton
+                  - strong [ref=e80]: mehr Infos
+                - link "jetzt buchen!" [ref=e82] [cursor=pointer]:
+                  - /url: https://www.smash-house.at/buchung-badminton
+                  - strong [ref=e83]: jetzt buchen!
+          - figure [ref=e85]:
+            - img "Verkäufer berät eine Sportlerin zu einem Sportschuh" [ref=e86]
+            - generic [ref=e87]:
+              - heading "Shop & Bar" [level=2] [ref=e88]
+              - link "mehr Infos" [ref=e91] [cursor=pointer]:
+                - /url: https://www.smash-house.at/angebot#shopbar
+                - strong [ref=e92]: mehr Infos
+        - generic [ref=e97]:
+          - heading "Du hast den Smash." [level=2] [ref=e98]
+          - heading "Wir das House." [level=2] [ref=e99]
+          - paragraph [ref=e100]: "Unsere Leidenschaft für Padel-Tennis und Badminton hat uns dazu bewogen, nicht nur regelmäßig selbst zu spielen, sondern einen Schritt weiter zu gehen: mit dem Smash House haben wir einen Ort geschaffen, in dem Sport, Spaß und Community zu Hause sind."
+          - generic [ref=e101]:
+            - link "mehr Infos" [ref=e103] [cursor=pointer]:
+              - /url: https://www.smash-house.at/about
+              - strong [ref=e104]: mehr Infos
+            - link "jetzt buchen" [ref=e106] [cursor=pointer]:
+              - /url: https://www.smash-house.at/buchung-allgemein
+        - generic [ref=e109]:
+          - heading "So geht’s" [level=2] [ref=e111]
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - figure "1.Platz reservieren." [ref=e114]:
+                - img "Frau reserviert Sportplatz am Tablet" [ref=e115]
+                - heading "1.Platz reservieren." [level=3] [ref=e117]
+              - paragraph [ref=e118]: Wähle deinen freien Wunschtermin ganz einfach online. First come, first served. Du kannst bis 24 Stunden vorher kostenlos stornieren.
+            - generic [ref=e119]:
+              - figure "2.Mach dich bereit." [ref=e120]:
+                - img "Mann zieht seine Sportschuhe an" [ref=e121]
+                - heading "2.Mach dich bereit." [level=3] [ref=e123]
+              - paragraph [ref=e124]:
+                - text: Freunde einladen, Sporttasche packen…
+                - text: … und gemeinsam ab ins Smash House!
+            - generic [ref=e125]:
+              - figure "3.Rocke den Platz!" [ref=e126]:
+                - img "Sportler geben ein high five" [ref=e127]
+                - heading "3.Rocke den Platz!" [level=3] [ref=e129]
+              - paragraph [ref=e130]: Mit deinem persönlichen Zugangscode im Zutrittssystem einchecken und los geht’s!
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - heading "Follow us" [level=2] [ref=e136]
+            - generic [ref=e137]:
+              - link "smash_house_at Padel- und Badminton-Halle in Lanzenkirchen" [ref=e139] [cursor=pointer]:
+                - /url: https://www.instagram.com/smash_house_at/
+                - generic [ref=e140]:
+                  - img [ref=e143]
+                  - generic [ref=e145]:
+                    - heading "smash_house_at" [level=3] [ref=e146]
+                    - paragraph [ref=e147]: Padel- und Badminton-Halle in Lanzenkirchen
+              - generic [ref=e148]:
+                - 'link "Sportliches Wochenende im Smash House: Bei den Ma" [ref=e151] [cursor=pointer]':
+                  - /url: https://www.instagram.com/reel/DYPJzGbIU2T/
+                  - generic: "Sportliches Wochenende im Smash House: Bei den Ma"
+                  - img [ref=e152]
+                  - img [ref=e154]
+                - 'link "AK ÖGB Turnier am 9.5.26 💪🏻🎾 Fotos: Advanced Plat" [ref=e157] [cursor=pointer]':
+                  - /url: https://www.instagram.com/p/DYK77VVjsKc/
+                  - generic: "AK ÖGB Turnier am 9.5.26 💪🏻🎾 Fotos: Advanced Plat"
+                  - img [ref=e158]
+                  - img [ref=e160]
+                - link "Smash House Mixed Starter powered by Skull Padel," [ref=e163] [cursor=pointer]:
+                  - /url: https://www.instagram.com/p/DXbmXu0DGuX/
+                  - generic: Smash House Mixed Starter powered by Skull Padel,
+                  - img [ref=e164]
+                - link "About yesterday 💪 Smash House Gents Advanced, Mit" [ref=e167] [cursor=pointer]:
+                  - /url: https://www.instagram.com/p/DW6Mn-nDANk/
+                  - generic: About yesterday 💪 Smash House Gents Advanced, Mit
+                  - img [ref=e168]
+                - link "Smash House Ladies Advanced - powered by Skull Pad" [ref=e171] [cursor=pointer]:
+                  - /url: https://www.instagram.com/p/DW4Zkb5Drv4/
+                  - generic: Smash House Ladies Advanced - powered by Skull Pad
+                  - img [ref=e172]
+                  - img [ref=e174]
+                - link "Smash House Ladies Starter - powered by Skull Pade" [ref=e177] [cursor=pointer]:
+                  - /url: https://www.instagram.com/p/DWbo5rrDOvd/
+                  - generic: Smash House Ladies Starter - powered by Skull Pade
+                  - img [ref=e178]
+                  - img [ref=e180]
+              - link "Auf Instagram folgen" [ref=e183] [cursor=pointer]:
+                - /url: https://www.instagram.com/smash_house_at/
+                - img [ref=e184]
+                - text: Auf Instagram folgen
+          - generic [ref=e187]:
+            - heading "News & Events" [level=2] [ref=e189]
+            - generic [ref=e190]:
+              - article [ref=e191]:
+                - 'link "Die Smash House Coaches sind startklar! November 2025 Julian & Martin freuen sich auf euch Wir freuen uns, euch unsere beiden Top-Trainer für Padel vorzustellen: Martin und Julian. Sie bringen ihre Expertise direkt aus der PiNK Padel Community … weiterlesen" [ref=e192] [cursor=pointer]':
+                  - /url: https://www.smash-house.at/news/die-smash-house-coaches-sind-startklar.html
+                  - heading "Die Smash House Coaches sind startklar!" [level=3] [ref=e193]
+                  - figure [ref=e194]:
+                    - img "Die Smash House Coaches sind startklar!" [ref=e195]
+                  - generic [ref=e196]:
+                    - time [ref=e197]: November 2025
+                    - paragraph [ref=e198]: "Julian & Martin freuen sich auf euch Wir freuen uns, euch unsere beiden Top-Trainer für Padel vorzustellen: Martin und Julian. Sie bringen ihre Expertise direkt aus der PiNK Padel Community … weiterlesen"
+              - article [ref=e199]:
+                - link "Das Smash House feiert Grand Opening im Dezember 2025! November 2025 Padel & Badminton in Lanzenkirchen Suchst du nach Padel-Courts oder Badminton-Plätzen in der Region Wiener Neustadt/Lanzenkirchen? Im neuen Smash House musst du dich nicht entscheiden – wir vereinen beide Trendsportarten … weiterlesen" [ref=e200] [cursor=pointer]:
+                  - /url: https://www.smash-house.at/news/grand-opening.html
+                  - heading "Das Smash House feiert Grand Opening im Dezember 2025!" [level=3] [ref=e201]
+                  - figure [ref=e202]:
+                    - img "Das Smash House feiert Grand Opening im Dezember 2025!" [ref=e203]
+                  - generic [ref=e204]:
+                    - time [ref=e205]: November 2025
+                    - paragraph [ref=e206]: Padel & Badminton in Lanzenkirchen Suchst du nach Padel-Courts oder Badminton-Plätzen in der Region Wiener Neustadt/Lanzenkirchen? Im neuen Smash House musst du dich nicht entscheiden – wir vereinen beide Trendsportarten … weiterlesen
+            - generic [ref=e207]:
+              - heading "Newsletter" [level=3] [ref=e208]
+              - paragraph [ref=e209]:
+                - text: In Kürze kannst du dich hier zum Newsletter anmelden.
+                - text: 👉 Du willst schon jetzt auf die Liste?
+                - link "Schreibe uns ein E-Mail!" [ref=e210] [cursor=pointer]:
+                  - /url: mailto:office@smash-house.at?subject=Voranmeldung%20zum%20Newsletter&body=Bitte%20nehme%20diese%20Adresse%20in%20den%20Newsletter%20auf!
+        - generic [ref=e212]:
+          - heading "Padelshop" [level=2] [ref=e214]
+          - paragraph [ref=e215]:
+            - text: Check dir bei unserem Partner
+            - link "Skull Padel Austria" [ref=e216] [cursor=pointer]:
+              - /url: https://www.skullpadel.at/
+            - text: dein nächstes Racket, Outfit oder Zubehör!
+          - generic [ref=e219]:
+            - link "V660 High-Performance Racket 3K Titan Carbon € 259,00 inkl. 20 % MwSt. zzgl. Versandkosten" [ref=e220] [cursor=pointer]:
+              - /url: https://www.skullpadel.at/shop/rackets/v660-high-performance-racket?utm_source=Custom%20Feed&utm_campaign=Hotsellers%20Feed%20mit%20Bild&utm_medium=cpc&utm_term=adtribes
+              - figure [ref=e221]:
+                - img "V660 High-Performance Racket 3K Titan Carbon" [ref=e222]
+              - heading "V660 High-Performance Racket 3K Titan Carbon" [level=3] [ref=e223]
+              - generic [ref=e224]:
+                - strong [ref=e225]: € 259,00
+                - generic [ref=e226]:
+                  - text: inkl. 20 % MwSt.
+                  - text: zzgl. Versandkosten
+            - link "V2020 – SP 16K € 299,00 inkl. 20 % MwSt. zzgl. Versandkosten" [ref=e227] [cursor=pointer]:
+              - /url: https://www.skullpadel.at/shop/rackets/v-2020-sp-16k?utm_source=Custom%20Feed&utm_campaign=Hotsellers%20Feed%20mit%20Bild&utm_medium=cpc&utm_term=adtribes
+              - figure [ref=e228]:
+                - img "V2020 - SP 16K" [ref=e229]
+              - heading "V2020 – SP 16K" [level=3] [ref=e230]
+              - generic [ref=e231]:
+                - strong [ref=e232]: € 299,00
+                - generic [ref=e233]:
+                  - text: inkl. 20 % MwSt.
+                  - text: zzgl. Versandkosten
+            - link "V2020 – Silver 16k € 309,00 inkl. 20 % MwSt. zzgl. Versandkosten" [ref=e234] [cursor=pointer]:
+              - /url: https://www.skullpadel.at/shop/rackets/v-2020-silver?utm_source=Custom%20Feed&utm_campaign=Hotsellers%20Feed%20mit%20Bild&utm_medium=cpc&utm_term=adtribes
+              - figure [ref=e235]:
+                - img "V2020 - Silver 16k" [ref=e236]
+              - heading "V2020 – Silver 16k" [level=3] [ref=e237]
+              - generic [ref=e238]:
+                - strong [ref=e239]: € 309,00
+                - generic [ref=e240]:
+                  - text: inkl. 20 % MwSt.
+                  - text: zzgl. Versandkosten
+            - link "V2070 – White Gold 24K € 319,00 inkl. 20 % MwSt. zzgl. Versandkosten" [ref=e241] [cursor=pointer]:
+              - /url: https://www.skullpadel.at/shop/rackets/v-2070-white-gold-24k?utm_source=Custom%20Feed&utm_campaign=Hotsellers%20Feed%20mit%20Bild&utm_medium=cpc&utm_term=adtribes
+              - figure [ref=e242]:
+                - img "V2070 - White Gold 24K" [ref=e243]
+              - heading "V2070 – White Gold 24K" [level=3] [ref=e244]
+              - generic [ref=e245]:
+                - strong [ref=e246]: € 319,00
+                - generic [ref=e247]:
+                  - text: inkl. 20 % MwSt.
+                  - text: zzgl. Versandkosten
+          - link "zum Online-Shop" [ref=e251] [cursor=pointer]:
+            - /url: https://www.skullpadel.at/
+            - strong [ref=e252]: zum Online-Shop
+        - generic [ref=e257]:
+          - heading "Padel oder Badminton? Bei uns kannst du beides haben!" [level=2] [ref=e258]
+          - paragraph [ref=e259]:
+            - text: "Zwei Schläger, zwei Welten – und doch so viel gemeinsam: Padel und Badminton stehen für Leichtigkeit, Action und eine starke Community. Beim"
+            - strong [ref=e260]: Padel-Tennis
+            - text: trifft mediterranes Lebensgefühl auf Dynamik. Auf dem Court geht es um schnelle Reflexe, clevere Winkel und jede Menge Spaß. Die Glaswände machen das Spiel spektakulär, die Doppelstruktur sorgt für echte Gemeinschaft – und schon nach wenigen Minuten bist du mitten im Flow.
+            - strong [ref=e261]: Badminton
+            - text: "hingegen ist der elegante Klassiker im modernen Gewand. Leichtfüßig, präzise und blitzschnell – ein Sport, der dich fordert. Der Federball fliegt, der Puls steigt, und du merkst: Jeder Schlag zählt."
+          - paragraph [ref=e262]: Padel oder Badminton? Du kannst beides haben!
+        - link "Entdecke unser Angebot!" [ref=e267] [cursor=pointer]:
+          - /url: https://www.smash-house.at/angebot
+          - strong [ref=e268]: Entdecke unser Angebot!
+        - paragraph
+  - contentinfo [ref=e269]:
+    - generic [ref=e270]:
+      - navigation [ref=e271]:
+        - list [ref=e273]:
+          - listitem [ref=e274]:
+            - link " Home" [ref=e275] [cursor=pointer]:
+              - /url: https://www.smash-house.at/
+              - generic [ref=e276]: 
+              - text: Home
+          - listitem [ref=e277]:
+            - link " Angebot" [ref=e278] [cursor=pointer]:
+              - /url: https://www.smash-house.at/angebot
+              - generic [ref=e279]: 
+              - text: Angebot
+          - listitem [ref=e280]:
+            - link " FAQs" [ref=e281] [cursor=pointer]:
+              - /url: https://www.smash-house.at/faqs
+              - generic [ref=e282]: 
+              - text: FAQs
+          - listitem [ref=e283]:
+            - link " Über uns" [ref=e284] [cursor=pointer]:
+              - /url: https://www.smash-house.at/about
+              - generic [ref=e285]: 
+              - text: Über uns
+          - listitem [ref=e286]:
+            - link " News" [ref=e287] [cursor=pointer]:
+              - /url: https://www.smash-house.at/category/news
+              - generic [ref=e288]: 
+              - text: News
+        - list [ref=e290]:
+          - listitem [ref=e291]:
+            - link " Kontakt" [ref=e292] [cursor=pointer]:
+              - /url: https://www.smash-house.at/kontakt
+              - generic [ref=e293]: 
+              - text: Kontakt
+          - listitem [ref=e294]:
+            - link " AGB" [ref=e295] [cursor=pointer]:
+              - /url: https://www.smash-house.at/algemeine-geschaeftsbedingungen
+              - generic [ref=e296]: 
+              - text: AGB
+          - listitem [ref=e297]:
+            - link " Impressum" [ref=e298] [cursor=pointer]:
+              - /url: https://www.smash-house.at/impressum
+              - generic [ref=e299]: 
+              - text: Impressum
+          - listitem [ref=e300]:
+            - link " Datenschutz" [ref=e301] [cursor=pointer]:
+              - /url: https://www.smash-house.at/datenschutzerklaerung
+              - generic [ref=e302]: 
+              - text: Datenschutz
+          - listitem [ref=e303]:
+            - link " Cookies" [ref=e304] [cursor=pointer]:
+              - /url: https://www.smash-house.at/cookie-richtlinie
+              - generic [ref=e305]: 
+              - text: Cookies
+        - generic [ref=e306]:
+          - link [ref=e307] [cursor=pointer]:
+            - /url: https://www.smash-house.at
+            - img [ref=e308]
+          - paragraph [ref=e327]: © 2026 Smash House LA Sports GmbH
+        - generic [ref=e328]:
+          - figure [ref=e331]:
+            - link "Logo Skull Padel Austria" [ref=e332] [cursor=pointer]:
+              - /url: https://www.skullpadel.at/
+              - img "Logo Skull Padel Austria" [ref=e333]
+          - link "Branding by Logo Robert Mayer Designer Robert Mayer Design" [ref=e335] [cursor=pointer]:
+            - /url: https://robertmayer.design
+            - text: Branding by
+            - img "Logo Robert Mayer Designer" [ref=e336]
+            - strong [ref=e337]: Robert Mayer Design
+      - link "" [ref=e338] [cursor=pointer]:
+        - /url: "#main"
+        - generic [ref=e339]: 
+    - list [ref=e342]:
+      - list [ref=e343]:
+        - listitem [ref=e344]:
+          - button "Privatsphäre-Einstellungen ändern" [ref=e345] [cursor=pointer]
+        - listitem [ref=e346]:
+          - button "Historie der Privatsphäre-Einstellungen" [ref=e347] [cursor=pointer]
+        - listitem [ref=e348]:
+          - button "Einwilligungen widerrufen" [ref=e349] [cursor=pointer]
+  - dialog "Privatsphäre-Einstellungen" [active] [ref=e351]:
+    - generic [ref=e353]:
+      - link "Zu Einwilligungsoptionen springen" [ref=e354] [cursor=pointer]:
+        - /url: "#af983-ext-0-255"
+      - heading "Privatsphäre-Einstellungen" [level=2] [ref=e357]
+      - generic [ref=e359]:
+        - generic [ref=e361]:
+          - text: Wir verwenden Cookies und ähnliche Technologien auf unserer Website und verarbeiten personenbezogene Daten von dir (z.B. IP-Adresse), um z.B. Inhalte und Anzeigen zu personalisieren, Medien von Drittanbietern einzubinden oder Zugriffe auf unsere Website zu analysieren. Die Datenverarbeitung kann auch erst in Folge gesetzter Cookies stattfinden. Wir teilen diese Daten mit Dritten, die wir in den Privatsphäre-Einstellungen benennen.
+          - text: Die Datenverarbeitung kann mit deiner Einwilligung oder auf Basis eines berechtigten Interesses erfolgen, dem du in den Privatsphäre-Einstellungen widersprechen kannst. Du hast das Recht, nicht einzuwilligen und deine Einwilligung zu einem späteren Zeitpunkt zu ändern oder zu widerrufen. Weitere Informationen zur Verwendung deiner Daten findest du in unserer
+          - link "Datenschutzerklärung" [ref=e362] [cursor=pointer]:
+            - /url: https://www.smash-house.at/datenschutzerklaerung
+          - text: .
+          - paragraph [ref=e364]: Du bist unter 14 Jahre alt? Dann kannst du nicht in optionale Services einwilligen. Du kannst deine Eltern oder Erziehungsberechtigten bitten, mit dir in diese Services einzuwilligen.
+          - paragraph [ref=e365]:
+            - generic [ref=e366]:
+              - text: Wenn du alle Services akzeptierst, erlaubst du, dass OpenStreetMap
+              - superscript [ref=e367]: "2"
+              - generic [ref=e368]: (Funktional)
+              - text: und Google Analytics
+              - superscript [ref=e369]: "3"
+              - generic [ref=e370]: (Statistik)
+              - text: geladen werden. Diese sind nach ihrem Zweck in Gruppen Funktional
+              - superscript [ref=e371]: "2"
+              - text: und Statistik
+              - superscript [ref=e372]: "3"
+              - text: unterteilt (Zugehörigkeit durch hochgestellte Zahlen gekennzeichnet).
+          - paragraph [ref=e373]: "Außerdem erlaubst du die Datenverarbeitung gemäß dem Google Consent Mode von Google auf der Grundlage deiner Einwilligung für die folgenden Zwecke:"
+          - generic [ref=e374]:
+            - link "Speichern und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Analysen (z. B. Besuchsdauer)." [ref=e376]:
+              - /url: "#"
+              - img [ref=e378]
+              - generic [ref=e380]: Speichern und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Analysen (z. B. Besuchsdauer).
+            - link "Speichern und Auslesen von Daten für die Funktionalität der Website oder App (z. B. Spracheinstellungen)." [ref=e382]:
+              - /url: "#"
+              - img [ref=e384]
+              - generic [ref=e386]: Speichern und Auslesen von Daten für die Funktionalität der Website oder App (z. B. Spracheinstellungen).
+            - link "Übermitteln von Nutzerdaten an Google für Online-Werbezwecke." [ref=e388]:
+              - /url: "#"
+              - img [ref=e390]
+              - generic [ref=e392]: Übermitteln von Nutzerdaten an Google für Online-Werbezwecke.
+            - link "Speicherung und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Werbung." [ref=e394]:
+              - /url: "#"
+              - img [ref=e396]
+              - generic [ref=e398]: Speicherung und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Werbung.
+        - generic [ref=e399]:
+          - button "✔ Alle akzeptieren" [ref=e400] [cursor=pointer]:
+            - generic [ref=e401]: ✔ Alle akzeptieren
+          - button "Weiter ohne Einwilligung" [ref=e402] [cursor=pointer]:
+            - generic [ref=e403]: Weiter ohne Einwilligung
+          - button "Privatsphäre-Einstellungen individuell festlegen" [ref=e404] [cursor=pointer]:
+            - generic [ref=e405]: Privatsphäre-Einstellungen individuell festlegen
+      - generic [ref=e407]:
+        - link "Datenschutzerklärung" [ref=e408] [cursor=pointer]:
+          - /url: https://www.smash-house.at/datenschutzerklaerung
+        - text: •
+        - link "Impressum" [ref=e409] [cursor=pointer]:
+          - /url: https://www.smash-house.at/impressum
+        - text: •
+        - link "Cookie-Richtlinie" [ref=e410] [cursor=pointer]:
+          - /url: https://www.smash-house.at/cookie-richtlinie

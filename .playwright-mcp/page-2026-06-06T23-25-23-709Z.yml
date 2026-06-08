@@ -1,0 +1,310 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e38]:
+    - generic [ref=e39]:
+      - heading "DAMEN STARTER - Sunday Breakfast 🥐 \"Let´s Padel4Fun!\"☕" [level=1] [ref=e41]
+      - button "Anmelden" [ref=e44] [cursor=pointer]
+    - generic [ref=e45]:
+      - generic [ref=e47]:
+        - generic [ref=e48]: Turnier Information
+        - generic [ref=e50]:
+          - paragraph [ref=e51]:
+            - strong [ref=e53]: PADEL4FUN - Wiener Neudorf
+            - text: DAMEN STARTER - Sunday Breakfast 🥐 "Let´s Padel4Fun!"☕
+            - strong [ref=e55]: "❗📧Kontakt: mario.r@padel4fun.at"
+            - strong [ref=e56]: 👉Teilnahmeberechtigt sind beim Damen Starter Turnier - Team Spielerinnen mit einem Punkte-Koeffizient APN von 1 ,0 - 2,5
+            - strong [ref=e57]: 👉Einteilung wird auf Einzelperson gewertet. Hat eine Spielerin einer Paarung einen APN von mehr als 2,5 so kann das Paar nicht am Turnier teilnehmen.
+            - strong [ref=e58]: "TURNIERABLAUF:"
+          - list [ref=e59]:
+            - listitem [ref=e60]:
+              - text: das Turnier findet ab
+              - strong [ref=e61]: 6 Paarungen
+              - text: statt
+            - listitem [ref=e62]:
+              - text: gespielt wird auf bis zu
+              - strong [ref=e63]: 3 Courts
+            - listitem [ref=e64]:
+              - text: 👉Die
+              - strong [ref=e65]: ersten Runden
+              - text: bzw. im
+              - strong [ref=e66]: Grunddurchgang
+              - text: wird auf
+              - strong [ref=e67]: einen gewonnen Satz mit Vorteil
+              - text: (bei 40:40) gespielt
+            - listitem [ref=e68]:
+              - text: 👉
+              - strong [ref=e69]: Optional Platzierungsspiele/Play-Off wird
+              - text: auf
+              - strong [ref=e70]: zwei gewonnene Sätze mit No-Ad
+              - text: (bei 40:40)
+              - strong [ref=e71]: "- Entscheidungssatz als Champions-Tiebreak bis 10-Punkte"
+            - listitem [ref=e72]:
+              - text: 👉
+              - strong [ref=e73]: Jede Platzierung wird
+              - strong [ref=e74]: ausgespielt
+            - listitem [ref=e75]: Modus in Gruppen- / K.O. - & Kombi-Format möglich
+          - paragraph [ref=e76]
+          - list [ref=e77]:
+            - listitem [ref=e78]:
+              - text: 🕔
+              - strong [ref=e79]: "Zeit:"
+              - text: 21. Juni 2026, 09:00 bis 14:00 Uhr
+            - listitem [ref=e80]:
+              - strong [ref=e81]: "Parkplatz:"
+              - text: direkt vor der Anlage
+            - listitem [ref=e82]:
+              - strong [ref=e83]: Umkleide & Duschen
+              - text: anliegend am Standort in der Sporthalle (90m entfernt)
+          - paragraph [ref=e84]:
+            - strong [ref=e85]: "Ort:"
+            - text: 2351 Wiener Neudorf
+            - text: Tennisstraße 1
+            - strong [ref=e86]: "Anfahrt:"
+            - text: unsere Padel4Fun Plätze befinden sich gleich hinter der Sport- und Freizeitanlage in Wr.Neudorf und erreichst du öffentlich mit Badner-Bahn (Haltestelle Wr.Neudorf + 6min Fußweg) oder mit dem Auto (A2 oder B17)
+          - paragraph [ref=e87]:
+            - strong [ref=e88]: "ANMELDUNG:"
+          - list [ref=e89]:
+            - listitem [ref=e90]:
+              - strong [ref=e91]: Nennschluss
+              - text: ist
+              - strong [ref=e92]: zwei
+              - strong [ref=e93]: Tage vor Turnierbeginn
+            - listitem [ref=e94]:
+              - strong [ref=e95]: "Nenngeld:"
+              - text: 30 € pro Spielerin
+              - strong [ref=e96]: (BAR)
+              - text: "/ Jugendtarif (unter 16 Jahre): 20 €"
+            - listitem [ref=e97]: mit Partnerin als Team anmelden
+            - listitem [ref=e98]: Teilnahme wird per Mail bestätigt
+            - listitem [ref=e99]:
+              - text: bei
+              - strong [ref=e101]: keiner Teilnahmebestätigung
+              - text: nimmt das Team einen Platz auf der
+              - strong [ref=e102]
+              - strong [ref=e104]: "\"Warteliste\""
+              - strong [ref=e105]
+              - text: ein
+          - paragraph [ref=e106]:
+            - strong [ref=e107]: "ABMELDUNG:"
+          - list [ref=e108]:
+            - listitem [ref=e109]:
+              - text: Abmeldungen bis zum Nennschluss per
+              - strong [ref=e111]: "\"Abmeldebutton\""
+              - text: möglich
+            - listitem [ref=e112]:
+              - text: spätere Abmeldungen nach Nennschluss direkt per Mail an
+              - strong [ref=e114]: mario.r@padel4fun.at
+              - text: bekanntgeben
+            - listitem [ref=e115]: bei Absagen nach Nennschluss wird das Nenngeld fällig, sollte sich kein Ersatzteam finden
+            - listitem [ref=e116]:
+              - text: bei Partnerwechsel ist eine
+              - strong [ref=e118]: neue Anmeldung
+              - text: und eine
+              - strong [ref=e120]: Abmeldung vom alten Team
+              - text: notwendig
+          - paragraph [ref=e121]:
+            - text: Wir freuen uns auf ein lässiges Turnier mit Euch!
+            - strong [ref=e123]: Das Padel4Fun Team
+            - emphasis [ref=e124]: Die Turnierteilnahme berechtigt die PADEL4FUN GmbH, Foto- und Videomaterial von den Teilnehmer*innen für Marketingzwecke zu verwenden.
+      - generic [ref=e126]:
+        - heading "Turnierinformationen" [level=4] [ref=e127]
+        - table [ref=e129]:
+          - rowgroup [ref=e130]:
+            - row "Standort Padel4Fun - Wr. Neudorf" [ref=e131]:
+              - cell "Standort" [ref=e132]
+              - cell "Padel4Fun - Wr. Neudorf" [ref=e133]:
+                - link "Padel4Fun - Wr. Neudorf" [ref=e134] [cursor=pointer]:
+                  - /url: /locations/padel4fun-wr-neudorf
+            - row "Wettbewerb Damen" [ref=e135]:
+              - cell "Wettbewerb" [ref=e136]
+              - cell "Damen" [ref=e137]
+            - row "Kategorie Starter" [ref=e138]:
+              - cell "Kategorie" [ref=e139]
+              - cell "Starter" [ref=e140]
+            - row "APN Bereich 1.0 - 2.5" [ref=e141]:
+              - cell "APN Bereich" [ref=e142]
+              - cell "1.0 - 2.5" [ref=e143]
+            - row "Registrierung Start 21.05.2026, 12:00 Uhr" [ref=e144]:
+              - cell "Registrierung Start" [ref=e145]
+              - cell "21.05.2026, 12:00 Uhr" [ref=e146]
+            - row "Registrierung Ende 19.06.2026, 12:00 Uhr" [ref=e147]:
+              - cell "Registrierung Ende" [ref=e148]
+              - cell "19.06.2026, 12:00 Uhr" [ref=e149]
+            - row "Startzeit 21.06.2026, 09:00 Uhr" [ref=e150]:
+              - cell "Startzeit" [ref=e151]
+              - cell "21.06.2026, 09:00 Uhr" [ref=e152]
+            - row "Endzeit 21.06.2026, 14:00 Uhr" [ref=e153]:
+              - cell "Endzeit" [ref=e154]
+              - cell "21.06.2026, 14:00 Uhr" [ref=e155]
+        - generic [ref=e156]: Padel4Fun - Wr. Neudorf
+        - iframe [ref=e158]:
+          - generic [ref=f1e3]:
+            - strong [ref=f1e4]: www.google.at
+            - text: hat die Verbindung abgelehnt.
+    - generic [ref=e159]:
+      - generic [ref=e161]:
+        - generic [ref=e163]:
+          - generic [ref=e164]: Damen - Starter
+          - generic [ref=e165]: (8/9)
+        - table [ref=e167]:
+          - rowgroup [ref=e168]:
+            - row "APN Punkte Team" [ref=e169]:
+              - columnheader [ref=e170]
+              - columnheader "APN" [ref=e171]
+              - columnheader "Punkte" [ref=e172]
+              - columnheader "Team" [ref=e173]
+          - rowgroup [ref=e174]:
+            - row "#1 1,407 6980 Manuela Janda /Sandra Ollram" [ref=e175]:
+              - cell "#1" [ref=e176]
+              - cell "1,407" [ref=e177]
+              - cell "6980" [ref=e178]
+              - cell "Manuela Janda /Sandra Ollram" [ref=e179]:
+                - link "Manuela Janda" [ref=e180] [cursor=pointer]:
+                  - /url: /players/janda-manuela
+                - text: /
+                - link "Sandra Ollram" [ref=e181] [cursor=pointer]:
+                  - /url: /players/ollram-sandra
+            - row "#2 1,647 5580 Victoria Rosenkranz /Nina Mitterlehner" [ref=e182]:
+              - cell "#2" [ref=e183]
+              - cell "1,647" [ref=e184]
+              - cell "5580" [ref=e185]
+              - cell "Victoria Rosenkranz /Nina Mitterlehner" [ref=e186]:
+                - link "Victoria Rosenkranz" [ref=e187] [cursor=pointer]:
+                  - /url: /players/rosenkranz-victoria
+                - text: /
+                - link "Nina Mitterlehner" [ref=e188] [cursor=pointer]:
+                  - /url: /players/mitterlehner-nina
+            - row "#3 1,500 3980 Ievgeniia Ringhofer /Chrissie Cerwenka" [ref=e189]:
+              - cell "#3" [ref=e190]
+              - cell "1,500" [ref=e191]
+              - cell "3980" [ref=e192]
+              - cell "Ievgeniia Ringhofer /Chrissie Cerwenka" [ref=e193]:
+                - link "Ievgeniia Ringhofer" [ref=e194] [cursor=pointer]:
+                  - /url: /players/ringhofer-ievgeniia
+                - text: /
+                - link "Chrissie Cerwenka" [ref=e195] [cursor=pointer]:
+                  - /url: /players/cerwenka-chrissie
+            - row "#4 1,000 3940 Ulrike Staudinger /Karin Haberler" [ref=e196]:
+              - cell "#4" [ref=e197]
+              - cell "1,000" [ref=e198]
+              - cell "3940" [ref=e199]
+              - cell "Ulrike Staudinger /Karin Haberler" [ref=e200]:
+                - link "Ulrike Staudinger" [ref=e201] [cursor=pointer]:
+                  - /url: /players/staudinger-ulrike
+                - text: /
+                - link "Karin Haberler" [ref=e202] [cursor=pointer]:
+                  - /url: /players/haberler-karin
+            - row "#5 1,473 3450 Carina Gaster /Petra Ramoser" [ref=e203]:
+              - cell "#5" [ref=e204]
+              - cell "1,473" [ref=e205]
+              - cell "3450" [ref=e206]
+              - cell "Carina Gaster /Petra Ramoser" [ref=e207]:
+                - link "Carina Gaster" [ref=e208] [cursor=pointer]:
+                  - /url: /players/gaster-carina
+                - text: /
+                - link "Petra Ramoser" [ref=e209] [cursor=pointer]:
+                  - /url: /players/ramoser-petra
+            - row "#6 1,225 1690 Viktoria Horvath-Peitler /Amanda Engelbrecht" [ref=e210]:
+              - cell "#6" [ref=e211]
+              - cell "1,225" [ref=e212]
+              - cell "1690" [ref=e213]
+              - cell "Viktoria Horvath-Peitler /Amanda Engelbrecht" [ref=e214]:
+                - link "Viktoria Horvath-Peitler" [ref=e215] [cursor=pointer]:
+                  - /url: /players/horvath-peitler-viktoria
+                - text: /
+                - link "Amanda Engelbrecht" [ref=e216] [cursor=pointer]:
+                  - /url: /players/engelbrecht-amanda
+            - row "#7 1,133 1060 Sandra Pulker /Doris Wessely" [ref=e217]:
+              - cell "#7" [ref=e218]
+              - cell "1,133" [ref=e219]
+              - cell "1060" [ref=e220]
+              - cell "Sandra Pulker /Doris Wessely" [ref=e221]:
+                - link "Sandra Pulker" [ref=e222] [cursor=pointer]:
+                  - /url: /players/pulker-sandra
+                - text: /
+                - link "Doris Wessely" [ref=e223] [cursor=pointer]:
+                  - /url: /players/wessely-doris
+            - row "#8 1,250 240 Isabella Noidoilt /Leonie Forstner" [ref=e224]:
+              - cell "#8" [ref=e225]
+              - cell "1,250" [ref=e226]
+              - cell "240" [ref=e227]
+              - cell "Isabella Noidoilt /Leonie Forstner" [ref=e228]:
+                - link "Isabella Noidoilt" [ref=e229] [cursor=pointer]:
+                  - /url: /players/noidoilt-isabella
+                - text: /
+                - link "Leonie Forstner" [ref=e230] [cursor=pointer]:
+                  - /url: /players/forstner-leonie
+      - generic [ref=e232]:
+        - generic [ref=e235]: Warteliste
+        - table [ref=e238]:
+          - rowgroup [ref=e239]:
+            - row "APN Punkte Team" [ref=e240]:
+              - columnheader [ref=e241]
+              - columnheader "APN" [ref=e242]
+              - columnheader "Punkte" [ref=e243]
+              - columnheader "Team" [ref=e244]
+  - generic [ref=e245]:
+    - heading "Folge uns auf" [level=5] [ref=e246]
+    - generic [ref=e247]:
+      - link [ref=e248] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e249]
+      - link [ref=e251] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e252]
+    - generic [ref=e254]:
+      - link "Impressum" [ref=e255] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e256] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e257]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e258] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e259]:
+    - generic [ref=e260]:
+      - generic [ref=e261]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e262]
+        - paragraph [ref=e263]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e264]:
+        - generic [ref=e265]:
+          - button "Alle akzeptieren" [ref=e266] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e267] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e269] [cursor=pointer]
+    - generic [ref=e272]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e273] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e274] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

@@ -1,0 +1,562 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "home" [ref=e5] [cursor=pointer]:
+          - /url: /
+          - img "Padelbase Logo in Weiß" [ref=e6]
+        - generic [ref=e7]:
+          - link "Was ist Padel?" [ref=e8] [cursor=pointer]:
+            - /url: /was-ist-padel
+          - button "Standorte" [ref=e10] [cursor=pointer]:
+            - generic [ref=e11]: Standorte
+            - img [ref=e13]
+          - button "Angebote" [ref=e16] [cursor=pointer]:
+            - generic [ref=e17]: Angebote
+            - img [ref=e19]
+          - button "Academy" [ref=e22] [cursor=pointer]:
+            - generic [ref=e23]: Academy
+            - img [ref=e25]
+          - button "Events" [ref=e28] [cursor=pointer]:
+            - generic [ref=e29]: Events
+            - img [ref=e31]
+          - button "Über Uns" [ref=e34] [cursor=pointer]:
+            - generic [ref=e35]: Über Uns
+            - img [ref=e37]
+        - generic [ref=e40]:
+          - button "Sprache" [ref=e43] [cursor=pointer]:
+            - generic [ref=e44]: Sprache
+            - img [ref=e46]
+          - link "Jetzt Platz buchen" [ref=e48] [cursor=pointer]:
+            - /url: https://www.buchung-padelbase.at/
+      - img "Padelbase Logo in Weiß" [ref=e51]
+    - main [ref=e54]:
+      - generic [ref=e60]:
+        - generic [ref=e62]: Standorte
+        - heading "Entdecke unsere Padel-Plätze" [level=1] [ref=e64]
+        - paragraph [ref=e65]: Finde den perfekten Padel-Standort in Österreich für dein nächstes Spiel oder Training.
+      - list [ref=e75]:
+        - listitem [ref=e76]:
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - heading "Annenheim" [level=3] [ref=e80]
+              - generic [ref=e82]:
+                - generic [ref=e83]:
+                  - generic [ref=e84]: "Outdoor Plätze:"
+                  - generic [ref=e85]: "4"
+                - generic [ref=e87]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e89]: Lindenhofweg 6, 9520 Annenheim
+            - paragraph [ref=e91]: Direkt am wunderschönen Ossiacher See im Tennis Center Annenheim bringt die Padelbase Annenheim Urlaubsfeeling und Sportbegeisterung zusammen.
+            - generic [ref=e93]:
+              - link "Standort ansehen" [ref=e94] [cursor=pointer]:
+                - /url: /standort/annenheim
+              - link "Platz buchen" [ref=e95] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4793
+                - generic [ref=e96]: Platz buchen
+                - img [ref=e98]
+        - listitem [ref=e101]:
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - heading "Bad Hofgastein" [level=3] [ref=e105]
+              - generic [ref=e107]:
+                - generic [ref=e108]:
+                  - generic [ref=e109]: "Outdoor Plätze:"
+                  - generic [ref=e110]: "2"
+                - generic [ref=e112]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e114]: Wiesenweg 4, 5630 Bad Hofgastein
+            - paragraph [ref=e116]: Umgeben von imposanter Bergkulisse ist die Padelbase Bad Hofgastein ein echtes Highlight – alpines Lebensgefühl trifft auf trendigen Sport im Herzen des Gasteinertals.
+            - generic [ref=e118]:
+              - link "Standort ansehen" [ref=e119] [cursor=pointer]:
+                - /url: /standort/bad-hofgastein
+              - link "Platz buchen" [ref=e120] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4325
+                - generic [ref=e121]: Platz buchen
+                - img [ref=e123]
+        - listitem [ref=e126]:
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - heading "Deutschkreutz" [level=3] [ref=e130]
+              - generic [ref=e132]:
+                - generic [ref=e133]:
+                  - generic [ref=e134]: "Outdoor Plätze:"
+                  - generic [ref=e135]: "2"
+                - generic [ref=e137]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e139]: Gewerbestraße 1/2, 7301 Deutschkreutz
+            - paragraph [ref=e141]: Mitten im Blaufränkischland trifft hier sportlicher Lifestyle auf burgenländische Gelassenheit – die Padelbase Deutschkreutz ist ein Hotspot für Bewegung, Genuss und Geselligkeit.
+            - generic [ref=e143]:
+              - link "Standort ansehen" [ref=e144] [cursor=pointer]:
+                - /url: /standort/deutschkreutz
+              - link "Platz buchen" [ref=e145] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3717
+                - generic [ref=e146]: Platz buchen
+                - img [ref=e148]
+        - listitem [ref=e151]:
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - heading "Freilassing" [level=3] [ref=e155]
+              - generic [ref=e157]:
+                - generic [ref=e158]:
+                  - generic [ref=e159]: "Outdoor Plätze:"
+                  - generic [ref=e160]: "4"
+                - generic [ref=e162]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e164]: Heideweg 24, 83395 Freilassing
+            - paragraph [ref=e166]: Direkt an der Grenze zu Salzburg gelegen, ist die Padelbase Freilassing die erste ihrer Art im Berchtesgadener Land – internationaler Spirit trifft auf bayerische Bodenständigkeit. Leihschläger können bei Bedarf ganz unkompliziert vor Ort gebucht werden. Der Ausleih-Automat befindet sich beim Vereinsheim der Eisstockschützen (im Gebäude rechts neben der Padel-Anlage).
+            - generic [ref=e168]:
+              - link "Standort ansehen" [ref=e169] [cursor=pointer]:
+                - /url: /standort/freilassing
+              - link "Platz buchen" [ref=e170] [cursor=pointer]:
+                - /url: https://freilassing.tennisplatz.info/reservierung
+                - generic [ref=e171]: Platz buchen
+                - img [ref=e173]
+        - listitem [ref=e176]:
+          - generic [ref=e178]:
+            - generic [ref=e179]:
+              - heading "Gunskirchen" [level=3] [ref=e180]
+              - generic [ref=e182]:
+                - generic [ref=e183]:
+                  - generic [ref=e184]: "Outdoor Plätze:"
+                  - generic [ref=e185]: "1"
+                - generic [ref=e187]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e189]: Dahlienstraße 20, 4623 Gunskirchen
+            - paragraph [ref=e191]: "Im neuen Sportzentrum Gunskirchen gelegen, entsteht mit der Padelbase ein Ort, an dem Bewegung, Begegnung und Begeisterung zusammenfinden. Mitten in einer modernen Sportlandschaft wird hier einmal mehr sichtbar: Sport verbindet."
+            - generic [ref=e193]:
+              - link "Standort ansehen" [ref=e194] [cursor=pointer]:
+                - /url: /standort/gunskirchen
+              - link "Platz buchen" [ref=e195] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4721
+                - generic [ref=e196]: Platz buchen
+                - img [ref=e198]
+        - listitem [ref=e201]:
+          - generic [ref=e203]:
+            - generic [ref=e204]:
+              - heading "Innsbruck" [level=3] [ref=e205]
+              - generic [ref=e207]:
+                - generic [ref=e208]:
+                  - generic [ref=e209]: "Outdoor Plätze:"
+                  - generic [ref=e210]: "2"
+                - generic [ref=e212]: Mo - So täglich ab 06.00 Uhr
+                - generic [ref=e214]: Archenweg 60a, 6020 Innsbruck
+            - paragraph [ref=e216]: Direkt neben dem idyllischen Baggersee in Innsbruck findet ihr die Padelbase Innsbruck - eine moderne Padelanlage mit 2 Courts, Lounge und gemütlichen Begegnungszonen inkl. See Restaurant direkt nebenan. Zentral gelegen und bestens erreichbar. Dein Treffpunkt für Sport, Spaß und Gemeinschaft in der Tiroler Hauptstadt.
+            - generic [ref=e218]:
+              - link "Standort ansehen" [ref=e219] [cursor=pointer]:
+                - /url: /standort/innsbruck
+              - link "Platz buchen" [ref=e220] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4987
+                - generic [ref=e221]: Platz buchen
+                - img [ref=e223]
+        - listitem [ref=e226]:
+          - generic [ref=e228]:
+            - generic [ref=e229]:
+              - heading "Linz Indoor | Padelbase Arena" [level=3] [ref=e230]
+              - generic [ref=e232]:
+                - generic [ref=e233]:
+                  - generic [ref=e234]: "Indoor Plätze:"
+                  - generic [ref=e235]: "4"
+                - generic [ref=e237]: "Mo-So: 06:00 bis 00:00 Uhr"
+                - generic [ref=e239]: Melissenweg 27 , 4020 Linz
+            - paragraph [ref=e241]: Die Padelbase Linz Halle ist die erste Padel-Halle in Linz und Umgebung. Auf insgesamt vier Indoor-Courts – zwei Doppel- und zwei Singlecourts – genießen Spieler:innen an einem zentralen Standort in Linz ganzjährigen Padelspaß, unabhängig vom Wetter.
+            - generic [ref=e243]:
+              - link "Standort ansehen" [ref=e244] [cursor=pointer]:
+                - /url: /standort/linz-halle-indoor
+              - link "Platz buchen" [ref=e245] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4706
+                - generic [ref=e246]: Platz buchen
+                - img [ref=e248]
+        - listitem [ref=e251]:
+          - generic [ref=e253]:
+            - generic [ref=e254]:
+              - heading "Linz | Kleinmünchen" [level=3] [ref=e255]
+              - generic [ref=e257]:
+                - generic [ref=e258]:
+                  - generic [ref=e259]: "Outdoor Plätze:"
+                  - generic [ref=e260]: "3"
+                - generic [ref=e262]: "Mo-So: 07:00 bis 21:00 Uhr"
+                - generic [ref=e264]: Pestalozzistraße 79, 4030 Linz
+            - paragraph [ref=e266]: In Linz, der innovativen Stadt an der Donau, lädt die Padelbase auf der ASKÖ-Kleinmünchen Anlage zu sportlicher Bewegung in entspannter Atmosphäre ein – ein lebendiger Treffpunkt für alle Padel-Fans.
+            - generic [ref=e268]:
+              - link "Standort ansehen" [ref=e269] [cursor=pointer]:
+                - /url: /standort/linz-kleinmunchen
+              - link "Platz buchen" [ref=e270] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4253
+                - generic [ref=e271]: Platz buchen
+                - img [ref=e273]
+        - listitem [ref=e276]:
+          - generic [ref=e278]:
+            - generic [ref=e279]:
+              - heading "Linz | Pichling" [level=3] [ref=e280]
+              - generic [ref=e282]:
+                - generic [ref=e283]:
+                  - generic [ref=e284]: "Outdoor Plätze:"
+                  - generic [ref=e285]: "3"
+                - generic [ref=e287]: Mo-So 07.00 - 22.00 Uhr
+                - generic [ref=e289]: Weikerlseestraße 60, 4030 Linz
+            - paragraph [ref=e291]: 3 Outdoor-Courts in der naturnahen Umgebung von Pichling – perfekt für Sport an der frischen Luft und ein lebendiger Treffpunkt für alle Padel-Fans. Court 1 ist ein Panorama Court und bietet damit ein besonderes Spielerlebnis mit freiem Blick und modernem Design.
+            - generic [ref=e293]:
+              - link "Standort ansehen" [ref=e294] [cursor=pointer]:
+                - /url: /standort/linz-pichling
+              - link "Platz buchen" [ref=e295] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4720
+                - generic [ref=e296]: Platz buchen
+                - img [ref=e298]
+        - listitem [ref=e301]:
+          - generic [ref=e303]:
+            - generic [ref=e304]:
+              - heading "Marchtrenk" [level=3] [ref=e305]
+              - generic [ref=e307]:
+                - generic [ref=e308]:
+                  - generic [ref=e309]: "Outdoor Plätze:"
+                  - generic [ref=e310]: "1"
+                - generic [ref=e312]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e314]: Badgasse 4, 4614 Marchtrenk
+            - paragraph [ref=e316]: In Marchtrenk liegt die Padelbase direkt im Freizeitareal – sportlich aktiv sein und danach im benachbarten Freibad entspannen? Genau hier ist das möglich.
+            - generic [ref=e318]:
+              - link "Standort ansehen" [ref=e319] [cursor=pointer]:
+                - /url: /standort/marchtrenk
+              - link "Platz buchen" [ref=e320] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3104
+                - generic [ref=e321]: Platz buchen
+                - img [ref=e323]
+        - listitem [ref=e326]:
+          - generic [ref=e328]:
+            - generic [ref=e329]:
+              - heading "Neunkirchen" [level=3] [ref=e330]
+              - generic [ref=e332]:
+                - generic [ref=e333]:
+                  - generic [ref=e334]: "Outdoor Plätze:"
+                  - generic [ref=e335]: "2"
+                - generic [ref=e337]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e339]: Am Erholungszentrum, 2620 Neunkirchen
+            - paragraph [ref=e341]: Padelbase Neunkirchen befindet sich inmitten des Erholungszentrums der Stadt und verfügt über zwei Outdoor-Padelplätze. Die Lage in der Freizeitanlage bietet eine entspannte Umgebung für Padel in der Natur.
+            - generic [ref=e343]:
+              - link "Standort ansehen" [ref=e344] [cursor=pointer]:
+                - /url: /standort/neunkirchen
+              - link "Platz buchen" [ref=e345] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3243
+                - generic [ref=e346]: Platz buchen
+                - img [ref=e348]
+        - listitem [ref=e351]:
+          - generic [ref=e353]:
+            - generic [ref=e354]:
+              - heading "Ried im Innkreis" [level=3] [ref=e355]
+              - generic [ref=e357]:
+                - generic [ref=e358]:
+                  - generic [ref=e359]: "Outdoor Plätze:"
+                  - generic [ref=e360]: "2"
+                - generic [ref=e362]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e364]: Rennerstraße 6, 4910 Ried im Innkreis
+            - paragraph [ref=e366]: COMING SOON Mit der Padelbase Ried entsteht auf dem Gelände des UTC Fischer Tennisclubs in Ried im Innkreis eine moderne Padelanlage mit 2 Padel-Courts, Lounge und einladenden Begegnungszonen. Zentral gelegen und gut erreichbar, wird sie ab Frühjahr 2026 zum neuen Hotspot für Sport und Gemeinschaft im Innviertel.
+            - generic [ref=e368]:
+              - link "Standort ansehen" [ref=e369] [cursor=pointer]:
+                - /url: /standort/ried-im-innkreis
+              - link "Platz buchen" [ref=e370] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at
+                - generic [ref=e371]: Platz buchen
+                - img [ref=e373]
+        - listitem [ref=e376]:
+          - generic [ref=e378]:
+            - generic [ref=e379]:
+              - heading "Rohrbach-Berg" [level=3] [ref=e380]
+              - generic [ref=e382]:
+                - generic [ref=e383]:
+                  - generic [ref=e384]: "Outdoor Plätze:"
+                  - generic [ref=e385]: "1"
+                - generic [ref=e387]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e389]: Hopfengasse 15, 4150 Rohrbach-Berg
+            - paragraph [ref=e391]: Im charmanten Mühlviertel gelegen, bringt die Padelbase Rohrbach frischen Schwung in die Region – ein Ort, an dem Sport auf familiäre Atmosphäre trifft.
+            - generic [ref=e393]:
+              - link "Standort ansehen" [ref=e394] [cursor=pointer]:
+                - /url: /standort/rohrbach-berg
+              - link "Platz buchen" [ref=e395] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3105
+                - generic [ref=e396]: Platz buchen
+                - img [ref=e398]
+        - listitem [ref=e401]:
+          - generic [ref=e403]:
+            - generic [ref=e404]:
+              - heading "Salzburg" [level=3] [ref=e405]
+              - generic [ref=e407]:
+                - generic [ref=e408]:
+                  - generic [ref=e409]: "Outdoor Plätze:"
+                  - generic [ref=e410]: "8"
+                - generic [ref=e412]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e414]: Vogelweiderstr. 114, 5020 Salzburg
+            - paragraph [ref=e416]: Modernste Padel-Anlage mitten im Alpenraum. Ob Anfänger oder Turnierspieler – in Salzburg erwarten dich hochwertige Courts, motivierende Trainings und eine wachsende Community in einzigartiger Kulisse. Die Umkleiden und Toiletten befinden sich während des Winters im gelben Hauptgebäude beim Parkplatz.
+            - generic [ref=e418]:
+              - link "Standort ansehen" [ref=e419] [cursor=pointer]:
+                - /url: /standort/salzburg
+              - link "Platz buchen" [ref=e420] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=2886
+                - generic [ref=e421]: Platz buchen
+                - img [ref=e423]
+        - listitem [ref=e426]:
+          - generic [ref=e428]:
+            - generic [ref=e429]:
+              - heading "Salzburg Indoor | Padelbase CUPRA Arena" [level=3] [ref=e430]
+              - generic [ref=e432]:
+                - generic [ref=e433]:
+                  - generic [ref=e434]: "Indoor Plätze:"
+                  - generic [ref=e435]: "3"
+                - generic [ref=e437]: Mo- So von 07:00 bis 24:00
+                - generic [ref=e439]: Wasserfeldstr 19, 5020 Salzburg
+                - generic [ref=e441]: Coming Soon
+            - paragraph [ref=e443]: COMING SOON! In Salzburg entsteht mit der „Padelbase CUPRA Arena“ die erste Indoor-Padelhalle im Stadtgebiet. Drei Panorama-Courts, moderne Umkleiden und hochwertige Sanitäranlagen schaffen optimale Bedingungen für Sport und Community. Eine stylische, zeitgemäße Arena, die Padel auf ein neues Level hebt.
+            - link "Standort ansehen" [ref=e446] [cursor=pointer]:
+              - /url: /standort/salzburg-indoor-padelbase-cupra-arena
+        - listitem [ref=e448]:
+          - generic [ref=e450]:
+            - generic [ref=e451]:
+              - heading "Wels" [level=3] [ref=e452]
+              - generic [ref=e454]:
+                - generic [ref=e455]:
+                  - generic [ref=e456]: "Outdoor Plätze:"
+                  - generic [ref=e457]: "2"
+                - generic [ref=e459]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e461]: Pulverturmstraße 9, 4600 Wels
+            - paragraph [ref=e463]: "Im Herzen von Wels gelegen, befindet sich die Padelbase auf der Tennisanlage des UTC Wels – ein Ort, an dem sportliche Aktivität auf regionales Flair trifft. Hier wird spürbar: Sport verbindet."
+            - generic [ref=e465]:
+              - link "Standort ansehen" [ref=e466] [cursor=pointer]:
+                - /url: /standort/wels
+              - link "Platz buchen" [ref=e467] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=2649
+                - generic [ref=e468]: Platz buchen
+                - img [ref=e470]
+        - listitem [ref=e473]:
+          - generic [ref=e475]:
+            - generic [ref=e476]:
+              - heading "Wien" [level=3] [ref=e477]
+              - generic [ref=e479]:
+                - generic [ref=e480]:
+                  - generic [ref=e481]: "Outdoor Plätze:"
+                  - generic [ref=e482]: "2"
+                - generic [ref=e484]: "Mo–So: 07:00 - 22:00 Uhr"
+                - generic [ref=e486]: Jennerpl. 25, 1130 Wien
+            - paragraph [ref=e488]: Im grünen Westen Wiens, eingebettet in die exklusive Kulisse des OTC Tennisclubs, kombiniert diese Padelbase urbanen Komfort mit traumhaftem Blick über die Stadt – ein echter Geheimtipp für Sport und Genuss.
+            - generic [ref=e490]:
+              - link "Standort ansehen" [ref=e491] [cursor=pointer]:
+                - /url: /standort/wien
+              - link "Platz buchen" [ref=e492] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3532
+                - generic [ref=e493]: Platz buchen
+                - img [ref=e495]
+        - listitem [ref=e498]:
+          - generic [ref=e500]:
+            - generic [ref=e501]:
+              - heading "Wies" [level=3] [ref=e502]
+              - generic [ref=e504]:
+                - generic [ref=e505]:
+                  - generic [ref=e506]: "Outdoor Plätze:"
+                  - generic [ref=e507]: "2"
+                - generic [ref=e509]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e511]: Am Bahnhof 2a , 8551 Wies
+            - paragraph [ref=e513]: Auf dem ehemaligen Hartplatzgelände neben der Stocksporthalle befindet sich die Padelbase Wies - eine moderne Anlage mit zwei Courts und durchdachten Aufenthaltsbereichen. Zentral gelegen und gut erreichbar ist sie zum neuen Treffpunkt für Sport, Community und aktive Freizeit in der Südweststeiermark.
+            - generic [ref=e515]:
+              - link "Standort ansehen" [ref=e516] [cursor=pointer]:
+                - /url: /standort/wies
+              - link "Platz buchen" [ref=e517] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4978
+                - generic [ref=e518]: Platz buchen
+                - img [ref=e520]
+    - generic [ref=e529]:
+      - heading "Jetzt Platz buchen und Padel spielen!" [level=2] [ref=e531]
+      - paragraph [ref=e532]: Entdecke die Welt des Padel-Sports und buche dein erstes Training noch heute!
+      - generic [ref=e534]:
+        - link "Standort ansehen" [ref=e535] [cursor=pointer]:
+          - /url: /standort
+        - link "Events entdecken" [ref=e536] [cursor=pointer]:
+          - /url: /eventkalender
+    - contentinfo [ref=e541]:
+      - generic [ref=e544]:
+        - generic [ref=e546]:
+          - generic [ref=e547]:
+            - generic [ref=e548]:
+              - link "Padelbase Logo in Weiß":
+                - /url: /
+                - img "Padelbase Logo in Weiß"
+            - generic [ref=e550]: Abonniere unseren Newsletter, um über Neuigkeiten und Funktionen informiert zu bleiben.
+            - generic [ref=e551]:
+              - form "Newsletter Footer Anmeldung" [ref=e552]:
+                - textbox "Gib deine E-Mail ein" [ref=e553]
+                - button "Abonnieren" [disabled] [ref=e554]
+              - generic [ref=e555]: Mit dem Abonnieren stimmen Sie unserer Datenschutzrichtlinie zu und erhalten Updates.
+            - generic [ref=e557]:
+              - generic [ref=e558]:
+                - img [ref=e561]
+                - link "office@padelbase.at" [ref=e564] [cursor=pointer]:
+                  - /url: mailto:office@padelbase.at
+              - generic [ref=e565]:
+                - img [ref=e568]
+                - link "+43 660 9988044" [ref=e571] [cursor=pointer]:
+                  - /url: tel:+436609988044
+              - generic [ref=e572]:
+                - img [ref=e575]
+                - generic [ref=e578]: Karl-Wurmb-Straße 8, A-4600 Wels
+              - generic [ref=e579]:
+                - img [ref=e582]
+                - generic [ref=e586]:
+                  - strong [ref=e587]: "Telefonisch und per E-Mail während unserer Bürozeiten erreichbar:"
+                  - text: Mo-Do von 08.00- 17.00 & Fr von 08.00 – 12.00 Uhr
+              - generic [ref=e588]:
+                - img [ref=e591]
+                - link "Häufig gestellte Fragen" [ref=e597] [cursor=pointer]:
+                  - /url: /support
+          - generic [ref=e598]:
+            - generic [ref=e599]:
+              - generic [ref=e601]: Standorte
+              - link "Alle Standorte" [ref=e602] [cursor=pointer]:
+                - /url: /standort
+              - list [ref=e604]:
+                - listitem [ref=e605]:
+                  - link "Annenheim" [ref=e606] [cursor=pointer]:
+                    - /url: /standort/annenheim
+                - listitem [ref=e607]:
+                  - link "Bad Hofgastein" [ref=e608] [cursor=pointer]:
+                    - /url: /standort/bad-hofgastein
+                - listitem [ref=e609]:
+                  - link "Deutschkreutz" [ref=e610] [cursor=pointer]:
+                    - /url: /standort/deutschkreutz
+                - listitem [ref=e611]:
+                  - link "Freilassing" [ref=e612] [cursor=pointer]:
+                    - /url: /standort/freilassing
+                - listitem [ref=e613]:
+                  - link "Gunskirchen" [ref=e614] [cursor=pointer]:
+                    - /url: /standort/gunskirchen
+                - listitem [ref=e615]:
+                  - link "Innsbruck" [ref=e616] [cursor=pointer]:
+                    - /url: /standort/innsbruck
+                - listitem [ref=e617]:
+                  - link "Linz Indoor | Padelbase Arena" [ref=e618] [cursor=pointer]:
+                    - /url: /standort/linz-halle-indoor
+                - listitem [ref=e619]:
+                  - link "Linz | Kleinmünchen" [ref=e620] [cursor=pointer]:
+                    - /url: /standort/linz-kleinmunchen
+                - listitem [ref=e621]:
+                  - link "Linz | Pichling" [ref=e622] [cursor=pointer]:
+                    - /url: /standort/linz-pichling
+                - listitem [ref=e623]:
+                  - link "Marchtrenk" [ref=e624] [cursor=pointer]:
+                    - /url: /standort/marchtrenk
+                - listitem [ref=e625]:
+                  - link "Neunkirchen" [ref=e626] [cursor=pointer]:
+                    - /url: /standort/neunkirchen
+                - listitem [ref=e627]:
+                  - link "Ried im Innkreis" [ref=e628] [cursor=pointer]:
+                    - /url: /standort/ried-im-innkreis
+                - listitem [ref=e629]:
+                  - link "Rohrbach-Berg" [ref=e630] [cursor=pointer]:
+                    - /url: /standort/rohrbach-berg
+                - listitem [ref=e631]:
+                  - link "Salzburg" [ref=e632] [cursor=pointer]:
+                    - /url: /standort/salzburg
+                - listitem [ref=e633]:
+                  - link "Salzburg Indoor | Padelbase CUPRA Arena" [ref=e634] [cursor=pointer]:
+                    - /url: /standort/salzburg-indoor-padelbase-cupra-arena
+                - listitem [ref=e635]:
+                  - link "Wels" [ref=e636] [cursor=pointer]:
+                    - /url: /standort/wels
+                - listitem [ref=e637]:
+                  - link "Wien" [ref=e638] [cursor=pointer]:
+                    - /url: /standort/wien
+                - listitem [ref=e639]:
+                  - link "Wies" [ref=e640] [cursor=pointer]:
+                    - /url: /standort/wies
+            - generic [ref=e641]:
+              - generic [ref=e643]: Angebote
+              - generic [ref=e644]:
+                - link "Stundentarife" [ref=e645] [cursor=pointer]:
+                  - /url: /angebote/stundentarif
+                - link "Abos & Pakete" [ref=e646] [cursor=pointer]:
+                  - /url: /angebote/abo-pakete
+                - link "Firmenangebote" [ref=e647] [cursor=pointer]:
+                  - /url: /angebote/firmen-angebote
+                - link "Gutschein" [ref=e648] [cursor=pointer]:
+                  - /url: /angebote/gutschein
+                - link "Schulen" [ref=e649] [cursor=pointer]:
+                  - /url: /angebote/schulen
+                - link "Sponsoring" [ref=e650] [cursor=pointer]:
+                  - /url: /uber-uns/sponsoring
+                - link "Franschise" [ref=e651] [cursor=pointer]:
+                  - /url: /uber-uns/franchise
+            - generic [ref=e652]:
+              - generic [ref=e654]: Academy
+              - generic [ref=e655]:
+                - link "Trainingskalender" [ref=e656] [cursor=pointer]:
+                  - /url: /academy/trainingskalender
+                - link "Einzel-/Gruppentraining" [ref=e657] [cursor=pointer]:
+                  - /url: /academy/einzel-gruppentraining
+                - link "Kick-Off Training" [ref=e658] [cursor=pointer]:
+                  - /url: /academy/kick-off-trainings
+                - link "Performance Training" [ref=e659] [cursor=pointer]:
+                  - /url: /academy/performance-training
+                - link "Schnuppertage" [ref=e660] [cursor=pointer]:
+                  - /url: /academy/schnuppertage
+                - link "Unsere Trainer" [ref=e661] [cursor=pointer]:
+                  - /url: /academy/trainer
+            - generic [ref=e662]:
+              - generic [ref=e664]: Events
+              - generic [ref=e665]:
+                - link "Eventkalender" [ref=e666] [cursor=pointer]:
+                  - /url: /eventkalender
+                - link "#glaubandich Padelbase Tour 2025" [ref=e667] [cursor=pointer]:
+                  - /url: /events/glaubandich-padelbase-tour
+                - link "Padelbase Buongiorno Tour 2025" [ref=e668] [cursor=pointer]:
+                  - /url: /events/padelbase-buongiorno-tour
+            - generic [ref=e669]:
+              - generic [ref=e671]: Über Uns
+              - generic [ref=e672]:
+                - link "Über Padelbase" [ref=e673] [cursor=pointer]:
+                  - /url: /uber-uns
+                - link "Was ist Padel?" [ref=e674] [cursor=pointer]:
+                  - /url: /was-ist-padel
+                - link "Kontakt" [ref=e675] [cursor=pointer]:
+                  - /url: /uber-uns/kontakt
+                - link "Trainer:in werden" [ref=e676] [cursor=pointer]:
+                  - /url: https://padelbase.at/trainer#trainer-anfrage
+                - link "FAQ" [ref=e677] [cursor=pointer]:
+                  - /url: /support
+            - generic [ref=e678]:
+              - generic [ref=e680]: Folge uns
+              - generic [ref=e681]:
+                - link "Facebook" [ref=e682] [cursor=pointer]:
+                  - /url: https://www.facebook.com/Padelbase.at
+                  - img [ref=e684]
+                  - generic [ref=e686]: Facebook
+                - link "Instagram" [ref=e687] [cursor=pointer]:
+                  - /url: https://www.instagram.com/padelbase.at/
+                  - img [ref=e689]
+                  - generic [ref=e691]: Instagram
+                - link "Whatsapp" [ref=e692] [cursor=pointer]:
+                  - /url: /whatsapp
+                  - img [ref=e694]
+                  - generic [ref=e696]: Whatsapp
+        - generic [ref=e697]:
+          - link "Padelbase Logo in Weiß":
+            - /url: /
+            - generic:
+              - img "Padelbase Logo in Weiß"
+        - generic [ref=e700]:
+          - generic [ref=e701]:
+            - text: © 2025 Padelbase. Alle Rechte vorbehalten. | Made by
+            - link "Digidock" [ref=e702] [cursor=pointer]:
+              - /url: https://www.digidock.agency/
+            - text: "&"
+            - link "Kwapso" [ref=e703] [cursor=pointer]:
+              - /url: https://www.kwapso.com/
+          - generic [ref=e704]:
+            - link "Impressum" [ref=e705] [cursor=pointer]:
+              - /url: /impressum
+            - link "Datenschutz" [ref=e706] [cursor=pointer]:
+              - /url: /datenschutz
+            - link "Haftung / Nutzungsbedingungen" [ref=e707] [cursor=pointer]:
+              - /url: /haftung
+  - dialog "Cookie consent dialog":
+    - dialog "Cookie consent dialog" [ref=e708]:
+      - button "Close" [ref=e710] [cursor=pointer]: ×
+      - generic [ref=e711]: Diese Webseite verwendet Cookies.
+      - generic [ref=e712]:
+        - text: Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren und unseren Datenverkehr zu analysieren. Wir geben Informationen über Ihre Nutzung unserer Website auch an unsere Werbe- und Analysepartner weiter, die diese möglicherweise mit anderen Informationen kombinieren, die Sie ihnen bereitgestellt haben oder die sie im Rahmen Ihrer Nutzung ihrer Dienste gesammelt haben.
+        - link "Weitere Informationen, opens a new window" [ref=e713] [cursor=pointer]:
+          - /url: https://padelbase.at/datenschutz
+          - text: Weitere Informationen
+      - generic [ref=e714]:
+        - button "Alle akzeptieren" [ref=e715] [cursor=pointer]
+        - button "Alle ablehnen" [ref=e716] [cursor=pointer]

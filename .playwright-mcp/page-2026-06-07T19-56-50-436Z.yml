@@ -1,0 +1,85 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - img "PadelYara" [ref=e62]
+    - generic [ref=e6]:
+      - link "Court Finder" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Padelrevier" [ref=e8] [cursor=pointer]:
+        - /url: /padelrevier
+      - link "Turnierjagd" [ref=e9] [cursor=pointer]:
+        - /url: /turnierjaeger
+      - link "Über Yara" [ref=e10] [cursor=pointer]:
+        - /url: /about
+    - paragraph [ref=e11]: Yara findet einen freien Court für dich. Wo willst du spielen?
+    - paragraph [ref=e12]:
+      - text: PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?
+      - link "Schreib Yara." [ref=e13] [cursor=pointer]:
+        - /url: mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback
+    - generic [ref=e14]:
+      - paragraph [ref=e15]: Neue Features kommen. Ob du das mitbekommst, ist deine Entscheidung.
+      - generic [ref=e16]:
+        - textbox "deine@email.at" [ref=e17]
+        - button "INFORMIER MICH" [ref=e18]
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Wo?
+          - textbox "z.B. 2500 oder Baden" [ref=e24]: Arbeiterstrandbadstraße 128, 1220 Wien
+        - generic [ref=e25]:
+          - generic [ref=e26]: Umkreis
+          - combobox [ref=e27]:
+            - option "5 km" [selected]
+            - option "10 km"
+            - option "20 km"
+            - option "25 km"
+            - option "50 km"
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]: Wann?
+          - textbox [ref=e31]: 2026-06-07
+        - generic [ref=e32]:
+          - generic [ref=e33]: Ab wann?
+          - combobox [ref=e34]:
+            - option "07:00" [disabled]
+            - option "08:00" [disabled]
+            - option "09:00" [disabled]
+            - option "10:00" [disabled]
+            - option "11:00" [disabled]
+            - option "12:00" [disabled]
+            - option "13:00" [disabled]
+            - option "14:00" [disabled]
+            - option "15:00" [disabled]
+            - option "16:00" [disabled]
+            - option "17:00" [disabled]
+            - option "18:00" [disabled]
+            - option "19:00" [disabled]
+            - option "20:00" [disabled]
+            - option "21:00" [disabled]
+            - option "22:00" [selected]
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: Court-Typ
+          - generic [ref=e38]:
+            - generic [ref=e39] [cursor=pointer]:
+              - checkbox "Indoor" [checked] [ref=e40]
+              - generic [ref=e41]: Indoor
+            - generic [ref=e42] [cursor=pointer]:
+              - checkbox "Outdoor" [checked] [ref=e43]
+              - generic [ref=e44]: Outdoor
+        - generic [ref=e45]:
+          - generic [ref=e46]: Verfügbarkeit
+          - generic [ref=e47]:
+            - generic [ref=e48] [cursor=pointer]:
+              - checkbox "Frei" [checked] [ref=e49]
+              - generic [ref=e50]: Frei
+            - generic [ref=e51] [cursor=pointer]:
+              - checkbox "Belegt" [checked] [ref=e52]
+              - generic [ref=e53]: Belegt
+      - button "SUCHEN" [active] [ref=e54]
+    - paragraph [ref=e64]: Ort nicht gefunden. Bitte gib den vollständigen Ortsnamen oder die PLZ ein.
+  - contentinfo [ref=e57]:
+    - paragraph [ref=e58]: PadelYara
+    - generic [ref=e59]:
+      - button "Impressum" [ref=e60]
+      - link "Datenschutz" [ref=e61] [cursor=pointer]:
+        - /url: /datenschutz

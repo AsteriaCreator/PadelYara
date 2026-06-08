@@ -1,0 +1,460 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Padelbase Logo in Weiß" [ref=e5] [cursor=pointer]:
+          - /url: /en
+          - img "Padelbase Logo in Weiß" [ref=e6]
+        - generic [ref=e7]:
+          - link "What is Padel?" [ref=e8] [cursor=pointer]:
+            - /url: /en/was-ist-padel
+          - button "Location" [ref=e10] [cursor=pointer]:
+            - generic [ref=e11]: Location
+            - img [ref=e13]
+          - button "Offers" [ref=e16] [cursor=pointer]:
+            - generic [ref=e17]: Offers
+            - img [ref=e19]
+          - button "Academy" [ref=e22] [cursor=pointer]:
+            - generic [ref=e23]: Academy
+            - img [ref=e25]
+          - button "Events" [ref=e28] [cursor=pointer]:
+            - generic [ref=e29]: Events
+            - img [ref=e31]
+          - button "About us" [ref=e34] [cursor=pointer]:
+            - generic [ref=e35]: About us
+            - img [ref=e37]
+        - generic [ref=e40]:
+          - button "Language" [ref=e43] [cursor=pointer]:
+            - generic [ref=e44]: Language
+            - img [ref=e46]
+          - link "Book your place now" [ref=e48] [cursor=pointer]:
+            - /url: https://www.buchung-padelbase.at/
+      - img "Padelbase Logo in Weiß" [ref=e51]
+    - main [ref=e54]:
+      - generic [ref=e60]:
+        - generic [ref=e62]: Location
+        - heading "Discover our padel courts" [level=1] [ref=e64]
+        - paragraph [ref=e65]: Find the perfect padel location in Austria for your next game or training session.
+      - list [ref=e75]:
+        - listitem [ref=e76]:
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - heading "Bad Hofgastein" [level=3] [ref=e80]
+              - generic [ref=e82]:
+                - generic [ref=e83]:
+                  - generic [ref=e84]: "Outdoor places:"
+                  - generic [ref=e85]: "2"
+                - generic [ref=e87]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e89]: Wiesenweg 4, 5630 Bad Hofgastein
+            - paragraph [ref=e91]: Surrounded by impressive mountain scenery, the Bad Hofgastein padel base is a real highlight — alpine lifestyle meets trendy sport in the heart of the Gastein Valley.
+            - generic [ref=e93]:
+              - link "View location" [ref=e94] [cursor=pointer]:
+                - /url: /en/standort/bad-hofgastein
+              - link "Book a place" [ref=e95] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4325
+                - generic [ref=e96]: Book a place
+                - img [ref=e98]
+        - listitem [ref=e101]:
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - heading "Deutschkreutz" [level=3] [ref=e105]
+              - generic [ref=e107]:
+                - generic [ref=e108]:
+                  - generic [ref=e109]: "Outdoor places:"
+                  - generic [ref=e110]: "2"
+                - generic [ref=e112]: "Mo-So: 07:00 bis 22:00 Uhr"
+                - generic [ref=e114]: Gewerbestraße 1/2, 7301 Deutschkreutz
+            - paragraph [ref=e116]: In the middle of Blaufränkischland, sporting lifestyle meets Burgenland serenity — Padelbase Deutschkreutz is a hotspot for exercise, enjoyment and conviviality.
+            - generic [ref=e118]:
+              - link "View location" [ref=e119] [cursor=pointer]:
+                - /url: /en/standort/deutschkreutz
+              - link "Book a place" [ref=e120] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3717
+                - generic [ref=e121]: Book a place
+                - img [ref=e123]
+        - listitem [ref=e126]:
+          - generic [ref=e128]:
+            - generic [ref=e129]:
+              - heading "Freilassing" [level=3] [ref=e130]
+              - generic [ref=e132]:
+                - generic [ref=e133]:
+                  - generic [ref=e134]: "Outdoor places:"
+                  - generic [ref=e135]: "4"
+                - generic [ref=e137]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e139]: Heideweg 24, 83395 Freilassing
+            - paragraph [ref=e141]: In the middle of Freilassing, a modern sports complex with four padel courts invites you — known for its warm atmosphere and an extraordinary padel experience in the Berchtesgadener Land region.
+            - generic [ref=e143]:
+              - link "View location" [ref=e144] [cursor=pointer]:
+                - /url: /en/standort/freilassing
+              - link "Book a place" [ref=e145] [cursor=pointer]:
+                - /url: https://freilassing.tennisplatz.info/reservierung
+                - generic [ref=e146]: Book a place
+                - img [ref=e148]
+        - listitem [ref=e151]:
+          - generic [ref=e153]:
+            - generic [ref=e154]:
+              - heading "Gunskirchen" [level=3] [ref=e155]
+              - generic [ref=e157]:
+                - generic [ref=e158]:
+                  - generic [ref=e159]: "Outdoor places:"
+                  - generic [ref=e160]: "1"
+                - generic [ref=e162]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e164]: Dahlienstraße 20, 4623 Gunskirchen
+            - paragraph [ref=e166]: "Located in the new Gunskirchen sports center, the padel base is creating a place where movement, encounter and enthusiasm come together. In the midst of a modern sports landscape, it is once again visible: sport unites."
+            - generic [ref=e168]:
+              - link "View location" [ref=e169] [cursor=pointer]:
+                - /url: /en/standort/gunskirchen
+              - link "Book a place" [ref=e170] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4721
+                - generic [ref=e171]: Book a place
+                - img [ref=e173]
+        - listitem [ref=e176]:
+          - generic [ref=e178]:
+            - generic [ref=e179]:
+              - heading "Linz | Halle (indoor)" [level=3] [ref=e180]
+              - generic [ref=e182]:
+                - generic [ref=e183]:
+                  - generic [ref=e184]: "Indoor places:"
+                  - generic [ref=e185]: "4"
+                - generic [ref=e187]: "Mon-Sun: 06:00 to 00:00"
+                - generic [ref=e189]: Melissenweg 27 , 4020 Linz
+            - paragraph [ref=e191]: The Padelbase Linz Halle is the first padel hall in Linz and the surrounding area. A total of four indoor courts — two double and two single courts — are available at a central location in Linz, which allows padel fun all year round regardless of the weather.
+            - generic [ref=e193]:
+              - link "View location" [ref=e194] [cursor=pointer]:
+                - /url: /en/standort/linz-halle-indoor
+              - link "Book a place" [ref=e195] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4706
+                - generic [ref=e196]: Book a place
+                - img [ref=e198]
+        - listitem [ref=e201]:
+          - generic [ref=e203]:
+            - generic [ref=e204]:
+              - heading "Linz | Kleinmünchen" [level=3] [ref=e205]
+              - generic [ref=e207]:
+                - generic [ref=e208]:
+                  - generic [ref=e209]: "Outdoor places:"
+                  - generic [ref=e210]: "3"
+                - generic [ref=e212]: "Mon-Sun: 07:00 to 21:00"
+                - generic [ref=e214]: Pestalozzistraße 79, 4030 Linz
+            - paragraph [ref=e216]: In Linz, the innovative city on the Danube, the padel base at the AskÖ-Kleinmünchen complex invites you to exercise in a relaxed atmosphere — a lively meeting place for all padel fans.
+            - generic [ref=e218]:
+              - link "View location" [ref=e219] [cursor=pointer]:
+                - /url: /en/standort/linz-kleinmunchen
+              - link "Book a place" [ref=e220] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4253
+                - generic [ref=e221]: Book a place
+                - img [ref=e223]
+        - listitem [ref=e226]:
+          - generic [ref=e228]:
+            - generic [ref=e229]:
+              - heading "Linz | Pichling" [level=3] [ref=e230]
+              - generic [ref=e232]:
+                - generic [ref=e233]:
+                  - generic [ref=e234]: "Outdoor places:"
+                  - generic [ref=e235]: "3"
+                - generic [ref=e237]: Mon-Sun 7:00 a.m. - 10:00 p.m.
+                - generic [ref=e239]: Weikerlseestraße 60, 4030 Linz
+            - paragraph [ref=e241]: 3 outdoor courts in the natural surroundings of Pichling — perfect for outdoor sports and a lively meeting place for all padel fans. Court 1 is a panoramic court and therefore offers a special gaming experience with an unobstructed view and modern design.
+            - generic [ref=e243]:
+              - link "View location" [ref=e244] [cursor=pointer]:
+                - /url: /en/standort/linz-pichling
+              - link "Book a place" [ref=e245] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4720
+                - generic [ref=e246]: Book a place
+                - img [ref=e248]
+        - listitem [ref=e251]:
+          - generic [ref=e253]:
+            - generic [ref=e254]:
+              - heading "Marchtrenk" [level=3] [ref=e255]
+              - generic [ref=e257]:
+                - generic [ref=e258]:
+                  - generic [ref=e259]: "Outdoor places:"
+                  - generic [ref=e260]: "1"
+                - generic [ref=e262]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e264]: Badgasse 4, 4614 Marchtrenk
+            - paragraph [ref=e266]: In Marchtrenk, Padelbase is right in the leisure area — be active in sports and then relax in the neighboring outdoor pool? It's possible right here.
+            - generic [ref=e268]:
+              - link "View location" [ref=e269] [cursor=pointer]:
+                - /url: /en/standort/marchtrenk
+              - link "Book a place" [ref=e270] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3104
+                - generic [ref=e271]: Book a place
+                - img [ref=e273]
+        - listitem [ref=e276]:
+          - generic [ref=e278]:
+            - generic [ref=e279]:
+              - heading "Neunkirchen" [level=3] [ref=e280]
+              - generic [ref=e282]:
+                - generic [ref=e283]:
+                  - generic [ref=e284]: "Outdoor places:"
+                  - generic [ref=e285]: "2"
+                - generic [ref=e287]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e289]: Am Erholungszentrum, 2620 Neunkirchen
+            - paragraph [ref=e291]: Padelbase Neunkirchen is located in the middle of the city's recreation center and has two outdoor padel courts. The location in the leisure complex provides a relaxing environment for padel in nature.
+            - generic [ref=e293]:
+              - link "View location" [ref=e294] [cursor=pointer]:
+                - /url: /en/standort/neunkirchen
+              - link "Book a place" [ref=e295] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3243
+                - generic [ref=e296]: Book a place
+                - img [ref=e298]
+        - listitem [ref=e301]:
+          - generic [ref=e303]:
+            - generic [ref=e304]:
+              - heading "Rohrbach-Berg" [level=3] [ref=e305]
+              - generic [ref=e307]:
+                - generic [ref=e308]:
+                  - generic [ref=e309]: "Outdoor places:"
+                  - generic [ref=e310]: "1"
+                - generic [ref=e312]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e314]: Hopfengasse 15, 4150 Rohrbach-Berg
+            - paragraph [ref=e316]: Located in the charming Mühlviertel region, the Rohrbach padel base brings fresh impetus to the region — a place where sport meets a family atmosphere.
+            - generic [ref=e318]:
+              - link "View location" [ref=e319] [cursor=pointer]:
+                - /url: /en/standort/rohrbach-berg
+              - link "Book a place" [ref=e320] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3105
+                - generic [ref=e321]: Book a place
+                - img [ref=e323]
+        - listitem [ref=e326]:
+          - generic [ref=e328]:
+            - generic [ref=e329]:
+              - heading "Salzburg" [level=3] [ref=e330]
+              - generic [ref=e332]:
+                - generic [ref=e333]:
+                  - generic [ref=e334]: "Outdoor places:"
+                  - generic [ref=e335]: "6"
+                - generic [ref=e337]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e339]: Vogelweiderstr. 114, 5020 Salzburg
+            - paragraph [ref=e341]: State-of-the-art padel facility in the middle of the Alps. Whether you're a beginner or a tournament player — high-quality courts, motivating training and a growing community await you in a unique setting.
+            - generic [ref=e343]:
+              - link "View location" [ref=e344] [cursor=pointer]:
+                - /url: /en/standort/salzburg
+              - link "Book a place" [ref=e345] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=2886
+                - generic [ref=e346]: Book a place
+                - img [ref=e348]
+        - listitem [ref=e351]:
+          - generic [ref=e353]:
+            - generic [ref=e354]:
+              - heading "Vienna" [level=3] [ref=e355]
+              - generic [ref=e357]:
+                - generic [ref=e358]:
+                  - generic [ref=e359]: "Outdoor places:"
+                  - generic [ref=e360]: "2"
+                - generic [ref=e362]: "Mon-Sun: 7:00 a.m. - 10:00 p.m."
+                - generic [ref=e364]: Jennerpl. 25, 1130 Vienna
+            - paragraph [ref=e366]: In the green west of Vienna, nestled in the exclusive backdrop of the OTC tennis club, this padel base combines urban comfort with fantastic views over the city — a real secret tip for sport and enjoyment.
+            - generic [ref=e368]:
+              - link "View location" [ref=e369] [cursor=pointer]:
+                - /url: /en/standort/wien
+              - link "Book a place" [ref=e370] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3532
+                - generic [ref=e371]: Book a place
+                - img [ref=e373]
+        - listitem [ref=e376]:
+          - generic [ref=e378]:
+            - generic [ref=e379]:
+              - heading "Wels" [level=3] [ref=e380]
+              - generic [ref=e382]:
+                - generic [ref=e383]:
+                  - generic [ref=e384]: "Outdoor places:"
+                  - generic [ref=e385]: "2"
+                - generic [ref=e387]: "Mon-Sun: 07:00 to 22:00"
+                - generic [ref=e389]: Pulverturmstraße 9, 4600 Wels
+            - paragraph [ref=e391]: Located in the heart of Wels, the padel base is located on the UTC Wels tennis court — a place where sporting activity meets regional flair. It's noticeable here that sport unites.
+            - generic [ref=e393]:
+              - link "View location" [ref=e394] [cursor=pointer]:
+                - /url: /en/standort/wels
+              - link "Book a place" [ref=e395] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=2649
+                - generic [ref=e396]: Book a place
+                - img [ref=e398]
+    - generic [ref=e407]:
+      - heading "Book your seat and play padel now!" [level=2] [ref=e409]
+      - paragraph [ref=e410]: Discover the world of padel and book your first training session today!
+      - generic [ref=e412]:
+        - link "View location" [ref=e413] [cursor=pointer]:
+          - /url: /en/standort
+        - link "Discover events" [ref=e414] [cursor=pointer]:
+          - /url: /en/eventkalender
+    - contentinfo [ref=e419]:
+      - generic [ref=e422]:
+        - generic [ref=e424]:
+          - generic [ref=e425]:
+            - link "Padelbase Logo in Weiß" [ref=e427] [cursor=pointer]:
+              - /url: /en
+              - img "Padelbase Logo in Weiß" [ref=e428]
+            - generic [ref=e430]: Subscribe to our newsletter to stay informed about news and features.
+            - generic [ref=e431]:
+              - form "Newsletter Footer Anmeldung" [ref=e432]:
+                - textbox "Enter your email" [ref=e433]
+                - button "Subscribe" [disabled] [ref=e434]
+              - generic [ref=e435]: By subscribing, you agree to our privacy policy and receive updates.
+            - generic [ref=e437]:
+              - generic [ref=e438]:
+                - img [ref=e441]
+                - link "office@padelbase.at" [ref=e444] [cursor=pointer]:
+                  - /url: mailto:office@padelbase.at
+              - generic [ref=e445]:
+                - img [ref=e448]
+                - link "+43 660 9988044" [ref=e451] [cursor=pointer]:
+                  - /url: tel:+436609988044
+              - generic [ref=e452]:
+                - img [ref=e455]
+                - generic [ref=e458]: Karl-Wurmb-Strasse 8, A-4600 Wels
+              - generic [ref=e459]:
+                - img [ref=e462]
+                - generic [ref=e466]:
+                  - strong [ref=e467]: "Available by phone and email during our office hours:"
+                  - text: Mon-Thu from 8:00 a.m. to 5:00 p.m. & Fr from 8:00 a.m. to 12:00 p.m.
+              - generic [ref=e468]:
+                - img [ref=e471]
+                - link "Häufig gestellte Fragen" [ref=e477] [cursor=pointer]:
+                  - /url: /en/support
+          - generic [ref=e478]:
+            - generic [ref=e479]:
+              - generic [ref=e481]: Location
+              - link "All locations" [ref=e482] [cursor=pointer]:
+                - /url: /en/standort
+              - list [ref=e484]:
+                - listitem [ref=e485]:
+                  - link "Bad Hofgastein" [ref=e486] [cursor=pointer]:
+                    - /url: /en/standort/bad-hofgastein
+                - listitem [ref=e487]:
+                  - link "Deutschkreutz" [ref=e488] [cursor=pointer]:
+                    - /url: /en/standort/deutschkreutz
+                - listitem [ref=e489]:
+                  - link "Freilassing" [ref=e490] [cursor=pointer]:
+                    - /url: /en/standort/freilassing
+                - listitem [ref=e491]:
+                  - link "Gunskirchen" [ref=e492] [cursor=pointer]:
+                    - /url: /en/standort/gunskirchen
+                - listitem [ref=e493]:
+                  - link "Linz | Halle (indoor)" [ref=e494] [cursor=pointer]:
+                    - /url: /en/standort/linz-halle-indoor
+                - listitem [ref=e495]:
+                  - link "Linz | Kleinmünchen" [ref=e496] [cursor=pointer]:
+                    - /url: /en/standort/linz-kleinmunchen
+                - listitem [ref=e497]:
+                  - link "Linz | Pichling" [ref=e498] [cursor=pointer]:
+                    - /url: /en/standort/linz-pichling
+                - listitem [ref=e499]:
+                  - link "Marchtrenk" [ref=e500] [cursor=pointer]:
+                    - /url: /en/standort/marchtrenk
+                - listitem [ref=e501]:
+                  - link "Neunkirchen" [ref=e502] [cursor=pointer]:
+                    - /url: /en/standort/neunkirchen
+                - listitem [ref=e503]:
+                  - link "Rohrbach-Berg" [ref=e504] [cursor=pointer]:
+                    - /url: /en/standort/rohrbach-berg
+                - listitem [ref=e505]:
+                  - link "Salzburg" [ref=e506] [cursor=pointer]:
+                    - /url: /en/standort/salzburg
+                - listitem [ref=e507]:
+                  - link "Vienna" [ref=e508] [cursor=pointer]:
+                    - /url: /en/standort/wien
+                - listitem [ref=e509]:
+                  - link "Wels" [ref=e510] [cursor=pointer]:
+                    - /url: /en/standort/wels
+            - generic [ref=e511]:
+              - generic [ref=e513]: Offers
+              - generic [ref=e514]:
+                - link "Hourly rates" [ref=e515] [cursor=pointer]:
+                  - /url: /en/angebote/stundentarif
+                - link "Subscriptions & packages" [ref=e516] [cursor=pointer]:
+                  - /url: /en/angebote/abo-pakete
+                - link "Company offers" [ref=e517] [cursor=pointer]:
+                  - /url: /en/angebote/firmen-angebote
+                - link "Voucher" [ref=e518] [cursor=pointer]:
+                  - /url: /en/angebote/gutschein
+                - link "Schools" [ref=e519] [cursor=pointer]:
+                  - /url: /en/angebote/schulen
+                - link "Sponsorships" [ref=e520] [cursor=pointer]:
+                  - /url: /en/uber-uns/sponsoring
+                - link "Franschise" [ref=e521] [cursor=pointer]:
+                  - /url: /en/uber-uns/franchise
+            - generic [ref=e522]:
+              - generic [ref=e524]: Academy
+              - generic [ref=e525]:
+                - link "Training calendar" [ref=e526] [cursor=pointer]:
+                  - /url: /en/academy/trainingskalender
+                - link "Individual/group training" [ref=e527] [cursor=pointer]:
+                  - /url: /en/academy/einzel-gruppentraining
+                - link "Kick-off training" [ref=e528] [cursor=pointer]:
+                  - /url: /en/academy/kick-off-trainings
+                - link "Performance Training" [ref=e529] [cursor=pointer]:
+                  - /url: /en/academy/performance-training
+                - link "Trail days" [ref=e530] [cursor=pointer]:
+                  - /url: /en/academy/schnuppertage
+                - link "Our trainers" [ref=e531] [cursor=pointer]:
+                  - /url: /en/academy/trainer
+            - generic [ref=e532]:
+              - generic [ref=e534]: Events
+              - generic [ref=e535]:
+                - link "Event calendar" [ref=e536] [cursor=pointer]:
+                  - /url: /en/eventkalender
+                - link "#glaubandich Padelbase Tour 2025" [ref=e537] [cursor=pointer]:
+                  - /url: /en/events/glaubandich-padelbase-tour
+                - link "Padelbase Buongiorno Tour 2025" [ref=e538] [cursor=pointer]:
+                  - /url: /en/events/padelbase-buongiorno-tour
+            - generic [ref=e539]:
+              - generic [ref=e541]: About us
+              - generic [ref=e542]:
+                - link "About Padelbase" [ref=e543] [cursor=pointer]:
+                  - /url: /en/uber-uns
+                - link "What is Padel?" [ref=e544] [cursor=pointer]:
+                  - /url: /en/was-ist-padel
+                - link "Contact" [ref=e545] [cursor=pointer]:
+                  - /url: /en/uber-uns/kontakt
+                - link "Become a trainer" [ref=e546] [cursor=pointer]:
+                  - /url: https://padelbase.at/trainer#trainer-anfrage
+                - link "FAQ" [ref=e547] [cursor=pointer]:
+                  - /url: /en/support
+            - generic [ref=e548]:
+              - generic [ref=e550]: Follow us
+              - generic [ref=e551]:
+                - link "Facebook" [ref=e552] [cursor=pointer]:
+                  - /url: https://www.facebook.com/Padelbase.at
+                  - img [ref=e554]
+                  - generic [ref=e556]: Facebook
+                - link "Instagram" [ref=e557] [cursor=pointer]:
+                  - /url: https://www.instagram.com/padelbase.at/
+                  - img [ref=e559]
+                  - generic [ref=e561]: Instagram
+                - link "Whatsapp" [ref=e562] [cursor=pointer]:
+                  - /url: /en/whatsapp
+                  - img [ref=e564]
+                  - generic [ref=e566]: Whatsapp
+        - generic [ref=e567]:
+          - link "Padelbase Logo in Weiß":
+            - /url: /en
+            - generic:
+              - img "Padelbase Logo in Weiß"
+        - generic [ref=e570]:
+          - generic [ref=e571]:
+            - text: © 2025 Padelbase. All rights reserved. | Made by
+            - link "Digidock" [ref=e572] [cursor=pointer]:
+              - /url: https://www.digidock.agency/
+            - text: "&"
+            - link "Kwapso" [ref=e573] [cursor=pointer]:
+              - /url: https://www.kwapso.com/
+          - generic [ref=e574]:
+            - link "imprint" [ref=e575] [cursor=pointer]:
+              - /url: /en/impressum
+            - link "Data protection" [ref=e576] [cursor=pointer]:
+              - /url: /en/datenschutz
+            - link "Liability/Terms of Use" [ref=e577] [cursor=pointer]:
+              - /url: /en/haftung
+  - dialog "Cookie consent dialog":
+    - dialog "Cookie consent dialog" [ref=e578]:
+      - button "Close" [ref=e580] [cursor=pointer]: ×
+      - generic [ref=e581]: Diese Webseite verwendet Cookies.
+      - generic [ref=e582]:
+        - text: Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren und unseren Datenverkehr zu analysieren. Wir geben Informationen über Ihre Nutzung unserer Website auch an unsere Werbe- und Analysepartner weiter, die diese möglicherweise mit anderen Informationen kombinieren, die Sie ihnen bereitgestellt haben oder die sie im Rahmen Ihrer Nutzung ihrer Dienste gesammelt haben.
+        - link "Weitere Informationen, opens a new window" [ref=e583] [cursor=pointer]:
+          - /url: https://padelbase.at/datenschutz
+          - text: Weitere Informationen
+      - generic [ref=e584]:
+        - button "Alle akzeptieren" [ref=e585] [cursor=pointer]
+        - button "Alle ablehnen" [ref=e586] [cursor=pointer]

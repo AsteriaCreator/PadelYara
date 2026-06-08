@@ -1,0 +1,382 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "UFG NÖ - PadelPlayground" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "UFG NÖ - PadelPlayground" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "UFG NÖ - PadelPlayground" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+      - link " Anmelden" [ref=e20] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e21]: 
+        - text: Anmelden
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "News" [ref=e28] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e29]:
+        - link "Padel Regeln" [ref=e30] [cursor=pointer]:
+          - /url: /s/Padel_Regeln
+      - listitem [ref=e31]:
+        - link "FaQ - Spielordnung" [ref=e32] [cursor=pointer]:
+          - /url: /s/FaQ___Spielordnung_
+      - listitem [ref=e33]:
+        - link "Sportanlage" [ref=e34] [cursor=pointer]:
+          - /url: /s/Sportanlage
+      - listitem [ref=e35]:
+        - link "Veranstaltungen" [ref=e36] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e37]:
+        - link "Mitgliedschaft" [ref=e38] [cursor=pointer]:
+          - /url: /mitgliedschaft
+      - listitem [ref=e39]:
+        - link "Registrierung" [ref=e40] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e42]:
+      - heading "Startseite" [level=1] [ref=e43]
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - link "\"Schnupper-Padeln\" ... für Neugierige, Interessierte, Motivierte,..." [ref=e48] [cursor=pointer]:
+              - /url: /news-27222-Schnupper_Padeln_____fuer_Neugierige__Interessierte__Motivierte____
+              - img "\"Schnupper-Padeln\" ... für Neugierige, Interessierte, Motivierte,..." [ref=e49]
+            - generic [ref=e50]:
+              - heading "\"Schnupper-Padeln\" ... für Neugierige, Interessierte, Motivierte,..." [level=2] [ref=e51]:
+                - link "\"Schnupper-Padeln\" ... für Neugierige, Interessierte, Motivierte,..." [ref=e52] [cursor=pointer]:
+                  - /url: /news-27222-Schnupper_Padeln_____fuer_Neugierige__Interessierte__Motivierte____
+              - paragraph [ref=e53]:
+                - text: JEDER kann kommen! KEINER blamiert sich!
+                - text: "Nächster Termin: 9. Juni, 17:30-19:30"
+              - paragraph [ref=e54]
+              - generic [ref=e55]:
+                - generic [ref=e56]:
+                  - img "User Image" [ref=e57]
+                  - text: Kathrin Schindlegger
+                - text: ", 02. April 2026"
+              - link " Mehr dazu" [ref=e58] [cursor=pointer]:
+                - /url: /news-27222-Schnupper_Padeln_____fuer_Neugierige__Interessierte__Motivierte____
+                - generic [ref=e59]: 
+                - text: Mehr dazu
+          - generic [ref=e60]:
+            - link "PADEL SMASH Turnier Serie beim UFG NÖ - 26.07.2026!" [ref=e62] [cursor=pointer]:
+              - /url: /news-31408-PADEL_SMASH_Turnier_Serie_beim_UFG_NOe___26_07_2026__
+              - img "PADEL SMASH Turnier Serie beim UFG NÖ - 26.07.2026!" [ref=e63]
+            - generic [ref=e64]:
+              - heading "PADEL SMASH Turnier Serie beim UFG NÖ - 26.07.2026!" [level=2] [ref=e65]:
+                - link "PADEL SMASH Turnier Serie beim UFG NÖ - 26.07.2026!" [ref=e66] [cursor=pointer]:
+                  - /url: /news-31408-PADEL_SMASH_Turnier_Serie_beim_UFG_NOe___26_07_2026__
+              - paragraph [ref=e67]:
+                - text: Die PADEL SMASH Turnier Serie beim UFG NÖ
+                - text: macht am 26.07.2026 Station in St.Pölten beim UFG ..
+              - generic [ref=e68]:
+                - generic [ref=e69]:
+                  - img "User Image" [ref=e70]
+                  - text: Stefan Korntheuer
+                - text: ", 15. November 2025"
+              - link " Mehr dazu" [ref=e71] [cursor=pointer]:
+                - /url: /news-31408-PADEL_SMASH_Turnier_Serie_beim_UFG_NOe___26_07_2026__
+                - generic [ref=e72]: 
+                - text: Mehr dazu
+          - generic [ref=e73]:
+            - link "APU Padelturniere beim UFG - Termine - Ergebnisse!" [ref=e75] [cursor=pointer]:
+              - /url: /news-24785-APU_Padelturniere_beim_UFG___Termine___Ergebnisse___
+              - img "APU Padelturniere beim UFG - Termine - Ergebnisse!" [ref=e76]
+            - generic [ref=e77]:
+              - heading "APU Padelturniere beim UFG - Termine - Ergebnisse!" [level=2] [ref=e78]:
+                - link "APU Padelturniere beim UFG - Termine - Ergebnisse!" [ref=e79] [cursor=pointer]:
+                  - /url: /news-24785-APU_Padelturniere_beim_UFG___Termine___Ergebnisse___
+              - paragraph [ref=e80]:
+                - text: "Beim UFG gibts laufend auch Padelturniere für alle Spielstärken :"
+                - text: Termine und Ergebnisse!
+                - text: "link:"
+                - link "UFG APU Turniere Ergebnisse" [ref=e81] [cursor=pointer]:
+                  - /url: https://padel-austria.at/tournaments/finished?q%5Bweekday%5D=&q%5Blocation_id%5D=14&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+                - link [ref=e82] [cursor=pointer]:
+                  - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=14&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+                - text: Samstag 06/06 , 10 Uhr Starter MIXED & Light, ab 1300 Uhr ADV Light,
+              - generic [ref=e83]:
+                - generic [ref=e84]:
+                  - img "User Image" [ref=e85]
+                  - text: Stefan Korntheuer
+                - text: ", 15. November 2025"
+              - link " Mehr dazu" [ref=e86] [cursor=pointer]:
+                - /url: /news-24785-APU_Padelturniere_beim_UFG___Termine___Ergebnisse___
+                - generic [ref=e87]: 
+                - text: Mehr dazu
+          - generic [ref=e88]:
+            - link "Österreichische Meisterschaften Seniors 2026 beim UFG - Padel Playground 01./02.August 26" [ref=e90] [cursor=pointer]:
+              - /url: /news-29938-Oesterreichische_Meisterschaften_Seniors_2026_beim_UFG___Padel_Playground__01__02_August_26_
+              - img "Österreichische Meisterschaften Seniors 2026 beim UFG - Padel Playground 01./02.August 26" [ref=e91]
+            - generic [ref=e92]:
+              - heading "Österreichische Meisterschaften Seniors 2026 beim UFG - Padel Playground 01./02.August 26" [level=2] [ref=e93]:
+                - link "Österreichische Meisterschaften Seniors 2026 beim UFG - Padel Playground 01./02.August 26" [ref=e94] [cursor=pointer]:
+                  - /url: /news-29938-Oesterreichische_Meisterschaften_Seniors_2026_beim_UFG___Padel_Playground__01__02_August_26_
+              - paragraph [ref=e95]:
+                - text: Österreichische Meisterschaften Seniors 2026!
+                - text: Am 01.und 2. August 2026 finden die
+                - strong [ref=e96]: Österreichischen Meisterschaften für Seniors
+                - strong [ref=e97]: ( 40+,50+,60+ )
+                - strong [ref=e98]: DAMEN und HERREN
+                - text: in St. Pölten beim UFG statt.
+              - generic [ref=e99]:
+                - generic [ref=e100]:
+                  - img "User Image" [ref=e101]
+                  - text: Stefan Korntheuer
+                - text: ", 14. November 2025"
+              - link " Mehr dazu" [ref=e102] [cursor=pointer]:
+                - /url: /news-29938-Oesterreichische_Meisterschaften_Seniors_2026_beim_UFG___Padel_Playground__01__02_August_26_
+                - generic [ref=e103]: 
+                - text: Mehr dazu
+          - generic [ref=e104]:
+            - link "Personal-Training am UFG Padel-Playground!" [ref=e106] [cursor=pointer]:
+              - /url: /news-28175-Personal_Training_am__UFG_Padel_Playground_
+              - img "Personal-Training am UFG Padel-Playground!" [ref=e107]
+            - generic [ref=e108]:
+              - heading "Personal-Training am UFG Padel-Playground!" [level=2] [ref=e109]:
+                - link "Personal-Training am UFG Padel-Playground!" [ref=e110] [cursor=pointer]:
+                  - /url: /news-28175-Personal_Training_am__UFG_Padel_Playground_
+              - paragraph [ref=e111]:
+                - text: Hier kannst du in den MultiCourts
+                - text: PADEL / Courtsoccer / Fussballtennis usw. spielen,
+              - paragraph [ref=e112]:
+                - text: ...Dich in der CANTINA PADELOCO genüsslich verwöhnen lassen,
+                - text: ...in Gustl‘s PADELSHOP tolle Padel-Sportausrüstung erwerben,
+                - text: und einfach eine schöne Zeit genießen....
+              - generic [ref=e113]:
+                - generic [ref=e114]:
+                  - img "User Image" [ref=e115]
+                  - text: Kathrin Schindlegger
+                - text: ", 06. November 2025"
+              - link " Mehr dazu" [ref=e116] [cursor=pointer]:
+                - /url: /news-28175-Personal_Training_am__UFG_Padel_Playground_
+                - generic [ref=e117]: 
+                - text: Mehr dazu
+          - generic [ref=e118]:
+            - link "Padel Jahreskarte-Mitgliedschaft 2026 ab sofort erhältlich und gültig bis 31/12/2026!" [ref=e120] [cursor=pointer]:
+              - /url: /news-28091-Padel__Jahreskarte_Mitgliedschaft_2026_ab_sofort_erhaeltlich_und__gueltig_bis_31_12_2026_
+              - img "Padel Jahreskarte-Mitgliedschaft 2026 ab sofort erhältlich und gültig bis 31/12/2026!" [ref=e121]
+            - generic [ref=e122]:
+              - heading "Padel Jahreskarte-Mitgliedschaft 2026 ab sofort erhältlich und gültig bis 31/12/2026!" [level=2] [ref=e123]:
+                - link "Padel Jahreskarte-Mitgliedschaft 2026 ab sofort erhältlich und gültig bis 31/12/2026!" [ref=e124] [cursor=pointer]:
+                  - /url: /news-28091-Padel__Jahreskarte_Mitgliedschaft_2026_ab_sofort_erhaeltlich_und__gueltig_bis_31_12_2026_
+              - paragraph [ref=e125]:
+                - text: Padel Mitgliedschaft-Jahreskarte 2026
+                - text: ist ab sofort erhältlich und gültig bis 31/12/2026 !
+                - text: "Link:"
+                - link "UFG- Mitgliedschaft 2026" [ref=e126] [cursor=pointer]:
+                  - /url: https://www.ufg-noe.at/mitgliedschaft
+              - generic [ref=e127]:
+                - generic [ref=e128]:
+                  - img "User Image" [ref=e129]
+                  - text: Stefan Korntheuer
+                - text: ", 01. November 2025"
+          - link " weitere News im Archiv" [ref=e131] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e132]: 
+            - text: weitere News im Archiv
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: 
+            - heading "aktuelle Termine" [level=2] [ref=e136]
+            - generic [ref=e138]:
+              - heading "APU Turnier Party" [level=4] [ref=e139]
+              - text: ", UFG-St. Pölten"
+              - paragraph [ref=e140]: Samstag, 6. Juni 2026 10:00 - 17:00 Uhr
+              - paragraph [ref=e141]:
+                - link " Mehr dazu" [ref=e142] [cursor=pointer]:
+                  - /url: /event-71576-apu_turnier_party
+                  - generic [ref=e143]: 
+                  - text: Mehr dazu
+            - generic [ref=e145]:
+              - link "Schnupper-Padeln" [ref=e146] [cursor=pointer]:
+                - /url: /event-71224-schnupper_padeln
+                - heading "Schnupper-Padeln" [level=4] [ref=e147]
+              - text: ", UFG-St. Pölten"
+              - paragraph [ref=e148]: Dienstag, 9. Juni 2026 17:30 - 19:30 Uhr
+              - paragraph [ref=e149]:
+                - link " Mehr dazu" [ref=e150] [cursor=pointer]:
+                  - /url: /event-71224-schnupper_padeln
+                  - generic [ref=e151]: 
+                  - text: Mehr dazu
+            - generic [ref=e153]:
+              - heading "APU Turnier Party" [level=4] [ref=e154]
+              - text: ", UFG-St. Pölten"
+              - paragraph [ref=e155]: Samstag, 13. Juni 2026 10:00 - 17:00 Uhr
+              - paragraph [ref=e156]:
+                - link " Mehr dazu" [ref=e157] [cursor=pointer]:
+                  - /url: /event-71578-apu_turnier_party
+                  - generic [ref=e158]: 
+                  - text: Mehr dazu
+            - generic [ref=e160]:
+              - link "PADEL Fun and Play" [ref=e161] [cursor=pointer]:
+                - /url: /event-71336-padel_fun_and__play
+                - heading "PADEL Fun and Play" [level=4] [ref=e162]
+              - text: ", UFG-St. Pölten"
+              - paragraph [ref=e163]: Dienstag, 16. Juni 2026 16:30 - 18:30 Uhr
+              - paragraph [ref=e164]:
+                - link " Mehr dazu" [ref=e165] [cursor=pointer]:
+                  - /url: /event-71336-padel_fun_and__play
+                  - generic [ref=e166]: 
+                  - text: Mehr dazu
+          - generic [ref=e167]:
+            - link "unbenannt" [ref=e169] [cursor=pointer]:
+              - /url: https://www.padel-playground.at
+              - img "unbenannt" [ref=e170]
+            - link "unbenannt" [ref=e172] [cursor=pointer]:
+              - /url: https://www.padel-playground.at
+              - img "unbenannt" [ref=e173]
+            - link "huettenurlaub24.at" [ref=e175] [cursor=pointer]:
+              - /url: https://www.huettenurlaub24.at
+              - img "huettenurlaub24.at" [ref=e176]
+          - generic [ref=e178]:
+            - heading "Anfahrt" [level=2] [ref=e179]
+            - paragraph [ref=e180]: "Adresse: Bimbo Binder Promenade 29, 3100 St. Pölten"
+            - generic [ref=e186]:
+              - paragraph [ref=e187]: Möchten Sie von Google Map bereitgestellte externe Inhalte laden?
+              - paragraph [ref=e188]:
+                - button "Ja" [ref=e189] [cursor=pointer]
+                - button "Immer" [ref=e190] [cursor=pointer]
+        - list [ref=e192]:
+          - listbox [ref=e194]:
+            - listitem [ref=e195]:
+              - link [ref=e196] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e197]
+            - listitem [ref=e198]:
+              - link [ref=e199] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e200]
+            - listitem [ref=e201]:
+              - link [ref=e202] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e203]
+            - listitem [ref=e204]:
+              - link [ref=e205] [cursor=pointer]:
+                - /url: https://www.huettenurlaub24.at
+                - img [ref=e206]
+            - listitem [ref=e207]:
+              - link [ref=e208] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e209]
+            - listitem [ref=e210]:
+              - link [ref=e211] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e212]
+            - listitem [ref=e213]:
+              - link [ref=e214] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e215]
+            - listitem [ref=e216]:
+              - link [ref=e217] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e218]
+            - option "huettenurlaub24.at" [ref=e219]:
+              - link "huettenurlaub24.at" [ref=e220] [cursor=pointer]:
+                - /url: https://www.huettenurlaub24.at
+                - img "huettenurlaub24.at" [ref=e221]
+            - option "unbenannt" [ref=e222]:
+              - link "unbenannt" [ref=e223] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img "unbenannt" [ref=e224]
+            - option "unbenannt" [ref=e225]:
+              - link "unbenannt" [ref=e226] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img "unbenannt" [ref=e227]
+            - option "unbenannt" [ref=e228]:
+              - link "unbenannt" [ref=e229] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img "unbenannt" [ref=e230]
+            - option "unbenannt" [ref=e231]:
+              - link "unbenannt" [ref=e232] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img "unbenannt" [ref=e233]
+            - option "huettenurlaub24.at" [ref=e234]:
+              - link "huettenurlaub24.at" [ref=e235] [cursor=pointer]:
+                - /url: https://www.huettenurlaub24.at
+                - img "huettenurlaub24.at" [ref=e236]
+            - option "unbenannt" [ref=e237]:
+              - link "unbenannt" [ref=e238] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img "unbenannt" [ref=e239]
+            - option "unbenannt" [ref=e240]:
+              - link "unbenannt" [ref=e241] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img "unbenannt" [ref=e242]
+            - option [ref=e243]:
+              - link [ref=e244] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e245]
+            - option [ref=e246]:
+              - link [ref=e247] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e248]
+            - listitem [ref=e249]:
+              - link [ref=e250] [cursor=pointer]:
+                - /url: https://www.huettenurlaub24.at
+                - img [ref=e251]
+            - listitem [ref=e252]:
+              - link [ref=e253] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e254]
+            - listitem [ref=e255]:
+              - link [ref=e256] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e257]
+            - listitem [ref=e258]:
+              - link [ref=e259] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e260]
+            - listitem [ref=e261]:
+              - link [ref=e262] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e263]
+            - listitem [ref=e264]:
+              - link [ref=e265] [cursor=pointer]:
+                - /url: https://www.huettenurlaub24.at
+                - img [ref=e266]
+            - listitem [ref=e267]:
+              - link [ref=e268] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e269]
+            - listitem [ref=e270]:
+              - link [ref=e271] [cursor=pointer]:
+                - /url: https://www.padel-playground.at
+                - img [ref=e272]
+    - contentinfo [ref=e273]:
+      - generic [ref=e275]:
+        - generic [ref=e276]:
+          - text: UFG NÖ - PadelPlayground |
+          - link "Impressum" [ref=e277] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e278]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e279] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e281]:
+    - paragraph [ref=e282]:
+      - generic [ref=e283]:
+        - paragraph [ref=e284]:
+          - img "UFG NÖ - PadelPlayground" [ref=e285]
+          - text: UFG NÖ - PadelPlayground
+        - paragraph [ref=e286]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e287]:
+      - link "Einstellungen verwalten" [ref=e288] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e289]:
+        - button "Alle ablehnen" [ref=e290] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e291] [cursor=pointer]

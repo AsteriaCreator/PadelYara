@@ -1,0 +1,229 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "SVL-Logo" [ref=e8] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at
+        - navigation [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - link "Verein Verein Menü" [ref=e13] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/
+                - text: Verein
+                - button "Verein Menü" [ref=e14]: 
+            - listitem [ref=e15]:
+              - link "Fußball Fußball Menü" [ref=e16] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-fussball/
+                - text: Fußball
+                - button "Fußball Menü" [ref=e17]: 
+            - listitem [ref=e18]:
+              - link "Gymnastik & Trendsport Gymnastik & Trendsport Menü" [ref=e19] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-gymnastik/
+                - text: Gymnastik & Trendsport
+                - button "Gymnastik & Trendsport Menü" [ref=e20]: 
+            - listitem [ref=e21]:
+              - link "Schi & Bergsport Schi & Bergsport Menü" [ref=e22] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-schi-bergsport/
+                - text: Schi & Bergsport
+                - button "Schi & Bergsport Menü" [ref=e23]: 
+            - listitem [ref=e24]:
+              - link "Stock Stock Menü" [ref=e25] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-stock/
+                - text: Stock
+                - button "Stock Menü" [ref=e26]: 
+            - listitem [ref=e27]:
+              - link "Tennis & Padel Tennis & Padel Menü" [ref=e28] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-tennis-und-padel/
+                - text: Tennis & Padel
+                - button "Tennis & Padel Menü" [ref=e29]: 
+            - text: 
+    - main [ref=e30]:
+      - generic [ref=e31]:
+        - img [ref=e33]
+        - heading "Kontakt" [level=1] [ref=e40]
+      - generic [ref=e50]:
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - link "Sektion Tennis & Padel" [ref=e58] [cursor=pointer]:
+              - /url: mailto:tennis@sv-lichtenberg.at
+              - generic [ref=e60]: 
+            - heading "Sektion Tennis & Padel" [level=4] [ref=e62]:
+              - link "Sektion Tennis & Padel" [ref=e63] [cursor=pointer]:
+                - /url: mailto:tennis@sv-lichtenberg.at
+          - generic [ref=e65]:
+            - link "E-Mail:" [ref=e66] [cursor=pointer]:
+              - /url: "tel:E-Mail:"
+              - generic [ref=e68]: 
+            - generic [ref=e69]:
+              - heading "E-Mail:" [level=4] [ref=e70]:
+                - link "E-Mail:" [ref=e71] [cursor=pointer]:
+                  - /url: "tel:E-Mail:"
+              - paragraph [ref=e73]:
+                - link "tennis@sv-lichtenberg.at" [ref=e74] [cursor=pointer]:
+                  - /url: mailto:tennis@sv-lichtenberg.at
+          - generic [ref=e76]:
+            - generic [ref=e78]: 
+            - heading "Derflerstraße 11, 4040 Lichtenberg" [level=4] [ref=e80]
+        - generic [ref=e90]:
+          - heading "Hinterlasse uns eine Nachricht" [level=4] [ref=e93]:
+            - strong [ref=e94]: Hinterlasse uns eine Nachricht
+          - generic [ref=e97]:
+            - generic [ref=e98]:
+              - generic: Name *
+              - generic [ref=e99]:
+                - generic: 
+                - textbox "Name" [ref=e100]:
+                  - /placeholder: ""
+              - generic: Bitte füllen Sie dieses Feld aus.
+            - generic [ref=e101]:
+              - generic: Email *
+              - generic [ref=e102]:
+                - generic: 
+                - textbox "Email" [ref=e103]:
+                  - /placeholder: ""
+              - generic: Bitte gib eine gültige E-Mail-Adresse ein.
+            - generic [ref=e104]:
+              - generic: Nachricht *
+              - generic [ref=e105]:
+                - generic: 
+                - textbox "Nachricht" [ref=e106]:
+                  - /placeholder: ""
+              - generic: Bitte füllen Sie dieses Feld aus.
+            - generic [ref=e107]:
+              - generic [ref=e109]: Nur um sicherzugehen, dass du ein Mensch bist, löse bitte folgende Gleichung 27 + 7 = ?
+              - generic [ref=e110]:
+                - generic: 
+                - textbox "Nur um sicherzugehen, dass du ein Mensch bist, löse bitte folgende Gleichung" [ref=e111]:
+                  - /placeholder: ""
+              - generic: Bitte geben Sie das Ergebnis ein, um fortzufahren
+            - button "Absenden" [ref=e113] [cursor=pointer]:
+              - generic [ref=e115]: 
+              - generic [ref=e116]: Absenden
+  - contentinfo [ref=e117]:
+    - generic [ref=e120]:
+      - paragraph [ref=e126]: © 2024 Sportverein Lichtenberg
+      - paragraph [ref=e132]:
+        - link "Impressum" [ref=e133] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/impressum/
+        - text: "|"
+        - link "Kontakt" [ref=e134] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/verein/kontakt/
+      - paragraph [ref=e140]:
+        - text: Design von
+        - link "Christopher Rechberger" [ref=e141] [cursor=pointer]:
+          - /url: https://www.rechberger.io/
+  - button "Zurück nach oben" [ref=e142] [cursor=pointer]:
+    - generic [ref=e143]: 
+  - generic:
+    - dialog "Datenschutzeinstellungen":
+      - generic [ref=e146]:
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - img [ref=e152]
+            - heading "Datenschutzeinstellungen" [level=3] [ref=e153]
+          - paragraph [ref=e154]:
+            - generic [ref=e155]: Wir nutzen Cookies auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern.
+            - generic [ref=e156]: Wenn Sie unter 16 Jahre alt sind und Ihre Zustimmung zu freiwilligen Diensten geben möchten, müssen Sie Ihre Erziehungsberechtigten um Erlaubnis bitten.
+            - text: Wir verwenden Cookies und andere Technologien auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung.
+            - generic [ref=e157]:
+              - text: Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer
+              - link "Datenschutzerklärung" [ref=e158] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+              - text: .
+            - generic [ref=e159]:
+              - text: Sie können Ihre Auswahl jederzeit unter
+              - link "Einstellungen" [ref=e160] [cursor=pointer]:
+                - /url: "#"
+              - text: widerrufen oder anpassen.
+          - group "Datenschutzeinstellungen" [ref=e161]:
+            - generic [ref=e162]: Datenschutzeinstellungen
+            - list [ref=e163]:
+              - listitem [ref=e164]:
+                - generic [ref=e165] [cursor=pointer]:
+                  - text: Essenziell
+                  - checkbox "Essenziell" [checked] [disabled] [ref=e166]: 
+              - listitem [ref=e168]:
+                - generic [ref=e169] [cursor=pointer]:
+                  - text: Statistiken
+                  - checkbox "Statistiken" [ref=e170]
+              - listitem [ref=e172]:
+                - generic [ref=e173] [cursor=pointer]:
+                  - text: Externe Medien
+                  - checkbox "Externe Medien" [ref=e174]
+          - paragraph [ref=e176]:
+            - button "Alle akzeptieren" [ref=e177] [cursor=pointer]
+          - paragraph [ref=e178]:
+            - button "Speichern" [active] [ref=e179] [cursor=pointer]
+          - paragraph [ref=e180]:
+            - button "Individuelle Datenschutzeinstellungen" [ref=e181] [cursor=pointer]
+          - paragraph [ref=e182]:
+            - button "Cookie-Details" [ref=e183] [cursor=pointer]
+            - generic [ref=e184]: "|"
+            - button "Datenschutzerklärung" [ref=e185] [cursor=pointer]
+            - generic [ref=e186]: "|"
+            - button "Impressum" [ref=e187] [cursor=pointer]
+        - generic [ref=e189]:
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - img [ref=e193]
+              - heading [level=3] [ref=e194]: Datenschutzeinstellungen
+            - paragraph [ref=e195]:
+              - generic [ref=e196]: Wenn Sie unter 16 Jahre alt sind und Ihre Zustimmung zu freiwilligen Diensten geben möchten, müssen Sie Ihre Erziehungsberechtigten um Erlaubnis bitten.
+              - text: Wir verwenden Cookies und andere Technologien auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung.
+              - generic [ref=e197]:
+                - text: Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer
+                - link [ref=e198] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/impressum/
+                  - text: Datenschutzerklärung
+                - text: .
+              - generic [ref=e199]: Hier finden Sie eine Übersicht über alle verwendeten Cookies. Sie können Ihre Einwilligung zu ganzen Kategorien geben oder sich weitere Informationen anzeigen lassen und so nur bestimmte Cookies auswählen.
+            - generic [ref=e200]:
+              - paragraph [ref=e202]:
+                - button [ref=e203] [cursor=pointer]: Alle akzeptieren
+                - button [ref=e204] [cursor=pointer]: Speichern
+              - paragraph [ref=e206]:
+                - button [ref=e207] [cursor=pointer]: Zurück
+          - group [ref=e209]:
+            - generic [ref=e210]: Datenschutzeinstellungen
+            - generic [ref=e211]:
+              - heading [level=4] [ref=e214] [cursor=pointer]: Essenziell (2)
+              - generic [ref=e216]:
+                - paragraph [ref=e217]: Essenzielle Cookies ermöglichen grundlegende Funktionen und sind für die einwandfreie Funktion der Website erforderlich.
+                - paragraph [ref=e218]:
+                  - button [ref=e219] [cursor=pointer]: Cookie-Informationen anzeigen
+            - generic [ref=e220]:
+              - generic [ref=e221]:
+                - heading [level=4] [ref=e223] [cursor=pointer]: Statistiken (1)
+                - generic [ref=e225] [cursor=pointer]:
+                  - generic [ref=e226]: Statistiken
+                  - generic [ref=e228]: Aus
+              - generic [ref=e229]:
+                - paragraph [ref=e230]: Statistik Cookies erfassen Informationen anonym. Diese Informationen helfen uns zu verstehen, wie unsere Besucher unsere Website nutzen.
+                - paragraph [ref=e231]:
+                  - button [ref=e232] [cursor=pointer]: Cookie-Informationen anzeigen
+              - text: Aus
+            - generic [ref=e233]:
+              - generic [ref=e234]:
+                - heading [level=4] [ref=e236] [cursor=pointer]: Externe Medien (1)
+                - generic [ref=e238] [cursor=pointer]:
+                  - generic [ref=e239]: Externe Medien
+                  - generic [ref=e241]: Aus
+              - generic [ref=e242]:
+                - paragraph [ref=e243]: Inhalte von Videoplattformen und Social-Media-Plattformen werden standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert werden, bedarf der Zugriff auf diese Inhalte keiner manuellen Einwilligung mehr.
+                - paragraph [ref=e244]:
+                  - button [ref=e245] [cursor=pointer]: Cookie-Informationen anzeigen
+              - text: Aus
+          - generic [ref=e246]:
+            - paragraph [ref=e247]:
+              - link [ref=e248] [cursor=pointer]:
+                - /url: https://de.borlabs.io/borlabs-cookie/
+                - img [ref=e249]
+                - text: powered by Borlabs Cookie
+            - paragraph [ref=e250]:
+              - link [ref=e251] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+                - text: Datenschutzerklärung
+              - generic [ref=e252]: "|"
+              - link [ref=e253] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+                - text: Impressum

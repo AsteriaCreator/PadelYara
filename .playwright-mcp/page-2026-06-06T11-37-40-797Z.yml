@@ -1,0 +1,229 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - link [ref=e8] [cursor=pointer]:
+      - /url: https://www.padel-challenge.at/
+      - img [ref=e9]
+    - generic [ref=e12]:
+      - banner [ref=e15]:
+        - text: 
+        - navigation [ref=e16]:
+          - list [ref=e17]:
+            - listitem [ref=e18]:
+              - link "HOME" [ref=e19] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/
+            - listitem [ref=e20]:
+              - link "PREISE" [ref=e21] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/?page_id=40
+            - listitem [ref=e22]:
+              - link "ONLINE BUCHUNG" [ref=e23] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/?page_id=50
+            - listitem [ref=e24]:
+              - link "GUTSCHEIN" [ref=e25] [cursor=pointer]:
+                - /url: https://www.eversports.at/widget/w/6satsf?list=voucher
+            - listitem [ref=e26]:
+              - link "PADEL" [ref=e27] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/?page_id=53
+            - listitem [ref=e28]:
+              - link "PADBOL" [ref=e29] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/?page_id=55
+            - listitem [ref=e30]:
+              - link "TEQBALL" [ref=e31] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/?page_id=57
+            - listitem [ref=e32]:
+              - link "RESTAURANT" [ref=e33] [cursor=pointer]:
+                - /url: https://kirchenfeldwirtin.at/
+              - text: 
+              - list [ref=e34]:
+                - listitem [ref=e35]:
+                  - link "PARTY" [ref=e36] [cursor=pointer]:
+                    - /url: https://www.padel-challenge.at/?page_id=63
+            - listitem [ref=e37]:
+              - link "KONTAKT" [ref=e38] [cursor=pointer]:
+                - /url: https://www.padel-challenge.at/?page_id=32
+              - text: 
+              - list [ref=e39]:
+                - listitem [ref=e40]:
+                  - link "ÜBER UNS" [ref=e41] [cursor=pointer]:
+                    - /url: https://www.padel-challenge.at/?page_id=24
+                - listitem [ref=e42]:
+                  - link "IMPRESSUM" [ref=e43] [cursor=pointer]:
+                    - /url: https://www.padel-challenge.at/?page_id=15
+                - listitem [ref=e44]:
+                  - link "AGB" [ref=e45] [cursor=pointer]:
+                    - /url: https://www.padel-challenge.at/?page_id=20
+                - listitem [ref=e46]:
+                  - link "DATENSCHUTZ" [ref=e47] [cursor=pointer]:
+                    - /url: https://www.padel-challenge.at/?page_id=3
+      - generic [ref=e48]:
+        - link "" [ref=e49] [cursor=pointer]:
+          - /url: https://www.facebook.com/profile.php?id=61556980794020
+        - link "" [ref=e50] [cursor=pointer]:
+          - /url: https://www.instagram.com/padel_challenge_padbolsollenau?igsh=d3o4eG1tZnJ2dGwy
+        - link "" [ref=e51] [cursor=pointer]:
+          - /url: https://wa.me/436766033436
+  - generic [ref=e52]:
+    - generic [ref=e53]:
+      - img [ref=e54]
+      - generic:
+        - generic [ref=e55] [cursor=pointer]: Prev
+        - generic [ref=e56] [cursor=pointer]: Next
+    - generic [ref=e57]:
+      - generic [ref=e58] [cursor=pointer]: "1"
+      - generic [ref=e59] [cursor=pointer]: "2"
+      - generic [ref=e60] [cursor=pointer]: "3"
+      - generic [ref=e61] [cursor=pointer]: "4"
+  - generic [ref=e64]:
+    - generic [ref=e66]:
+      - link [ref=e68] [cursor=pointer]:
+        - /url: https://www.padel-challenge.at/?page_id=50
+      - generic [ref=e69]:
+        - link "ONLINE BUCHUNG" [ref=e70] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=50
+          - heading "ONLINE BUCHUNG" [level=4] [ref=e71]
+        - paragraph [ref=e72]: Termine können von 01. Jänner bis 31. Dezember gebucht werden. Du möchtest einen Court mieten? Dann vollziehe Deine Buchung mit EVERSPORTS und schon kannst Du den Ball fliegen lassen.
+        - link "MEHR ERFAHREN" [ref=e73] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=50
+    - generic [ref=e75]:
+      - link [ref=e77] [cursor=pointer]:
+        - /url: https://www.padel-challenge.at/?page_id=53
+      - generic [ref=e78]:
+        - link "PADEL" [ref=e79] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=53
+          - heading "PADEL" [level=4] [ref=e80]
+        - paragraph [ref=e81]: PADEL ist eine Mischung aus Squash, Racquetball und Federball. Sozusagen eine Kombination verschiedener Rückschlagspiele, aber um Welten spannender und lustiger! In einer 20 x 10 Meter Box spielen 2
+        - link "MEHR ERFAHREN" [ref=e82] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=53
+    - generic [ref=e84]:
+      - link [ref=e86] [cursor=pointer]:
+        - /url: https://www.padel-challenge.at/?page_id=55
+      - generic [ref=e87]:
+        - link "PADBOL" [ref=e88] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=55
+          - heading "PADBOL" [level=4] [ref=e89]
+        - paragraph [ref=e90]: PADBOL ist eine neue Sportart, die aktuell die Welt erobert und jetzt endlich auch in Österreich angekommen ist. Fußball bildet das Hauptelement, man findet aber viele Eigenschaften
+        - link "MEHR ERFAHREN" [ref=e91] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=55
+    - generic [ref=e93]:
+      - link [ref=e95] [cursor=pointer]:
+        - /url: https://www.padel-challenge.at/?page_id=57
+      - generic [ref=e96]:
+        - link "TEQBALL" [ref=e97] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=57
+          - heading "TEQBALL" [level=4] [ref=e98]
+        - paragraph [ref=e99]: TEQBALL ist eine neue fußballbasierte Sportart, die sowohl für Profifußballer*innen als auch für Hobby-Spieler*innen geeignet ist, deren Ziel es ist, technische Fähigkeiten, Konzentration und Ausdauer zu entwickeln
+        - link "MEHR ERFAHREN" [ref=e100] [cursor=pointer]:
+          - /url: https://www.padel-challenge.at/?page_id=57
+  - generic [ref=e104]:
+    - heading "ÜBER UNS" [level=2] [ref=e105]
+    - generic [ref=e106]: PADEL - PADBOL - TISCHTENNIS - TEQBALL
+    - paragraph [ref=e107]: Wir bieten direkt neben dem Gasthaus am Kirchenfeld in der Pachergasse 8 in 2601 Sollenau zwei Outdoor-PADEL-Courts, einen Outdoor-PADBOL-Court, einen TISCHTENNIS-Tisch und einen TEQBALL-Tisch an. Ausgestattet mit hochwertigem Kunstrasen, Panorama-Banden und einer Flutlichtanlage wird ein ultimatives Freizeiterlebnis in zentraler Lage angeboten. Garderoben und Duschen für Benutzer*innen sind ausreichend auf der Anlage vorhanden.
+    - link "MEHR INFOS ÜBER PADEL CHALLENGE" [ref=e109] [cursor=pointer]:
+      - /url: https://www.padel-challenge.at/?page_id=24
+  - generic [ref=e113]:
+    - generic [ref=e114]:
+      - generic [ref=e115]: 115 Days - 10 HRS - 22 MINS - 19 SECS
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - img [ref=e118]
+          - heading "SUMMER TEAM" [level=6] [ref=e119]
+          - generic [ref=e120]: VS
+        - generic [ref=e121]:
+          - heading "WINTER TEAM" [level=6] [ref=e122]
+          - img [ref=e123]
+        - paragraph [ref=e124]: SUMMER CLOSING / 30. September 2026 / Pachergasse 8, 2601 Sollenau
+    - generic [ref=e125]:
+      - generic [ref=e126]: GASTHOF AM KIRCHENFELD
+      - generic [ref=e127]: Ein visueller Einblick zu unserem bezaubernden Standort mit köstlicher Gastronomie in Sollenau.
+      - generic [ref=e128]:
+        - link:
+          - /url: ""
+  - generic [ref=e132]:
+    - heading "PADEL - PADBOL - TISCHTENNIS - TEQBALL" [level=2] [ref=e133]
+    - generic [ref=e134]:
+      - generic [ref=e136]:
+        - img [ref=e138]
+        - generic [ref=e139]:
+          - heading "SPIEL, SPASS & FREUnDE" [level=6] [ref=e140]
+          - paragraph [ref=e141]: Ein ultimatives Spielerlebnis mit Freunden genießen und neue Bekanntschaften machen.
+      - link "BUCHUNGSTOOL Mit Hilfe des Buchungstools Eversports jederzeit eine Spielzeit mit seinen Freunden fixieren." [ref=e143] [cursor=pointer]:
+        - /url: https://www.eversports.at/widget/w/6satsf
+        - generic [ref=e144]:
+          - img [ref=e146]
+          - generic [ref=e147]:
+            - heading "BUCHUNGSTOOL" [level=6] [ref=e148]
+            - paragraph [ref=e149]: Mit Hilfe des Buchungstools Eversports jederzeit eine Spielzeit mit seinen Freunden fixieren.
+      - generic [ref=e151]:
+        - img [ref=e153]
+        - generic [ref=e154]:
+          - heading "PERSÖNLICHER ERFOLG" [level=6] [ref=e155]
+          - paragraph [ref=e156]: Durch regelmäßige Einheiten eine gesunde, positive und körperliche Entwicklung verfolgen.
+  - generic [ref=e159]:
+    - heading "Videos" [level=2] [ref=e160]
+    - generic [ref=e162]:
+      - generic [ref=e164]:
+        - link "" [ref=e169] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e170]: 
+        - link "" [ref=e175] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e176]: 
+        - link "" [ref=e181] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e182]: 
+        - link "" [ref=e187] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e188]: 
+        - link "" [ref=e193] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e194]: 
+        - link "" [ref=e199] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e200]: 
+        - link "" [ref=e205] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e206]: 
+        - link "" [ref=e211] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e212]: 
+        - link "" [ref=e217] [cursor=pointer]:
+          - /url: ""
+          - generic [ref=e218]: 
+      - generic:
+        - generic:
+          - generic [ref=e219] [cursor=pointer]:
+            - generic: 
+          - generic [ref=e220] [cursor=pointer]:
+            - generic: 
+  - generic [ref=e221]:
+    - generic [ref=e224]:
+      - generic [ref=e225]:
+        - heading "PADEL CHALLENGE GmbH" [level=5] [ref=e226]
+        - text: Wir bieten direkt neben dem Gasthaus am Kirchenfeld in der Pachergasse 8 in 2601 Sollenau zwei Outdoor-PADEL-Courts, einen Outdoor-PADBOL-Court, einen TISCHTENNIS-Tisch und einen TEQBALL-Tisch an. Ausgestattet mit hochwertigem Kunstrasen, Panorama-Banden und einer Flutlichtanlage wird ein ultimatives Freizeiterlebnis in zentraler Lage angeboten. Garderoben und Duschen für Benutzer*innen sind ausreichend auf der Anlage vorhanden.
+      - generic [ref=e227]:
+        - heading "Folge uns" [level=5] [ref=e228]
+        - generic:
+          - link "" [ref=e229] [cursor=pointer]:
+            - /url: https://www.facebook.com/profile.php?id=61556980794020
+          - link "" [ref=e230] [cursor=pointer]:
+            - /url: https://www.instagram.com/padel_challenge_padbolsollenau?igsh=d3o4eG1tZnJ2dGwy
+          - link "" [ref=e231] [cursor=pointer]:
+            - /url: https://wa.me/436766033436
+      - generic [ref=e232]:
+        - heading "Kontaktdaten" [level=5] [ref=e233]
+        - generic [ref=e234]:
+          - paragraph [ref=e235]:
+            - strong [ref=e236]:
+              - generic [ref=e237]: 
+            - text: Pachergasse 8, 2601 Sollenau
+          - paragraph [ref=e238]:
+            - strong [ref=e239]:
+              - generic [ref=e240]: 
+            - text: office@padel-challenge.at
+          - paragraph [ref=e241]:
+            - strong [ref=e242]:
+              - generic [ref=e243]: 
+            - text: www.padel-challenge.at
+    - generic [ref=e245]:
+      - generic [ref=e246]: © Copyright 2026 - PADEL CHALLENGE GmbH
+      - link "HIER BUCHEN" [ref=e249] [cursor=pointer]:
+        - /url: https://www.eversports.at/widget/w/6satsf

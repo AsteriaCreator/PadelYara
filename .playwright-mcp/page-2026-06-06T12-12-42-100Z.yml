@@ -1,0 +1,113 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e8]:
+        - link "llw" [ref=e11] [cursor=pointer]:
+          - /url: https://wilhelmer.net/
+          - img "llw" [ref=e13]
+        - generic [ref=e17]:
+          - navigation [ref=e19]:
+            - list [ref=e20]:
+              - listitem [ref=e21]:
+                - link "Zimmer" [ref=e22] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/zimmer/
+              - listitem [ref=e23]:
+                - link "Kulinarik" [ref=e24] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/restaurant/
+              - listitem [ref=e25]:
+                - link "Seminar" [ref=e26] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/seminar/
+              - listitem [ref=e27]:
+                - link "Packages" [ref=e28] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/packages/
+              - listitem [ref=e29]:
+                - link "Aktivitäten" [ref=e30] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/aktivitaeten/
+              - listitem [ref=e31]:
+                - link "Aktuelles" [ref=e32] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/aktuelles/
+              - listitem [ref=e33]:
+                - link "Kontakt" [ref=e34] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/kontakt/
+              - listitem [ref=e35]:
+                - link "De" [ref=e36] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/padel/
+              - listitem [ref=e37]:
+                - link "En" [ref=e38] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/en/padel-tennis/
+          - text: a
+    - generic [ref=e39]:
+      - article [ref=e41]:
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - generic [ref=e51]:
+              - paragraph [ref=e52]:
+                - strong [ref=e53]: Erleben Sie die Trendsportart Padel auf unseren modernen Courts – Spaß und Bewegung für Anfänger und Fortgeschrittene!
+              - paragraph [ref=e54]:
+                - strong [ref=e55]: 3 Padel-Courts
+                - text: Täglich von 08:00 bis 22:00 Uhr geöffnet
+                - text: Padelschläger und Bälle erhalten Sie bequem bei unserer Hotelrezeption.
+              - paragraph [ref=e56]: Reservieren Sie Ihren Platz ganz einfach online oder direkt vor Ort.
+              - paragraph [ref=e57]:
+                - strong [ref=e58]: Preise
+                - text: € 20,- pro Stunde / Platz bis 17 Uhr
+                - text: € 24,- pro Stunde / Platz ab 17 Uhr sowie an Wochenenden und Feiertagen
+                - text: € 2,- Leihschläger
+                - text: € 6,- 1 Dose Bälle
+              - paragraph [ref=e59]:
+                - strong [ref=e60]: "Wir bieten auch:"
+                - text: Saisonkarten
+                - text: Familienkarten
+                - text: Ermäßigungen für Schüler, Schulklassen und Firmen
+            - link "Zur Platzbuchung" [ref=e62] [cursor=pointer]:
+              - /url: https://partner.venuzle.at/padel-murtal/venues/
+          - generic [ref=e65]:
+            - generic [ref=e67]:
+              - img [ref=e69]
+              - img [ref=e71]
+              - img [ref=e73]
+              - img [ref=e75]
+              - img [ref=e77]
+            - generic [ref=e78] [cursor=pointer]: "4"
+            - generic [ref=e79] [cursor=pointer]: "5"
+            - generic [ref=e81]:
+              - group "1 / 5" [ref=e82] [cursor=pointer]:
+                - img [ref=e83]
+              - group "2 / 5" [ref=e84] [cursor=pointer]:
+                - img [ref=e85]
+              - group "3 / 5" [ref=e86] [cursor=pointer]:
+                - img [ref=e87]
+              - group "4 / 5" [ref=e88] [cursor=pointer]:
+                - img [ref=e89]
+              - group "5 / 5" [ref=e90] [cursor=pointer]:
+                - img [ref=e91]
+      - contentinfo [ref=e92]:
+        - generic [ref=e95]:
+          - paragraph [ref=e99]:
+            - text: "Reservierung & Anfragen: +43 3577 22631 oder"
+            - link "landhaus@wilhelmer.net" [ref=e100] [cursor=pointer]:
+              - /url: mailto:landhaus@wilhelmer.net
+          - generic [ref=e102]:
+            - link "Impressum" [ref=e103] [cursor=pointer]:
+              - /url: https://wilhelmer.net/impressum/
+              - generic [ref=e105]: Impressum
+            - link "Datenschutz" [ref=e106] [cursor=pointer]:
+              - /url: https://wilhelmer.net/datenschutz/
+              - generic [ref=e108]: Datenschutz
+            - link "Anfahrt" [ref=e109] [cursor=pointer]:
+              - /url: https://wilhelmer.net/anfahrt/
+              - generic [ref=e111]: Anfahrt
+  - generic [ref=e113]:
+    - heading "We use Cookies" [level=3] [ref=e114]
+    - generic [ref=e115]: We use cookies on our website. Some cookies are necessary (e.g. for the shopping cart) others are not necessary. The non-essential cookies help us to optimize our online offer, our website functions and are used for marketing purposes. The consent includes the storage of information on your terminal device, the reading of personal data and its processing. Click 'Accept all' to consent to the use of cookies that are not necessary or 'Reject all' if you decide otherwise. You can get detailed information of the types of cookies we use and access their settings under 'Manage Settings'. You can access the settings at any time and also subsequently deselect cookies at any time (e.g. in the privacy policy or at the bottom of our website).
+    - generic [ref=e116]:
+      - button "Accept All" [ref=e117] [cursor=pointer]
+      - generic [ref=e118]:
+        - button "Deny All" [ref=e119] [cursor=pointer]
+        - button "Settings" [ref=e120] [cursor=pointer]
+    - generic [ref=e121]:
+      - link "Privacy Policy" [ref=e122] [cursor=pointer]:
+        - /url: https://wilhelmer.net/datenschutz/
+      - text: "|"
+      - link "Legal Notice" [ref=e123] [cursor=pointer]:
+        - /url: https://wilhelmer.net/impressum/

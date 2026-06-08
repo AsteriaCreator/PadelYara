@@ -1,0 +1,179 @@
+- generic [ref=e3]:
+  - region "top of page"
+  - main [ref=e10]:
+    - generic [ref=e15]:
+      - generic:
+        - generic:
+          - generic:
+            - generic [ref=e16]:
+              - generic:
+                - generic:
+                  - generic "PADELZONE_Main_Logo_CLR_horizontal_RGB.p" [ref=e20] [cursor=pointer]:
+                    - link "Verbund_Jumbotron (2).png" [ref=e21]:
+                      - /url: https://www.padelzone.at
+                      - img "Verbund_Jumbotron (2).png" [ref=e22]
+                  - navigation "Website" [ref=e24]:
+                    - list [ref=e25]:
+                      - listitem [ref=e26] [cursor=pointer]:
+                        - link "STANDORTE" [ref=e27]:
+                          - /url: https://www.padelzone.at/standorte
+                          - paragraph [ref=e30]: STANDORTE
+                        - button "STANDORTE-Seiten" [ref=e31]:
+                          - img [ref=e32]
+                      - listitem [ref=e34] [cursor=pointer]:
+                        - button "ANGEBOTE" [ref=e35]:
+                          - paragraph [ref=e38]: ANGEBOTE
+                        - button "ANGEBOTE-Seiten" [ref=e39]:
+                          - img [ref=e40]
+                      - listitem [ref=e42] [cursor=pointer]:
+                        - button "TRAINING" [ref=e43]:
+                          - paragraph [ref=e46]: TRAINING
+                        - button "TRAINING-Seiten" [ref=e47]:
+                          - img [ref=e48]
+                      - listitem [ref=e50] [cursor=pointer]:
+                        - button "TURNIERE" [ref=e51]:
+                          - paragraph [ref=e54]: TURNIERE
+                        - button "TURNIERE-Seiten" [ref=e55]:
+                          - img [ref=e56]
+                      - listitem [ref=e58] [cursor=pointer]:
+                        - button "COMMUNITY" [ref=e59]:
+                          - paragraph [ref=e62]: COMMUNITY
+                        - button "COMMUNITY-Seiten" [ref=e63]:
+                          - img [ref=e64]
+                      - listitem [ref=e66] [cursor=pointer]:
+                        - button "SHOP" [ref=e67]:
+                          - paragraph [ref=e70]: SHOP
+                        - button "SHOP-Seiten" [ref=e71]:
+                          - img [ref=e72]
+                      - listitem [ref=e74] [cursor=pointer]:
+                        - button "ÜBER UNS" [ref=e75]:
+                          - paragraph [ref=e78]: ÜBER UNS
+                        - button "ÜBER UNS-Seiten" [ref=e79]:
+                          - img [ref=e80]
+            - generic [ref=e82]:
+              - generic:
+                - generic:
+                  - heading "STANDORTE -" [level=1] [ref=e86]:
+                    - generic [ref=e88]:
+                      - text: STANDORTE
+                      - text: "-"
+                  - region "Anker 1"
+                  - list [ref=e90]:
+                    - generic [ref=e91]:
+                      - listitem [ref=e92]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e93]:
+                          - link [ref=e99] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/attersee
+                            - img [ref=e101]
+                      - listitem [ref=e135]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e136]:
+                          - link [ref=e142] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/dornbirn
+                            - img [ref=e144]
+                      - listitem [ref=e179]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e180]:
+                          - link [ref=e186] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/gmunden
+                            - img [ref=e188]
+                      - listitem [ref=e222]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e223]:
+                          - link [ref=e229] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/graz-puntigam
+                            - img [ref=e231]
+                      - listitem [ref=e275]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e276]:
+                          - link [ref=e282] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/hagenbrunn
+                            - img [ref=e284]
+                      - listitem [ref=e321]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e322]:
+                          - link [ref=e328] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/korneuburg
+                            - img [ref=e330]
+                      - listitem [ref=e392]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e393]:
+                          - link [ref=e399] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/traiskirchen
+                            - img [ref=e401]
+                      - listitem [ref=e429]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e430]:
+                          - link [ref=e436] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/wels
+                            - img [ref=e438]
+                      - listitem [ref=e474]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e475]:
+                          - link [ref=e481] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/colonyclub
+                            - img [ref=e483]
+                      - listitem [ref=e514]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e515]:
+                          - link [ref=e521] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/floridsdorf
+                            - img [ref=e523]
+                      - listitem [ref=e555]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e556]:
+                          - link [ref=e562] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/arena27
+                            - img [ref=e564]
+                    - generic [ref=e598]:
+                      - listitem [ref=e599]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e600]:
+                          - link [ref=e606] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/bad-ischl
+                            - img [ref=e608]
+                      - listitem [ref=e632]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e633]:
+                          - link [ref=e639] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/ebensee
+                            - img [ref=e641]
+                      - listitem [ref=e674]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e675]:
+                          - link [ref=e681] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/goetzis
+                            - img [ref=e683]
+                      - listitem [ref=e725]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e726]:
+                          - img "Graz Indoor_edited.jpg" [ref=e731]
+                          - link [ref=e733] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/graz
+                            - img [ref=e735]
+                      - listitem [ref=e773]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e774]:
+                          - img "2022-06-23_18-13-53LR_edited.jpg" [ref=e779]
+                          - link [ref=e781] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/klosterneuburg
+                            - img [ref=e783]
+                      - listitem [ref=e823]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e824]:
+                          - link [ref=e830] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/linz
+                            - img [ref=e832]
+                      - listitem [ref=e859]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e860]:
+                          - link [ref=e866] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/vösendorf
+                            - img [ref=e868]
+                      - listitem [ref=e905]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e906]:
+                          - link [ref=e912] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/wienerberg
+                            - img [ref=e914]
+                      - listitem [ref=e949]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e950]:
+                          - link [ref=e956] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/sportinsel
+                            - img [ref=e958]
+                      - listitem [ref=e989]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e990]:
+                          - link [ref=e996] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/achtersee
+                            - img [ref=e998]
+                      - listitem [ref=e1049]:
+                        - region "Inhaltsänderungen bei Mouseover" [ref=e1050]:
+                          - link [ref=e1056] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/sprungart
+                            - img [ref=e1058]
+                  - link "ZURÜCK" [ref=e1096] [cursor=pointer]:
+                    - /url: https://www.padelzone.at
+                    - generic [ref=e1097]: ZURÜCK
+  - region "bottom of page"

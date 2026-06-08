@@ -1,0 +1,204 @@
+- generic [active] [ref=e1]:
+  - dialog "Cookie-Zustimmung verwalten" [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: Cookie-Zustimmung verwalten
+      - button "Dialog schließen" [ref=e5] [cursor=pointer]:
+        - img [ref=e6]
+    - generic [ref=e9]: Um dir ein optimales Erlebnis zu bieten, verwenden wir Technologien wie Cookies, um Geräteinformationen zu speichern und/oder darauf zuzugreifen. Wenn du diesen Technologien zustimmst, können wir Daten wie das Surfverhalten oder eindeutige IDs auf dieser Website verarbeiten. Wenn du deine Zustimmung nicht erteilst oder zurückziehst, können bestimmte Merkmale und Funktionen beeinträchtigt werden.
+    - generic [ref=e10]:
+      - button "Akzeptieren" [ref=e11] [cursor=pointer]
+      - button "Ablehnen" [ref=e12] [cursor=pointer]
+      - button "Einstellungen ansehen" [ref=e13] [cursor=pointer]
+    - list [ref=e15]:
+      - listitem [ref=e16]:
+        - link "Cookie-Richtlinie" [ref=e17] [cursor=pointer]:
+          - /url: https://sportanlage-bisamberg.at/cookie-richtlinie-eu/
+      - listitem [ref=e18]:
+        - link "Kontakt" [ref=e19] [cursor=pointer]:
+          - /url: https://sportanlage-bisamberg.at/kontakt/
+      - listitem
+  - link "Zum Hauptinhalt springen" [ref=e21] [cursor=pointer]:
+    - /url: "#tm-main"
+  - generic [ref=e22]:
+    - banner [ref=e23]:
+      - navigation [ref=e27]:
+        - link "Zurück zur Startseite" [ref=e29] [cursor=pointer]:
+          - /url: https://sportanlage-bisamberg.at/
+        - list [ref=e31]:
+          - listitem [ref=e32]:
+            - link "Über uns" [ref=e33] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/ueber-uns/
+          - listitem [ref=e34]:
+            - link "Padel" [ref=e35] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/padel/
+          - listitem [ref=e36]:
+            - button "Tennis" [ref=e37] [cursor=pointer]
+          - listitem [ref=e38]:
+            - link "Sauna & Fitness" [ref=e39] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/sauna-fitness-2/
+          - listitem [ref=e40]:
+            - link "Gaststüberl" [ref=e41] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/gaststueberl/
+          - listitem [ref=e42]:
+            - link "Platz buchen" [ref=e43] [cursor=pointer]:
+              - /url: https://www.tennis04.com/bisamberg
+              - generic [ref=e44]: Platz buchen
+    - main [ref=e45]:
+      - generic [ref=e55]:
+        - heading "Nur einen Schlag von Wien entfernt." [level=1] [ref=e56]:
+          - text: Nur einen Schlag
+          - text: von Wien entfernt.
+        - heading "SPORTANLAGE BISAMBERG" [level=3] [ref=e57]
+      - generic [ref=e64]:
+        - heading "Bereit für Spiel, Sport und Spaß." [level=2] [ref=e65]:
+          - text: Bereit für Spiel, Sport und Spaß.
+          - paragraph
+        - generic [ref=e66]: "Unsere moderne Anlage liegt mitten im Grünen, nur 15 Fahrminuten nördlich von Wien, und bietet alles, was sich Tennis- und Padelspieler wünschen: Professionelle und bestens gepflegte Outdoor- und Hallenplätze, neue Fitnessgeräte und eine Wohlfühl-Sauna, um dem Körper nach der Anstrengung eine kleine Auszeit zu gönnen."
+        - link "Platz buchen" [ref=e68] [cursor=pointer]:
+          - /url: https://www.tennis04.com/bisamberg
+        - generic [ref=e69]: Kein Equipment? Kein Problem, einfach Tennis- und Padel Equipment gegen eine kleine Gebühr bei uns ausleihen.
+        - generic [ref=e70]: Dank unserer modernen LED-Flutlichtanlagen sind Spielzeiten bis 22 Uhr möglich.
+      - generic [ref=e77]:
+        - generic [ref=e79]:
+          - heading "12" [level=1] [ref=e80]
+          - paragraph [ref=e82]: Tennisplätze
+        - generic [ref=e84]:
+          - heading "4" [level=1] [ref=e85]
+          - paragraph [ref=e87]: Padelplätze
+      - generic [ref=e89]:
+        - generic [ref=e91]:
+          - heading "Übersichtsplan" [level=2] [ref=e92]
+          - heading "SPORTANLAGE GENAUER ANSEHEN." [level=4] [ref=e93]
+          - link "Detailansicht" [ref=e95] [cursor=pointer]:
+            - /url: https://sportanlage-bisamberg.at/wp-content/uploads/2023/08/lageplan_sw_beschreibung_bisamberg_sportanlage2023.jpg
+          - link "Preisliste Sommer" [ref=e97] [cursor=pointer]:
+            - /url: https://sportanlage-bisamberg.at/wp-content/uploads/2026/03/Preisliste-Sommer-2026.pdf
+          - link "Preisliste Winter" [ref=e99] [cursor=pointer]:
+            - /url: https://sportanlage-bisamberg.at/wp-content/uploads/2025/09/Preisliste-Winter-2025_2026.pdf
+          - paragraph [ref=e101]:
+            - text: "Fragen? Kontaktieren Sie uns einfach:"
+            - link "+43 (0) 660 71 49 052" [ref=e102] [cursor=pointer]:
+              - /url: tel:+436607149052
+        - generic [ref=e106]:
+          - button "Open" [ref=e108] [cursor=pointer]:
+            - img [ref=e109]
+          - button "Open" [ref=e112] [cursor=pointer]:
+            - img [ref=e113]
+          - button "Open" [ref=e116] [cursor=pointer]:
+            - img [ref=e117]
+          - button "Open" [ref=e120] [cursor=pointer]:
+            - img [ref=e121]
+          - button "Open" [ref=e124] [cursor=pointer]:
+            - img [ref=e125]
+          - button "Open" [ref=e128] [cursor=pointer]:
+            - img [ref=e129]
+          - button "Open" [ref=e132] [cursor=pointer]:
+            - img [ref=e133]
+          - button "Open" [ref=e136] [cursor=pointer]:
+            - img [ref=e137]
+          - button "Open" [ref=e140] [cursor=pointer]:
+            - img [ref=e141]
+          - button "Open" [ref=e144] [cursor=pointer]:
+            - img [ref=e145]
+          - button "Open" [ref=e148] [cursor=pointer]:
+            - img [ref=e149]
+          - button "Open" [ref=e152] [cursor=pointer]:
+            - img [ref=e153]
+          - button "Open" [ref=e156] [cursor=pointer]:
+            - img [ref=e157]
+      - generic [ref=e165]:
+        - heading "Padel" [level=1] [ref=e166]
+        - link "Mehr erfahren" [ref=e168] [cursor=pointer]:
+          - /url: /padel/
+      - generic [ref=e175]:
+        - heading "Tennis" [level=1] [ref=e176]
+        - link "Mehr erfahren" [ref=e178] [cursor=pointer]:
+          - /url: /tennis/
+      - generic [ref=e182]:
+        - heading "SAUNA & FITNESS" [level=4] [ref=e188]:
+          - link "SAUNA & FITNESS" [ref=e189] [cursor=pointer]:
+            - /url: /sauna-fitness-2/
+        - heading "GASTSTÜBERL" [level=4] [ref=e195]:
+          - link "GASTSTÜBERL" [ref=e196] [cursor=pointer]:
+            - /url: /gaststueberl/
+        - heading "ÜBER UNS" [level=4] [ref=e202]:
+          - link "ÜBER UNS" [ref=e203] [cursor=pointer]:
+            - /url: /ueber-uns/
+      - generic [ref=e205]:
+        - generic [ref=e207]:
+          - heading "Events" [level=2] [ref=e208]
+          - heading "BEI UNS IST IMMER WAS LOS." [level=4] [ref=e209]
+        - link "PADEL TURNIER 29.05.2025" [ref=e214] [cursor=pointer]:
+          - /url: https://sportanlage-bisamberg.at/wp-content/uploads/2025/05/Padel-Turnier-Mai-2025.pdf
+          - generic [ref=e215]:
+            - paragraph [ref=e216]:
+              - text: PADEL
+              - text: TURNIER
+            - paragraph [ref=e217]: 29.05.2025
+      - generic [ref=e220]:
+        - generic [ref=e222]:
+          - heading "News" [level=2] [ref=e223]
+          - heading "BEI UNS IST IMMER WAS LOS." [level=4] [ref=e224]
+        - list [ref=e228]:
+          - listitem [ref=e229]:
+            - link "Jugendturnier vom ÖPV" [ref=e231] [cursor=pointer]:
+              - /url: /jugendturnier-vom-opv/
+              - paragraph [ref=e232]: Jugendturnier vom ÖPV
+      - generic [ref=e235]:
+        - heading "Sponsoren" [level=2] [ref=e239]
+        - region [ref=e242]:
+          - generic [ref=e244]:
+            - tabpanel "1 von 6" [ref=e245]:
+              - link [ref=e247] [cursor=pointer]:
+                - /url: http://www.amon-group.com/
+            - tabpanel "2 von 6" [ref=e249]:
+              - link [ref=e251] [cursor=pointer]:
+                - /url: http://www.griha.at/
+            - tabpanel "3 von 6" [ref=e253]:
+              - link [ref=e255] [cursor=pointer]:
+                - /url: http://www.smolkahausbetreuung.at/
+            - tabpanel [ref=e257]:
+              - link [ref=e259] [cursor=pointer]:
+                - /url: http://minnichmoden.com/
+            - tabpanel [ref=e261]:
+              - link [ref=e263] [cursor=pointer]:
+                - /url: http://m.notar-kilian.at/
+            - tabpanel [ref=e265]:
+              - link [ref=e267] [cursor=pointer]:
+                - /url: http://www.musikschule-korneuburg.at/
+          - tablist [ref=e270]:
+            - tab "Bild 1" [selected] [ref=e271] [cursor=pointer]
+            - tab "Bild 4" [ref=e272] [cursor=pointer]
+      - generic [ref=e277]:
+        - heading "Die Sportanlage Mitten im Grünen." [level=1] [ref=e278]
+        - link "Platz buchen" [ref=e280] [cursor=pointer]:
+          - /url: https://www.tennis04.com/bisamberg
+    - contentinfo [ref=e281]:
+      - generic [ref=e285]:
+        - heading "SPORTANLAGE BISAMBERG" [level=2] [ref=e286]
+        - paragraph [ref=e288]:
+          - text: 2102 Bisamberg, Unterer Mühlweg 4
+          - text: "Telefon:"
+          - link "+43 (0) 2262 74 597" [ref=e289] [cursor=pointer]:
+            - /url: tel:+43226274597
+          - text: "Mobil:"
+          - link "+43 (0) 660 71 49 052" [ref=e290] [cursor=pointer]:
+            - /url: tel:+436607149052
+          - text: info@sportanlage-bisamberg.at
+      - generic [ref=e294]:
+        - list [ref=e296]:
+          - listitem [ref=e297]:
+            - link [ref=e298] [cursor=pointer]:
+              - /url: https://www.facebook.com/sportanlage.bisamberg/
+              - img [ref=e300]
+          - listitem [ref=e302]:
+            - link [ref=e303] [cursor=pointer]:
+              - /url: https://www.instagram.com/sportanlage_bisamberg/
+              - img [ref=e305]
+        - paragraph [ref=e310]:
+          - generic [ref=e311]:
+            - link "KONTAKT" [ref=e312] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/kontakt/
+            - text: "|"
+            - link "IMPRESSUM" [ref=e313] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/kontakt/

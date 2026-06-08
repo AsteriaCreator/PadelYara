@@ -1,0 +1,358 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Padel Bruck" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Padel Bruck" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Padel Bruck" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  ESV-Tennis" [ref=e19] [cursor=pointer]:
+            - /url: https://bruck.tennisplatz.info/
+            - generic [ref=e20]:  
+            - text: ESV-Tennis
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "News" [ref=e30] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e31]:
+        - link "Preisliste" [ref=e32] [cursor=pointer]:
+          - /url: /s/Preisliste
+      - listitem [ref=e33]:
+        - link "Padelschule" [ref=e34] [cursor=pointer]:
+          - /url: /s/Padelschule
+      - listitem [ref=e35]:
+        - link "Sponsoring" [ref=e36] [cursor=pointer]:
+          - /url: /s/Sponsoring
+      - listitem [ref=e37]:
+        - link "Shop" [ref=e38] [cursor=pointer]:
+          - /url: /s/Shop
+      - listitem [ref=e39]:
+        - link "Padelshop HEAD" [ref=e40] [cursor=pointer]:
+          - /url: /s/Padelshop_HEAD
+      - listitem [ref=e41]:
+        - link "Padelshop BABOLAT" [ref=e42] [cursor=pointer]:
+          - /url: /s/Padelshop_BABOLAT
+      - listitem [ref=e43]:
+        - link "Mannschaften" [ref=e44] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e45]:
+        - link "Registrierung" [ref=e46] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e48]:
+      - heading "Preisliste" [level=1] [ref=e49]
+      - generic [ref=e50]:
+        - generic [ref=e52]:
+          - paragraph [ref=e53]
+          - paragraph [ref=e54]: "4"
+          - paragraph [ref=e55]
+          - paragraph [ref=e56]:
+            - strong [ref=e58]: Preisliste*
+          - paragraph [ref=e59]:
+            - strong [ref=e61]: HALLE
+          - paragraph [ref=e62]:
+            - strong [ref=e63]: Stundenpreis von 29.09.25 - 12.04.2026
+          - paragraph [ref=e64]: Mo – Fr 8 - 16 Uhr € 28,-
+          - paragraph [ref=e65]: Mo – Fr ab 16 Uhr € 36,-
+          - paragraph [ref=e66]: Sa, So Feiertag € 36,-
+          - paragraph [ref=e67]:
+            - strong [ref=e69]: FREIPLÄTZE + HALLE
+          - paragraph [ref=e70]:
+            - strong [ref=e71]: Stundenpreis von 1.04. - 31.10.2026 Halle bis 28.09.25
+          - paragraph [ref=e72]: Mo – Fr 8 - 16 Uhr € 24,-
+          - paragraph [ref=e73]: Mo – Fr ab 16 Uhr € 28,-
+          - paragraph [ref=e74]: Sa, So Feiertag € 28,-
+          - paragraph [ref=e75]
+          - paragraph [ref=e76]: Rabatt von 1 €/Stunde und Spieler für Mitglieder der Padel Lions
+          - paragraph [ref=e77]
+          - paragraph [ref=e78]:
+            - strong [ref=e79]: Abo 13.04.2026 - 25.09.26 (24Wochen), Preis/Stunde
+          - paragraph [ref=e80]: Mo-Fr 8 - 16Uhr € 460,- (20% Rabatt gegenüber Einzelpreis)
+          - paragraph [ref=e81]: Mo-Fr ab 16Uhr € 605- (10% Rabatt)
+          - paragraph [ref=e82]
+          - paragraph [ref=e83]:
+            - strong [ref=e84]: Turniere
+          - paragraph [ref=e85]: 25,- € pro Spieler und Turnier in der Freisaison
+          - paragraph [ref=e86]: 30,- € pro Spieler und Turnier in der Hallensaison
+          - paragraph [ref=e87]
+          - paragraph [ref=e88]:
+            - strong [ref=e89]: Ballangebot
+          - paragraph [ref=e90]: 1.Dose Babolat Court € 6,-
+          - paragraph [ref=e91]
+          - paragraph [ref=e92]: Karton Bälle(24Dosen) € 89,-
+          - paragraph [ref=e93]: Leihschläger pro Spiel € 2,-
+          - paragraph [ref=e94]
+          - paragraph [ref=e95]: "* alle Preise inkl. Mwst"
+          - paragraph [ref=e96]
+        - generic [ref=e97]:
+          - generic [ref=e102]:
+            - paragraph [ref=e103]: Möchten Sie von Facebook bereitgestellte externe Inhalte laden?
+            - paragraph [ref=e104]:
+              - button "Ja" [ref=e105] [cursor=pointer]
+              - button "Immer" [ref=e106] [cursor=pointer]
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - paragraph [ref=e109]:
+                - generic [ref=e111]:
+                  - img "User Image" [ref=e112]
+                  - text: roberto Asoltanei
+                - text: nimmt mit
+                - generic [ref=e114]:
+                  - img "User Image" [ref=e115]
+                  - text: Matthias Danilet
+                - text: am Forderungs-Bewerb „Herren Padel Lions” teil!
+              - text: 11. April 2024, 18:20 Uhr
+            - generic [ref=e116]:
+              - paragraph [ref=e117]:
+                - generic [ref=e119]:
+                  - img "User Image" [ref=e120]
+                  - text: Florian Bär
+                - text: nimmt mit
+                - generic [ref=e122]:
+                  - img "User Image" [ref=e123]
+                  - text: Christoph Heiter
+                - text: am Forderungs-Bewerb „Herren Padel Lions” teil!
+              - text: 13. Dezember 2023, 13:42 Uhr
+            - generic [ref=e124]:
+              - paragraph [ref=e125]:
+                - generic [ref=e126]:
+                  - generic [ref=e127]:
+                    - img "User Image" [ref=e128]
+                    - text: Assinger M./
+                  - generic [ref=e129]:
+                    - img "User Image" [ref=e130]
+                    - text: Strohmaier M./
+                - text: gewinnen gegen
+                - generic [ref=e131]:
+                  - generic [ref=e132]:
+                    - img "User Image" [ref=e133]
+                    - text: Ebner R./
+                  - generic [ref=e134]:
+                    - img "User Image" [ref=e135]
+                    - text: Stadlober C./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 23. Oktober 2023, 17:47 Uhr
+            - link "LL sports" [ref=e137] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "LL sports" [ref=e138]
+            - generic [ref=e139]:
+              - paragraph [ref=e140]:
+                - generic [ref=e141]:
+                  - generic [ref=e142]:
+                    - img "User Image" [ref=e143]
+                    - text: Ebner R./
+                  - generic [ref=e144]:
+                    - img "User Image" [ref=e145]
+                    - text: Stadlober C./
+                - text: (4) haben
+                - generic [ref=e146]:
+                  - generic [ref=e147]:
+                    - img "User Image" [ref=e148]
+                    - text: Assinger M./
+                  - generic [ref=e149]:
+                    - img "User Image" [ref=e150]
+                    - text: Strohmaier M./
+                - text: (2) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 18. Oktober 2023, 20:43 Uhr
+            - generic [ref=e151]:
+              - paragraph [ref=e152]:
+                - generic [ref=e153]:
+                  - generic [ref=e154]:
+                    - img "User Image" [ref=e155]
+                    - text: Scheriau A./
+                  - generic [ref=e156]:
+                    - img "User Image" [ref=e157]
+                    - text: Paar D./
+                - text: gewinnen gegen
+                - generic [ref=e158]:
+                  - generic [ref=e159]:
+                    - img "User Image" [ref=e160]
+                    - text: Assinger M./
+                  - generic [ref=e161]:
+                    - img "User Image" [ref=e162]
+                    - text: Strohmaier M./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 18. Oktober 2023, 20:40 Uhr
+            - generic [ref=e163]:
+              - paragraph [ref=e164]:
+                - generic [ref=e165]:
+                  - generic [ref=e166]:
+                    - img "User Image" [ref=e167]
+                    - text: Ebner R./
+                  - generic [ref=e168]:
+                    - img "User Image" [ref=e169]
+                    - text: Stadlober C./
+                - text: gewinnen gegen
+                - generic [ref=e170]:
+                  - generic [ref=e171]:
+                    - img "User Image" [ref=e172]
+                    - text: Klösch C./
+                  - generic [ref=e173]:
+                    - img "User Image" [ref=e174]
+                    - text: Holzgruber T./
+                - text: im Forderungsbewerb „Herren Padel Lions” und sind nun auf Platz 4
+              - text: 18. Oktober 2023, 20:38 Uhr
+            - link "Pankl" [ref=e176] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Pankl" [ref=e177]
+            - generic [ref=e178]:
+              - paragraph [ref=e179]:
+                - generic [ref=e180]:
+                  - generic [ref=e181]:
+                    - img "User Image" [ref=e182]
+                    - text: Karelly K./
+                  - generic [ref=e183]:
+                    - img "User Image" [ref=e184]
+                    - text: Stark T./
+                - text: (12) haben
+                - generic [ref=e185]:
+                  - generic [ref=e186]:
+                    - img "User Image" [ref=e187]
+                    - text: Feiler R./
+                  - generic [ref=e188]:
+                    - img "User Image" [ref=e189]
+                    - text: Riedler M./
+                - text: (9) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 08. Oktober 2023, 13:05 Uhr
+            - generic [ref=e190]:
+              - paragraph [ref=e191]:
+                - generic [ref=e192]:
+                  - generic [ref=e193]:
+                    - img "User Image" [ref=e194]
+                    - text: Feiler R./
+                  - generic [ref=e195]:
+                    - img "User Image" [ref=e196]
+                    - text: Riedler M./
+                - text: gewinnen gegen
+                - generic [ref=e197]:
+                  - generic [ref=e198]:
+                    - img "User Image" [ref=e199]
+                    - text: Kathrein C./
+                  - generic [ref=e200]:
+                    - img "User Image" [ref=e201]
+                    - text: Spanninger P./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 08. Oktober 2023, 12:59 Uhr
+            - generic [ref=e202]:
+              - paragraph [ref=e203]:
+                - generic [ref=e204]:
+                  - generic [ref=e205]:
+                    - img "User Image" [ref=e206]
+                    - text: Nimmrichter C./
+                  - generic [ref=e207]:
+                    - img "User Image" [ref=e208]
+                    - text: Rom G./
+                - text: (11) haben
+                - generic [ref=e209]:
+                  - generic [ref=e210]:
+                    - img "User Image" [ref=e211]
+                    - text: Labitsch H./
+                  - generic [ref=e212]:
+                    - img "User Image" [ref=e213]
+                    - text: Galler H./
+                - text: (10) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 06. Oktober 2023, 15:02 Uhr
+            - link "Brünner" [ref=e215] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Brünner" [ref=e216]
+            - generic [ref=e217]:
+              - paragraph [ref=e218]:
+                - generic [ref=e219]:
+                  - generic [ref=e220]:
+                    - img "User Image" [ref=e221]
+                    - text: Nimmrichter C./
+                  - generic [ref=e222]:
+                    - img "User Image" [ref=e223]
+                    - text: Rom G./
+                - text: gewinnen gegen
+                - generic [ref=e224]:
+                  - generic [ref=e225]:
+                    - img "User Image" [ref=e226]
+                    - text: Karelly K./
+                  - generic [ref=e227]:
+                    - img "User Image" [ref=e228]
+                    - text: Stark T./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 06. Oktober 2023, 14:54 Uhr
+            - generic [ref=e229]:
+              - paragraph [ref=e230]:
+                - generic [ref=e231]:
+                  - generic [ref=e232]:
+                    - img "User Image" [ref=e233]
+                    - text: Kathrein C./
+                  - generic [ref=e234]:
+                    - img "User Image" [ref=e235]
+                    - text: Spanninger P./
+                - text: (13) haben
+                - generic [ref=e236]:
+                  - generic [ref=e237]:
+                    - img "User Image" [ref=e238]
+                    - text: Feiler R./
+                  - generic [ref=e239]:
+                    - img "User Image" [ref=e240]
+                    - text: Riedler M./
+                - text: (9) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 04. Oktober 2023, 00:11 Uhr
+            - generic [ref=e241]:
+              - paragraph [ref=e242]:
+                - generic [ref=e243]:
+                  - generic [ref=e244]:
+                    - img "User Image" [ref=e245]
+                    - text: Feiler R./
+                  - generic [ref=e246]:
+                    - img "User Image" [ref=e247]
+                    - text: Riedler M./
+                - text: gewinnen gegen
+                - generic [ref=e248]:
+                  - generic [ref=e249]:
+                    - img "User Image" [ref=e250]
+                    - text: Labitsch H./
+                  - generic [ref=e251]:
+                    - img "User Image" [ref=e252]
+                    - text: Galler H./
+                - text: im Forderungsbewerb „Herren Padel Lions” und sind nun auf Platz 9
+              - text: 03. Oktober 2023, 08:21 Uhr
+            - link "Inteco" [ref=e254] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Inteco" [ref=e255]
+    - contentinfo [ref=e256]:
+      - generic [ref=e258]:
+        - generic [ref=e259]:
+          - text: Padel Bruck |
+          - link "Impressum" [ref=e260] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e261]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e262] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e264]:
+    - paragraph [ref=e265]:
+      - generic [ref=e266]:
+        - paragraph [ref=e267]:
+          - img "Padel Bruck" [ref=e268]
+          - text: Padel Bruck
+        - paragraph [ref=e269]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e270]:
+      - link "Einstellungen verwalten" [ref=e271] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e272]:
+        - button "Alle ablehnen" [ref=e273] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e274] [cursor=pointer]

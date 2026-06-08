@@ -1,0 +1,351 @@
+- generic [ref=e3]:
+  - region "top of page"
+  - generic [ref=e9]:
+    - banner [ref=e10]:
+      - generic [ref=e16]:
+        - generic:
+          - generic:
+            - link [ref=e18] [cursor=pointer]:
+              - /url: https://www.padelzone.at
+            - navigation "Website" [ref=e20]:
+              - list [ref=e21]:
+                - listitem [ref=e22] [cursor=pointer]:
+                  - link "STANDORTE" [ref=e23]:
+                    - /url: https://www.padelzone.at/standorte
+                    - paragraph [ref=e26]: STANDORTE
+                  - button "STANDORTE-Seiten" [ref=e27]:
+                    - img [ref=e28]
+                - listitem [ref=e30] [cursor=pointer]:
+                  - button "ANGEBOTE" [ref=e31]:
+                    - paragraph [ref=e34]: ANGEBOTE
+                  - button "ANGEBOTE-Seiten" [ref=e35]:
+                    - img [ref=e36]
+                - listitem [ref=e38] [cursor=pointer]:
+                  - button "TRAINING" [ref=e39]:
+                    - paragraph [ref=e42]: TRAINING
+                  - button "TRAINING-Seiten" [ref=e43]:
+                    - img [ref=e44]
+                - listitem [ref=e46] [cursor=pointer]:
+                  - button "TURNIERE" [ref=e47]:
+                    - paragraph [ref=e50]: TURNIERE
+                  - button "TURNIERE-Seiten" [ref=e51]:
+                    - img [ref=e52]
+                - listitem [ref=e54] [cursor=pointer]:
+                  - button "COMMUNITY" [ref=e55]:
+                    - paragraph [ref=e58]: COMMUNITY
+                  - button "COMMUNITY-Seiten" [ref=e59]:
+                    - img [ref=e60]
+                - listitem [ref=e62] [cursor=pointer]:
+                  - button "SHOP" [ref=e63]:
+                    - paragraph [ref=e66]: SHOP
+                  - button "SHOP-Seiten" [ref=e67]:
+                    - img [ref=e68]
+                - listitem [ref=e70] [cursor=pointer]:
+                  - button "ÜBER UNS" [ref=e71]:
+                    - paragraph [ref=e74]: ÜBER UNS
+                  - button "ÜBER UNS-Seiten" [ref=e75]:
+                    - img [ref=e76]
+    - main [ref=e78]:
+      - generic [ref=e83]:
+        - generic:
+          - generic:
+            - generic:
+              - generic [ref=e84]:
+                - generic:
+                  - generic:
+                    - img "Kopie von Design ohne Titel (2).png" [ref=e99]
+                    - generic [ref=e105]:
+                      - generic:
+                        - generic:
+                          - img "20240904_182007_edited.jpg" [ref=e111]
+                          - heading "LET´ S PADEL!" [level=1] [ref=e112]:
+                            - generic [ref=e114]: LET´ S PADEL!
+                          - link "Court buchen" [ref=e116] [cursor=pointer]:
+                            - /url: https://www.eversports.at/sb/padelzone-bad-ischl
+                            - generic [ref=e117]: Court buchen
+                          - img "DSC00896_edited.jpg" [ref=e120]
+                          - heading "BLÖCKE" [level=1] [ref=e121]:
+                            - generic [ref=e123]: BLÖCKE
+                          - link "Jetzt kaufen" [ref=e125] [cursor=pointer]:
+                            - /url: https://www.eversports.at/sp/padelzone-bad-ischl
+                            - generic [ref=e126]: Jetzt kaufen
+                          - img "_CH17464_DPXDLR_edited.jpg" [ref=e129]
+                          - heading "PRIVAT TRAINING" [level=1] [ref=e130]:
+                            - generic [ref=e132]: PRIVAT TRAINING
+                          - link "Auf dich zugeschnitten" [ref=e134] [cursor=pointer]:
+                            - /url: https://www.padelzone.at/privat-training
+                            - generic [ref=e135]: Auf dich zugeschnitten
+                          - img "a_edited.jpg" [ref=e138]
+                          - heading "FIND US" [level=1] [ref=e139]:
+                            - generic [ref=e141]: FIND US
+                          - link [ref=e143] [cursor=pointer]:
+                            - /url: https://maps.app.goo.gl/azWosiwBHreMM7eS9
+                            - img [ref=e145]
+                    - generic [ref=e153]:
+                      - generic:
+                        - generic:
+                          - heading "OUTDOOR PADEL -" [level=1] [ref=e157]:
+                            - generic [ref=e159]:
+                              - text: OUTDOOR PADEL
+                              - text: "-"
+                          - list [ref=e161]:
+                            - listitem [ref=e163]:
+                              - generic [ref=e164]:
+                                - generic:
+                                  - generic:
+                                    - img [ref=e170]
+                                    - heading "PADELN" [level=2] [ref=e173]
+                                    - generic:
+                                      - paragraph [ref=e174]:
+                                        - generic [ref=e175]: 2 x Outdoor Courts
+                                      - paragraph [ref=e176]
+                                      - paragraph [ref=e177]:
+                                        - generic [ref=e178]: Racketverleih
+                            - listitem [ref=e180]:
+                              - generic [ref=e181]:
+                                - generic:
+                                  - generic:
+                                    - img "Flip Flops Icon Padelzone" [ref=e187]
+                                    - heading "CHILLEN" [level=2] [ref=e193]
+                                    - generic:
+                                      - paragraph [ref=e194]:
+                                        - generic [ref=e195]: Chill-Out Bereiche mit gemütlichen Liegestühlen rund um die Courts.
+                                      - paragraph [ref=e196]
+                                      - paragraph [ref=e197]:
+                                        - generic [ref=e198]: Toiletten und Garderoben im Tennisclub Bad Ischl nebenan.
+                                      - paragraph [ref=e199]
+                            - listitem [ref=e201]:
+                              - generic [ref=e202]:
+                                - generic:
+                                  - generic:
+                                    - img "Padel Tennis Padelzone Icon gesunder Snack" [ref=e208]
+                                    - heading "SNACKEN" [level=2] [ref=e219]
+                                    - paragraph [ref=e220]:
+                                      - generic [ref=e221]: Getränke & Speisen gibt es direkt nebenan, im Tennisclub Bad Ischl.
+                    - generic [ref=e227]:
+                      - generic:
+                        - generic:
+                          - heading "ANREISE -" [level=1] [ref=e231]:
+                            - generic [ref=e233]:
+                              - text: ANREISE
+                              - text: "-"
+                          - list [ref=e235]:
+                            - listitem [ref=e237]:
+                              - generic [ref=e238]:
+                                - generic:
+                                  - generic:
+                                    - img "Padel Tennis Padelzone Icon Straßenbahn Bim Tram" [ref=e244]
+                                    - heading "ÖFFIS" [level=2] [ref=e255]
+                                    - generic:
+                                      - paragraph [ref=e256]:
+                                        - generic [ref=e257]: Ca. 20 Gehminuten vom
+                                      - paragraph [ref=e258]:
+                                        - generic [ref=e259]: Bahnhof Bad Ischl
+                            - listitem [ref=e261]:
+                              - generic [ref=e262]:
+                                - generic:
+                                  - generic:
+                                    - img "Padelzone, Padel Tennis, alter VW Bus, Icon" [ref=e268]
+                                    - heading "AUTO" [level=2] [ref=e282]
+                                    - generic:
+                                      - paragraph [ref=e283]:
+                                        - generic [ref=e284]: Eingleitenstraße 6
+                                      - paragraph [ref=e285]:
+                                        - generic [ref=e286]: 4820 Bad Ischl
+                                      - paragraph [ref=e287]
+                          - img "Design ohne Titel (7).png" [ref=e290]
+              - generic [ref=e291]:
+                - generic:
+                  - generic:
+                    - generic [ref=e300]:
+                      - generic:
+                        - generic:
+                          - heading "INFOS & PREISE -" [level=1] [ref=e304]:
+                            - generic [ref=e306]:
+                              - text: INFOS & PREISE
+                              - text: "-"
+                          - list [ref=e308]:
+                            - listitem [ref=e310]:
+                              - generic [ref=e311]:
+                                - generic:
+                                  - generic:
+                                    - img "DSC00853.jpg" [ref=e317]
+                                    - heading "EINZELSTUNDE (60')" [level=1] [ref=e318]:
+                                      - generic [ref=e319]: EINZELSTUNDE (60')
+                                    - generic:
+                                      - paragraph [ref=e320]:
+                                        - generic [ref=e321]: Montag-Freitag
+                                      - paragraph [ref=e322]:
+                                        - generic [ref=e323]: 07.00 - 16.00 Uhr
+                                      - paragraph [ref=e324]:
+                                        - generic [ref=e325]: 28 EUR (60 Min)
+                                      - paragraph [ref=e326]
+                                      - paragraph [ref=e327]:
+                                        - generic [ref=e328]: 16.00 - 23.00 Uhr
+                                      - paragraph [ref=e329]:
+                                        - generic [ref=e330]: 32 EUR (60 Min)
+                                      - paragraph [ref=e331]
+                                      - paragraph [ref=e332]:
+                                        - generic [ref=e333]: Samstag, Sonn- & Feiertag
+                                      - paragraph [ref=e334]:
+                                        - generic [ref=e335]: 32 EUR (60 Min)
+                            - listitem [ref=e337]:
+                              - generic [ref=e338]:
+                                - generic:
+                                  - generic:
+                                    - img "_CH34902LR_pp.jpg" [ref=e344]
+                                    - heading "GOOD 2 KNOW" [level=1] [ref=e345]
+                                    - generic:
+                                      - paragraph [ref=e346]:
+                                        - generic [ref=e348]: Öffnungszeiten
+                                      - paragraph [ref=e349]:
+                                        - generic [ref=e350]: Montag - Sonntag
+                                      - paragraph [ref=e351]:
+                                        - generic [ref=e352]: 07:00 - 23:00 Uhr
+                                      - paragraph [ref=e353]
+                                      - paragraph [ref=e354]:
+                                        - generic [ref=e355]: Schlägerverleih
+                                      - paragraph [ref=e356]:
+                                        - generic [ref=e357]: Verleih von Rackets & Bällen vor Ort - für nur 4 Euro/Racket
+                                      - paragraph [ref=e358]
+                                      - paragraph [ref=e359]:
+                                        - generic [ref=e360]: Stornierungsbedingungen
+                                      - paragraph [ref=e361]:
+                                        - generic [ref=e362]: Kostenfreie Stornierung über eversports.at bis 24h vor Spielbeginn. Ab 24h vor Spielbeginn fallen 100% der Buchungsgebühren an.
+                    - generic [ref=e368]:
+                      - generic:
+                        - generic:
+                          - heading "CONNECT & PLAY -" [level=1] [ref=e372]:
+                            - generic [ref=e374]:
+                              - text: CONNECT & PLAY
+                              - text: "-"
+                          - img "a (3).png" [ref=e377]
+                          - generic:
+                            - paragraph [ref=e378]:
+                              - generic [ref=e380]: Genügend MitspielerInnen zu finden ist oft nicht sehr einfach.
+                            - paragraph [ref=e381]
+                            - paragraph [ref=e382]:
+                              - generic [ref=e384]: Oder doch?
+                            - paragraph [ref=e385]
+                            - paragraph [ref=e386]:
+                              - generic [ref=e388]: Connecte dich mit unseren Whatsapp Gruppen mit einem großen Netzwerk an padelwilligen SpielerInnen für die PADELZONE Bad Ischl.
+                            - paragraph [ref=e389]
+                          - link "STARTER" [ref=e391] [cursor=pointer]:
+                            - /url: https://chat.whatsapp.com/BwyAyDuFBZBHqln8jFK2QF
+                            - generic [ref=e392]: STARTER
+                          - link "ADVANCED" [ref=e394] [cursor=pointer]:
+                            - /url: https://chat.whatsapp.com/H0EudHce5jdEJl02h6Mqk8
+                            - generic [ref=e395]: ADVANCED
+                          - link "NEWS GROUP" [ref=e397] [cursor=pointer]:
+                            - /url: https://chat.whatsapp.com/LSg1fN4Ea2ADAFfRXRS2G1
+                            - generic [ref=e398]: NEWS GROUP
+                    - generic [ref=e404]:
+                      - generic:
+                        - generic:
+                          - heading "GALERIE -" [level=1] [ref=e408]:
+                            - generic [ref=e410]:
+                              - text: GALERIE
+                              - text: "-"
+                          - region [ref=e417]:
+                            - generic [ref=e418]:
+                              - generic [ref=e419]:
+                                - generic:
+                                  - generic [ref=e420] [cursor=pointer]:
+                                    - button "image"
+                                  - generic [ref=e424] [cursor=pointer]:
+                                    - button
+                                  - generic [ref=e428] [cursor=pointer]:
+                                    - button
+                              - button "Next Item" [ref=e432] [cursor=pointer]:
+                                - img [ref=e433]
+                    - generic [ref=e440]:
+                      - generic:
+                        - generic:
+                          - generic "CUPRA" [ref=e444] [cursor=pointer]:
+                            - link "Padelzone; Partner; Cupra" [ref=e445]:
+                              - /url: https://www.cupraofficial.at/
+                              - img "Padelzone; Partner; Cupra" [ref=e446]
+                          - generic "Wüstenrot" [ref=e447] [cursor=pointer]:
+                            - link "Padelzone; Partner; Wüstenrot" [ref=e448]:
+                              - /url: https://www.wuestenrot.at/index.html
+                              - img "Padelzone; Partner; Wüstenrot" [ref=e449]
+                          - button "Button" [ref=e451] [cursor=pointer]
+                          - link "a (4).png" [ref=e454] [cursor=pointer]:
+                            - /url: https://www.coca-cola-oesterreich.at/marken/powerade
+                            - img "a (4).png" [ref=e455]
+                          - button "Button" [ref=e457] [cursor=pointer]
+                          - link "L_Blanc-01.png" [ref=e460] [cursor=pointer]:
+                            - /url: https://www.babolat.com/de?gad_source=1&gclid=CjwKCAiA75itBhA6EiwAkho9ezBr_eA7YT2DYUUnGubyotdFmC5sHBQGDlmOEf0xvpHcmrIoV4L38xoCJtMQAvD_BwE
+                            - img "L_Blanc-01.png" [ref=e461]
+                          - button "Button" [ref=e463] [cursor=pointer]
+                          - link "RGB_White_Type_International_Stacked_edi" [ref=e466] [cursor=pointer]:
+                            - /url: http://www.dominos.at
+                            - img "RGB_White_Type_International_Stacked_edi" [ref=e467]
+                          - button "Button" [ref=e469] [cursor=pointer]
+                          - generic "Certina" [ref=e471] [cursor=pointer]:
+                            - link "Certina weiß.png" [ref=e472]:
+                              - /url: https://www.certina.com/at-de
+                              - img "Certina weiß.png" [ref=e473]
+                          - button "Button" [ref=e475] [cursor=pointer]
+                          - link "kronehit_Logo2018_White_rgb.png" [ref=e478] [cursor=pointer]:
+                            - /url: http://www.kronehit.at
+                            - img "kronehit_Logo2018_White_rgb.png" [ref=e479]
+                          - button "Button" [ref=e481] [cursor=pointer]
+                          - generic "laola1-logo-rgb-white-red_edited_edited." [ref=e483] [cursor=pointer]:
+                            - link [ref=e484]:
+                              - /url: http://www.laola1.at
+    - contentinfo [ref=e485]:
+      - generic [ref=e491]:
+        - generic:
+          - generic:
+            - link "Logo Padelzone Padel Tennis" [ref=e493] [cursor=pointer]:
+              - /url: https://www.padelzone.at
+              - img "Logo Padelzone Padel Tennis" [ref=e495]
+            - list "Social-Media-Leiste" [ref=e512]:
+              - listitem [ref=e513]:
+                - link "Whatsapp" [ref=e514] [cursor=pointer]:
+                  - /url: https://chat.whatsapp.com/HB3ylIhf6Uj6htN0MaPoCS
+                  - img "Whatsapp" [ref=e515]
+              - listitem [ref=e516]:
+                - link "Facebook" [ref=e517] [cursor=pointer]:
+                  - /url: https://www.facebook.com/padelzoneaustria
+                  - img "Facebook" [ref=e518]
+              - listitem [ref=e519]:
+                - link "Instagram" [ref=e520] [cursor=pointer]:
+                  - /url: https://www.instagram.com/padelzoneaustria
+                  - img "Instagram" [ref=e521]
+              - listitem [ref=e522]:
+                - link "LinkedIn" [ref=e523] [cursor=pointer]:
+                  - /url: https://at.linkedin.com/company/padelzone-gmbh
+                  - img "LinkedIn" [ref=e524]
+            - generic:
+              - paragraph [ref=e525]:
+                - generic [ref=e529]: PADELZONE GmbH
+              - paragraph [ref=e530]:
+                - generic [ref=e533]: Karlsplatz 1/17
+              - paragraph [ref=e534]:
+                - generic [ref=e537]: 1010 Wien
+              - paragraph [ref=e538]
+              - paragraph [ref=e539]:
+                - link "office@padelzone.at" [ref=e540] [cursor=pointer]:
+                  - /url: mailto:office@padelzone.at
+                  - generic [ref=e544]: office@padelzone.at
+              - paragraph [ref=e545]:
+                - link "www.padelzone.at" [ref=e550] [cursor=pointer]:
+                  - /url: http://www.padelzone.at
+              - paragraph [ref=e551]
+              - paragraph [ref=e552]:
+                - link ">Impressum & Datenschutz<" [ref=e555] [cursor=pointer]:
+                  - /url: https://www.padelzone.at/impressum
+                  - generic [ref=e557]: ">Impressum & Datenschutz<"
+              - paragraph [ref=e558]:
+                - generic [ref=e563]:
+                  - text: ">"
+                  - link "Support" [ref=e564] [cursor=pointer]:
+                    - /url: https://www.padelzone.at/support
+                  - text: <
+              - paragraph [ref=e565]
+              - paragraph [ref=e566]
+              - paragraph [ref=e567]:
+                - generic [ref=e570]: © 2026 PADELZONE GmbH
+  - region "bottom of page"

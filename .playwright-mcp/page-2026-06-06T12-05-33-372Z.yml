@@ -1,0 +1,253 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Kremstaler Padel King" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Kremstaler Padel King" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Kremstaler Padel King" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "News" [ref=e30] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e31]:
+        - link "Kontakt & Anfahrt" [ref=e32] [cursor=pointer]:
+          - /url: /s/Kontakt___Anfahrt
+      - listitem [ref=e33]:
+        - link "Preise & Betriebszeiten" [ref=e34] [cursor=pointer]:
+          - /url: /s/Preise___Betriebszeiten
+      - listitem [ref=e35]:
+        - link "Spielregeln" [ref=e36] [cursor=pointer]:
+          - /url: /s/Spielregeln
+      - listitem [ref=e37]:
+        - link "Veranstaltungen" [ref=e38] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e39]:
+        - link "Registrierung" [ref=e40] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e42]:
+      - heading "Startseite" [level=1] [ref=e43]
+      - generic [ref=e45]:
+        - generic [ref=e46]:
+          - link "Unser neuer Ballautomat ist da! Weltklasse-Bälle direkt im Clubhaus" [ref=e48] [cursor=pointer]:
+            - /url: /news-31260-Unser_neuer_Ballautomat_ist_da__Weltklasse_Baelle_direkt_im_Clubhaus
+            - img "Unser neuer Ballautomat ist da! Weltklasse-Bälle direkt im Clubhaus" [ref=e49]
+          - generic [ref=e50]:
+            - heading "Unser neuer Ballautomat ist da! Weltklasse-Bälle direkt im Clubhaus" [level=2] [ref=e51]:
+              - link "Unser neuer Ballautomat ist da! Weltklasse-Bälle direkt im Clubhaus" [ref=e52] [cursor=pointer]:
+                - /url: /news-31260-Unser_neuer_Ballautomat_ist_da__Weltklasse_Baelle_direkt_im_Clubhaus
+            - paragraph [ref=e53]:
+              - strong [ref=e54]: Unser neuer Ballautomat im Clubhaus macht dein Padel-Leben ab sofort noch leichter!
+            - paragraph [ref=e55]: Schluss mit müden Bällen ohne Druck und vorbei ist die Zeit, in der du Bälle vorab online reservieren musst. Ab jetzt holst du dir deine 3er-Dose Premium-Bälle bequem direkt vor Ort – für unschlagbare 7 Euro.
+            - paragraph [ref=e56]:
+              - strong [ref=e57]: "Qualität vom Innovationspionier: Tretorn „Serie+ Padel Control“"
+            - paragraph [ref=e58]: Wir überlassen deine Performance nicht dem Zufall. Im Automaten warten die High-End-Bälle von Tretorn auf dich – einer schwedischen Traditionsmarke, die bereits seit 1902 zu den absoluten Pionieren in der Ballentwicklung weltweit gehört.
+            - paragraph [ref=e59]: "Das Modell Control bietet dir genau die Eigenschaften, die dein Spiel auf das nächste Level heben:"
+            - list [ref=e60]:
+              - listitem [ref=e61]: "Maximale Ballkontrolle & Spielgefühl: Ein hoch responsiver, weicher Gummikern sorgt für ein fantastisch kontrolliertes, mittelschnelles Spiel."
+              - listitem [ref=e62]: "Duraweave-Filz: Der eigens entwickelte, leichte Filz garantiert eine konstante, gleichmäßige Sprungkraft."
+              - listitem [ref=e63]: "Feuchtigkeitsabweisend: Die Bälle saugen sich selbst bei hoher Luftfeuchtigkeit nicht voll, behalten ihr Gewicht und bleiben absolut präzise."
+              - listitem [ref=e64]: "Extreme Langlebigkeit: Dank der robusten Gasfüllung spielen sich die Bälle auch nach intensiven Ballwechseln noch wie am ersten Tag."
+            - paragraph [ref=e65]: "So einfach funktioniert es für alle:"
+            - list [ref=e66]:
+              - listitem [ref=e67]: Button drücken
+              - listitem [ref=e68]: Karte hinhalten (Kontaktlos zahlen mit Bankomat- / Kreditkarte oder Smartphone (Apple-/Google-Pay)
+              - listitem [ref=e69]: Bälle für nur 7 € entnehmen und sofort loslegen!
+            - paragraph [ref=e70]: Egal ob als frisches Upgrade für das wöchentliche Stammspieler-Match oder als Rettung, wenn die Ausrüstung zu Hause vergessen wurde – schau einfach kurz im Clubhaus vorbei, zücke deine Karte und genieße das perfekte Match.
+            - paragraph [ref=e71]: Wir sehen uns auf dem Court!
+            - generic [ref=e72]:
+              - generic [ref=e73]:
+                - img "User Image" [ref=e74]
+                - text: Rene Fanninger
+              - text: ", 26. Mai 2026"
+        - generic [ref=e75]:
+          - link "Padel-Training mit Christian Ebner" [ref=e77] [cursor=pointer]:
+            - /url: /news-30776-Padel_Training_mit_Christian_Ebner
+            - img "Padel-Training mit Christian Ebner" [ref=e78]
+          - generic [ref=e79]:
+            - heading "Padel-Training mit Christian Ebner" [level=2] [ref=e80]:
+              - link "Padel-Training mit Christian Ebner" [ref=e81] [cursor=pointer]:
+                - /url: /news-30776-Padel_Training_mit_Christian_Ebner
+            - paragraph [ref=e82]:
+              - text: Ab Donnerstag 14. Mai 2026 finden die
+              - strong [ref=e83]: ersten Intensiv-Trainings mit Coach Christian & Manuela Ebner
+              - text: bei uns statt. Beide sind Top-200 Padel-Spieler aus Kematen und werden gezielt deine Technik und Taktik mit dir optimieren.
+            - separator [ref=e84]
+            - paragraph [ref=e85]:
+              - strong [ref=e86]: DIE NÄCHSTEN TERMINE WERDEN ÜBER DIE WhatsApp-Gruppe ausgeschrieben!
+            - paragraph [ref=e87]:
+              - emphasis [ref=e88]: "4. Termin: Mittwoch, 10. Juni 2026 von 18:00 - 20:00 (mit Christian) -- AUSGEBUCHT --"
+            - paragraph [ref=e89]:
+              - emphasis [ref=e90]: "3. Termin: Samstag, 23. Mai 2026 von 14:30 - 16:30 Uhr (mit Manuela) -- AUSGEBUCHT --"
+            - paragraph [ref=e91]:
+              - emphasis [ref=e92]: "2. Termin: Montag, 18. Mai 2026 von 18:30 - 20:30 Uhr (mit Christian) -- AUSGEBUCHT --"
+            - paragraph [ref=e93]:
+              - emphasis [ref=e94]: "1. Termin: Donnerstag, 14. Mai 2026 von 18:30 - 20:30 (mit Christian) -- AUSGEBUCHT --"
+            - paragraph [ref=e95]
+            - paragraph [ref=e96]: "Teilnehmer: max. 4 Personen pro Termin"
+            - paragraph [ref=e97]: "Trainer- und Platzgebühr: 30 Euro für 2 Stunden"
+            - paragraph [ref=e98]:
+              - text: "Anmeldung:"
+              - link "padel-king@gmx.at" [ref=e99] [cursor=pointer]:
+                - /url: mailto:padel-king@gmx.at
+              - text: oder 0664 / 88 456 860 (Rene)
+            - generic [ref=e100]:
+              - generic [ref=e101]:
+                - img "User Image" [ref=e102]
+                - text: Rene Fanninger
+              - text: ", 05. Mai 2026"
+        - generic [ref=e103]:
+          - link "Start zur wöchentlichen Padel-Gruppe | 1,5 Stunden Action jeden Dienstag in Kematen - für Einzelspieler!" [ref=e105] [cursor=pointer]:
+            - /url: /news-30226-Start_zur_woechentlichen_Padel_Gruppe___1_5_Stunden_Action_jeden_Dienstag_in_Kematen___fuer_Einzelspieler_
+            - img "Start zur wöchentlichen Padel-Gruppe | 1,5 Stunden Action jeden Dienstag in Kematen - für Einzelspieler!" [ref=e106]
+          - generic [ref=e107]:
+            - heading "Start zur wöchentlichen Padel-Gruppe | 1,5 Stunden Action jeden Dienstag in Kematen - für Einzelspieler!" [level=2] [ref=e108]:
+              - link "Start zur wöchentlichen Padel-Gruppe | 1,5 Stunden Action jeden Dienstag in Kematen - für Einzelspieler!" [ref=e109] [cursor=pointer]:
+                - /url: /news-30226-Start_zur_woechentlichen_Padel_Gruppe___1_5_Stunden_Action_jeden_Dienstag_in_Kematen___fuer_Einzelspieler_
+            - paragraph [ref=e110]:
+              - strong [ref=e111]: Wir suchen Padel-Begeisterte für eine wöchentliche Runde.
+              - text: Ziel ist das Niveau gemeinsam zu steigern und auch Einzel- oder Zweierspielern die Möglichkeit zu bieten, in einem festen Doppel-Spiel gegen andere Padel-Spieler anzutreten.
+            - paragraph [ref=e112]: Padel ist ein Doppelspiel, daher ist es ideal, mindestens 4 Leute zusammenzubekommen.
+            - paragraph [ref=e113]:
+              - strong [ref=e114]: "Termin: jeden Dienstag von 18:30 - 20:00 Uhr"
+              - text: "Anmeldung: Im Kalender unter Reservierung den jeweiligen Tag (immer dienstags um 18.30h) auswählen:"
+              - link "https://www.padelking.at/reservierung" [ref=e115] [cursor=pointer]:
+                - /url: https://www.padelking.at/reservierung
+              - text: "Kosten: 8 Euro pro Spieler"
+              - text: "Leihschläger: vor Ort vorhanden (2 Euro Gebühr)"
+            - paragraph [ref=e116]: "Niveau: Anfänger und Fortgeschrittene / gemischt gesucht. Je nach Level werden die Gruppen (auf 2 Plätzen) gebildet."
+            - paragraph [ref=e117]: Sichere dir jetzt online deinen Platz bei einer der nächsten Dienstag Padel-Gruppen!
+            - paragraph [ref=e118]:
+              - text: Wir freuen uns!
+              - text: Kremstaler Padel King
+            - generic [ref=e119]:
+              - generic [ref=e120]:
+                - img "User Image" [ref=e121]
+                - text: Rene Fanninger
+              - text: ", 13. April 2026"
+            - link " Mehr dazu" [ref=e122] [cursor=pointer]:
+              - /url: /news-30226-Start_zur_woechentlichen_Padel_Gruppe___1_5_Stunden_Action_jeden_Dienstag_in_Kematen___fuer_Einzelspieler_
+              - generic [ref=e123]: 
+              - text: Mehr dazu
+        - generic [ref=e124]:
+          - 'link "Premiere in Kematen: Ein voller Erfolg beim \"King of Padel-Starter Turnier\"" [ref=e126] [cursor=pointer]':
+            - /url: /news-29985-Premiere_in_Kematen__Ein_voller_Erfolg_beim_King_of_Padel_Starter_Turnier
+            - 'img "Premiere in Kematen: Ein voller Erfolg beim \"King of Padel-Starter Turnier\"" [ref=e127]'
+          - generic [ref=e128]:
+            - 'heading "Premiere in Kematen: Ein voller Erfolg beim \"King of Padel-Starter Turnier\"" [level=2] [ref=e129]':
+              - 'link "Premiere in Kematen: Ein voller Erfolg beim \"King of Padel-Starter Turnier\"" [ref=e130] [cursor=pointer]':
+                - /url: /news-29985-Premiere_in_Kematen__Ein_voller_Erfolg_beim_King_of_Padel_Starter_Turnier
+            - paragraph [ref=e131]:
+              - strong [ref=e132]: KEMATEN AN DER KREMS
+              - text: ". Am 4. April 2026 war es endlich soweit: Wir konnten erstmals ein nationales Padel-Turnier der Kategorie \"Starter\" auf unserer Anlage in Kematen austragen. Das Event war ein voller Erfolg und markierte einen wichtigen Schritt zur Etablierung des Trendsports in der Region."
+            - paragraph [ref=e133]:
+              - text: 8 motivierte Teams à 2 Spieler traten dabei gegeneinander an, um sich neben dem
+              - strong [ref=e134]: Titel „KING OF PADEL“
+              - text: auch wertvolle Punkte für die Austrian Padel Union (APU) Rangliste zu sichern.
+            - separator [ref=e135]
+            - paragraph [ref=e136]:
+              - text: Nach spannenden Begegnungen in der Gruppenphase sowie den Platzierungsspielen konnte sich das
+              - strong [ref=e137]: S
+              - strong [ref=e138]: ieger-Team Haslgruber Stefan und Haslgruber Philipp
+              - text: "durchsetzen und die begehrten Sachpreise entgegennehmen. Alle Ergebnisse finden sich unter:"
+              - link "https://padel-austria.at/ranked/tournaments/977630f7-61a9-4ba5-a0f2-4cb58e4459d3" [ref=e139] [cursor=pointer]:
+                - /url: https://padel-austria.at/ranked/tournaments/977630f7-61a9-4ba5-a0f2-4cb58e4459d3
+            - paragraph [ref=e140]:
+              - text: Aufgrund des positiven Feedbacks ist die Veranstaltung ein Meilenstein für die Padel-Community in der Region und es wird sicherlich noch
+              - strong [ref=e141]: weiterte Turniere in Kematen geben
+              - text: "!"
+            - separator [ref=e142]
+            - paragraph [ref=e143]
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - img "User Image" [ref=e146]
+                - text: Rene Fanninger
+              - text: ", 04. April 2026"
+            - link " Mehr dazu" [ref=e147] [cursor=pointer]:
+              - /url: /news-29985-Premiere_in_Kematen__Ein_voller_Erfolg_beim_King_of_Padel_Starter_Turnier
+              - generic [ref=e148]: 
+              - text: Mehr dazu
+        - generic [ref=e149]:
+          - link "Nationales Padel-Turnier am 4. April 2026 in Kematen" [ref=e151] [cursor=pointer]:
+            - /url: /news-29341-Nationales_Padel_Turnier_am_4__April_2026_in_Kematen
+            - img "Nationales Padel-Turnier am 4. April 2026 in Kematen" [ref=e152]
+          - generic [ref=e153]:
+            - heading "Nationales Padel-Turnier am 4. April 2026 in Kematen" [level=2] [ref=e154]:
+              - link "Nationales Padel-Turnier am 4. April 2026 in Kematen" [ref=e155] [cursor=pointer]:
+                - /url: /news-29341-Nationales_Padel_Turnier_am_4__April_2026_in_Kematen
+            - paragraph [ref=e156]:
+              - text: Premiere in unserer Region! Als Mitglied der Austrian Padel Union (APU) veranstaltet der
+              - strong [ref=e157]: K
+              - strong [ref=e158]: remstaler Padel King erstmals ein nationales Padel-Turnier der "Kategorie Starter" in Kematen!
+            - paragraph [ref=e159]:
+              - text: Bei einem spannenden Turnier treten
+              - strong [ref=e160]: 8 Teams à 2 Spieler am 4. April 2026 von 10.00 bis 14.00 Uhr in Kematen
+              - text: aufeinander, um sich neben dem Titel "KING OF PADEL" auch
+              - strong [ref=e161]: "3"
+              - strong [ref=e162]: 00 wertvolle Padel-Ranglistenpunkte
+              - text: für die österreichische Padel-Rangliste zu sichern!
+            - paragraph [ref=e163]: Ob als Zuseher oder ambitionierter Spieler - sei dabei und erlebe Padel-Action live erstmals in Kematen an der Krems!
+            - paragraph [ref=e164]:
+              - text: "Informationen und Details zur Anmeldung:"
+              - link "https://padel-austria.at/" [ref=e165] [cursor=pointer]:
+                - /url: https://padel-austria.at/
+            - paragraph [ref=e166]: Wir freuen uns auf spannende Matches und deinen Besuch!
+            - generic [ref=e167]:
+              - generic [ref=e168]:
+                - img "User Image" [ref=e169]
+                - text: Rene Fanninger
+              - text: ", 03. März 2026"
+            - link " Mehr dazu" [ref=e170] [cursor=pointer]:
+              - /url: /news-29341-Nationales_Padel_Turnier_am_4__April_2026_in_Kematen
+              - generic [ref=e171]: 
+              - text: Mehr dazu
+        - link " weitere News im Archiv" [ref=e173] [cursor=pointer]:
+          - /url: /archiv
+          - generic [ref=e174]: 
+          - text: weitere News im Archiv
+    - contentinfo [ref=e175]:
+      - generic [ref=e177]:
+        - generic [ref=e178]:
+          - text: Kremstaler Padel King |
+          - link "Impressum" [ref=e179] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e180]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e181] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e183]:
+    - paragraph [ref=e184]:
+      - generic [ref=e185]:
+        - paragraph [ref=e186]:
+          - img "Kremstaler Padel King" [ref=e187]
+          - text: Kremstaler Padel King
+        - paragraph [ref=e188]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e189]:
+      - link "Einstellungen verwalten" [ref=e190] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e191]:
+        - button "Alle ablehnen" [ref=e192] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e193] [cursor=pointer]

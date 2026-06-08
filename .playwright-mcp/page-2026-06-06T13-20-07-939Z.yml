@@ -1,0 +1,438 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - main [ref=e3]:
+      - generic [ref=e6]:
+        - generic [ref=e7]:
+          - img [ref=e10]
+          - generic [ref=e12]:
+            - generic [ref=e13]: Whatsapp-Community
+            - paragraph [ref=e14]: Finde Mitspieler*innen in deiner Nähe!
+        - link "Community beitreten" [ref=e16] [cursor=pointer]:
+          - /url: https://chat.whatsapp.com/HvPKB8ZDDd40mYp3HVfYBD
+        - link [ref=e17] [cursor=pointer]:
+          - /url: "#"
+          - img [ref=e19]
+      - banner [ref=e21]:
+        - generic [ref=e22]:
+          - link "home" [ref=e23] [cursor=pointer]:
+            - /url: /
+            - img "Padelbase Logo in Weiß" [ref=e24]
+          - generic [ref=e25]:
+            - link "Was ist Padel?" [ref=e26] [cursor=pointer]:
+              - /url: /was-ist-padel
+            - button "Standorte" [ref=e28] [cursor=pointer]:
+              - generic [ref=e29]: Standorte
+              - img [ref=e31]
+            - button "Angebote" [ref=e34] [cursor=pointer]:
+              - generic [ref=e35]: Angebote
+              - img [ref=e37]
+            - button "Academy" [ref=e40] [cursor=pointer]:
+              - generic [ref=e41]: Academy
+              - img [ref=e43]
+            - button "Events" [ref=e46] [cursor=pointer]:
+              - generic [ref=e47]: Events
+              - img [ref=e49]
+            - button "Über Uns" [ref=e52] [cursor=pointer]:
+              - generic [ref=e53]: Über Uns
+              - img [ref=e55]
+          - generic [ref=e58]:
+            - button "Sprache" [ref=e61] [cursor=pointer]:
+              - generic [ref=e62]: Sprache
+              - img [ref=e64]
+            - link "Jetzt Platz buchen" [ref=e66] [cursor=pointer]:
+              - /url: https://www.buchung-padelbase.at/
+        - img "Padelbase Logo in Weiß" [ref=e69]
+      - generic [ref=e77]:
+        - generic [ref=e78]:
+          - link "Alle Standorte" [ref=e79] [cursor=pointer]:
+            - /url: /standort
+            - generic [ref=e80]: Alle Standorte
+          - img [ref=e82]
+          - link "Salzburg Indoor | Padelbase CUPRA Arena" [ref=e84] [cursor=pointer]:
+            - /url: /standort/salzburg-indoor-padelbase-cupra-arena
+            - generic [ref=e85]: Salzburg Indoor | Padelbase CUPRA Arena
+        - heading "Salzburg Indoor | Padelbase CUPRA Arena" [level=1] [ref=e87]
+        - generic [ref=e88]:
+          - paragraph [ref=e89]: COMING SOON! In Salzburg entsteht mit der „Padelbase CUPRA Arena“ die erste Indoor-Padelhalle im Stadtgebiet. Drei Panorama-Courts, moderne Umkleiden und hochwertige Sanitäranlagen schaffen optimale Bedingungen für Sport und Community. Eine stylische, zeitgemäße Arena, die Padel auf ein neues Level hebt.
+          - link "Standort entdecken" [ref=e92] [cursor=pointer]:
+            - /url: "#quick-link"
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - generic [ref=e106]: Club
+              - heading "Padelbase Cupra Arena" [level=3] [ref=e108]
+              - paragraph [ref=e109]: Willkommen bei uns – dein Treffpunkt für Padel, den dynamischen Sport im Glaskäfig. Hier geht’s um Spaß, Bewegung und das gemeinsame Spiel.
+            - link "Galerie ansehen" [ref=e112] [cursor=pointer]:
+              - /url: "#galerie"
+              - generic [ref=e113]: Galerie ansehen
+              - img [ref=e115]
+          - generic [ref=e119]:
+            - generic [ref=e120]:
+              - generic [ref=e122]: Trainer
+              - heading "professionelle Padel-Trainer" [level=3] [ref=e124]
+              - paragraph [ref=e125]: Lerne von den Besten und verbessere dein Spiel.
+            - link "Trainer entdecken" [ref=e128] [cursor=pointer]:
+              - /url: "#trainer"
+              - generic [ref=e129]: Trainer entdecken
+              - img [ref=e131]
+        - generic [ref=e133]:
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - heading "Unsere Preise" [level=3] [ref=e138]
+              - paragraph [ref=e139]: Attraktive Preise für alle Altersgruppen und Spielniveaus.
+            - link "Unsere Preise" [ref=e142] [cursor=pointer]:
+              - /url: "#preise"
+              - generic [ref=e143]: Unsere Preise
+              - img [ref=e145]
+          - generic [ref=e148]:
+            - generic [ref=e149]:
+              - heading "Events & Turniere" [level=3] [ref=e151]
+              - paragraph [ref=e152]: Nimm an spannenden Padel-Events und Turnieren teil.
+            - link "Events entdecken" [ref=e155] [cursor=pointer]:
+              - /url: "#event"
+              - generic [ref=e156]: Events entdecken
+              - img [ref=e158]
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - generic [ref=e164]: Karte
+              - heading "Finde uns auf der Karte" [level=3] [ref=e166]
+              - paragraph [ref=e167]: Besuche uns an unserem zentralen Standort für ein unvergessliches Padel-Erlebnis.
+              - 'link "Adresse: Wasserfeldstr 19, 5020 Salzburg | Österreich" [ref=e168] [cursor=pointer]':
+                - /url: "#"
+                - paragraph [ref=e169]: "Adresse:"
+                - paragraph [ref=e170]: Wasserfeldstr 19, 5020 Salzburg
+                - paragraph [ref=e171]: "|"
+                - paragraph [ref=e172]: Österreich
+                - img [ref=e174]
+            - link "Karte ansehen" [ref=e179] [cursor=pointer]:
+              - /url: "#"
+      - generic [ref=e184]:
+        - generic [ref=e185]:
+          - generic [ref=e187]: Standort Details
+          - heading "Entdecke die Padel-Anlage" [level=2] [ref=e189]
+          - paragraph [ref=e190]: Unsere Padel-Anlage bietet dir erstklassige Bedingungen für dein Spiel. Genieße moderne Ausstattung und einladende Öffnungszeiten, die dir Flexibilität bieten.
+          - generic [ref=e192]:
+            - link "Zu unseren Tarifen" [ref=e193] [cursor=pointer]:
+              - /url: "#"
+            - link "Unsere Trainer" [ref=e194] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e195]: Unsere Trainer
+              - img [ref=e197]
+        - generic [ref=e199]:
+          - generic [ref=e200]:
+            - img [ref=e204]
+            - heading "Adresse" [level=3] [ref=e210]
+            - paragraph [ref=e211]: Wasserfeldstr 19, 5020 Salzburg
+          - generic [ref=e212]:
+            - img [ref=e216]
+            - heading "Öffnungszeiten" [level=3] [ref=e221]
+            - paragraph [ref=e222]: Mo- So von 07:00 bis 24:00
+          - generic [ref=e223]:
+            - img [ref=e227]
+            - heading "Details" [level=3] [ref=e231]
+            - generic [ref=e232]: COMING SOON!
+          - generic [ref=e233]:
+            - img [ref=e237]
+            - heading "Leihschläger" [level=3] [ref=e250]
+            - paragraph [ref=e251]: Bei Bedarf können Leihschläger direkt online im Zuge der Platzreservierung oder auch im Anschluss dazugebucht werden. Nach der Buchung erhältst du eine Reservierungsbestätigung per E-Mail. Darin findest du im Abschnitt „Reservierungs-Addons“ einen Link zur Leihschläger-Box. Etwa 60 Minuten vor Spielbeginn erscheint beim Klick auf diesen Link der Zugangscode für die Box. Bitte achte darauf, dass du bei eTennis eingeloggt bist – sonst wird der Code nicht angezeigt. Solltest du die E-Mail nicht finden, überprüfe deine Benachrichtigungseinstellungen auf eTennis sowie deinen Spam-Ordner. Die Leichschläger-Box befindet sich neben dem Getränke-Automaten.
+          - generic [ref=e252]:
+            - img [ref=e256]
+            - heading "Rückerstattung" [level=3] [ref=e262]
+            - paragraph [ref=e263]: Kostenfreie Stornierung über www.buchung-padelbase.at bis 24h vor Spielbeginn. Ab 24h vor Spielbeginn fallen 100% der Buchungsgebühren an.
+          - generic [ref=e264]:
+            - img [ref=e268]
+            - heading "Videoüberwachung" [level=3] [ref=e272]
+            - paragraph [ref=e273]: Unsere Anlage ist Videoüberwacht und bietet maximalen Schutz an.
+          - generic [ref=e274]:
+            - img [ref=e278]
+            - heading "Info" [level=3] [ref=e286]
+            - paragraph [ref=e287]: "Stornierungsbedingungen Padelbase CUPRA Arena in Salzburg: Kostenfreie Stornierung über www.buchung-padelbase.at bis 24h vor Spielbeginn. Ab 24h vor Spielbeginn fallen 100% der Buchungsgebühren an."
+      - generic [ref=e292]:
+        - generic [ref=e294]:
+          - generic [ref=e295]:
+            - generic [ref=e297]: Events
+            - generic [ref=e299]:
+              - heading "Alle Events in" [level=2] [ref=e300]
+              - heading "Salzburg Indoor | Padelbase CUPRA Arena" [level=2] [ref=e301]
+            - paragraph [ref=e302]: Entdecke die spannendsten Padel-Events hier Vorort!
+          - link "Alle Events ansehen" [ref=e304] [cursor=pointer]:
+            - /url: /eventkalender
+        - generic [ref=e307]:
+          - text: Keine aktuellen Event gefunden. Hier geht es zu
+          - link "allen Events" [ref=e308] [cursor=pointer]:
+            - /url: /eventkalender
+          - text: .
+      - generic [ref=e313]:
+        - generic [ref=e315]:
+          - generic [ref=e316]:
+            - generic [ref=e318]: Trainings
+            - generic [ref=e320]:
+              - heading "Alle Trainings in" [level=2] [ref=e321]
+              - heading "Salzburg Indoor | Padelbase CUPRA Arena" [level=2] [ref=e322]
+            - paragraph [ref=e323]: Entdecke die spannendsten Padel-Trainings hier Vorort!
+          - link "Alle Trainings ansehen" [ref=e325] [cursor=pointer]:
+            - /url: /academy/trainingskalender
+        - generic [ref=e328]:
+          - text: Keine aktuellen Trainings gefunden. Hier geht es zu
+          - link "allen Trainings" [ref=e329] [cursor=pointer]:
+            - /url: /academy/trainingskalender
+          - text: .
+      - generic [ref=e335]:
+        - generic [ref=e338]:
+          - generic [ref=e340]: Indoor-Preise
+          - heading "Stundentarife" [level=2] [ref=e342]
+          - paragraph [ref=e343]: PADELBASE CUPRA ARENA SALZBURG - 3 PANORAMA DOPPEL-COURTS.
+        - generic [ref=e344]:
+          - generic [ref=e345]:
+            - tablist [ref=e346]:
+              - tab "Doppel-Court" [selected] [ref=e347] [cursor=pointer]:
+                - strong [ref=e349]: Doppel-Court
+            - generic [ref=e352]:
+              - tablist [ref=e353]:
+                - tab "EARLY TIME" [ref=e354] [cursor=pointer]:
+                  - strong [ref=e356]: EARLY TIME
+                - tab "DAY TIME" [selected] [ref=e357] [cursor=pointer]:
+                  - strong [ref=e359]: DAY TIME
+                - tab "PRIME TIME" [ref=e360] [cursor=pointer]:
+                  - strong [ref=e362]: PRIME TIME
+              - tabpanel "DAY TIME" [ref=e364]:
+                - generic [ref=e367]:
+                  - generic [ref=e369]: DAY TIME | WEEK
+                  - generic [ref=e370]:
+                    - generic [ref=e371]: "32"
+                    - generic [ref=e372]: €/Stunde
+                  - generic [ref=e376]: "Details:"
+                  - generic [ref=e377]:
+                    - generic [ref=e378]:
+                      - img [ref=e381]
+                      - generic [ref=e383]: Montag bis Donnerstag
+                    - generic [ref=e384]:
+                      - img [ref=e387]
+                      - generic [ref=e389]: 10:00–16:00 Uhr
+                    - generic [ref=e390]:
+                      - img [ref=e393]
+                      - generic [ref=e395]: Alle Preise gelten pro Court / Stunde (für 4 Personen)
+          - paragraph [ref=e399]: Alle Preise inkl. MwSt. Die buchende Person muss am Platz anwesend sein. Abos werden nur nach persönlichem Kontakt vergeben und sind abhängig von der Verfügbarkeit je Standort. Kollidieren Abostunden mit Veranstaltungen oder Turnieren, werden die Einheiten gutgeschrieben. Alle Angaben ohne Gewähr.
+      - generic [ref=e404]:
+        - generic [ref=e406]:
+          - generic [ref=e408]: Trainer am Standort
+          - heading "Das Team" [level=2] [ref=e410]
+          - paragraph [ref=e411]: Erfahrene Trainer für deine Padel-Reise
+        - generic [ref=e414]:
+          - text: Keine Trainer:innen für diesen Standort gefunden. Hier findest du
+          - link "alle Trainer:innen." [ref=e415] [cursor=pointer]:
+            - /url: /academy/trainer
+      - link "open lightbox" [ref=e423] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e430]:
+        - heading "Unterstützt von den Hauptsponsoren" [level=2] [ref=e432]
+        - generic:
+          - link:
+            - /url: https://www.hervis.at/shop/?utm_source=google&utm_medium=cpc&utm_campaign=AT:_Search_%20_Brand_pure&utm_term=hervis&utm_content=Brand_%20_Pure_%20_Alle_Themen_%20_Brand_%5Bexact%5D&gad_source=1&gclid=EAIaIQobChMIwIz3kdDahgMVY4-DBx0AiQ0GEAAYASAAEgKyQ_D_BwE
+          - link:
+            - /url: https://www.babolat.com/
+          - link:
+            - /url: https://www.cupraofficial.at/?gad_source=1&gclid=EAIaIQobChMI68KD09DahgMV846DBx3a-wXtEAAYASAAEgKSJPD_BwE
+          - link:
+            - /url: https://www.segafredo.at/
+          - link:
+            - /url: https://www.sparkasse.at/oberoesterreich/privatkunden
+      - generic [ref=e438]:
+        - heading "Buche deinen Padelplatz!" [level=2] [ref=e440]
+        - paragraph [ref=e441]: Sicher dir jetzt deinen Platz und erlebe den Padel-Spaß bei uns hautnah.
+    - contentinfo [ref=e443]:
+      - generic [ref=e446]:
+        - generic [ref=e448]:
+          - generic [ref=e449]:
+            - link "Padelbase Logo in Weiß" [ref=e451] [cursor=pointer]:
+              - /url: /
+              - img "Padelbase Logo in Weiß" [ref=e452]
+            - generic [ref=e454]: Abonniere unseren Newsletter, um über Neuigkeiten und Funktionen informiert zu bleiben.
+            - generic [ref=e455]:
+              - form "Newsletter Footer Anmeldung" [ref=e456]:
+                - textbox "Gib deine E-Mail ein" [ref=e457]
+                - button "Abonnieren" [disabled] [ref=e458]
+              - generic [ref=e459]: Mit dem Abonnieren stimmen Sie unserer Datenschutzrichtlinie zu und erhalten Updates.
+            - generic [ref=e461]:
+              - generic [ref=e462]:
+                - img [ref=e465]
+                - link "office@padelbase.at" [ref=e468] [cursor=pointer]:
+                  - /url: mailto:office@padelbase.at
+              - generic [ref=e469]:
+                - img [ref=e472]
+                - link "+43 660 9988044" [ref=e475] [cursor=pointer]:
+                  - /url: tel:+436609988044
+              - generic [ref=e476]:
+                - img [ref=e479]
+                - generic [ref=e482]: Karl-Wurmb-Straße 8, A-4600 Wels
+              - generic [ref=e483]:
+                - img [ref=e486]
+                - generic [ref=e490]:
+                  - strong [ref=e491]: "Telefonisch und per E-Mail während unserer Bürozeiten erreichbar:"
+                  - text: Mo-Do von 08.00- 17.00 & Fr von 08.00 – 12.00 Uhr
+              - generic [ref=e492]:
+                - img [ref=e495]
+                - link "Häufig gestellte Fragen" [ref=e501] [cursor=pointer]:
+                  - /url: /support
+          - generic [ref=e502]:
+            - generic [ref=e503]:
+              - generic [ref=e505]: Standorte
+              - link "Alle Standorte" [ref=e506] [cursor=pointer]:
+                - /url: /standort
+              - list [ref=e508]:
+                - listitem [ref=e509]:
+                  - link "Annenheim" [ref=e510] [cursor=pointer]:
+                    - /url: /standort/annenheim
+                - listitem [ref=e511]:
+                  - link "Bad Hofgastein" [ref=e512] [cursor=pointer]:
+                    - /url: /standort/bad-hofgastein
+                - listitem [ref=e513]:
+                  - link "Deutschkreutz" [ref=e514] [cursor=pointer]:
+                    - /url: /standort/deutschkreutz
+                - listitem [ref=e515]:
+                  - link "Freilassing" [ref=e516] [cursor=pointer]:
+                    - /url: /standort/freilassing
+                - listitem [ref=e517]:
+                  - link "Gunskirchen" [ref=e518] [cursor=pointer]:
+                    - /url: /standort/gunskirchen
+                - listitem [ref=e519]:
+                  - link "Innsbruck" [ref=e520] [cursor=pointer]:
+                    - /url: /standort/innsbruck
+                - listitem [ref=e521]:
+                  - link "Linz Indoor | Padelbase Arena" [ref=e522] [cursor=pointer]:
+                    - /url: /standort/linz-halle-indoor
+                - listitem [ref=e523]:
+                  - link "Linz | Kleinmünchen" [ref=e524] [cursor=pointer]:
+                    - /url: /standort/linz-kleinmunchen
+                - listitem [ref=e525]:
+                  - link "Linz | Pichling" [ref=e526] [cursor=pointer]:
+                    - /url: /standort/linz-pichling
+                - listitem [ref=e527]:
+                  - link "Marchtrenk" [ref=e528] [cursor=pointer]:
+                    - /url: /standort/marchtrenk
+                - listitem [ref=e529]:
+                  - link "Neunkirchen" [ref=e530] [cursor=pointer]:
+                    - /url: /standort/neunkirchen
+                - listitem [ref=e531]:
+                  - link "Ried im Innkreis" [ref=e532] [cursor=pointer]:
+                    - /url: /standort/ried-im-innkreis
+                - listitem [ref=e533]:
+                  - link "Rohrbach-Berg" [ref=e534] [cursor=pointer]:
+                    - /url: /standort/rohrbach-berg
+                - listitem [ref=e535]:
+                  - link "Salzburg" [ref=e536] [cursor=pointer]:
+                    - /url: /standort/salzburg
+                - listitem [ref=e537]:
+                  - link "Salzburg Indoor | Padelbase CUPRA Arena" [ref=e538] [cursor=pointer]:
+                    - /url: /standort/salzburg-indoor-padelbase-cupra-arena
+                - listitem [ref=e539]:
+                  - link "Wels" [ref=e540] [cursor=pointer]:
+                    - /url: /standort/wels
+                - listitem [ref=e541]:
+                  - link "Wien" [ref=e542] [cursor=pointer]:
+                    - /url: /standort/wien
+                - listitem [ref=e543]:
+                  - link "Wies" [ref=e544] [cursor=pointer]:
+                    - /url: /standort/wies
+            - generic [ref=e545]:
+              - generic [ref=e547]: Angebote
+              - generic [ref=e548]:
+                - link "Stundentarife" [ref=e549] [cursor=pointer]:
+                  - /url: /angebote/stundentarif
+                - link "Abos & Pakete" [ref=e550] [cursor=pointer]:
+                  - /url: /angebote/abo-pakete
+                - link "Firmenangebote" [ref=e551] [cursor=pointer]:
+                  - /url: /angebote/firmen-angebote
+                - link "Gutschein" [ref=e552] [cursor=pointer]:
+                  - /url: /angebote/gutschein
+                - link "Schulen" [ref=e553] [cursor=pointer]:
+                  - /url: /angebote/schulen
+                - link "Sponsoring" [ref=e554] [cursor=pointer]:
+                  - /url: /uber-uns/sponsoring
+                - link "Franschise" [ref=e555] [cursor=pointer]:
+                  - /url: /uber-uns/franchise
+            - generic [ref=e556]:
+              - generic [ref=e558]: Academy
+              - generic [ref=e559]:
+                - link "Trainingskalender" [ref=e560] [cursor=pointer]:
+                  - /url: /academy/trainingskalender
+                - link "Einzel-/Gruppentraining" [ref=e561] [cursor=pointer]:
+                  - /url: /academy/einzel-gruppentraining
+                - link "Kick-Off Training" [ref=e562] [cursor=pointer]:
+                  - /url: /academy/kick-off-trainings
+                - link "Performance Training" [ref=e563] [cursor=pointer]:
+                  - /url: /academy/performance-training
+                - link "Schnuppertage" [ref=e564] [cursor=pointer]:
+                  - /url: /academy/schnuppertage
+                - link "Unsere Trainer" [ref=e565] [cursor=pointer]:
+                  - /url: /academy/trainer
+            - generic [ref=e566]:
+              - generic [ref=e568]: Events
+              - generic [ref=e569]:
+                - link "Eventkalender" [ref=e570] [cursor=pointer]:
+                  - /url: /eventkalender
+                - link "#glaubandich Padelbase Tour 2025" [ref=e571] [cursor=pointer]:
+                  - /url: /events/glaubandich-padelbase-tour
+                - link "Padelbase Buongiorno Tour 2025" [ref=e572] [cursor=pointer]:
+                  - /url: /events/padelbase-buongiorno-tour
+            - generic [ref=e573]:
+              - generic [ref=e575]: Über Uns
+              - generic [ref=e576]:
+                - link "Über Padelbase" [ref=e577] [cursor=pointer]:
+                  - /url: /uber-uns
+                - link "Was ist Padel?" [ref=e578] [cursor=pointer]:
+                  - /url: /was-ist-padel
+                - link "Kontakt" [ref=e579] [cursor=pointer]:
+                  - /url: /uber-uns/kontakt
+                - link "Trainer:in werden" [ref=e580] [cursor=pointer]:
+                  - /url: https://padelbase.at/trainer#trainer-anfrage
+                - link "FAQ" [ref=e581] [cursor=pointer]:
+                  - /url: /support
+            - generic [ref=e582]:
+              - generic [ref=e584]: Folge uns
+              - generic [ref=e585]:
+                - link "Facebook" [ref=e586] [cursor=pointer]:
+                  - /url: https://www.facebook.com/Padelbase.at
+                  - img [ref=e588]
+                  - generic [ref=e590]: Facebook
+                - link "Instagram" [ref=e591] [cursor=pointer]:
+                  - /url: https://www.instagram.com/padelbase.at/
+                  - img [ref=e593]
+                  - generic [ref=e595]: Instagram
+                - link "Whatsapp" [ref=e596] [cursor=pointer]:
+                  - /url: /whatsapp
+                  - img [ref=e598]
+                  - generic [ref=e600]: Whatsapp
+        - generic [ref=e601]:
+          - link "Padelbase Logo in Weiß":
+            - /url: /
+            - generic:
+              - img "Padelbase Logo in Weiß"
+        - generic [ref=e604]:
+          - generic [ref=e605]:
+            - text: © 2025 Padelbase. Alle Rechte vorbehalten. | Made by
+            - link "Digidock" [ref=e606] [cursor=pointer]:
+              - /url: https://www.digidock.agency/
+            - text: "&"
+            - link "Kwapso" [ref=e607] [cursor=pointer]:
+              - /url: https://www.kwapso.com/
+          - generic [ref=e608]:
+            - link "Impressum" [ref=e609] [cursor=pointer]:
+              - /url: /impressum
+            - link "Datenschutz" [ref=e610] [cursor=pointer]:
+              - /url: /datenschutz
+            - link "Haftung / Nutzungsbedingungen" [ref=e611] [cursor=pointer]:
+              - /url: /haftung
+  - dialog "Cookie consent dialog":
+    - dialog "Cookie consent dialog" [ref=e612]:
+      - button "Close" [ref=e614] [cursor=pointer]: ×
+      - generic [ref=e615]: Diese Webseite verwendet Cookies.
+      - generic [ref=e616]:
+        - text: Wir verwenden Cookies, um Inhalte und Anzeigen zu personalisieren und unseren Datenverkehr zu analysieren. Wir geben Informationen über Ihre Nutzung unserer Website auch an unsere Werbe- und Analysepartner weiter, die diese möglicherweise mit anderen Informationen kombinieren, die Sie ihnen bereitgestellt haben oder die sie im Rahmen Ihrer Nutzung ihrer Dienste gesammelt haben.
+        - link "Weitere Informationen, opens a new window" [ref=e617] [cursor=pointer]:
+          - /url: https://padelbase.at/datenschutz
+          - text: Weitere Informationen
+      - generic [ref=e618]:
+        - button "Alle akzeptieren" [ref=e619] [cursor=pointer]
+        - button "Alle ablehnen" [ref=e620] [cursor=pointer]

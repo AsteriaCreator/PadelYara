@@ -1,0 +1,402 @@
+- generic [ref=e2]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Eversports" [ref=e12]
+        - generic [ref=e25]:
+          - generic [ref=e28]:
+            - img [ref=e32]
+            - textbox "Ort" [ref=e35]:
+              - /placeholder: Wien, AT
+              - text: Wien, AT
+            - group
+          - generic [ref=e38]:
+            - img [ref=e42]
+            - textbox "Sport oder Anbieter" [ref=e44]:
+              - /placeholder: Suche nach einem Sport oder Anbieter
+            - group
+      - generic [ref=e45]:
+        - link "Für Unternehmen" [ref=e46] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - paragraph [ref=e47]: Für Unternehmen
+        - paragraph [ref=e48]: "|"
+        - link "Für Sportanbieter" [ref=e49] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - paragraph [ref=e50]: Für Sportanbieter
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: "|"
+          - link "User login" [ref=e54] [cursor=pointer]:
+            - /url: /auth
+            - paragraph [ref=e55]: Login
+          - link "Registrieren" [ref=e57] [cursor=pointer]:
+            - /url: /auth/register
+            - paragraph [ref=e58]: Registrieren
+  - main [ref=e59]:
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - img "Anbieter Bild 1" [ref=e65] [cursor=pointer]
+        - img "Anbieter Bild 2" [ref=e67] [cursor=pointer]
+        - img "Anbieter Bild 3" [ref=e69] [cursor=pointer]
+        - img "Anbieter Bild 4" [ref=e71] [cursor=pointer]
+        - img "Anbieter Bild 5" [ref=e73] [cursor=pointer]
+      - generic [ref=e75]:
+        - link "Übersicht" [ref=e76] [cursor=pointer]:
+          - /url: /s/padelzone-ebensee-or-traunsee
+          - paragraph [ref=e79]: Übersicht
+        - link "Sportplätze" [ref=e80] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e83]: Sportplätze
+        - separator [ref=e84]
+        - link "Matches" [ref=e85] [cursor=pointer]:
+          - /url: /s/padelzone-ebensee-or-traunsee
+          - paragraph [ref=e88]: Matches
+        - separator [ref=e89]
+        - link "Preise" [ref=e90] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e93]: Preise
+    - generic [ref=e96]:
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - img "Anbieter Logo" [ref=e99]
+          - heading "PADELZONE Ebensee | Traunsee" [level=1] [ref=e100]
+          - generic [ref=e101] [cursor=pointer]:
+            - img "rating" [ref=e102]
+            - link "5 (12 Rezensionen)" [ref=e103]:
+              - /url: "#ratings"
+              - paragraph [ref=e104]: 5 (12 Rezensionen)
+          - generic [ref=e105]:
+            - link "Weitere Standorte ansehen" [ref=e106] [cursor=pointer]:
+              - /url: "#branches"
+              - paragraph [ref=e108]: 1 von 22 Standorten
+            - list
+            - generic [ref=e110] [cursor=pointer]:
+              - paragraph [ref=e111]: Firmenrabatt
+              - img "Information on corporate benefits" [ref=e112]
+          - link "Trauneck 2 , 4802 Ebensee" [ref=e114] [cursor=pointer]:
+            - /url: "#location_map"
+            - generic [ref=e115]:
+              - img [ref=e118]
+              - paragraph [ref=e120]: Trauneck 2 , 4802 Ebensee
+          - generic [ref=e121]:
+            - button "Als Favorit hinzufügen Unfavorited heart" [ref=e122] [cursor=pointer]:
+              - generic [ref=e123]:
+                - paragraph [ref=e124]: Als Favorit hinzufügen
+                - img "Unfavorited heart" [ref=e125]
+            - button "Teilen" [ref=e126] [cursor=pointer]:
+              - generic [ref=e127]:
+                - paragraph [ref=e128]: Teilen
+                - img [ref=e131]
+        - generic [ref=e135]:
+          - generic [ref=e136]:
+            - heading "Über uns" [level=2] [ref=e137]
+            - generic [ref=e138]:
+              - generic [ref=e143]:
+                - paragraph [ref=e144]:
+                  - strong [ref=e145]: WELCOME IN THA ZONE!
+                - paragraph [ref=e146]:
+                  - text: Die bereits zweite
+                  - strong [ref=e147]: PADELZONE
+                  - text: Oberösterreichs hat Ihre Heimat in
+                  - strong [ref=e148]: Ebensee
+                  - text: direkt am wunderschönen Traunsee gefunden.
+                - paragraph [ref=e149]: "-"
+                - paragraph [ref=e150]: Unsere 2 Outdoor Courts ermöglichen dir in cooler Atmosphäre deinen neuen Lieblingssport kennenzulernen.
+                - paragraph [ref=e151]: "-"
+                - paragraph [ref=e152]: Danach legen wir noch ein Padel drauf und heißen dich in einer unserer weiteren PADELZONEs willkommen.
+                - paragraph [ref=e153]: "-"
+                - paragraph [ref=e154]:
+                  - text: Die
+                  - strong [ref=e155]: PADELZONE Ebensee | Traunsee
+                  - text: freut sich auf deinen Besuch.
+                - paragraph [ref=e156]: Cu in tha ZONE!
+                - paragraph [ref=e157]: dein PADELZONE Team
+                - paragraph [ref=e158]: "-"
+                - paragraph [ref=e159]: "*Buchungen können selbstständig bis zu 24h vor Spielbeginn kostenlos über eversports.at oder die Eversports APP storniert werden. Bei Stornierungen innerhalb dieser Frist wird der volle Betrag automatisch rückerstattet, nach Ablauf dieser Frist ist keine Rückerstattung mehr möglich."
+              - button "Mehr anzeigen" [ref=e160] [cursor=pointer]:
+                - paragraph [ref=e161]: Mehr anzeigen
+          - generic [ref=e162]:
+            - paragraph [ref=e163]: Ausstattung
+            - list [ref=e164]:
+              - listitem [ref=e165]:
+                - img "VENUE_AMENITY_SANITARY" [ref=e166]
+                - paragraph [ref=e167]: Duschen
+              - listitem [ref=e168]:
+                - img "VENUE_AMENITY_GASTRONOMY" [ref=e169]
+                - paragraph [ref=e170]: Essen
+              - listitem [ref=e171]:
+                - img "VENUE_AMENITY_SHOP" [ref=e172]
+                - paragraph [ref=e173]: Shop
+              - listitem [ref=e174]:
+                - img "VENUE_AMENITY_WELLNESS" [ref=e175]
+                - paragraph [ref=e176]: Wellness
+              - listitem [ref=e177]:
+                - img "VENUE_AMENITY_LOCKERROOM" [ref=e178]
+                - paragraph [ref=e179]: Umkleiden
+              - listitem [ref=e180]:
+                - img "VENUE_AMENITY_PARKING" [ref=e181]
+                - paragraph [ref=e182]: Parkplatz
+              - listitem [ref=e183]:
+                - img "VENUE_AMENITY_CARDPAYMENT" [ref=e184]
+                - paragraph [ref=e185]: Kartenzahlung
+              - listitem [ref=e186]:
+                - img "VENUE_AMENITY_AIR_CONDITIONING" [ref=e187]
+                - paragraph [ref=e188]: Klimaanlage
+              - listitem [ref=e189]:
+                - img "VENUE_AMENITY_ACCESSIBLE" [ref=e190]
+                - paragraph [ref=e191]: Barrierefrei
+          - generic [ref=e192]:
+            - paragraph [ref=e193]: Standort
+            - paragraph [ref=e194]: Trauneck 2 , 4802 Ebensee
+            - link "Google Maps Icon Google Maps öffnen" [ref=e208] [cursor=pointer]:
+              - /url: https://www.google.com/maps/dir/?api=1&destination=47.8130989075,13.7754049301
+              - button "Google Maps Icon Google Maps öffnen" [ref=e209]:
+                - generic [ref=e210]:
+                  - img "Google Maps Icon" [ref=e211]
+                  - paragraph [ref=e212]: Google Maps öffnen
+          - generic [ref=e213]:
+            - generic [ref=e214]:
+              - paragraph [ref=e215]: Weitere Standorte
+              - paragraph [ref=e216]: Sieh dir weitere Standorte der Anlage an
+            - generic [ref=e217]:
+              - link "PADELZONE Attersee | Padelzeit logo PADELZONE Attersee | Padelzeit 4860, Lenzing" [ref=e218] [cursor=pointer]:
+                - /url: /s/padelzone-attersee-or-padelzeit
+                - generic [ref=e220]:
+                  - img "PADELZONE Attersee | Padelzeit logo" [ref=e222]
+                  - generic [ref=e223]:
+                    - paragraph [ref=e224]: PADELZONE Attersee | Padelzeit
+                    - paragraph [ref=e225]: 4860, Lenzing
+              - link "PADELZONE Bad Ischl logo PADELZONE Bad Ischl 4820, Bad Ischl" [ref=e226] [cursor=pointer]:
+                - /url: /s/padelzone-bad-ischl
+                - generic [ref=e228]:
+                  - img "PADELZONE Bad Ischl logo" [ref=e230]
+                  - generic [ref=e231]:
+                    - paragraph [ref=e232]: PADELZONE Bad Ischl
+                    - paragraph [ref=e233]: 4820, Bad Ischl
+              - link "PADELZONE Dornbirn | TC Dornbirn logo PADELZONE Dornbirn | TC Dornbirn 6850, Dornbirn" [ref=e234] [cursor=pointer]:
+                - /url: /s/padelzone-dornbirn-or-tc-dornbirn
+                - generic [ref=e236]:
+                  - img "PADELZONE Dornbirn | TC Dornbirn logo" [ref=e238]
+                  - generic [ref=e239]:
+                    - paragraph [ref=e240]: PADELZONE Dornbirn | TC Dornbirn
+                    - paragraph [ref=e241]: 6850, Dornbirn
+              - link "PADELZONE Gmunden/Altmünster logo PADELZONE Gmunden/Altmünster 4813, Altmünster am Traunsee" [ref=e242] [cursor=pointer]:
+                - /url: /s/padelzone-gmundenaltmuenster
+                - generic [ref=e244]:
+                  - img "PADELZONE Gmunden/Altmünster logo" [ref=e246]
+                  - generic [ref=e247]:
+                    - paragraph [ref=e248]: PADELZONE Gmunden/Altmünster
+                    - paragraph [ref=e249]: 4813, Altmünster am Traunsee
+              - link "PADELZONE Götzis | Indoor Sportzentrum logo PADELZONE Götzis | Indoor Sportzentrum 6840, Götzis" [ref=e250] [cursor=pointer]:
+                - /url: /s/padelzone-goetzis-or-indoor-sportzentrum
+                - generic [ref=e252]:
+                  - img "PADELZONE Götzis | Indoor Sportzentrum logo" [ref=e254]
+                  - generic [ref=e255]:
+                    - paragraph [ref=e256]: PADELZONE Götzis | Indoor Sportzentrum
+                    - paragraph [ref=e257]: 6840, Götzis
+              - link "PADELZONE Graz | Puntigam logo PADELZONE Graz | Puntigam 8055, Graz" [ref=e258] [cursor=pointer]:
+                - /url: /s/padelzone-graz-or-puntigam
+                - generic [ref=e260]:
+                  - img "PADELZONE Graz | Puntigam logo" [ref=e262]
+                  - generic [ref=e263]:
+                    - paragraph [ref=e264]: PADELZONE Graz | Puntigam
+                    - paragraph [ref=e265]: 8055, Graz
+            - paragraph [ref=e266] [cursor=pointer]: Weitere Standorte ansehen
+        - generic [ref=e267]:
+          - heading "Bewertungen" [level=2] [ref=e268]
+          - generic [ref=e269]:
+            - generic [ref=e270]:
+              - generic [ref=e271]:
+                - generic [ref=e272]:
+                  - img "rating" [ref=e273]
+                  - paragraph [ref=e274]: "5.0"
+                - paragraph [ref=e275]: 12 Rezensionen
+              - generic [ref=e276]:
+                - generic [ref=e277]:
+                  - paragraph [ref=e278]: Raumqualität
+                  - generic [ref=e279]:
+                    - img "5 Stars"
+                    - paragraph [ref=e280]: "5.0"
+                - generic [ref=e281]:
+                  - paragraph [ref=e282]: Freundlichkeit & Service
+                  - generic [ref=e283]:
+                    - img "5 Stars"
+                    - paragraph [ref=e284]: "5.0"
+                - generic [ref=e285]:
+                  - paragraph [ref=e286]: Sauberkeit
+                  - generic [ref=e287]:
+                    - img "5 Stars"
+                    - paragraph [ref=e288]: "5.0"
+                - generic [ref=e289]:
+                  - paragraph [ref=e290]: Atmosphäre
+                  - generic [ref=e291]:
+                    - img "5 Stars"
+                    - paragraph [ref=e292]: "5.0"
+                - generic [ref=e293]:
+                  - paragraph [ref=e294]: Preis-Leistung
+                  - generic [ref=e295]:
+                    - img "4.9 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e296]: "4.9"
+            - generic [ref=e297]:
+              - generic [ref=e298]:
+                - generic [ref=e299]:
+                  - generic [ref=e300]:
+                    - generic [ref=e301]: A
+                    - generic [ref=e302]:
+                      - paragraph [ref=e303]: Andreas
+                      - paragraph [ref=e304]: vor 8 Monaten
+                  - paragraph [ref=e308]: Erstklassig
+                - separator [ref=e309]
+              - generic [ref=e310]:
+                - generic [ref=e311]:
+                  - generic [ref=e312]:
+                    - generic [ref=e313]: L
+                    - generic [ref=e314]:
+                      - paragraph [ref=e315]: Luisa
+                      - paragraph [ref=e316]: vor 11 Monaten
+                  - paragraph [ref=e320]: Tolle Anlage direkt am See!! Ich komme gerne wieder!
+                - separator [ref=e321]
+              - generic [ref=e322]:
+                - generic [ref=e323]:
+                  - generic [ref=e324]:
+                    - generic [ref=e325]: M
+                    - generic [ref=e326]:
+                      - paragraph [ref=e327]: Modeschule
+                      - paragraph [ref=e328]: vor 11 Monaten
+                  - paragraph [ref=e332]: Bestes Service, tolle Anlage!
+                - separator [ref=e333]
+              - generic [ref=e334]:
+                - generic [ref=e335]:
+                  - generic [ref=e336]:
+                    - img "Andrej" [ref=e338]
+                    - generic [ref=e339]:
+                      - paragraph [ref=e340]: Andrej
+                      - paragraph [ref=e341]: vor einem Jahr
+                  - paragraph [ref=e345]: Der beste Padelplatz in der Umgebung
+                - separator [ref=e346]
+              - generic [ref=e347]:
+                - button "Vorige Seite" [ref=e348]:
+                  - img [ref=e351]
+                - button "Nächste Seite" [ref=e353] [cursor=pointer]:
+                  - img [ref=e356]
+        - generic [ref=e358]:
+          - heading "Weitere hilfreiche Informationen" [level=2] [ref=e359]
+          - generic [ref=e360]:
+            - heading "Über das Team" [level=3] [ref=e361]
+            - paragraph [ref=e363]: Hannes und Martin empfangen dich vor Ort und zeigen dir deinen neuen Lieblingssport.
+          - generic [ref=e364]:
+            - heading "Angebotene Sportarten und Aktivitäten" [level=3] [ref=e365]
+            - list [ref=e366]:
+              - listitem [ref=e367]:
+                - paragraph [ref=e368]: Padel
+      - generic [ref=e371]:
+        - link "Jetzt buchen" [ref=e374] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e375]: Jetzt buchen
+        - generic [ref=e377]:
+          - generic [ref=e378]:
+            - link "email venue" [ref=e379] [cursor=pointer]:
+              - /url: "mailto: office@padelzone.at"
+              - img [ref=e383]
+            - link "view venue's website page" [ref=e385] [cursor=pointer]:
+              - /url: http://www.padelzone.at
+              - img [ref=e389]
+          - separator [ref=e391]
+          - paragraph [ref=e392]:
+            - text: Wusstest du, dass dich dein Arbeitgeber bei deiner Sportroutine unterstützen kann?
+            - link "Learn about Eversports' special corporate deals" [ref=e393] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+              - text: Weitere Infos
+  - contentinfo:
+    - generic [ref=e394]:
+      - generic [ref=e395]:
+        - link "Du arbeitest im HR-Bereich? Entdecke alle Vorteile mit Eversports Corporate" [ref=e396] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e397]:
+            - paragraph [ref=e398]: Du arbeitest im HR-Bereich?
+            - paragraph [ref=e399]: Entdecke alle Vorteile mit Eversports Corporate
+        - link "Du betreibst ein Studio oder eine Sportanlage? Erfahre, wie du dein Business boosten kannst!" [ref=e400] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - generic [ref=e401]:
+            - paragraph [ref=e402]: Du betreibst ein Studio oder eine Sportanlage?
+            - paragraph [ref=e403]: Erfahre, wie du dein Business boosten kannst!
+      - generic [ref=e404]:
+        - generic [ref=e405]:
+          - generic [ref=e406]:
+            - heading "Mehr über Eversports" [level=2] [ref=e407]
+            - link "Über uns" [ref=e408] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/
+            - link "Blog" [ref=e409] [cursor=pointer]:
+              - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+            - link "Jobs" [ref=e410] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/#jobs
+            - link "Sicherheit" [ref=e411] [cursor=pointer]:
+              - /url: /h/security
+            - link "Für Unternehmen" [ref=e412] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e413]:
+            - heading "Eversports Manager" [level=2] [ref=e414]
+            - link "Zur Webseite" [ref=e415] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+            - link "Preise" [ref=e416] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+            - link "Kostenlose Demo" [ref=e417] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+        - generic [ref=e418]:
+          - generic [ref=e419]:
+            - heading "Kontakt" [level=2] [ref=e420]
+            - link "Kontaktiere uns" [ref=e421] [cursor=pointer]:
+              - /url: /h/contact
+            - link "Impressum" [ref=e422] [cursor=pointer]:
+              - /url: /h/about
+            - link "Datenschutz" [ref=e423] [cursor=pointer]:
+              - /url: /h/privacy
+            - link "Erklärung zur Barrierefreiheit" [ref=e424] [cursor=pointer]:
+              - /url: /h/accessibility
+            - link "AGB" [ref=e425] [cursor=pointer]:
+              - /url: /h/terms
+            - button "Cookie-Einstellungen" [ref=e426] [cursor=pointer]
+            - link "Memberships kündigen" [ref=e427] [cursor=pointer]:
+              - /url: /h/cancel-membership
+          - generic [ref=e428]:
+            - generic [ref=e429]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e430]
+              - generic [ref=e431]:
+                - link "Eversports Facebook" [ref=e432] [cursor=pointer]:
+                  - /url: https://www.facebook.com/eversports
+                  - img "Facebook Badge" [ref=e436]
+                - link "Eversports Manager Youtube" [ref=e438] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                  - img [ref=e442]
+                - link "Eversports Instagram" [ref=e444] [cursor=pointer]:
+                  - /url: https://www.instagram.com/eversports_official/
+                  - img "Instagram Badge" [ref=e448]
+            - generic [ref=e450]:
+              - link "Eversports Apple App Store" [ref=e451] [cursor=pointer]:
+                - /url: https://itunes.apple.com/app/eversport-now/id946460861
+                - generic [ref=e452]:
+                  - img "app-store-badge" [ref=e453]
+                  - generic [ref=e454]:
+                    - paragraph [ref=e455]: Jetzt bei
+                    - paragraph [ref=e456]: App Store
+              - link "Eversports Google Play" [ref=e457] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - generic [ref=e458]:
+                  - img "play-store-badge" [ref=e459]
+                  - generic [ref=e460]:
+                    - paragraph [ref=e461]: Jetzt bei
+                    - paragraph [ref=e462]: Google Play
+      - generic [ref=e463]:
+        - generic [ref=e464]:
+          - img "Eversports Logo" [ref=e465]
+          - paragraph [ref=e466]: 2026 Eversports GmbH. Alle Rechte vorbehalten.
+        - generic [ref=e467]:
+          - img "Paypal ist eine akzeptierte Zahlunsart" [ref=e469]
+          - img "Mastercard ist eine akzeptierte Zahlunsart" [ref=e471]
+          - img "Visa ist eine akzeptierte Zahlunsart" [ref=e473]
+          - img "Klarna ist eine akzeptierte Zahlunsart" [ref=e475]

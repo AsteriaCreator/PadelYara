@@ -1,0 +1,345 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e6]:
+        - link "1. Padel Tennis Club Vorarlberg - Rankweil" [ref=e8] [cursor=pointer]:
+          - /url: https://www.ptcv.at/
+          - img "1. Padel Tennis Club Vorarlberg - Rankweil" [ref=e9]
+        - navigation [ref=e10]:
+          - generic [ref=e11]:
+            - list:
+              - listitem [ref=e12]:
+                - link "Home" [ref=e13] [cursor=pointer]:
+                  - /url: https://www.ptcv.at/#top
+              - listitem [ref=e14]:
+                - link "Über uns" [ref=e15] [cursor=pointer]:
+                  - /url: https://www.ptcv.at/#ueber-uns
+              - listitem [ref=e16]:
+                - link "Über Padel" [ref=e17] [cursor=pointer]:
+                  - /url: https://www.ptcv.at/#ueber-padel
+              - listitem [ref=e18]:
+                - link "Preise" [ref=e19] [cursor=pointer]:
+                  - /url: https://www.ptcv.at/#preise
+              - listitem [ref=e20]:
+                - link "Mitglied werden" [ref=e21] [cursor=pointer]:
+                  - /url: https://ptcv.bookingbird.page
+              - listitem [ref=e22]:
+                - link "Turniere" [ref=e23] [cursor=pointer]:
+                  - /url: https://www.padeltennis.at/tournaments?q%5Blocation_id_eq%5D=&q%5Blocation_state_eq%5D=7&q%5Bdivisions_category_id_eq%5D=&commit=Filtern
+              - listitem [ref=e24]:
+                - link "Kontakt" [ref=e25] [cursor=pointer]:
+                  - /url: https://www.ptcv.at/#kontakt
+              - listitem [ref=e26]:
+                - link "Platz buchen" [ref=e27] [cursor=pointer]:
+                  - /url: https://ptcv.bookingbird.page/calendar?selected-booking-option=696120fa3dafc7b41872c83c
+          - list [ref=e28]:
+            - listitem [ref=e29]:
+              - link "Link zu Instagram" [ref=e30] [cursor=pointer]:
+                - /url: https://www.instagram.com/1.ptc_vorarlberg/
+                - text: 
+            - listitem [ref=e31]:
+              - link "Link zu Facebook" [ref=e32] [cursor=pointer]:
+                - /url: https://www.facebook.com/1PTCV
+                - text: 
+    - generic [ref=e34]:
+      - generic [ref=e36]:
+        - list [ref=e37]:
+          - listitem [ref=e38]:
+            - img "IMG 9554 - Home" [ref=e40]
+        - generic:
+          - link [ref=e41] [cursor=pointer]:
+            - /url: "#prev"
+            - text:  Zurück
+          - link [ref=e42] [cursor=pointer]:
+            - /url: "#next"
+            - text:  Weiter
+        - generic:
+          - link "1" [ref=e43] [cursor=pointer]:
+            - /url: "#1"
+          - link "2" [ref=e44] [cursor=pointer]:
+            - /url: "#2"
+          - link "3" [ref=e45] [cursor=pointer]:
+            - /url: "#3"
+          - link "4" [ref=e46] [cursor=pointer]:
+            - /url: "#4"
+      - generic [ref=e47]:
+        - heading "Spiel" [level=4] [ref=e51]
+        - heading "Spaß" [level=4] [ref=e55]
+        - heading "Spannung" [level=4] [ref=e59]
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - paragraph [ref=e67]: 1. Padel Tennis Club Vorarlberg (1. PTCV)
+          - heading "Padel-Tennis Platz in Rankweil / Vorarlberg" [level=1] [ref=e68]
+        - generic [ref=e70]:
+          - paragraph [ref=e71]: Das vorrangige Ziel des 1. Padel Tennis Club Vorarlberg ist die Verbreitung und Förderung des Padel-Tennissports. Wir wollen aktiv Teil der am schnellsten wachsenden Sportart weltweit sein! Unser Projekt legt den Fokus auf Mobilität und Nachhaltigkeit. Eine Wiederverwertung des ursprünglichen Lagerplatzes, so wie wir ihn vorgefunden haben, ist Teil der Idee.
+          - paragraph [ref=e72]:
+            - strong [ref=e73]: "Wo:"
+            - text: Rankweil,
+            - link "Zieglerweg 17" [ref=e74] [cursor=pointer]:
+              - /url: "#kontakt"
+            - strong [ref=e75]: "Wann:"
+            - text: Montag – Sonntag von 08:00 – 21:30 Uhr
+          - paragraph [ref=e76]: "****************************************"
+          - paragraph [ref=e77]: Der Court 1 ist bei jeder Witterung bespielbar!
+          - paragraph [ref=e78]: Der Court 2 ist ein Freiplatz!
+          - paragraph [ref=e79]: Bei Zahlung vor Ort bitte den genauen Betrag zum Einwerfen mitnehmen.
+          - paragraph [ref=e80]: Sie können aber auch gerne den zu bezahlenden Betrag direkt per Apple pay bezahlen.
+          - paragraph [ref=e81]: von 8-16 Uhr 20,00 € pro Platz/Stunde und von 16-21:30 Uhr 40,00 € pro Platz/Stunde
+          - paragraph [ref=e82]: Preis Padel – Racket 3,00 € pro Schläger
+          - paragraph [ref=e83]: Eine Stornierung deiner Buchung ist bis 36 Stunden vor Beginn kostenlos möglich. Bei späterer Absage oder Nichterscheinen wird der volle Betrag verrechnet.
+          - paragraph [ref=e84]: Vielen Dank!
+        - generic [ref=e85]:
+          - link "Platz buchen" [ref=e86] [cursor=pointer]:
+            - /url: https://ptcv.bookingbird.page/calendar?selected-booking-option=696120fa3dafc7b41872c83c
+            - generic [ref=e87]: 
+            - text: Platz buchen
+          - link "Mitglied werden" [ref=e88] [cursor=pointer]:
+            - /url: https://ptcv.bookingbird.page
+            - generic [ref=e89]: 
+            - text: Mitglied werden
+      - generic [ref=e97]:
+        - heading "Über Padel-Tennis" [level=2] [ref=e99]
+        - generic [ref=e102]:
+          - heading "Wusstest du," [level=3] [ref=e104]
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - generic [ref=e109]: 
+              - article [ref=e110]:
+                - heading "dass Padel-Tennis eine Mischung aus Squash und Tennis ist?" [level=4] [ref=e113]
+            - listitem [ref=e114]:
+              - generic [ref=e116]: 
+              - article [ref=e117]:
+                - heading "dass Padel-Tennis die am schnellsten wachsende Sportart weltweit ist?" [level=4] [ref=e120]
+            - listitem [ref=e121]:
+              - generic [ref=e123]: 
+              - article [ref=e124]:
+                - heading "dass Padel-Tennis sehr schnell erlernbar ist?" [level=4] [ref=e127]
+            - listitem [ref=e128]:
+              - generic [ref=e130]: 
+              - article [ref=e131]:
+                - heading "dass Padel-Tennis zu viert gespielt wird, sich also ideal für ein kühles Getränk danach eignet?" [level=4] [ref=e134]
+            - listitem [ref=e135]:
+              - generic [ref=e137]: 
+              - article [ref=e138]:
+                - heading "dass Padel-Tennis in Spanien Volkssport ist?" [level=4] [ref=e141]
+        - generic [ref=e142]:
+          - heading "Wie wird Padel gespielt?" [level=3] [ref=e144]
+          - generic [ref=e146]:
+            - paragraph [ref=e147]: Grundsätzlich ist die Zählweise wie im Tennis (15-30-40). Man spielt also auf sechs gewonnene Games und auf zwei Gewinnsätze.
+            - paragraph [ref=e148]: Auch die Position beim Aufschlag hinter der T-Linie ist mit dem Tennis vergleichbar. Allerdings ist der Service von unten durchzuführen und der Schläger darf dabei nicht oberhalb der Hüfte geführt werden. Beim Aufschlag ist es nicht erlaubt den Ball Volley zurückzuspielen. Zudem darf beim Service der Ball nicht vom Boden auf das an der Seite befindende Gitter gelangen.
+            - paragraph [ref=e149]: Während des Ballwechsels ist es nur dann erlaubt den Ball direkt an die Glaswand zu befördern, wenn er vom eigenen Feld aus, gespielt wird. Wird der Ball vom eigenen Feld aus, direkt auf die Glaswand oder das Gitter der gegnerischen Seite gespielt ist es ein Fehler.
+      - iframe [ref=e157]:
+        
+      - generic [ref=e162]:
+        - heading "News & Social Media" [level=2] [ref=e164]
+        - generic [ref=e169]:
+          - generic [ref=e172]:
+            - generic [ref=e173]:
+              - generic [ref=e174]:
+                - link "View" [ref=e176] [cursor=pointer]:
+                  - /url: https://www.instagram.com/p/CeL67jxqhmY/
+                  - generic: View
+                  - img [ref=e177]
+                - generic [ref=e179]:
+                  - paragraph [ref=e180]:
+                    - generic [ref=e181]:
+                      - img [ref=e182]
+                      - text: Mai 30
+                  - generic [ref=e184]:
+                    - generic [ref=e185]:
+                      - img [ref=e186]
+                      - text: "61"
+                    - generic [ref=e188]:
+                      - img [ref=e189]
+                      - text: "0"
+                - link "Öffnen" [ref=e191] [cursor=pointer]:
+                  - /url: https://scontent-fra5-2.cdninstagram.com/v/t51.82787-15/621180837_18089959805083130_3904963373497060985_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=DMQs3f6UE50Q7kNvwH9kNOv&_nc_oc=AdoowQyT0ODo7JaRM8dbdJzvhLC8mVElucUpKBMcRy51lo5KzfHijdJ9F_8HNv2nUG8&_nc_zt=23&_nc_ht=scontent-fra5-2.cdninstagram.com&edm=AM6HXa8EAAAA&_nc_gid=_8MjjiD1t6n-wLRros8Z1A&oh=00_Af_OK2Lwo_GHDzRdc6hXAskSvTn5fe1tG-Dui4cZfx3AWA&oe=6A29E379
+                  - generic: Öffnen
+              - link [ref=e192] [cursor=pointer]:
+                - /url: https://www.instagram.com/p/CeL67jxqhmY/
+            - paragraph [ref=e195]:
+              - generic [ref=e196]:
+                - text: Unsere Anlage am Zieglerweg verfügt nun neben einem Outdoor-Platz mit Flugdach auch über einen klassischen Outdoor-Court. Viel Spaß beim Ausprobieren! 🎾😃
+                - text: "#padel #padeltennis #ptc #ptcv #austrianpadelunion #padelworldtour"
+          - link "Folge uns auf Instagram" [ref=e199] [cursor=pointer]:
+            - /url: https://www.instagram.com/1.ptc_vorarlberg/
+            - img [ref=e200]
+            - text: Folge uns auf Instagram
+      - generic [ref=e208]:
+        - heading "Unsere Preise" [level=2] [ref=e210]
+        - generic [ref=e212]:
+          - paragraph [ref=e213]: Wir wollen eine Möglichkeit bieten, dass Interessierte und sportbegeisterte Menschen in unserer Umgebung die Faszination Padel-Tennis kennenlernen können. Hat man nämlich einmal einen packenden Ballwechsel gespielt, will man dieses Gefühl immer wieder erleben. Es gibt mehrere Möglichkeiten dies zu tun.
+          - paragraph [ref=e214]:
+            - text: Stundentickets können direkt über unsere
+            - link "Platz-Buchungs-Plattform" [ref=e215] [cursor=pointer]:
+              - /url: https://ptc.tennisplatz.info/reservierung
+            - text: gebucht werden. Dabei erhält man einen vierstelligen Code, mit dem sich das Zugangstor unserer Anlage öffnen lässt!
+          - paragraph [ref=e216]: Kennen Sie bereits unsere Gutscheine? Die Gutscheine eignen sich als perfekte Geschenke für Geburtstage, Ostern oder für ein kleines Präsent an Ihre Mitarbeiter.
+        - link "Preisliste herunterladen" [ref=e218] [cursor=pointer]:
+          - /url: https://www.ptcv.at/wp-content/uploads/Bildschirmfoto-2025-10-21-um-10.10.14.png
+          - generic [ref=e219]: 
+          - text: Preisliste herunterladen
+        - heading "Jahresabos" [level=3] [ref=e221]
+        - generic [ref=e222]:
+          - list [ref=e224]:
+            - listitem [ref=e225]:
+              - generic [ref=e226]: Jahresabo Erwachsene
+            - listitem [ref=e227]: 350 €
+            - listitem [ref=e228]: Spiele wann du willst, komplett flexibel
+          - list [ref=e230]:
+            - listitem [ref=e231]:
+              - generic [ref=e232]: Jahresabo Studenten & Schüler
+            - listitem [ref=e233]: 250 €
+            - listitem [ref=e234]: Spiele wann du willst, komplett flexibel
+        - heading "Einzelplatzpreisliste" [level=3] [ref=e236]
+        - generic [ref=e237]:
+          - list [ref=e239]:
+            - listitem [ref=e240]:
+              - generic [ref=e241]: 8 – 16 Uhr
+            - listitem [ref=e242]: 20 €
+            - listitem [ref=e243]: Preis pro Platz
+            - listitem [ref=e244]: + je weitere halbe Stunde 10 €
+          - list [ref=e246]:
+            - listitem [ref=e247]:
+              - generic [ref=e248]: 16 – 20 Uhr
+            - listitem [ref=e249]: 40 €
+            - listitem [ref=e250]: Preis pro Platz
+            - listitem [ref=e251]: + je weitere halbe Stunde 20 €
+      - generic [ref=e261]:
+        - heading "Mitglied werden" [level=2] [ref=e263]
+        - generic [ref=e266]:
+          - generic [ref=e268]:
+            - paragraph [ref=e269]:
+              - strong [ref=e270]: "Bei Online-Anmeldung:"
+              - text: Nach erfolgter Anmeldung bitte den ausgewählten Mitgliedsbeitrag auf das folgende Konto überweisen. Die Mitgliedschaft ist dann für ein Jahr gültig.
+              - text: "Konto:"
+              - strong [ref=e271]: AT59 4571 0019 4311 1004
+            - paragraph [ref=e272]: In weiterer Folge kann man einen eTennis Account erstellen und online die Platzbuchung durchführen. Es kann ein wenig dauern bis Sie als Mitglied auf eTennis eingetragen sind.
+            - paragraph [ref=e273]:
+              - text: Du wirst nun als offizielles Mitglied in unserer Kartei geführt und kannst dich und drei weitere Spielpartner
+              - link "über die online Platzreservierung" [ref=e274] [cursor=pointer]:
+                - /url: https://ptc.tennisplatz.info/reservierung
+              - text: einbuchen.
+          - generic [ref=e275]:
+            - link "Spiel- und Platzordnung" [ref=e276] [cursor=pointer]:
+              - /url: https://www.ptcv.at/wp-content/uploads/ptcv-spiel-platzordnung.pdf
+            - link "Clubordnung" [ref=e277] [cursor=pointer]:
+              - /url: https://www.ptcv.at/wp-content/uploads/ptcv-clubordnung.pdf
+        - generic [ref=e279]:
+          - heading "Ja, ich möchte Mitglied werden:" [level=3] [ref=e280]
+          - group [ref=e281]:
+            - paragraph [ref=e282]:
+              - generic [ref=e283]: Name *
+              - textbox "Name *" [ref=e284]:
+                - /placeholder: Name*
+            - paragraph [ref=e285]:
+              - generic [ref=e286]: E-Mail *
+              - textbox "E-Mail *" [ref=e287]:
+                - /placeholder: E-Mail*
+            - paragraph [ref=e288]:
+              - generic [ref=e289]: Geburtsdatum *
+              - textbox "Geburtsdatum *" [ref=e290]:
+                - /placeholder: Geburtsdatum*
+            - paragraph [ref=e291]:
+              - generic [ref=e292]: Handynummer *
+              - textbox "Handynummer *" [ref=e293]:
+                - /placeholder: Handynummer*
+            - paragraph [ref=e294]:
+              - generic [ref=e295]: Adresse *
+              - textbox "Adresse *" [ref=e296]:
+                - /placeholder: Adresse*
+            - paragraph [ref=e297]:
+              - generic [ref=e298]: Abo-Auswahl
+              - combobox "Abo-Auswahl" [ref=e299]:
+                - option "Abo-Auswahl" [selected]
+                - option "Jahresabo Erwachsene (350 €)"
+                - option "Jahresabo Studenten & Schüler (250 €)"
+                - option "Winterabo Erwachsene für 26 Wochen (200 €)"
+                - option "10er Block Einzel (100 €)"
+            - paragraph [ref=e300]:
+              - checkbox "Ich akzeptiere die Datenschutzbestimmungen und bin damit einverstanden, dass mein Name in der Mitgliederkartei geführt wird und somit auf der Plattform etennis des 1. PTC Vorarlberg aufscheint. *" [ref=e301]
+              - generic [ref=e302]:
+                - text: Ich akzeptiere die
+                - link "Datenschutzbestimmungen" [ref=e303] [cursor=pointer]:
+                  - /url: https://www.ptcv.at/datenschutz/
+                - text: und bin damit einverstanden, dass mein Name in der Mitgliederkartei geführt wird und somit auf der Plattform etennis des 1. PTC Vorarlberg aufscheint. *
+            - paragraph [ref=e304]:
+              - button "Senden" [ref=e305] [cursor=pointer]
+      - link "Aufgrund deiner Datenschutz-Einstellungen können wir Ihnen die Karte nicht anzeigen. Klicken Sie hier, um die Karte in einem neuen Fenster zu öffnen." [ref=e309] [cursor=pointer]:
+        - /url: https://www.google.com/maps/search/?api=1&query=Lehenweg%208%206830%20Rankweil
+      - generic [ref=e314]:
+        - heading "Kontakt" [level=2] [ref=e316]
+        - generic [ref=e320]:
+          - heading "Kontaktformular" [level=3] [ref=e321]
+          - group [ref=e322]:
+            - paragraph [ref=e323]:
+              - generic [ref=e324]: Name *
+              - textbox "Name *" [ref=e325]:
+                - /placeholder: Name*
+            - paragraph [ref=e326]:
+              - generic [ref=e327]: E-Mail *
+              - textbox "E-Mail *" [ref=e328]:
+                - /placeholder: E-Mail*
+            - paragraph [ref=e329]:
+              - generic [ref=e330]: Nachricht *
+              - textbox "Nachricht *" [ref=e331]:
+                - /placeholder: Nachricht*
+            - paragraph [ref=e332]:
+              - button "Senden" [ref=e333] [cursor=pointer]
+        - generic [ref=e334]:
+          - generic [ref=e336]:
+            - paragraph [ref=e337]:
+              - strong [ref=e338]: 1. PTCV
+            - paragraph [ref=e339]:
+              - text: Zieglerweg 17
+              - text: 6830 Rankweil
+            - paragraph [ref=e340]:
+              - link "info@ptcv.at" [ref=e341] [cursor=pointer]:
+                - /url: mailto:info@ptcv.at
+            - paragraph [ref=e342]:
+              - text: "IBAN:"
+              - strong [ref=e343]: AT59 4571 0019 4311 1004
+          - tablist [ref=e344]:
+            - tab "Anfahrtsbeschreibung" [ref=e345] [cursor=pointer]: Anfahrtsbeschreibung
+        - generic [ref=e351]:
+          - paragraph [ref=e352]:
+            - strong [ref=e353]: Wir sind auch telefonisch erreichbar…
+          - paragraph [ref=e354]:
+            - text: zu den Bürozeiten
+            - text: MO-DO 8-16 Uhr, FR 8-12 Uhr
+            - text: Tel. +43 5522 44031
+          - separator [ref=e355]
+          - paragraph [ref=e356]:
+            - strong [ref=e357]: Lukas Berthold
+            - text: Obmann
+            - text: 0664 9651766
+          - paragraph [ref=e358]:
+            - strong [ref=e359]: Linus Berthold
+            - text: Vize-Obmann
+            - text: 0664 9651770
+      - contentinfo [ref=e363]:
+        - generic [ref=e364]:
+          - generic [ref=e365]:
+            - link "Datenschutz" [ref=e366] [cursor=pointer]:
+              - /url: https://www.ptcv.at/datenschutz/
+            - text: "-"
+            - link "Impressum" [ref=e367] [cursor=pointer]:
+              - /url: https://www.ptcv.at/impressum/
+            - text: "|"
+            - link "Webdesign by Panograf.at" [ref=e368] [cursor=pointer]:
+              - /url: https://www.panograf.at
+          - list [ref=e369]:
+            - listitem [ref=e370]:
+              - link "Link zu Instagram" [ref=e371] [cursor=pointer]:
+                - /url: https://www.instagram.com/1.ptc_vorarlberg/
+                - text: 
+            - listitem [ref=e372]:
+              - link "Link zu Facebook" [ref=e373] [cursor=pointer]:
+                - /url: https://www.facebook.com/1PTCV
+                - text: 
+  - generic [ref=e375]:
+    - paragraph [ref=e376]: Diese Webseite verwendet technisch notwendige Cookies, sowie für Analysezwecke und für Marketingmaßnahmen.
+    - link "Cookies akzeptieren" [ref=e377] [cursor=pointer]:
+      - /url: "#"
+    - link "Einstellungen" [ref=e378] [cursor=pointer]:
+      - /url: "#"

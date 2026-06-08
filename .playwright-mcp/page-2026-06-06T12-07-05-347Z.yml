@@ -1,0 +1,320 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "SVL-Logo" [ref=e8] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at
+        - navigation [ref=e10]:
+          - list [ref=e11]:
+            - listitem [ref=e12]:
+              - link "Verein Verein Menü" [ref=e13] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/
+                - text: Verein
+                - button "Verein Menü" [ref=e14]: 
+            - listitem [ref=e15]:
+              - link "Fußball Fußball Menü" [ref=e16] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-fussball/
+                - text: Fußball
+                - button "Fußball Menü" [ref=e17]: 
+            - listitem [ref=e18]:
+              - link "Gymnastik & Trendsport Gymnastik & Trendsport Menü" [ref=e19] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-gymnastik/
+                - text: Gymnastik & Trendsport
+                - button "Gymnastik & Trendsport Menü" [ref=e20]: 
+            - listitem [ref=e21]:
+              - link "Schi & Bergsport Schi & Bergsport Menü" [ref=e22] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-schi-bergsport/
+                - text: Schi & Bergsport
+                - button "Schi & Bergsport Menü" [ref=e23]: 
+            - listitem [ref=e24]:
+              - link "Stock Stock Menü" [ref=e25] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-stock/
+                - text: Stock
+                - button "Stock Menü" [ref=e26]: 
+            - listitem [ref=e27]:
+              - link "Tennis & Padel Tennis & Padel Menü" [ref=e28] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-tennis-und-padel/
+                - text: Tennis & Padel
+                - button "Tennis & Padel Menü" [ref=e29]: 
+            - text: 
+    - main [ref=e30]:
+      - generic [ref=e31]:
+        - img [ref=e33]
+        - heading "Padel" [level=1] [ref=e40]
+      - generic [ref=e50]:
+        - heading "Seit Juli 2019 kann man in Lichtenberg auch Padel spielen! Ein Allwetterplatz, welcher ganzjährig genutzt werden kann." [level=6] [ref=e59]:
+          - text: Seit Juli 2019 kann man in Lichtenberg auch Padel spielen!
+          - text: Ein Allwetterplatz, welcher ganzjährig genutzt werden kann.
+        - generic [ref=e65]:
+          - heading "Wie kann man Padel in Lichtenberg spielen?" [level=3] [ref=e68]
+          - list [ref=e78]:
+            - listitem [ref=e79]:
+              - text: In unserem
+              - link "Reservierungssystem registrieren" [ref=e80] [cursor=pointer]:
+                - /url: https://app.tennis04.com/de/lichtenberg/buchungsplan
+              - text: .
+            - listitem [ref=e81]: Es kann nun der Platz als Gast reserviert werden, zur Zahlung wird man automatisch auf Paypal weiter geleitet.
+            - listitem [ref=e82]: Leihschläger und Bälle sind vor Ort in einer schwarzen Box (in der Regel werden gebrauchte Tennisbälle verwendet).
+            - listitem [ref=e83]:
+              - text: Wenn du noch auf der Suche nach Mitspielern bist, trete der
+              - link "Padel Spielerbörse WhatsApp Gruppe" [ref=e84] [cursor=pointer]:
+                - /url: https://chat.whatsapp.com/Km97pDMwwJPD2g6tyUMXed
+              - text: bei und suche nach Spieler*innen auf deinem Level und bekomme alle Neuigkeiten über Turniere oder andere Aktionen
+            - listitem [ref=e85]:
+              - text: Wenn du regelmäßig Padel bei uns spielen möchtest, kannst du auch eine
+              - link "Saisonmitgliedschaft" [ref=e86] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/sektion-tennis-und-padel/saisonbeitraege/
+              - text: für ein Jahr abschließen
+            - listitem [ref=e87]: Auf geht’s!
+          - generic [ref=e89]:
+            - link "Platzreservierung" [ref=e94] [cursor=pointer]:
+              - /url: https://app.tennis04.com/de/lichtenberg/buchungsplan
+              - generic [ref=e95]: Platzreservierung
+            - link "Padel Spielerbörse WhatsApp Gruppe" [ref=e100] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/Km97pDMwwJPD2g6tyUMXed
+              - generic [ref=e101]: Padel Spielerbörse WhatsApp Gruppe
+            - link "Saisonbeiträge" [ref=e106] [cursor=pointer]:
+              - /url: https://www.sv-lichtenberg.at/sektion-tennis-und-padel/saisonbeitraege/
+              - generic [ref=e107]: Saisonbeiträge
+          - generic [ref=e110]:
+            - paragraph [ref=e111]: Die Sektion SVL Tennis ist Mitglied der Austrian Padel Union, welche österreichweit Tuniere unterstützt und eine Rangliste für Österreich führt.
+            - paragraph:
+              - link:
+                - /url: https://www.padeltennis.at/
+        - generic [ref=e117]:
+          - heading "Padel-News" [level=3] [ref=e120]
+          - generic [ref=e127]:
+            - article [ref=e128]:
+              - generic [ref=e130]:
+                - generic [ref=e131]:
+                  - generic [ref=e132]:
+                    - generic [ref=e133]:
+                      - link "Allgemein" [ref=e134] [cursor=pointer]:
+                        - /url: https://www.sv-lichtenberg.at/category/allgemein/
+                      - text: ","
+                      - link "Events und Training" [ref=e135] [cursor=pointer]:
+                        - /url: https://www.sv-lichtenberg.at/category/allgemein/events-und-training/
+                      - text: ","
+                      - link "Padel" [ref=e136] [cursor=pointer]:
+                        - /url: https://www.sv-lichtenberg.at/category/tennis/padel/
+                    - time [ref=e137]: 13. Juni 2025
+                  - heading "Ferien / Padel schnuppern für Jugendliche von 10-16 Jahren" [level=3] [ref=e138]:
+                    - link "Ferien / Padel schnuppern für Jugendliche von 10-16 Jahren" [ref=e139] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/ferien-padel-schnuppern-fuer-jugendliche-2/
+                  - generic [ref=e140]: Anmeldeschluss 2. August Information & Anmeldung
+                  - link "Weiterlesen" [ref=e141] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/ferien-padel-schnuppern-fuer-jugendliche-2/
+                    - generic [ref=e142]: Weiterlesen
+                - generic [ref=e143]:
+                  - link "Ferien / Padel schnuppern für Jugendliche von 10-16 Jahren":
+                    - /url: https://www.sv-lichtenberg.at/ferien-padel-schnuppern-fuer-jugendliche-2/
+            - article [ref=e145]:
+              - generic [ref=e147]:
+                - generic [ref=e148]:
+                  - generic [ref=e149]:
+                    - link "Padel" [ref=e151] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/category/tennis/padel/
+                    - time [ref=e152]: 24. Juli 2019
+                  - heading "Lichtenberg eröffnet ersten Padel-Tennisplatz" [level=3] [ref=e153]:
+                    - link "Lichtenberg eröffnet ersten Padel-Tennisplatz" [ref=e154] [cursor=pointer]:
+                      - /url: https://www.sv-lichtenberg.at/lichtenberg-eroeffnet-ersten-padel-tennisplatz/
+                  - generic [ref=e155]: "Ganz Lichtenberg hat Grund zu feiern: Am 20. Juli wurde auf der neu sanierten Tennisanlage des SV Lichtenberg der erste Padelplatz Oberösterreichs eröffnet. Zahlreiche…"
+                  - link "Weiterlesen" [ref=e156] [cursor=pointer]:
+                    - /url: https://www.sv-lichtenberg.at/lichtenberg-eroeffnet-ersten-padel-tennisplatz/
+                    - generic [ref=e157]: Weiterlesen
+                - generic [ref=e158]:
+                  - link "Lichtenberg eröffnet ersten Padel-Tennisplatz":
+                    - /url: https://www.sv-lichtenberg.at/lichtenberg-eroeffnet-ersten-padel-tennisplatz/
+        - generic [ref=e166]:
+          - heading "Was ist Padel und was macht es so attraktiv?" [level=3] [ref=e169]
+          - paragraph [ref=e177]: Padel ist die am schnellsten wachsende Racket-Sportart der Welt. In Spanien und Lateinamerika ist es bereits sehr populär. Das Spiel gewinnt neue Unternehmen rund um den Globus. In Spanien alleine spielen 2,5 Millionen Menschen Padel und hat sich über die Jahre zu einer sozialen und sehr angesehenen Sportart entwickelt. Von der spielerischen Seite aus ist Padel ist eine Mischung aus Tennis und Squash und wird nur im Doppel gespielt. Gezählt wird nach den Tennisregeln, wobei die Wände beim Spiel miteinbezogen werden. Der Padelplatz ist etwa die Hälfte eines Tennisplatzes und ist auf allen Seiten (20 x 10 Meter) von Glas- und Gitterwänden umgeben. Wie beim Tennis wird der Platz durch ein Mittelnetz in zwei Spielhälften geteilt. Es wird mit Tennisbällen (Druckbälle) und Padelschlägern (elastische Schlagfläche) gespielt. Die Bälle sind handelsüblichen Tennisbällen sehr ähnlich, das Racket besteht aus einem Kunststoff, ist solide und somit nicht bespannt. Gezählt wird wie beim Tennis, gespielt wird auf zwei gewonnene Sätze. Im Vergleich zum Tennis ist der Aufschlag von unten und die Wände können – ähnlich dem Squash – miteinbezogen werden.
+        - generic [ref=e189]:
+          - heading "Impressionen" [level=2] [ref=e192]
+          - generic [ref=e194]:
+            - generic [ref=e195]:
+              - generic [ref=e197]:
+                - article [ref=e199]
+                - article [ref=e203]
+                - article [ref=e207]
+                - article [ref=e211]
+                - article [ref=e215]:
+                  - img "1. Padelturnier Juni 2020" [ref=e218]
+                - article [ref=e220]
+                - article [ref=e224]
+                - article [ref=e228]
+                - article [ref=e232]
+                - article [ref=e236]
+                - article [ref=e240]
+                - article [ref=e244]
+                - article [ref=e248]:
+                  - img "1. Padelturnier Juni 2020" [ref=e251]
+                - article [ref=e253]
+                - article [ref=e257]
+                - article [ref=e261]
+              - generic:
+                - button "Previous" [ref=e264] [cursor=pointer]: 
+                - button "Weiter" [ref=e265] [cursor=pointer]: 
+              - generic [ref=e266]:
+                - button [ref=e267] [cursor=pointer]
+                - button [ref=e269] [cursor=pointer]
+                - button [ref=e271] [cursor=pointer]
+            - generic:   
+        - generic [ref=e279]:
+          - heading "Die Padel-Regeln" [level=3] [ref=e282]
+          - generic [ref=e291]:
+            - paragraph [ref=e292]:
+              - text: Die Regeln von Padel ähneln grundlegend denen des Tennis-Doppelspiels. Ein ausführliches Regelwerk hält die Federación Internacional de Pádel auf ihrer Internetseite als
+              - link "Download" [ref=e293] [cursor=pointer]:
+                - /url: https://docs.wixstatic.com/ugd/b602c3_f2cea9c6d1fe4caea85d35f7ea396eb9.pdf
+              - text: (Englisch) bereit.
+            - paragraph [ref=e294]: Padel wird in der Regel im Doppel – zwei gegen zwei – gespielt. Die gegeneinander spielenden Teams stehen sich auf den durch das Netz geteilten Spielfeldhälften gegenüber.
+            - heading "Der Aufschlag" [level=6] [ref=e295]:
+              - strong [ref=e296]: Der Aufschlag
+            - paragraph [ref=e297]: Der Aufschlag wird als Unterhandschlag, man sagt auch „von unten“, ausgeführt. D.h., der Treffmoment von Schläger und Ball ist maximal auf Höhe der Hüfte oder darunter. Hierfür steht der Aufschläger mit beiden Füßen hinter der Aufschlaglinie und prellt den Ball hinter der Aufschlaglinie auf den Boden.
+            - paragraph [ref=e298]: Beim Treffmoment von Schläger und Ball hat der Aufschläger mit mindestens einem Fuß Bodenkontakt und spielt den Ball diagonal über das Netz in das schräg gegenüberliegende Aufschlagfeld.
+            - paragraph [ref=e299]: Berührt der Ball beim Aufschlag das Netz und setzt anschließend im richtigen Aufschlagfeld auf ohne vorher eine Seitenwand oder den Metallzaun zu berühren, wird ein „let“ gegeben und der Aufschlag ist zu wiederholen. Bei fehlerhaftem ersten Aufschlag wird auf derselben Aufschlagseite ein zweiter Aufschlag erlaubt.
+            - paragraph [ref=e300]: Der Aufschlag des ersten Punktes wird von der rechten Seite ausgeführt. Anschließend wird der Ball wechselseitig serviert.
+            - heading "Punktesystem" [level=6] [ref=e301]:
+              - strong [ref=e302]: Punktesystem
+            - paragraph [ref=e303]:
+              - text: "Ein Punkt gilt als verloren:"
+              - text: a) Bei zwei fehlerhaften Aufschlägen.
+              - text: b) Wenn der Ball so returniert wird, dass er im gegnerischen Spielfeld zuerst die Rück- oder Seitenwand oder den Metallzaun berührt, bevor er im Spielfeld aufsetzt.
+              - text: c) Wenn der Ball ein zweites Mal im eigenen Spielfeld aufsetzt, bevor er returniert werden kann.
+              - text: d) Wenn der Ball nach dem Schlagen den Metallzaun des eigenen Spielfeldes berührt. (Die Benutzung der eigenen Rück- oder Seitenwände ist erlaubt, um den Ball über das Netz zu spielen.)
+              - text: e) Wenn einer der Spieler, deren Schläger oder etwas, das sie mit sich führen das Netz, dessen Pfosten oder einen Teil des gegnerischen Spielfeldes berührt.
+              - text: f) Wenn nach dem Schlag der eigene Mitspieler getroffen wird.
+            - paragraph [ref=e304]:
+              - text: "Um ein Spiel zu gewinnen, sind mindestens vier Punkte erforderlich. Dazu werden jedoch mindestens zwei Punkte Vorsprung benötigt. Gezählt wird in der Reihenfolge 0, 15, 30, 40, Spiel. Haben beide Teams je drei Punkte erzielt, ist der Spielstand „40-40“ (sprich: „40 beide“ oder „deuce“)."
+              - text: Der nächste Punkt wird „Vorteil“ zugunsten des Gewinners des Punktes genannt. Erzielt das Team, welches im „Vorteil“ ist, ebenfalls den Folgepunkt, gewinnt es das Spiel. Verliert es ihn, geht der Spielstand zurück auf „deuce“. So wird weitergespielt, bis ein Team nach „deuce“ zwei Punkte in Folge gewinnen kann.
+            - paragraph [ref=e305]: Das Team, das als erstes sechs Spiele gewonnen hat und dabei mindestens zwei Spiele Vorsprung hat, gewinnt den Satz. Im Falle eines Unentschieden bei je fünf gewonnenen Spielen, kann der Satz demnach noch mit 7-5 gewonnen werden. Bei einem Stand von 6-6 wird ein Entscheidungsspiel, der sog. „Tie-break“ ausgespielt.
+            - paragraph [ref=e306]: Im „Tie-break“ wird 0, 1, 2, 3 usw. gezählt. Er wird von demjenigen Team gewonnen, das zuerst sieben Punkte erzielt. Auch hierfür sind mindestens zwei Punkte Vorsprung erforderlich. Der entsprechende Satz wird dann 7-6 gewertet.
+            - paragraph [ref=e307]: Ein Match wird je nach Turnierform durch zwei oder drei gewonnene Sätze entschieden.
+  - contentinfo [ref=e309]:
+    - generic [ref=e312]:
+      - paragraph [ref=e318]: © 2024 Sportverein Lichtenberg
+      - paragraph [ref=e324]:
+        - link "Impressum" [ref=e325] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/impressum/
+        - text: "|"
+        - link "Kontakt" [ref=e326] [cursor=pointer]:
+          - /url: https://www.sv-lichtenberg.at/verein/kontakt/
+      - paragraph [ref=e332]:
+        - text: Design von
+        - link "Christopher Rechberger" [ref=e333] [cursor=pointer]:
+          - /url: https://www.rechberger.io/
+  - button "Zurück nach oben" [ref=e334] [cursor=pointer]:
+    - generic [ref=e335]: 
+  - generic:
+    - dialog "Datenschutzeinstellungen":
+      - generic [ref=e338]:
+        - generic [ref=e342]:
+          - generic [ref=e343]:
+            - img [ref=e344]
+            - heading "Datenschutzeinstellungen" [level=3] [ref=e345]
+          - paragraph [ref=e346]:
+            - generic [ref=e347]: Wir nutzen Cookies auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern.
+            - generic [ref=e348]: Wenn Sie unter 16 Jahre alt sind und Ihre Zustimmung zu freiwilligen Diensten geben möchten, müssen Sie Ihre Erziehungsberechtigten um Erlaubnis bitten.
+            - text: Wir verwenden Cookies und andere Technologien auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung.
+            - generic [ref=e349]:
+              - text: Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer
+              - link "Datenschutzerklärung" [ref=e350] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+              - text: .
+            - generic [ref=e351]:
+              - text: Sie können Ihre Auswahl jederzeit unter
+              - link "Einstellungen" [ref=e352] [cursor=pointer]:
+                - /url: "#"
+              - text: widerrufen oder anpassen.
+          - group "Datenschutzeinstellungen" [ref=e353]:
+            - generic [ref=e354]: Datenschutzeinstellungen
+            - list [ref=e355]:
+              - listitem [ref=e356]:
+                - generic [ref=e357] [cursor=pointer]:
+                  - text: Essenziell
+                  - checkbox "Essenziell" [checked] [disabled] [ref=e358]: 
+              - listitem [ref=e360]:
+                - generic [ref=e361] [cursor=pointer]:
+                  - text: Statistiken
+                  - checkbox "Statistiken" [ref=e362]
+              - listitem [ref=e364]:
+                - generic [ref=e365] [cursor=pointer]:
+                  - text: Externe Medien
+                  - checkbox "Externe Medien" [ref=e366]
+          - paragraph [ref=e368]:
+            - button "Alle akzeptieren" [ref=e369] [cursor=pointer]
+          - paragraph [ref=e370]:
+            - button "Speichern" [active] [ref=e371] [cursor=pointer]
+          - paragraph [ref=e372]:
+            - button "Individuelle Datenschutzeinstellungen" [ref=e373] [cursor=pointer]
+          - paragraph [ref=e374]:
+            - button "Cookie-Details" [ref=e375] [cursor=pointer]
+            - generic [ref=e376]: "|"
+            - button "Datenschutzerklärung" [ref=e377] [cursor=pointer]
+            - generic [ref=e378]: "|"
+            - button "Impressum" [ref=e379] [cursor=pointer]
+        - generic [ref=e381]:
+          - generic [ref=e383]:
+            - generic [ref=e384]:
+              - img [ref=e385]
+              - heading [level=3] [ref=e386]: Datenschutzeinstellungen
+            - paragraph [ref=e387]:
+              - generic [ref=e388]: Wenn Sie unter 16 Jahre alt sind und Ihre Zustimmung zu freiwilligen Diensten geben möchten, müssen Sie Ihre Erziehungsberechtigten um Erlaubnis bitten.
+              - text: Wir verwenden Cookies und andere Technologien auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern. Personenbezogene Daten können verarbeitet werden (z. B. IP-Adressen), z. B. für personalisierte Anzeigen und Inhalte oder Anzeigen- und Inhaltsmessung.
+              - generic [ref=e389]:
+                - text: Weitere Informationen über die Verwendung Ihrer Daten finden Sie in unserer
+                - link [ref=e390] [cursor=pointer]:
+                  - /url: https://www.sv-lichtenberg.at/impressum/
+                  - text: Datenschutzerklärung
+                - text: .
+              - generic [ref=e391]: Hier finden Sie eine Übersicht über alle verwendeten Cookies. Sie können Ihre Einwilligung zu ganzen Kategorien geben oder sich weitere Informationen anzeigen lassen und so nur bestimmte Cookies auswählen.
+            - generic [ref=e392]:
+              - paragraph [ref=e394]:
+                - button [ref=e395] [cursor=pointer]: Alle akzeptieren
+                - button [ref=e396] [cursor=pointer]: Speichern
+              - paragraph [ref=e398]:
+                - button [ref=e399] [cursor=pointer]: Zurück
+          - group [ref=e401]:
+            - generic [ref=e402]: Datenschutzeinstellungen
+            - generic [ref=e403]:
+              - heading [level=4] [ref=e406] [cursor=pointer]: Essenziell (2)
+              - generic [ref=e408]:
+                - paragraph [ref=e409]: Essenzielle Cookies ermöglichen grundlegende Funktionen und sind für die einwandfreie Funktion der Website erforderlich.
+                - paragraph [ref=e410]:
+                  - button [ref=e411] [cursor=pointer]: Cookie-Informationen anzeigen
+            - generic [ref=e412]:
+              - generic [ref=e413]:
+                - heading [level=4] [ref=e415] [cursor=pointer]: Statistiken (1)
+                - generic [ref=e417] [cursor=pointer]:
+                  - generic [ref=e418]: Statistiken
+                  - generic [ref=e420]: Aus
+              - generic [ref=e421]:
+                - paragraph [ref=e422]: Statistik Cookies erfassen Informationen anonym. Diese Informationen helfen uns zu verstehen, wie unsere Besucher unsere Website nutzen.
+                - paragraph [ref=e423]:
+                  - button [ref=e424] [cursor=pointer]: Cookie-Informationen anzeigen
+              - text: Aus
+            - generic [ref=e425]:
+              - generic [ref=e426]:
+                - heading [level=4] [ref=e428] [cursor=pointer]: Externe Medien (1)
+                - generic [ref=e430] [cursor=pointer]:
+                  - generic [ref=e431]: Externe Medien
+                  - generic [ref=e433]: Aus
+              - generic [ref=e434]:
+                - paragraph [ref=e435]: Inhalte von Videoplattformen und Social-Media-Plattformen werden standardmäßig blockiert. Wenn Cookies von externen Medien akzeptiert werden, bedarf der Zugriff auf diese Inhalte keiner manuellen Einwilligung mehr.
+                - paragraph [ref=e436]:
+                  - button [ref=e437] [cursor=pointer]: Cookie-Informationen anzeigen
+              - text: Aus
+          - generic [ref=e438]:
+            - paragraph [ref=e439]:
+              - link [ref=e440] [cursor=pointer]:
+                - /url: https://de.borlabs.io/borlabs-cookie/
+                - img [ref=e441]
+                - text: powered by Borlabs Cookie
+            - paragraph [ref=e442]:
+              - link [ref=e443] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+                - text: Datenschutzerklärung
+              - generic [ref=e444]: "|"
+              - link [ref=e445] [cursor=pointer]:
+                - /url: https://www.sv-lichtenberg.at/impressum/
+                - text: Impressum

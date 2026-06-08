@@ -1,0 +1,3 @@
+- generic [active] [ref=e1]:
+  - heading "Locked" [level=1] [ref=e2]
+  - paragraph [ref=e3]: The requested resource is currently locked. The lock must be released or proper identification given before the method can be applied.

@@ -1,0 +1,129 @@
+- generic [ref=e2]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Eversports" [ref=e12]
+        - generic [ref=e25]:
+          - generic [ref=e28]:
+            - img [ref=e32]
+            - textbox "Ort" [ref=e35]:
+              - /placeholder: Wien, AT
+              - text: Wien, AT
+            - group
+          - generic [ref=e38]:
+            - img [ref=e42]
+            - textbox "Sport oder Anbieter" [ref=e44]:
+              - /placeholder: Suche nach einem Sport oder Anbieter
+            - group
+      - generic [ref=e45]:
+        - link "Für Unternehmen" [ref=e46] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - paragraph [ref=e47]: Für Unternehmen
+        - paragraph [ref=e48]: "|"
+        - link "Für Sportanbieter" [ref=e49] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - paragraph [ref=e50]: Für Sportanbieter
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: "|"
+          - link "User login" [ref=e54] [cursor=pointer]:
+            - /url: /auth
+            - paragraph [ref=e55]: Login
+          - link "Registrieren" [ref=e57] [cursor=pointer]:
+            - /url: /auth/register
+            - paragraph [ref=e58]: Registrieren
+  - main [ref=e59]:
+    - img "Not Found Image"
+    - link "Zurück zur Homepage" [ref=e60] [cursor=pointer]:
+      - /url: /
+      - button "Zurück zur Homepage" [ref=e61]:
+        - paragraph [ref=e62]: Zurück zur Homepage
+  - contentinfo:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - link "Du arbeitest im HR-Bereich? Entdecke alle Vorteile mit Eversports Corporate" [ref=e65] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e66]:
+            - paragraph [ref=e67]: Du arbeitest im HR-Bereich?
+            - paragraph [ref=e68]: Entdecke alle Vorteile mit Eversports Corporate
+        - link "Du betreibst ein Studio oder eine Sportanlage? Erfahre, wie du dein Business boosten kannst!" [ref=e69] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - generic [ref=e70]:
+            - paragraph [ref=e71]: Du betreibst ein Studio oder eine Sportanlage?
+            - paragraph [ref=e72]: Erfahre, wie du dein Business boosten kannst!
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - heading "Mehr über Eversports" [level=2] [ref=e76]
+            - link "Über uns" [ref=e77] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/
+            - link "Blog" [ref=e78] [cursor=pointer]:
+              - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+            - link "Jobs" [ref=e79] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/#jobs
+            - link "Sicherheit" [ref=e80] [cursor=pointer]:
+              - /url: /h/security
+            - link "Für Unternehmen" [ref=e81] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e82]:
+            - heading "Eversports Manager" [level=2] [ref=e83]
+            - link "Zur Webseite" [ref=e84] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+            - link "Preise" [ref=e85] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+            - link "Kostenlose Demo" [ref=e86] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - heading "Kontakt" [level=2] [ref=e89]
+            - link "Kontaktiere uns" [ref=e90] [cursor=pointer]:
+              - /url: /h/contact
+            - link "Impressum" [ref=e91] [cursor=pointer]:
+              - /url: /h/about
+            - link "Datenschutz" [ref=e92] [cursor=pointer]:
+              - /url: /h/privacy
+            - link "Erklärung zur Barrierefreiheit" [ref=e93] [cursor=pointer]:
+              - /url: /h/accessibility
+            - link "AGB" [ref=e94] [cursor=pointer]:
+              - /url: /h/terms
+            - button "Cookie-Einstellungen" [ref=e95] [cursor=pointer]
+            - link "Memberships kündigen" [ref=e96] [cursor=pointer]:
+              - /url: /h/cancel-membership
+          - generic [ref=e97]:
+            - generic [ref=e98]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e99]
+              - generic [ref=e100]:
+                - link "Eversports Facebook" [ref=e101] [cursor=pointer]:
+                  - /url: https://www.facebook.com/eversports
+                  - img "Facebook Badge" [ref=e105]
+                - link "Eversports Manager Youtube" [ref=e107] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                  - img [ref=e111]
+                - link "Eversports Instagram" [ref=e113] [cursor=pointer]:
+                  - /url: https://www.instagram.com/eversports_official/
+                  - img "Instagram Badge" [ref=e117]
+            - generic [ref=e119]:
+              - link "Eversports Apple App Store" [ref=e120] [cursor=pointer]:
+                - /url: https://itunes.apple.com/app/eversport-now/id946460861
+                - generic [ref=e121]:
+                  - img "app-store-badge" [ref=e122]
+                  - generic [ref=e123]:
+                    - paragraph [ref=e124]: Jetzt bei
+                    - paragraph [ref=e125]: App Store
+              - link "Eversports Google Play" [ref=e126] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - generic [ref=e127]:
+                  - img "play-store-badge" [ref=e128]
+                  - generic [ref=e129]:
+                    - paragraph [ref=e130]: Jetzt bei
+                    - paragraph [ref=e131]: Google Play
+      - generic [ref=e132]:
+        - generic [ref=e133]:
+          - img "Eversports Logo" [ref=e134]
+          - paragraph [ref=e135]: 2026 Eversports GmbH. Alle Rechte vorbehalten.
+        - generic [ref=e136]:
+          - img "Paypal ist eine akzeptierte Zahlunsart" [ref=e138]
+          - img "Mastercard ist eine akzeptierte Zahlunsart" [ref=e140]
+          - img "Visa ist eine akzeptierte Zahlunsart" [ref=e142]
+          - img "Klarna ist eine akzeptierte Zahlunsart" [ref=e144]

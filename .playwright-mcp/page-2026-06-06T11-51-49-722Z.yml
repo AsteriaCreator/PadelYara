@@ -1,0 +1,188 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+      - link " Anmelden" [ref=e20] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e21]: 
+        - text: Anmelden
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "Tennis" [ref=e28] [cursor=pointer]:
+          - /url: /reservierung?c=348
+      - listitem [ref=e29]:
+        - link "Padel" [ref=e30] [cursor=pointer]:
+          - /url: /reservierung?c=941
+      - listitem [ref=e31]:
+        - link "Spielguthaben" [ref=e32] [cursor=pointer]:
+          - /url: /spielguthaben
+      - listitem [ref=e33]:
+        - link "Mitgliedschaft" [ref=e34] [cursor=pointer]:
+          - /url: /mitgliedschaft
+      - listitem [ref=e35]:
+        - link "Registrierung" [ref=e36] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e38]:
+      - heading "Reservierung Padel" [level=1] [ref=e39]
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - generic [ref=e44] [cursor=pointer]: 
+              - generic [ref=e45] [cursor=pointer]: 
+            - generic [ref=e47]:
+              - link "Samstag 06.06.2026" [ref=e48] [cursor=pointer]:
+                - /url: "?c=941&d=1780722000"
+                - generic [ref=e49]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e51]:
+              - link "Sonntag 07.06.2026" [ref=e52] [cursor=pointer]:
+                - /url: "?c=941&d=1780808400"
+                - generic [ref=e53]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e55]:
+              - link "Montag 08.06.2026" [ref=e56] [cursor=pointer]:
+                - /url: "?c=941&d=1780894800"
+                - generic [ref=e57]: Montag
+                - text: 08.06.2026
+              - text: 
+            - generic [ref=e59]:
+              - link "Dienstag 09.06.2026" [ref=e60] [cursor=pointer]:
+                - /url: "?c=941&d=1780981200"
+                - generic [ref=e61]: Dienstag
+                - text: 09.06.2026
+              - text: 
+            - generic [ref=e62]:
+              - generic [ref=e63] [cursor=pointer]: 
+              - generic [ref=e64] [cursor=pointer]: 
+          - generic [ref=e65]:
+            - generic [ref=e67]: 07:00
+            - generic [ref=e69]: 07:30
+            - generic [ref=e71]: 08:00
+            - generic [ref=e73]: 08:30
+            - generic [ref=e75]: 09:00
+            - generic [ref=e77]: 09:30
+            - generic [ref=e79]: 10:00
+            - generic [ref=e81]: 10:30
+            - generic [ref=e83]: 11:00
+            - generic [ref=e85]: 11:30
+            - generic [ref=e87]: 12:00
+            - generic [ref=e89]: 12:30
+            - generic [ref=e91]: 13:00
+            - generic [ref=e93]: 13:30
+            - generic [ref=e95]: 14:00
+            - generic [ref=e97]: 14:30
+            - generic [ref=e99]: 15:00
+            - generic [ref=e101]: 15:30
+            - generic [ref=e103]: 16:00
+            - generic [ref=e105]: 16:30
+            - generic [ref=e107]: 17:00
+            - generic [ref=e109]: 17:30
+            - generic [ref=e111]: 18:00
+            - generic [ref=e113]: 18:30
+            - generic [ref=e115]: 19:00
+            - generic [ref=e117]: 19:30
+            - generic [ref=e119]: 20:00
+            - generic [ref=e121]: 20:30
+            - generic [ref=e123]: 21:00
+            - generic [ref=e125]: 21:30
+          - generic [ref=e127]:
+            - generic [ref=e128]:
+              - generic [ref=e131]: Padel
+              - generic [ref=e166]: Padel
+            - generic [ref=e167]:
+              - generic [ref=e170]: Padel
+              - generic [ref=e205]: Padel
+            - generic [ref=e206]:
+              - generic [ref=e209]: Padel
+              - generic [ref=e223] [cursor=pointer]: MS Göstling
+              - generic [ref=e241]: Padel
+            - generic [ref=e242]:
+              - generic [ref=e245]: Padel
+              - generic [ref=e278]: Padel
+          - generic [ref=e279]:
+            - generic [ref=e281]: 07:00
+            - generic [ref=e283]: 07:30
+            - generic [ref=e285]: 08:00
+            - generic [ref=e287]: 08:30
+            - generic [ref=e289]: 09:00
+            - generic [ref=e291]: 09:30
+            - generic [ref=e293]: 10:00
+            - generic [ref=e295]: 10:30
+            - generic [ref=e297]: 11:00
+            - generic [ref=e299]: 11:30
+            - generic [ref=e301]: 12:00
+            - generic [ref=e303]: 12:30
+            - generic [ref=e305]: 13:00
+            - generic [ref=e307]: 13:30
+            - generic [ref=e309]: 14:00
+            - generic [ref=e311]: 14:30
+            - generic [ref=e313]: 15:00
+            - generic [ref=e315]: 15:30
+            - generic [ref=e317]: 16:00
+            - generic [ref=e319]: 16:30
+            - generic [ref=e321]: 17:00
+            - generic [ref=e323]: 17:30
+            - generic [ref=e325]: 18:00
+            - generic [ref=e327]: 18:30
+            - generic [ref=e329]: 19:00
+            - generic [ref=e331]: 19:30
+            - generic [ref=e333]: 20:00
+            - generic [ref=e335]: 20:30
+            - generic [ref=e337]: 21:00
+            - generic [ref=e339]: 21:30
+        - generic [ref=e340]:
+          - heading "Preise/h" [level=3] [ref=e341]
+          - generic [ref=e342]: € 0
+        - generic [ref=e343]:
+          - heading "Farben" [level=3] [ref=e344]
+          - generic [ref=e345]: Mitglied
+          - generic [ref=e346]: Trainer
+          - generic [ref=e347]: Gastspieler
+    - contentinfo [ref=e348]:
+      - generic [ref=e350]:
+        - generic [ref=e351]:
+          - text: Union Tennis- & Padelclub Göstling an der Ybbs |
+          - link "Impressum" [ref=e352] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e353] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e354]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e355] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e357]:
+    - paragraph [ref=e358]:
+      - generic [ref=e359]:
+        - paragraph [ref=e360]:
+          - img "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e361]
+          - text: Union Tennis- & Padelclub Göstling an der Ybbs
+        - paragraph [ref=e362]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e363]:
+      - link "Einstellungen verwalten" [ref=e364] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e365]:
+        - button "Alle ablehnen" [ref=e366] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e367] [cursor=pointer]

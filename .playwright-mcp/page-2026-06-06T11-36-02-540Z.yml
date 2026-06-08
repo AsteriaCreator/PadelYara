@@ -1,0 +1,343 @@
+- generic [ref=e3]:
+  - navigation [ref=e4]:
+    - generic [ref=e6]:
+      - link "PadelBeach" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "PadelBeach" [ref=e8]
+      - generic [ref=e9]:
+        - button "Admin Login" [ref=e10] [cursor=pointer]:
+          - img [ref=e11]
+        - link "Jetzt buchen" [ref=e14] [cursor=pointer]:
+          - /url: https://buchung.padelbeach.at/reservierung
+          - img [ref=e15]
+          - text: Jetzt buchen
+  - generic [ref=e21]:
+    - link "Kinderpadel Camp · 06.–08. Juli Weitere Infos und Anmeldung" [ref=e23] [cursor=pointer]:
+      - /url: /kinderpadel-camp
+      - generic [ref=e25]:
+        - generic [ref=e26]: Kinderpadel Camp · 06.–08. Juli
+        - generic [ref=e27]: Weitere Infos und Anmeldung
+      - img [ref=e28]
+    - img "PadelBeach" [ref=e31]
+    - heading "Padel im Bezirk Mistelbach Outdoor & Indoor" [level=1] [ref=e32]:
+      - text: Padel im Bezirk Mistelbach
+      - generic [ref=e33]: Outdoor & Indoor
+    - paragraph [ref=e34]: Outdoor in Mistelbach · Indoor im RacketSpace Wilfersdorf · 6 Courts · Ganzjährig spielbar
+    - generic [ref=e35]:
+      - link "Auf Facebook ansehen" [ref=e36] [cursor=pointer]:
+        - /url: https://www.facebook.com/profile.php?id=61553999914154
+        - img [ref=e37]
+        - text: Auf Facebook ansehen
+      - link "WhatsApp Gruppe beitreten" [ref=e39] [cursor=pointer]:
+        - /url: https://chat.whatsapp.com/JxRlsCdqXhOEj3x59yiZJ0
+        - img [ref=e40]
+        - text: WhatsApp Gruppe beitreten
+  - generic [ref=e46]:
+    - heading "So funktioniert's" [level=2] [ref=e47]
+    - paragraph [ref=e48]: In drei einfachen Schritten zum Padel-Erlebnis
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e52]:
+          - img [ref=e54]
+          - generic [ref=e57]: "1"
+        - heading "Online buchen" [level=3] [ref=e58]
+        - paragraph [ref=e59]: Wähle deinen Wunschtermin über unser Buchungssystem
+      - generic [ref=e60]:
+        - generic [ref=e62]:
+          - img [ref=e64]
+          - generic [ref=e67]: "2"
+        - heading "Zugang erhalten" [level=3] [ref=e68]
+        - paragraph [ref=e69]: Du erhältst automatisch deinen Zugangscode per E-Mail
+      - generic [ref=e70]:
+        - generic [ref=e72]:
+          - img [ref=e74]
+          - generic [ref=e77]: "3"
+        - heading "Spielen & Spaß haben" [level=3] [ref=e78]
+        - paragraph [ref=e79]: Komm vorbei und genieße dein Padel-Match
+  - generic [ref=e81]:
+    - heading "Standorte & Zugang" [level=2] [ref=e82]
+    - paragraph [ref=e83]: Zwei Standorte, ein Buchungssystem – wähle deinen Lieblingsort
+    - generic [ref=e84]:
+      - generic [ref=e85]:
+        - generic [ref=e86]:
+          - img "PadelBeach Outdoor" [ref=e87]
+          - generic [ref=e89]:
+            - img [ref=e90]
+            - text: Outdoor
+        - generic [ref=e96]:
+          - heading "PadelBeach Outdoor" [level=3] [ref=e97]
+          - paragraph [ref=e98]: 4 Outdoor-Courts
+          - generic [ref=e99]:
+            - generic [ref=e100]:
+              - img [ref=e101]
+              - generic [ref=e104]:
+                - paragraph [ref=e105]: Mistelbach
+                - paragraph [ref=e106]: Mitschastraße, 2130 Mistelbach
+            - generic [ref=e107]:
+              - img [ref=e108]
+              - generic [ref=e111]: Täglich 7:00 – 23:00 Uhr
+            - generic [ref=e112]:
+              - img [ref=e113]
+              - generic [ref=e117]: Kostenlose Parkplätze direkt vor Ort
+          - iframe [ref=e119]:
+            - link "In Maps öffnen (wird in neuem Tab geöffnet)" [ref=f7e4] [cursor=pointer]:
+              - /url: about:invalid#zClosurez
+              - text: In Maps öffnen
+              - img [ref=f7e6]
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - img "PadelBeach Indoor" [ref=e122]
+          - generic [ref=e124]:
+            - img [ref=e125]
+            - text: Indoor
+        - generic [ref=e128]:
+          - heading "PadelBeach Indoor" [level=3] [ref=e129]
+          - paragraph [ref=e130]: 2 Indoor-Courts
+          - generic [ref=e131]:
+            - generic [ref=e132]:
+              - img [ref=e133]
+              - generic [ref=e136]:
+                - paragraph [ref=e137]: RacketSpace Wilfersdorf
+                - paragraph [ref=e138]: Mühlstraße 5, 2193 Wilfersdorf
+            - generic [ref=e139]:
+              - img [ref=e140]
+              - generic [ref=e143]: Täglich 5:00 – 24:00 Uhr
+            - generic [ref=e144]:
+              - img [ref=e145]
+              - generic [ref=e149]: Kostenlose Parkplätze vor dem Gebäude
+          - iframe [ref=e151]:
+            - link "In Maps öffnen (wird in neuem Tab geöffnet)" [ref=f8e4] [cursor=pointer]:
+              - /url: about:invalid#zClosurez
+              - text: In Maps öffnen
+              - img [ref=f8e6]
+    - generic [ref=e153]:
+      - img [ref=e155]
+      - generic [ref=e158]:
+        - heading "Zugang zum Court" [level=3] [ref=e159]
+        - paragraph [ref=e160]: Nach erfolgreicher Buchung erhältst du automatisch per E-Mail einen Zugangscode. Damit kannst du die Anlage zur gebuchten Zeit betreten – ganz ohne Wartezeit.
+  - generic [ref=e163]:
+    - heading "PadelBeach Indoor im RacketSpace Wilfersdorf" [level=3] [ref=e164]
+    - paragraph [ref=e165]: Der Indoor-Standort von PadelBeach befindet sich im RacketSpace Wilfersdorf – einer modernen Multisport-Anlage im Bezirk Mistelbach. PadelBeach betreibt dort die Indoor-Padelcourts, während der RacketSpace weitere Sportangebote unter einem Dach vereint.
+    - link "Mehr zum RacketSpace Wilfersdorf" [ref=e166] [cursor=pointer]:
+      - /url: https://www.racketspace.at
+      - text: Mehr zum RacketSpace Wilfersdorf
+      - img [ref=e167]
+  - generic [ref=e173]:
+    - generic [ref=e174]:
+      - generic [ref=e175]:
+        - img [ref=e177]
+        - heading "Turniere & Events" [level=2] [ref=e183]
+      - paragraph [ref=e184]: Nimm an offiziellen Turnieren teil und miss dich mit anderen Spielern! Unsere Turniere werden über die Austrian Padel Union (APU) abgewickelt und finden sowohl outdoor als auch indoor statt.
+      - generic [ref=e185]:
+        - heading "Aktuelle Turniere an unseren Standorten:" [level=3] [ref=e186]
+        - link "Turniere Outdoor Mistelbach" [ref=e187] [cursor=pointer]:
+          - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=94&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+          - generic [ref=e188]:
+            - img [ref=e190]
+            - generic [ref=e196]:
+              - generic [ref=e197]: Turniere Outdoor
+              - generic [ref=e198]: Mistelbach
+          - img [ref=e199]
+        - link "Turniere Indoor RacketSpace Wilfersdorf" [ref=e203] [cursor=pointer]:
+          - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=113&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+          - generic [ref=e204]:
+            - img [ref=e206]
+            - generic [ref=e212]:
+              - generic [ref=e213]: Turniere Indoor
+              - generic [ref=e214]: RacketSpace Wilfersdorf
+          - img [ref=e215]
+      - paragraph [ref=e220]:
+        - strong [ref=e221]: "Tipp:"
+        - text: Folge uns auf Facebook und WhatsApp, um keine Turniere und Events zu verpassen!
+    - img "PadelBeach Turniere und Events" [ref=e223]
+  - generic [ref=e226]:
+    - img "Padel Beach Bar Der Schirm - Beachbereich" [ref=e228]
+    - generic [ref=e229]:
+      - generic [ref=e230]:
+        - 'heading "Gastro vor Ort: Padel Beach Bar „Der Schirm\"" [level=2] [ref=e231]'
+        - paragraph [ref=e232]: Direkt bei den Outdoor-Courts erwartet dich unsere Padel Beach Bar „Der Schirm". Mit Beachbereich, entspannter Atmosphäre und kalten Drinks ist sie der Treffpunkt für After-Match-Drinks, Pausen zwischendurch und Sommerabende mit Freunden.
+      - list [ref=e233]:
+        - listitem [ref=e234]:
+          - generic [ref=e237]: Beachbereich direkt an den Outdoor-Courts
+        - listitem [ref=e238]:
+          - generic [ref=e241]: After-Match-Drinks & entspannte Lounge-Atmosphäre
+        - listitem [ref=e242]:
+          - generic [ref=e245]: Treffpunkt für Spieler, Zuschauer & Freunde
+        - listitem [ref=e246]:
+          - generic [ref=e249]: Extra Angebote für Gruppen
+        - listitem [ref=e250]:
+          - generic [ref=e253]: Teil von PadelBeach – Standort Outdoor Mistelbach
+      - link "Per WhatsApp fragen" [ref=e255] [cursor=pointer]:
+        - /url: https://wa.me/436649178674
+        - img [ref=e256]
+        - text: Per WhatsApp fragen
+  - generic [ref=e260]:
+    - generic [ref=e262]:
+      - img "Padel Turnier" [ref=e264]
+      - img "Padel Community" [ref=e266]
+    - generic [ref=e267]:
+      - heading "Aktiv. Regional. Community." [level=2] [ref=e268]
+      - paragraph [ref=e269]: Turniere, Matches & Events – das echte Leben von PadelBeach. Werde Teil unserer wachsenden Community im Bezirk Mistelbach.
+      - link "PadelBeach auf Facebook" [ref=e271] [cursor=pointer]:
+        - /url: https://www.facebook.com/profile.php?id=61553999914154
+        - img [ref=e272]
+        - text: PadelBeach auf Facebook
+  - generic [ref=e276]:
+    - img [ref=e278]
+    - heading "Ohne Spielpartner?" [level=2] [ref=e283]
+    - paragraph [ref=e284]: Alleine? Kein Problem – wir helfen dir, Mitspieler zu finden. In unserer WhatsApp-Gruppe findest du schnell andere Spieler aus der Region.
+    - link "WhatsApp-Gruppe beitreten" [ref=e285] [cursor=pointer]:
+      - /url: https://chat.whatsapp.com/JxRlsCdqXhOEj3x59yiZJ0
+      - img [ref=e286]
+      - text: WhatsApp-Gruppe beitreten
+  - generic [ref=e290]:
+    - generic [ref=e291]:
+      - heading "Padel Training im Bezirk Mistelbach" [level=2] [ref=e292]
+      - paragraph [ref=e293]: Individuelles Training für Einsteiger, Fortgeschrittene und Teams – flexibel und persönlich.
+      - generic [ref=e294]:
+        - generic [ref=e295]:
+          - img [ref=e297]
+          - generic [ref=e300]:
+            - heading "Einsteigertraining" [level=3] [ref=e301]
+            - paragraph [ref=e302]: Grundlagen, Schläge und Spielverständnis für Anfänger
+        - generic [ref=e303]:
+          - img [ref=e305]
+          - generic [ref=e310]:
+            - heading "Gruppentraining" [level=3] [ref=e311]
+            - paragraph [ref=e312]: Gemeinsam lernen und spielen in kleinen Gruppen
+        - generic [ref=e313]:
+          - img [ref=e315]
+          - generic [ref=e318]:
+            - heading "Einzeltraining" [level=3] [ref=e319]
+            - paragraph [ref=e320]: Individuelles Coaching für schnelle Fortschritte
+      - paragraph [ref=e321]: Betreuung durch erfahrene, APU-lizenzierte Trainer.
+      - link "Training per WhatsApp anfragen" [ref=e322] [cursor=pointer]:
+        - /url: https://wa.me/436649178674?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Padel%20Training
+        - img [ref=e323]
+        - text: Training per WhatsApp anfragen
+    - img "Padel Training" [ref=e327]
+  - generic [ref=e330]:
+    - heading "Erstes Mal Padel?" [level=2] [ref=e331]
+    - paragraph [ref=e332]: Keine Sorge – der Einstieg ist einfacher als du denkst.
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - img [ref=e336]
+        - generic [ref=e339]: Keine Vorkenntnisse nötig
+      - generic [ref=e340]:
+        - img [ref=e341]
+        - generic [ref=e344]: Leihschläger vorhanden
+      - generic [ref=e345]:
+        - img [ref=e346]
+        - generic [ref=e349]: Normale Sportschuhe ausreichend
+  - generic [ref=e351]:
+    - generic [ref=e352]:
+      - heading "FAQ – Häufige Fragen" [level=2] [ref=e353]
+      - paragraph [ref=e354]: Hier findest du Antworten auf die wichtigsten Fragen rund um PadelBeach
+    - generic [ref=e355]:
+      - generic [ref=e356]:
+        - button "Wie buche ich einen Court?" [ref=e357] [cursor=pointer]:
+          - generic [ref=e358]: Wie buche ich einen Court?
+          - img [ref=e359]
+        - generic [ref=e361]: Über unsere Buchungsplattform. Dort siehst du alle freien Zeiten und kannst direkt reservieren.
+      - generic [ref=e362]:
+        - button "Gibt es Leihschläger und Bälle?" [ref=e363] [cursor=pointer]:
+          - generic [ref=e364]: Gibt es Leihschläger und Bälle?
+          - img [ref=e365]
+        - generic [ref=e367]: Ja, Leihschläger und Bälle stehen kostenlos zur Verfügung. Wenn du neu bist oder Fragen hast, schreib uns einfach auf WhatsApp.
+      - generic [ref=e368]:
+        - button "Wo befinden sich die Standorte?" [ref=e369] [cursor=pointer]:
+          - generic [ref=e370]: Wo befinden sich die Standorte?
+          - img [ref=e371]
+        - generic [ref=e373]: "PadelBeach hat zwei Standorte im Bezirk Mistelbach: – Outdoor in Mistelbach (4 Courts, Beachbereich, Padel Beach Bar \"Der Schirm\") – Indoor im RacketSpace Wilfersdorf (2 Courts) Beide Standorte sind ganzjährig geöffnet und bespielbar."
+      - generic [ref=e374]:
+        - button "Gibt es Trainings oder Trainer?" [ref=e375] [cursor=pointer]:
+          - generic [ref=e376]: Gibt es Trainings oder Trainer?
+          - img [ref=e377]
+        - generic [ref=e379]: Ja, es gibt Trainingsmöglichkeiten. Kontaktiere uns am besten direkt per WhatsApp für Details.
+      - generic [ref=e380]:
+        - button "Wo finde ich Infos zu Turnieren?" [ref=e381] [cursor=pointer]:
+          - generic [ref=e382]: Wo finde ich Infos zu Turnieren?
+          - img [ref=e383]
+        - generic [ref=e386]:
+          - paragraph [ref=e387]: "Turniere werden über die APU abgewickelt und extern verlinkt. Aktuelle Turniere auf unseren Standorten findest du unter folgenden Links:"
+          - generic [ref=e388]:
+            - link "Turniere Outdoor" [ref=e389] [cursor=pointer]:
+              - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=94&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+              - img [ref=e390]
+              - text: Turniere Outdoor
+            - link "Turniere Indoor" [ref=e394] [cursor=pointer]:
+              - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=113&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+              - img [ref=e395]
+              - text: Turniere Indoor
+      - generic [ref=e399]:
+        - button "Wie funktioniert der Zugang zur Anlage?" [ref=e400] [cursor=pointer]:
+          - generic [ref=e401]: Wie funktioniert der Zugang zur Anlage?
+          - img [ref=e402]
+        - generic [ref=e404]: Der Zugang ist unkompliziert. Du bekommst bei der Buchung einen Code. Mit diesem kannst du dann die Anlage frühestens eine halbe Stunde vor der Buchungszeit und spätestens eine halbe Stunde nach der Buchungszeit betreten.
+      - generic [ref=e405]:
+        - button "Sind Gruppen oder Firmenbuchungen möglich?" [ref=e406] [cursor=pointer]:
+          - generic [ref=e407]: Sind Gruppen oder Firmenbuchungen möglich?
+          - img [ref=e408]
+        - generic [ref=e410]: Ja. Gruppen, Firmen und Events sind möglich. Schreib uns auf WhatsApp, wir planen das flexibel.
+  - contentinfo [ref=e411]:
+    - generic [ref=e412]:
+      - generic [ref=e413]:
+        - img "PadelBeach" [ref=e414]
+        - paragraph [ref=e415]: Padel im Bezirk Mistelbach
+      - generic [ref=e416]:
+        - generic [ref=e417]:
+          - heading "PadelBeach" [level=3] [ref=e418]
+          - navigation [ref=e419]:
+            - link "Events" [ref=e420] [cursor=pointer]:
+              - /url: /events
+              - img [ref=e421]
+              - text: Events
+            - link "So funktioniert's" [ref=e423] [cursor=pointer]:
+              - /url: "#how-it-works"
+            - link "Standorte" [ref=e424] [cursor=pointer]:
+              - /url: "#standorte"
+            - link "Gastro" [ref=e425] [cursor=pointer]:
+              - /url: "#gastro"
+            - link "Community" [ref=e426] [cursor=pointer]:
+              - /url: "#community"
+            - link "Partner finden" [ref=e427] [cursor=pointer]:
+              - /url: "#find-partner"
+            - link "Training" [ref=e428] [cursor=pointer]:
+              - /url: "#training"
+            - link "Erstes Mal" [ref=e429] [cursor=pointer]:
+              - /url: "#first-time"
+            - link "FAQ" [ref=e430] [cursor=pointer]:
+              - /url: "#faq"
+        - generic [ref=e431]:
+          - heading "Kontakt" [level=3] [ref=e432]
+          - generic [ref=e433]:
+            - link "Jetzt buchen" [ref=e434] [cursor=pointer]:
+              - /url: https://buchung.padelbeach.at/reservierung
+              - img [ref=e435]
+              - text: Jetzt buchen
+            - link "WhatsApp – Direktkontakt" [ref=e439] [cursor=pointer]:
+              - /url: https://wa.me/436649178674
+              - img [ref=e440]
+              - text: WhatsApp – Direktkontakt
+            - link "Facebook" [ref=e444] [cursor=pointer]:
+              - /url: https://www.facebook.com/profile.php?id=61553999914154
+              - img [ref=e445]
+              - text: Facebook
+        - generic [ref=e449]:
+          - heading "Standorte & Netzwerk" [level=3] [ref=e450]
+          - generic [ref=e451]:
+            - paragraph [ref=e452]: PadelBeach Outdoor – Mistelbach
+            - paragraph [ref=e453]: PadelBeach Indoor – RacketSpace Wilfersdorf
+            - link "RacketSpace Wilfersdorf" [ref=e454] [cursor=pointer]:
+              - /url: https://www.racketspace.at
+              - img [ref=e455]
+              - text: RacketSpace Wilfersdorf
+      - generic [ref=e459]:
+        - generic [ref=e460]:
+          - paragraph [ref=e461]: © 2026 PadelBeach
+          - paragraph [ref=e462]: Ein Angebot der Stoihauser GmbH
+        - generic [ref=e463]:
+          - link "Impressum" [ref=e464] [cursor=pointer]:
+            - /url: /impressum
+          - link "Datenschutz" [ref=e465] [cursor=pointer]:
+            - /url: /datenschutz

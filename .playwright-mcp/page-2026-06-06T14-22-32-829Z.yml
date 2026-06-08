@@ -1,0 +1,278 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - img "hauptgrafik" [ref=e4]
+      - link "logo" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "logo" [ref=e6]
+      - navigation [ref=e8]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - link "STARTSEITE" [ref=e11] [cursor=pointer]:
+              - /url: /STARTSEITE/
+          - listitem [ref=e12]:
+            - link "Meisterschaft" [ref=e13] [cursor=pointer]:
+              - /url: /Meisterschaft/
+          - listitem [ref=e14]:
+            - link "PADELANLAGEN" [ref=e15] [cursor=pointer]:
+              - /url: /PADELANLAGEN/
+          - listitem [ref=e16]:
+            - link "WAS IST PADEL" [ref=e17] [cursor=pointer]:
+              - /url: /WAS-IST-PADEL/
+          - listitem [ref=e18]:
+            - link "ARCHIV" [ref=e19] [cursor=pointer]:
+              - /url: /ARCHIV/
+          - listitem [ref=e20]:
+            - link "Der Vorstand" [ref=e21] [cursor=pointer]:
+              - /url: /Der-Vorstand/
+    - generic [ref=e22]:
+      - main [ref=e24]:
+        - heading "Gössendorf - Kimasol" [level=1] [ref=e25]
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e29]:
+              - list [ref=e30]:
+                - listitem [ref=e31]:
+                  - generic [ref=e32]:
+                    - generic:
+                      - img "Kimasol_Gastro"
+                - listitem [ref=e33]:
+                  - generic [ref=e34]:
+                    - generic:
+                      - img "Kimasol_Padel"
+              - list [ref=e36]:
+                - listitem [ref=e37] [cursor=pointer]:
+                  - generic [ref=e38]:
+                    - generic:
+                      - img "Kimasol_Gastro"
+                - listitem [ref=e39] [cursor=pointer]:
+                  - generic [ref=e40]:
+                    - generic:
+                      - img "Kimasol_Padel"
+              - generic [ref=e42] [cursor=pointer]: 
+              - generic [ref=e44] [cursor=pointer]: 
+              - generic [ref=e46] [cursor=pointer]: 
+            - paragraph [ref=e47]
+          - paragraph [ref=e49]:
+            - text: "Courts: 3 x Outdoor, Flutlicht"
+            - generic [ref=e50]: "Standort:"
+            - text: Hauptstraße 121, 8077 Gössendorf
+            - generic [ref=e51]:
+              - text: "Buchung:"
+              - link "https://kimasol.at/reservierung-preise/" [ref=e52] [cursor=pointer]:
+                - /url: https://kimasol.at/reservierung-preise/
+            - generic [ref=e53]: "Gastronomie:"
+            - text: FAMILIE KAMPUSCH
+            - text: "Homepage:"
+            - link "https://kimasol.at/" [ref=e54] [cursor=pointer]:
+              - /url: https://kimasol.at/
+        - heading "Deutschfeistritz - Padelbär" [level=2] [ref=e55]: Deutschfeistritz - Padelbär
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e59]:
+              - list [ref=e60]:
+                - listitem [ref=e61]:
+                  - generic [ref=e62]:
+                    - generic:
+                      - img "B&auml;r2"
+                - listitem [ref=e63]:
+                  - generic [ref=e64]:
+                    - generic:
+                      - img "B&auml;r1"
+              - list [ref=e66]:
+                - listitem [ref=e67] [cursor=pointer]:
+                  - generic [ref=e68]:
+                    - generic:
+                      - img "B&auml;r2"
+                - listitem [ref=e69] [cursor=pointer]:
+                  - generic [ref=e70]:
+                    - generic:
+                      - img "B&auml;r1"
+              - generic [ref=e72] [cursor=pointer]: 
+              - generic [ref=e74] [cursor=pointer]: 
+              - generic [ref=e76] [cursor=pointer]: 
+            - paragraph [ref=e77]
+          - generic [ref=e78]:
+            - paragraph [ref=e79]:
+              - text: "Courts: 2 x Outdoor, Flutlicht"
+              - text: "Standort: Ferdinand Gasse 4, 8121 Deutschfeistritz"
+              - text: "Buchung:"
+              - link "https://reservierung.padelbaer.at/reservierung" [ref=e80] [cursor=pointer]:
+                - /url: https://reservierung.padelbaer.at/reservierung
+              - text: "Gastronomie: Timeout Deutschfeistritz"
+              - text: "Homepage:"
+              - link "https://www.padelbaer.at/" [ref=e81] [cursor=pointer]:
+                - /url: https://www.padelbaer.at/
+            - paragraph [ref=e82]
+            - paragraph [ref=e83]
+            - paragraph [ref=e84]
+            - paragraph [ref=e85]
+        - heading "The Padel Park" [level=2] [ref=e86]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e90]:
+              - list [ref=e91]:
+                - listitem [ref=e92]:
+                  - generic [ref=e93]:
+                    - generic:
+                      - img "1b26a1e4-be17-4129-a255-52119eed6c4c"
+                - listitem [ref=e94]:
+                  - generic [ref=e95]:
+                    - generic:
+                      - img "a7040bb2-4b68-4022-b49d-9826d7749680"
+              - list [ref=e97]:
+                - listitem [ref=e98] [cursor=pointer]:
+                  - generic [ref=e99]:
+                    - generic:
+                      - img "1b26a1e4-be17-4129-a255-52119eed6c4c"
+                - listitem [ref=e100] [cursor=pointer]:
+                  - generic [ref=e101]:
+                    - generic:
+                      - img "a7040bb2-4b68-4022-b49d-9826d7749680"
+              - generic [ref=e103] [cursor=pointer]: 
+              - generic [ref=e105] [cursor=pointer]: 
+              - generic [ref=e107] [cursor=pointer]: 
+            - paragraph [ref=e108]
+          - generic [ref=e109]:
+            - paragraph [ref=e110]:
+              - generic [ref=e111]: "Courts:"
+              - text: 3 x Indoor, Flutlicht
+              - text: "Standort: Unterer Windhof 18, 8102 Semriach"
+              - text: "Gastronomie: Trattner -"
+              - link "https://dertrattner.at/" [ref=e112] [cursor=pointer]:
+                - /url: https://dertrattner.at/
+            - paragraph [ref=e113]:
+              - text: "Homepage/Buchung:"
+              - link "https://thepadelpark.at" [ref=e114] [cursor=pointer]:
+                - /url: https://thepadelpark.at
+        - paragraph [ref=e115]
+        - paragraph [ref=e116]: Tapedesign Wildon
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - generic [ref=e120]:
+              - list [ref=e121]:
+                - listitem [ref=e122]:
+                  - generic [ref=e123]:
+                    - generic:
+                      - img "TD-Wildon2"
+                - listitem [ref=e124]:
+                  - generic [ref=e125]:
+                    - generic:
+                      - img "TD-Wildon"
+              - list [ref=e127]:
+                - listitem [ref=e128] [cursor=pointer]:
+                  - generic [ref=e129]:
+                    - generic:
+                      - img "TD-Wildon2"
+                - listitem [ref=e130] [cursor=pointer]:
+                  - generic [ref=e131]:
+                    - generic:
+                      - img "TD-Wildon"
+              - generic [ref=e133] [cursor=pointer]: 
+              - generic [ref=e135] [cursor=pointer]: 
+              - generic [ref=e137] [cursor=pointer]: 
+            - paragraph [ref=e138]
+          - generic [ref=e139]:
+            - paragraph [ref=e140]: "Courts: 4 x Indoor, Flutlicht"
+            - paragraph [ref=e141]: "Standort: Südbahnweg 31, 8410 Wildon"
+            - paragraph [ref=e142]: "Gastronomie: Automaten vor Ort"
+            - paragraph [ref=e143]:
+              - text: "Homepage/Buchung:"
+              - link "https://padel-center.at/" [ref=e144] [cursor=pointer]:
+                - /url: https://padel-center.at/
+        - paragraph [ref=e145]: Padeldynamics - Kainbach b. Graz
+        - generic [ref=e146]:
+          - generic [ref=e147]:
+            - img "Bild von Vincenzo Morelli aus Unsplash" [ref=e151]
+            - paragraph [ref=e152]
+          - generic [ref=e153]:
+            - paragraph [ref=e154]: "Courts: 5 x Indoor, Flutlicht"
+            - paragraph [ref=e155]: "Standort: Hönigtalerstraße 46, 8301 Kainbach"
+            - paragraph [ref=e156]: "Gastronomie: Automaten vor Ort"
+            - paragraph [ref=e157]:
+              - text: "Homepage/Buchung:"
+              - link "https://padeldynamics.at/" [ref=e158] [cursor=pointer]:
+                - /url: https://padeldynamics.at/
+            - paragraph [ref=e159]
+        - heading "Hart bei Graz - P9 Racketzone" [level=2] [ref=e160]
+        - generic [ref=e161]:
+          - generic [ref=e162]:
+            - paragraph [ref=e163]
+            - paragraph [ref=e164]
+          - generic [ref=e165]:
+            - paragraph [ref=e166]: "Courts: 2x Outdoor, Flutlicht"
+            - paragraph [ref=e167]: "Standort: Hahnhofweg 22, 8075 Hart bei Graz"
+            - paragraph [ref=e168]:
+              - generic [ref=e169]: "Gastronomie: Golfclub Klockerhof, Getränkeautomaten"
+            - paragraph [ref=e170]:
+              - text: "Homepage/Buchung:"
+              - link "https://www.p9-racketzone.at/" [ref=e172] [cursor=pointer]:
+                - /url: https://www.p9-racketzone.at/
+        - heading "Gleisdorf - P9 Freiberg" [level=2] [ref=e173]
+        - generic [ref=e174]:
+          - paragraph [ref=e176]
+          - generic [ref=e177]:
+            - paragraph [ref=e178]: "Courts: 3x Otdoor, Flutlicht"
+            - paragraph [ref=e179]: "Standort: Freiberg W. 32, 8200 Gleisdorf"
+            - paragraph [ref=e180]: "Gastronomie: Golfclub Freiberg, Getränkeautomaten"
+            - paragraph [ref=e181]:
+              - text: "Homepage/Buchung:"
+              - link "https://www.gc-gut-freiberg.at/p9-racketzone-padel-tennis/" [ref=e182] [cursor=pointer]:
+                - /url: https://www.gc-gut-freiberg.at/p9-racketzone-padel-tennis/
+      - complementary [ref=e184]:
+        - paragraph [ref=e185]: Sponsoren
+        - link [ref=e188] [cursor=pointer]:
+          - /url: https://www.babolat.com/at/padel.html
+        - paragraph [ref=e190]
+        - link [ref=e193] [cursor=pointer]:
+          - /url: https://www.murauerbier.at/
+        - paragraph [ref=e195]
+        - link [ref=e198] [cursor=pointer]:
+          - /url: https://kanziapple.com/at/
+        - paragraph [ref=e200]
+        - paragraph [ref=e203]: Mitglieder
+        - link [ref=e206] [cursor=pointer]:
+          - /url: https://www.padel-box.at/
+        - paragraph [ref=e208]
+        - link [ref=e211] [cursor=pointer]:
+          - /url: https://bruck-padel.tennisplatz.info/
+        - paragraph [ref=e213]
+        - link [ref=e216] [cursor=pointer]:
+          - /url: https://www.uhrturmtrophy.at/
+        - paragraph [ref=e218]
+        - link [ref=e221] [cursor=pointer]:
+          - /url: https://rscg.at/
+        - paragraph [ref=e223]
+        - link [ref=e226] [cursor=pointer]:
+          - /url: https://www.thepadelpark.at/
+        - paragraph [ref=e228]
+        - link [ref=e231] [cursor=pointer]:
+          - /url: https://padellounge.at/
+        - paragraph [ref=e233]
+        - link [ref=e236] [cursor=pointer]:
+          - /url: https://wilhelmer.net/
+        - link [ref=e240] [cursor=pointer]:
+          - /url: https://kimasol.at/
+        - link [ref=e244] [cursor=pointer]:
+          - /url: https://www.padelbaer.at/
+        - link [ref=e248] [cursor=pointer]:
+          - /url: https://www.instagram.com/sfpadelgraz/
+        - link [ref=e252] [cursor=pointer]:
+          - /url: https://sportunion-tennis.at/padel-tennis-center-woerthersee/
+        - link [ref=e256] [cursor=pointer]:
+          - /url: https://www.p9-racketzone.at/
+        - link [ref=e260] [cursor=pointer]:
+          - /url: https://padel-center.at/
+        - link [ref=e264] [cursor=pointer]:
+          - /url: https://uwk-sport.at/padel/
+        - paragraph [ref=e269]
+        - paragraph [ref=e270]
+        - paragraph [ref=e271]
+      - contentinfo [ref=e273]:
+        - text: "Impressum:"
+        - text: Steirischer Padel Verband
+        - text: "Sitz: Koloman-Wallisch-Platz 23, 8600 Bruck an der Mur, Österreich"
+        - text: info@padel-steiermark.at
+        - link "Der Vorstand" [ref=e275] [cursor=pointer]:
+          - /url: /Der-Vorstand/
+  - text:                            

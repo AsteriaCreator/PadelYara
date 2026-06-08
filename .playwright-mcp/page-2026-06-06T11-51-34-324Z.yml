@@ -1,0 +1,166 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+      - link " Anmelden" [ref=e20] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e21]: 
+        - text: Anmelden
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "News" [ref=e28] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e29]:
+        - link "Mitglieds- & Platzgebühren" [ref=e30] [cursor=pointer]:
+          - /url: /s/Mitglieds____Platzgebuehren
+      - listitem [ref=e31]:
+        - link "Anfahrt & Kontakt" [ref=e32] [cursor=pointer]:
+          - /url: /s/Anfahrt___Kontakt
+      - listitem [ref=e33]:
+        - link "Platzordnung" [ref=e34] [cursor=pointer]:
+          - /url: /s/Platzordnung
+      - listitem [ref=e35]:
+        - link "Registrierung" [ref=e36] [cursor=pointer]:
+          - /url: https://reservierung.utpc-goestling.at/registrieren
+      - listitem [ref=e37]:
+        - link "Instagram" [ref=e38] [cursor=pointer]:
+          - /url: https://www.instagram.com/utpc_goestling_hochkar?igsh=MXNmZTBlMXZ2bGtxbw==
+      - listitem [ref=e39]:
+        - link "Mannschaften" [ref=e40] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e41]:
+        - link "Veranstaltungen" [ref=e42] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e43]:
+        - link "Mitgliedschaft" [ref=e44] [cursor=pointer]:
+          - /url: /mitgliedschaft
+      - listitem [ref=e45]:
+        - link "Registrierung" [ref=e46] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e48]:
+      - heading "Startseite" [level=1] [ref=e49]
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - link "Kinder- und Jugendcamp 2026" [ref=e54] [cursor=pointer]:
+              - /url: /news-31112-Kinder__und_Jugendcamp_2026
+              - img "Kinder- und Jugendcamp 2026" [ref=e55]
+            - generic [ref=e56]:
+              - heading "Kinder- und Jugendcamp 2026" [level=2] [ref=e57]:
+                - link "Kinder- und Jugendcamp 2026" [ref=e58] [cursor=pointer]:
+                  - /url: /news-31112-Kinder__und_Jugendcamp_2026
+              - paragraph [ref=e59]: Kinder- und Jugendcamp Juli 2026
+              - generic [ref=e60]:
+                - generic [ref=e61]:
+                  - img "User Image" [ref=e62]
+                  - text: Klaus Blaimauer
+                - text: ", 19. Mai 2026"
+              - link " Mehr dazu" [ref=e63] [cursor=pointer]:
+                - /url: /news-31112-Kinder__und_Jugendcamp_2026
+                - generic [ref=e64]: 
+                - text: Mehr dazu
+          - generic [ref=e65]:
+            - link "Termine Mannschaftsmeisterschaft 2026" [ref=e67] [cursor=pointer]:
+              - /url: /news-29354-Termine_Mannschaftsmeisterschaft_2026
+              - img "Termine Mannschaftsmeisterschaft 2026" [ref=e68]
+            - generic [ref=e69]:
+              - heading "Termine Mannschaftsmeisterschaft 2026" [level=2] [ref=e70]:
+                - link "Termine Mannschaftsmeisterschaft 2026" [ref=e71] [cursor=pointer]:
+                  - /url: /news-29354-Termine_Mannschaftsmeisterschaft_2026
+              - paragraph [ref=e72]: Die Termine für die Kreismeisterschaften unserer 3 Mannschaften sind online!
+              - generic [ref=e73]:
+                - generic [ref=e74]:
+                  - img "User Image" [ref=e75]
+                  - text: Klaus Blaimauer
+                - text: ", 04. März 2026"
+              - link " Mehr dazu" [ref=e76] [cursor=pointer]:
+                - /url: /news-29354-Termine_Mannschaftsmeisterschaft_2026
+                - generic [ref=e77]: 
+                - text: Mehr dazu
+          - generic [ref=e78]:
+            - link "Padelsaison 2026 eröffnet" [ref=e80] [cursor=pointer]:
+              - /url: /news-2994-Padelsaison_2026_eroeffnet
+              - img "Padelsaison 2026 eröffnet" [ref=e81]
+            - generic [ref=e82]:
+              - heading "Padelsaison 2026 eröffnet" [level=2] [ref=e83]:
+                - link "Padelsaison 2026 eröffnet" [ref=e84] [cursor=pointer]:
+                  - /url: /news-2994-Padelsaison_2026_eroeffnet
+              - paragraph [ref=e85]: Frühlingserwachen am Padelcourt! ☀️
+              - generic [ref=e86]:
+                - generic [ref=e87]:
+                  - img "User Image" [ref=e88]
+                  - text: Klaus Blaimauer
+                - text: ", 16. April 2020"
+              - link " Mehr dazu" [ref=e89] [cursor=pointer]:
+                - /url: /news-2994-Padelsaison_2026_eroeffnet
+                - generic [ref=e90]: 
+                - text: Mehr dazu
+          - link " weitere News im Archiv" [ref=e92] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e93]: 
+            - text: weitere News im Archiv
+        - generic [ref=e94]:
+          - generic [ref=e95]:
+            - generic [ref=e96]: 
+            - heading "aktuelle Termine" [level=2] [ref=e97]
+            - generic [ref=e99]:
+              - link "Vereinsmeisterschaften Tennis" [ref=e100] [cursor=pointer]:
+                - /url: /event-61965-vereinsmeisterschaften_tennis
+                - heading "Vereinsmeisterschaften Tennis" [level=4] [ref=e101]
+              - text: ", Anlage UTPC Göstling/Ybbs"
+              - paragraph [ref=e102]:
+                - text: Samstag, 15. August 2026 bis
+                - text: Sonntag, 23. August 2026
+          - generic [ref=e104]:
+            - heading "Anfahrt" [level=2] [ref=e105]
+            - paragraph [ref=e106]: "Adresse: Steinbachmauer 33, 3345 Göstling an der Ybbs"
+            - generic [ref=e112]:
+              - paragraph [ref=e113]: Möchten Sie von Google Map bereitgestellte externe Inhalte laden?
+              - paragraph [ref=e114]:
+                - button "Ja" [ref=e115] [cursor=pointer]
+                - button "Immer" [ref=e116] [cursor=pointer]
+    - contentinfo [ref=e118]:
+      - generic [ref=e120]:
+        - generic [ref=e121]:
+          - text: Union Tennis- & Padelclub Göstling an der Ybbs |
+          - link "Impressum" [ref=e122] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e123] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e124]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e125] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e127]:
+    - paragraph [ref=e128]:
+      - generic [ref=e129]:
+        - paragraph [ref=e130]:
+          - img "Union Tennis- & Padelclub Göstling an der Ybbs" [ref=e131]
+          - text: Union Tennis- & Padelclub Göstling an der Ybbs
+        - paragraph [ref=e132]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e133]:
+      - link "Einstellungen verwalten" [ref=e134] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e135]:
+        - button "Alle ablehnen" [ref=e136] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e137] [cursor=pointer]

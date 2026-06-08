@@ -1,0 +1,458 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - combobox [ref=e9] [cursor=pointer]:
+        - textbox "Deutsch" [ref=e10]:
+          - img [ref=e11]
+      - generic [ref=e13]:
+        - link "Padelarea Anthering" [ref=e14] [cursor=pointer]:
+          - /url: /
+          - img "Padelarea Anthering" [ref=e15]
+        - link "eTennis" [ref=e16] [cursor=pointer]:
+          - /url: https://www.etennis.at
+          - img "eTennis" [ref=e17]
+        - generic [ref=e18]:
+          - link "Padelarea Anthering" [ref=e19] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e20]:
+            - link "  Info" [ref=e21] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e22]:  
+              - text: Info
+            - link "  Reservierung" [ref=e23] [cursor=pointer]:
+              - /url: /reservierung
+              - generic [ref=e24]:  
+              - text: Reservierung
+            - 'link "# ## Instagram" [ref=e25] [cursor=pointer]':
+              - /url: https://www.instagram.com/padelarea_anthering/
+              - generic [ref=e26]: "# ##"
+              - text: Instagram
+            - link "  Whatsapp" [ref=e27] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/DnbEvxluJFOJWuLolZLkEW
+              - generic [ref=e28]:  
+              - text: Whatsapp
+        - link " Anmelden" [ref=e30] [cursor=pointer]:
+          - /url: "#login"
+          - generic [ref=e31]: 
+          - text: Anmelden
+    - list [ref=e36]:
+      - listitem [ref=e37]:
+        - link "News" [ref=e38] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e39]:
+        - link "Über uns" [ref=e40] [cursor=pointer]:
+          - /url: /s/ueber_uns
+      - listitem [ref=e41]:
+        - link "About Padel" [ref=e42] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e43]:
+        - link "Anlage & Anfahrt" [ref=e44] [cursor=pointer]:
+          - /url: /s/Anlage___Anfahrt
+      - listitem [ref=e45]:
+        - link "Abos" [ref=e46] [cursor=pointer]:
+          - /url: /s/Abos
+      - listitem [ref=e47]:
+        - link "Kontakt" [ref=e48] [cursor=pointer]:
+          - /url: /s/Kontakt
+      - listitem [ref=e49]:
+        - link "Sponsoring" [ref=e50] [cursor=pointer]:
+          - /url: /s/Sponsoring
+      - listitem [ref=e51]:
+        - link "Wetter" [ref=e52] [cursor=pointer]:
+          - /url: https://www.wetteronline.at/wetter/anthering
+      - listitem [ref=e53]:
+        - link "Registrierung" [ref=e54] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e56]:
+      - heading "Startseite" [level=1] [ref=e57]
+      - generic [ref=e58]:
+        - generic [ref=e59]:
+          - generic [ref=e60]:
+            - link "Padel Tennis in Anthering bei Salzburg – Jetzt Platz buchen!" [ref=e62] [cursor=pointer]:
+              - /url: /news-25635-Padel_Tennis_in_Anthering_bei_Salzburg_____Jetzt_Platz_buchen_
+              - img "Padel Tennis in Anthering bei Salzburg – Jetzt Platz buchen!" [ref=e63]
+            - generic [ref=e64]:
+              - heading "Padel Tennis in Anthering bei Salzburg – Jetzt Platz buchen!" [level=2] [ref=e65]:
+                - link "Padel Tennis in Anthering bei Salzburg – Jetzt Platz buchen!" [ref=e66] [cursor=pointer]:
+                  - /url: /news-25635-Padel_Tennis_in_Anthering_bei_Salzburg_____Jetzt_Platz_buchen_
+              - paragraph [ref=e67]: Willkommen bei den ersten Padel Tennis Courts im Salzburger Flachgau! In Anthering, nur wenige Minuten von Salzburg entfernt, findest du zwei moderne Outdoor-Plätze für dein nächstes Spiel.
+              - generic [ref=e68]:
+                - generic [ref=e69]:
+                  - img "User Image" [ref=e70]
+                  - text: Manuel Schwaighofer
+                - text: ", 05. Januar 2026"
+              - link " Mehr dazu" [ref=e71] [cursor=pointer]:
+                - /url: /news-25635-Padel_Tennis_in_Anthering_bei_Salzburg_____Jetzt_Platz_buchen_
+                - generic [ref=e72]: 
+                - text: Mehr dazu
+          - generic [ref=e73]:
+            - link "Gutscheine erhältlich!" [ref=e75] [cursor=pointer]:
+              - /url: /news-28709-Gutscheine_erhaeltlich_
+              - img "Gutscheine erhältlich!" [ref=e76]
+            - generic [ref=e77]:
+              - heading "Gutscheine erhältlich!" [level=2] [ref=e78]:
+                - link "Gutscheine erhältlich!" [ref=e79] [cursor=pointer]:
+                  - /url: /news-28709-Gutscheine_erhaeltlich_
+              - paragraph [ref=e80]:
+                - text: Du willst deinen Freunden oder Bekannten Gutscheine für die Padelarea Anthering schenken?
+                - link "Hier geht's zum Gutscheinkauf." [ref=e81] [cursor=pointer]:
+                  - /url: https://www.padelarea-anthering.at/gutscheine
+              - generic [ref=e82]:
+                - generic [ref=e83]:
+                  - img "User Image" [ref=e84]
+                  - text: Manuel Schwaighofer
+                - text: ", 05. Januar 2026"
+          - generic [ref=e85]:
+            - link "Vielen Dank für ein grandioses erstes Padel-Jahr 2025!" [ref=e87] [cursor=pointer]:
+              - /url: /news-28611-Vielen_Dank_fuer_ein_grandioses_erstes_Padel_Jahr_2025_
+              - img "Vielen Dank für ein grandioses erstes Padel-Jahr 2025!" [ref=e88]
+            - generic [ref=e89]:
+              - heading "Vielen Dank für ein grandioses erstes Padel-Jahr 2025!" [level=2] [ref=e90]:
+                - link "Vielen Dank für ein grandioses erstes Padel-Jahr 2025!" [ref=e91] [cursor=pointer]:
+                  - /url: /news-28611-Vielen_Dank_fuer_ein_grandioses_erstes_Padel_Jahr_2025_
+              - paragraph [ref=e92]: Wir möchten uns ganz herzlich bei euch für eure Leidenschaft, euer Vertrauen und eure Unterstützung bedanken!
+              - paragraph [ref=e93]:
+                - text: "Bitte helft uns die Padelarea Anthering weiter zu verbessern und gebt uns über die Umfrage Feedback:"
+                - link "Padelarea Anthering - Feedback 2025" [ref=e94] [cursor=pointer]:
+                  - /url: https://forms.office.com/e/kmh1YUtwBS
+              - generic [ref=e95]:
+                - generic [ref=e96]:
+                  - img "User Image" [ref=e97]
+                  - text: Manuel Schwaighofer
+                - text: ", 23. Dezember 2025"
+              - link " Mehr dazu" [ref=e98] [cursor=pointer]:
+                - /url: /news-28611-Vielen_Dank_fuer_ein_grandioses_erstes_Padel_Jahr_2025_
+                - generic [ref=e99]: 
+                - text: Mehr dazu
+          - generic [ref=e100]:
+            - link "Ab sofort zu Winterspecial Preisen buchen!" [ref=e102] [cursor=pointer]:
+              - /url: /news-28109-Ab_sofort_zu_Winterspecial_Preisen_buchen__
+              - img "Ab sofort zu Winterspecial Preisen buchen!" [ref=e103]
+            - generic [ref=e104]:
+              - heading "Ab sofort zu Winterspecial Preisen buchen!" [level=2] [ref=e105]:
+                - link "Ab sofort zu Winterspecial Preisen buchen!" [ref=e106] [cursor=pointer]:
+                  - /url: /news-28109-Ab_sofort_zu_Winterspecial_Preisen_buchen__
+              - paragraph [ref=e107]: Die Padelarea Anthering kennt keine Winterpause – wir haben durchgehend geöffnet!
+              - generic [ref=e108]:
+                - generic [ref=e109]:
+                  - img "User Image" [ref=e110]
+                  - text: Manuel Schwaighofer
+                - text: ", 31. Oktober 2025"
+              - link " Mehr dazu" [ref=e111] [cursor=pointer]:
+                - /url: /news-28109-Ab_sofort_zu_Winterspecial_Preisen_buchen__
+                - generic [ref=e112]: 
+                - text: Mehr dazu
+          - generic [ref=e113]:
+            - link "Die Padelarea Anthering hat geöffnet!" [ref=e115] [cursor=pointer]:
+              - /url: /news-26337-Die_Padelarea_Anthering_hat_geoeffnet_
+              - img "Die Padelarea Anthering hat geöffnet!" [ref=e116]
+            - generic [ref=e117]:
+              - heading "Die Padelarea Anthering hat geöffnet!" [level=2] [ref=e118]:
+                - link "Die Padelarea Anthering hat geöffnet!" [ref=e119] [cursor=pointer]:
+                  - /url: /news-26337-Die_Padelarea_Anthering_hat_geoeffnet_
+              - paragraph [ref=e120]: Die Padelarea Anthering - die erste Padel Tennis Anlage im Salzburger Flachgau - wurde Ende Juli fertiggestellt und ist spielbereit!
+              - generic [ref=e121]:
+                - generic [ref=e122]:
+                  - img "User Image" [ref=e123]
+                  - text: Manuel Schwaighofer
+                - text: ", 03. August 2025"
+              - link " Mehr dazu" [ref=e124] [cursor=pointer]:
+                - /url: /news-26337-Die_Padelarea_Anthering_hat_geoeffnet_
+                - generic [ref=e125]: 
+                - text: Mehr dazu
+          - generic [ref=e126]:
+            - link "Eröffnungsfeier am 9. August 2025 - SAVE THE DATE!" [ref=e128] [cursor=pointer]:
+              - /url: /news-26050-Eroeffnungsfeier_am_9__August_2025___SAVE_THE_DATE_
+              - img "Eröffnungsfeier am 9. August 2025 - SAVE THE DATE!" [ref=e129]
+            - generic [ref=e130]:
+              - heading "Eröffnungsfeier am 9. August 2025 - SAVE THE DATE!" [level=2] [ref=e131]:
+                - link "Eröffnungsfeier am 9. August 2025 - SAVE THE DATE!" [ref=e132] [cursor=pointer]:
+                  - /url: /news-26050-Eroeffnungsfeier_am_9__August_2025___SAVE_THE_DATE_
+              - paragraph [ref=e133]:
+                - strong [ref=e134]: Die Padelarea Anthering eröffnet feierlich am Samstag, 9. August 2025!
+              - paragraph [ref=e135]:
+                - text: "Hilf uns bei der Eventplanung und teile uns mit, ob du dabei bist:"
+                - link "zur Umfrage" [ref=e136] [cursor=pointer]:
+                  - /url: https://forms.cloud.microsoft/r/ap2AcJHCuN
+                  - strong [ref=e137]: zur Umfrage
+              - paragraph [ref=e138]: Weitere Infos folgen hier und auf unserer Instagram Seite.
+              - generic [ref=e139]:
+                - generic [ref=e140]:
+                  - img "User Image" [ref=e141]
+                  - text: Manuel Schwaighofer
+                - text: ", 03. Juli 2025"
+              - link " Mehr dazu" [ref=e142] [cursor=pointer]:
+                - /url: /news-26050-Eroeffnungsfeier_am_9__August_2025___SAVE_THE_DATE_
+                - generic [ref=e143]: 
+                - text: Mehr dazu
+          - generic [ref=e144]:
+            - link "Update vom Baufortschritt – Unsere Padelplätze in Anthering nehmen Form an" [ref=e146] [cursor=pointer]:
+              - /url: /news-25590-Update_vom_Baufortschritt_____Unsere_Padelplaetze_in_Anthering_nehmen_Form_an
+              - img "Update vom Baufortschritt – Unsere Padelplätze in Anthering nehmen Form an" [ref=e147]
+            - generic [ref=e148]:
+              - heading "Update vom Baufortschritt – Unsere Padelplätze in Anthering nehmen Form an" [level=2] [ref=e149]:
+                - link "Update vom Baufortschritt – Unsere Padelplätze in Anthering nehmen Form an" [ref=e150] [cursor=pointer]:
+                  - /url: /news-25590-Update_vom_Baufortschritt_____Unsere_Padelplaetze_in_Anthering_nehmen_Form_an
+              - paragraph [ref=e151]: Der Countdown läuft! Unsere beiden Padel Tennis Courts in Anthering bei Salzburg nehmen täglich mehr Gestalt an – und wir freuen uns, euch ein Update zum aktuellen Baufortschritt geben zu können.
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - img "User Image" [ref=e154]
+                  - text: Manuel Schwaighofer
+                - text: ", 12. Juni 2025"
+              - link " Mehr dazu" [ref=e155] [cursor=pointer]:
+                - /url: /news-25590-Update_vom_Baufortschritt_____Unsere_Padelplaetze_in_Anthering_nehmen_Form_an
+                - generic [ref=e156]: 
+                - text: Mehr dazu
+          - generic [ref=e157]:
+            - link "Startschuss für die Padelarea Anthering" [ref=e159] [cursor=pointer]:
+              - /url: /news-23155-Startschuss_fuer_die_Padelarea_Anthering
+              - img "Startschuss für die Padelarea Anthering" [ref=e160]
+            - generic [ref=e161]:
+              - heading "Startschuss für die Padelarea Anthering" [level=2] [ref=e162]:
+                - link "Startschuss für die Padelarea Anthering" [ref=e163] [cursor=pointer]:
+                  - /url: /news-23155-Startschuss_fuer_die_Padelarea_Anthering
+              - paragraph [ref=e164]:
+                - strong [ref=e165]: Spatenstich am 13. Mai 2025 gemeinsam mit Bürgermeister Alois Mühlbacher und Amtsleiter Thomas Ehinger. Salzburg24 berichtet!
+              - generic [ref=e166]:
+                - generic [ref=e167]:
+                  - img "User Image" [ref=e168]
+                  - text: Manuel Schwaighofer
+                - text: ", 05. Februar 2025"
+              - link " Mehr dazu" [ref=e169] [cursor=pointer]:
+                - /url: /news-23155-Startschuss_fuer_die_Padelarea_Anthering
+                - generic [ref=e170]: 
+                - text: Mehr dazu
+          - link " weitere News im Archiv" [ref=e172] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e173]: 
+            - text: weitere News im Archiv
+        - generic [ref=e174]:
+          - generic [ref=e176]:
+            - heading "Anfahrt" [level=2] [ref=e177]
+            - paragraph [ref=e178]: "Adresse: Freizeitpark, 5102 Anthering"
+            - generic [ref=e184]:
+              - paragraph [ref=e185]: Möchten Sie von Google Map bereitgestellte externe Inhalte laden?
+              - paragraph [ref=e186]:
+                - button "Ja" [ref=e187] [cursor=pointer]
+                - button "Immer" [ref=e188] [cursor=pointer]
+          - generic [ref=e189]:
+            - link "Fritsche" [ref=e191] [cursor=pointer]:
+              - /url: https://www.fritsche.eu.com/
+              - img "Fritsche" [ref=e192]
+            - link "Nine-T Padel" [ref=e194] [cursor=pointer]:
+              - /url: https://www.padelarea-anthering.at
+              - img "Nine-T Padel" [ref=e195]
+            - link "Raiffeisen Anthering-Elixhausen" [ref=e197] [cursor=pointer]:
+              - /url: https://www.raiffeisen.at/sbg/anthering-elixhausen/de/meine-bank/bankstellen/anthering.html
+              - img "Raiffeisen Anthering-Elixhausen" [ref=e198]
+            - link "Salzburg AG" [ref=e200] [cursor=pointer]:
+              - /url: https://www.salzburg-ag.at/
+              - img "Salzburg AG" [ref=e201]
+            - link "Rieste" [ref=e203] [cursor=pointer]:
+              - /url: http://www.rieste.com
+              - img "Rieste" [ref=e204]
+            - link "Hotel Gerl" [ref=e206] [cursor=pointer]:
+              - /url: https://www.hotel-gerl.at/de/
+              - img "Hotel Gerl" [ref=e207]
+            - link "Bauservice Unterberger" [ref=e209] [cursor=pointer]:
+              - /url: https://www.bsu-bau.at/
+              - img "Bauservice Unterberger" [ref=e210]
+            - link "Gemeinde Anthering" [ref=e212] [cursor=pointer]:
+              - /url: https://www.anthering.at
+              - img "Gemeinde Anthering" [ref=e213]
+            - link "GRAWE Oberndorf" [ref=e215] [cursor=pointer]:
+              - /url: https://www.grawe.at/kundencenter/oberndorf/
+              - img "GRAWE Oberndorf" [ref=e216]
+            - link "Elektro Dürnberger" [ref=e218] [cursor=pointer]:
+              - /url: http://www.elektro-duernberger.com/
+              - img "Elektro Dürnberger" [ref=e219]
+            - link "Friseur Jedermann" [ref=e221] [cursor=pointer]:
+              - /url: https://friseur-jedermann.at/
+              - img "Friseur Jedermann" [ref=e222]
+            - link "Waltraud Payr - Gesunde Fitness" [ref=e224] [cursor=pointer]:
+              - /url: https://www.gesundefitness.at/
+              - img "Waltraud Payr - Gesunde Fitness" [ref=e225]
+            - link "Moser Stein" [ref=e227] [cursor=pointer]:
+              - /url: https://www.moser-stein.at/
+              - img "Moser Stein" [ref=e228]
+            - link "Bergauf - Physiotherapie Kipman" [ref=e230] [cursor=pointer]:
+              - /url: https://www.physiotherapie-bergauf.at/
+              - img "Bergauf - Physiotherapie Kipman" [ref=e231]
+            - link "Padelarea Anthering" [ref=e233] [cursor=pointer]:
+              - /url: https://www.padelarea-anthering.at
+              - img "Padelarea Anthering" [ref=e234]
+            - link "Physio Lengfelden" [ref=e236] [cursor=pointer]:
+              - /url: https://www.physio-lengfelden.at/
+              - img "Physio Lengfelden" [ref=e237]
+            - link "CUPRA" [ref=e239] [cursor=pointer]:
+              - /url: https://www.cupraofficial.at
+              - img "CUPRA" [ref=e240]
+            - link "Autohaus Macherhammer" [ref=e242] [cursor=pointer]:
+              - /url: https://www.macherhammer.co.at/
+              - img "Autohaus Macherhammer" [ref=e243]
+        - list [ref=e245]:
+          - listbox [ref=e247]:
+            - listitem [ref=e248]:
+              - link [ref=e249] [cursor=pointer]:
+                - /url: https://www.physiotherapie-bergauf.at/
+                - img [ref=e250]
+            - listitem [ref=e251]:
+              - link [ref=e252] [cursor=pointer]:
+                - /url: https://www.hotel-gerl.at/de/
+                - img [ref=e253]
+            - listitem [ref=e254]:
+              - link [ref=e255] [cursor=pointer]:
+                - /url: https://www.grawe.at/kundencenter/oberndorf/
+                - img [ref=e256]
+            - listitem [ref=e257]:
+              - link [ref=e258] [cursor=pointer]:
+                - /url: https://www.cupraofficial.at
+                - img [ref=e259]
+            - listitem [ref=e260]:
+              - link [ref=e261] [cursor=pointer]:
+                - /url: https://www.moser-stein.at/
+                - img [ref=e262]
+            - listitem [ref=e263]:
+              - link [ref=e264] [cursor=pointer]:
+                - /url: https://www.raiffeisen.at/sbg/anthering-elixhausen/de/meine-bank/bankstellen/anthering.html
+                - img [ref=e265]
+            - listitem [ref=e266]:
+              - link [ref=e267] [cursor=pointer]:
+                - /url: https://www.gesundefitness.at/
+                - img [ref=e268]
+            - listitem [ref=e269]:
+              - link [ref=e270] [cursor=pointer]:
+                - /url: https://www.padelarea-anthering.at
+                - img [ref=e271]
+            - option "Gemeinde Anthering" [ref=e272]:
+              - link "Gemeinde Anthering" [ref=e273] [cursor=pointer]:
+                - /url: https://www.anthering.at
+                - img "Gemeinde Anthering" [ref=e274]
+            - option "Bauservice Unterberger" [ref=e275]:
+              - link "Bauservice Unterberger" [ref=e276] [cursor=pointer]:
+                - /url: https://www.bsu-bau.at/
+                - img "Bauservice Unterberger" [ref=e277]
+            - option "Rieste" [ref=e278]:
+              - link "Rieste" [ref=e279] [cursor=pointer]:
+                - /url: http://www.rieste.com
+                - img "Rieste" [ref=e280]
+            - option "Physio Lengfelden" [ref=e281]:
+              - link "Physio Lengfelden" [ref=e282] [cursor=pointer]:
+                - /url: https://www.physio-lengfelden.at/
+                - img "Physio Lengfelden" [ref=e283]
+            - option "Friseur Jedermann" [ref=e284]:
+              - link "Friseur Jedermann" [ref=e285] [cursor=pointer]:
+                - /url: https://friseur-jedermann.at/
+                - img "Friseur Jedermann" [ref=e286]
+            - option "Padelarea Anthering" [ref=e287]:
+              - link "Padelarea Anthering" [ref=e288] [cursor=pointer]:
+                - /url: https://www.padelarea-anthering.at
+                - img "Padelarea Anthering" [ref=e289]
+            - option "Fritsche" [ref=e290]:
+              - link "Fritsche" [ref=e291] [cursor=pointer]:
+                - /url: https://www.fritsche.eu.com/
+                - img "Fritsche" [ref=e292]
+            - option "Salzburg AG" [ref=e293]:
+              - link "Salzburg AG" [ref=e294] [cursor=pointer]:
+                - /url: https://www.salzburg-ag.at/
+                - img "Salzburg AG" [ref=e295]
+            - option [ref=e296]:
+              - link [ref=e297] [cursor=pointer]:
+                - /url: http://www.elektro-duernberger.com/
+                - img [ref=e298]
+            - option [ref=e299]:
+              - link [ref=e300] [cursor=pointer]:
+                - /url: https://www.macherhammer.co.at/
+                - img [ref=e301]
+            - option [ref=e302]:
+              - link [ref=e303] [cursor=pointer]:
+                - /url: https://www.physiotherapie-bergauf.at/
+                - img [ref=e304]
+            - option [ref=e305]:
+              - link [ref=e306] [cursor=pointer]:
+                - /url: https://www.hotel-gerl.at/de/
+                - img [ref=e307]
+            - option [ref=e308]:
+              - link [ref=e309] [cursor=pointer]:
+                - /url: https://www.grawe.at/kundencenter/oberndorf/
+                - img [ref=e310]
+            - option [ref=e311]:
+              - link [ref=e312] [cursor=pointer]:
+                - /url: https://www.cupraofficial.at
+                - img [ref=e313]
+            - option [ref=e314]:
+              - link [ref=e315] [cursor=pointer]:
+                - /url: https://www.moser-stein.at/
+                - img [ref=e316]
+            - option [ref=e317]:
+              - link [ref=e318] [cursor=pointer]:
+                - /url: https://www.raiffeisen.at/sbg/anthering-elixhausen/de/meine-bank/bankstellen/anthering.html
+                - img [ref=e319]
+            - option [ref=e320]:
+              - link [ref=e321] [cursor=pointer]:
+                - /url: https://www.gesundefitness.at/
+                - img [ref=e322]
+            - option [ref=e323]:
+              - link [ref=e324] [cursor=pointer]:
+                - /url: https://www.padelarea-anthering.at
+                - img [ref=e325]
+            - listitem [ref=e326]:
+              - link [ref=e327] [cursor=pointer]:
+                - /url: https://www.anthering.at
+                - img [ref=e328]
+            - listitem [ref=e329]:
+              - link [ref=e330] [cursor=pointer]:
+                - /url: https://www.bsu-bau.at/
+                - img [ref=e331]
+            - listitem [ref=e332]:
+              - link [ref=e333] [cursor=pointer]:
+                - /url: http://www.rieste.com
+                - img [ref=e334]
+            - listitem [ref=e335]:
+              - link [ref=e336] [cursor=pointer]:
+                - /url: https://www.physio-lengfelden.at/
+                - img [ref=e337]
+            - listitem [ref=e338]:
+              - link [ref=e339] [cursor=pointer]:
+                - /url: https://friseur-jedermann.at/
+                - img [ref=e340]
+            - listitem [ref=e341]:
+              - link [ref=e342] [cursor=pointer]:
+                - /url: https://www.padelarea-anthering.at
+                - img [ref=e343]
+            - listitem [ref=e344]:
+              - link [ref=e345] [cursor=pointer]:
+                - /url: https://www.fritsche.eu.com/
+                - img [ref=e346]
+            - listitem [ref=e347]:
+              - link [ref=e348] [cursor=pointer]:
+                - /url: https://www.salzburg-ag.at/
+                - img [ref=e349]
+    - contentinfo [ref=e350]:
+      - generic [ref=e352]:
+        - generic [ref=e353]:
+          - text: Padelarea Anthering |
+          - link "Impressum" [ref=e354] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e355] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e356]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e357] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e359]:
+    - paragraph [ref=e360]:
+      - generic [ref=e361]:
+        - paragraph [ref=e362]:
+          - img "Padelarea Anthering" [ref=e363]
+          - text: Padelarea Anthering
+        - paragraph [ref=e364]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e365]:
+      - link "Einstellungen verwalten" [ref=e366] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e367]:
+        - button "Alle ablehnen" [ref=e368] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e369] [cursor=pointer]

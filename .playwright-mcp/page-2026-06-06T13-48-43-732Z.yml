@@ -1,0 +1,84 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e39]:
+    - iframe [ref=e41]:
+      - generic [ref=f23e6]:
+        - region "Karte" [ref=f23e7]
+        - iframe [ref=f23e12]:
+          
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "Smash House LA Sports GmbH" [level=1] [ref=e44]
+        - generic [ref=e46]:
+          - strong [ref=e47]: "Adresse:"
+          - text: Gewerbepark A3, 2821 Lanzenkirchen
+          - strong [ref=e48]: "Ansprechpartner:"
+          - text: Martina Tschirk; office@smash-house.at; 0664/75004404
+          - strong [ref=e49]: "Anzahl der Padel-Plätze:"
+          - text: 5 Indoor
+      - img "Smash House LA Sports GmbH" [ref=e51]
+  - generic [ref=e52]:
+    - heading "Folge uns auf" [level=5] [ref=e53]
+    - generic [ref=e54]:
+      - link [ref=e55] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e56]
+      - link [ref=e58] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e59]
+    - generic [ref=e61]:
+      - link "Impressum" [ref=e62] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e63] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e64]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e65] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e66]:
+    - generic [ref=e67]:
+      - generic [ref=e68]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e69]
+        - paragraph [ref=e70]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e71]:
+        - generic [ref=e72]:
+          - button "Alle akzeptieren" [ref=e73] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e74] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e76] [cursor=pointer]
+    - generic [ref=e79]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e80] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e81] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

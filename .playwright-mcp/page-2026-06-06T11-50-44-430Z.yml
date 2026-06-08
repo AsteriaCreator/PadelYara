@@ -1,0 +1,101 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "utc sparkasse scheibbs" [ref=e4] [cursor=pointer]:
+        - /url: http://www.utcscheibbs.at
+        - generic [ref=e5]:
+          - img [ref=e7]
+          - generic [ref=e9]:
+            - generic [ref=e10]: utc sparkasse
+            - generic [ref=e11]: scheibbs
+      - list [ref=e13]:
+        - listitem [ref=e14]:
+          - link "Home" [ref=e15] [cursor=pointer]:
+            - /url: http://www.utcscheibbs.at/
+        - listitem [ref=e16]:
+          - link "Reservieren" [ref=e17] [cursor=pointer]:
+            - /url: https://app.tennis04.com/de/scheibbs/buchungsplan
+        - listitem [ref=e18]:
+          - generic [ref=e19] [cursor=pointer]: Padel
+          - list:
+            - listitem:
+              - link "Was ist Padeltennis?":
+                - /url: https://www.utcscheibbs.at/was-ist-padeltennis/
+            - listitem:
+              - link "Standort & Anfahrt":
+                - /url: https://www.utcscheibbs.at/standort-und-anfahrt/
+            - listitem:
+              - link "Regeln":
+                - /url: https://www.utcscheibbs.at/regeln/
+            - listitem:
+              - link "Padeltraining":
+                - /url: https://www.utcscheibbs.at/padeltraining/
+            - listitem:
+              - link "Padelturniere":
+                - /url: https://www.utcscheibbs.at/padelturniere/
+            - listitem:
+              - link "Padelcamps":
+                - /url: https://www.utcscheibbs.at/padelcamps/
+            - listitem:
+              - link "Verhaltensregeln":
+                - /url: https://www.utcscheibbs.at/verhaltensregeln/
+            - listitem:
+              - link "Buchung":
+                - /url: https://www.utcscheibbs.at/buchung/
+        - listitem [ref=e20]:
+          - generic [ref=e21] [cursor=pointer]: Verein
+          - list:
+            - listitem:
+              - link "Mannschaften & Meisterschaft":
+                - /url: http://www.utcscheibbs.at/mannschaften-meisterschaft
+            - listitem:
+              - link "Turniere":
+                - /url: http://www.utcscheibbs.at/turniere
+            - listitem:
+              - link "Funktionäre":
+                - /url: http://www.utcscheibbs.at/funktionaere
+            - listitem:
+              - link "Geschichte":
+                - /url: http://www.utcscheibbs.at/geschichte
+            - listitem:
+              - link "Mitgliedschaft":
+                - /url: http://www.utcscheibbs.at/mitgliedschaft
+            - listitem:
+              - link "Trainer & Jugendarbeit":
+                - /url: http://www.utcscheibbs.at/trainer-jugendarbeit
+            - listitem:
+              - link "Sponsoren":
+                - /url: https://www.utcscheibbs.at/sponsoren/
+            - listitem:
+              - link "Termine":
+                - /url: https://www.utcscheibbs.at/termine/
+        - listitem [ref=e22]:
+          - link "Fotos" [ref=e23] [cursor=pointer]:
+            - /url: https://www.utcscheibbs.at/fotos/
+        - listitem [ref=e24]:
+          - link "Kontakt" [ref=e25] [cursor=pointer]:
+            - /url: http://www.utcscheibbs.at/kontakt
+  - generic [ref=e32]:
+    - heading "Oops! That page can’t be found." [level=1] [ref=e33]
+    - paragraph [ref=e34]: It looks like nothing was found at this location. Maybe try a search?
+    - generic [ref=e36]:
+      - textbox "Search …" [ref=e37]
+      - button "Search" [ref=e38] [cursor=pointer]
+  - contentinfo [ref=e39]:
+    - link "Impressum" [ref=e40] [cursor=pointer]:
+      - /url: http://www.utcscheibbs.at/impressum
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - link [ref=e43] [cursor=pointer]:
+          - /url: https://www.facebook.com/UTCScheibbs/
+        - link [ref=e45] [cursor=pointer]:
+          - /url: https://www.instagram.com/utcsparkassescheibbs/
+      - generic [ref=e47]:
+        - generic [ref=e48]: "@"
+        - generic [ref=e49]: UTC
+        - generic [ref=e50]: Sparkasse
+        - generic [ref=e51]: Scheibbs
+      - generic [ref=e53]:
+        - generic [ref=e54]: "#"
+        - text: codewort
+    - generic [ref=e55]: © UTC Scheibbs, 2026

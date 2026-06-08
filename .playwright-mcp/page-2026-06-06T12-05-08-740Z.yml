@@ -1,0 +1,429 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Kremstaler Padel King" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Kremstaler Padel King" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Kremstaler Padel King" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "PADEL Kematen a.d. Krems" [ref=e30] [cursor=pointer]:
+          - /url: /reservierung?c=4693
+      - listitem [ref=e31]:
+        - link "Spielguthaben" [ref=e32] [cursor=pointer]:
+          - /url: /spielguthaben
+      - listitem [ref=e33]:
+        - link "Registrierung" [ref=e34] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e36]:
+      - heading "Reservierung PADEL Kematen a.d. Krems" [level=1] [ref=e37]
+      - generic [ref=e40]:
+        - list:
+          - listitem [ref=e41]: "--- Buche jetzt über unseren Kalender online --- Zutrittscode für das Clubhaus wird per e-mail übermittelt --- Reservierte Leihschläger können im versperrten Clubhaus entnommen werden --- Neue Padel-Bälle direkt am Automaten vor Ort erhältlich. ---"
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - generic [ref=e46] [cursor=pointer]: 
+              - generic [ref=e47] [cursor=pointer]: 
+            - generic [ref=e49]:
+              - link "Montag 01.06.2026" [ref=e50] [cursor=pointer]:
+                - /url: "?c=4693&d=1780288200"
+                - generic [ref=e51]: Montag
+                - text: 01.06.2026
+              - text: 
+            - generic [ref=e53]:
+              - link "Dienstag 02.06.2026" [ref=e54] [cursor=pointer]:
+                - /url: "?c=4693&d=1780374600"
+                - generic [ref=e55]: Dienstag
+                - text: 02.06.2026
+              - text: 
+            - generic [ref=e57]:
+              - link "Mittwoch 03.06.2026" [ref=e58] [cursor=pointer]:
+                - /url: "?c=4693&d=1780461000"
+                - generic [ref=e59]: Mittwoch
+                - text: 03.06.2026
+              - text: 
+            - generic [ref=e61]:
+              - link "Donnerstag 04.06.2026" [ref=e62] [cursor=pointer]:
+                - /url: "?c=4693&d=1780547400"
+                - generic [ref=e63]: Donnerstag
+                - text: 04.06.2026
+              - text: 
+            - generic [ref=e65]:
+              - link "Freitag 05.06.2026" [ref=e66] [cursor=pointer]:
+                - /url: "?c=4693&d=1780633800"
+                - generic [ref=e67]: Freitag
+                - text: 05.06.2026
+              - text: 
+            - generic [ref=e69]:
+              - link "Samstag 06.06.2026" [ref=e70] [cursor=pointer]:
+                - /url: "?c=4693&d=1780720200"
+                - generic [ref=e71]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e73]:
+              - link "Sonntag 07.06.2026" [ref=e74] [cursor=pointer]:
+                - /url: "?c=4693&d=1780806600"
+                - generic [ref=e75]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e76]:
+              - generic [ref=e77] [cursor=pointer]: 
+              - generic [ref=e78] [cursor=pointer]: 
+          - generic [ref=e79]:
+            - generic [ref=e81]: 06:30
+            - generic [ref=e83]: 07:00
+            - generic [ref=e85]: 07:30
+            - generic [ref=e87]: 08:00
+            - generic [ref=e89]: 08:30
+            - generic [ref=e91]: 09:00
+            - generic [ref=e93]: 09:30
+            - generic [ref=e95]: 10:00
+            - generic [ref=e97]: 10:30
+            - generic [ref=e99]: 11:00
+            - generic [ref=e101]: 11:30
+            - generic [ref=e103]: 12:00
+            - generic [ref=e105]: 12:30
+            - generic [ref=e107]: 13:00
+            - generic [ref=e109]: 13:30
+            - generic [ref=e111]: 14:00
+            - generic [ref=e113]: 14:30
+            - generic [ref=e115]: 15:00
+            - generic [ref=e117]: 15:30
+            - generic [ref=e119]: 16:00
+            - generic [ref=e121]: 16:30
+            - generic [ref=e123]: 17:00
+            - generic [ref=e125]: 17:30
+            - generic [ref=e127]: 18:00
+            - generic [ref=e129]: 18:30
+            - generic [ref=e131]: 19:00
+            - generic [ref=e133]: 19:30
+            - generic [ref=e135]: 20:00
+            - generic [ref=e137]: 20:30
+            - generic [ref=e139]: 21:00
+            - generic [ref=e141]: 21:30
+            - generic [ref=e143]: 22:00
+            - generic [ref=e145]: 22:30
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - generic [ref=e150]:
+                - generic [ref=e151]: Platz 1
+                - generic [ref=e152]: Platz 2
+              - generic [ref=e223]:
+                - generic [ref=e224]: Platz 1
+                - generic [ref=e225]: Platz 2
+            - generic [ref=e226]:
+              - generic [ref=e228]:
+                - generic [ref=e229]: Platz 1
+                - generic [ref=e230]: Platz 2
+              - generic [ref=e300]:
+                - 'link "Gruppenspiel: Anmeldung für Einzelspieler 19:00 - 20:30 Uhr (7/8 Teilnehmer) Jeder Spieler bitte einzeln anmelden! Gespielt wird gemeinsam in 2 Gruppen zu je 4 Personen -> Für alle Levels geeignet !" [ref=e302] [cursor=pointer]':
+                  - /url: /event-71264-gruppenspiel__anmeldung_fuer_einzelspieler
+                  - paragraph [ref=e303]: "Gruppenspiel: Anmeldung für Einzelspieler"
+                  - generic [ref=e304]: 19:00 - 20:30 Uhr
+                  - paragraph [ref=e305]: (7/8 Teilnehmer)
+                  - generic [ref=e306]:
+                    - paragraph [ref=e307]: Jeder Spieler bitte einzeln anmelden!
+                    - paragraph [ref=e308]: Gespielt wird gemeinsam in 2 Gruppen zu je 4 Personen -> Für alle Levels geeignet !
+                - generic [ref=e309]:
+                  - generic [ref=e310]: Platz 1
+                  - generic [ref=e311]: Platz 2
+            - generic [ref=e312]:
+              - generic [ref=e314]:
+                - generic [ref=e315]: Platz 1
+                - generic [ref=e316]: Platz 2
+              - generic [ref=e387]:
+                - generic [ref=e388]: Platz 1
+                - generic [ref=e389]: Platz 2
+            - generic [ref=e390]:
+              - generic [ref=e392]:
+                - generic [ref=e393]: Platz 1
+                - generic [ref=e394]: Platz 2
+              - generic [ref=e465]:
+                - generic [ref=e466]: Platz 1
+                - generic [ref=e467]: Platz 2
+            - generic [ref=e468]:
+              - generic [ref=e470]:
+                - generic [ref=e471]: Platz 1
+                - generic [ref=e472]: Platz 2
+              - generic [ref=e543]:
+                - generic [ref=e544]: Platz 1
+                - generic [ref=e545]: Platz 2
+            - generic [ref=e546]:
+              - generic [ref=e548]:
+                - generic [ref=e549]: Platz 1
+                - generic [ref=e550]: Platz 2
+              - generic [ref=e551]:
+                - generic [ref=e552]:
+                  - generic [ref=e568] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                  - generic [ref=e570] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                - generic [ref=e582]:
+                  - generic [ref=e598] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                  - generic [ref=e606] [cursor=pointer]: Leihschläger 1 Stk.
+                  - generic [ref=e608] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                  - generic [ref=e610] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+              - generic [ref=e614]:
+                - generic [ref=e615]: Platz 1
+                - generic [ref=e616]: Platz 2
+            - generic [ref=e617]:
+              - generic [ref=e619]:
+                - generic [ref=e620]: Platz 1
+                - generic [ref=e621]: Platz 2
+              - generic [ref=e622]:
+                - generic [ref=e623]:
+                  - generic [ref=e634] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                  - generic [ref=e637] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                  - generic [ref=e639] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                - generic [ref=e651]:
+                  - generic [ref=e659] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                  - generic [ref=e665] [cursor=pointer]:
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+                    - text: Leihschläger 1 Stk.
+              - generic [ref=e681]:
+                - generic [ref=e682]: Platz 1
+                - generic [ref=e683]: Platz 2
+          - generic [ref=e684]:
+            - generic [ref=e686]: 06:30
+            - generic [ref=e688]: 07:00
+            - generic [ref=e690]: 07:30
+            - generic [ref=e692]: 08:00
+            - generic [ref=e694]: 08:30
+            - generic [ref=e696]: 09:00
+            - generic [ref=e698]: 09:30
+            - generic [ref=e700]: 10:00
+            - generic [ref=e702]: 10:30
+            - generic [ref=e704]: 11:00
+            - generic [ref=e706]: 11:30
+            - generic [ref=e708]: 12:00
+            - generic [ref=e710]: 12:30
+            - generic [ref=e712]: 13:00
+            - generic [ref=e714]: 13:30
+            - generic [ref=e716]: 14:00
+            - generic [ref=e718]: 14:30
+            - generic [ref=e720]: 15:00
+            - generic [ref=e722]: 15:30
+            - generic [ref=e724]: 16:00
+            - generic [ref=e726]: 16:30
+            - generic [ref=e728]: 17:00
+            - generic [ref=e730]: 17:30
+            - generic [ref=e732]: 18:00
+            - generic [ref=e734]: 18:30
+            - generic [ref=e736]: 19:00
+            - generic [ref=e738]: 19:30
+            - generic [ref=e740]: 20:00
+            - generic [ref=e742]: 20:30
+            - generic [ref=e744]: 21:00
+            - generic [ref=e746]: 21:30
+            - generic [ref=e748]: 22:00
+            - generic [ref=e750]: 22:30
+        - generic [ref=e751]:
+          - heading "Preise/h" [level=3] [ref=e752]
+          - generic [ref=e753]: € 24
+      - list [ref=e755]:
+        - listbox [ref=e757]:
+          - listitem [ref=e758]:
+            - link [ref=e759] [cursor=pointer]:
+              - /url: https://www.linz-land.at/
+              - img [ref=e760]
+          - listitem [ref=e761]:
+            - link [ref=e762] [cursor=pointer]:
+              - /url: https://www.acs.at/
+              - img [ref=e763]
+          - listitem [ref=e764]:
+            - link [ref=e765] [cursor=pointer]:
+              - /url: https://www.mrm-vertrieb.at/
+              - img [ref=e766]
+          - listitem [ref=e767]:
+            - link [ref=e768] [cursor=pointer]:
+              - /url: https://www.firmenabc.at/leckortung-manuel-heiser_zfas#portrait
+              - img [ref=e769]
+          - listitem [ref=e770]:
+            - link [ref=e771] [cursor=pointer]:
+              - /url: https://www.raiffeisen.at/ooe/kematen-neuhofen/de/meine-bank/bankstellen/kematen-an-der-krems.html
+              - img [ref=e772]
+          - listitem [ref=e773]:
+            - link [ref=e774] [cursor=pointer]:
+              - /url: https://www.glt-austria.at
+              - img [ref=e775]
+          - listitem [ref=e776]:
+            - link [ref=e777] [cursor=pointer]:
+              - /url: https://www.kormesser.at
+              - img [ref=e778]
+          - listitem [ref=e779]:
+            - link [ref=e780] [cursor=pointer]:
+              - /url: http://www.pauzenberger-installationen.at
+              - img [ref=e781]
+          - option "LEADER Regionalentwicklungsverein" [ref=e782]:
+            - link "LEADER Regionalentwicklungsverein" [ref=e783] [cursor=pointer]:
+              - /url: https://www.linz-land.at/
+              - img "LEADER Regionalentwicklungsverein" [ref=e784]
+          - option "ACS Handels GmbH" [ref=e785]:
+            - link "ACS Handels GmbH" [ref=e786] [cursor=pointer]:
+              - /url: https://www.acs.at/
+              - img "ACS Handels GmbH" [ref=e787]
+          - option "Ing. Stefan Graf Akad. BM" [ref=e788]:
+            - link "Ing. Stefan Graf Akad. BM" [ref=e789] [cursor=pointer]:
+              - /url: https://www.mrm-vertrieb.at/
+              - img "Ing. Stefan Graf Akad. BM" [ref=e790]
+          - option "Leckortung Manuel Heiser" [ref=e791]:
+            - link "Leckortung Manuel Heiser" [ref=e792] [cursor=pointer]:
+              - /url: https://www.firmenabc.at/leckortung-manuel-heiser_zfas#portrait
+              - img "Leckortung Manuel Heiser" [ref=e793]
+          - option "Raiffeisenbank Kematen" [ref=e794]:
+            - link "Raiffeisenbank Kematen" [ref=e795] [cursor=pointer]:
+              - /url: https://www.raiffeisen.at/ooe/kematen-neuhofen/de/meine-bank/bankstellen/kematen-an-der-krems.html
+              - img "Raiffeisenbank Kematen" [ref=e796]
+          - option "GLT GmbH - Lüften und Kühlen" [ref=e797]:
+            - link "GLT GmbH - Lüften und Kühlen" [ref=e798] [cursor=pointer]:
+              - /url: https://www.glt-austria.at
+              - img "GLT GmbH - Lüften und Kühlen" [ref=e799]
+          - option "Kormesser Spezialabdichtungen" [ref=e800]:
+            - link "Kormesser Spezialabdichtungen" [ref=e801] [cursor=pointer]:
+              - /url: https://www.kormesser.at
+              - img "Kormesser Spezialabdichtungen" [ref=e802]
+          - option "Pauzenberger Installationstechnik GmbH" [ref=e803]:
+            - link "Pauzenberger Installationstechnik GmbH" [ref=e804] [cursor=pointer]:
+              - /url: http://www.pauzenberger-installationen.at
+              - img "Pauzenberger Installationstechnik GmbH" [ref=e805]
+          - option [ref=e806]:
+            - link [ref=e807] [cursor=pointer]:
+              - /url: https://www.linz-land.at/
+              - img [ref=e808]
+          - option [ref=e809]:
+            - link [ref=e810] [cursor=pointer]:
+              - /url: https://www.acs.at/
+              - img [ref=e811]
+          - option [ref=e812]:
+            - link [ref=e813] [cursor=pointer]:
+              - /url: https://www.mrm-vertrieb.at/
+              - img [ref=e814]
+          - option [ref=e815]:
+            - link [ref=e816] [cursor=pointer]:
+              - /url: https://www.firmenabc.at/leckortung-manuel-heiser_zfas#portrait
+              - img [ref=e817]
+          - option [ref=e818]:
+            - link [ref=e819] [cursor=pointer]:
+              - /url: https://www.raiffeisen.at/ooe/kematen-neuhofen/de/meine-bank/bankstellen/kematen-an-der-krems.html
+              - img [ref=e820]
+          - option [ref=e821]:
+            - link [ref=e822] [cursor=pointer]:
+              - /url: https://www.glt-austria.at
+              - img [ref=e823]
+          - option [ref=e824]:
+            - link [ref=e825] [cursor=pointer]:
+              - /url: https://www.kormesser.at
+              - img [ref=e826]
+          - option [ref=e827]:
+            - link [ref=e828] [cursor=pointer]:
+              - /url: http://www.pauzenberger-installationen.at
+              - img [ref=e829]
+          - listitem [ref=e830]:
+            - link [ref=e831] [cursor=pointer]:
+              - /url: https://www.linz-land.at/
+              - img [ref=e832]
+          - listitem [ref=e833]:
+            - link [ref=e834] [cursor=pointer]:
+              - /url: https://www.acs.at/
+              - img [ref=e835]
+          - listitem [ref=e836]:
+            - link [ref=e837] [cursor=pointer]:
+              - /url: https://www.mrm-vertrieb.at/
+              - img [ref=e838]
+          - listitem [ref=e839]:
+            - link [ref=e840] [cursor=pointer]:
+              - /url: https://www.firmenabc.at/leckortung-manuel-heiser_zfas#portrait
+              - img [ref=e841]
+          - listitem [ref=e842]:
+            - link [ref=e843] [cursor=pointer]:
+              - /url: https://www.raiffeisen.at/ooe/kematen-neuhofen/de/meine-bank/bankstellen/kematen-an-der-krems.html
+              - img [ref=e844]
+          - listitem [ref=e845]:
+            - link [ref=e846] [cursor=pointer]:
+              - /url: https://www.glt-austria.at
+              - img [ref=e847]
+          - listitem [ref=e848]:
+            - link [ref=e849] [cursor=pointer]:
+              - /url: https://www.kormesser.at
+              - img [ref=e850]
+          - listitem [ref=e851]:
+            - link [ref=e852] [cursor=pointer]:
+              - /url: http://www.pauzenberger-installationen.at
+              - img [ref=e853]
+    - contentinfo [ref=e854]:
+      - generic [ref=e856]:
+        - generic [ref=e857]:
+          - text: Kremstaler Padel King |
+          - link "Impressum" [ref=e858] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e859]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e860] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e862]:
+    - paragraph [ref=e863]:
+      - generic [ref=e864]:
+        - paragraph [ref=e865]:
+          - img "Kremstaler Padel King" [ref=e866]
+          - text: Kremstaler Padel King
+        - paragraph [ref=e867]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e868]:
+      - link "Einstellungen verwalten" [ref=e869] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e870]:
+        - button "Alle ablehnen" [ref=e871] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e872] [cursor=pointer]

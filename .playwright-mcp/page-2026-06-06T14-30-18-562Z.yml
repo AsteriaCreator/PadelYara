@@ -1,0 +1,465 @@
+- generic [ref=e2]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Eversports" [ref=e12]
+        - generic [ref=e25]:
+          - generic [ref=e28]:
+            - img [ref=e32]
+            - textbox "Ort" [ref=e35]:
+              - /placeholder: Wien, AT
+              - text: Wien, AT
+            - group
+          - generic [ref=e38]:
+            - img [ref=e42]
+            - textbox "Sport oder Anbieter" [ref=e44]:
+              - /placeholder: Suche nach einem Sport oder Anbieter
+            - group
+      - generic [ref=e45]:
+        - link "Für Unternehmen" [ref=e46] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - paragraph [ref=e47]: Für Unternehmen
+        - paragraph [ref=e48]: "|"
+        - link "Für Sportanbieter" [ref=e49] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - paragraph [ref=e50]: Für Sportanbieter
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: "|"
+          - link "User login" [ref=e54] [cursor=pointer]:
+            - /url: /auth
+            - paragraph [ref=e55]: Login
+          - link "Registrieren" [ref=e57] [cursor=pointer]:
+            - /url: /auth/register
+            - paragraph [ref=e58]: Registrieren
+  - main [ref=e59]:
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - img "Anbieter Bild 1" [ref=e65] [cursor=pointer]
+        - img "Anbieter Bild 2" [ref=e67] [cursor=pointer]
+        - img "Anbieter Bild 3" [ref=e69] [cursor=pointer]
+        - img "Anbieter Bild 4" [ref=e71] [cursor=pointer]
+        - img "Anbieter Bild 5" [ref=e73] [cursor=pointer]
+        - paragraph [ref=e75] [cursor=pointer]: Fotogalerie öffnen
+      - generic [ref=e77]:
+        - link "Übersicht" [ref=e78] [cursor=pointer]:
+          - /url: /s/tapedesign-padel-performance-center
+          - paragraph [ref=e81]: Übersicht
+        - link "Sportplätze" [ref=e82] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e85]: Sportplätze
+        - separator [ref=e86]
+        - link "Matches" [ref=e87] [cursor=pointer]:
+          - /url: /s/tapedesign-padel-performance-center
+          - paragraph [ref=e90]: Matches
+        - separator [ref=e91]
+        - link "Preise" [ref=e92] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e95]: Preise
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - img "Anbieter Logo" [ref=e101]
+          - heading "TAPEDESIGN - Padel Performance Center" [level=1] [ref=e102]
+          - generic [ref=e103] [cursor=pointer]:
+            - img "rating" [ref=e104]
+            - link "4,5 (30 Rezensionen)" [ref=e105]:
+              - /url: "#ratings"
+              - paragraph [ref=e106]: 4,5 (30 Rezensionen)
+          - generic [ref=e107]:
+            - link "Weitere Standorte ansehen":
+              - /url: "#branches"
+            - list
+          - link "Südbahnweg 31, 8410 Wildon" [ref=e109] [cursor=pointer]:
+            - /url: "#location_map"
+            - generic [ref=e110]:
+              - img [ref=e113]
+              - paragraph [ref=e115]: Südbahnweg 31, 8410 Wildon
+          - generic [ref=e116]:
+            - button "Als Favorit hinzufügen Unfavorited heart" [ref=e117] [cursor=pointer]:
+              - generic [ref=e118]:
+                - paragraph [ref=e119]: Als Favorit hinzufügen
+                - img "Unfavorited heart" [ref=e120]
+            - button "Teilen" [ref=e121] [cursor=pointer]:
+              - generic [ref=e122]:
+                - paragraph [ref=e123]: Teilen
+                - img [ref=e126]
+        - generic [ref=e130]:
+          - generic [ref=e131]:
+            - heading "Über uns" [level=2] [ref=e132]
+            - generic [ref=e133]:
+              - generic [ref=e138]:
+                - paragraph [ref=e139]:
+                  - text: Willkommen im
+                  - strong [ref=e140]: TAPEDESIGN® Padel Performance Center,
+                  - text: wo wir erstklassige Padel-Tennis-Courts und Möglichkeiten für Spieler aller Altersgruppen und Spielstärken anbieten.
+                - paragraph [ref=e141]:
+                  - emphasis [ref=e142]: "Was dich bei uns erwartet:"
+                - list [ref=e143]:
+                  - listitem [ref=e144]:
+                    - strong [ref=e145]: "Modernste Courts:"
+                    - text: Spiele auf sechs (6) top-gepflegten Plätzen, die keine Wünsche offen lassen.
+                  - listitem [ref=e146]:
+                    - strong [ref=e147]: "Gemütliche Lounge:"
+                    - text: Entspann nach dem Spiel in unserer gemütlichen Lounge.
+                  - listitem [ref=e148]:
+                    - strong [ref=e149]: "Professionelles Equipment:"
+                    - text: Teste unser hochwertiges Padel-Equipment.
+                  - listitem [ref=e150]:
+                    - strong [ref=e151]: "Kostenlose Parkplätze: Genügend Parkplätze direkt vor dem Eingangsbereich."
+                  - listitem [ref=e152]:
+                    - strong [ref=e153]: "Events:"
+                    - text: Bald starten unsere ersten Turniere für alle Spielstärken.
+                - paragraph [ref=e154]:
+                  - text: Das
+                  - strong [ref=e155]: TAPEDESIGN® Padel Performance Center
+                  - text: befindet sich am
+                  - strong [ref=e156]: Südbahnweg 31, 8140 Wildon, Österreich.
+                  - emphasis [ref=e157]: (10 Minuten enfernt von Leibnitz und 20 Minuten von Graz.)
+                - paragraph [ref=e158]: Wir freuen uns auf dich! Sei dabei und erlebe Padel wie nie zuvor!
+              - button "Mehr anzeigen" [ref=e159] [cursor=pointer]:
+                - paragraph [ref=e160]: Mehr anzeigen
+          - generic [ref=e161]:
+            - paragraph [ref=e162]: Ausstattung
+            - list [ref=e163]:
+              - listitem [ref=e164]:
+                - img "VENUE_AMENITY_SANITARY" [ref=e165]
+                - paragraph [ref=e166]: Duschen
+              - listitem [ref=e167]:
+                - img "VENUE_AMENITY_GASTRONOMY" [ref=e168]
+                - paragraph [ref=e169]: Essen
+              - listitem [ref=e170]:
+                - img "VENUE_AMENITY_SHOP" [ref=e171]
+                - paragraph [ref=e172]: Shop
+              - listitem [ref=e173]:
+                - img "VENUE_AMENITY_WELLNESS" [ref=e174]
+                - paragraph [ref=e175]: Wellness
+              - listitem [ref=e176]:
+                - img "VENUE_AMENITY_LOCKERROOM" [ref=e177]
+                - paragraph [ref=e178]: Umkleiden
+              - listitem [ref=e179]:
+                - img "VENUE_AMENITY_PARKING" [ref=e180]
+                - paragraph [ref=e181]: Parkplatz
+              - listitem [ref=e182]:
+                - img "VENUE_AMENITY_CARDPAYMENT" [ref=e183]
+                - paragraph [ref=e184]: Kartenzahlung
+              - listitem [ref=e185]:
+                - img "VENUE_AMENITY_AIR_CONDITIONING" [ref=e186]
+                - paragraph [ref=e187]: Klimaanlage
+              - listitem [ref=e188]:
+                - img "VENUE_AMENITY_ACCESSIBLE" [ref=e189]
+                - paragraph [ref=e190]: Barrierefrei
+          - generic [ref=e191]:
+            - paragraph [ref=e192]: Standort
+            - paragraph [ref=e193]: Südbahnweg 31, 8410 Wildon
+            - generic [ref=e194]:
+              - generic [ref=e196]:
+                - region "Karte" [ref=e197]
+                - iframe [ref=e202]:
+                  
+              - link "Google Maps Icon Google Maps öffnen" [ref=e213] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=46.9068870544,15.4793243408
+                - button "Google Maps Icon Google Maps öffnen" [ref=e214]:
+                  - generic [ref=e215]:
+                    - img "Google Maps Icon" [ref=e216]
+                    - paragraph [ref=e217]: Google Maps öffnen
+        - generic [ref=e218]:
+          - heading "Bewertungen" [level=2] [ref=e219]
+          - generic [ref=e220]:
+            - generic [ref=e221]:
+              - generic [ref=e222]:
+                - generic [ref=e223]:
+                  - img "rating" [ref=e224]
+                  - paragraph [ref=e225]: "4.5"
+                - paragraph [ref=e226]: 30 Rezensionen
+              - generic [ref=e227]:
+                - generic [ref=e228]:
+                  - paragraph [ref=e229]: Raumqualität
+                  - generic [ref=e230]:
+                    - img "4.9 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e231]: "4.9"
+                - generic [ref=e232]:
+                  - paragraph [ref=e233]: Freundlichkeit & Service
+                  - generic [ref=e234]:
+                    - img "4.6 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e235]: "4.6"
+                - generic [ref=e236]:
+                  - paragraph [ref=e237]: Sauberkeit
+                  - generic [ref=e238]:
+                    - img "3.9 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e239]: "3.9"
+                - generic [ref=e240]:
+                  - paragraph [ref=e241]: Atmosphäre
+                  - generic [ref=e242]:
+                    - img "4.8 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e243]: "4.8"
+                - generic [ref=e244]:
+                  - paragraph [ref=e245]: Preis-Leistung
+                  - generic [ref=e246]:
+                    - img "4.2 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e247]: "4.2"
+            - generic [ref=e248]:
+              - generic [ref=e249]:
+                - generic [ref=e250]:
+                  - generic [ref=e251]:
+                    - generic [ref=e252]: J
+                    - generic [ref=e253]:
+                      - paragraph [ref=e254]: Judith
+                      - paragraph [ref=e255]: vor einem Monat
+                  - paragraph [ref=e259]: Schöne Halle und nette Hilfe beim ersten Besuch
+                - separator [ref=e260]
+              - generic [ref=e261]:
+                - generic [ref=e262]:
+                  - generic [ref=e263]:
+                    - generic [ref=e264]: M
+                    - generic [ref=e265]:
+                      - paragraph [ref=e266]: Michael
+                      - paragraph [ref=e267]: vor einem Monat
+                  - generic [ref=e269]:
+                    - paragraph [ref=e274]: Tolle Anlage, Buchung, Verleih, etc. hat bestens funktioniert. Ladestation für E-Autos am Parkplatz, wäre noch wünschenswert.
+                    - button "Mehr anzeigen" [ref=e275] [cursor=pointer]:
+                      - paragraph [ref=e276]: Mehr anzeigen
+                - separator [ref=e277]
+              - generic [ref=e278]:
+                - generic [ref=e279]:
+                  - generic [ref=e280]:
+                    - generic [ref=e281]: R
+                    - generic [ref=e282]:
+                      - paragraph [ref=e283]: Reinhard
+                      - paragraph [ref=e284]: vor 2 Monaten
+                  - paragraph [ref=e288]: Alles super, nur alkoholfreies Bier fehlt mir 😃
+                - separator [ref=e289]
+              - generic [ref=e290]:
+                - generic [ref=e291]:
+                  - generic [ref=e292]:
+                    - generic [ref=e293]: H
+                    - generic [ref=e294]:
+                      - paragraph [ref=e295]: Hannah
+                      - paragraph [ref=e296]: vor 3 Monaten
+                  - generic [ref=e298]:
+                    - paragraph [ref=e303]: Aufgrund der Schneesituation konnte ich meinen gebuchten Court leider nicht besuchen und musste kurzfristig absagen. Das Team vom Padel Performance Center war sofort unglaublich hilfsbereit und zeigte großes Entgegenkommen. Ein wirklich großartiger Service und ein tolles Beispiel für Kundenzufriedenheit – vielen Dank dafür! Absolut empfehlenswert.
+                    - button "Mehr anzeigen" [ref=e304] [cursor=pointer]:
+                      - paragraph [ref=e305]: Mehr anzeigen
+                - separator [ref=e306]
+              - generic [ref=e307]:
+                - button "Vorige Seite" [ref=e308]:
+                  - img [ref=e311]
+                - button "Nächste Seite" [ref=e313] [cursor=pointer]:
+                  - img [ref=e316]
+        - generic [ref=e318]:
+          - heading "Weitere hilfreiche Informationen" [level=2] [ref=e319]
+          - generic [ref=e320]:
+            - heading "Häufig gestellte Fragen" [level=3] [ref=e321]
+            - generic [ref=e322]:
+              - button "1. Was macht TAPEDESIGN - Padel Performance Center besonders? toggle accordion icon" [ref=e325] [cursor=pointer]:
+                - paragraph [ref=e327]: 1. Was macht TAPEDESIGN - Padel Performance Center besonders?
+                - generic:
+                  - img "toggle accordion icon"
+              - button "2. Was sollte ich für meinen ersten Besuch wissen? toggle accordion icon" [ref=e330] [cursor=pointer]:
+                - paragraph [ref=e332]: 2. Was sollte ich für meinen ersten Besuch wissen?
+                - generic:
+                  - img "toggle accordion icon"
+              - button "3. Muss ich eigenes Equipment mitbringen oder ist es möglich etwas auszuleihen? toggle accordion icon" [ref=e335] [cursor=pointer]:
+                - paragraph [ref=e337]: 3. Muss ich eigenes Equipment mitbringen oder ist es möglich etwas auszuleihen?
+                - generic:
+                  - img "toggle accordion icon"
+              - button "4. Was sollte ich sonst noch wissen? toggle accordion icon" [ref=e340] [cursor=pointer]:
+                - paragraph [ref=e342]: 4. Was sollte ich sonst noch wissen?
+                - generic:
+                  - img "toggle accordion icon"
+          - generic [ref=e343]:
+            - heading "Angebotene Sportarten und Aktivitäten" [level=3] [ref=e344]
+            - list [ref=e345]:
+              - listitem [ref=e346]:
+                - paragraph [ref=e347]: Padel
+      - generic [ref=e350]:
+        - link "Jetzt buchen" [ref=e353] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e354]: Jetzt buchen
+        - generic [ref=e356]:
+          - generic [ref=e357]:
+            - link "email venue" [ref=e358] [cursor=pointer]:
+              - /url: "mailto: info@padel-center.at"
+              - img [ref=e362]
+            - link "view venue's website page" [ref=e364] [cursor=pointer]:
+              - /url: https://www.padel-center.at
+              - img [ref=e368]
+          - separator [ref=e370]
+          - paragraph [ref=e371]:
+            - text: Wusstest du, dass dich dein Arbeitgeber bei deiner Sportroutine unterstützen kann?
+            - link "Learn about Eversports' special corporate deals" [ref=e372] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+              - text: Weitere Infos
+  - contentinfo [ref=e373]:
+    - generic [ref=e374]:
+      - generic [ref=e375]:
+        - link "Du arbeitest im HR-Bereich? Entdecke alle Vorteile mit Eversports Corporate" [ref=e376] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e377]:
+            - paragraph [ref=e378]: Du arbeitest im HR-Bereich?
+            - paragraph [ref=e379]: Entdecke alle Vorteile mit Eversports Corporate
+        - link "Du betreibst ein Studio oder eine Sportanlage? Erfahre, wie du dein Business boosten kannst!" [ref=e380] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - generic [ref=e381]:
+            - paragraph [ref=e382]: Du betreibst ein Studio oder eine Sportanlage?
+            - paragraph [ref=e383]: Erfahre, wie du dein Business boosten kannst!
+      - generic [ref=e384]:
+        - generic [ref=e385]:
+          - generic [ref=e386]:
+            - heading "Mehr über Eversports" [level=2] [ref=e387]
+            - link "Über uns" [ref=e388] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/
+            - link "Blog" [ref=e389] [cursor=pointer]:
+              - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+            - link "Jobs" [ref=e390] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/#jobs
+            - link "Sicherheit" [ref=e391] [cursor=pointer]:
+              - /url: /h/security
+            - link "Für Unternehmen" [ref=e392] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e393]:
+            - heading "Eversports Manager" [level=2] [ref=e394]
+            - link "Zur Webseite" [ref=e395] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+            - link "Preise" [ref=e396] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+            - link "Kostenlose Demo" [ref=e397] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+        - generic [ref=e398]:
+          - generic [ref=e399]:
+            - heading "Kontakt" [level=2] [ref=e400]
+            - link "Kontaktiere uns" [ref=e401] [cursor=pointer]:
+              - /url: /h/contact
+            - link "Impressum" [ref=e402] [cursor=pointer]:
+              - /url: /h/about
+            - link "Datenschutz" [ref=e403] [cursor=pointer]:
+              - /url: /h/privacy
+            - link "Erklärung zur Barrierefreiheit" [ref=e404] [cursor=pointer]:
+              - /url: /h/accessibility
+            - link "AGB" [ref=e405] [cursor=pointer]:
+              - /url: /h/terms
+            - button "Cookie-Einstellungen" [ref=e406] [cursor=pointer]
+            - link "Memberships kündigen" [ref=e407] [cursor=pointer]:
+              - /url: /h/cancel-membership
+          - generic [ref=e408]:
+            - generic [ref=e409]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e410]
+              - generic [ref=e411]:
+                - link "Eversports Facebook" [ref=e412] [cursor=pointer]:
+                  - /url: https://www.facebook.com/eversports
+                  - img "Facebook Badge" [ref=e416]
+                - link "Eversports Manager Youtube" [ref=e418] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                  - img [ref=e422]
+                - link "Eversports Instagram" [ref=e424] [cursor=pointer]:
+                  - /url: https://www.instagram.com/eversports_official/
+                  - img "Instagram Badge" [ref=e428]
+            - generic [ref=e430]:
+              - link "Eversports Apple App Store" [ref=e431] [cursor=pointer]:
+                - /url: https://itunes.apple.com/app/eversport-now/id946460861
+                - generic [ref=e432]:
+                  - img "app-store-badge" [ref=e433]
+                  - generic [ref=e434]:
+                    - paragraph [ref=e435]: Jetzt bei
+                    - paragraph [ref=e436]: App Store
+              - link "Eversports Google Play" [ref=e437] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - generic [ref=e438]:
+                  - img "play-store-badge" [ref=e439]
+                  - generic [ref=e440]:
+                    - paragraph [ref=e441]: Jetzt bei
+                    - paragraph [ref=e442]: Google Play
+      - generic [ref=e443]:
+        - generic [ref=e444]:
+          - img "Eversports Logo" [ref=e445]
+          - paragraph [ref=e446]: 2026 Eversports GmbH. Alle Rechte vorbehalten.
+        - generic [ref=e447]:
+          - img "Paypal ist eine akzeptierte Zahlunsart" [ref=e449]
+          - img "Mastercard ist eine akzeptierte Zahlunsart" [ref=e451]
+          - img "Visa ist eine akzeptierte Zahlunsart" [ref=e453]
+          - img "Klarna ist eine akzeptierte Zahlunsart" [ref=e455]

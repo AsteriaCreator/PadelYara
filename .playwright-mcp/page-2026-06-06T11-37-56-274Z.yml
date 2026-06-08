@@ -1,0 +1,45 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link [ref=e8] [cursor=pointer]:
+          - /url: http://www.padel-challenge.at
+          - img [ref=e9]
+        - heading "HIER BUCHEN" [level=1] [ref=e11]
+        - list [ref=e13]:
+          - listitem [ref=e14]:
+            - link "Plätze" [ref=e15] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e16]:
+            - link "Gutscheine" [ref=e17] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e18]:
+            - link "Preise" [ref=e19] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e20]
+    - main [ref=e23]:
+      - generic [ref=e25]:
+        - generic [ref=e28]:
+          - generic [ref=e30]:
+            - textbox "Datum auswählen" [ref=e33]: 06.06.2026
+            - generic [ref=e35]:
+              - button "Datum auswählen" [ref=e36] [cursor=pointer]:
+                - generic [ref=e37]: 
+              - button "Vorherige 7 Tage" [disabled]:
+                - generic: 
+              - button "Heute" [ref=e38] [cursor=pointer]
+              - button "Nächsten 7 Tage" [ref=e39] [cursor=pointer]:
+                - generic [ref=e40]: 
+          - navigation [ref=e43]:
+            - list [ref=e44]:
+              - listitem [ref=e45] [cursor=pointer]: Padel
+              - listitem [ref=e46] [cursor=pointer]: Teqball
+              - listitem [ref=e47] [cursor=pointer]: Padbol
+        - generic [ref=e50]:
+          - progressbar: lade Kalender...
+      - paragraph [ref=e51]: "* Alle Preise inkl. Umsatzsteuer"
+      - link "Wir nutzen Eversports" [ref=e53] [cursor=pointer]:
+        - /url: https://www.eversportsmanager.com/de/
+        - img [ref=e54]
+        - text: Wir nutzen Eversports
+  - text:  

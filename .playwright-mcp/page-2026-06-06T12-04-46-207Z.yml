@@ -1,0 +1,422 @@
+- generic [ref=e2]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Eversports" [ref=e12]
+        - generic [ref=e25]:
+          - generic [ref=e28]:
+            - img [ref=e32]
+            - textbox "Ort" [ref=e35]:
+              - /placeholder: Wien, AT
+              - text: Wien, AT
+            - group
+          - generic [ref=e38]:
+            - img [ref=e42]
+            - textbox "Sport oder Anbieter" [ref=e44]:
+              - /placeholder: Suche nach einem Sport oder Anbieter
+            - group
+      - generic [ref=e45]:
+        - link "Für Unternehmen" [ref=e46] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - paragraph [ref=e47]: Für Unternehmen
+        - paragraph [ref=e48]: "|"
+        - link "Für Sportanbieter" [ref=e49] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - paragraph [ref=e50]: Für Sportanbieter
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: "|"
+          - link "User login" [ref=e54] [cursor=pointer]:
+            - /url: /auth
+            - paragraph [ref=e55]: Login
+          - link "Registrieren" [ref=e57] [cursor=pointer]:
+            - /url: /auth/register
+            - paragraph [ref=e58]: Registrieren
+  - main [ref=e59]:
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - img "Anbieter Bild 1" [ref=e65] [cursor=pointer]
+        - img "Anbieter Bild 2" [ref=e67] [cursor=pointer]
+        - img "Anbieter Bild 3" [ref=e69] [cursor=pointer]
+        - img "Anbieter Bild 4" [ref=e71] [cursor=pointer]
+        - img "Anbieter Bild 5" [ref=e73]
+      - generic [ref=e75]:
+        - link "Übersicht" [ref=e76] [cursor=pointer]:
+          - /url: /s/padelzone-gmundenaltmuenster
+          - paragraph [ref=e79]: Übersicht
+        - link "Sportplätze" [ref=e80] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e83]: Sportplätze
+        - separator [ref=e84]
+        - link "Matches" [ref=e85] [cursor=pointer]:
+          - /url: /s/padelzone-gmundenaltmuenster
+          - paragraph [ref=e88]: Matches
+        - separator [ref=e89]
+        - link "Preise" [ref=e90] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e93]: Preise
+    - generic [ref=e96]:
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - img "Anbieter Logo" [ref=e99]
+          - heading "PADELZONE Gmunden/Altmünster" [level=1] [ref=e100]
+          - generic [ref=e101] [cursor=pointer]:
+            - img "rating" [ref=e102]
+            - link "4,9 (4 Rezensionen)" [ref=e103]:
+              - /url: "#ratings"
+              - paragraph [ref=e104]: 4,9 (4 Rezensionen)
+          - generic [ref=e105]:
+            - link "Weitere Standorte ansehen" [ref=e106] [cursor=pointer]:
+              - /url: "#branches"
+              - paragraph [ref=e108]: 1 von 22 Standorten
+            - list
+          - link "Kinderdorfstraße 15 , 4813 Altmünster am Traunsee" [ref=e110] [cursor=pointer]:
+            - /url: "#location_map"
+            - generic [ref=e111]:
+              - img [ref=e114]
+              - paragraph [ref=e116]: Kinderdorfstraße 15 , 4813 Altmünster am Traunsee
+          - generic [ref=e117]:
+            - button "Als Favorit hinzufügen Unfavorited heart" [ref=e118] [cursor=pointer]:
+              - generic [ref=e119]:
+                - paragraph [ref=e120]: Als Favorit hinzufügen
+                - img "Unfavorited heart" [ref=e121]
+            - button "Teilen" [ref=e122] [cursor=pointer]:
+              - generic [ref=e123]:
+                - paragraph [ref=e124]: Teilen
+                - img [ref=e127]
+        - generic [ref=e131]:
+          - generic [ref=e132]:
+            - heading "Über uns" [level=2] [ref=e133]
+            - generic [ref=e134]:
+              - generic [ref=e139]:
+                - paragraph [ref=e140]:
+                  - strong [ref=e141]: WELCOME IN THA ZONE!
+                - paragraph [ref=e142]:
+                  - text: Die bereits dritte
+                  - strong [ref=e143]: PADELZONE
+                  - text: Oberösterreichs hat Ihre Heimat in
+                  - strong [ref=e144]: Altmünster
+                  - text: am wunderschönen Traunsee gefunden.
+                - paragraph [ref=e145]: "-"
+                - paragraph [ref=e146]: Unsere 2 Outdoor Courts ermöglichen dir in cooler Atmosphäre deinen neuen Lieblingssport kennenzulernen.
+                - paragraph [ref=e147]: "-"
+                - paragraph [ref=e148]:
+                  - text: Die
+                  - strong [ref=e149]: PADELZONE Gmunden | Altmünster
+                  - text: freut sich auf deinen Besuch.
+                - paragraph [ref=e150]: Cu in tha ZONE!
+                - paragraph [ref=e151]:
+                  - text: dein
+                  - strong [ref=e152]: PADELZONE
+                  - text: Team
+                - paragraph [ref=e153]: "-"
+                - paragraph [ref=e154]: "*Buchungen können selbstständig bis zu 24h vor Spielbeginn kostenlos über eversports.at oder die Eversports APP storniert werden. Bei Stornierungen innerhalb dieser Frist wird der volle Betrag automatisch rückerstattet, nach Ablauf dieser Frist ist keine Rückerstattung mehr möglich."
+              - button "Mehr anzeigen" [ref=e155] [cursor=pointer]:
+                - paragraph [ref=e156]: Mehr anzeigen
+          - generic [ref=e157]:
+            - paragraph [ref=e158]: Ausstattung
+            - list [ref=e159]:
+              - listitem [ref=e160]:
+                - img "VENUE_AMENITY_SANITARY" [ref=e161]
+                - paragraph [ref=e162]: Duschen
+              - listitem [ref=e163]:
+                - img "VENUE_AMENITY_GASTRONOMY" [ref=e164]
+                - paragraph [ref=e165]: Essen
+              - listitem [ref=e166]:
+                - img "VENUE_AMENITY_SHOP" [ref=e167]
+                - paragraph [ref=e168]: Shop
+              - listitem [ref=e169]:
+                - img "VENUE_AMENITY_WELLNESS" [ref=e170]
+                - paragraph [ref=e171]: Wellness
+              - listitem [ref=e172]:
+                - img "VENUE_AMENITY_LOCKERROOM" [ref=e173]
+                - paragraph [ref=e174]: Umkleiden
+              - listitem [ref=e175]:
+                - img "VENUE_AMENITY_PARKING" [ref=e176]
+                - paragraph [ref=e177]: Parkplatz
+              - listitem [ref=e178]:
+                - img "VENUE_AMENITY_CARDPAYMENT" [ref=e179]
+                - paragraph [ref=e180]: Kartenzahlung
+              - listitem [ref=e181]:
+                - img "VENUE_AMENITY_AIR_CONDITIONING" [ref=e182]
+                - paragraph [ref=e183]: Klimaanlage
+              - listitem [ref=e184]:
+                - img "VENUE_AMENITY_ACCESSIBLE" [ref=e185]
+                - paragraph [ref=e186]: Barrierefrei
+          - generic [ref=e187]:
+            - paragraph [ref=e188]: Standort
+            - paragraph [ref=e189]: Kinderdorfstraße 15 , 4813 Altmünster am Traunsee
+            - generic [ref=e190]:
+              - generic [ref=e192]:
+                - region "Karte" [ref=e193]
+                - iframe [ref=e198]:
+                  
+              - link "Google Maps Icon Google Maps öffnen" [ref=e209] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir/?api=1&destination=47.9109611511,13.7749614716
+                - button "Google Maps Icon Google Maps öffnen" [ref=e210]:
+                  - generic [ref=e211]:
+                    - img "Google Maps Icon" [ref=e212]
+                    - paragraph [ref=e213]: Google Maps öffnen
+          - generic [ref=e214]:
+            - generic [ref=e215]:
+              - paragraph [ref=e216]: Weitere Standorte
+              - paragraph [ref=e217]: Sieh dir weitere Standorte der Anlage an
+            - generic [ref=e218]:
+              - link "PADELZONE Attersee | Padelzeit logo PADELZONE Attersee | Padelzeit 4860, Lenzing" [ref=e219] [cursor=pointer]:
+                - /url: /s/padelzone-attersee-or-padelzeit
+                - generic [ref=e221]:
+                  - img "PADELZONE Attersee | Padelzeit logo" [ref=e223]
+                  - generic [ref=e224]:
+                    - paragraph [ref=e225]: PADELZONE Attersee | Padelzeit
+                    - paragraph [ref=e226]: 4860, Lenzing
+              - link "PADELZONE Bad Ischl logo PADELZONE Bad Ischl 4820, Bad Ischl" [ref=e227] [cursor=pointer]:
+                - /url: /s/padelzone-bad-ischl
+                - generic [ref=e229]:
+                  - img "PADELZONE Bad Ischl logo" [ref=e231]
+                  - generic [ref=e232]:
+                    - paragraph [ref=e233]: PADELZONE Bad Ischl
+                    - paragraph [ref=e234]: 4820, Bad Ischl
+              - link "PADELZONE Dornbirn | TC Dornbirn logo PADELZONE Dornbirn | TC Dornbirn 6850, Dornbirn" [ref=e235] [cursor=pointer]:
+                - /url: /s/padelzone-dornbirn-or-tc-dornbirn
+                - generic [ref=e237]:
+                  - img "PADELZONE Dornbirn | TC Dornbirn logo" [ref=e239]
+                  - generic [ref=e240]:
+                    - paragraph [ref=e241]: PADELZONE Dornbirn | TC Dornbirn
+                    - paragraph [ref=e242]: 6850, Dornbirn
+              - link "PADELZONE Ebensee | Traunsee logo PADELZONE Ebensee | Traunsee 4802, Ebensee" [ref=e243] [cursor=pointer]:
+                - /url: /s/padelzone-ebensee-or-traunsee
+                - generic [ref=e245]:
+                  - img "PADELZONE Ebensee | Traunsee logo" [ref=e247]
+                  - generic [ref=e248]:
+                    - paragraph [ref=e249]: PADELZONE Ebensee | Traunsee
+                    - paragraph [ref=e250]: 4802, Ebensee
+              - link "PADELZONE Götzis | Indoor Sportzentrum logo PADELZONE Götzis | Indoor Sportzentrum 6840, Götzis" [ref=e251] [cursor=pointer]:
+                - /url: /s/padelzone-goetzis-or-indoor-sportzentrum
+                - generic [ref=e253]:
+                  - img "PADELZONE Götzis | Indoor Sportzentrum logo" [ref=e255]
+                  - generic [ref=e256]:
+                    - paragraph [ref=e257]: PADELZONE Götzis | Indoor Sportzentrum
+                    - paragraph [ref=e258]: 6840, Götzis
+              - link "PADELZONE Graz | Puntigam logo PADELZONE Graz | Puntigam 8055, Graz" [ref=e259] [cursor=pointer]:
+                - /url: /s/padelzone-graz-or-puntigam
+                - generic [ref=e261]:
+                  - img "PADELZONE Graz | Puntigam logo" [ref=e263]
+                  - generic [ref=e264]:
+                    - paragraph [ref=e265]: PADELZONE Graz | Puntigam
+                    - paragraph [ref=e266]: 8055, Graz
+            - paragraph [ref=e267] [cursor=pointer]: Weitere Standorte ansehen
+        - generic [ref=e268]:
+          - heading "Bewertungen" [level=2] [ref=e269]
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - generic [ref=e272]:
+                - generic [ref=e273]:
+                  - img "rating" [ref=e274]
+                  - paragraph [ref=e275]: "4.9"
+                - paragraph [ref=e276]: 4 Rezensionen
+              - generic [ref=e277]:
+                - generic [ref=e278]:
+                  - paragraph [ref=e279]: Raumqualität
+                  - generic [ref=e280]:
+                    - img "5 Stars"
+                    - paragraph [ref=e281]: "5.0"
+                - generic [ref=e282]:
+                  - paragraph [ref=e283]: Freundlichkeit & Service
+                  - generic [ref=e284]:
+                    - img "5 Stars"
+                    - paragraph [ref=e285]: "5.0"
+                - generic [ref=e286]:
+                  - paragraph [ref=e287]: Sauberkeit
+                  - generic [ref=e288]:
+                    - img "5 Stars"
+                    - paragraph [ref=e289]: "5.0"
+                - generic [ref=e290]:
+                  - paragraph [ref=e291]: Atmosphäre
+                  - generic [ref=e292]:
+                    - img "4.8 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e293]: "4.8"
+                - generic [ref=e294]:
+                  - paragraph [ref=e295]: Preis-Leistung
+                  - generic [ref=e296]:
+                    - img "4.5 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e297]: "4.5"
+            - generic [ref=e298]:
+              - generic [ref=e299]:
+                - generic [ref=e300]:
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: M
+                    - generic [ref=e303]:
+                      - paragraph [ref=e304]: Melanie
+                      - paragraph [ref=e305]: vor einem Monat
+                  - paragraph [ref=e309]: Alles top!
+                - separator [ref=e310]
+              - generic [ref=e311]:
+                - generic [ref=e312]:
+                  - generic [ref=e313]:
+                    - generic [ref=e314]: J
+                    - generic [ref=e315]:
+                      - paragraph [ref=e316]: Julian
+                      - paragraph [ref=e317]: vor einem Jahr
+                  - paragraph [ref=e321]: Ein wenig überteuert.
+                - separator [ref=e322]
+              - generic [ref=e323]:
+                - generic [ref=e324]:
+                  - generic [ref=e325]:
+                    - generic [ref=e326]: S
+                    - generic [ref=e327]:
+                      - paragraph [ref=e328]: Stefan
+                      - paragraph [ref=e329]: vor 3 Jahren
+                  - paragraph [ref=e333]: Stefan Stricker
+                - separator [ref=e334]
+              - generic [ref=e335]:
+                - generic [ref=e336]:
+                  - generic [ref=e337]:
+                    - generic [ref=e338]: F
+                    - generic [ref=e339]:
+                      - paragraph [ref=e340]: Florian
+                      - paragraph [ref=e341]: vor 3 Jahren
+                  - paragraph [ref=e345]: Flo P.
+                - separator [ref=e346]
+        - generic [ref=e347]:
+          - heading "Weitere hilfreiche Informationen" [level=2] [ref=e348]
+          - generic [ref=e349]:
+            - heading "Über das Team" [level=3] [ref=e350]
+            - paragraph [ref=e352]: Hannes und Martin empfangen dich vor Ort und zeigen dir deinen neuen Lieblingssport.
+          - generic [ref=e353]:
+            - heading "Angebotene Sportarten und Aktivitäten" [level=3] [ref=e354]
+            - list [ref=e355]:
+              - listitem [ref=e356]:
+                - paragraph [ref=e357]: Padel
+      - generic [ref=e360]:
+        - link "Jetzt buchen" [ref=e363] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e364]: Jetzt buchen
+        - generic [ref=e366]:
+          - generic [ref=e367]:
+            - link "email venue" [ref=e368] [cursor=pointer]:
+              - /url: "mailto: office@padelzone.at"
+              - img [ref=e372]
+            - link "view venue's website page" [ref=e374] [cursor=pointer]:
+              - /url: http://www.padelzone.at
+              - img [ref=e378]
+            - link "call venue" [ref=e380] [cursor=pointer]:
+              - /url: tel:+43 699 12770469
+              - img [ref=e384]
+          - separator [ref=e386]
+          - paragraph [ref=e387]:
+            - text: Wusstest du, dass dich dein Arbeitgeber bei deiner Sportroutine unterstützen kann?
+            - link "Learn about Eversports' special corporate deals" [ref=e388] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+              - text: Weitere Infos
+  - contentinfo [ref=e389]:
+    - generic [ref=e390]:
+      - generic [ref=e391]:
+        - link "Du arbeitest im HR-Bereich? Entdecke alle Vorteile mit Eversports Corporate" [ref=e392] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e393]:
+            - paragraph [ref=e394]: Du arbeitest im HR-Bereich?
+            - paragraph [ref=e395]: Entdecke alle Vorteile mit Eversports Corporate
+        - link "Du betreibst ein Studio oder eine Sportanlage? Erfahre, wie du dein Business boosten kannst!" [ref=e396] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - generic [ref=e397]:
+            - paragraph [ref=e398]: Du betreibst ein Studio oder eine Sportanlage?
+            - paragraph [ref=e399]: Erfahre, wie du dein Business boosten kannst!
+      - generic [ref=e400]:
+        - generic [ref=e401]:
+          - generic [ref=e402]:
+            - heading "Mehr über Eversports" [level=2] [ref=e403]
+            - link "Über uns" [ref=e404] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/
+            - link "Blog" [ref=e405] [cursor=pointer]:
+              - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+            - link "Jobs" [ref=e406] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/#jobs
+            - link "Sicherheit" [ref=e407] [cursor=pointer]:
+              - /url: /h/security
+            - link "Für Unternehmen" [ref=e408] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e409]:
+            - heading "Eversports Manager" [level=2] [ref=e410]
+            - link "Zur Webseite" [ref=e411] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+            - link "Preise" [ref=e412] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+            - link "Kostenlose Demo" [ref=e413] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+        - generic [ref=e414]:
+          - generic [ref=e415]:
+            - heading "Kontakt" [level=2] [ref=e416]
+            - link "Kontaktiere uns" [ref=e417] [cursor=pointer]:
+              - /url: /h/contact
+            - link "Impressum" [ref=e418] [cursor=pointer]:
+              - /url: /h/about
+            - link "Datenschutz" [ref=e419] [cursor=pointer]:
+              - /url: /h/privacy
+            - link "Erklärung zur Barrierefreiheit" [ref=e420] [cursor=pointer]:
+              - /url: /h/accessibility
+            - link "AGB" [ref=e421] [cursor=pointer]:
+              - /url: /h/terms
+            - button "Cookie-Einstellungen" [ref=e422] [cursor=pointer]
+            - link "Memberships kündigen" [ref=e423] [cursor=pointer]:
+              - /url: /h/cancel-membership
+          - generic [ref=e424]:
+            - generic [ref=e425]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e426]
+              - generic [ref=e427]:
+                - link "Eversports Facebook" [ref=e428] [cursor=pointer]:
+                  - /url: https://www.facebook.com/eversports
+                  - img "Facebook Badge" [ref=e432]
+                - link "Eversports Manager Youtube" [ref=e434] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                  - img [ref=e438]
+                - link "Eversports Instagram" [ref=e440] [cursor=pointer]:
+                  - /url: https://www.instagram.com/eversports_official/
+                  - img "Instagram Badge" [ref=e444]
+            - generic [ref=e446]:
+              - link "Eversports Apple App Store" [ref=e447] [cursor=pointer]:
+                - /url: https://itunes.apple.com/app/eversport-now/id946460861
+                - generic [ref=e448]:
+                  - img "app-store-badge" [ref=e449]
+                  - generic [ref=e450]:
+                    - paragraph [ref=e451]: Jetzt bei
+                    - paragraph [ref=e452]: App Store
+              - link "Eversports Google Play" [ref=e453] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - generic [ref=e454]:
+                  - img "play-store-badge" [ref=e455]
+                  - generic [ref=e456]:
+                    - paragraph [ref=e457]: Jetzt bei
+                    - paragraph [ref=e458]: Google Play
+      - generic [ref=e459]:
+        - generic [ref=e460]:
+          - img "Eversports Logo" [ref=e461]
+          - paragraph [ref=e462]: 2026 Eversports GmbH. Alle Rechte vorbehalten.
+        - generic [ref=e463]:
+          - img "Paypal ist eine akzeptierte Zahlunsart" [ref=e465]
+          - img "Mastercard ist eine akzeptierte Zahlunsart" [ref=e467]
+          - img "Visa ist eine akzeptierte Zahlunsart" [ref=e469]
+          - img "Klarna ist eine akzeptierte Zahlunsart" [ref=e471]

@@ -1,0 +1,212 @@
+- generic [active] [ref=e1]:
+  - dialog "cookieconsent" [ref=e2]:
+    - generic [ref=e3]:
+      - text: Wir verwenden Technologien, wie beispielsweise Cookies und externe Plugins zur Verbesserung der Benutzerfreundlichkeit und Analyse unserer Webseite. Wenn Sie dies nicht wünschen, kann die Funktion der Website eingeschränkt sein.
+      - button "learn more about cookies" [ref=e4] [cursor=pointer]: Mehr Informationen
+    - generic [ref=e5]:
+      - button "deny cookies" [ref=e6] [cursor=pointer]: Ablehnen
+      - button "allow cookies" [ref=e7] [cursor=pointer]: Zustimmen
+  - generic [ref=e8]:
+    - banner [ref=e10]:
+      - generic [ref=e12]:
+        - link "eTennis" [ref=e15] [cursor=pointer]:
+          - /url: /
+          - img "eTennis" [ref=e16]
+        - navigation [ref=e17]:
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - link "Startseite" [ref=e21] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e22]:
+              - link "Vorteile" [ref=e23] [cursor=pointer]:
+                - /url: /vorteile
+            - listitem [ref=e24]:
+              - link "Funktionen" [ref=e25] [cursor=pointer]:
+                - /url: /funktionen
+            - listitem [ref=e26]:
+              - link "Preise" [ref=e27] [cursor=pointer]:
+                - /url: /preise
+            - listitem [ref=e28]:
+              - link "Referenzen" [ref=e29] [cursor=pointer]:
+                - /url: /referenzen
+            - listitem [ref=e30]:
+              - link "Konzept Halle" [ref=e31] [cursor=pointer]:
+                - /url: /konzept-halle
+            - listitem [ref=e32]:
+              - link "Kontakt" [ref=e33] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e34]:
+              - link "Demo" [ref=e35] [cursor=pointer]:
+                - /url: /demo
+    - heading "Out!" [level=1] [ref=e40]
+    - generic [ref=e41]:
+      - heading "Seite nicht gefunden" [level=2] [ref=e42]
+      - paragraph [ref=e43]:
+        - text: Gehe zur
+        - link "Startseite" [ref=e44] [cursor=pointer]:
+          - /url: /
+        - text: oder wähle eine Seite aus unserem Hauptmenü!
+    - generic [ref=e45]:
+      - iframe [ref=e46]:
+        - generic [ref=f20e3]:
+          - generic [ref=f20e4]:
+            - link "Fail Us Open Tennis GIF ' '" [ref=f20e5] [cursor=pointer]:
+              - /url: https://giphy.com/gifs/fail-tennis-james-n6yCN8anreAeI?utm_source=iframe&utm_medium=embed&utm_campaign=Embeds&utm_term=https%3A%2F%2Fwww.etennis.at%2F
+              - img "Fail Us Open Tennis GIF"
+              - text: "' '"
+            - generic [ref=f20e6]:
+              - link [ref=f20e7] [cursor=pointer]:
+                - /url: https://giphy.com/gifs/fail-tennis-james-n6yCN8anreAeI?utm_source=iframe&utm_medium=embed&utm_campaign=Embeds&utm_term=https%3A%2F%2Fwww.etennis.at%2F
+              - generic [ref=f20e12]: Related Gifs
+            - generic [ref=f20e13]:
+              - link [ref=f20e14] [cursor=pointer]:
+                - /url: https://giphy.com/?utm_source=iframe&utm_medium=embed&utm_campaign=Embeds&utm_term=https%3A%2F%2Fwww.etennis.at%2F
+                - img [ref=f20e15]
+              - generic [ref=f20e17] [cursor=pointer]: 
+            - generic [ref=f20e19] [cursor=pointer]: Continue Watching on GIPHY
+          - text: ␡
+          - img [ref=f20e20]
+      - paragraph [ref=e47]:
+        - link "via GIPHY" [ref=e48] [cursor=pointer]:
+          - /url: https://giphy.com/gifs/fail-tennis-james-n6yCN8anreAeI
+    - contentinfo [ref=e49]:
+      - generic [ref=e54]:
+        - generic [ref=e57]:
+          - heading "eTennis" [level=3] [ref=e58]
+          - list [ref=e59]:
+            - listitem [ref=e60]:
+              - link "Startseite" [ref=e61] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e62]:
+              - link "Vorteile" [ref=e63] [cursor=pointer]:
+                - /url: /vorteile
+            - listitem [ref=e64]:
+              - link "Funktionen" [ref=e65] [cursor=pointer]:
+                - /url: /funktionen
+            - listitem [ref=e66]:
+              - link "Preise" [ref=e67] [cursor=pointer]:
+                - /url: /preise
+            - listitem [ref=e68]:
+              - link "Referenzen" [ref=e69] [cursor=pointer]:
+                - /url: /referenzen
+            - listitem [ref=e70]:
+              - link "Konzept Halle" [ref=e71] [cursor=pointer]:
+                - /url: /konzept-halle
+            - listitem [ref=e72]:
+              - link "Kontakt" [ref=e73] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e74]:
+              - link "Demo" [ref=e75] [cursor=pointer]:
+                - /url: /demo
+            - listitem [ref=e76]:
+              - link "Bespannbox" [ref=e77] [cursor=pointer]:
+                - /url: /bespannbox
+            - listitem [ref=e78]:
+              - link "Datenschutz" [ref=e79] [cursor=pointer]:
+                - /url: /datenschutz
+            - listitem [ref=e80]:
+              - link "Impressum" [ref=e81] [cursor=pointer]:
+                - /url: /impressum
+        - generic [ref=e84]:
+          - heading "Funktionen" [level=3] [ref=e85]
+          - list [ref=e86]:
+            - listitem [ref=e87]:
+              - link "Online Reservierung" [ref=e88] [cursor=pointer]:
+                - /url: /funktionen/online-reservierung
+            - listitem [ref=e89]:
+              - link "Öffentlichkeitsarbeit" [ref=e90] [cursor=pointer]:
+                - /url: /funktionen/oeffentlichkeitsarbeit
+            - listitem [ref=e91]:
+              - link "Spielpartner-Suche" [ref=e92] [cursor=pointer]:
+                - /url: /funktionen/spielpartner-suche-finde-passende-gegner-und-mitspieler
+            - listitem [ref=e93]:
+              - link "Forderungspyramide" [ref=e94] [cursor=pointer]:
+                - /url: /funktionen/forderungspyramide
+            - listitem [ref=e95]:
+              - link "Turniersystem" [ref=e96] [cursor=pointer]:
+                - /url: /funktionen/turniersystem
+            - listitem [ref=e97]:
+              - link "Mitgliederverwaltung" [ref=e98] [cursor=pointer]:
+                - /url: /funktionen/mitgliederverwaltung-vereinsverwaltung
+            - listitem [ref=e99]:
+              - link "Buchhaltung / Kassabuch" [ref=e100] [cursor=pointer]:
+                - /url: /funktionen/buchhaltung-einnahmen-ausgabenrechnung-kassabuch-vereine
+            - listitem [ref=e101]:
+              - link "Zahlung & Abrechnung" [ref=e102] [cursor=pointer]:
+                - /url: /funktionen/online-zahlung-und-abrechnung
+            - listitem [ref=e103]:
+              - link "Steuerungsmodul" [ref=e104] [cursor=pointer]:
+                - /url: /funktionen/steuerungsmodul
+            - listitem [ref=e105]:
+              - link "Zutrittssteuerung" [ref=e106] [cursor=pointer]:
+                - /url: /funktionen/zutrittssteuerung
+            - listitem [ref=e107]:
+              - link "Event-, Kurs- & Campverwaltung" [ref=e108] [cursor=pointer]:
+                - /url: /funktionen/event-kurs-campverwaltung
+            - listitem [ref=e109]:
+              - link "Mannschafts- & Terminverwaltung" [ref=e110] [cursor=pointer]:
+                - /url: /funktionen/mannschaftsverwaltung-terminkoordination
+            - listitem [ref=e111]:
+              - link "Kiosk" [ref=e112] [cursor=pointer]:
+                - /url: /funktionen/kiosk-fuer-vereine-und-kommerzielle-anlagen
+            - listitem [ref=e113]:
+              - link "Partner Portal" [ref=e114] [cursor=pointer]:
+                - /url: /partner
+        - generic [ref=e117]:
+          - heading "Erfolgsgeschichten" [level=3] [ref=e118]
+          - list [ref=e119]:
+            - listitem [ref=e120]:
+              - link "eTennis Konzept Halle Perschling" [ref=e121] [cursor=pointer]:
+                - /url: /konzept-halle
+            - listitem [ref=e122]:
+              - link "TC St.Bartholomä" [ref=e123] [cursor=pointer]:
+                - /url: /referenzen/tc-stbartholomae
+            - listitem [ref=e124]:
+              - link "TC Höhenkirchen" [ref=e125] [cursor=pointer]:
+                - /url: /referenzen/tc-hoehenkirchen-der-digitale-vorzeigeverein-in-bayern
+            - listitem [ref=e126]:
+              - link "SC Cagitz Rutzing" [ref=e127] [cursor=pointer]:
+                - /url: /referenzen/sc-cagitz-rutzing
+            - listitem [ref=e128]:
+              - link "TC Blindenmarkt" [ref=e129] [cursor=pointer]:
+                - /url: /referenzen/tc-blindenmarkt
+            - listitem [ref=e130]:
+              - link "Kasseler Tennisclub 1931" [ref=e131] [cursor=pointer]:
+                - /url: /referenzen/kasseler-tennisclub-1931
+            - listitem [ref=e132]:
+              - link "TC Aurach am Hongar" [ref=e133] [cursor=pointer]:
+                - /url: /referenzen/tc-aurach-am-hongar
+            - listitem [ref=e134]:
+              - link "HSG Universität Greifswald" [ref=e135] [cursor=pointer]:
+                - /url: /referenzen/hsg-universitaet-greifswald
+            - listitem [ref=e136]:
+              - link "TC Kamper St.Valentin" [ref=e137] [cursor=pointer]:
+                - /url: /referenzen/tc-kamper-stvalentin
+            - listitem [ref=e138]:
+              - link "Kitzbüheler Tennis Club" [ref=e139] [cursor=pointer]:
+                - /url: /referenzen/kitzbueheler-tennis-club
+            - listitem [ref=e140]:
+              - link "Tennisclub Dietach" [ref=e141] [cursor=pointer]:
+                - /url: /referenzen/tennisclub-dietach
+            - listitem [ref=e142]:
+              - link "TV Bissingen/Teck" [ref=e143] [cursor=pointer]:
+                - /url: /referenzen/tv-bissingen/teck
+            - listitem [ref=e144]:
+              - link "zu den Referenzen" [ref=e145] [cursor=pointer]:
+                - /url: /referenzen
+        - generic [ref=e148]:
+          - heading "Kontakt" [level=3] [ref=e149]
+          - list [ref=e150]:
+            - listitem [ref=e151]:
+              - generic [ref=e152]: 
+              - link "+43 2784 30 800" [ref=e153] [cursor=pointer]:
+                - /url: tel://0043278430800
+            - listitem [ref=e154]:
+              - generic [ref=e155]: 
+              - link "info@eTennis.at" [ref=e156] [cursor=pointer]:
+                - /url: mailto:info@eTennis.at
+            - listitem [ref=e157]:
+              - generic [ref=e158]: 
+              - link "fb.com/eTennis" [ref=e159] [cursor=pointer]:
+                - /url: https://www.facebook.com/eTennis
+  - text: 

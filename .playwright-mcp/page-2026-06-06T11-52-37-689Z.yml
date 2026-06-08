@@ -1,0 +1,259 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]:
+        - text: 
+        - link " HOME" [ref=e5] [cursor=pointer]:
+          - /url: "#page-top"
+          - generic [ref=e6]: 
+          - text: HOME
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "Tennis" [ref=e10] [cursor=pointer]:
+            - /url: "#tennis"
+        - listitem [ref=e11]:
+          - link "Squash" [ref=e12] [cursor=pointer]:
+            - /url: "#squash"
+        - listitem [ref=e13]:
+          - link "Padel" [ref=e14] [cursor=pointer]:
+            - /url: "#aktuell"
+        - listitem [ref=e15]:
+          - link "Gesundheit" [ref=e16] [cursor=pointer]:
+            - /url: "#gesundheit"
+        - listitem [ref=e17]:
+          - link "Geschichte" [ref=e18] [cursor=pointer]:
+            - /url: "#geschichte"
+        - listitem [ref=e19]:
+          - link "Kontakt" [ref=e20] [cursor=pointer]:
+            - /url: "#contact"
+  - banner [ref=e21]:
+    - generic [ref=e25]:
+      - img "Logo" [ref=e26]
+      - heading "Willkommen beim TV Waldenstein" [level=1] [ref=e27]:
+        - text: Willkommen
+        - text: beim TV Waldenstein
+      - paragraph [ref=e28]: Spiele Tennis, Squash und Padel in der Winter- und Sommersaison. Platzreservierungen nach Registrierung nur online.
+      - link "Zur Online Reservierung" [ref=e29] [cursor=pointer]:
+        - /url: https://app.tennis04.com/de/waldenstein/buchungsplan
+      - link "Bedienungsanleitung " [ref=e30] [cursor=pointer]:
+        - /url: http://hilfe.tennis04.com/index.php?title=Tennis04:Basiswissen_f%C3%BCr_Spieler
+        - text: Bedienungsanleitung
+        - generic [ref=e31]: 
+      - button " Video von Anlage ansehen" [ref=e32] [cursor=pointer]:
+        - generic [ref=e33]: 
+        - generic [ref=e34]: Video von Anlage ansehen
+      - generic [ref=e35]:
+        - generic [ref=e38]:
+          - heading "Jahreskarten" [level=4] [ref=e39]
+          - paragraph [ref=e40]: Unsere Jahreskarten sind immer vom 1. März ein Jahr lang gültig. Es gibt Jahreskarten für Tennis (Freiluft), Padel und Squash. Mit der Kombikarte kannst du alle Sportarten in Waldenstein ausüben.
+        - generic [ref=e43]:
+          - heading "Outdoorsport" [level=4] [ref=e44]
+          - paragraph [ref=e45]: Padel, Freilufttennis und der Boulderblock sind das ganze Jahr zum Sporteln offen.
+        - generic [ref=e48]:
+          - heading "Winterabo" [level=4] [ref=e49]
+          - paragraph [ref=e50]:
+            - text: In der Tennishalle gibt es neben Einzelstundenbuchungen auch Abostunden zu vergeben. Das Abo startet Anfang Oktober und dauert 25 Wochen. Die nicht gespielte Abostunden können jederzeit bis ca. Mitte Mai nachgespielt werden. Für unsere Stammkunden reservieren wir wieder die Stunden für die nächste Wintersaison vor und bitten um Bestätigung der Reservierung.
+            - link [ref=e51] [cursor=pointer]:
+              - /url: TV-Sommerabos 26.pdf
+          - link "Zur Preisliste " [ref=e53] [cursor=pointer]:
+            - /url: TV-Sommerabos 26.pdf
+            - text: Zur Preisliste
+            - generic [ref=e54]: 
+        - paragraph [ref=e58]:
+          - link "Opening" [ref=e59] [cursor=pointer]:
+            - /url: "#aktuell"
+            - img "Opening" [ref=e60]
+          - link "Partner" [ref=e61] [cursor=pointer]:
+            - /url: https://www.facebook.com/SportrestaurantHingerStefan/
+            - img "Partner" [ref=e62]
+          - link "Camping Waldenstein" [ref=e63] [cursor=pointer]:
+            - /url: http://www.camping-waldenstein.at/
+            - img "Camping Waldenstein" [ref=e64]
+      - link "" [ref=e65] [cursor=pointer]:
+        - /url: "#tennis"
+        - generic [ref=e66]: 
+      - text: Finde uns auch auf
+      - link [ref=e67] [cursor=pointer]:
+        - /url: https://www.instagram.com/tennisverein_waldenstein/
+        - generic [ref=e68]: 
+      - text: oder
+      - link [ref=e69] [cursor=pointer]:
+        - /url: https://www.facebook.com/Tennisverein-Waldenstein-105001441837556
+        - generic [ref=e70]: 
+  - generic [ref=e74]:
+    - heading "Spiele Tennis auf einer der schönsten Anlagen des Waldviertels" [level=1] [ref=e75]
+    - paragraph [ref=e76]:
+      - text: Die Tennisanlage besteht aus drei Sandfreiplätzen (Tennis Force II) mit automatischer Bewässerungsanlage, einem Clubhaus und Umkleidekabinen mit Duschen für Damen und Herren. Die neuen 3 Freiplätze müssen vor und nach dem Spiel unbedingt bewässert werden. (grünen Knopf drücken, Bewässerung stoppt nach 3 Minuten automatisch, bei Bedarf wiederholen).
+      - text: Für ein optimales Spielvergnügen empfiehlt sich auch während des Spiels den Platz zu bewässern.
+      - text: Für den Winter stehen zwei Einzelhallen mit sandähnlichen, Gelenk schonenden Teppichböden zur Verfügung.
+      - text: Es erwartet Sie eine familiäre Atmosphäre mit viel Herz für Tennisspieler. Die Jugendförderung steht bei uns im Vordergrund.
+      - text: Es finden Tenniskurse im Sommer und im Winter statt. Tennistrainer stehen zur Verfügung.
+    - link "Zur Online Reservierung" [ref=e77] [cursor=pointer]:
+      - /url: https://app.tennis04.com/de/waldenstein/buchungsplan
+    - link "" [ref=e78] [cursor=pointer]:
+      - /url: "#squash"
+      - generic [ref=e79]: 
+  - generic [ref=e83]:
+    - heading "Spiele Squash im hohen Norden" [level=1] [ref=e84]
+    - paragraph [ref=e85]:
+      - text: Schnelligkeit, ein gutes Reaktionsvermögen, strategisches Denken, ausreichend Kraft und nicht zuletzt eine gute Technik – all das benötigt man beim Squash spielen.
+      - text: Squash ist eines der wenigen Rückschlagspiele, bei denen du das Spielfeld mit deinen Kontrahenten teilen musst. Ziel des Spiels ist es, den Ball mit dem Racket so zu schlagen, dass der Gegner ihn nicht mehr erreicht, bevor er zum zweiten Mal den Boden berührt.
+      - link "Squash on Wikipedia" [ref=e86] [cursor=pointer]:
+        - /url: https://de.wikipedia.org/wiki/Squash
+      - text: Bei dieser Hochgeschwindigkeits-Schlagsportart kann man sich so richtig abreagieren und verbrennt dabei noch jede Menge Kalorien. Squash, eines der schnellsten Ballspiele der Welt, fördert Kraft, Ausdauer, Gelenkigkeit, Koordination und Konzentration.
+      - text: Squash macht Spaß- ist ein Spiel - leicht erlernbar und enorm vielseitig. Unserer Anlage besteht aus einer Squashbox, welche 2009 saniert wurde.
+    - link "Zur Online Reservierung" [ref=e87] [cursor=pointer]:
+      - /url: https://app.tennis04.com/de/waldenstein/buchungsplan
+    - link "" [ref=e88] [cursor=pointer]:
+      - /url: "#aktuell"
+      - generic [ref=e89]: 
+  - generic [ref=e93]:
+    - heading "Spiele Padel in Waldenstein" [level=1] [ref=e94]
+    - paragraph [ref=e95]:
+      - text: Padel (oder Padel-Tennis) ist ein Rückschlagsport, der seinen Ursprung in Mexiko hat. Der Volkssport vieler spanischsprachiger Länder gilt im deutschsprachigen Raum zwar noch als junger Sport, findet jedoch auch hierzulande immer mehr begeisterte Fans, und das mit gutem Grund. Padel ist eine Mischung aus Tennis und Squash. Gespielt wird auf einem tennisähnlichen Platz, der durch ein Mittelnetz in zwei Spielhälften geteilt und auf allen Seiten von Glas- und Gitterwänden umgeben ist. Es wird mit Tennisbällen und Schläger mit einer elastischen Schlagfläche gespielt. Gezählt wird nach den Tennisregeln, wobei die Wände beim Spiel miteinbezogen werden.
+      - link "Padel on Wikipedia" [ref=e96] [cursor=pointer]:
+        - /url: https://de.wikipedia.org/wiki/Padel-Tennis
+      - text: Gemeinsam mit der Gemeinde Waldenstein wurde der erste Padelcourt im Waldviertel gebaut. In unserem Buchungssystem kann der Court für alle, nach Registrierung, gebucht werden. Die Kosten für 30 Minuten belaufen sich auf 8€. Das Flutlicht für 30 Minuten kostet 1 €. Bei Fragen einfach melden!
+    - link "Zur Online Reservierung" [ref=e97] [cursor=pointer]:
+      - /url: https://app.tennis04.com/de/waldenstein/buchungsplan
+    - link "" [ref=e98] [cursor=pointer]:
+      - /url: "#gesundheit"
+      - generic [ref=e99]: 
+  - generic [ref=e103]:
+    - heading "Vital und Gesund" [level=1] [ref=e104]
+    - paragraph [ref=e105]:
+      - text: Ein bemerkenswertes Ausflugsziel aus dem vielschichtigen Angebot im Waldviertel ist die Gradieranlage (Sole-Inhalationsanlage) in Waldenstein.
+      - text: Die in der Gradieranlage über Tannenreisig herabtropfende Sole nimmt aromatische Harze und ätherische Öle in sich auf. Die von Zweig zu Zweig fallenden Salztropfen werden geteilt, zerstäubt und gelangen in feinsten Partikeln in die Atemluft.
+      - text: Das Einatmen der salzhaltigen Luft wirkt nicht nur schleimlösend und reizmildernd, sondern nach medizinischen Erkenntnissen auch entzündungshemmend sowie vorbeugend und heilend bei chronischer Bronchitis und Nebenhöhlenentzündungen.
+      - text: Ebenso kann ein außerordentlich wohltuender Einfluss auf das vegetative Nervensystem festgestellt werden.
+      - text: Auch eine gewisse Vitalisierung bei Entzündungserscheinungen oder Erleichterungen bei Herz-, Kreislauf- und Gefäßerkrankungen werden diesem medizinischen Wunderwerk zugeschrieben.
+      - text: Keine Eintrittsgebühr - kostenlose Benützung der Anlage!
+      - text: Die Anlage ist witterungsbedingt von November bis Ende April geschlossen!
+    - link "" [ref=e106] [cursor=pointer]:
+      - /url: "#geschichte"
+      - generic [ref=e107]: 
+  - generic [ref=e111]:
+    - heading "Chronologie" [level=1] [ref=e112]
+    - generic [ref=e113]:
+      - generic [ref=e116]:
+        - heading "Die Anfangsjahre" [level=4] [ref=e117]
+        - table [ref=e118]:
+          - rowgroup [ref=e119]:
+            - 'row "1975 Vereinsgründung Vereinsgründer: Franz Herzog u. Othmar Nowak Obmann: Othmar Nowak Baubeginn Tennisplatz 1" [ref=e120]':
+              - cell "1975" [ref=e121]
+              - 'cell "Vereinsgründung Vereinsgründer: Franz Herzog u. Othmar Nowak Obmann: Othmar Nowak Baubeginn Tennisplatz 1" [ref=e122]':
+                - text: Vereinsgründung
+                - text: "Vereinsgründer: Franz Herzog u. Othmar Nowak"
+                - text: "Obmann: Othmar Nowak"
+                - text: Baubeginn Tennisplatz 1
+            - row "1976 Fertigstellung Tennisplatz 1 Beginn des Spielbetriebes 1. Oktoberfest in der Festhalle Seidl (Hendlstadel)" [ref=e123]:
+              - cell "1976" [ref=e124]
+              - cell "Fertigstellung Tennisplatz 1 Beginn des Spielbetriebes 1. Oktoberfest in der Festhalle Seidl (Hendlstadel)" [ref=e125]:
+                - text: Fertigstellung Tennisplatz 1
+                - text: Beginn des Spielbetriebes
+                - text: 1. Oktoberfest in der Festhalle Seidl (Hendlstadel)
+            - row "1978 Bau des Vereinshauses" [ref=e126]:
+              - cell "1978" [ref=e127]
+              - cell "Bau des Vereinshauses" [ref=e128]
+            - row "1979 Strom- und Wasserleitungsbau für Vereinshaus" [ref=e129]:
+              - cell "1979" [ref=e130]
+              - cell "Strom- und Wasserleitungsbau für Vereinshaus" [ref=e131]
+            - row "1982 Errichtung des 2. Tennisplatzes" [ref=e132]:
+              - cell "1982" [ref=e133]
+              - cell "Errichtung des 2. Tennisplatzes" [ref=e134]
+            - row "1983 Eröffnung und Einweihung der Tennisanlagen" [ref=e135]:
+              - cell "1983" [ref=e136]
+              - cell "Eröffnung und Einweihung der Tennisanlagen" [ref=e137]
+      - generic [ref=e140]:
+        - heading "Die Tennishalle" [level=4] [ref=e141]
+        - table [ref=e142]:
+          - rowgroup [ref=e143]:
+            - row "1986 Bau der Tennishalle 1 mit den Zubauten und dem Tennisstüberl Eröffnung durch LR Liese Prokop" [ref=e144]:
+              - cell "1986" [ref=e145]
+              - cell "Bau der Tennishalle 1 mit den Zubauten und dem Tennisstüberl Eröffnung durch LR Liese Prokop" [ref=e146]:
+                - text: Bau der Tennishalle 1 mit den Zubauten und dem Tennisstüberl
+                - text: Eröffnung durch LR Liese Prokop
+            - row "1991 Bau der Tennishalle 2 mit Kultursaal, Gasthaus, Squashbox" [ref=e147]:
+              - cell "1991" [ref=e148]
+              - cell "Bau der Tennishalle 2 mit Kultursaal, Gasthaus, Squashbox" [ref=e149]
+        - heading "Heute" [level=4] [ref=e150]
+        - table [ref=e151]:
+          - rowgroup [ref=e152]:
+            - row "2004 Vereinshauszubau" [ref=e153]:
+              - cell "2004" [ref=e154]
+              - cell "Vereinshauszubau" [ref=e155]
+            - row "2007 Gregor Nowak neuer Obmann, Othmar Nowak Ehrenobmann" [ref=e156]:
+              - cell "2007" [ref=e157]
+              - cell "Gregor Nowak neuer Obmann, Othmar Nowak Ehrenobmann" [ref=e158]
+            - row "2010 Vorplatzgestaltung beim Vereinshaus" [ref=e159]:
+              - cell "2010" [ref=e160]
+              - cell "Vorplatzgestaltung beim Vereinshaus" [ref=e161]
+            - row "2014 Neuer Tenniszaun, Platz 1" [ref=e162]:
+              - cell "2014" [ref=e163]
+              - cell "Neuer Tenniszaun, Platz 1" [ref=e164]
+            - row "2016 Neue Lichtanlage (LED) in den Tennishallen" [ref=e165]:
+              - cell "2016" [ref=e166]
+              - cell "Neue Lichtanlage (LED) in den Tennishallen" [ref=e167]
+            - row "2017 Abriss des Tennisplatzes 2 Baubeginn der neuen Tennisplätze" [ref=e168]:
+              - cell "2017" [ref=e169]
+              - cell "Abriss des Tennisplatzes 2 Baubeginn der neuen Tennisplätze" [ref=e170]:
+                - text: Abriss des Tennisplatzes 2
+                - text: Baubeginn der neuen Tennisplätze
+            - row "2018 Eröffnung der neuen Tennisplätze" [ref=e171]:
+              - cell "2018" [ref=e172]
+              - cell "Eröffnung der neuen Tennisplätze" [ref=e173]
+            - row "2021 Flutlichtanlage für Tennisplatz 1 Bau des Padelcourts (1. Court im Waldviertel) Überdachung Zuschauerplatz" [ref=e174]:
+              - cell "2021" [ref=e175]
+              - cell "Flutlichtanlage für Tennisplatz 1 Bau des Padelcourts (1. Court im Waldviertel) Überdachung Zuschauerplatz" [ref=e176]:
+                - text: Flutlichtanlage für Tennisplatz 1
+                - text: Bau des Padelcourts (1. Court im Waldviertel)
+                - text: Überdachung Zuschauerplatz
+      - generic [ref=e177]:
+        - generic [ref=e179]:
+          - heading "Meisterschaften und Siege" [level=4] [ref=e180]
+          - table [ref=e181]:
+            - rowgroup [ref=e182]:
+              - row "1979 1. Vereinsmeisterschaft - Sieger Franz Dogl" [ref=e183]:
+                - cell "1979" [ref=e184]
+                - cell "1. Vereinsmeisterschaft - Sieger Franz Dogl" [ref=e185]
+              - row "1982 1.Teilnahme an den Meisterschaften des Kreises NordWest" [ref=e186]:
+                - cell "1982" [ref=e187]
+                - cell "1.Teilnahme an den Meisterschaften des Kreises NordWest" [ref=e188]
+              - row "1983 1. Meistertitel (Klasse D3)" [ref=e189]:
+                - cell "1983" [ref=e190]
+                - cell "1. Meistertitel (Klasse D3)" [ref=e191]
+              - row "1995 1. Damenmeistertitel" [ref=e192]:
+                - cell "1995" [ref=e193]
+                - cell "1. Damenmeistertitel" [ref=e194]
+              - row "1998 1. Seniorenmeistertitel 45+" [ref=e195]:
+                - cell "1998" [ref=e196]
+                - cell "1. Seniorenmeistertitel 45+" [ref=e197]
+              - row "2012 Meister der Herrenmannschaft 1 (Klasse A), Aufstieg in die Landesliga C" [ref=e198]:
+                - cell "2012" [ref=e199]
+                - cell "Meister der Herrenmannschaft 1 (Klasse A), Aufstieg in die Landesliga C" [ref=e200]
+        - img "Meister" [ref=e201]
+    - link "" [ref=e202] [cursor=pointer]:
+      - /url: "#contact"
+      - generic [ref=e203]: 
+  - generic [ref=e207]:
+    - heading "Kontaktiere uns oder schaue einfach vorbei" [level=1] [ref=e208]
+    - iframe [ref=e209]
+    - img "Logo" [ref=e210]
+    - heading "TV Waldenstein, 3961 Waldenstein 99,100" [level=5] [ref=e211]
+    - heading "Adresse" [level=5] [ref=e212]:
+      - img "Adresse" [ref=e213]
+    - heading "Anfrage an TV Waldenstein senden" [level=5] [ref=e214]:
+      - link "Anfrage an TV Waldenstein senden" [ref=e215] [cursor=pointer]:
+        - /url: mailto:tennis@tvwaldenstein.at?subject=Anfrage an den TV Waldenstein
+    - text: Finde uns auch auf
+    - link [ref=e216] [cursor=pointer]:
+      - /url: https://www.instagram.com/tennisverein_waldenstein/
+      - generic [ref=e217]: 
+    - text: oder
+    - link [ref=e218] [cursor=pointer]:
+      - /url: https://www.facebook.com/Tennisverein-Waldenstein-105001441837556
+      - generic [ref=e219]: 
+    - link "" [ref=e220] [cursor=pointer]:
+      - /url: "#page-top"
+      - generic [ref=e221]: 
+  - text: 

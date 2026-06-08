@@ -1,0 +1,95 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e8]:
+        - link "llw" [ref=e11] [cursor=pointer]:
+          - /url: https://wilhelmer.net/
+          - img "llw" [ref=e13]
+        - generic [ref=e17]:
+          - navigation [ref=e19]:
+            - list [ref=e20]:
+              - listitem [ref=e21]:
+                - link "Zimmer" [ref=e22] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/zimmer/
+              - listitem [ref=e23]:
+                - link "Kulinarik" [ref=e24] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/restaurant/
+              - listitem [ref=e25]:
+                - link "Seminar" [ref=e26] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/seminar/
+              - listitem [ref=e27]:
+                - link "Packages" [ref=e28] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/packages/
+              - listitem [ref=e29]:
+                - link "Aktivitäten" [ref=e30] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/aktivitaeten/
+              - listitem [ref=e31]:
+                - link "Aktuelles" [ref=e32] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/aktuelles/
+              - listitem [ref=e33]:
+                - link "Kontakt" [ref=e34] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/kontakt/
+              - listitem [ref=e35]:
+                - link "De" [ref=e36] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/anfahrt/
+              - listitem [ref=e37]:
+                - link "En" [ref=e38] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/en/approach/
+          - text: a
+    - generic [ref=e39]:
+      - article [ref=e41]:
+        - generic [ref=e45]:
+          - heading "Anfahrt" [level=1] [ref=e50]
+          - generic [ref=e51]:
+            - generic [ref=e55]:
+              - generic [ref=e57]:
+                - paragraph [ref=e58]: Enable Google Maps?
+                - paragraph [ref=e59]: Google Maps can only be displayed if they are allowed to set cookies.
+              - button "Google Maps aktivieren" [ref=e61] [cursor=pointer]
+              - generic [ref=e62]:
+                - text: "When Google Maps is activated for this site, personal information is submitted to Google and processed. Please see the YouTube privacy policy for more information:"
+                - link "here" [ref=e63] [cursor=pointer]:
+                  - /url: https://policies.google.com/privacy?hl=de&gl=de
+            - generic [ref=e66]:
+              - heading "LANDHAUS WILHELMER GMBH & CO KG" [level=2] [ref=e67]
+              - paragraph [ref=e68]:
+                - text: Bundesstraße 19
+                - text: A-8753 Aichdorf
+              - paragraph [ref=e69]:
+                - text: "Telefon: +43 3577 22631"
+                - text: "E-Mail:"
+                - link "landhaus@wilhelmer.net" [ref=e70] [cursor=pointer]:
+                  - /url: "mailto: landhaus@wilhelmer.net"
+                - text: "Web:"
+                - link "www.wilhelmer.net" [ref=e71] [cursor=pointer]:
+                  - /url: http://www.wilhelmer.net
+      - contentinfo [ref=e72]:
+        - generic [ref=e75]:
+          - paragraph [ref=e79]:
+            - text: "Reservierung & Anfragen: +43 3577 22631 oder"
+            - link "landhaus@wilhelmer.net" [ref=e80] [cursor=pointer]:
+              - /url: mailto:landhaus@wilhelmer.net
+          - generic [ref=e82]:
+            - link "Impressum" [ref=e83] [cursor=pointer]:
+              - /url: https://wilhelmer.net/impressum/
+              - generic [ref=e85]: Impressum
+            - link "Datenschutz" [ref=e86] [cursor=pointer]:
+              - /url: https://wilhelmer.net/datenschutz/
+              - generic [ref=e88]: Datenschutz
+            - link "Anfahrt" [ref=e89] [cursor=pointer]:
+              - /url: https://wilhelmer.net/anfahrt/
+              - generic [ref=e91]: Anfahrt
+  - generic [ref=e93]:
+    - heading "We use Cookies" [level=3] [ref=e94]
+    - generic [ref=e95]: We use cookies on our website. Some cookies are necessary (e.g. for the shopping cart) others are not necessary. The non-essential cookies help us to optimize our online offer, our website functions and are used for marketing purposes. The consent includes the storage of information on your terminal device, the reading of personal data and its processing. Click 'Accept all' to consent to the use of cookies that are not necessary or 'Reject all' if you decide otherwise. You can get detailed information of the types of cookies we use and access their settings under 'Manage Settings'. You can access the settings at any time and also subsequently deselect cookies at any time (e.g. in the privacy policy or at the bottom of our website).
+    - generic [ref=e96]:
+      - button "Accept All" [ref=e97] [cursor=pointer]
+      - generic [ref=e98]:
+        - button "Deny All" [ref=e99] [cursor=pointer]
+        - button "Settings" [ref=e100] [cursor=pointer]
+    - generic [ref=e101]:
+      - link "Privacy Policy" [ref=e102] [cursor=pointer]:
+        - /url: https://wilhelmer.net/datenschutz/
+      - text: "|"
+      - link "Legal Notice" [ref=e103] [cursor=pointer]:
+        - /url: https://wilhelmer.net/impressum/

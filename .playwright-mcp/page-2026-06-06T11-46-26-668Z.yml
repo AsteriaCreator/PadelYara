@@ -1,0 +1,203 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Tennisanlage Doleschal" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Tennisanlage Doleschal" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Tennisanlage Doleschal" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+      - link " Anmelden" [ref=e20] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e21]: 
+        - text: Anmelden
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "Padel" [ref=e28] [cursor=pointer]:
+          - /url: /reservierung?c=2432
+      - listitem [ref=e29]:
+        - link "Tennis-Freiplatz" [ref=e30] [cursor=pointer]:
+          - /url: /reservierung?c=2427
+      - listitem [ref=e31]:
+        - link "Registrierung" [ref=e32] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e34]:
+      - heading "Reservierung Padel" [level=1] [ref=e35]
+      - generic [ref=e36]:
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - generic [ref=e39]:
+              - generic [ref=e40] [cursor=pointer]: 
+              - generic [ref=e41] [cursor=pointer]: 
+            - generic [ref=e43]:
+              - link "Montag 01.06.2026" [ref=e44] [cursor=pointer]:
+                - /url: "?c=2432&d=1780290000"
+                - generic [ref=e45]: Montag
+                - text: 01.06.2026
+              - text: 
+            - generic [ref=e47]:
+              - link "Dienstag 02.06.2026" [ref=e48] [cursor=pointer]:
+                - /url: "?c=2432&d=1780376400"
+                - generic [ref=e49]: Dienstag
+                - text: 02.06.2026
+              - text: 
+            - generic [ref=e51]:
+              - link "Mittwoch 03.06.2026" [ref=e52] [cursor=pointer]:
+                - /url: "?c=2432&d=1780462800"
+                - generic [ref=e53]: Mittwoch
+                - text: 03.06.2026
+              - text: 
+            - generic [ref=e55]:
+              - link "Donnerstag 04.06.2026" [ref=e56] [cursor=pointer]:
+                - /url: "?c=2432&d=1780549200"
+                - generic [ref=e57]: Donnerstag
+                - text: 04.06.2026
+              - text: 
+            - generic [ref=e59]:
+              - link "Freitag 05.06.2026" [ref=e60] [cursor=pointer]:
+                - /url: "?c=2432&d=1780635600"
+                - generic [ref=e61]: Freitag
+                - text: 05.06.2026
+              - text: 
+            - generic [ref=e63]:
+              - link "Samstag 06.06.2026" [ref=e64] [cursor=pointer]:
+                - /url: "?c=2432&d=1780722000"
+                - generic [ref=e65]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e67]:
+              - link "Sonntag 07.06.2026" [ref=e68] [cursor=pointer]:
+                - /url: "?c=2432&d=1780808400"
+                - generic [ref=e69]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e70]:
+              - generic [ref=e71] [cursor=pointer]: 
+              - generic [ref=e72] [cursor=pointer]: 
+          - generic [ref=e73]:
+            - generic [ref=e75]: 07:00
+            - generic [ref=e77]: 07:30
+            - generic [ref=e79]: 08:00
+            - generic [ref=e81]: 08:30
+            - generic [ref=e83]: 09:00
+            - generic [ref=e85]: 09:30
+            - generic [ref=e87]: 10:00
+            - generic [ref=e89]: 10:30
+            - generic [ref=e91]: 11:00
+            - generic [ref=e93]: 11:30
+            - generic [ref=e95]: 12:00
+            - generic [ref=e97]: 12:30
+            - generic [ref=e99]: 13:00
+            - generic [ref=e101]: 13:30
+            - generic [ref=e103]: 14:00
+            - generic [ref=e105]: 14:30
+            - generic [ref=e107]: 15:00
+            - generic [ref=e109]: 15:30
+            - generic [ref=e111]: 16:00
+            - generic [ref=e113]: 16:30
+            - generic [ref=e115]: 17:00
+            - generic [ref=e117]: 17:30
+            - generic [ref=e119]: 18:00
+            - generic [ref=e121]: 18:30
+            - generic [ref=e123]: 19:00
+            - generic [ref=e125]: 19:30
+            - generic [ref=e127]: 20:00
+            - generic [ref=e129]: 20:30
+            - generic [ref=e131]: 21:00
+            - generic [ref=e133]: 21:30
+          - generic [ref=e135]:
+            - generic [ref=e136]:
+              - generic [ref=e139]: Padelplatz
+              - generic [ref=e174]: Padelplatz
+            - generic [ref=e175]:
+              - generic [ref=e178]: Padelplatz
+              - generic [ref=e213]: Padelplatz
+            - generic [ref=e214]:
+              - generic [ref=e217]: Padelplatz
+              - generic [ref=e252]: Padelplatz
+            - generic [ref=e253]:
+              - generic [ref=e256]: Padelplatz
+              - generic [ref=e291]: Padelplatz
+            - generic [ref=e292]:
+              - generic [ref=e295]: Padelplatz
+              - generic [ref=e330]: Padelplatz
+            - generic [ref=e331]:
+              - generic [ref=e334]: Padelplatz
+              - generic [ref=e363]: Padelplatz
+            - generic [ref=e364]:
+              - generic [ref=e367]: Padelplatz
+              - generic [ref=e396]: Padelplatz
+          - generic [ref=e397]:
+            - generic [ref=e399]: 07:00
+            - generic [ref=e401]: 07:30
+            - generic [ref=e403]: 08:00
+            - generic [ref=e405]: 08:30
+            - generic [ref=e407]: 09:00
+            - generic [ref=e409]: 09:30
+            - generic [ref=e411]: 10:00
+            - generic [ref=e413]: 10:30
+            - generic [ref=e415]: 11:00
+            - generic [ref=e417]: 11:30
+            - generic [ref=e419]: 12:00
+            - generic [ref=e421]: 12:30
+            - generic [ref=e423]: 13:00
+            - generic [ref=e425]: 13:30
+            - generic [ref=e427]: 14:00
+            - generic [ref=e429]: 14:30
+            - generic [ref=e431]: 15:00
+            - generic [ref=e433]: 15:30
+            - generic [ref=e435]: 16:00
+            - generic [ref=e437]: 16:30
+            - generic [ref=e439]: 17:00
+            - generic [ref=e441]: 17:30
+            - generic [ref=e443]: 18:00
+            - generic [ref=e445]: 18:30
+            - generic [ref=e447]: 19:00
+            - generic [ref=e449]: 19:30
+            - generic [ref=e451]: 20:00
+            - generic [ref=e453]: 20:30
+            - generic [ref=e455]: 21:00
+            - generic [ref=e457]: 21:30
+        - generic [ref=e458]:
+          - heading "Preise/h" [level=3] [ref=e459]
+          - generic [ref=e460]: € 22
+        - generic [ref=e461]:
+          - heading "Farben" [level=3] [ref=e462]
+          - generic [ref=e463]: Gastspieler
+    - contentinfo [ref=e464]:
+      - generic [ref=e466]:
+        - generic [ref=e467]:
+          - text: Tennisanlage Doleschal |
+          - link "Impressum" [ref=e468] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e469]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e470] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e472]:
+    - paragraph [ref=e473]:
+      - generic [ref=e474]:
+        - paragraph [ref=e475]:
+          - img "Tennisanlage Doleschal" [ref=e476]
+          - text: Tennisanlage Doleschal
+        - paragraph [ref=e477]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e478]:
+      - link "Einstellungen verwalten" [ref=e479] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e480]:
+        - button "Alle ablehnen" [ref=e481] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e482] [cursor=pointer]

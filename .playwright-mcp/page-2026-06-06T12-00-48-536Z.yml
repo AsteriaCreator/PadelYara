@@ -1,0 +1,130 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e5]:
+      - link "Zu Haupt Inhalt springen" [ref=e6] [cursor=pointer]:
+        - /url: "#main"
+      - link "Eversports Startseite" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+      - link "Suche nach Sport oder Anlage" [ref=e13] [cursor=pointer]:
+        - /url: /?show=search
+        - img [ref=e14]
+        - generic [ref=e17]: Suche nach Sport oder Anlage
+      - navigation [ref=e19]:
+        - list [ref=e20]:
+          - listitem [ref=e21]:
+            - link "Für Unternehmen" [ref=e22] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+          - listitem [ref=e23]:
+            - link "Für Sportanbieter" [ref=e24] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - listitem [ref=e25]: "|"
+          - listitem [ref=e26]:
+            - link "Login" [ref=e27] [cursor=pointer]:
+              - /url: /auth/
+          - listitem [ref=e28]:
+            - link "Registrieren" [ref=e29] [cursor=pointer]:
+              - /url: /auth/register
+  - main [ref=e30]:
+    - generic [ref=e33]:
+      - img [ref=e35]
+      - generic [ref=e38]:
+        - heading "404 Seite nicht gefunden" [level=3] [ref=e39]:
+          - text: "404"
+          - text: Seite nicht gefunden
+        - paragraph [ref=e40]: Auf Eversports, wie auch Im Sport läuft es manchmal nicht so wie geplant. Wir sind gerade dabei die letzten taktischen Fehler der neuen Webseite hinzubekommen - danke für deine Geduld.
+        - link "To the homepage" [ref=e41] [cursor=pointer]:
+          - /url: /
+  - contentinfo [ref=e42]:
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - heading "Mehr über Eversports" [level=2] [ref=e47]
+            - list [ref=e48]:
+              - listitem [ref=e49]:
+                - link "Über uns" [ref=e50] [cursor=pointer]:
+                  - /url: https://www.eversportsmanager.com/de/uber-uns/
+              - listitem [ref=e51]:
+                - link "Blog" [ref=e52] [cursor=pointer]:
+                  - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+              - listitem [ref=e53]:
+                - link "Karriere" [ref=e54] [cursor=pointer]:
+                  - /url: https://www.eversportsmanager.com/de/jobs/
+              - listitem [ref=e55]:
+                - link "Sicherheit" [ref=e56] [cursor=pointer]:
+                  - /url: /h/security
+              - listitem [ref=e57]:
+                - link "Für Unternehmen" [ref=e58] [cursor=pointer]:
+                  - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+          - generic [ref=e59]:
+            - heading "Eversports Manager" [level=2] [ref=e60]
+            - list [ref=e61]:
+              - listitem [ref=e62]:
+                - link "Zur Website" [ref=e63] [cursor=pointer]:
+                  - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+              - listitem [ref=e64]:
+                - link "Preise" [ref=e65] [cursor=pointer]:
+                  - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+              - listitem [ref=e66]:
+                - link "Kostenlose Demo" [ref=e67] [cursor=pointer]:
+                  - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - heading "Kontakt" [level=2] [ref=e70]
+            - list [ref=e71]:
+              - listitem [ref=e72]:
+                - link "Kontakt" [ref=e73] [cursor=pointer]:
+                  - /url: /h/contact
+              - listitem [ref=e74]:
+                - link "Impressum" [ref=e75] [cursor=pointer]:
+                  - /url: /h/about
+              - listitem [ref=e76]:
+                - link "Datenschutz" [ref=e77] [cursor=pointer]:
+                  - /url: /h/privacy
+              - listitem [ref=e78]:
+                - link "AGB" [ref=e79] [cursor=pointer]:
+                  - /url: /h/terms
+              - listitem [ref=e80]:
+                - link "Erklärung zur Barrierefreiheit" [ref=e81] [cursor=pointer]:
+                  - /url: /h/accessibility
+              - listitem [ref=e82]:
+                - link "Cookie-Einstellungen" [ref=e83] [cursor=pointer]:
+                  - /url: "#"
+              - listitem [ref=e84]:
+                - link "Memberships kündigen" [ref=e85] [cursor=pointer]:
+                  - /url: /h/cancel-membership
+          - generic [ref=e86]:
+            - heading "Soziale Netzwerke" [level=2] [ref=e87]
+            - link "Facebook Profil" [ref=e88] [cursor=pointer]:
+              - /url: //fb.com/eversports
+              - img [ref=e89]
+            - link "YouTube Profil" [ref=e91] [cursor=pointer]:
+              - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+              - img [ref=e92]
+            - link "Instagram Profil" [ref=e95] [cursor=pointer]:
+              - /url: https://www.instagram.com/eversports_official
+              - img [ref=e96]
+            - heading "Apps" [level=2] [ref=e99]
+            - link "iOS App Store" [ref=e100] [cursor=pointer]:
+              - /url: https://apps.apple.com/de/app/id946460861
+              - img "iOS App Store" [ref=e101]
+            - link "Android" [ref=e102] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+              - img "Android" [ref=e103]
+      - generic [ref=e104]:
+        - img [ref=e105]
+        - paragraph [ref=e109]: 2026 Eversports Gmbh. Alle Rechte vorbehalten
+  - dialog [active] [ref=e115]:
+    - document [ref=e117]:
+      - generic [ref=e118]:
+        - generic [ref=e119]:
+          - heading "Cookie-Einstellungen" [level=3] [ref=e120]
+          - button "Close"
+        - generic [ref=e121]:
+          - paragraph [ref=e123]: Wir verwenden Cookies, um dir ein optimales Webseiten-Erlebnis zu bieten. Du kannst dabei entscheiden, welche Kategorien von Cookies du erlaubst. Natürlich kannst du deine Cookie-Einstellungen jederzeit ändern.
+          - button "Cookie-Einstellungen" [ref=e125] [cursor=pointer]:
+            - generic [ref=e126]:
+              - text: Cookie-Einstellungen
+              - img [ref=e127]
+        - button "Alle akzeptieren" [ref=e131] [cursor=pointer]

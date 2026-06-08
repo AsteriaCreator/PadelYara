@@ -1,0 +1,54 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "SV Kematen/ZV Tennis" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "SV Kematen/ZV Tennis" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "SV Kematen/ZV Tennis" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - link "  Reservierung" [ref=e15] [cursor=pointer]:
+          - /url: /reservierung
+          - generic [ref=e16]:  
+          - text: Reservierung
+      - link " Anmelden" [ref=e18] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e19]: 
+        - text: Anmelden
+    - generic [ref=e24]:
+      - heading "Impressum" [level=1] [ref=e25]
+      - heading "Medieninhaber/Herausgeber" [level=3] [ref=e26]
+      - text: SV Kematen/ZV Tennis
+      - text: Industriezone 13
+      - text: 6175 Kematen in Tirol
+      - heading "Systemadministrator/Kontaktperson" [level=3] [ref=e27]
+      - text: Andreas Partl
+      - text: andreas.partl@yahoo.de
+      - heading "Haftungsausschluss" [level=3] [ref=e28]
+      - paragraph [ref=e29]:
+        - text: Der Medieninhaber unternimmt alle zumutbaren Anstrengungen um sicherzustellen, dass die auf dieser Webseite bereitgestellten Informationen zur Zeit der Bereitstellung richtig und vollständig sind. Dennoch kann es zu unbeabsichtigten und zufälligen Fehlern gekommen sein, für die wir uns entschuldigen.
+        - text: Der Medieninhaber macht keine Zusicherung und übernimmt keine Gewährleistung für die auf dieser Webseite zur Verfügung gestellten Informationen, wie z. B. Hyperlinks oder andere Inhalte, die entweder direkt oder indirekt von dieser Webseite verwendet werden. Auch behält sich der Medieninhaber das Recht vor, Änderungen oder Ergänzungen der bereitgestellten Informationen ohne vorherige Ankündigung vorzunehmen. Der Medieninhaber lehnt jegliche Haftung für unrichtige oder fehlende Informationen auf dieser Webseite ab, und daher liegen alle Entscheidungen, die auf den auf dieser Webseite bereitgestellten Informationen beruhen, einzig und allein im Verantwortungsbereich des Benutzers. Der Medieninhaber lehnt jegliche Haftung für unmittelbare, konkrete Schäden oder Folgeschäden, oder sonstige Schäden jeglicher Art, die aus welchem Grund auch immer im Zusammenhang mit dem indirekten oder direkten Gebrauch der auf dieser Webseite bereitgestellten Informationen entstanden sind, ab.
+        - text: Sofern nicht anders angegeben, liegt das Urheberrecht aller auf dieser Webseite bereitgestellten Dokumente und der dafür verwendeten Materialien ausschließlich beim Medieninhaber oder bei eTennis. Die Vervielfältigung der Dokumente ist nur für den persönlichen und informativen Gebrauch gestattet und jede sonstige Vervielfältigung oder jeder sonstige Gebrauch ist ausdrücklich untersagt.
+        - text: Soweit über Hyperlinks auf Software Dritter zugegriffen wird, gelten die Regelungen dieses Anbieters und sind dessen Rechte zu beachten.
+        - text: Die Manipulation sowie der Zugriff mit automatisierten Diensten ist untersagt.
+      - paragraph [ref=e30]:
+        - text: Die EU-Kommission hat eine Internetplattform zur Online-Beilegung von Streitigkeiten („OS-Plattform“) zwischen Unternehmern und Verbrauchern eingerichtet. Die OS-Plattform ist erreichbar unter
+        - link "https://ec.europa.eu/consumers/odr/" [ref=e31] [cursor=pointer]:
+          - /url: https://ec.europa.eu/consumers/odr/
+        - text: .
+      - heading "Cookies" [level=3] [ref=e32]
+    - contentinfo [ref=e33]:
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - text: SV Kematen/ZV Tennis |
+          - link "Impressum" [ref=e37] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e38]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e39] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               

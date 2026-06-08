@@ -1,0 +1,78 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "TFV-Logo-black" [ref=e10] [cursor=pointer]:
+        - /url: https://www.tfv-piesting.at/
+        - img "TFV-Logo-black" [ref=e12]
+      - generic [ref=e18]:
+        - navigation [ref=e20]:
+          - list [ref=e21]:
+            - listitem [ref=e22]:
+              - link "Home" [ref=e23] [cursor=pointer]:
+                - /url: https://www.tfv-piesting.at/
+            - listitem [ref=e24]:
+              - link "Über uns" [ref=e25] [cursor=pointer]:
+                - /url: https://www.tfv-piesting.at/ueber-uns/
+            - listitem [ref=e26]:
+              - link "Tennis 3" [ref=e27] [cursor=pointer]:
+                - /url: https://www.tfv-piesting.at/tennis/
+            - listitem [ref=e28]:
+              - link "Mitglied werden" [ref=e29] [cursor=pointer]:
+                - /url: https://www.tfv-piesting.at/tennis/tarife/
+            - listitem [ref=e30]:
+              - link "Padel" [ref=e31] [cursor=pointer]:
+                - /url: https://www.tfv-piesting.at/padel/
+            - listitem [ref=e32]:
+              - link "Reservierung" [ref=e33] [cursor=pointer]:
+                - /url: https://piesting.tennisplatz.info/reservierung
+            - listitem [ref=e34]:
+              - link "PSC" [ref=e35] [cursor=pointer]:
+                - /url: https://www.tfv-piesting.at/psc/
+        - text: a
+  - generic [ref=e36]:
+    - article [ref=e38]:
+      - generic [ref=e43]:
+        - heading "Tennis" [level=4] [ref=e50] [cursor=pointer]
+        - heading "Padel" [level=4] [ref=e57] [cursor=pointer]
+    - contentinfo [ref=e58]:
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - img "logo-home-small" [ref=e65]
+          - generic [ref=e68]:
+            - heading "TFV Markt Piesting" [level=4] [ref=e69]
+            - paragraph [ref=e70]:
+              - text: Bocksbachgasse
+              - text: 2753 Markt Piesting
+              - link "tennis@tfv-piesting.at" [ref=e71] [cursor=pointer]:
+                - /url: mailto:tennis@tfv-piesting.at
+          - generic [ref=e74]:
+            - heading "Bankverbindung" [level=4] [ref=e75]
+            - paragraph [ref=e76]:
+              - text: Raiffeisenbank Schneebergland
+              - text: "IBAN: AT46 3293 7000 0811 1627"
+              - text: "BIC: RLNWATWWWRN"
+          - generic [ref=e77]:
+            - heading "Folge uns" [level=4] [ref=e80]
+            - list [ref=e81]:
+              - listitem [ref=e82]:
+                - link "" [ref=e83] [cursor=pointer]:
+                  - /url: https://www.facebook.com/TFVPiesting/
+              - listitem [ref=e84]:
+                - link "" [ref=e85] [cursor=pointer]:
+                  - /url: https://www.instagram.com/tfvpiesting/
+        - generic [ref=e87]:
+          - generic [ref=e90]:
+            - navigation [ref=e92]:
+              - list [ref=e93]:
+                - listitem [ref=e94]:
+                  - link "Datenschutz" [ref=e95] [cursor=pointer]:
+                    - /url: https://www.tfv-piesting.at/datenschutz/
+                - listitem [ref=e96]:
+                  - link "Impressum" [ref=e97] [cursor=pointer]:
+                    - /url: https://www.tfv-piesting.at/impressum/
+            - text: a
+          - generic [ref=e99]: © 2026 TFV Piesting
+        - link "WEBSITE BY" [ref=e105] [cursor=pointer]:
+          - /url: https://www.enzinger.biz
+          - generic [ref=e106]: WEBSITE BY
+          - img [ref=e107]

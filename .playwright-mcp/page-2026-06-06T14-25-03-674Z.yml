@@ -1,0 +1,488 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - combobox [ref=e9] [cursor=pointer]:
+        - textbox "Deutsch" [ref=e10]:
+          - img [ref=e11]
+      - generic [ref=e13]:
+        - link "ThePadelPark" [ref=e14] [cursor=pointer]:
+          - /url: /
+          - img "ThePadelPark" [ref=e15]
+        - link "eTennis" [ref=e16] [cursor=pointer]:
+          - /url: https://www.etennis.at
+          - img "eTennis" [ref=e17]
+        - generic [ref=e18]:
+          - link "ThePadelPark" [ref=e19] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e20]:
+            - link "  Info" [ref=e21] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e22]:  
+              - text: Info
+            - link "  Reservierung" [ref=e23] [cursor=pointer]:
+              - /url: /reservierung
+              - generic [ref=e24]:  
+              - text: Reservierung
+        - link " Anmelden" [ref=e26] [cursor=pointer]:
+          - /url: "#login"
+          - generic [ref=e27]: 
+          - text: Anmelden
+    - list [ref=e32]:
+      - listitem [ref=e33]:
+        - link "News" [ref=e34] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e35]:
+        - link "Padel und Tennis Preisliste" [ref=e36] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e37]:
+        - link "ÜBER THE PADEL PARK" [ref=e38] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e39]:
+        - link "Padelschule" [ref=e40] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e41]:
+        - link "The Padel Park 2026 Teams" [ref=e42] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e43]:
+        - link "Kalendar" [ref=e44] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e45]:
+        - link "Haftungsausschluss" [ref=e46] [cursor=pointer]:
+          - /url: /s/Haftungsausschluss
+      - listitem [ref=e47]:
+        - link "Mai 2026" [ref=e48] [cursor=pointer]:
+          - /url: /s/Mai_2026
+      - listitem [ref=e49]:
+        - link "Veranstaltungen" [ref=e50] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e51]:
+        - link "Registrierung" [ref=e52] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e54]:
+      - heading "Startseite" [level=1] [ref=e55]
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e58]:
+            - link "Jacqui van Wijk CAMP - WM Silbermedallist!" [ref=e60] [cursor=pointer]:
+              - /url: /news-31436-Jacqui_van_Wijk_CAMP___WM_Silbermedallist_
+              - img "Jacqui van Wijk CAMP - WM Silbermedallist!" [ref=e61]
+            - generic [ref=e62]:
+              - heading "Jacqui van Wijk CAMP - WM Silbermedallist!" [level=2] [ref=e63]:
+                - link "Jacqui van Wijk CAMP - WM Silbermedallist!" [ref=e64] [cursor=pointer]:
+                  - /url: /news-31436-Jacqui_van_Wijk_CAMP___WM_Silbermedallist_
+              - paragraph [ref=e65]: Wir haben das große Glück, dass Jacqui uns im August aus den Niederlnaden besucht, um ein Starter- und Experten Camp in Frohnleiten zu veranstalten.
+              - paragraph [ref=e66]: Ihr Ruf eilt ihr voraus, also verpass diese Chance nicht!
+              - paragraph [ref=e67]: Ein intensiver Padel Tag gefolgt von einer Abkühlung im Pool erwartet euch!
+              - generic [ref=e68]:
+                - generic [ref=e69]:
+                  - img "User Image" [ref=e70]
+                  - text: Dawn Foxhall
+                - text: ", 03. Juni 2026"
+              - link " Mehr dazu" [ref=e71] [cursor=pointer]:
+                - /url: /news-31436-Jacqui_van_Wijk_CAMP___WM_Silbermedallist_
+                - generic [ref=e72]: 
+                - text: Mehr dazu
+          - generic [ref=e73]:
+            - link "Komm einmal Schnuppern!" [ref=e75] [cursor=pointer]:
+              - /url: /news-31348-Komm_einmal_Schnuppern_
+              - img "Komm einmal Schnuppern!" [ref=e76]
+            - generic [ref=e77]:
+              - heading "Komm einmal Schnuppern!" [level=2] [ref=e78]:
+                - link "Komm einmal Schnuppern!" [ref=e79] [cursor=pointer]:
+                  - /url: /news-31348-Komm_einmal_Schnuppern_
+              - paragraph [ref=e80]: Noch nie PAdel oder Pickleball gespielt?
+              - paragraph [ref=e81]: Teste es bei unseren Schnupperstunden.
+              - paragraph [ref=e82]: Einfach bei mir melden.
+              - paragraph [ref=e83]: Dawn
+              - paragraph [ref=e84]: 0680/2359808
+              - paragraph [ref=e85]: info@thepadelpark.at
+              - generic [ref=e86]:
+                - generic [ref=e87]:
+                  - img "User Image" [ref=e88]
+                  - text: Dawn Foxhall
+                - text: ", 31. Mai 2026"
+          - generic [ref=e89]:
+            - link "Tombola Winners bei unsere Eröffnung in Frohnleiten" [ref=e91] [cursor=pointer]:
+              - /url: /news-31337-Tombola_Winners_bei_unsere_Eroeffnung_in_Frohnleiten
+              - img "Tombola Winners bei unsere Eröffnung in Frohnleiten" [ref=e92]
+            - generic [ref=e93]:
+              - heading "Tombola Winners bei unsere Eröffnung in Frohnleiten" [level=2] [ref=e94]:
+                - link "Tombola Winners bei unsere Eröffnung in Frohnleiten" [ref=e95] [cursor=pointer]:
+                  - /url: /news-31337-Tombola_Winners_bei_unsere_Eroeffnung_in_Frohnleiten
+              - paragraph [ref=e96]: Gratuliere an ALLE Winners!
+              - paragraph [ref=e97]: Bitte vorbei kommen und eure Preise holen!
+              - generic [ref=e98]:
+                - generic [ref=e99]:
+                  - img "User Image" [ref=e100]
+                  - text: Dawn Foxhall
+                - text: ", 30. Mai 2026"
+          - generic [ref=e101]:
+            - link "Juni Kalendar jetzt online!" [ref=e103] [cursor=pointer]:
+              - /url: /news-31297-Juni_Kalendar_jetzt_online_
+              - img "Juni Kalendar jetzt online!" [ref=e104]
+            - generic [ref=e105]:
+              - heading "Juni Kalendar jetzt online!" [level=2] [ref=e106]:
+                - link "Juni Kalendar jetzt online!" [ref=e107] [cursor=pointer]:
+                  - /url: /news-31297-Juni_Kalendar_jetzt_online_
+              - paragraph [ref=e108]: Unser Juni Kalender für The Padel Park Semriach und The Padel Park Frohnleiten ist jetzt online!
+              - paragraph [ref=e109]: Schaut es euch an und kommt vorbei, bei den vielen Events die im Juni stattfinden!
+              - paragraph [ref=e110]: Wir freuen uns auf euch!
+              - generic [ref=e111]:
+                - generic [ref=e112]:
+                  - img "User Image" [ref=e113]
+                  - text: Dawn Foxhall
+                - text: ", 28. Mai 2026"
+              - link " Mehr dazu" [ref=e114] [cursor=pointer]:
+                - /url: /news-31297-Juni_Kalendar_jetzt_online_
+                - generic [ref=e115]: 
+                - text: Mehr dazu
+          - generic [ref=e116]:
+            - link "The Padel Park Frohnleiten exklusiv für ein Wochenende erhältlich!" [ref=e118] [cursor=pointer]:
+              - /url: /news-31173-The_Padel_Park_Frohnleiten_exklusiv_fuer_ein_Wochenende_erhaeltlich_
+              - img "The Padel Park Frohnleiten exklusiv für ein Wochenende erhältlich!" [ref=e119]
+            - generic [ref=e120]:
+              - heading "The Padel Park Frohnleiten exklusiv für ein Wochenende erhältlich!" [level=2] [ref=e121]:
+                - link "The Padel Park Frohnleiten exklusiv für ein Wochenende erhältlich!" [ref=e122] [cursor=pointer]:
+                  - /url: /news-31173-The_Padel_Park_Frohnleiten_exklusiv_fuer_ein_Wochenende_erhaeltlich_
+              - paragraph [ref=e123]: Exklusiv ist The Padel Park Frohnleiten für euch zum Spielen verfügbar!
+              - paragraph [ref=e124]: Von 10-18 Uhr von Samstag 23.5-Montag 25.5 könnt ihr die brandneuen Plätze ausprobieren!
+              - paragraph [ref=e125]:
+                - text: Wie üblich können die Plätze unter
+                - link "www.thepadelpark.at" [ref=e126] [cursor=pointer]:
+                  - /url: //www.thepadelpark.at
+                - text: gebucht werden!
+              - paragraph [ref=e127]: Wir freuen uns auf euer Kommen!
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - img "User Image" [ref=e130]
+                  - text: Dawn Foxhall
+                - text: ", 22. Mai 2026"
+          - generic [ref=e131]:
+            - link "3 Weeks and Counting........." [ref=e133] [cursor=pointer]:
+              - /url: /news-30838-3_Weeks_and_Counting_________
+              - img "3 Weeks and Counting........." [ref=e134]
+            - generic [ref=e135]:
+              - heading "3 Weeks and Counting........." [level=2] [ref=e136]:
+                - link "3 Weeks and Counting........." [ref=e137] [cursor=pointer]:
+                  - /url: /news-30838-3_Weeks_and_Counting_________
+              - paragraph [ref=e138]: Der Countdown läuft!
+              - paragraph [ref=e139]: In nur wenigen Wochen eröffnen wir unseren zweiten Padel und Multisport - Standort in Frohnleiten.
+              - paragraph [ref=e140]:
+                - strong [ref=e141]: SAVE THE DATE!
+              - paragraph [ref=e142]:
+                - text: Seid dabei, wenn wir am
+                - strong [ref=e143]: 29.Mai
+                - text: unsere Türen öffnen.
+              - paragraph [ref=e144]:
+                - text: "Freut euch auf absolut Top- Highlights:"
+                - strong [ref=e145]: JUBO Padel Super Panoramic Courts
+                - text: ", Pickleball and Badminton warten auf euch."
+              - paragraph [ref=e146]: Wir freuen uns auf euren Besuch!
+              - generic [ref=e147]:
+                - generic [ref=e148]:
+                  - img "User Image" [ref=e149]
+                  - text: Dawn Foxhall
+                - text: ", 07. Mai 2026"
+              - link " Mehr dazu" [ref=e150] [cursor=pointer]:
+                - /url: /news-30838-3_Weeks_and_Counting_________
+                - generic [ref=e151]: 
+                - text: Mehr dazu
+          - generic [ref=e152]:
+            - link "Unser Mai Events Programm ist jetzt online!" [ref=e154] [cursor=pointer]:
+              - /url: /news-30765-Unser_Mai_Events_Programm_ist_jetzt_online_
+              - img "Unser Mai Events Programm ist jetzt online!" [ref=e155]
+            - generic [ref=e156]:
+              - heading "Unser Mai Events Programm ist jetzt online!" [level=2] [ref=e157]:
+                - link "Unser Mai Events Programm ist jetzt online!" [ref=e158] [cursor=pointer]:
+                  - /url: /news-30765-Unser_Mai_Events_Programm_ist_jetzt_online_
+              - paragraph [ref=e159]: Unser Padel Programm für Mai ist jetzt online!
+              - paragraph [ref=e160]: Einfach unter der Padel Park Website auf Kalender drücken um ganz leicht das Programm zu sehen!
+              - paragraph [ref=e161]: Wir freuen uns auf euer Kommen!
+              - generic [ref=e162]:
+                - generic [ref=e163]:
+                  - img "User Image" [ref=e164]
+                  - text: Dawn Foxhall
+                - text: ", 04. Mai 2026"
+              - link " Mehr dazu" [ref=e165] [cursor=pointer]:
+                - /url: /news-30765-Unser_Mai_Events_Programm_ist_jetzt_online_
+                - generic [ref=e166]: 
+                - text: Mehr dazu
+          - generic [ref=e167]:
+            - link "Ein großes Danke an unseren neuen Teamsponsor Fauth Manufaktur!" [ref=e169] [cursor=pointer]:
+              - /url: /news-30549-Ein_grosses_Danke_an_unseren_neuen_Teamsponsor_Fauth_Manufaktur_
+              - img "Ein großes Danke an unseren neuen Teamsponsor Fauth Manufaktur!" [ref=e170]
+            - generic [ref=e171]:
+              - heading "Ein großes Danke an unseren neuen Teamsponsor Fauth Manufaktur!" [level=2] [ref=e172]:
+                - link "Ein großes Danke an unseren neuen Teamsponsor Fauth Manufaktur!" [ref=e173] [cursor=pointer]:
+                  - /url: /news-30549-Ein_grosses_Danke_an_unseren_neuen_Teamsponsor_Fauth_Manufaktur_
+              - paragraph [ref=e174]: Rechtzeitig für die Meisterschaftssaison hat unser brandneuer Sponsor Fauth Manufaktur uns mit Longsleeves ausgestattet!
+              - paragraph [ref=e175]: Jetzt wird das Team auch an kühleren Tagen ready für jedes Match sein!
+              - paragraph [ref=e176]: Ein riesen Dankeschön geht raus an die Firma Fauth Manufaktur für die tolle Ausstattung!
+              - generic [ref=e177]:
+                - generic [ref=e178]:
+                  - img "User Image" [ref=e179]
+                  - text: Dawn Foxhall
+                - text: ", 25. April 2026"
+              - link " Mehr dazu" [ref=e180] [cursor=pointer]:
+                - /url: /news-30549-Ein_grosses_Danke_an_unseren_neuen_Teamsponsor_Fauth_Manufaktur_
+                - generic [ref=e181]: 
+                - text: Mehr dazu
+          - generic [ref=e182]:
+            - link "Unsere Meisterschaft Teams sind ready!" [ref=e184] [cursor=pointer]:
+              - /url: /news-30550-Unsere_Meisterschaft_Teams_sind_ready_
+              - img "Unsere Meisterschaft Teams sind ready!" [ref=e185]
+            - generic [ref=e186]:
+              - heading "Unsere Meisterschaft Teams sind ready!" [level=2] [ref=e187]:
+                - link "Unsere Meisterschaft Teams sind ready!" [ref=e188] [cursor=pointer]:
+                  - /url: /news-30550-Unsere_Meisterschaft_Teams_sind_ready_
+              - paragraph [ref=e189]: Wir sind ready für die Saison!
+              - paragraph [ref=e190]: Jetzt ist unser Herren und Damen Team komplett mit den neuen Dressen ausgestattet!
+              - paragraph [ref=e191]: Wir freuen uns schon riesig auf die kommenden Meisterschaftsmatches und sind motiviert in jedem Match alles zu geben!
+              - paragraph [ref=e192]: Wir hoffen auf ganz viel Support und natürlich viele Siege!
+              - generic [ref=e193]:
+                - generic [ref=e194]:
+                  - img "User Image" [ref=e195]
+                  - text: Dawn Foxhall
+                - text: ", 25. April 2026"
+              - link " Mehr dazu" [ref=e196] [cursor=pointer]:
+                - /url: /news-30550-Unsere_Meisterschaft_Teams_sind_ready_
+                - generic [ref=e197]: 
+                - text: Mehr dazu
+          - generic [ref=e198]:
+            - link "Mitgliedschaften sind ab jetzt für The Padel Park erhältlich!" [ref=e200] [cursor=pointer]:
+              - /url: /news-30082-Mitgliedschaften_sind_ab_jetzt_fuer_The_Padel_Park_erhaeltlich_
+              - img "Mitgliedschaften sind ab jetzt für The Padel Park erhältlich!" [ref=e201]
+            - generic [ref=e202]:
+              - heading "Mitgliedschaften sind ab jetzt für The Padel Park erhältlich!" [level=2] [ref=e203]:
+                - link "Mitgliedschaften sind ab jetzt für The Padel Park erhältlich!" [ref=e204] [cursor=pointer]:
+                  - /url: /news-30082-Mitgliedschaften_sind_ab_jetzt_fuer_The_Padel_Park_erhaeltlich_
+              - paragraph [ref=e205]: Ab jetzt gibt es für alle Padel Spieler die Wahl sich für The Padel Park eine Mitgliedschaft zu holen!
+              - paragraph [ref=e206]: "Mit der Basic, Pro und Premium Mitgliedschaft ist für jeden was dabei! Und das Beste: zu einem guten Preis!"
+              - paragraph [ref=e207]: Hole dir die Mitgliedschaft und genieße viele Vorteile wie reduzierte Plätze, gratis Turniere, Meisterschaftsrecht, Gutscheine, Badeeintritt Angebote (Frohnleiten), und vieles mehr!
+              - paragraph [ref=e208]:
+                - text: Wenn ihr Interesse habt, ganz einfach ein Email and
+                - link "info@thepadelpark.at" [ref=e209] [cursor=pointer]:
+                  - /url: mailto:info@thepadelpark.at
+                - text: senden oder Dawn anrufen unter 0680/2359808
+              - paragraph [ref=e210]: Wir freuen uns euch bald als Mitglied willkommen zu heißen!
+              - generic [ref=e211]:
+                - generic [ref=e212]:
+                  - img "User Image" [ref=e213]
+                  - text: Dawn Foxhall
+                - text: ", 08. April 2026"
+              - link " Mehr dazu" [ref=e214] [cursor=pointer]:
+                - /url: /news-30082-Mitgliedschaften_sind_ab_jetzt_fuer_The_Padel_Park_erhaeltlich_
+                - generic [ref=e215]: 
+                - text: Mehr dazu
+          - link " weitere News im Archiv" [ref=e217] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e218]: 
+            - text: weitere News im Archiv
+        - generic [ref=e219]:
+          - generic [ref=e221]:
+            - heading "Anfahrt" [level=2] [ref=e222]
+            - paragraph [ref=e223]: "Adresse: Unterer Windhof 19, 8102 Semriach"
+            - generic [ref=e229]:
+              - paragraph [ref=e230]: Möchten Sie von Google Map bereitgestellte externe Inhalte laden?
+              - paragraph [ref=e231]:
+                - button "Ja" [ref=e232] [cursor=pointer]
+                - button "Immer" [ref=e233] [cursor=pointer]
+          - link "Murauer" [ref=e236] [cursor=pointer]:
+            - /url: https://www.eTennis.at
+            - img "Murauer" [ref=e237]
+          - generic [ref=e238]:
+            - generic [ref=e239]: 
+            - heading "aktuelle Termine" [level=2] [ref=e240]
+            - generic [ref=e242]:
+              - generic [ref=e243]: Training Camps
+              - link "STARTER WORKSHOP" [ref=e244] [cursor=pointer]:
+                - /url: /event-70312-starter_workshop
+                - heading "STARTER WORKSHOP" [level=4] [ref=e245]
+              - text: ", The Padel Park"
+              - paragraph [ref=e246]: Freitag, 12. Juni 2026 16:00 - 18:00 Uhr
+            - generic [ref=e248]:
+              - generic [ref=e249]: Tournaments
+              - link "WHITE NIGHT PADEL!" [ref=e250] [cursor=pointer]:
+                - /url: /event-71164-white_night_padel_
+                - heading "WHITE NIGHT PADEL!" [level=4] [ref=e251]
+              - text: ", The Padel Park FROHNLEITEN"
+              - paragraph [ref=e252]: Samstag, 11. Juli 2026 17:00 - 20:00 Uhr
+            - generic [ref=e254]:
+              - generic [ref=e255]: Training Camps
+              - link "STARTER/ADVANCED CAMP mit Jacqueline van Wijk" [ref=e256] [cursor=pointer]:
+                - /url: /event-71165-starter_advanced_camp_mit_jacqueline_van_wijk
+                - heading "STARTER/ADVANCED CAMP mit Jacqueline van Wijk" [level=4] [ref=e257]
+              - text: ", The PADEL PARK Frohnleiten"
+              - paragraph [ref=e258]:
+                - text: Freitag, 7. August 2026 bis
+                - text: Montag, 10. August 2026
+              - paragraph [ref=e259]:
+                - link " Mehr dazu" [ref=e260] [cursor=pointer]:
+                  - /url: /event-71165-starter_advanced_camp_mit_jacqueline_van_wijk
+                  - generic [ref=e261]: 
+                  - text: Mehr dazu
+            - generic [ref=e263]:
+              - generic [ref=e264]: Training Camps
+              - link "EXPERT/ELITE WOMENS CAMP mit Jacqueline van Wijk" [ref=e265] [cursor=pointer]:
+                - /url: /event-71329-expert_elite_womens_camp_mit_jacqueline_van_wijk
+                - heading "EXPERT/ELITE WOMENS CAMP mit Jacqueline van Wijk" [level=4] [ref=e266]
+              - text: ", The PADEL PARK Frohnleiten"
+              - paragraph [ref=e267]:
+                - text: Dienstag, 11. August 2026 bis
+                - text: Freitag, 14. August 2026
+              - paragraph [ref=e268]:
+                - link " Mehr dazu" [ref=e269] [cursor=pointer]:
+                  - /url: /event-71329-expert_elite_womens_camp_mit_jacqueline_van_wijk
+                  - generic [ref=e270]: 
+                  - text: Mehr dazu
+        - list [ref=e272]:
+          - listbox [ref=e274]:
+            - listitem [ref=e275]:
+              - link [ref=e276] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e277]
+            - listitem [ref=e278]:
+              - link [ref=e279] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e280]
+            - listitem [ref=e281]:
+              - link [ref=e282] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e283]
+            - listitem [ref=e284]:
+              - link [ref=e285] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e286]
+            - listitem [ref=e287]:
+              - link [ref=e288] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e289]
+            - listitem [ref=e290]:
+              - link [ref=e291] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e292]
+            - listitem [ref=e293]:
+              - link [ref=e294] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e295]
+            - listitem [ref=e296]:
+              - link [ref=e297] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e298]
+            - option "Shuster Schalk" [ref=e299]:
+              - link "Shuster Schalk" [ref=e300] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "Shuster Schalk" [ref=e301]
+            - option "Athletes Essentials" [ref=e302]:
+              - link "Athletes Essentials" [ref=e303] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "Athletes Essentials" [ref=e304]
+            - option "brandtner Physio" [ref=e305]:
+              - link "brandtner Physio" [ref=e306] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "brandtner Physio" [ref=e307]
+            - option "Kaisermädl" [ref=e308]:
+              - link "Kaisermädl" [ref=e309] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "Kaisermädl" [ref=e310]
+            - option "unbenannt" [ref=e311]:
+              - link "unbenannt" [ref=e312] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "unbenannt" [ref=e313]
+            - option "Murauer" [ref=e314]:
+              - link "Murauer" [ref=e315] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "Murauer" [ref=e316]
+            - option "Sportunion" [ref=e317]:
+              - link "Sportunion" [ref=e318] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "Sportunion" [ref=e319]
+            - option "Shuster Schalk" [ref=e320]:
+              - link "Shuster Schalk" [ref=e321] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img "Shuster Schalk" [ref=e322]
+            - option [ref=e323]:
+              - link [ref=e324] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e325]
+            - option [ref=e326]:
+              - link [ref=e327] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e328]
+            - option [ref=e329]:
+              - link [ref=e330] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e331]
+            - option [ref=e332]:
+              - link [ref=e333] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e334]
+            - option [ref=e335]:
+              - link [ref=e336] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e337]
+            - option [ref=e338]:
+              - link [ref=e339] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e340]
+            - listitem [ref=e341]:
+              - link [ref=e342] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e343]
+            - listitem [ref=e344]:
+              - link [ref=e345] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e346]
+            - listitem [ref=e347]:
+              - link [ref=e348] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e349]
+            - listitem [ref=e350]:
+              - link [ref=e351] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e352]
+            - listitem [ref=e353]:
+              - link [ref=e354] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e355]
+            - listitem [ref=e356]:
+              - link [ref=e357] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e358]
+            - listitem [ref=e359]:
+              - link [ref=e360] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e361]
+            - listitem [ref=e362]:
+              - link [ref=e363] [cursor=pointer]:
+                - /url: https://www.eTennis.at
+                - img [ref=e364]
+    - contentinfo [ref=e365]:
+      - generic [ref=e367]:
+        - generic [ref=e368]:
+          - text: ThePadelPark |
+          - link "Impressum" [ref=e369] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e370] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e371]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e372] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e374]:
+    - paragraph [ref=e375]:
+      - generic [ref=e376]:
+        - paragraph [ref=e377]:
+          - img "ThePadelPark" [ref=e378]
+          - text: ThePadelPark
+        - paragraph [ref=e379]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e380]:
+      - link "Einstellungen verwalten" [ref=e381] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e382]:
+        - button "Alle ablehnen" [ref=e383] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e384] [cursor=pointer]
+  - generic [ref=e387]: Seite nicht gefunden

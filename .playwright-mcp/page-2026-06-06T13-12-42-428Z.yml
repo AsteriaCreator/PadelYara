@@ -1,0 +1,258 @@
+- generic [active] [ref=e1]:
+  - link "Zum Inhalt springen" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e7]:
+        - link "TEAM UNION PADEL Logo" [ref=e11] [cursor=pointer]:
+          - /url: https://www.sportunion-tennis.at
+          - img "TEAM UNION PADEL" [ref=e12]
+        - navigation "Permanent Icons Menu" [ref=e15]:
+          - list [ref=e16]:
+            - listitem [ref=e17]:
+              - link "Freiluft-Buchung (Tennis & Padel)" [ref=e19] [cursor=pointer]:
+                - /url: https://sportunion-klagenfurt-tennis.tennisplatz.info/
+                - generic [ref=e21]: 
+                - generic [ref=e22]: Freiluft-Buchung (Tennis & Padel)
+            - listitem [ref=e23]:
+              - link "Tennishalle-Buchung" [ref=e25] [cursor=pointer]:
+                - /url: https://union-klu.tennisplatz.info
+                - generic [ref=e27]: 
+                - generic [ref=e28]: Tennishalle-Buchung
+            - listitem [ref=e29]:
+              - link "Meisterschaft" [ref=e31] [cursor=pointer]:
+                - /url: https://www.tenniskaernten.at/
+                - generic [ref=e33]: 
+                - generic [ref=e34]: Meisterschaft
+      - text:  
+      - navigation "Top Nav" [ref=e41]:
+        - text:  
+        - list [ref=e42]:
+          - listitem [ref=e43]:
+            - link "Verein" [ref=e45] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e46]: Verein
+              - text: 
+            - text: 
+          - listitem [ref=e47]:
+            - link "Sektionen" [ref=e49] [cursor=pointer]:
+              - /url: https://sportunion-tennis.at/team-union-klagenfurt/
+              - generic [ref=e50]: Sektionen
+          - listitem [ref=e51]:
+            - link "Sportunion Tennishalle" [ref=e53] [cursor=pointer]:
+              - /url: https://sportunion-tennis.at/uber-die-halle/
+              - generic [ref=e54]: Sportunion Tennishalle
+              - text: 
+            - text: 
+          - listitem [ref=e55]:
+            - link "Tennistraining" [ref=e57] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e58]: Tennistraining
+              - text: 
+            - text: 
+          - listitem [ref=e59]:
+            - link "Padel" [ref=e61] [cursor=pointer]:
+              - /url: https://sportunion-tennis.at/padel-tennis-center-woerthersee/
+              - generic [ref=e62]: Padel
+              - text: 
+            - text: 
+          - listitem [ref=e63]:
+            - link "Kids & Juniors" [ref=e65] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e66]: Kids & Juniors
+              - text: 
+            - text: 
+          - listitem [ref=e67]:
+            - link "Gastronomie" [ref=e69] [cursor=pointer]:
+              - /url: "#"
+              - generic [ref=e70]: Gastronomie
+              - text: 
+            - text: 
+          - listitem [ref=e71]:
+            - link "Kontakt" [ref=e73] [cursor=pointer]:
+              - /url: https://sportunion-tennis.at/kontakt/
+              - generic [ref=e74]: Kontakt
+    - main [ref=e75]:
+      - generic [ref=e79]:
+        - generic [ref=e84]:
+          - heading [level=1]
+          - heading "PADEL TENNIS CENTER IN KLAGENFURT AM WÖRTHERSEE" [level=1] [ref=e85]
+        - generic [ref=e87]:
+          - link "Kelag Logo" [ref=e92] [cursor=pointer]:
+            - /url: https://www.kelag.at/
+            - img "Kelag Kärnten" [ref=e93]
+          - link "Logo der Austrian Padel Union" [ref=e98] [cursor=pointer]:
+            - /url: https://www.padeltennis.at/
+            - img "Austrian Padel Union" [ref=e99]
+          - link "ksport" [ref=e104] [cursor=pointer]:
+            - /url: https://www.kaerntensport.net/
+          - link "Logo der Sport Union" [ref=e109] [cursor=pointer]:
+            - /url: https://sportunion.at/
+            - img "Sport Union" [ref=e110]
+        - generic [ref=e112]:
+          - generic [ref=e114]:
+            - heading "Die Trendsportart in Kärnten" [level=2] [ref=e116]
+            - generic [ref=e117]:
+              - paragraph [ref=e118]: Im Jahr 2021 erweiterten wir unser Sportangebot um drei neue Padel-Plätze. Diese neue Trendsportart hat ihren Ursprung in Lateinamerika und Spanien, mittlerweile boomt sie in ganz Europa. In Österreich gibt es derzeit über 300 Anlagen (Stand 2025), in Kärnten sind es mittlerweile 5 Anlagen. Der TC Bad Eisenkappel, TC Annenheim, das Schlosshotel Seefels, Lakeside Padel in Seeboden und die Sportunion Klagenfurt.
+              - paragraph [ref=e119]: Mittlerweile spielen wir unter Sektionsleiter und Teamkapitän Hannes Zienitzer mit einem Team in der 2. und 3. Padel Bundesliga sowie mit 4 Teams (3 x Herren und 1 x Damen) in der steirischen Landesliga.
+              - paragraph [ref=e120]:
+                - text: Regelmäßig finden
+                - link "Padel-Turniere" [ref=e121] [cursor=pointer]:
+                  - /url: https://www.padeltennis.at/tournaments
+                - text: für alle Spielkategorien und für Firmen statt.
+          - generic [ref=e123]:
+            - generic [ref=e124]: 
+            - paragraph [ref=e126]: Whatsapp Community
+            - paragraph [ref=e128]: Finden Sie Mitspieler und organisieren Sie Spiele in der Whatsapp Community.
+            - link "Jetzt beitreten" [ref=e130] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/IljaH4GtSGzJXJJyKUWQBG
+              - generic [ref=e131]: Jetzt beitreten
+        - generic [ref=e133]:
+          - generic [ref=e135]:
+            - generic [ref=e136]: 
+            - paragraph [ref=e138]: Jetzt Platz buchen
+            - paragraph [ref=e140]: Interesse geweckt? Probieren Sie Padel selbst in unserer neuen Anlage in Klagenfurt aus.
+            - link "Jetzt buchen" [ref=e142] [cursor=pointer]:
+              - /url: https://sportunion-klagenfurt-tennis.tennisplatz.info//reservierung?c=2900
+              - generic [ref=e143]: Jetzt buchen
+          - generic [ref=e145]:
+            - heading "Was ist Padel?" [level=2] [ref=e147]
+            - generic [ref=e148]:
+              - paragraph [ref=e149]: Padel, eine Mischung aus Tennis und Squash und wird nur im Doppel gespielt. Gezählt wird nach den Tennisregeln, wobei die Wände beim Spiel miteinbezogen werden. Der Padelplatz ist etwa die Hälfte eines Tennisplatzes (20×10) und ist auf allen Seiten von Glas- und Gitterwänden umgeben.
+              - paragraph [ref=e150]: Wie beim Tennis wird der Platz durch ein Mittelnetz in zwei Spielhälften geteilt. Es wird mit eigenen Bällen (Druckbälle) und Padelschlägern (elastische Schlagfläche mit Löchern) gespielt. Der Boden besteht aus einem Quarzsandteppich.
+              - paragraph [ref=e151]: Padel wird zu viert (2 gegen2) gespielt, es ist einfach zu erlernen und überzeugt durch seinen sehr hohen Spaß-Faktor. Es ist für jedermann in jedem Alter.
+        - generic [ref=e153]:
+          - generic [ref=e155]:
+            - heading "Unser Team" [level=2] [ref=e157]
+            - paragraph [ref=e159]: Unser motiviertes Team möchte den Padelsport in Kärnten etablieren. Bei uns finden Sie erfahrene Spieler, Trainer und Ansprechpartner für alle Fragen rund um Padel.
+            - link "Uns kennenlernen" [ref=e161] [cursor=pointer]:
+              - /url: https://sportunion-tennis.at/padel-team/
+              - generic [ref=e162]: Uns kennenlernen
+          - generic [ref=e164]:
+            - paragraph [ref=e166]: Hannes Zienitzer
+            - paragraph [ref=e168]:
+              - text: Sektionsleiter, Mannschaftsführer,
+              - text: ausgebildeter Trainer
+          - generic [ref=e170]:
+            - paragraph [ref=e172]: Markus Pirker-Rodrix
+            - paragraph [ref=e174]:
+              - text: Sektionsleiter Stellvertreter,
+              - text: Mannschaftsführer
+        - generic [ref=e176]:
+          - link "Kelag Plus Club" [ref=e181] [cursor=pointer]:
+            - /url: https://www.plusclub.at/
+          - link "Logo des Kärntner Padelverbands" [ref=e186] [cursor=pointer]:
+            - /url: https://www.padelkaernten.at/
+            - img "Padel Kärnten" [ref=e187]
+          - link "Petzner Textildesign und Textilveredelung Logo" [ref=e192] [cursor=pointer]:
+            - /url: http://www.petzner.at/
+            - img "Petzner" [ref=e193]
+          - link "lili-sachverstaendige" [ref=e198] [cursor=pointer]:
+            - /url: https://lili.co.at/
+          - link "wuestenrot-oliver-rauscher" [ref=e203] [cursor=pointer]:
+            - /url: https://www.facebook.com/finanzberaterrauscher/
+        - generic [ref=e205]:
+          - generic [ref=e207]:
+            - heading "Faire Preise. Großer Spielspaß." [level=2] [ref=e209]:
+              - text: Faire Preise.
+              - text: Großer Spielspaß.
+            - paragraph [ref=e211]: Auf unserer Anlage können Sie Plätze bereits ab 20 € die Stunde spielen. Leihrackets und Bälle erhalten Sie im Buffet der Tennishalle oder beim Platzwart.
+            - list [ref=e212]:
+              - listitem [ref=e213]:
+                - generic [ref=e215]: 
+                - paragraph [ref=e217]: Equipment vor Ort ausborgen
+            - list [ref=e218]:
+              - listitem [ref=e219]:
+                - generic [ref=e221]: 
+                - paragraph [ref=e223]: Schnell & einfach buchen
+            - list [ref=e224]:
+              - listitem [ref=e225]:
+                - generic [ref=e227]: 
+                - paragraph [ref=e229]: Keine versteckten Kosten
+          - generic [ref=e231]:
+            - generic [ref=e232]:
+              - heading "ab 22 €" [level=2] [ref=e233]
+              - paragraph [ref=e234]: pro Stunde
+            - paragraph [ref=e238]: Sie können einen Padel Platz ganz einfach zu einem beliebigen Zeitraum mit unserem Buchungssystem buchen.
+            - link "Zur Preisliste" [ref=e240] [cursor=pointer]:
+              - /url: https://sportunion-tennis.at/padel-preise-und-buchung/
+              - generic [ref=e241]: Zur Preisliste
+        - generic [ref=e243]:
+          - generic [ref=e245]:
+            - generic [ref=e246]: 
+            - heading "Kontakt" [level=2] [ref=e248]
+            - paragraph [ref=e250]:
+              - text: + 43 660 46 84 077 (Sektionsleitung)
+              - text: + 43 676 55 33 983 (Sektionsleitung)
+              - text: office@sportunion-padeltennis.at
+          - generic [ref=e252]:
+            - generic [ref=e253]: 
+            - heading "Adresse" [level=2] [ref=e255]
+            - paragraph [ref=e257]:
+              - text: Padel Tennis Center Wörthersee
+              - text: Universitätsstraße 100a
+              - text: 9020 Klagenfurt am Wörthersee
+          - generic [ref=e259]:
+            - generic [ref=e260]: 
+            - heading "Buchen" [level=2] [ref=e262]
+            - paragraph [ref=e264]: Buchen Sie einen Platz im Padel Tennis Center Klagenfurt am Wörthersee.
+            - link "Jetzt buchen" [ref=e266] [cursor=pointer]:
+              - /url: https://sportunion-klagenfurt-tennis.tennisplatz.info//reservierung?c=2900
+              - generic [ref=e267]: Jetzt buchen
+    - generic [ref=e269]:
+      - generic [ref=e271]:
+        - generic [ref=e273]:
+          - paragraph [ref=e275]:
+            - strong [ref=e276]: Adresse
+          - paragraph [ref=e278]:
+            - text: Sportunion Klagenfurt Tennis
+            - text: Universitätsstraße 100a
+            - text: 9020 Klagenfurt
+        - generic [ref=e280]:
+          - paragraph [ref=e282]:
+            - strong [ref=e283]: Telefon
+          - generic [ref=e284]:
+            - paragraph [ref=e285]: "Sektionsleitung: +43 660 46 84 077"
+            - paragraph [ref=e286]: "Sektionsleitung: +43 676 55 33 983"
+        - generic [ref=e288]:
+          - paragraph [ref=e290]:
+            - strong [ref=e291]: Newsletter
+          - generic [ref=e294]:
+            - paragraph [ref=e295]:
+              - textbox "Deine E-Mail Adresse" [ref=e296]
+            - generic [ref=e297]:
+              - checkbox "Sportunion Klagenfurt Tennis speichert Ihre Daten nur für die Verwendung in der Kundendatei und gibt diese unter keinen Umständen an Dritte weiter. Weitere Informationen und Widerunfshinweise finden sie in der Datenschutzerklärung." [ref=e298]
+              - text: Sportunion Klagenfurt Tennis speichert Ihre Daten nur für die Verwendung in der Kundendatei und gibt diese unter keinen Umständen an Dritte weiter. Weitere Informationen und Widerunfshinweise finden sie in der
+              - link "Datenschutzerklärung." [ref=e300] [cursor=pointer]:
+                - /url: " \nhttps://www.sportunion-tennis.at/datenschutz/\n"
+            - paragraph [ref=e301]:
+              - button "Registrieren" [ref=e302] [cursor=pointer]
+      - generic [ref=e306]:
+        - paragraph [ref=e308]:
+          - text: © 2025 Sportunion Klagenfurt Tennis |
+          - link "Impressum" [ref=e309] [cursor=pointer]:
+            - /url: https://www.sportunion-tennis.at/impressum/
+          - text: "|"
+          - link "Datenschutzerklärung" [ref=e310] [cursor=pointer]:
+            - /url: https://www.sportunion-tennis.at/datenschutz/
+        - generic [ref=e313]:
+          - link "facebook" [ref=e314] [cursor=pointer]:
+            - /url: https://www.facebook.com/teamunionpadel
+            - text: 
+          - link "instagram" [ref=e315] [cursor=pointer]:
+            - /url: https://www.instagram.com/teamunionpadel
+            - text: 
+  - generic [ref=e317]:
+    - generic [ref=e318]:
+      - text: Wir nutzen Cookies auf unserer Website. Einige von ihnen sind essenziell, während andere uns helfen, diese Website und Ihre Erfahrung zu verbessern.
+      - link "Cookie Einstellungen" [ref=e319] [cursor=pointer]:
+        - /url: "#"
+        - text: Cookie Einstellungen
+        - generic [ref=e320]: 
+    - link "Ohne Cookies akzeptieren" [ref=e321] [cursor=pointer]:
+      - /url: "#"
+  - region "Nach oben":
+    - link " Nach oben":
+      - /url: "#"
+      - text: 
+      - generic: Nach oben

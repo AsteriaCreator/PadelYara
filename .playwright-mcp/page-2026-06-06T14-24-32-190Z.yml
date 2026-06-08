@@ -1,0 +1,275 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - link [ref=e10] [cursor=pointer]:
+        - /url: https://padel-center.at
+      - generic [ref=e15]:
+        - text: 
+        - list [ref=e18]:
+          - listitem [ref=e19]:
+            - link "Home" [ref=e20] [cursor=pointer]:
+              - /url: https://padel-center.at/
+          - listitem [ref=e21]:
+            - link "Mitgliedschaft" [ref=e22] [cursor=pointer]:
+              - /url: https://padel-center.at/#mitgliedschaft
+          - listitem [ref=e23]:
+            - link "FAQ" [ref=e24] [cursor=pointer]:
+              - /url: https://padel-center.at/#faq
+      - link "Jetzt Buchen!" [ref=e30] [cursor=pointer]:
+        - /url: https://padel-center.at/standorte/
+        - generic [ref=e31]:
+          - img [ref=e34]
+          - generic [ref=e37]: Jetzt Buchen!
+    - generic [ref=e39]:
+      - generic [ref=e46]:
+        - heading "TAPEDESIGN® Padel Performance Center" [level=1] [ref=e49]:
+          - text: TAPEDESIGN®
+          - text: Padel Performance Center
+        - link "Jetzt Buchen!" [ref=e53] [cursor=pointer]:
+          - /url: https://padel-center.at/standorte/
+          - generic [ref=e54]:
+            - img [ref=e57]
+            - generic [ref=e60]: Jetzt Buchen!
+      - generic [ref=e62]:
+        - generic [ref=e67]:
+          - group "1 / 3"
+          - group "2 / 3"
+          - group "3 / 3"
+          - group "1 / 3" [ref=e68]
+          - group "2 / 3"
+          - group "3 / 3"
+          - group "1 / 3"
+          - group "2 / 3"
+          - group "3 / 3"
+        - generic [ref=e76]:
+          - generic [ref=e78]:
+            - img [ref=e86]
+            - heading "Südbahnweg 31 8410 Wildon, Österreich" [level=6] [ref=e90]:
+              - text: Südbahnweg 31
+              - text: 8410 Wildon, Österreich
+          - generic [ref=e96]:
+            - generic [ref=e102]:
+              - generic [ref=e103]: 1.800 m2
+              - heading "Indoor Padel Halle" [level=5] [ref=e104]
+            - generic [ref=e109]:
+              - generic [ref=e110]: "0"
+              - heading "Moderne Plätze" [level=5] [ref=e111]
+    - generic [ref=e122]:
+      - heading "Ein weiterer Standort für noch mehr Padel-Action" [level=2] [ref=e126]
+      - 'heading "Doppelter Spielspaß: Ab Sofort Geöffnet!" [level=2] [ref=e129]'
+      - generic [ref=e133]:
+        - heading "Bad Waltersdorf" [level=2] [ref=e136]
+        - generic [ref=e138]:
+          - paragraph [ref=e139]: "Ein weiterer Meilenstein für unsere Padel-Community: Wir eröffnen ein weiteres Padel Performance Center – mehr Plätze, mehr Action, mehr Padel für euch!"
+          - paragraph [ref=e140]:
+            - strong [ref=e141]: Ab sofort geöffnet
+            - text: – das neue Indoor & Outdoor TAPEDEISGN® Padel Performance Center, direkt an der A2-Abfahrt Bad Waltersdorf!
+          - paragraph [ref=e142]: Unser neues Padel Performance Center in Bad Waltersdorf ergänzt unser bestehendes Angebot und bietet euch 4 Indoorplätze mit 12-15m Raumhöhe, 4 Outdoor-Padelplätze, großzügige Damen- und Herren-Umkleiden, kostenlose Parkplätze direkt vor Ort sowie einen Equipment-Verleih. Nur 1 Minute von der Autobahn entfernt – ideal erreichbar für Hobby- & Profi-Spieler!
+          - paragraph [ref=e143]: Ab sofort geöffnet!
+        - link "Jetzt Buchen!" [ref=e147] [cursor=pointer]:
+          - /url: https://www.eversports.at/sb/tapedesign-padel-performance-center-bad-waltersdorf
+          - generic [ref=e148]:
+            - img [ref=e151]
+            - generic [ref=e154]: Jetzt Buchen!
+    - paragraph [ref=e169]:
+      - text: Willkommen im
+      - strong [ref=e170]: TAPEDESIGN® Padel Performance Center
+      - text: ", wo wir erstklassige Padel-Tennis-Courts und Möglichkeiten für Spieler aller Altersgruppen und Spielstärken anbieten."
+    - generic [ref=e201]:
+      - generic [ref=e203]:
+        - generic [ref=e209]:
+          - generic [ref=e212]: ﮷
+          - generic [ref=e213]:
+            - heading "Modernste Courts" [level=3] [ref=e214]
+            - paragraph [ref=e215]: Professionelle Courts mit bestem Untergrund.
+        - generic [ref=e221]:
+          - generic [ref=e224]: 力
+          - generic [ref=e225]:
+            - heading "Equipment Verleih" [level=3] [ref=e226]
+            - paragraph [ref=e227]: von Schlägern, Bällen und weiterem Zubehör.
+      - generic [ref=e229]:
+        - generic [ref=e235]:
+          - generic [ref=e238]: ﯗ
+          - generic [ref=e239]:
+            - heading "Einfache Buchung" [level=3] [ref=e240]
+            - paragraph [ref=e241]: über unser Online-Buchungs-Tool
+        - generic [ref=e247]:
+          - generic [ref=e250]: 
+          - generic [ref=e251]:
+            - heading "Kostenlose Parkplätze" [level=3] [ref=e252]
+            - paragraph [ref=e253]: direkt vor dem Eingangsbereich.
+    - generic [ref=e260]:
+      - paragraph [ref=e268]: Entdecke die Faszination von Padel Tennis noch heute und tauche ein in eine Sportart, die Bewegung, Spaß und Gemeinschaft miteinander vereint!
+      - generic [ref=e270]:
+        - link "Read More" [ref=e281] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e283]:
+            - heading "Modernste Padel Courts" [level=3] [ref=e284]
+            - paragraph [ref=e285]: Nur das beste ist gut genug! Die modernsten Indoor Padel Courts in der Steiermark.
+        - link "Read More" [ref=e296] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e298]:
+            - heading "Kostenlose Parkplätze" [level=3] [ref=e299]
+            - paragraph [ref=e300]: Genügend kostenlose Parkplätze direkt vor dem Eingangsbereich.
+      - generic [ref=e302]:
+        - link "Read More" [ref=e313] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e315]:
+            - heading "Equipment Verleih" [level=3] [ref=e316]
+            - paragraph [ref=e317]: Schläger, Bälle und sonstiges Zubehör kann direkt im Padel Performance Center ausgeborgt werden.
+        - link "Read More" [ref=e328] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e330]:
+            - heading "Ausgestattete Umkleiden" [level=3] [ref=e331]
+            - paragraph [ref=e332]: Separate Umkleiden für Damen und Herren ausgestattet mit Kästen, Duschen und Toiletten.
+        - link "Read More" [ref=e343] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e345]:
+            - heading "Functional Area" [level=3] [ref=e346]
+            - paragraph [ref=e347]: Kostenlos nutzbar für Tagesgäste und Mitglieder. Bestehend aus mehreren funktionellen Cardio- und Freigeräten.
+      - link "Jetzt buchen!" [ref=e351] [cursor=pointer]:
+        - /url: https://padel-center.at/standorte/
+        - generic [ref=e352]:
+          - img [ref=e355]
+          - generic [ref=e358]: Jetzt buchen!
+    - generic [ref=e372]:
+      - paragraph [ref=e377]: Entdecke die verschiedenen Optionen, die perfekt auf deine Bedürfnisse und Vorlieben abgestimmt sind. Vergleiche die Vorteile und finde die ideale Mitgliedschaft, die dir am meisten Nutzen und Freude bringt.
+      - generic [ref=e381]:
+        - generic [ref=e383]:
+          - generic [ref=e386]:
+            - heading "Einzelstunde" [level=3] [ref=e388]
+            - paragraph [ref=e390]: im TAPEDESIGN® Padel Performance Center.
+          - generic [ref=e395]:
+            - generic [ref=e396]: ab €20
+            - text: /Stunde
+        - generic [ref=e398]:
+          - list [ref=e401]:
+            - listitem [ref=e402]:
+              - img [ref=e404]
+              - generic [ref=e406]: 1 Stunde Platznutzung
+            - listitem [ref=e407]:
+              - img [ref=e409]
+              - generic [ref=e411]: Functional Area Nutzung
+            - listitem [ref=e412]:
+              - img [ref=e414]
+              - generic [ref=e416]: Kostenloser Parkplatz
+          - link "Jetzt buchen!" [ref=e420] [cursor=pointer]:
+            - /url: https://padel-center.at/standorte/
+            - generic [ref=e421]:
+              - img [ref=e424]
+              - generic [ref=e427]: Jetzt buchen!
+    - text: זּ  
+    - generic [ref=e440]:
+      - generic [ref=e441]:
+        - link "Wann eröffnet das Padel Performance Center?" [ref=e443] [cursor=pointer]:
+          - /url: "#expand-826f307"
+          - generic [ref=e444]: Wann eröffnet das Padel Performance Center?
+          - img [ref=e447]
+        - paragraph [ref=e451]:
+          - text: Das TAPEDESIGN® Padel Performance Center in Bad Waltersdorf wird im September 2025 eröffnet. Setz dich auf die Warteliste um alle Infos vorab zu erhalten.
+          - text: Das Performance Padel Center in Wildon hat von Montag bis Sonntag von 07:00 - 23:00 Uhr geöffnet.
+      - link "Wie kann ich einen Platz buchen?" [ref=e454] [cursor=pointer]:
+        - /url: "#expand-a5a4939"
+        - generic [ref=e455]: Wie kann ich einen Platz buchen?
+        - img [ref=e458]
+      - link "Was muss ich zum Spielen mitbringen?" [ref=e462] [cursor=pointer]:
+        - /url: "#expand-09fe0f7"
+        - generic [ref=e463]: Was muss ich zum Spielen mitbringen?
+        - img [ref=e466]
+      - link "Wo befindet sich das TAPEDESIGN® Padel Performance Center?" [ref=e470] [cursor=pointer]:
+        - /url: "#expand-5359a6c"
+        - generic [ref=e471]: Wo befindet sich das TAPEDESIGN® Padel Performance Center?
+        - img [ref=e474]
+    - generic [ref=e480]:
+      - generic [ref=e485]:
+        - heading "Erreiche mit uns das nächste Level im Padel-Tennis." [level=2] [ref=e488]
+        - paragraph [ref=e491]: Padel Tennis ist nicht nur ein großer Trend, sondern auch eine Sportart, die Menschen jeden Alters begeistert.
+        - link "Jetzt buchen!" [ref=e495] [cursor=pointer]:
+          - /url: https://padel-center.at/standorte/
+          - generic [ref=e496]:
+            - img [ref=e499]
+            - generic [ref=e502]: Jetzt buchen!
+      - generic [ref=e509]:
+        - generic [ref=e511]:
+          - heading "Wildon:" [level=2] [ref=e516]
+          - list [ref=e519]:
+            - listitem [ref=e520]:
+              - link "Südbahnweg 31, 8410 Wildon, Österreich" [ref=e521] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e523]
+                - generic [ref=e525]: Südbahnweg 31, 8410 Wildon, Österreich
+            - listitem [ref=e526]:
+              - link "info@padel-center.at" [ref=e527] [cursor=pointer]:
+                - /url: mailto:info@padel-center.at
+                - img [ref=e529]
+                - generic [ref=e531]: info@padel-center.at
+            - listitem [ref=e532]:
+              - link "+43 676 334 9020" [ref=e533] [cursor=pointer]:
+                - /url: tel:00436763349020
+                - img [ref=e535]
+                - generic [ref=e537]: +43 676 334 9020
+          - heading "Bad Waltersdorf:" [level=2] [ref=e540]
+          - list [ref=e543]:
+            - listitem [ref=e544]:
+              - link "Sebersdorf 314, 8272 Bad Waltersdorf, Österreich" [ref=e545] [cursor=pointer]:
+                - /url: "#"
+                - img [ref=e547]
+                - generic [ref=e549]: Sebersdorf 314, 8272 Bad Waltersdorf, Österreich
+            - listitem [ref=e550]:
+              - link "waltersdorf@padel-center.at" [ref=e551] [cursor=pointer]:
+                - /url: mailto:waltersdorf@padel-center.at
+                - img [ref=e553]
+                - generic [ref=e555]: waltersdorf@padel-center.at
+        - generic [ref=e557]:
+          - heading "Quick Links" [level=4] [ref=e560]
+          - list [ref=e563]:
+            - listitem [ref=e564]:
+              - link "Mitgliedschaft" [ref=e565] [cursor=pointer]:
+                - /url: "#mitgliedschaft"
+                - img [ref=e567]
+                - generic [ref=e569]: Mitgliedschaft
+            - listitem [ref=e570]:
+              - link "FAQ" [ref=e571] [cursor=pointer]:
+                - /url: "#faq"
+                - img [ref=e573]
+                - generic [ref=e575]: FAQ
+            - listitem [ref=e576]:
+              - link "Presse" [ref=e577] [cursor=pointer]:
+                - /url: https://padel-center.at/wp-content/uploads/2024/10/TAPEDESIGN®-Padel-Performance-Center-in-Wildon-Pressetext.pdf
+                - img [ref=e579]
+                - generic [ref=e581]: Presse
+        - generic [ref=e583]:
+          - heading "Rechtliches" [level=4] [ref=e586]
+          - list [ref=e589]:
+            - listitem [ref=e590]:
+              - link "Impressum" [ref=e591] [cursor=pointer]:
+                - /url: /impressum
+                - img [ref=e593]
+                - generic [ref=e595]: Impressum
+            - listitem [ref=e596]:
+              - link "Datenschutz" [ref=e597] [cursor=pointer]:
+                - /url: /datenschutz
+                - img [ref=e599]
+                - generic [ref=e601]: Datenschutz
+            - listitem [ref=e602]:
+              - link "AGBs (Wildon)" [ref=e603] [cursor=pointer]:
+                - /url: /agb
+                - img [ref=e605]
+                - generic [ref=e607]: AGBs (Wildon)
+        - generic [ref=e609]:
+          - heading "Einzelstunde buchen:" [level=3] [ref=e612]
+          - link "Jetzt Buchen!" [ref=e616] [cursor=pointer]:
+            - /url: https://padel-center.at/standorte/
+            - generic [ref=e617]:
+              - img [ref=e620]
+              - generic [ref=e623]: Jetzt Buchen!
+      - link [ref=e627] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e628]: 遼
+      - generic [ref=e630]:
+        - paragraph [ref=e635]: Copyright © 2025 TAPEDESIGN® Padel Performance Center
+        - link "Instagram" [ref=e642] [cursor=pointer]:
+          - /url: https://instagram.com/tapedesign.padelcenter
+          - generic [ref=e643]: Instagram
+          - img [ref=e644]
+  - generic [ref=e646]: desktop

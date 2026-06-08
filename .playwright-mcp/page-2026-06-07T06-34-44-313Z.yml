@@ -1,0 +1,163 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Zu Haupt Inhalt springen" [ref=e6] [cursor=pointer]:
+          - /url: "#main"
+        - link "Eversports Startseite" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+        - link "Suche nach Sport oder Anlage" [ref=e13] [cursor=pointer]:
+          - /url: /?show=search
+          - img [ref=e14]
+          - generic [ref=e17]: Suche nach Sport oder Anlage
+    - main [ref=e18]:
+      - generic [ref=e21]:
+        - generic:
+          - generic [ref=e24]: 
+          - generic:
+            - img "PADELZONE Linz" [ref=e26] [cursor=pointer]
+            - img "PADELZONE Linz" [ref=e28] [cursor=pointer]
+          - generic [ref=e31]: 
+        - text: 
+      - generic [ref=e32]:
+        - link "Zurück zum PADELZONE Linz Profil" [ref=e34] [cursor=pointer]:
+          - /url: /s/padelzone-linz
+        - list [ref=e39]:
+          - listitem [ref=e40]:
+            - link "Übersicht" [ref=e41] [cursor=pointer]:
+              - /url: /s/padelzone-linz
+          - listitem [ref=e42]:
+            - link "Sportplätze" [ref=e43]:
+              - /url: "#"
+          - listitem [ref=e44]:
+            - link "Matches" [ref=e45] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e46]:
+            - link "Workshops" [ref=e47] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e48]:
+            - link "Preise" [ref=e49] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e50]:
+            - link "Team" [ref=e51] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e52]:
+            - link "Bewertungen" [ref=e53] [cursor=pointer]:
+              - /url: /s/padelzone-linz#gotoratings
+        - generic:
+          - generic:  
+      - generic [ref=e54]:
+        - heading "PADELZONE Linz - Belegungsplan" [level=1] [ref=e57]
+        - generic [ref=e61]:
+          - navigation "Sportart auswählen" [ref=e63]:
+            - list [ref=e64]:
+              - listitem [ref=e65] [cursor=pointer]: Padel
+              - listitem [ref=e66] [cursor=pointer]: Squash
+              - listitem [ref=e67] [cursor=pointer]: Tischtennis
+              - listitem [ref=e68] [cursor=pointer]: Mehrzweck Box
+          - generic [ref=e70]:
+            - generic [ref=e72]:
+              - textbox "Datum auswählen" [ref=e73]: 07.06.2026
+              - generic [ref=e74] [cursor=pointer]: 
+            - generic [ref=e76]:
+              - button "" [disabled]:
+                - generic: 
+              - button "Heute" [ref=e77] [cursor=pointer]
+              - button "" [ref=e78] [cursor=pointer]:
+                - generic [ref=e79]: 
+        - progressbar [ref=e85]: lade Kalender...
+    - contentinfo [ref=e86]:
+      - generic [ref=e87]:
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]:
+              - heading "Mehr über Eversports" [level=2] [ref=e91]
+              - list [ref=e92]:
+                - listitem [ref=e93]:
+                  - link "Über uns" [ref=e94] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/uber-uns/
+                - listitem [ref=e95]:
+                  - link "Blog" [ref=e96] [cursor=pointer]:
+                    - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+                - listitem [ref=e97]:
+                  - link "Karriere" [ref=e98] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/jobs/
+                - listitem [ref=e99]:
+                  - link "Sicherheit" [ref=e100] [cursor=pointer]:
+                    - /url: /h/security
+                - listitem [ref=e101]:
+                  - link "Für Unternehmen" [ref=e102] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - generic [ref=e103]:
+              - heading "Eversports Manager" [level=2] [ref=e104]
+              - list [ref=e105]:
+                - listitem [ref=e106]:
+                  - link "Zur Website" [ref=e107] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+                - listitem [ref=e108]:
+                  - link "Preise" [ref=e109] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+                - listitem [ref=e110]:
+                  - link "Kostenlose Demo" [ref=e111] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - heading "Kontakt" [level=2] [ref=e114]
+              - list [ref=e115]:
+                - listitem [ref=e116]:
+                  - link "Kontakt" [ref=e117] [cursor=pointer]:
+                    - /url: /h/contact
+                - listitem [ref=e118]:
+                  - link "Impressum" [ref=e119] [cursor=pointer]:
+                    - /url: /h/about
+                - listitem [ref=e120]:
+                  - link "Datenschutz" [ref=e121] [cursor=pointer]:
+                    - /url: /h/privacy
+                - listitem [ref=e122]:
+                  - link "AGB" [ref=e123] [cursor=pointer]:
+                    - /url: /h/terms
+                - listitem [ref=e124]:
+                  - link "Erklärung zur Barrierefreiheit" [ref=e125] [cursor=pointer]:
+                    - /url: /h/accessibility
+                - listitem [ref=e126]:
+                  - link "Cookie-Einstellungen" [ref=e127] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e128]:
+                  - link "Memberships kündigen" [ref=e129] [cursor=pointer]:
+                    - /url: /h/cancel-membership
+            - generic [ref=e130]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e131]
+              - link "Facebook Profil" [ref=e132] [cursor=pointer]:
+                - /url: //fb.com/eversports
+                - img [ref=e133]
+              - link "YouTube Profil" [ref=e135] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                - img [ref=e136]
+              - link "Instagram Profil" [ref=e139] [cursor=pointer]:
+                - /url: https://www.instagram.com/eversports_official
+                - img [ref=e140]
+              - heading "Apps" [level=2] [ref=e143]
+              - link "iOS App Store" [ref=e144] [cursor=pointer]:
+                - /url: https://apps.apple.com/de/app/id946460861
+                - img "iOS App Store" [ref=e145]
+              - link "Android" [ref=e146] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - img "Android" [ref=e147]
+        - generic [ref=e148]:
+          - img [ref=e149]
+          - paragraph [ref=e153]: 2026 Eversports Gmbh. Alle Rechte vorbehalten
+    - dialog [active] [ref=e159]:
+      - document [ref=e161]:
+        - generic [ref=e162]:
+          - generic [ref=e163]:
+            - heading "Cookie-Einstellungen" [level=3] [ref=e164]
+            - button "Close"
+          - generic [ref=e165]:
+            - paragraph [ref=e167]: Wir verwenden Cookies, um dir ein optimales Webseiten-Erlebnis zu bieten. Du kannst dabei entscheiden, welche Kategorien von Cookies du erlaubst. Natürlich kannst du deine Cookie-Einstellungen jederzeit ändern.
+            - button "Cookie-Einstellungen" [ref=e169] [cursor=pointer]:
+              - generic [ref=e170]:
+                - text: Cookie-Einstellungen
+                - img [ref=e171]
+          - button "Alle akzeptieren" [ref=e175] [cursor=pointer]
+  - text:  

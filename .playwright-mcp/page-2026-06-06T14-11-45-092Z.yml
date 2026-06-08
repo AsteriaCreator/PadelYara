@@ -1,0 +1,208 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - navigation [ref=e6]:
+          - generic [ref=e7]:
+            - link "Español" [ref=e8] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/es/clubs/austria
+            - text: /
+            - link "English" [ref=e9] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria
+            - text: /
+            - link "Français" [ref=e10] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/fr/clubs/austria
+            - link "" [ref=e11] [cursor=pointer]:
+              - /url: https://www.facebook.com/padelforever
+              - generic [ref=e12]: 
+            - link "" [ref=e13] [cursor=pointer]:
+              - /url: https://twitter.com/padelforever
+              - generic [ref=e14]: 
+        - generic [ref=e15]:
+          - link "Padel 4 Ever" [ref=e17] [cursor=pointer]:
+            - /url: /en
+            - img "Padel 4 Ever" [ref=e18]
+          - navigation [ref=e19]:
+            - list [ref=e20]:
+              - listitem [ref=e21]:
+                - link " Clubs" [ref=e22] [cursor=pointer]:
+                  - /url: /en
+                  - generic [ref=e24]: 
+                  - text: Clubs
+              - listitem [ref=e25]:
+                - link " How to play?" [ref=e26] [cursor=pointer]:
+                  - /url: https://www.padel4ever.com/en/padel-rules
+                  - generic [ref=e28]: 
+                  - text: How to play?
+              - listitem [ref=e29]:
+                - link " Contact" [ref=e30] [cursor=pointer]:
+                  - /url: https://www.padel4ever.com/en/contact-us
+                  - generic [ref=e32]: 
+                  - text: Contact
+        - text: 
+    - insertion [ref=e34]
+    - generic [ref=e36]:
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - generic:
+            - button "Kurzbefehle"
+          - region "Karte" [ref=e40]
+          - generic [ref=e41]:
+            - generic [ref=e109]:
+              - generic:
+                - generic:
+                  - button [ref=e111] [cursor=pointer]
+                  - button [ref=e112] [cursor=pointer]
+                  - button [ref=e113] [cursor=pointer]
+                  - button [ref=e114] [cursor=pointer]
+                  - button [ref=e115] [cursor=pointer]
+                  - button [ref=e116] [cursor=pointer]
+            - iframe [ref=e117]:
+              
+            - button "Vollbildansicht ein/aus" [ref=e118] [cursor=pointer]
+            - button "Kamerasteuerung für die Karte" [ref=e120] [cursor=pointer]
+            - link "Dieses Gebiet in Google Maps öffnen (in neuem Fenster)" [ref=e122] [cursor=pointer]:
+              - /url: https://maps.google.com/maps?ll=48.1925,16.2879&z=6&t=m&hl=de-DE&gl=US&mapclient=apiv3
+              - img "Google" [ref=e124]
+            - generic [ref=e125]:
+              - button "Kurzbefehle" [ref=e131] [cursor=pointer]
+              - generic [ref=e136]: Kartendaten ©2026 GeoBasis-DE/BKG (©2009), Google, Inst. Geogr. Nacional
+              - link "Nutzungsbedingungen (wird in neuem Tab geöffnet)" [ref=e141] [cursor=pointer]:
+                - /url: https://www.google.com/intl/de-DE_US/help/terms_maps.html
+                - text: Nutzungsbedingungen
+        - generic [ref=e142]:
+          - generic [ref=e144]: Google Maps kann auf dieser Seite nicht richtig geladen werden.
+          - table [ref=e145]:
+            - row "Bist du Inhaber dieser Website? Ok" [ref=e146]:
+              - cell "Bist du Inhaber dieser Website?" [ref=e147]:
+                - link "Bist du Inhaber dieser Website?" [ref=e148] [cursor=pointer]:
+                  - /url: http://g.co/dev/maps-no-account
+              - cell "Ok" [ref=e149]:
+                - button "Ok" [ref=e150] [cursor=pointer]
+      - link " Hide Map" [ref=e152] [cursor=pointer]:
+        - /url: "#"
+        - generic [ref=e153]: 
+        - text: Hide Map
+    - generic [ref=e155]:
+      - 'heading "Austria : 6 clubs of padel" [level=1] [ref=e156]'
+      - list [ref=e157]:
+        - listitem [ref=e158]:
+          - link "Homepage" [ref=e159] [cursor=pointer]:
+            - /url: /en
+        - listitem [ref=e160]:
+          - text: 
+          - link "Austria" [ref=e161] [cursor=pointer]:
+            - /url: https://www.padel4ever.com/en/clubs/austria
+    - generic [ref=e164]:
+      - generic [ref=e165]:
+        - generic:
+          - list
+        - generic [ref=e166]:
+          - generic [ref=e168]:
+            - heading "Sport + Freizeit Cumberland" [level=2] [ref=e169]:
+              - link "Sport + Freizeit Cumberland" [ref=e170] [cursor=pointer]:
+                - /url: https://www.padel4ever.com/en/clubs/austria/sport-freizeit-cumberland
+            - paragraph [ref=e171]:
+              - text: Cumberlandstraße
+              - text: Wien
+            - link " Go on the complete informations and the map for this club" [ref=e172] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria/sport-freizeit-cumberland
+              - generic [ref=e173]: 
+              - text: Go on the complete informations and the map for this club
+          - generic [ref=e175]:
+            - heading "Tennis club Eden" [level=2] [ref=e176]:
+              - link "Tennis club Eden" [ref=e177] [cursor=pointer]:
+                - /url: https://www.padel4ever.com/en/clubs/austria/tennis-club-eden
+            - paragraph [ref=e178]:
+              - text: An der Schanze
+              - text: Wien
+            - link " Go on the complete informations and the map for this club" [ref=e179] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria/tennis-club-eden
+              - generic [ref=e180]: 
+              - text: Go on the complete informations and the map for this club
+          - generic [ref=e182]:
+            - heading "Tennispoint Vienna" [level=2] [ref=e183]:
+              - link "Tennispoint Vienna" [ref=e184] [cursor=pointer]:
+                - /url: https://www.padel4ever.com/en/clubs/austria/tennispoint-vienna
+            - paragraph [ref=e185]:
+              - text: Baumgasse
+              - text: Wien
+            - link " Go on the complete informations and the map for this club" [ref=e186] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria/tennispoint-vienna
+              - generic [ref=e187]: 
+              - text: Go on the complete informations and the map for this club
+          - generic [ref=e189]:
+            - heading "Tennisschule Arsenal" [level=2] [ref=e190]:
+              - link "Tennisschule Arsenal" [ref=e191] [cursor=pointer]:
+                - /url: https://www.padel4ever.com/en/clubs/austria/tennisschule-arsenal
+            - paragraph [ref=e192]:
+              - text: Arsenal
+              - text: Wien
+            - link " Go on the complete informations and the map for this club" [ref=e193] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria/tennisschule-arsenal
+              - generic [ref=e194]: 
+              - text: Go on the complete informations and the map for this club
+          - generic [ref=e196]:
+            - heading "Sportzentrum Marswiese" [level=2] [ref=e197]:
+              - link "Sportzentrum Marswiese" [ref=e198] [cursor=pointer]:
+                - /url: https://www.padel4ever.com/en/clubs/austria/sportzentrum-marswiese
+            - paragraph [ref=e199]:
+              - text: Neuwaldegger Straße
+              - text: Wien
+            - link " Go on the complete informations and the map for this club" [ref=e200] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria/sportzentrum-marswiese
+              - generic [ref=e201]: 
+              - text: Go on the complete informations and the map for this club
+          - generic [ref=e203]:
+            - heading "Tenniszentrum Faradaygasse" [level=2] [ref=e204]:
+              - link "Tenniszentrum Faradaygasse" [ref=e205] [cursor=pointer]:
+                - /url: https://www.padel4ever.com/en/clubs/austria/tenniszentrum-faradaygasse
+            - paragraph [ref=e206]:
+              - text: Faradaygasse
+              - text: Wien
+            - link " Go on the complete informations and the map for this club" [ref=e207] [cursor=pointer]:
+              - /url: https://www.padel4ever.com/en/clubs/austria/tenniszentrum-faradaygasse
+              - generic [ref=e208]: 
+              - text: Go on the complete informations and the map for this club
+        - generic:
+          - list
+      - insertion [ref=e211]
+    - contentinfo [ref=e213]:
+      - generic [ref=e216]:
+        - paragraph [ref=e218]: Copyright © 2015 Padel4Ever.com
+        - list [ref=e220]:
+          - listitem [ref=e221]:
+            - link "" [ref=e222] [cursor=pointer]:
+              - /url: https://www.facebook.com/padelforever
+              - generic [ref=e223]: 
+          - listitem [ref=e224]:
+            - link "" [ref=e225] [cursor=pointer]:
+              - /url: https://twitter.com/padelforever
+              - generic [ref=e226]: 
+  - text: 
+  - text: "1200"
+  - dialog "Diese Website bittet um die Einwilligung, Ihre Daten zu verwenden" [active] [ref=e230]:
+    - generic [ref=e232]:
+      - generic [ref=e233]:
+        - paragraph [ref=e235]: Herzlich willkommen
+        - heading "Diese Website bittet um die Einwilligung, Ihre Daten zu verwenden" [level=1] [ref=e236]
+      - list [ref=e238]:
+        - listitem [ref=e239]:
+          - img [ref=e242]
+          - generic [ref=e244]: Personalisierte Werbung und Inhalte, Messung von Werbeleistung und der Performance von Inhalten, Zielgruppenforschung sowie Entwicklung und Verbesserung von Angeboten
+        - listitem [ref=e245]:
+          - img [ref=e248]
+          - generic [ref=e250]: Speichern von oder Zugriff auf Informationen auf einem Endgerät
+      - button "Weitere Informationen" [ref=e251] [cursor=pointer]:
+        - img [ref=e254]
+        - generic [ref=e256]: Weitere Informationen
+      - generic [ref=e257]:
+        - paragraph [ref=e258]:
+          - text: 210 Partner werden Ihre personenbezogenen Daten verarbeiten und dürfen Informationen von Ihrem Gerät (Cookies, eindeutige Kennungen und andere Gerätedaten) speichern und darauf zugreifen. Die Informationen von Ihrem Gerät können mit den Partnern geteilt oder speziell von dieser Website verwendet werden. Wir und unsere Partner dürfen genaue Daten zur Standortbestimmung verwenden.
+          - button "Liste der Partner" [ref=e259] [cursor=pointer]
+        - paragraph [ref=e260]: Einige Anbieter nutzen Ihre personenbezogenen Daten möglicherweise auf Grundlage ihres berechtigten Interesses. Dagegen können Sie unten über den Button zum Verwalten Ihrer Optionen Einspruch erheben. Unten auf dieser Seite oder im Menü der Website finden Sie einen Link, über den Sie die Einwilligung in die Datenschutz- und Cookie-Einstellungen verwalten oder widerrufen können.
+    - generic [ref=e263]:
+      - button "Einwilligen" [ref=e264] [cursor=pointer]:
+        - paragraph [ref=e266]: Einwilligen
+      - button "Optionen verwalten" [ref=e267] [cursor=pointer]:
+        - paragraph [ref=e269]: Optionen verwalten

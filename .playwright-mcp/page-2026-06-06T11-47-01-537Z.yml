@@ -1,0 +1,293 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e7]:
+    - generic [ref=e8]:
+      - generic [ref=e9]:
+        - generic [ref=e12]:
+          - generic [ref=e13]:
+            - generic [ref=e14]: Sportanlage Bisamberg
+            - generic [ref=e15]:
+              - link "Registrierung" [ref=e17] [cursor=pointer]:
+                - /url: /de/bisamberg/registrieren
+              - generic [ref=e18]: "|"
+              - generic [ref=e19]: Login
+              - text: 
+          - menubar [ref=e21]:
+            - generic [ref=e22]:
+              - menuitem "Willkommen" [ref=e23] [cursor=pointer]:
+                - generic [ref=e25]: Willkommen
+              - menuitem "Buchungsplan" [ref=e26] [cursor=pointer]:
+                - generic [ref=e28]: Buchungsplan
+              - menuitem "Abo-Planer" [ref=e29] [cursor=pointer]:
+                - generic [ref=e31]: Abo-Planer
+              - menuitem "Hilfe" [ref=e32] [cursor=pointer]:
+                - generic [ref=e34]: Hilfe
+        - generic [ref=e37]:
+          - button [ref=e39] [cursor=pointer]:
+            - img [ref=e40]
+          - paragraph [ref=e42]: Allwetter 9 ist für alle Gruppen zahlungspflichtig, auf Allwetter 8 spielen Mitglieder kostenfrei.
+      - generic [ref=e43]:
+        - generic [ref=e46]:
+          - button "chevronprev" [disabled]:
+            - generic:
+              - generic: 
+          - tablist [ref=e51]:
+            - tab "Tennishalle" [selected] [ref=e52] [cursor=pointer]:
+              - generic [ref=e53]: Tennishalle
+            - tab "Padel DP überdacht" [ref=e54] [cursor=pointer]:
+              - generic [ref=e55]: Padel DP überdacht
+            - tab "Padel Doppelplatz" [ref=e56] [cursor=pointer]:
+              - generic [ref=e57]: Padel Doppelplatz
+            - tab "Padel Singleplatz" [ref=e58] [cursor=pointer]:
+              - generic [ref=e59]: Padel Singleplatz
+            - tab "Allwetter 9" [ref=e60] [cursor=pointer]:
+              - generic [ref=e61]: Allwetter 9
+            - tab "Allwetter 8 Verein" [ref=e62] [cursor=pointer]:
+              - generic [ref=e63]: Allwetter 8 Verein
+            - tab "Tennisfreiplätze" [ref=e64] [cursor=pointer]:
+              - generic [ref=e65]: Tennisfreiplätze
+          - button "chevronnext" [ref=e66] [cursor=pointer]:
+            - generic [ref=e68]: 
+        - generic [ref=e69]:
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - button "chevronprev" [ref=e74] [cursor=pointer]:
+                - generic [ref=e76]: 
+              - generic [ref=e79]:
+                - textbox [ref=e81]: 6.6.2026
+                - button "Open calendar" [ref=e84] [cursor=pointer]:
+                  - img [ref=e86]
+              - button "chevronnext" [ref=e88] [cursor=pointer]:
+                - generic [ref=e90]: 
+            - button "Heute" [ref=e92] [cursor=pointer]:
+              - generic [ref=e93]:
+                - generic [ref=e94]: 
+                - generic [ref=e95]: Heute
+          - generic [ref=e98]:
+            - text: "Ansicht:"
+            - group [ref=e100]:
+              - button "Woche" [ref=e101] [cursor=pointer]:
+                - generic [ref=e102]: Woche
+              - button "Tag" [ref=e103] [cursor=pointer]:
+                - generic [ref=e104]: Tag
+              - button "4 Tage" [pressed] [ref=e105] [cursor=pointer]:
+                - generic [ref=e106]: 4 Tage
+            - button "" [ref=e107]:
+              - generic [ref=e108]: 
+          - table [ref=e114]:
+            - rowgroup [ref=e115]:
+              - row "Samstag 6. Juni Sonntag 7. Juni Montag 8. Juni Dienstag 9. Juni Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3" [ref=e116]:
+                - cell "Samstag 6. Juni Sonntag 7. Juni Montag 8. Juni Dienstag 9. Juni Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3" [ref=e117]:
+                  - table [ref=e119]:
+                    - rowgroup [ref=e120]:
+                      - row "Samstag 6. Juni Sonntag 7. Juni Montag 8. Juni Dienstag 9. Juni" [ref=e121]:
+                        - columnheader [ref=e122]
+                        - columnheader "Samstag 6. Juni" [ref=e123]:
+                          - generic [ref=e124] [cursor=pointer]:
+                            - text: Samstag
+                            - text: 6. Juni
+                        - columnheader "Sonntag 7. Juni" [ref=e125]:
+                          - generic [ref=e126] [cursor=pointer]:
+                            - text: Sonntag
+                            - text: 7. Juni
+                        - columnheader "Montag 8. Juni" [ref=e127]:
+                          - generic [ref=e128] [cursor=pointer]:
+                            - text: Montag
+                            - text: 8. Juni
+                        - columnheader "Dienstag 9. Juni" [ref=e129]:
+                          - generic [ref=e130] [cursor=pointer]:
+                            - text: Dienstag
+                            - text: 9. Juni
+                      - row "Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3 Pl.1 Pl.2 Pl.3" [ref=e131]:
+                        - columnheader [ref=e132]
+                        - columnheader "Pl.1" [ref=e133]
+                        - columnheader "Pl.2" [ref=e134]
+                        - columnheader "Pl.3" [ref=e135]
+                        - columnheader "Pl.1" [ref=e136]
+                        - columnheader "Pl.2" [ref=e137]
+                        - columnheader "Pl.3" [ref=e138]
+                        - columnheader "Pl.1" [ref=e139]
+                        - columnheader "Pl.2" [ref=e140]
+                        - columnheader "Pl.3" [ref=e141]
+                        - columnheader "Pl.1" [ref=e142]
+                        - columnheader "Pl.2" [ref=e143]
+                        - columnheader "Pl.3" [ref=e144]
+            - rowgroup [ref=e145]:
+              - row "08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 Buchung Buchung Buchung TS TS TS TS TS TS Abo Abo TS TS TS TS TS TS TS TS TS TS TS TS" [ref=e146]:
+                - cell "08:00 09:00 10:00 11:00 12:00 13:00 14:00 15:00 16:00 17:00 18:00 19:00 20:00 21:00 Buchung Buchung Buchung TS TS TS TS TS TS Abo Abo TS TS TS TS TS TS TS TS TS TS TS TS" [ref=e147]:
+                  - generic [ref=e149]:
+                    - table [ref=e151]:
+                      - rowgroup [ref=e152]:
+                        - row [ref=e153]:
+                          - cell [ref=e154]
+                          - cell [ref=e155]
+                          - cell [ref=e156]
+                          - cell [ref=e157]
+                          - cell [ref=e158]
+                          - cell [ref=e159]
+                          - cell [ref=e160]
+                          - cell [ref=e161]
+                          - cell [ref=e162]
+                          - cell [ref=e163]
+                          - cell [ref=e164]
+                          - cell [ref=e165]
+                          - cell [ref=e166]
+                    - table [ref=e168]:
+                      - rowgroup [ref=e169]:
+                        - row "08:00" [ref=e170]:
+                          - cell "08:00" [ref=e171]
+                          - cell [ref=e172]
+                        - row "09:00" [ref=e173]:
+                          - cell "09:00" [ref=e174]
+                          - cell [ref=e175]
+                        - row "10:00" [ref=e176]:
+                          - cell "10:00" [ref=e177]
+                          - cell [ref=e178]
+                        - row "11:00" [ref=e179]:
+                          - cell "11:00" [ref=e180]
+                          - cell [ref=e181]
+                        - row "12:00" [ref=e182]:
+                          - cell "12:00" [ref=e183]
+                          - cell [ref=e184]
+                        - row "13:00" [ref=e185]:
+                          - cell "13:00" [ref=e186]
+                          - cell [ref=e187]
+                        - row "14:00" [ref=e188]:
+                          - cell "14:00" [ref=e189]
+                          - cell [ref=e190]
+                        - row "15:00" [ref=e191]:
+                          - cell "15:00" [ref=e192]
+                          - cell [ref=e193]
+                        - row "16:00" [ref=e194]:
+                          - cell "16:00" [ref=e195]
+                          - cell [ref=e196]
+                        - row "17:00" [ref=e197]:
+                          - cell "17:00" [ref=e198]
+                          - cell [ref=e199]
+                        - row "18:00" [ref=e200]:
+                          - cell "18:00" [ref=e201]
+                          - cell [ref=e202]
+                        - row "19:00" [ref=e203]:
+                          - cell "19:00" [ref=e204]
+                          - cell [ref=e205]
+                        - row "20:00" [ref=e206]:
+                          - cell "20:00" [ref=e207]
+                          - cell [ref=e208]
+                        - row "21:00" [ref=e209]:
+                          - cell "21:00" [ref=e210]
+                          - cell [ref=e211]
+                    - generic:
+                      - table:
+                        - rowgroup:
+                          - row "Buchung Buchung Buchung TS TS TS TS TS TS Abo Abo TS TS TS TS TS TS TS TS TS TS TS TS":
+                            - cell
+                            - cell
+                            - cell "Buchung":
+                              - generic [ref=e216]: Buchung
+                            - cell "Buchung":
+                              - generic [ref=e221]: Buchung
+                            - cell "Buchung":
+                              - generic [ref=e226]: Buchung
+                            - cell
+                            - cell
+                            - cell "TS TS TS":
+                              - generic:
+                                - generic:
+                                  - generic [ref=e235]: TS
+                                  - generic [ref=e238]: TS
+                                  - generic [ref=e241]: TS
+                            - cell "TS TS TS Abo":
+                              - generic:
+                                - generic:
+                                  - generic [ref=e246]: TS
+                                  - generic [ref=e249]: TS
+                                  - generic [ref=e252]: TS
+                                  - generic [ref=e255]: Abo
+                            - cell "Abo TS":
+                              - generic:
+                                - generic:
+                                  - generic [ref=e260]: Abo
+                                  - generic [ref=e263]: TS
+                            - cell "TS TS TS TS TS TS":
+                              - generic:
+                                - generic:
+                                  - generic [ref=e268]: TS
+                                  - generic [ref=e271]: TS
+                                  - generic [ref=e274]: TS
+                                  - generic [ref=e277]: TS
+                                  - generic [ref=e280]: TS
+                                  - generic [ref=e283]: TS
+                            - cell "TS TS":
+                              - generic:
+                                - generic:
+                                  - generic [ref=e288]: TS
+                                  - generic [ref=e291]: TS
+                            - cell "TS TS TS":
+                              - generic:
+                                - generic:
+                                  - generic [ref=e296]: TS
+                                  - generic [ref=e299]: TS
+                                  - generic [ref=e302]: TS
+        - generic [ref=e306]:
+          - generic [ref=e308]:
+            - generic [ref=e309]: Legende für Preise
+            - generic [ref=e310]:
+              - generic [ref=e311]:
+                - text: Sommer 2026
+                - generic [ref=e312]: (ab 13. April 2026 bis 27. September 2026)
+              - generic [ref=e313]:
+                - generic [ref=e314]: Vollmitglied
+                - listbox [ref=e315]:
+                  - generic [ref=e316]:
+                    - option "22.00" [ref=e318]: "22.00"
+                    - option "26.00" [ref=e320]: "26.00"
+                    - option "20.00" [ref=e322]: "20.00"
+              - generic [ref=e323]:
+                - generic [ref=e324]: Extern
+                - listbox [ref=e325]:
+                  - generic [ref=e326]:
+                    - option "22.00" [ref=e328]: "22.00"
+                    - option "26.00" [ref=e330]: "26.00"
+                    - option "20.00" [ref=e332]: "20.00"
+              - generic [ref=e333]:
+                - generic [ref=e334]: Saisonstunde
+                - listbox [ref=e335]:
+                  - generic [ref=e336]:
+                    - option "448.00" [ref=e338]: "448.00"
+                    - option "530.00" [ref=e340]: "530.00"
+                    - option [ref=e342]
+              - generic [ref=e343]: Preise pro Stunde in €
+          - generic [ref=e345]:
+            - generic [ref=e346]: Legende für Buchungen
+            - generic [ref=e347]:
+              - generic [ref=e348]:
+                - text: Sommer 2026
+                - generic [ref=e349]: (ab 13. April 2026 bis 27. September 2026)
+              - listbox [ref=e351]:
+                - generic [ref=e352]:
+                  - option "TS" [ref=e353]: TS
+                  - option "Abo/Serientermin" [ref=e354]: Abo/Serientermin
+                  - option "Buchung" [ref=e355]: Buchung
+    - contentinfo [ref=e358]:
+      - generic [ref=e360]:
+        - generic [ref=e361]:
+          - link "Nutzungsbedingungen und Datenschutz" [ref=e363] [cursor=pointer]:
+            - /url: /de/bisamberg/nutzungsbedingungen
+          - link "Impressum" [ref=e365] [cursor=pointer]:
+            - /url: /de/bisamberg/impressum
+        - generic [ref=e366]:
+          - generic [ref=e367]:
+            - generic [ref=e368]: 2026 © Brandstätter & Co. KG
+            - generic [ref=e369]: 6.4.1
+          - link "https://www.tennis04.com" [ref=e372] [cursor=pointer]:
+            - /url: https://www.tennis04.com
+  - generic [ref=e373]:
+    - text: tennis04-App wird geladen
+    - generic [ref=e374]: .
+    - generic [ref=e375]: .
+    - generic [ref=e376]: .
+  - generic [ref=e378]:
+    - paragraph [ref=e379]:
+      - text: Diese Website verwendet nur ein funktionales Cookie, um den Benutzern die Login-Funktion bereitzustellen.
+      - link "Details" [ref=e380] [cursor=pointer]:
+        - /url: https://www.tennis04.com/datenschutz
+    - generic [ref=e381] [cursor=pointer]: Verstanden

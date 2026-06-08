@@ -1,0 +1,3381 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - link "Austrian Padel Union Logo":
+        - /url: /
+        - img "Austrian Padel Union Logo"
+    - link "ÖPV Logo" [ref=e7] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e8]
+    - heading "powered by" [level=5] [ref=e10]
+    - link "HEAD Logo" [ref=e12] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e13]
+  - navigation [ref=e14]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - button "Turniere" [ref=e19] [cursor=pointer]
+        - button "Rangliste" [ref=e21] [cursor=pointer]
+        - button "Nationalkader" [ref=e23] [cursor=pointer]
+        - link "Workshops" [ref=e24] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e25] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e26] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e28] [cursor=pointer]
+        - link "Unterstützer" [ref=e29] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e31] [cursor=pointer]
+        - button "Über uns" [ref=e33] [cursor=pointer]
+      - link "Login" [ref=e35] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e36]:
+    - heading "Austrian Padel Union - Mitglieder Standorte" [level=1] [ref=e39]
+    - generic [ref=e43]:
+      - combobox [ref=e44]:
+        - option "Alle Standorte" [selected]
+        - option "Wien"
+        - option "Niederösterreich"
+        - option "Oberösterreich"
+        - option "Steiermark"
+        - option "Tirol"
+        - option "Kärnten"
+        - option "Salzburg"
+        - option "Vorarlberg"
+        - option "Burgenland"
+      - combobox "Alle Standorte" [ref=e47] [cursor=pointer]
+    - generic [ref=e48]:
+      - heading "Wien" [level=3] [ref=e49]
+      - generic [ref=e51]:
+        - img "1.Padel Union Prater" [ref=e53]
+        - generic [ref=e54]:
+          - heading "1.Padel Union Prater" [level=4] [ref=e55]:
+            - link "1.Padel Union Prater" [ref=e56] [cursor=pointer]:
+              - /url: /locations/union-trendsportzentrum-prater-w
+          - paragraph
+          - paragraph [ref=e58]:
+            - strong [ref=e59]: Sportunion Padel Union Wien
+            - strong [ref=e60]: "Verein:"
+            - text: vorm. Sportunion Padel-Beachsport
+            - strong [ref=e61]: "Adresse:"
+            - text: Meiereistraße 20, 1020 Wien
+            - strong [ref=e62]: "Ansprechpartner:"
+            - link "prater@padelunion.at" [ref=e63] [cursor=pointer]:
+              - /url: mailto://office@padelunion.at
+            - strong [ref=e64]: "Anzahl der Padel-Plätze:"
+            - text: 8 Outdoor
+            - strong [ref=e65]: "Homepage:"
+            - link "www.padelunion.at" [ref=e66] [cursor=pointer]:
+              - /url: https://www.padelunion.at
+              - strong [ref=e67]: www.padelunion.at
+            - link "Platzbuchungen" [ref=e68] [cursor=pointer]:
+              - /url: https://www.padelunion.at/reservierung
+              - strong [ref=e69]: Platzbuchungen
+            - link "Turniere" [ref=e70] [cursor=pointer]:
+              - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=1&q%5Bstate%5D=&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+              - strong [ref=e71]: Turniere
+            - link "Trainings" [ref=e72] [cursor=pointer]:
+              - /url: https://www.padelunion.at/s/Einzel__und_Gruppentraining
+              - strong [ref=e73]: Trainings
+          - paragraph
+      - generic [ref=e75]:
+        - img "Europahalle" [ref=e77]
+        - generic [ref=e78]:
+          - heading "Europahalle" [level=4] [ref=e79]:
+            - link "Europahalle" [ref=e80] [cursor=pointer]:
+              - /url: /locations/europahalle
+          - paragraph
+          - generic [ref=e82]:
+            - strong [ref=e83]: "Adresse:"
+            - text: An den Steinfeldern 2a, 1230 Wien
+            - strong [ref=e84]: "Ansprechpartner:"
+            - text: Matthias Schiffer; mschiffer@europahalle.at
+            - strong [ref=e85]: "Anzahl der Padel-Plätze:"
+            - text: 3 Indoor
+            - strong [ref=e86]: "Homepage:"
+            - text: www.europahalle.at
+          - paragraph
+      - generic [ref=e88]:
+        - img "Padel4Fun - La Ville Wien" [ref=e90]
+        - generic [ref=e91]:
+          - heading "Padel4Fun - La Ville Wien" [level=4] [ref=e92]:
+            - link "Padel4Fun - La Ville Wien" [ref=e93] [cursor=pointer]:
+              - /url: /locations/padel4fun-la-ville
+          - paragraph
+          - generic [ref=e95]:
+            - strong [ref=e96]: Padel4Fun GmbH
+            - strong [ref=e97]: "Adresse:"
+            - text: Kirchfeldgasse 5, 1230 Wien / La Ville
+            - strong [ref=e98]: "Ansprechpartner:"
+            - text: office@padel4fun.at
+            - strong [ref=e99]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+            - strong [ref=e100]: "Homepage:"
+            - link "www.padel4fun.at" [ref=e101] [cursor=pointer]:
+              - /url: https://padel4fun.at/
+            - strong [ref=e102]: "Platz-Buchung:"
+            - link "HIER" [ref=e103] [cursor=pointer]:
+              - /url: https://reservierung.padel4fun.at/reservierung?c=2946
+              - strong [ref=e104]: HIER
+            - strong
+          - paragraph
+      - generic [ref=e106]:
+        - img "PADELBASE - Wien" [ref=e108]
+        - generic [ref=e109]:
+          - heading "PADELBASE - Wien" [level=4] [ref=e110]:
+            - link "PADELBASE - Wien" [ref=e111] [cursor=pointer]:
+              - /url: /locations/padelbase-wien
+          - paragraph
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - strong [ref=e114]: "Adresse:"
+              - text: OTC Tennis Club, Jennerplatz 25, 1130 Wien
+              - strong [ref=e115]: "Ansprechpartner:"
+              - link "office@padelbase.at" [ref=e116] [cursor=pointer]:
+                - /url: mailto:Info@padelbase.at
+            - generic [ref=e117]:
+              - strong [ref=e118]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+              - strong [ref=e119]: "Homepage:"
+              - link "www.padelbase.at" [ref=e120] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e121]:
+              - strong [ref=e122]: "Platzbuchungen:"
+              - link "hier" [ref=e123] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3532
+          - paragraph
+      - generic [ref=e125]:
+        - img "PADELDOME Alte Donau" [ref=e127]
+        - generic [ref=e128]:
+          - heading "PADELDOME Alte Donau" [level=4] [ref=e129]:
+            - link "PADELDOME Alte Donau" [ref=e130] [cursor=pointer]:
+              - /url: /locations/padeldome-alte-donau
+          - paragraph
+          - generic [ref=e132]:
+            - strong [ref=e133]: Padeldome GmbH & Co KG
+            - strong [ref=e134]: "Adresse:"
+            - text: Arbeiterstrandbadstraße 87, 1210 Wien
+            - strong [ref=e135]: "Anzahl der Padel-Plätze:"
+            - text: 6 Indoor & 14 Outdoor
+            - strong [ref=e136]: "Homepage:"
+            - link "www.padeldome.at" [ref=e137] [cursor=pointer]:
+              - /url: https://www.padeldome.at/#
+            - strong [ref=e138]: "Tel. Alte Donau:"
+            - text: +43 676 33 93 195
+            - strong
+            - link "Platzbuchungen" [ref=e139] [cursor=pointer]:
+              - /url: https://www.padeldome.wien/reservierung?c=3216
+              - strong [ref=e140]: Platzbuchungen
+            - link "Turniere" [ref=e141] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/tournaments?q%5Blocation_id_eq%5D=49&q%5Blocation_state_eq%5D=&q%5Bdivisions_category_eq%5D=&q%5Bdivisions_name_cont%5D=&commit=Filtern
+              - strong [ref=e142]: Turniere
+            - strong
+            - link "Trainings" [ref=e143] [cursor=pointer]:
+              - /url: https://www.padeldome.at/services/einzeltraing/
+              - strong [ref=e144]: Trainings
+          - paragraph
+      - generic [ref=e147]:
+        - img "PADELDOME Alterlaa" [ref=e149]
+        - generic [ref=e150]:
+          - heading "PADELDOME Alterlaa" [level=4] [ref=e151]:
+            - link "PADELDOME Alterlaa" [ref=e152] [cursor=pointer]:
+              - /url: /locations/padeldome-alterlaa
+          - paragraph
+          - generic [ref=e154]:
+            - strong [ref=e155]: Padeldome GmbH & Co KG
+            - strong [ref=e156]: "Adresse:"
+            - text: Anton-Baumgartner 40, 1230 Wien
+            - strong [ref=e157]: "Ansprechpartner:"
+            - link "alterlaa@padeldome.at" [ref=e158] [cursor=pointer]:
+              - /url: mailto:alterlaa@padeldome.at%20
+              - text: alterlaa@padeldome.at
+              - strong [ref=e159]
+            - strong [ref=e160]: ;
+            - text: 0676/414 52 94
+            - link:
+              - /url: mailto:alterlaa@padeldome.at
+            - strong [ref=e161]: "Anzahl der Padel-Plätze:"
+            - text: 5 Indoor
+            - strong [ref=e162]: "Homepage:"
+            - link "www.padeldome.at" [ref=e163] [cursor=pointer]:
+              - /url: https://www.padeldome.at/#
+            - link "Platzbuchungen" [ref=e164] [cursor=pointer]:
+              - /url: https://www.padeldome.wien/reservierung?c=2668
+              - strong [ref=e165]: Platzbuchungen
+            - link "Turniere" [ref=e166] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/tournaments?q%5Blocation_id_eq%5D=37
+              - strong [ref=e167]: Turniere
+            - strong
+            - link "Trainings" [ref=e168] [cursor=pointer]:
+              - /url: https://www.padeldome.at/alterlaa#academy
+              - strong [ref=e169]: Trainings
+          - paragraph
+      - generic [ref=e171]:
+        - img "PADELDOME Erdberg" [ref=e173]
+        - generic [ref=e174]:
+          - heading "PADELDOME Erdberg" [level=4] [ref=e175]:
+            - link "PADELDOME Erdberg" [ref=e176] [cursor=pointer]:
+              - /url: /locations/padeldome
+          - paragraph
+          - generic [ref=e178]:
+            - strong [ref=e179]: Padeldome Gmbh & Co KG
+            - strong [ref=e180]: "Verein:"
+            - text: Padel-Academy Krenn/Alten
+            - strong [ref=e181]: "Adresse:"
+            - text: Franzosengraben 2, 1030 Wien (U3 Erdberg)
+            - strong [ref=e182]: "Ansprechpartner:"
+            - link "erdberg@padeldome.at" [ref=e183] [cursor=pointer]:
+              - /url: mailto:erdberg@padeldome.at
+            - text: ; 0676/396 25 35
+            - strong [ref=e184]: "Anzahl der Padel-Plätze:"
+            - text: 9 Indoor
+            - strong [ref=e185]: "Homepage:"
+            - link "www.padeldome.at" [ref=e186] [cursor=pointer]:
+              - /url: https://www.padeldome.at/#
+            - link "Platzbuchungen" [ref=e187] [cursor=pointer]:
+              - /url: https://www.padeldome.wien/reservierung?c=2668
+              - strong [ref=e188]: Platzbuchungen
+            - link "Turniere" [ref=e189] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/tournaments?q%5Blocation_id_eq%5D=20
+              - strong [ref=e190]: Turniere
+            - strong
+            - link "Trainings" [ref=e191] [cursor=pointer]:
+              - /url: https://www.padeldome.at/services/einzeltraing/
+              - strong [ref=e192]: Trainings
+          - paragraph
+      - generic [ref=e194]:
+        - img "PADELDOME Süßenbrunn" [ref=e196]
+        - generic [ref=e197]:
+          - heading "PADELDOME Süßenbrunn" [level=4] [ref=e198]:
+            - link "PADELDOME Süßenbrunn" [ref=e199] [cursor=pointer]:
+              - /url: /locations/padeldome-suessenbrunn
+          - paragraph
+          - generic [ref=e201]:
+            - strong [ref=e202]:
+              - text: Padeldome GmbH & Co KG
+              - text: "Verein:"
+            - text: Sportunion Padel Club Complete
+            - strong [ref=e203]: "Adresse:"
+            - text: Weingartenallee 22, 1220 Wien
+            - strong [ref=e204]: "Ansprechpartner:"
+            - link "suessenbrunn@padeldome.at" [ref=e205] [cursor=pointer]:
+              - /url: mailto:suessenbrunn@padeldome.at
+            - text: ", 0676/34 80 931"
+            - strong [ref=e206]: "Anzahl der Padel-Plätze:"
+            - text: 8 Indoor
+            - strong [ref=e207]: "Homepage:"
+            - link "www.padeldome.at" [ref=e208] [cursor=pointer]:
+              - /url: https://www.padeldome.at/#
+            - link "Platzbuchungen" [ref=e209] [cursor=pointer]:
+              - /url: https://www.padeldome.wien/reservierung?c=2667
+              - strong [ref=e210]: Platzbuchungen
+            - strong
+            - link "Turniere" [ref=e211] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/tournaments?q%5Blocation_id_eq%5D=32
+              - strong [ref=e212]: Turniere
+            - strong
+            - link "Trainings" [ref=e213] [cursor=pointer]:
+              - /url: https://www.padeldome.at/suessenbrunn#academy
+              - strong [ref=e214]: Trainings
+          - paragraph
+      - generic [ref=e216]:
+        - img "PADELZONE Wien | City & Countryclub Wienerberg" [ref=e218]
+        - generic [ref=e219]:
+          - heading "PADELZONE Wien | City & Countryclub Wienerberg" [level=4] [ref=e220]:
+            - link "PADELZONE Wien | City & Countryclub Wienerberg" [ref=e221] [cursor=pointer]:
+              - /url: /locations/city-country-club-am-wienerberg-w
+          - paragraph
+          - generic [ref=e222]:
+            - strong [ref=e224]: PADELZONE Wien | City & Countryclub Wienerberg
+            - generic [ref=e225]:
+              - strong [ref=e226]: "Adresse:"
+              - text: Gutheil-Schodergasse 7, 1100 Wien
+            - generic [ref=e227]:
+              - strong [ref=e228]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e229] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e230]:
+              - strong [ref=e231]: "Anzahl der Padel-Plätze:"
+              - text: 2 Double Indoor Court, 1 Single Indoor Court
+            - generic [ref=e232]:
+              - strong [ref=e233]: "Homepage:"
+              - link "www.padelzone.at" [ref=e234] [cursor=pointer]:
+                - /url: https://www.padelzone.at/
+              - strong [ref=e235]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e236] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e238]:
+        - img "PADELZONE Wien | Colony Club" [ref=e240]
+        - generic [ref=e241]:
+          - heading "PADELZONE Wien | Colony Club" [level=4] [ref=e242]:
+            - link "PADELZONE Wien | Colony Club" [ref=e243] [cursor=pointer]:
+              - /url: /locations/padelzone-wien-colony-club
+          - paragraph
+          - generic [ref=e245]:
+            - strong [ref=e246]: PADELZONE Wien | Colony Club
+            - strong [ref=e247]: "Adresse:"
+            - text: Helene-Odilon-Gasse 10, 1140 Wien
+            - strong [ref=e248]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e249] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e250]: "Anzahl der Padel-Plätze:"
+            - text: 2 Double Outdoor Courts
+            - strong [ref=e251]: "Homepage:"
+            - link "www.padelzone.at" [ref=e252] [cursor=pointer]:
+              - /url: http://www.padelzone.at/
+            - strong [ref=e253]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e254] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e257]:
+        - img "PADELZONE Wien | Floridsdorf" [ref=e259]
+        - generic [ref=e260]:
+          - heading "PADELZONE Wien | Floridsdorf" [level=4] [ref=e261]:
+            - link "PADELZONE Wien | Floridsdorf" [ref=e262] [cursor=pointer]:
+              - /url: /locations/padelzone-wien-floridsdorf
+          - paragraph
+          - generic [ref=e264]:
+            - strong [ref=e265]: PADELZONE Wien | Floridsdorf
+            - strong [ref=e266]: "Adresse:"
+            - text: Katharina-Scheiter-Gasse 1, 1210 Wien
+            - strong [ref=e267]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e268] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e269]: "Anzahl der Padel-Plätze:"
+            - text: 4 Double Indoor Courts, 3 Double Outdoor Courts, 1 Single Outdoor Court
+            - strong [ref=e270]: "Homepage:"
+            - link "www.padelzone.at" [ref=e271] [cursor=pointer]:
+              - /url: https://www.padelzone.at/
+            - strong [ref=e272]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e273] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e276]:
+        - img "PADELZONE Wien | Sportinsel" [ref=e278]
+        - generic [ref=e279]:
+          - heading "PADELZONE Wien | Sportinsel" [level=4] [ref=e280]:
+            - link "PADELZONE Wien | Sportinsel" [ref=e281] [cursor=pointer]:
+              - /url: /locations/spusu-sportinsel
+          - paragraph
+          - generic [ref=e282]:
+            - strong [ref=e284]: PADELZONE Wien | Sportinsel
+            - generic [ref=e285]:
+              - strong [ref=e286]: "Adresse:"
+              - text: Georg-Danzer Steg, Donauinsel, 1210 Wien
+            - generic [ref=e287]:
+              - strong [ref=e288]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e289] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e290]:
+              - strong [ref=e291]: "Anzahl der Padel-Plätze:"
+              - text: 2 Double Outdoor Courts
+              - strong [ref=e292]: "Homepage:"
+              - link "www.padelzone.at" [ref=e293] [cursor=pointer]:
+                - /url: https://www.padelzone.at/
+              - strong [ref=e294]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e295] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e297]:
+        - img "Racketworld Ottakring" [ref=e299]
+        - generic [ref=e300]:
+          - heading "Racketworld Ottakring" [level=4] [ref=e301]:
+            - link "Racketworld Ottakring" [ref=e302] [cursor=pointer]:
+              - /url: /locations/racketworld-ottakring
+          - paragraph
+          - generic [ref=e304]:
+            - strong [ref=e305]: Racket Sportanlagen GmbH
+            - strong [ref=e306]: "Adresse:"
+            - text: Kendlerstraße 47, 1160 Wien
+            - strong [ref=e307]: "Ansprechpartner:"
+            - text: Bernd Steiner;
+            - link "office@racketworld.at" [ref=e308] [cursor=pointer]:
+              - /url: mailto://office@racketworld.at
+            - text: ; 0664/5221299
+            - strong [ref=e309]: "Anzahl der Padel-Plätze:"
+            - text: 4 Indoor
+            - strong [ref=e310]: "Homepage:"
+            - link "www.racketworld.at" [ref=e311] [cursor=pointer]:
+              - /url: https://www.racketworld.at/
+              - strong [ref=e312]: www.racketworld.at
+          - paragraph
+      - generic [ref=e314]:
+        - img "Sun Set Padel" [ref=e316]
+        - generic [ref=e317]:
+          - heading "Sun Set Padel" [level=4] [ref=e318]:
+            - link "Sun Set Padel" [ref=e319] [cursor=pointer]:
+              - /url: /locations/sun-set-padel
+          - paragraph
+          - paragraph [ref=e321]:
+            - strong [ref=e322]: "Ansprechpartner:"
+            - text: Vladlen Bazaluk; sunsetpadelvienna@gmail.com; 0690/10118764
+            - strong [ref=e323]: "Anzahl der Padel-Plätze:"
+            - text: "0"
+            - strong [ref=e324]: "Homepage:"
+            - link "www.sunsetpadel.at" [ref=e325] [cursor=pointer]:
+              - /url: https://sunsetpadel.at/
+              - strong [ref=e326]
+              - text: www.sunsetpadel.at
+          - paragraph
+      - generic [ref=e328]:
+        - img "The Dome" [ref=e330]
+        - generic [ref=e331]:
+          - heading "The Dome" [level=4] [ref=e332]:
+            - link "The Dome" [ref=e333] [cursor=pointer]:
+              - /url: /locations/the-dome
+          - paragraph
+          - paragraph [ref=e335]:
+            - strong [ref=e336]: Adresse
+            - text: ": Siegfried-Theiss-Gasse 1, 1220 Wien"
+            - strong [ref=e337]: Ansprechpartner
+            - text: ": thedome@padeldome.at ; 0670 604 57 94"
+            - strong [ref=e338]: Anzahl der Padel-Plätze
+            - text: ": 16 Indoor"
+            - strong [ref=e339]: Homepage
+            - text: ": www.padeldome.at"
+            - link "Platzbuchungen" [ref=e340] [cursor=pointer]:
+              - /url: https://www.padeldome.wien/reservierung?c=2668
+            - link "Turniere" [ref=e341] [cursor=pointer]:
+              - /url: https://padel-austria.at/tournaments
+          - paragraph
+    - generic [ref=e342]:
+      - heading "Niederösterreich" [level=3] [ref=e343]
+      - generic [ref=e345]:
+        - img "GWR Padel GmbH" [ref=e347]
+        - generic [ref=e348]:
+          - heading "GWR Padel GmbH" [level=4] [ref=e349]:
+            - link "GWR Padel GmbH" [ref=e350] [cursor=pointer]:
+              - /url: /locations/gwr-padel-gmbh
+          - paragraph
+          - generic [ref=e351]:
+            - generic [ref=e352]:
+              - strong [ref=e353]: Padel Greinsfurth
+              - strong [ref=e354]: "Adresse:"
+              - text: Waidhofner Straße 4, 3300 Amstetten
+              - strong [ref=e355]: "Ansprechpartner:"
+              - text: Michael Achleitner, gwr@padel-gmbh.at
+            - generic [ref=e356]:
+              - strong [ref=e357]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+              - strong [ref=e358]: "Homepage:"
+              - link "www.padel-gmbh.at" [ref=e359] [cursor=pointer]:
+                - /url: https://padel-gmbh.at/
+            - generic [ref=e360]:
+              - strong [ref=e361]: "Platzbuchungen:"
+              - link "hier" [ref=e362] [cursor=pointer]:
+                - /url: https://reservierung.padel-gmbh.at/
+          - paragraph
+      - generic [ref=e365]:
+        - img "Monte Haidhof Padel Club" [ref=e367]
+        - generic [ref=e368]:
+          - heading "Monte Haidhof Padel Club" [level=4] [ref=e369]:
+            - link "Monte Haidhof Padel Club" [ref=e370] [cursor=pointer]:
+              - /url: /locations/monte-haidhof-padel-club
+          - paragraph
+          - generic [ref=e372]:
+            - strong [ref=e373]: "Adresse:"
+            - text: Haidhofstraße 90, 3300 Winklarn
+            - strong [ref=e374]: "Ansprechpartner:"
+            - text: Michael Achleitner; michael.achleitner@gmx.at; 0664/8182447
+          - paragraph
+      - generic [ref=e377]:
+        - img "P3X Tulln" [ref=e379]
+        - generic [ref=e380]:
+          - heading "P3X Tulln" [level=4] [ref=e381]:
+            - link "P3X Tulln" [ref=e382] [cursor=pointer]:
+              - /url: /locations/p3x-tulln
+          - paragraph
+          - generic [ref=e383]:
+            - heading "Padel 3xperience Tulln" [level=1] [ref=e384]
+            - paragraph [ref=e385]:
+              - strong [ref=e386]: "E-Mail:"
+              - text: info@padel-3xperience.at
+            - paragraph [ref=e387]:
+              - strong [ref=e388]: "Adresse:"
+              - text: Gutenbergstr. 21, 3430 Tulln
+            - paragraph [ref=e389]:
+              - strong [ref=e390]: "Ansprechpartner:"
+              - text: Björn Schade
+              - strong [ref=e391]: "Anzahl der Padel-Plätze:"
+              - text: 4 Indoor, 1 Single-Court Indoor
+              - strong [ref=e392]: "Homepage:"
+              - link "padel-3xperience.at" [ref=e393] [cursor=pointer]:
+                - /url: https://padel-3xperience.at/
+            - paragraph [ref=e394]:
+              - strong [ref=e395]: "Platzbuchungen:"
+              - link "hier" [ref=e396] [cursor=pointer]:
+                - /url: https://buchung.padel-3xperience.at/reservierung
+            - paragraph [ref=e397]
+          - paragraph
+      - generic [ref=e399]:
+        - img "Padel4Fun - Baden" [ref=e401]
+        - generic [ref=e402]:
+          - heading "Padel4Fun - Baden" [level=4] [ref=e403]:
+            - link "Padel4Fun - Baden" [ref=e404] [cursor=pointer]:
+              - /url: /locations/padel4fun-baden
+          - paragraph
+          - generic [ref=e406]:
+            - strong [ref=e407]: Padel4Fun GmbH
+            - strong [ref=e408]: "Adresse:"
+            - text: Waltersdorfer Str.44, 2500 Baden / Sport Center
+            - strong [ref=e409]: "Ansprechpartner:"
+            - text: office@padel4fun.at
+            - strong [ref=e410]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+            - strong
+            - strong [ref=e411]: "Homepage:"
+            - link "www.padel4fun.at" [ref=e412] [cursor=pointer]:
+              - /url: https://padel4fun.at/
+            - strong [ref=e413]: "Platz-Buchung:"
+            - link "HIER" [ref=e414] [cursor=pointer]:
+              - /url: https://reservierung.padel4fun.at/reservierung?c=3533
+              - strong [ref=e415]: HIER
+            - strong [ref=e416]
+          - paragraph
+      - generic [ref=e419]:
+        - img "Padel4Fun - Tattendorf" [ref=e421]
+        - generic [ref=e422]:
+          - heading "Padel4Fun - Tattendorf" [level=4] [ref=e423]:
+            - link "Padel4Fun - Tattendorf" [ref=e424] [cursor=pointer]:
+              - /url: /locations/padel4fun-tattendorf
+          - paragraph
+          - generic [ref=e425]:
+            - strong [ref=e427]: Padel4Fun GmbH
+            - generic [ref=e428]:
+              - strong [ref=e429]: "Adresse:"
+              - text: Schulstraße 14, 2523 Tattendorf
+            - generic [ref=e430]:
+              - strong [ref=e431]: "Ansprechpartner:"
+              - text: office@padel4fun.at
+            - generic [ref=e432]:
+              - strong [ref=e433]: "Anzahl der Padel-Plätze:"
+              - text: 4 Indoor
+            - generic [ref=e434]:
+              - strong [ref=e435]: "Homepage:"
+              - link "www.padel4fun.at" [ref=e436] [cursor=pointer]:
+                - /url: https://padel4fun.at/
+            - generic [ref=e437]:
+              - strong [ref=e438]: "Platz-Buchung:"
+              - link "HIER" [ref=e439] [cursor=pointer]:
+                - /url: https://reservierung.padel4fun.at/reservierung?c=4029
+                - strong [ref=e440]: HIER
+          - paragraph
+      - generic [ref=e442]:
+        - img "Padel4Fun - Wr. Neudorf" [ref=e444]
+        - generic [ref=e445]:
+          - heading "Padel4Fun - Wr. Neudorf" [level=4] [ref=e446]:
+            - link "Padel4Fun - Wr. Neudorf" [ref=e447] [cursor=pointer]:
+              - /url: /locations/padel4fun-wr-neudorf
+          - paragraph
+          - generic [ref=e449]:
+            - strong [ref=e450]: Padel4Fun GmbH
+            - strong [ref=e451]: "Adresse:"
+            - text: Sportzentrum, Tennisstraße 1, 2351 Wr. Neudorf
+            - strong [ref=e452]: "Ansprechpartner:"
+            - text: office@padel4fun.at
+            - strong [ref=e453]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - strong [ref=e454]: "Homepage:"
+            - link "www.padel4fun.at" [ref=e455] [cursor=pointer]:
+              - /url: https://padel4fun.at/
+            - strong [ref=e456]: "Platz-Buchung:"
+            - link "HIER" [ref=e457] [cursor=pointer]:
+              - /url: https://reservierung.padel4fun.at/reservierung?c=2859
+              - strong [ref=e458]: HIER
+          - paragraph
+      - generic [ref=e461]:
+        - img "Padel Area Tullnerfeld" [ref=e463]
+        - generic [ref=e464]:
+          - heading "Padel Area Tullnerfeld" [level=4] [ref=e465]:
+            - link "Padel Area Tullnerfeld" [ref=e466] [cursor=pointer]:
+              - /url: /locations/padel-area-tullnerfeld
+          - paragraph
+          - generic [ref=e468]:
+            - strong [ref=e469]: "Verein:"
+            - text: Padel Area Tullnerfeld
+            - strong [ref=e470]: "Adresse:"
+            - text: Tullner Straße 27, 3442 Langenrohr
+            - strong [ref=e471]: "Ansprechpartner:"
+            - text: Alexander Lukic
+            - strong [ref=e472]: "E-Mail:"
+            - link "info@padel-area.at" [ref=e473] [cursor=pointer]:
+              - /url: mailto:info@padel-area.at
+              - strong [ref=e474]: info@padel-area.at
+            - strong [ref=e475]: "Handy:"
+            - text: +43 (0) 660 4060601
+            - strong [ref=e476]: "Anzahl der Padel-Plätze:"
+            - text: 4 Plätze (2 Outdoor, 2 Indoor)
+            - strong [ref=e477]: "Homepage:"
+            - link "https://www.padel-area.at" [ref=e478] [cursor=pointer]:
+              - /url: https://www.padel-area.at%20
+              - strong [ref=e479]: https://www.padel-area.at
+            - strong [ref=e480]: "Platzbuchungen:"
+            - link "hier" [ref=e481] [cursor=pointer]:
+              - /url: https://www.padel-area.at/reservierung
+              - strong [ref=e482]: hier
+            - strong
+          - paragraph
+      - generic [ref=e484]:
+        - img "Padel Area Wachau" [ref=e486]
+        - generic [ref=e487]:
+          - heading "Padel Area Wachau" [level=4] [ref=e488]:
+            - link "Padel Area Wachau" [ref=e489] [cursor=pointer]:
+              - /url: /locations/padel-area-wachau
+          - paragraph
+          - generic [ref=e491]:
+            - strong [ref=e492]: "Adresse:"
+            - text: Austraße 15c, 3512 Mautern an der Donau
+            - strong [ref=e493]: "Ansprechpartner:"
+            - text: Christoph Lechner; info@padel-wachau.at; 0676/83006232
+            - strong [ref=e494]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+          - paragraph
+      - generic [ref=e496]:
+        - img "Padel Arena Gänserndorf" [ref=e498]
+        - generic [ref=e499]:
+          - heading "Padel Arena Gänserndorf" [level=4] [ref=e500]:
+            - link "Padel Arena Gänserndorf" [ref=e501] [cursor=pointer]:
+              - /url: /locations/padel-mz-og-padel-arena
+          - paragraph
+          - generic [ref=e502]:
+            - generic [ref=e503]:
+              - strong [ref=e504]: "Adresse:"
+              - text: Industriestraße 7, 2230 Gänserndorf
+              - strong [ref=e505]: "Ansprechpartner:"
+              - text: Cian Maier +43 660 7884497; Matthias Zsovinecz +43 660 4870088 oder unter office@padelarena-mz.at
+            - generic [ref=e506]:
+              - strong [ref=e507]: "Anzahl der Padel-Plätze:"
+              - text: 3 Outdoor
+              - strong [ref=e508]: "Platzbuchung:"
+              - link "HIER" [ref=e509] [cursor=pointer]:
+                - /url: https://www.padelarena-mz.at/reservierung
+                - text: HIER
+                - strong [ref=e510]
+          - paragraph
+      - generic [ref=e512]:
+        - img "PADELBASE - PiNK Neunkirchen" [ref=e514]
+        - generic [ref=e515]:
+          - heading "PADELBASE - PiNK Neunkirchen" [level=4] [ref=e516]:
+            - link "PADELBASE - PiNK Neunkirchen" [ref=e517] [cursor=pointer]:
+              - /url: /locations/padelbase-neunkirchen
+          - paragraph
+          - generic [ref=e518]:
+            - generic [ref=e519]:
+              - strong [ref=e520]: "Adresse:"
+              - text: Am Erholungszentrum 2620 Neunkirchen
+              - strong [ref=e521]: "Ansprechpartner:"
+              - link "info@padelbase.at" [ref=e522] [cursor=pointer]:
+                - /url: mailto:info@padelbase.at
+              - text: "&"
+              - link "padel.neunkirchen@gmail.com" [ref=e523] [cursor=pointer]:
+                - /url: mailto:padel.neunkirchen@gmail.com
+              - text: ; 0664/6110975
+            - generic [ref=e524]:
+              - strong [ref=e525]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+              - strong [ref=e526]: "Homepage:"
+              - link "www.padelbase.at" [ref=e527] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e528]:
+              - strong [ref=e529]: "Platzbuchungen:"
+              - link "Reservierung Padelbase NEUNKIRCHEN | Padelbase.at | powered by eTennis.at" [ref=e530] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3243
+          - paragraph
+      - generic [ref=e532]:
+        - img "Padel Beach Mistelbach (Outdoor)" [ref=e534]
+        - generic [ref=e535]:
+          - heading "Padel Beach Mistelbach (Outdoor)" [level=4] [ref=e536]:
+            - link "Padel Beach Mistelbach (Outdoor)" [ref=e537] [cursor=pointer]:
+              - /url: /locations/padel-beach-mistelbach
+          - paragraph
+          - paragraph [ref=e539]:
+            - strong [ref=e540]: "Adresse:"
+            - text: Mitschastraße, Sportzentrum Mistelbach
+            - strong [ref=e541]: "Ansprechpartner:"
+            - text: office@stoihauser.at; 0664/9178674
+            - strong [ref=e542]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+            - strong [ref=e543]: "Website:"
+            - text: www.padelbeach.at
+            - link "Platzbuchung" [ref=e544] [cursor=pointer]:
+              - /url: https://buchung.padelbeach.at/reservierung
+              - strong [ref=e545]: Platzbuchung
+            - link "Turniere" [ref=e546] [cursor=pointer]:
+              - /url: https://www.padeltennis.at/tournaments?q%5Blocation_id_eq%5D=94&q%5Blocation_state_eq%5D=&q%5Bdivisions_category_eq%5D=&q%5Bdivisions_name_cont%5D=&commit=Filtern
+              - strong [ref=e547]: Turniere
+          - paragraph
+      - generic [ref=e549]:
+        - img "Padel Beach Wilfersdorf (Indoor)" [ref=e551]
+        - generic [ref=e552]:
+          - heading "Padel Beach Wilfersdorf (Indoor)" [level=4] [ref=e553]:
+            - link "Padel Beach Wilfersdorf (Indoor)" [ref=e554] [cursor=pointer]:
+              - /url: /locations/padel-beach-wilfersdorf
+          - paragraph
+          - paragraph [ref=e556]:
+            - strong [ref=e557]: "Adresse:"
+            - text: Mühlstraße 5, 2193 Wilfersdorf
+            - strong [ref=e558]: "Ansprechpartner:"
+            - text: office@stoihauser.at; 0664/9178674
+            - strong [ref=e559]: "Anzahl der Padel-Plätze:"
+            - text: 2 Indoor
+            - strong [ref=e560]: "Website:"
+            - text: www.padelbeach.at
+          - paragraph
+      - generic [ref=e562]:
+        - img "Padel bei Tennisweber | Schwechat" [ref=e564]
+        - generic [ref=e565]:
+          - heading "Padel bei Tennisweber | Schwechat" [level=4] [ref=e566]:
+            - link "Padel bei Tennisweber | Schwechat" [ref=e567] [cursor=pointer]:
+              - /url: /locations/1-tc-kaiserebersdorf
+          - paragraph
+          - generic [ref=e568]:
+            - generic [ref=e569]:
+              - strong [ref=e570]: Verein
+              - text: ": 1. TC Kaiserebersdorf"
+            - generic [ref=e571]:
+              - strong [ref=e572]: Adresse
+              - text: ": Wallhofgasse 5, 2320 Rannersdorf / Schwechat"
+            - generic [ref=e573]:
+              - strong [ref=e574]: Ansprechpartner
+              - text: ": Jochen Nowak,"
+              - link "jochen@tennisweber.at" [ref=e575] [cursor=pointer]:
+                - /url: mailto:jochen@tennisweber.at
+              - text: 0678/1297075
+              - strong [ref=e576]: Plätze
+              - text: ": 3 Outdoor"
+            - generic [ref=e577]:
+              - strong [ref=e578]: Homepage
+              - text: ":"
+              - link "tennisweber.at" [ref=e579] [cursor=pointer]:
+                - /url: http://tennisweber.at/
+            - generic [ref=e580]:
+              - strong [ref=e581]: Platzbuchungen
+              - text: ":"
+              - link "hier" [ref=e582] [cursor=pointer]:
+                - /url: https://www.eversports.at/widget/w/3jfdsi
+            - generic [ref=e583]:
+              - strong [ref=e584]: Trainings
+              - text: ": Können über die Ansprechperson angefragt werden"
+          - paragraph
+      - generic [ref=e586]:
+        - img "Padel Center Hollabrunn" [ref=e588]
+        - generic [ref=e589]:
+          - heading "Padel Center Hollabrunn" [level=4] [ref=e590]:
+            - link "Padel Center Hollabrunn" [ref=e591] [cursor=pointer]:
+              - /url: /locations/padel-academy-hollabrunn
+          - paragraph
+          - generic [ref=e593]:
+            - strong [ref=e594]: "Verein:"
+            - text: Padel Academy Hollabrunn (Padel Center Hollabrunn)
+            - strong [ref=e595]: "Adresse:"
+            - text: Aumühlgasse 16, 2020 Hollabrunn
+            - strong [ref=e596]: "Ansprechpartner:"
+            - text: Martin Wittmann, padelcenterhl@gmail.com; +43/6644260681
+            - strong [ref=e597]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e598]: "Homepage:"
+            - link "https://www.padelcenterhl.at/" [ref=e599] [cursor=pointer]:
+              - /url: https://www.padelcenterhl.at/
+            - strong [ref=e600]: "Platzbuchung:"
+            - link "www.padelcenterhl.at/reservierung" [ref=e601] [cursor=pointer]:
+              - /url: http://www.padelcenterhl.at/reservierung
+          - paragraph
+      - generic [ref=e603]:
+        - img "Padel Challenge GmbH" [ref=e605]
+        - generic [ref=e606]:
+          - heading "Padel Challenge GmbH" [level=4] [ref=e607]:
+            - link "Padel Challenge GmbH" [ref=e608] [cursor=pointer]:
+              - /url: /locations/padel-challenge-gmbh
+          - paragraph
+          - generic [ref=e610]:
+            - strong [ref=e611]: "Adresse:"
+            - text: Pachergasse 8, 2601 Sollenau
+            - strong [ref=e612]: "Ansprechpartner:"
+            - text: Stefan Wöckl;
+            - strong [ref=e613]
+            - link "office@padel-challenge.at" [ref=e614] [cursor=pointer]:
+              - /url: mailto:office@padel-challenge.at
+            - text: ; 0664/88504994
+            - strong [ref=e615]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e617]:
+        - img "Padel Eight GmbH" [ref=e619]
+        - generic [ref=e620]:
+          - heading "Padel Eight GmbH" [level=4] [ref=e621]:
+            - link "Padel Eight GmbH" [ref=e622] [cursor=pointer]:
+              - /url: /locations/padel-eight-gmbh
+          - paragraph
+          - generic [ref=e624]:
+            - strong [ref=e625]: "Adresse:"
+            - text: Achtersee, 2700 Wiener Neustadt
+            - strong [ref=e626]: "Ansprechpartner:"
+            - link "c" [ref=e627] [cursor=pointer]:
+              - /url: mailto:erdberg@padeldome.at
+            - text: hristoph@padeleight.at; 0664/8222276
+            - strong [ref=e628]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+            - strong [ref=e629]: "Homepage:"
+            - text: www.padeleight.at
+            - link "Platzbuchungen" [ref=e630] [cursor=pointer]:
+              - /url: https://www.matchi.se/facilities/padeleight
+              - strong [ref=e631]: Platzbuchungen
+          - paragraph
+      - generic [ref=e634]:
+        - img "PadelFun Zwentendorf" [ref=e636]
+        - generic [ref=e637]:
+          - heading "PadelFun Zwentendorf" [level=4] [ref=e638]:
+            - link "PadelFun Zwentendorf" [ref=e639] [cursor=pointer]:
+              - /url: /locations/padelfun-zwentendorf
+          - paragraph
+          - paragraph [ref=e641]:
+            - strong [ref=e642]: "Adresse:"
+            - text: Gewerbepark Zwentendorf, Objekt 10, 3435 Zwentendorf an der Donau
+            - strong [ref=e643]: "Ansprechpartner:"
+            - text: Sabrina Prager; kontakt@padelfun.at; 0664/3895366
+            - strong [ref=e644]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor, 1 Single Court
+          - paragraph
+      - generic [ref=e646]:
+        - img "Padelhouse Wieselburg" [ref=e648]
+        - generic [ref=e649]:
+          - heading "Padelhouse Wieselburg" [level=4] [ref=e650]:
+            - link "Padelhouse Wieselburg" [ref=e651] [cursor=pointer]:
+              - /url: /locations/padelhouse-wieselburg
+          - paragraph
+          - paragraph [ref=e653]:
+            - strong [ref=e654]: "Adresse:"
+            - text: Klenkstraße 8, 3250 Wieselburg
+            - strong [ref=e655]: "Ansprechpartner:"
+            - text: Philipp Scharner; office@padelhouse.at; 0676/7511366
+            - strong [ref=e656]: "Anzahl der Padel-Plätze:"
+            - text: 5 Indoor
+          - paragraph
+      - generic [ref=e658]:
+        - img "Padel Playground - UFG NÖ St.Pölten" [ref=e660]
+        - generic [ref=e661]:
+          - heading "Padel Playground - UFG NÖ St.Pölten" [level=4] [ref=e662]:
+            - link "Padel Playground - UFG NÖ St.Pölten" [ref=e663] [cursor=pointer]:
+              - /url: /locations/uetv-st-polten
+          - paragraph
+          - generic [ref=e664]:
+            - generic [ref=e665]:
+              - strong [ref=e666]: "Verein:"
+              - text: UFG Union Freizeit & GesundheitsSport Verein NÖ
+            - generic [ref=e667]:
+              - strong [ref=e668]: "Adresse:"
+              - text: Bimbo-Binder-Promenade 29, 3100 St. Pölten
+            - generic [ref=e669]:
+              - strong [ref=e670]: "Ansprechpartner:"
+              - text: office@padel-playground.at , 0676897438201
+            - generic [ref=e671]:
+              - strong [ref=e672]: "Anzahl der Padel-Plätze: 5"
+              - text: OUTDOOR !!
+              - strong [ref=e673]: "Platzbuchungen & Homepage :"
+              - link "www.padel-playground.at" [ref=e674] [cursor=pointer]:
+                - /url: https://www.ufg-noe.at/
+                - strong [ref=e675]: www.padel-playground.at
+              - strong
+          - paragraph
+      - generic [ref=e677]:
+        - img "Padel Tennis Ebreichsdorf" [ref=e679]
+        - generic [ref=e680]:
+          - heading "Padel Tennis Ebreichsdorf" [level=4] [ref=e681]:
+            - link "Padel Tennis Ebreichsdorf" [ref=e682] [cursor=pointer]:
+              - /url: /locations/padel-tennis-ebreichsdorf
+          - paragraph
+          - generic [ref=e684]:
+            - strong [ref=e685]: Adresse
+            - text: ": Am Sportzentrum 1, 2483 Weigelsdorf"
+            - strong [ref=e686]: "Ansprechpartner:"
+            - text: Irina Miltner; padel.ebreichsdorf@gmail.com; 0676/6710087
+            - strong [ref=e687]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e689]:
+        - img "Padel Tennis Haag" [ref=e691]
+        - generic [ref=e692]:
+          - heading "Padel Tennis Haag" [level=4] [ref=e693]:
+            - link "Padel Tennis Haag" [ref=e694] [cursor=pointer]:
+              - /url: /locations/lsg-padel-sport-og
+          - paragraph
+          - generic [ref=e696]:
+            - strong [ref=e697]: "Adresse:"
+            - text: Ernst Huber Straße 2, 3350 Haag
+            - strong [ref=e698]: "Ansprechpartner:"
+            - text: Stefan Gassner, padelhaag@gmx.at ; 0650/3611118
+            - strong [ref=e699]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e701]:
+        - img "Padeltennis Krems" [ref=e703]
+        - generic [ref=e704]:
+          - heading "Padeltennis Krems" [level=4] [ref=e705]:
+            - link "Padeltennis Krems" [ref=e706] [cursor=pointer]:
+              - /url: /locations/padeltennis-krems
+          - paragraph
+          - generic [ref=e708]:
+            - strong [ref=e709]: "Adresse:"
+            - text: Gewerbeparkstraße 22, 3500 Krems
+            - strong [ref=e710]: "Ansprechpartner:"
+            - text: Peter Hauswirth; ph@cinemaplexx.at; 0664/3732475
+            - strong [ref=e711]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+          - paragraph
+      - generic [ref=e713]:
+        - img "Padel - Tennisverein Gemeinde Waldenstein" [ref=e715]
+        - generic [ref=e716]:
+          - heading "Padel - Tennisverein Gemeinde Waldenstein" [level=4] [ref=e717]:
+            - link "Padel - Tennisverein Gemeinde Waldenstein" [ref=e718] [cursor=pointer]:
+              - /url: /locations/padel-tennisverein-gemeinde-waldenstein
+          - paragraph
+          - generic [ref=e720]:
+            - strong [ref=e721]: "Verein:"
+            - text: Tennisverein Gemeinde Waldenstein
+            - strong [ref=e722]: "Adresse:"
+            - text: Waldenstein 99, 3961 Waldenstein
+            - strong [ref=e723]: "Ansprechpartner:"
+            - text: Gregor Nowak
+            - text: "E-Mail:"
+            - link "tennis@tvwaldenstein.at" [ref=e724] [cursor=pointer]:
+              - /url: mailto:tennis@tvwaldenstein.at
+            - strong [ref=e725]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor
+            - strong [ref=e726]: "Homepage:"
+            - link "www.tvwaldenstein.at" [ref=e727] [cursor=pointer]:
+              - /url: https://www.tvwaldenstein.at/
+              - strong [ref=e728]: www.tvwaldenstein.at
+            - strong [ref=e729]
+            - strong [ref=e730]: "Platzbuchungen:"
+            - link "hier" [ref=e731] [cursor=pointer]:
+              - /url: https://app.tennis04.com/de/waldenstein/buchungsplan
+              - strong [ref=e732]: hier
+            - strong
+          - paragraph
+      - generic [ref=e734]:
+        - img "Padel Tulln" [ref=e736]
+        - generic [ref=e737]:
+          - heading "Padel Tulln" [level=4] [ref=e738]:
+            - link "Padel Tulln" [ref=e739] [cursor=pointer]:
+              - /url: /locations/padel-tulln
+          - paragraph
+          - generic [ref=e741]:
+            - strong [ref=e742]: "Adresse:"
+            - text: Donaulände 76, 3430 Tulln
+            - strong [ref=e743]: "Ansprechpartner:"
+            - text: Christian Ohrfandl,
+            - link "info@padeltulln.at" [ref=e744] [cursor=pointer]:
+              - /url: mailto:info@padeltulln.at
+            - strong [ref=e745]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - strong [ref=e746]: "Homepage:"
+            - link "https://www.padeltulln.at" [ref=e747] [cursor=pointer]:
+              - /url: https://www.padeltulln.at
+            - strong [ref=e748]: "Platzbuchungen:"
+            - link "hier" [ref=e749] [cursor=pointer]:
+              - /url: https://buchung.padeltulln.at/reservierung
+              - strong [ref=e750]: hier
+            - strong
+          - paragraph
+      - generic [ref=e752]:
+        - img "Padel und Tennis Verein Doleschal Stockerau" [ref=e754]
+        - generic [ref=e755]:
+          - heading "Padel und Tennis Verein Doleschal Stockerau" [level=4] [ref=e756]:
+            - link "Padel und Tennis Verein Doleschal Stockerau" [ref=e757] [cursor=pointer]:
+              - /url: /locations/tennisanlage-doleschal
+          - paragraph
+          - generic [ref=e759]:
+            - strong [ref=e760]: "Adresse:"
+            - text: Weg zum Hallenbad 3, 2000 Stockerau
+            - strong [ref=e761]: "Ansprechpartner:"
+            - text: Barbara Doleschal, tennisanlagedoleschal@gmail.com
+            - strong [ref=e762]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor
+            - strong [ref=e763]: "Homepage:"
+            - link "www.tennis-stockerau.at/padel-tennis/" [ref=e764] [cursor=pointer]:
+              - /url: https://www.tennis-stockerau.at/padel-tennis/
+            - strong [ref=e765]: Platzbuchungen
+            - link "hier" [ref=e766] [cursor=pointer]:
+              - /url: https://doleschal.tennisplatz.info/reservierung?c=2432
+              - strong [ref=e767]: hier
+          - paragraph
+      - generic [ref=e769]:
+        - img "Padel Vösendorf GmbH" [ref=e771]
+        - generic [ref=e772]:
+          - heading "Padel Vösendorf GmbH" [level=4] [ref=e773]:
+            - link "Padel Vösendorf GmbH" [ref=e774] [cursor=pointer]:
+              - /url: /locations/padel-voesendorf
+          - paragraph
+          - paragraph [ref=e776]:
+            - text: Die Plätze sind 365 Tage im Jahr bespielbar!
+            - strong [ref=e777]: "Adresse:"
+            - text: Kindbergstrasse 14, 2331 Vösendorf
+            - strong [ref=e778]: "Ansprechpartner:"
+            - text: Helmut Glaser
+            - link:
+              - /url: mailto://office@padeldome.at
+            - strong [ref=e779]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e780]: "Homepage:"
+            - link "www.padel-voesendorf.at" [ref=e781] [cursor=pointer]:
+              - /url: https://www.padel-voesendorf.at/
+              - strong [ref=e782]: www.padel-voesendorf.at
+            - strong [ref=e783]: "Platzbuchungen:"
+            - link "hier" [ref=e784] [cursor=pointer]:
+              - /url: https://padel-voesendorf.tennisplatz.info/reservierung
+              - strong [ref=e785]: hier
+            - strong [ref=e786]
+          - paragraph
+      - generic [ref=e788]:
+        - img "PADELZONE Hagenbrunn | Sport König" [ref=e790]
+        - generic [ref=e791]:
+          - heading "PADELZONE Hagenbrunn | Sport König" [level=4] [ref=e792]:
+            - link "PADELZONE Hagenbrunn | Sport König" [ref=e793] [cursor=pointer]:
+              - /url: /locations/padelzone-hagenbrunn-sport-koenig
+          - paragraph
+          - paragraph [ref=e795]:
+            - strong [ref=e796]: PADELZONE Hagenbrunn | Sport König
+            - strong [ref=e797]: "Adresse:"
+            - text: Gewerbestraße 3-5, 2201 Hagenbrunn
+            - strong [ref=e798]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e799] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e800]: "Anzahl der Padel-Plätze:"
+            - text: 7 Double Indoor Courts, 1 Single Indoor Court, 2 Double Outdoor Courts, 1 Single Outdoor Court
+            - strong [ref=e801]: "Homepage:"
+            - link "www.padelzone.at" [ref=e802] [cursor=pointer]:
+              - /url: https://www.padelzone.at/
+            - strong [ref=e803]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e804] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e806]:
+        - img "PADELZONE Klosterneuburg | Happyland" [ref=e808]
+        - generic [ref=e809]:
+          - heading "PADELZONE Klosterneuburg | Happyland" [level=4] [ref=e810]:
+            - link "PADELZONE Klosterneuburg | Happyland" [ref=e811] [cursor=pointer]:
+              - /url: /locations/padelzone-klosterneuburg-happyland
+          - paragraph
+          - generic [ref=e812]:
+            - strong [ref=e814]: PADELZONE Klosterneuburg | Happyland
+            - generic [ref=e815]:
+              - strong [ref=e816]: "Adresse:"
+              - text: In der Au 2-4, 3400 Klosterneuburg
+            - generic [ref=e817]:
+              - strong [ref=e818]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e819] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e820]:
+              - strong [ref=e821]: "Anzahl der Padel-Plätze:"
+              - text: 4 Double Outdoor Courts
+              - strong [ref=e822]: "Homepage:"
+              - link "www.padelzone.at" [ref=e823] [cursor=pointer]:
+                - /url: http://www.padelzone.at%20/
+              - strong [ref=e824]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e825] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e827]:
+        - img "PADELZONE Korneuburg | Masters of Dirt" [ref=e829]
+        - generic [ref=e830]:
+          - heading "PADELZONE Korneuburg | Masters of Dirt" [level=4] [ref=e831]:
+            - link "PADELZONE Korneuburg | Masters of Dirt" [ref=e832] [cursor=pointer]:
+              - /url: /locations/padelzone-korneuburg-masters-of-dirt
+          - paragraph
+          - generic [ref=e833]:
+            - strong [ref=e835]: PADELZONE Korneuburg | Masters of Dirt
+            - generic [ref=e836]:
+              - strong [ref=e837]: "Adresse:"
+              - text: In der Wegscheid 5, 2100 Korneuburg
+            - generic [ref=e838]:
+              - strong [ref=e839]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e840] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e841]:
+              - strong [ref=e842]: "Anzahl der Padel-Plätze:"
+              - text: 1 Double Outdoor Court
+            - generic [ref=e843]:
+              - strong [ref=e844]: "Homepage:"
+              - link "www.padelzone.at" [ref=e845] [cursor=pointer]:
+                - /url: https://www.padelzone.at/
+              - strong [ref=e846]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e847] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e849]:
+        - img "PADELZONE Traiskirchen" [ref=e851]
+        - generic [ref=e852]:
+          - heading "PADELZONE Traiskirchen" [level=4] [ref=e853]:
+            - link "PADELZONE Traiskirchen" [ref=e854] [cursor=pointer]:
+              - /url: /locations/padelzone-traiskirchen
+          - paragraph
+          - generic [ref=e856]:
+            - strong [ref=e857]: PADELZONE Traiskirchen
+            - strong [ref=e858]: "Adresse:"
+            - text: Wienersdorfer Straße 20-24, Objekt M33, 2514 Traiskirchen
+            - strong [ref=e859]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e860] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e861]: "Anzahl der Padel-Plätze:"
+            - text: 4 Indoor Double Courts
+            - strong [ref=e862]: "Homepage:"
+            - link "www.padelzone.at" [ref=e863] [cursor=pointer]:
+              - /url: http://www.padelzone.at/
+            - strong [ref=e864]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e865] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e872]:
+        - img "PADELZONE | Vösendorf" [ref=e874]
+        - generic [ref=e875]:
+          - heading "PADELZONE | Vösendorf" [level=4] [ref=e876]:
+            - link "PADELZONE | Vösendorf" [ref=e877] [cursor=pointer]:
+              - /url: /locations/padelzone-voesendorf
+          - paragraph
+          - generic [ref=e878]:
+            - strong [ref=e880]: PADELZONE Vösendorf
+            - generic [ref=e881]:
+              - strong [ref=e882]: "Adresse:"
+              - text: Marktstraße 19, 2331 Vösendorf
+            - generic [ref=e883]:
+              - strong [ref=e884]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e885] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e886]:
+              - strong [ref=e887]: "Anzahl der Padel-Plätze:"
+              - text: 5 Double Indoor Courts, 2 Single Indoor Courts
+              - strong [ref=e888]: "Homepage:"
+              - link "www.padelzone.at" [ref=e889] [cursor=pointer]:
+                - /url: http://www.padelzone.at/
+              - strong [ref=e890]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e891] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e893]:
+        - img "PADELZONE Wr. Neustadt | Achtersee" [ref=e895]
+        - generic [ref=e896]:
+          - heading "PADELZONE Wr. Neustadt | Achtersee" [level=4] [ref=e897]:
+            - link "PADELZONE Wr. Neustadt | Achtersee" [ref=e898] [cursor=pointer]:
+              - /url: /locations/padelzone-wr-neustadt-achtersee
+          - paragraph
+          - generic [ref=e899]:
+            - generic [ref=e900]:
+              - strong [ref=e901]: PADELZONE Wr. Neustadt | Achtersee
+              - strong [ref=e902]: "Adresse:"
+              - text: Achtersee, 2700 Wiener Neustadt
+            - generic [ref=e903]:
+              - strong [ref=e904]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e905] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+              - strong [ref=e906]: "Anzahl der Padel-Plätze:"
+              - text: 4 Double Outdoor Courts
+              - strong [ref=e907]: "Homepage:"
+              - link "www.padelzone.at" [ref=e908] [cursor=pointer]:
+                - /url: https://www.padelzone.at/
+              - strong [ref=e909]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e910] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e912]:
+        - img "PADELZONE Wr. Neustadt | Arena 27" [ref=e914]
+        - generic [ref=e915]:
+          - heading "PADELZONE Wr. Neustadt | Arena 27" [level=4] [ref=e916]:
+            - link "PADELZONE Wr. Neustadt | Arena 27" [ref=e917] [cursor=pointer]:
+              - /url: /locations/padelzone-wr-neustadt-arena-27
+          - paragraph
+          - generic [ref=e918]:
+            - generic [ref=e919]:
+              - strong [ref=e920]: PADELZONE Wr. Neustadt | Arena 27
+              - strong [ref=e921]: "Adresse:"
+              - text: Wiener-Straße-Werkstraße 109, 2700 Wiener Neustadt
+              - strong [ref=e922]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e923] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+              - strong [ref=e924]: "Anzahl der Padel-Plätze:"
+              - text: 6 Double Indoor Courts, 1 Single Indoor Court
+              - strong [ref=e925]: "Homepage:"
+              - link "www.padelzone.at" [ref=e926] [cursor=pointer]:
+                - /url: http://www.padelzone.at/
+            - generic [ref=e927]:
+              - strong [ref=e928]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e929] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e932]:
+        - img "PADELZONE Wr. Neustadt | Sprungart" [ref=e934]
+        - generic [ref=e935]:
+          - heading "PADELZONE Wr. Neustadt | Sprungart" [level=4] [ref=e936]:
+            - link "PADELZONE Wr. Neustadt | Sprungart" [ref=e937] [cursor=pointer]:
+              - /url: /locations/sprungart-no
+          - paragraph
+          - generic [ref=e939]:
+            - strong [ref=e940]: PADELZONE Wr. Neustadt | Sprungart
+            - strong [ref=e941]: "Adresse:"
+            - text: Blätterstraße 1, 2751 Steinabrückl
+            - strong [ref=e942]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e943] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e944]: "Anzahl der Padel-Plätze:"
+            - text: "2"
+            - strong [ref=e945]
+            - text: Double
+            - strong [ref=e946]
+            - text: Indoor Courts
+            - strong [ref=e947]: "Homepage:"
+            - link "www.padelzone.at" [ref=e948] [cursor=pointer]:
+              - /url: https://www.padelzone.at/
+            - strong [ref=e949]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e950] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e952]:
+        - img "PCB - Padel Club Bisamberg" [ref=e954]
+        - generic [ref=e955]:
+          - heading "PCB - Padel Club Bisamberg" [level=4] [ref=e956]:
+            - link "PCB - Padel Club Bisamberg" [ref=e957] [cursor=pointer]:
+              - /url: /locations/utc-bisamberg-no
+          - paragraph
+          - generic [ref=e959]:
+            - strong [ref=e960]: "Verein:"
+            - text: PCB - Padel Club Bisamberg
+            - strong [ref=e961]: "Adresse:"
+            - text: Unterer Mühlweg 4, 2102 Bisamberg
+            - strong [ref=e962]: "Ansprechpartner:"
+            - text: Joni Thomas; info@sportanlage-bisamberg.at;
+            - text: "Telefon: +43 (0) 2262 74 597; Mobil: +43 660 71 49 052"
+            - strong [ref=e963]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor, 1 überdacht, 1 Single-Court
+            - strong [ref=e964]: "Homepage:"
+            - link "www.sportanlage-bisamberg.at" [ref=e965] [cursor=pointer]:
+              - /url: https://sportanlage-bisamberg.at/
+              - strong [ref=e966]: www.sportanlage-bisamberg.at
+            - link "Platzbuchungen" [ref=e967] [cursor=pointer]:
+              - /url: https://app.tennis04.com/de/bisamberg/buchungsplan
+              - strong [ref=e968]: Platzbuchungen
+          - paragraph
+      - generic [ref=e971]:
+        - img "PLAYPADEL Gänserndorf" [ref=e973]
+        - generic [ref=e974]:
+          - heading "PLAYPADEL Gänserndorf" [level=4] [ref=e975]:
+            - link "PLAYPADEL Gänserndorf" [ref=e976] [cursor=pointer]:
+              - /url: /locations/playpadel-gaenserndorf
+          - paragraph
+          - generic [ref=e977]:
+            - generic [ref=e978]:
+              - strong [ref=e979]: "Adresse:"
+              - text: Industriestraße 11, 2230 Gänserndorf
+              - strong [ref=e980]: "Ansprechpartner:"
+              - text: "Kontakt Betreiber (Buchungsanfragen): mail@sportzeitstindl.at"
+            - generic [ref=e981]: "Kontakt Academy (Events & Workshops): gaenserndorf@playpadel.at"
+            - generic [ref=e982]:
+              - strong [ref=e983]: "Anzahl der Padel-Plätze:"
+              - text: 4 Indoor
+              - strong [ref=e984]: Homepage
+              - text: ":"
+              - link "www.padelgf.at" [ref=e985] [cursor=pointer]:
+                - /url: http://www.padelgf.at/
+          - paragraph
+      - generic [ref=e989]:
+        - img "Pop Up Padel STP" [ref=e991]
+        - generic [ref=e992]:
+          - heading "Pop Up Padel STP" [level=4] [ref=e993]:
+            - link "Pop Up Padel STP" [ref=e994] [cursor=pointer]:
+              - /url: /locations/pop-up-padel-stp
+          - paragraph
+          - paragraph [ref=e996]:
+            - strong [ref=e997]: "Adresse:"
+            - text: Zdarskystraße 9, 3100 St. Pölten
+            - strong [ref=e998]: "Ansprechpartner:"
+            - text: Julian Diendorfer; julian.diendorfer@padel-stp.at; 0681/10208140
+            - strong [ref=e999]: "Anzahl der Padel-Plätze:"
+            - text: 8 Indoor
+          - paragraph
+      - generic [ref=e1001]:
+        - img "Smash House LA Sports GmbH" [ref=e1003]
+        - generic [ref=e1004]:
+          - heading "Smash House LA Sports GmbH" [level=4] [ref=e1005]:
+            - link "Smash House LA Sports GmbH" [ref=e1006] [cursor=pointer]:
+              - /url: /locations/smash-house-la-sports-gmbh
+          - paragraph
+          - generic [ref=e1008]:
+            - strong [ref=e1009]: "Adresse:"
+            - text: Gewerbepark A3, 2821 Lanzenkirchen
+            - strong [ref=e1010]: "Ansprechpartner:"
+            - text: Martina Tschirk; office@smash-house.at; 0664/75004404
+            - strong [ref=e1011]: "Anzahl der Padel-Plätze:"
+            - text: 5 Indoor
+          - paragraph
+      - generic [ref=e1013]:
+        - img "Sportclub Traismauer Tennis/Padel" [ref=e1015]
+        - generic [ref=e1016]:
+          - heading "Sportclub Traismauer Tennis/Padel" [level=4] [ref=e1017]:
+            - link "Sportclub Traismauer Tennis/Padel" [ref=e1018] [cursor=pointer]:
+              - /url: /locations/sportclub-traismauer-tennis-padel
+          - paragraph
+          - generic [ref=e1020]:
+            - strong [ref=e1021]: Sportclub Traismauer Tennis/ Padel
+            - strong [ref=e1022]: "Adresse:"
+            - text: 3133 Traismauer, Donaustraße 56
+            - strong [ref=e1023]: "Ansprechpartner:"
+            - text: info@sctraismauertennis.at
+            - strong [ref=e1024]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor Court
+            - 'link "Homepage: www.sctraismauertennis.at" [ref=e1025] [cursor=pointer]':
+              - /url: http://www.padelzone.at/
+            - strong [ref=e1026]: "Platzbuchungen:"
+            - text: https://traismauer.tennisplatz.info/reservierung?c=2717
+          - paragraph
+      - generic [ref=e1028]:
+        - img "Sportunion NaLoLi" [ref=e1030]
+        - generic [ref=e1031]:
+          - heading "Sportunion NaLoLi" [level=4] [ref=e1032]:
+            - link "Sportunion NaLoLi" [ref=e1033] [cursor=pointer]:
+              - /url: /locations/utv-natschbach-loipersbach
+          - paragraph
+          - generic [ref=e1035]:
+            - strong [ref=e1036]: "Adresse:"
+            - text: Ecke Guntramserstraße / Industriestraße , 2620 Loipersbach
+            - strong [ref=e1037]: "Ansprechpartner:"
+            - text: Walter Ecker,
+            - link "wecker10@gmail.com" [ref=e1038] [cursor=pointer]:
+              - /url: mailto:wecker10@gmail.com
+            - strong [ref=e1039]: "Anzahl der Padel-Plätze:"
+            - text: "2"
+            - strong [ref=e1040]
+            - text: Outdoor
+            - strong [ref=e1041]: "Homepage:"
+            - link "www.sportunionnaloli.at" [ref=e1042] [cursor=pointer]:
+              - /url: http://www.sportunionnaloli.at
+            - strong [ref=e1043]: "Platzbuchungen:"
+            - link "https://natschbach-loipersbach.tennisplatz.info/reservierung" [ref=e1044] [cursor=pointer]:
+              - /url: https://natschbach-loipersbach.tennisplatz.info/reservierung
+            - strong
+          - paragraph
+      - generic [ref=e1046]:
+        - img "Sportunion Rabenstein" [ref=e1048]
+        - generic [ref=e1049]:
+          - heading "Sportunion Rabenstein" [level=4] [ref=e1050]:
+            - link "Sportunion Rabenstein" [ref=e1051] [cursor=pointer]:
+              - /url: /locations/sportunion-rabenstein
+          - paragraph
+          - generic [ref=e1052]:
+            - generic [ref=e1053]:
+              - text: "Fotocredit: @Copyright Leo Fahrngruber"
+              - strong [ref=e1054]: "Adresse:"
+              - text: beim Freibad, 3203 Rabenstein
+              - strong [ref=e1055]: "Ansprechpartner:"
+              - text: Christian Schwaiger;
+              - link "Christian79.Schwaiger@gmail.com" [ref=e1056] [cursor=pointer]:
+                - /url: mailto:Christian79.Schwaiger@gmail.com
+              - text: ; 06649651790
+            - generic [ref=e1057]:
+              - strong [ref=e1058]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+              - strong [ref=e1059]: "Platzbuchungen:"
+              - link "https://rabenstein.tennisplatz.info/registrieren" [ref=e1060] [cursor=pointer]:
+                - /url: https://rabenstein.tennisplatz.info/registrieren
+            - generic [ref=e1061]:
+              - strong [ref=e1062]: "Weitere Infos:"
+              - link "https://www.rabenstein.gv.at/Padel_Rabenstein_2" [ref=e1063] [cursor=pointer]:
+                - /url: https://www.rabenstein.gv.at/Padel_Rabenstein_2
+          - paragraph
+      - generic [ref=e1066]:
+        - img "TC Allround Stattersdorf" [ref=e1068]
+        - generic [ref=e1069]:
+          - heading "TC Allround Stattersdorf" [level=4] [ref=e1070]:
+            - link "TC Allround Stattersdorf" [ref=e1071] [cursor=pointer]:
+              - /url: /locations/tc-allround-stattersdorf
+          - paragraph
+          - paragraph [ref=e1073]:
+            - text: TC Allround Stattersdorf
+            - strong [ref=e1074]: "Adresse:"
+            - text: Putzgasse 325, 3104 St. Pölten
+            - strong [ref=e1075]: "Ansprechpartner:"
+            - link "Jörg Bachl" [ref=e1076] [cursor=pointer]:
+              - /url: mailto:jwb@gmx.at
+            - strong [ref=e1077]: "Anzahl der Padel-Plätze:"
+            - text: "3"
+            - strong [ref=e1078]
+            - text: Outdoor Courts - 6 Indoor Courts
+            - strong [ref=e1079]: "Homepage:"
+            - link "www.tennishalle-stattersdorf.at" [ref=e1080] [cursor=pointer]:
+              - /url: https://www.tennishalle-stattersdorf.at/padeltennis/
+            - strong [ref=e1081]: "Platzbuchungen:"
+            - link "hier" [ref=e1082] [cursor=pointer]:
+              - /url: https://allround-padel.tennisplatz.info
+              - strong [ref=e1083]: hier
+          - paragraph
+      - generic [ref=e1085]:
+        - img "TC Dürnkrut" [ref=e1087]
+        - generic [ref=e1088]:
+          - heading "TC Dürnkrut" [level=4] [ref=e1089]:
+            - link "TC Dürnkrut" [ref=e1090] [cursor=pointer]:
+              - /url: /locations/tc-duernkrut
+          - paragraph
+          - generic [ref=e1092]:
+            - strong [ref=e1093]: "Adresse:"
+            - text: Hauptstraße 52b, 2263 Dürnkrut
+            - strong [ref=e1094]: "Ansprechpartner:"
+            - text: Michael Bauch,
+            - link "m.bauch@gmx.at" [ref=e1095] [cursor=pointer]:
+              - /url: mailto:m.bauch@gmx.at
+            - strong [ref=e1096]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e1097]: "Homepage:"
+            - link "http://www.tc-duernkrut.at/" [ref=e1098] [cursor=pointer]:
+              - /url: http://www.tc-duernkrut.at/
+            - strong [ref=e1099]: Platzbuchungen
+            - link "hier" [ref=e1100] [cursor=pointer]:
+              - /url: https://duernkrut.tennisplatz.info/reservierung
+              - strong [ref=e1101]: hier
+          - paragraph
+      - generic [ref=e1103]:
+        - img "TC Totzenbach" [ref=e1105]
+        - generic [ref=e1106]:
+          - heading "TC Totzenbach" [level=4] [ref=e1107]:
+            - link "TC Totzenbach" [ref=e1108] [cursor=pointer]:
+              - /url: /locations/tc-totzenbach
+          - paragraph
+          - generic [ref=e1110]:
+            - strong [ref=e1111]: "Adresse:"
+            - text: Kirchenstraße 20, 3062 Totzenbach
+            - strong [ref=e1112]: "Ansprechpartner:"
+            - text: Peter Grassmann; p.grassmann@gmx.at; 0660/6547402
+            - strong [ref=e1113]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1115]:
+        - img "Tennisclub Volksbank Wieselburg" [ref=e1117]
+        - generic [ref=e1118]:
+          - heading "Tennisclub Volksbank Wieselburg" [level=4] [ref=e1119]:
+            - link "Tennisclub Volksbank Wieselburg" [ref=e1120] [cursor=pointer]:
+              - /url: /locations/tennisclub-volksbank-wieselburg
+          - paragraph
+          - generic [ref=e1122]:
+            - strong [ref=e1123]: "Adresse:"
+            - text: Erlaufpromenade 3, 3250 Wieselburg
+            - strong [ref=e1124]: "Ansprechpartner:"
+            - text: Michael Pfeiffer, mipfeiffer@a1.net; 0664/2127170
+            - strong [ref=e1125]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor
+          - paragraph
+      - generic [ref=e1127]:
+        - img "Tennis- und Padelverein Ebersdorf" [ref=e1129]
+        - generic [ref=e1130]:
+          - heading "Tennis- und Padelverein Ebersdorf" [level=4] [ref=e1131]:
+            - link "Tennis- und Padelverein Ebersdorf" [ref=e1132] [cursor=pointer]:
+              - /url: /locations/tennis-und-padelverein-ebersdorf
+          - paragraph
+          - paragraph [ref=e1134]:
+            - strong [ref=e1135]: "Adresse:"
+            - text: Am See 1, 3200 Ober-Grafendorf
+            - strong [ref=e1136]: "Ansprechpartner:"
+            - text: Tobias Himsel; tobias.himsel@gmail.com; 0699/19070898
+            - strong [ref=e1137]: "Anzahl der Padel-Plätze:"
+            - text: "5"
+          - paragraph
+      - generic [ref=e1139]:
+        - img "Tennisverein Enzersfeld-Königsbrunn" [ref=e1141]
+        - generic [ref=e1142]:
+          - heading "Tennisverein Enzersfeld-Königsbrunn" [level=4] [ref=e1143]:
+            - link "Tennisverein Enzersfeld-Königsbrunn" [ref=e1144] [cursor=pointer]:
+              - /url: /locations/tennisverein-enzersfeld-koenigsbrunn
+          - paragraph
+          - paragraph [ref=e1146]:
+            - strong [ref=e1147]: "Adresse:"
+            - text: In den Nussern 10, 2202 Königsbrunn
+            - strong [ref=e1148]: "Ansprechpartner:"
+            - text: Martin Arthold; martin.arthold@icloud.com; 0664/75193909
+            - strong [ref=e1149]: "Anzahl der Padel-Plätze:"
+            - text: "0"
+          - paragraph
+      - generic [ref=e1151]:
+        - img "TFV Markt Piesting" [ref=e1153]
+        - generic [ref=e1154]:
+          - heading "TFV Markt Piesting" [level=4] [ref=e1155]:
+            - link "TFV Markt Piesting" [ref=e1156] [cursor=pointer]:
+              - /url: /locations/tennis-und-freizeitverein-markt-piesting
+          - paragraph
+          - generic [ref=e1158]:
+            - strong [ref=e1159]: "Verein:"
+            - text: Tennis- und Freizeitverein Markt Piesting
+            - strong [ref=e1160]: "Adresse:"
+            - text: Bocksbachgasse , 2753 Markt Piesting
+            - strong [ref=e1161]: "Ansprechpartner:"
+            - text: Rene Enzinger,
+            - link "padel@tfv-piesting.at" [ref=e1162] [cursor=pointer]:
+              - /url: mailto:padel@tfv-piesting.at
+            - strong [ref=e1163]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor
+            - strong [ref=e1164]: "Homepage:"
+            - link "www.tfv-piesting.at" [ref=e1165] [cursor=pointer]:
+              - /url: https://www.tfv-piesting.at/
+            - strong [ref=e1166]: Platzbuchungen
+            - link "hier" [ref=e1167] [cursor=pointer]:
+              - /url: https://www.tfv-piesting.at/padel/platzreservierung/
+              - strong [ref=e1168]: hier
+            - strong
+          - paragraph
+      - generic [ref=e1170]:
+        - img "Union Tennisclub Biberbach" [ref=e1172]
+        - generic [ref=e1173]:
+          - heading "Union Tennisclub Biberbach" [level=4] [ref=e1174]:
+            - link "Union Tennisclub Biberbach" [ref=e1175] [cursor=pointer]:
+              - /url: /locations/union-tennisclub-biberbach
+          - paragraph
+          - generic [ref=e1176]:
+            - generic [ref=e1177]:
+              - strong [ref=e1178]: "Adresse:"
+              - text: Waldesblick 509, 3353 Biberbach
+            - generic [ref=e1179]:
+              - strong [ref=e1180]: "Ansprechpartner:"
+              - text: Patrick Wagner; utcbiberbach@gmail.com; 0664/2082616
+            - generic [ref=e1181]:
+              - strong [ref=e1182]: "Anzahl der Padel-Plätze:"
+              - text: 1 Outdoor
+          - paragraph
+      - generic [ref=e1185]:
+        - img "Union TPC Tennis+Padel Club Gars" [ref=e1187]
+        - generic [ref=e1188]:
+          - heading "Union TPC Tennis+Padel Club Gars" [level=4] [ref=e1189]:
+            - link "Union TPC Tennis+Padel Club Gars" [ref=e1190] [cursor=pointer]:
+              - /url: /locations/union-tpc-tennis-padel-club-gars
+          - paragraph
+          - generic [ref=e1191]:
+            - paragraph [ref=e1192]:
+              - strong [ref=e1193]: "Adresse:"
+              - text: Waldzeile 698, 3571 Gars am Kamp
+              - strong [ref=e1194]: "Ansprechpartner:"
+              - text: Erich Pisker; office@tcg-tennis.at; 0664/3704613
+            - paragraph [ref=e1195]:
+              - strong [ref=e1196]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+          - paragraph
+      - generic [ref=e1198]:
+        - img "UTC Melk" [ref=e1200]
+        - generic [ref=e1201]:
+          - heading "UTC Melk" [level=4] [ref=e1202]:
+            - link "UTC Melk" [ref=e1203] [cursor=pointer]:
+              - /url: /locations/utc-melk
+          - paragraph
+          - generic [ref=e1205]:
+            - strong [ref=e1206]: "Adresse:"
+            - text: Postbreite 25, 3390 Melk
+            - strong [ref=e1207]: "Ansprechpartner:"
+            - link "utc.melk@gmx.at" [ref=e1208] [cursor=pointer]:
+              - /url: mailto:utc.melk@gmx.at
+            - strong [ref=e1209]: "Anzahl der Padel-Plätze: 2"
+            - text: Outdoor
+            - strong [ref=e1210]: "Homepage:"
+            - link "www.utc-melk.at" [ref=e1211] [cursor=pointer]:
+              - /url: https://www.utc-melk.at
+            - strong [ref=e1212]: "Platzbuchungen:"
+            - link "hier" [ref=e1213] [cursor=pointer]:
+              - /url: https://melk.tennisplatz.info/reservierung
+              - strong [ref=e1214]: hier
+            - strong [ref=e1215]
+          - paragraph
+      - generic [ref=e1217]:
+        - img "UTC Sparkasse Scheibbs" [ref=e1219]
+        - generic [ref=e1220]:
+          - heading "UTC Sparkasse Scheibbs" [level=4] [ref=e1221]:
+            - link "UTC Sparkasse Scheibbs" [ref=e1222] [cursor=pointer]:
+              - /url: /locations/utc-sparkasse-scheibbs
+          - paragraph
+          - generic [ref=e1224]:
+            - strong [ref=e1225]: "Adresse:"
+            - text: Neustift 85, 3270 Scheibbs
+            - strong [ref=e1226]: "Ansprechpartner:"
+            - text: Hansjörg Ressl, 0676/5275365, hansjoerg.ressl@aon.at
+            - strong [ref=e1227]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e1228]: "Homepage:"
+            - text: www.utcscheibbs.at
+            - strong [ref=e1229]: "Platzbuchungen:"
+            - text: www.utcscheibbs.at
+          - paragraph
+      - generic [ref=e1231]:
+        - img "UTC Tullnerbach" [ref=e1233]
+        - generic [ref=e1234]:
+          - heading "UTC Tullnerbach" [level=4] [ref=e1235]:
+            - link "UTC Tullnerbach" [ref=e1236] [cursor=pointer]:
+              - /url: /locations/utc-tullnerbach
+          - paragraph
+          - generic [ref=e1237]:
+            - generic [ref=e1238]:
+              - strong [ref=e1239]: "Verein:"
+              - text: Union Tennisclub Tullnerbach
+            - generic [ref=e1240]:
+              - strong [ref=e1241]: "Adresse:"
+              - text: Lawieserstraße 41, 3013 Tullnerbach
+            - generic [ref=e1242]:
+              - strong [ref=e1243]: "Ansprechpartner:"
+              - text: Martin Schmidt,
+              - link "padel@utctullnerbach.at" [ref=e1244] [cursor=pointer]:
+                - /url: mailto:padel@utctullnerbach.at
+            - generic [ref=e1245]:
+              - strong [ref=e1246]: "Anzahl der Padel-Plätze:"
+              - text: 1 Outdoor
+            - generic [ref=e1247]:
+              - strong [ref=e1248]: "Homepage:"
+              - link "www.utctullnerbach.at" [ref=e1249] [cursor=pointer]:
+                - /url: http://www.utctullnerbach.at
+              - strong [ref=e1250]: Platzbuchungen
+              - link "hier" [ref=e1251] [cursor=pointer]:
+                - /url: https://info.utctullnerbach.at/reservierung?c=934
+                - strong [ref=e1252]: hier
+              - strong [ref=e1253]: Trainings
+              - link "hier" [ref=e1254] [cursor=pointer]:
+                - /url: https://www.playpadel.at/
+                - strong [ref=e1255]: hier
+          - paragraph
+      - generic [ref=e1257]:
+        - img "UTPC Göstling" [ref=e1259]
+        - generic [ref=e1260]:
+          - heading "UTPC Göstling" [level=4] [ref=e1261]:
+            - link "UTPC Göstling" [ref=e1262] [cursor=pointer]:
+              - /url: /locations/tennisclub-gostling-hochkar
+          - paragraph
+          - generic [ref=e1263]:
+            - generic [ref=e1264]:
+              - strong [ref=e1265]: "Verein:"
+              - text: Union Tennis- und Padelclub Göstling
+            - generic [ref=e1266]:
+              - strong [ref=e1267]: "Adresse:"
+              - text: Steinbachmauer 33, 3345 Göstling an der Ybbs
+            - generic [ref=e1268]:
+              - strong [ref=e1269]: "Ansprechpartner:"
+              - text: Klaus Blaimauer,
+              - link "klaus.blaimauer@gmail.com" [ref=e1270] [cursor=pointer]:
+                - /url: mailto:klaus.blaimauer@gmail.com
+            - generic [ref=e1271]:
+              - strong [ref=e1272]: "Anzahl der Padel-Plätze:"
+              - text: 1 Outdoor
+            - generic [ref=e1273]:
+              - strong [ref=e1274]: "Homepage:"
+              - link "https://utpc-goestling.at/" [ref=e1275] [cursor=pointer]:
+                - /url: https://utpc-goestling.at/
+              - strong [ref=e1276]: Platzbuchungen
+              - link "hier" [ref=e1277] [cursor=pointer]:
+                - /url: https://reservierung.utpc-goestling.at/reservierung?c=941
+                - strong [ref=e1278]: hier
+          - paragraph
+    - generic [ref=e1279]:
+      - heading "Oberösterreich" [level=3] [ref=e1280]
+      - generic [ref=e1282]:
+        - img "Kremstaler Padel King" [ref=e1284]
+        - generic [ref=e1285]:
+          - heading "Kremstaler Padel King" [level=4] [ref=e1286]:
+            - link "Kremstaler Padel King" [ref=e1287] [cursor=pointer]:
+              - /url: /locations/kremstaler-padel-king
+          - paragraph
+          - generic [ref=e1288]:
+            - generic [ref=e1289]:
+              - strong [ref=e1290]: Adresse
+              - text: ": Winden 22, 4531 Kematen an der Krems"
+              - strong [ref=e1291]: "Ansprechpartner:"
+              - text: René Fanninger; padel-king@gmx.at; 0664/88456860
+              - strong [ref=e1292]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+              - strong [ref=e1293]: Homepage
+              - text: ":"
+              - link "www.padelking.at" [ref=e1294] [cursor=pointer]:
+                - /url: https://www.padelking.at/
+            - generic [ref=e1295]:
+              - strong [ref=e1296]: Platzbuchung
+              - text: ":"
+              - link "https://www.padelking.at/reservierung" [ref=e1297] [cursor=pointer]:
+                - /url: https://www.padelking.at/reservierung
+          - paragraph
+      - generic [ref=e1300]:
+        - img "PADELBASE Linz Halle" [ref=e1302]
+        - generic [ref=e1303]:
+          - heading "PADELBASE Linz Halle" [level=4] [ref=e1304]:
+            - link "PADELBASE Linz Halle" [ref=e1305] [cursor=pointer]:
+              - /url: /locations/padelbase-linz-halle
+          - paragraph
+          - generic [ref=e1307]:
+            - strong [ref=e1308]: Padelbase Linz Halle
+            - text: "Adresse: Melissenweg 27, 4020 Linz"
+            - text: "Plätze: 2 Indoor Courts, 2 Single Indoor Courts"
+            - text: "Ansprechpartner:"
+            - link "office@padelbase.at" [ref=e1309] [cursor=pointer]:
+              - /url: mailto:info@padelbase.at
+          - paragraph
+      - generic [ref=e1311]:
+        - img "PADELBASE Linz Kleinmünchen" [ref=e1313]
+        - generic [ref=e1314]:
+          - heading "PADELBASE Linz Kleinmünchen" [level=4] [ref=e1315]:
+            - link "PADELBASE Linz Kleinmünchen" [ref=e1316] [cursor=pointer]:
+              - /url: /locations/padelbase-linz
+          - paragraph
+          - generic [ref=e1317]:
+            - generic [ref=e1318]:
+              - strong [ref=e1319]: Adresse
+              - text: ":"
+              - link "Pestalozzistraße 79, 4030 Linz" [ref=e1320] [cursor=pointer]:
+                - /url: https://www.google.com/maps/place/data=!4m2!3m1!1s0x4773bd8b0b87ed27:0x81cef7e9412d6e8c?sa=X&ved=1t:8290&ictx=111
+            - generic [ref=e1321]:
+              - strong [ref=e1322]: "Anzahl der Padel-Plätze:"
+              - text: 3 Outdoor
+              - strong [ref=e1323]: "Homepage:"
+              - link "www.padelbase.at" [ref=e1324] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+              - strong [ref=e1325]: "Ansprechpartner:"
+              - text: office@padelbase.at
+          - paragraph
+      - generic [ref=e1328]:
+        - img "PADELBASE Linz Pichling" [ref=e1330]
+        - generic [ref=e1331]:
+          - heading "PADELBASE Linz Pichling" [level=4] [ref=e1332]:
+            - link "PADELBASE Linz Pichling" [ref=e1333] [cursor=pointer]:
+              - /url: /locations/padelbase-linz-pichling
+          - paragraph
+          - generic [ref=e1335]:
+            - strong [ref=e1336]: Padelbase Linz Pichling
+            - text: "Adresse: Weikerlseestraße 60, 4030 Linz"
+            - text: "Plätze: 3 Outdoor Courts"
+            - text: "Ansprechpartner:"
+            - link "office@padelbase.at" [ref=e1337] [cursor=pointer]:
+              - /url: mailto:info@padelbase.at
+          - paragraph
+      - generic [ref=e1339]:
+        - img "PADELBASE - Marchtrenk" [ref=e1341]
+        - generic [ref=e1342]:
+          - heading "PADELBASE - Marchtrenk" [level=4] [ref=e1343]:
+            - link "PADELBASE - Marchtrenk" [ref=e1344] [cursor=pointer]:
+              - /url: /locations/padelbase-marchtrenk
+          - paragraph
+          - generic [ref=e1345]:
+            - generic [ref=e1346]:
+              - strong [ref=e1347]: "Adresse:"
+              - text: Badgasse 4 A-4614 Marchtrenk
+              - strong [ref=e1348]: "Ansprechpartner:"
+              - link "office@padelbase.at" [ref=e1349] [cursor=pointer]:
+                - /url: mailto:Info@padelbase.at
+            - generic [ref=e1350]:
+              - strong [ref=e1351]: "Anzahl der Padel-Plätze:"
+              - text: "1"
+              - strong [ref=e1352]: "Homepage:"
+              - link "www.padelbase.at" [ref=e1353] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e1354]:
+              - strong [ref=e1355]: "Platzbuchungen:"
+              - link "hier" [ref=e1356] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3104
+          - paragraph
+      - generic [ref=e1358]:
+        - img "PADELBASE - Rohrbach-Berg" [ref=e1360]
+        - generic [ref=e1361]:
+          - heading "PADELBASE - Rohrbach-Berg" [level=4] [ref=e1362]:
+            - link "PADELBASE - Rohrbach-Berg" [ref=e1363] [cursor=pointer]:
+              - /url: /locations/padelbase-rohrbach-berg
+          - paragraph
+          - generic [ref=e1364]:
+            - generic [ref=e1365]:
+              - strong [ref=e1366]: "Adresse:"
+              - text: Hopfengasse 15 4150 Rohrbach-Berg
+              - strong [ref=e1367]: "Ansprechpartner:"
+              - link "office@padelbase.at" [ref=e1368] [cursor=pointer]:
+                - /url: mailto:Info@padelbase.at
+            - generic [ref=e1369]:
+              - strong [ref=e1370]: "Anzahl der Padel-Plätze:"
+              - text: "1"
+              - strong [ref=e1371]: "Homepage:"
+              - link "www.padelbase.at" [ref=e1372] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e1373]:
+              - strong [ref=e1374]: "Platzbuchungen:"
+              - link "hier" [ref=e1375] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3105
+          - paragraph
+      - generic [ref=e1377]:
+        - img "PADELBASE - Wels" [ref=e1379]
+        - generic [ref=e1380]:
+          - heading "PADELBASE - Wels" [level=4] [ref=e1381]:
+            - link "PADELBASE - Wels" [ref=e1382] [cursor=pointer]:
+              - /url: /locations/padelbase-wels
+          - paragraph
+          - generic [ref=e1383]:
+            - generic [ref=e1384]:
+              - strong [ref=e1385]: "Adresse:"
+              - text: Pulverturmstrasse 9 – A-4600 Wels
+              - strong [ref=e1386]: "Ansprechpartner:"
+              - link "office@padelbase.at" [ref=e1387] [cursor=pointer]:
+                - /url: mailto:Info@padelbase.at
+            - generic [ref=e1388]:
+              - strong [ref=e1389]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+              - strong [ref=e1390]: "Homepage:"
+              - link "www.padelbase.at" [ref=e1391] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e1392]:
+              - strong [ref=e1393]: "Platzbuchungen:"
+              - link "hier" [ref=e1394] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=2649
+          - paragraph
+      - generic [ref=e1396]:
+        - img "Padelzone Attersee PadelZeit" [ref=e1398]
+        - generic [ref=e1399]:
+          - heading "Padelzone Attersee PadelZeit" [level=4] [ref=e1400]:
+            - link "Padelzone Attersee PadelZeit" [ref=e1401] [cursor=pointer]:
+              - /url: /locations/padelzeit
+          - paragraph
+          - generic [ref=e1402]:
+            - generic [ref=e1403]:
+              - strong [ref=e1404]: "Adresse: Kreuzstraße 30a, 4860 Lenzing"
+              - strong [ref=e1405]: "Ansprechpartner:"
+              - text: Markus Krocker; m.krocker@padelzone.at
+            - generic [ref=e1406]:
+              - strong [ref=e1407]: "Anzahl der Padel-Plätze:"
+              - text: 4 Double Outdoor Courts, 2 Double Court (überdacht)
+              - strong [ref=e1408]: "Homepage: www.padelzone.at"
+            - generic [ref=e1409]:
+              - strong [ref=e1410]: "Platzbuchung:"
+              - link "www.eversports.at" [ref=e1411] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e1413]:
+        - img "PADELZONE | Bad Ischl" [ref=e1415]
+        - generic [ref=e1416]:
+          - heading "PADELZONE | Bad Ischl" [level=4] [ref=e1417]:
+            - link "PADELZONE | Bad Ischl" [ref=e1418] [cursor=pointer]:
+              - /url: /locations/padelzone-bad-ischl
+          - paragraph
+          - generic [ref=e1420]:
+            - strong [ref=e1421]: "Adresse:"
+            - text: Engleitenstraße 6 (Kaltenbach), 4820 Bad Ischl
+            - strong [ref=e1422]: "Ansprechpartner:"
+            - text: Königsmaier Hannes, 069912770469,
+            - link "hk@padelzone.partners" [ref=e1423] [cursor=pointer]:
+              - /url: mailto:hk@padelzone.partners
+            - strong [ref=e1424]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e1425]: "Homepage:"
+            - link "www.padelzone.at" [ref=e1426] [cursor=pointer]:
+              - /url: https://www.padelzone.at/ebensee
+            - strong [ref=e1427]: "Platzbuchungen:"
+            - link "www.padelzone.at/bad-ischl" [ref=e1428] [cursor=pointer]:
+              - /url: http://www.padelzone.at/bad-ischl
+          - paragraph
+      - generic [ref=e1430]:
+        - img "PADELZONE | Ebensee/Traunsee" [ref=e1432]
+        - generic [ref=e1433]:
+          - heading "PADELZONE | Ebensee/Traunsee" [level=4] [ref=e1434]:
+            - link "PADELZONE | Ebensee/Traunsee" [ref=e1435] [cursor=pointer]:
+              - /url: /locations/padelzone-ebensee-traunsee
+          - paragraph
+          - generic [ref=e1436]:
+            - generic [ref=e1437]:
+              - strong [ref=e1438]: "Adresse:"
+              - text: Trauneck 2, 4802 Ebensee
+              - strong [ref=e1439]: "Ansprechpartner:"
+              - link "Hannes Königsmaier" [ref=e1440] [cursor=pointer]:
+                - /url: mailto:hannes@padeltennis-traunsee.at
+              - text: ", 0699/12770469, hk@padelzone.partners"
+              - strong [ref=e1441]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+              - strong [ref=e1442]: "Homepage:"
+              - link "www.padelzone.at" [ref=e1443] [cursor=pointer]:
+                - /url: https://www.padelzone.at/ebensee
+              - strong [ref=e1444]: "Platzbuchungen:"
+              - link "www.padelzone.at/ebensee" [ref=e1445] [cursor=pointer]:
+                - /url: https://www.padelzone.at/ebensee
+            - generic [ref=e1446]:
+              - strong [ref=e1447]: "Trainings:"
+              - link "hier" [ref=e1448] [cursor=pointer]:
+                - /url: https://www.padelzone.at/ebensee
+                - strong [ref=e1449]: hier
+          - paragraph
+      - generic [ref=e1451]:
+        - img "PADELZONE | Gmunden/Altmünster" [ref=e1453]
+        - generic [ref=e1454]:
+          - heading "PADELZONE | Gmunden/Altmünster" [level=4] [ref=e1455]:
+            - link "PADELZONE | Gmunden/Altmünster" [ref=e1456] [cursor=pointer]:
+              - /url: /locations/padelzone-gmunden-altmuenster
+          - paragraph
+          - generic [ref=e1457]:
+            - generic [ref=e1459]:
+              - strong [ref=e1460]: "Adresse:"
+              - link "Kinderdorfstraße 15 , 4813 Altmünster am Traunsee" [ref=e1461] [cursor=pointer]:
+                - /url: https://www.eversports.at/s/padelzone-gmundenaltmuenster#location_map
+            - generic [ref=e1462]:
+              - strong [ref=e1463]: "Ansprechpartner:"
+              - link "Hannes Königsmaier" [ref=e1464] [cursor=pointer]:
+                - /url: mailto:hannes@padeltennis-traunsee.at
+              - text: ", 0699/12770469, hk@padelzone.partners"
+              - strong [ref=e1465]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+              - strong [ref=e1466]: "Homepage:"
+              - link "www.padelzone.at" [ref=e1467] [cursor=pointer]:
+                - /url: https://www.padelzone.at/ebensee
+              - strong [ref=e1468]: "Platzbuchungen:"
+              - link "https://www.padelzone.at/gmunden-altmuenster" [ref=e1469] [cursor=pointer]:
+                - /url: https://www.padelzone.at/gmunden-altmuenster
+          - paragraph
+      - generic [ref=e1471]:
+        - img "PADELZONE - Linz" [ref=e1473]
+        - generic [ref=e1474]:
+          - heading "PADELZONE - Linz" [level=4] [ref=e1475]:
+            - link "PADELZONE - Linz" [ref=e1476] [cursor=pointer]:
+              - /url: /locations/padelzone-linz
+          - paragraph
+          - generic [ref=e1477]:
+            - strong [ref=e1479]: PADELZONE Linz
+            - generic [ref=e1480]:
+              - strong [ref=e1481]: "Adresse:"
+              - text: Julius-Raab-Straße 6/8, 4040 Linz
+            - generic [ref=e1482]:
+              - strong [ref=e1483]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e1484] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e1485]:
+              - strong [ref=e1486]: "Anzahl der Padel-Plätze:"
+              - text: 6 Double Indoor Courts, 2 Single Indoor Courts
+            - generic [ref=e1487]:
+              - strong [ref=e1488]: "Homepage:"
+              - link "www.padelzone.at" [ref=e1489] [cursor=pointer]:
+                - /url: https://www.padelzone.at/
+              - strong [ref=e1490]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e1491] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e1493]:
+        - img "PADELZONE Wels | ASKÖ Tennisclub" [ref=e1495]
+        - generic [ref=e1496]:
+          - heading "PADELZONE Wels | ASKÖ Tennisclub" [level=4] [ref=e1497]:
+            - link "PADELZONE Wels | ASKÖ Tennisclub" [ref=e1498] [cursor=pointer]:
+              - /url: /locations/padelzone-wels-askoe-tennisclub
+          - paragraph
+          - generic [ref=e1499]:
+            - strong [ref=e1501]: PADELZONE Wels | ASKÖ Tennisclub
+            - generic [ref=e1502]:
+              - strong [ref=e1503]: "Adresse:"
+              - text: Pulverturmstraße 7, 4600 Wels
+              - strong [ref=e1504]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e1505] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+              - strong [ref=e1506]: "Anzahl der Padel-Plätze:"
+              - text: 3 Double Outdoor Courts
+              - strong [ref=e1507]: "Homepage:"
+              - link "www.padelzone.at" [ref=e1508] [cursor=pointer]:
+                - /url: https://www.padelzone.at/
+              - strong [ref=e1509]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e1510] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e1512]:
+        - img "SV Lichtenberg" [ref=e1514]
+        - generic [ref=e1515]:
+          - heading "SV Lichtenberg" [level=4] [ref=e1516]:
+            - link "SV Lichtenberg" [ref=e1517] [cursor=pointer]:
+              - /url: /locations/sv-lichtenberg-oo
+          - paragraph
+          - generic [ref=e1518]:
+            - generic [ref=e1519]:
+              - strong [ref=e1520]: "Verein:"
+              - text: ASVÖ Sportverein Lichtenberg (Sektion Tennis/Padel)
+            - generic [ref=e1521]:
+              - strong [ref=e1522]: "Adresse:"
+              - text: Lichtenbergstraße 3, 4040 Lichtenberg
+            - generic [ref=e1523]:
+              - strong [ref=e1524]: "Ansprechpartner:"
+              - text: Roland Ilk,
+              - link "office@sv-lichtenberg.at" [ref=e1525] [cursor=pointer]:
+                - /url: mailto:office@sv-lichtenberg.at
+            - generic [ref=e1526]:
+              - strong [ref=e1527]: "Anzahl der Padel-Plätze:"
+              - text: 1 Outdoor
+            - generic [ref=e1528]:
+              - strong [ref=e1529]: "Homepage:"
+              - link "http://www.sv-lichtenberg.at/tennis/" [ref=e1530] [cursor=pointer]:
+                - /url: http://www.sv-lichtenberg.at/tennis/
+              - strong [ref=e1531]: Platzbuchungen
+              - link "hier" [ref=e1532] [cursor=pointer]:
+                - /url: https://app.tennis04.com/de/lichtenberg/buchungsplan
+                - strong [ref=e1533]: hier
+          - paragraph
+      - generic [ref=e1535]:
+        - img "UTC Fischlham Lawn Padel Club" [ref=e1537]
+        - generic [ref=e1538]:
+          - heading "UTC Fischlham Lawn Padel Club" [level=4] [ref=e1539]:
+            - link "UTC Fischlham Lawn Padel Club" [ref=e1540] [cursor=pointer]:
+              - /url: /locations/utc-fischlham-lawn-padel-club
+          - paragraph
+          - generic [ref=e1541]:
+            - paragraph [ref=e1542]:
+              - strong [ref=e1543]: "Adresse:"
+              - text: Entensteinstraße 12, 4652 Fischlham
+              - strong [ref=e1544]: "Ansprechpartner:"
+              - text: Markus Kofler; kofi_bullpadel-coach@hotmail.com; 0699/10323767
+              - strong [ref=e1545]: "Anzahl der Padel-Plätze:"
+              - text: 1 Outdoor
+            - paragraph [ref=e1546]:
+              - strong [ref=e1547]: Homepage
+              - text: ": utcfischlham.at"
+          - paragraph
+    - generic [ref=e1548]:
+      - heading "Steiermark" [level=3] [ref=e1549]
+      - generic [ref=e1551]:
+        - img "KIMASOL - Tennis- und Padel-Anlage" [ref=e1553]
+        - generic [ref=e1554]:
+          - heading "KIMASOL - Tennis- und Padel-Anlage" [level=4] [ref=e1555]:
+            - link "KIMASOL - Tennis- und Padel-Anlage" [ref=e1556] [cursor=pointer]:
+              - /url: /locations/kimasol-tennis-und-padel-anlage
+          - paragraph
+          - generic [ref=e1558]:
+            - strong [ref=e1559]: "Adresse:"
+            - text: Hauptstraße 121, 8077 Gössendorf
+            - strong [ref=e1560]: "Ansprechpartner:"
+            - text: Mag. Gerald Kampusch; kimasol.padeltennis@gmail.com; 0650/6686767
+            - strong [ref=e1561]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - strong [ref=e1562]: "Homepage:"
+            - link "www.kimasol.at" [ref=e1563] [cursor=pointer]:
+              - /url: https://kimasol.at/
+              - strong [ref=e1564]: www.kimasol.at
+            - strong
+          - paragraph
+      - generic [ref=e1566]:
+        - img "KR Padel" [ref=e1568]
+        - generic [ref=e1569]:
+          - heading "KR Padel" [level=4] [ref=e1570]:
+            - link "KR Padel" [ref=e1571] [cursor=pointer]:
+              - /url: /locations/kr-padel
+          - paragraph
+          - paragraph [ref=e1573]:
+            - strong [ref=e1574]: "Adresse:"
+            - text: Obere Hauptstraße 462, 8181 St. Ruprecht an der Raab
+            - strong [ref=e1575]: "Ansprechpartner:"
+            - text: Lukas Kainz; lux38@gmx.at; 0664/9132435
+            - strong [ref=e1576]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1578]:
+        - img "P9 Racketzone Gleisdorf" [ref=e1580]
+        - generic [ref=e1581]:
+          - heading "P9 Racketzone Gleisdorf" [level=4] [ref=e1582]:
+            - link "P9 Racketzone Gleisdorf" [ref=e1583] [cursor=pointer]:
+              - /url: /locations/p9-racketzone-gleisdorf
+          - paragraph
+          - generic [ref=e1585]:
+            - strong [ref=e1586]: "Adresse:"
+            - text: Freiberg 32, 8200 Gleisdorf
+            - strong [ref=e1587]: "Ansprechpartner:"
+            - text: Michael Wallner; team@padeltrainer-mike.com; 0664/ 1945 189
+            - strong [ref=e1588]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+          - paragraph
+      - generic [ref=e1590]:
+        - img "P9 Racketzone Hart bei Graz" [ref=e1592]
+        - generic [ref=e1593]:
+          - heading "P9 Racketzone Hart bei Graz" [level=4] [ref=e1594]:
+            - link "P9 Racketzone Hart bei Graz" [ref=e1595] [cursor=pointer]:
+              - /url: /locations/p9-racketzone
+          - paragraph
+          - generic [ref=e1597]:
+            - strong [ref=e1598]: "Adresse:"
+            - text: Hahnhofweg 22, 8075 Hart bei Graz
+            - strong [ref=e1599]: "Ansprechpartner:"
+            - text: Thomas Andrä; info@p9-racketzone.at ; 0664/4549857
+            - strong [ref=e1600]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1602]:
+        - img "Padelbär" [ref=e1604]
+        - generic [ref=e1605]:
+          - heading "Padelbär" [level=4] [ref=e1606]:
+            - link "Padelbär" [ref=e1607] [cursor=pointer]:
+              - /url: /locations/padelbaer
+          - paragraph
+          - generic [ref=e1609]:
+            - strong [ref=e1610]: Padelbär GmbH
+            - strong [ref=e1611]: "Adresse:"
+            - text: Ferdinand G. 6, 8121 Deutschfeistritz
+            - strong [ref=e1612]: "Ansprechpartner:"
+            - text: Jakob Peer | office@padelbaer.at | 0699/18252025
+            - strong [ref=e1613]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e1614]: "Homepage:"
+            - link "www.padelbaer.at" [ref=e1615] [cursor=pointer]:
+              - /url: http://www.padelbaer.at/
+              - emphasis [ref=e1616]: www.padelbaer.at
+          - paragraph
+      - generic [ref=e1618]:
+        - img "Padelbase Wies" [ref=e1620]
+        - generic [ref=e1621]:
+          - heading "Padelbase Wies" [level=4] [ref=e1622]:
+            - link "Padelbase Wies" [ref=e1623] [cursor=pointer]:
+              - /url: /locations/padelbase-wies
+          - paragraph
+          - paragraph [ref=e1625]:
+            - strong [ref=e1626]: "Adresse:"
+            - text: Am Bahnhof 2a, 8551 Wies
+            - strong [ref=e1627]: "Ansprechpartner:"
+            - text: Daniel Stelzl; padelbase.wies@gmail.com; 06641565707
+            - strong [ref=e1628]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1630]:
+        - img "Padel-Box HB OG" [ref=e1632]
+        - generic [ref=e1633]:
+          - heading "Padel-Box HB OG" [level=4] [ref=e1634]:
+            - link "Padel-Box HB OG" [ref=e1635] [cursor=pointer]:
+              - /url: /locations/padel-box-hb-og
+          - paragraph
+          - generic [ref=e1637]:
+            - strong [ref=e1638]: "Adresse:"
+            - text: St. Johann in der Haide 186, 8295 Sankt Johann in der Haide
+            - strong [ref=e1639]: "Ansprechpartner:"
+            - text: Marko Simek, info@padel-box.at, 0660/7705777
+            - strong [ref=e1640]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e1641]: "Homepage:"
+            - link "www.padel-box.at" [ref=e1642] [cursor=pointer]:
+              - /url: https://www.padel-box.at/
+            - strong
+            - link "Platzbuchungen" [ref=e1643] [cursor=pointer]:
+              - /url: https://www.padel-box.at/reservierung
+              - strong [ref=e1644]: Platzbuchungen
+          - paragraph
+      - generic [ref=e1647]:
+        - img "Padel Bruck" [ref=e1649]
+        - generic [ref=e1650]:
+          - heading "Padel Bruck" [level=4] [ref=e1651]:
+            - link "Padel Bruck" [ref=e1652] [cursor=pointer]:
+              - /url: /locations/padel-bruck
+          - paragraph
+          - generic [ref=e1654]:
+            - strong [ref=e1655]: "Verein:"
+            - text: Padel Bruck
+            - strong [ref=e1656]: "Adresse:"
+            - text: Murinsel 11, 8600 Bruck an der Mur
+            - strong [ref=e1657]: "Ansprechpartner:"
+            - text: Lukas Labitsch, 0676/7415077
+            - strong [ref=e1658]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor, 3 Indoor
+            - strong [ref=e1659]: "Homepage:"
+            - link "https://bruck.tennisplatz.info/" [ref=e1660] [cursor=pointer]:
+              - /url: https://bruck.tennisplatz.info/
+            - strong [ref=e1661]: Platzbuchungen
+            - link "hier" [ref=e1662] [cursor=pointer]:
+              - /url: https://bruck-padel.tennisplatz.info/reservierung
+              - strong [ref=e1663]: hier
+          - paragraph
+      - generic [ref=e1665]:
+        - img "Padel Dynamics" [ref=e1667]
+        - generic [ref=e1668]:
+          - heading "Padel Dynamics" [level=4] [ref=e1669]:
+            - link "Padel Dynamics" [ref=e1670] [cursor=pointer]:
+              - /url: /locations/padel-dynamics
+          - paragraph
+          - generic [ref=e1671]:
+            - generic [ref=e1672]:
+              - strong [ref=e1673]: "Name des Standorts:"
+              - text: Padel Dynamics
+              - strong [ref=e1674]: "Adresse:"
+              - text: Hönigtaler Straße 46, 8301 Kainbach bei Graz
+            - generic [ref=e1675]:
+              - strong [ref=e1676]: "Ansprechpartner:"
+              - link "info@padeldynamics.at" [ref=e1677] [cursor=pointer]:
+                - /url: mailto:info@padeldynamics.at
+              - text: ; 0664/1344435
+            - generic [ref=e1678]:
+              - strong [ref=e1679]: "Anzahl der Padel-Plätze:"
+              - text: 5 Indoor
+              - strong [ref=e1680]: "Homepage:"
+              - link "www.padeldynamics.at" [ref=e1681] [cursor=pointer]:
+                - /url: http://www.padeldynamics.at/
+            - generic [ref=e1682]:
+              - strong [ref=e1683]: "Platzbuchungen:"
+              - link "HIER" [ref=e1684] [cursor=pointer]:
+                - /url: https://playtomic.io/tenant/12979538-ad79-479d-aeda-c62dae4742ba?utm_source=app_ios&utm_medium=share
+              - strong [ref=e1685]: "Trainings:"
+              - text: Michael Wallner; michaelwallner1979@yahoo.com; 06641945189
+          - paragraph
+      - generic [ref=e1687]:
+        - img "PadelGoal GmbH" [ref=e1689]
+        - generic [ref=e1690]:
+          - heading "PadelGoal GmbH" [level=4] [ref=e1691]:
+            - link "PadelGoal GmbH" [ref=e1692] [cursor=pointer]:
+              - /url: /locations/padelgoal-gmbh
+          - paragraph
+          - generic [ref=e1694]:
+            - strong [ref=e1695]: "Adresse:"
+            - text: Liebfrauenweg, 8280 Fürstenfeld
+            - strong [ref=e1696]: "Ansprechpartner:"
+            - text: Oliver Bacher; info@padelgoal.at; 0660/3780300
+            - strong [ref=e1697]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1699]:
+        - img "Padel King & Queen Club" [ref=e1701]
+        - generic [ref=e1702]:
+          - heading "Padel King & Queen Club" [level=4] [ref=e1703]:
+            - link "Padel King & Queen Club" [ref=e1704] [cursor=pointer]:
+              - /url: /locations/padel-king-queen-club
+          - paragraph
+          - generic [ref=e1706]:
+            - strong [ref=e1707]: "Adresse:"
+            - text: Sportplatzweg 12, 8502 Lannach
+            - strong [ref=e1708]: "Ansprechpartner:"
+            - text: Manuel Kleinböck; boecki@padeltennisliga.at; 0664/5115885
+            - strong [ref=e1709]: Homepage
+            - text: ":"
+            - link "www.padeltennisliga.at" [ref=e1710] [cursor=pointer]:
+              - /url: http://www.padeltennisliga.at/
+          - paragraph
+      - generic [ref=e1712]:
+        - img "Padel Loft" [ref=e1714]
+        - generic [ref=e1715]:
+          - heading "Padel Loft" [level=4] [ref=e1716]:
+            - link "Padel Loft" [ref=e1717] [cursor=pointer]:
+              - /url: /locations/padel-loft
+          - paragraph
+          - generic [ref=e1719]:
+            - strong [ref=e1720]: "Adresse:"
+            - text: Thalerhofstraße 85, 8141 Unterpremstätten
+            - strong [ref=e1721]: "Ansprechpartner:"
+            - text: Frederick Jerich; fred@undefined-clo.com; 0664/88910790
+            - strong [ref=e1722]: "Anzahl der Padel-Plätze:"
+            - text: "4"
+          - paragraph
+      - generic [ref=e1724]:
+        - img "Padellounge Sportverein" [ref=e1726]
+        - generic [ref=e1727]:
+          - heading "Padellounge Sportverein" [level=4] [ref=e1728]:
+            - link "Padellounge Sportverein" [ref=e1729] [cursor=pointer]:
+              - /url: /locations/padellounge-sportverein
+          - paragraph
+          - generic [ref=e1731]:
+            - strong [ref=e1732]: Padellounge
+            - strong [ref=e1733]: "Verein:"
+            - text: Padellounge Sportverein
+            - strong [ref=e1734]: "Adresse:"
+            - text: Weblinger Gürtel 5, 8054 Graz
+            - strong [ref=e1735]: "Ansprechpartner:"
+            - text: office@padellounge.at; 06504004633
+            - strong [ref=e1736]: "Anzahl der Padel-Plätze:"
+            - text: "3"
+            - strong [ref=e1737]: Kabinen
+            - text: mit Duschen für Damen und Herren
+            - strong [ref=e1738]: WCs
+            - text: separat für Damen und Herren
+            - strong [ref=e1739]: Klubhaus
+            - text: mit Getränken und Snacks
+            - strong [ref=e1740]: "Homepage:"
+            - link "www.padellounge.at" [ref=e1741] [cursor=pointer]:
+              - /url: https://padellounge.at/
+            - strong [ref=e1742]: "Platzbuchung:"
+            - link "HIER" [ref=e1743] [cursor=pointer]:
+              - /url: https://app.sportsofort.org/s/j.php?il=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjIjoiUEhacy0zNkJPLXlQM2gtbW5sUy00THV6IiwibiI6IlBhZGVsbG91bmdlIEdyYXogfCBDZW50ZXIgV2VzdCJ9.umzO1d9ik3wRIEOKZ-ARYXAQ2X0Un5cfYyP2jIh4Q2s
+          - paragraph
+      - generic [ref=e1745]:
+        - img "Padel Murtal (Landhaus Wilhelmer)" [ref=e1747]
+        - generic [ref=e1748]:
+          - heading "Padel Murtal (Landhaus Wilhelmer)" [level=4] [ref=e1749]:
+            - link "Padel Murtal (Landhaus Wilhelmer)" [ref=e1750] [cursor=pointer]:
+              - /url: /locations/padel-murtal-landhaus-wilhelmer
+          - paragraph
+          - generic [ref=e1752]:
+            - strong [ref=e1753]: "Verein:"
+            - text: Padel Murtal (Landhaus Wilhelmer)
+            - strong [ref=e1754]: "Adresse:"
+            - text: Bundesstraße 19, 8753 Fohnsdorf
+            - strong [ref=e1755]: "Ansprechpartner:"
+            - text: Hannes Loderer,
+            - link "hannes.loderer@gmx.net" [ref=e1756] [cursor=pointer]:
+              - /url: mailto:hannes.loderer@gmx.net
+            - strong [ref=e1757]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - strong [ref=e1758]: "Homepage:"
+            - link "www.wilhelmer.net" [ref=e1759] [cursor=pointer]:
+              - /url: https://www.wilhelmer.net
+            - strong [ref=e1760]: "Platzbuchungen:"
+            - link "hier" [ref=e1761] [cursor=pointer]:
+              - /url: https://www.wilhelmer.net/de/padeltennis/index.asp?n=149
+              - strong [ref=e1762]: hier
+          - paragraph
+      - generic [ref=e1764]:
+        - img "Padel Paradies" [ref=e1766]
+        - generic [ref=e1767]:
+          - heading "Padel Paradies" [level=4] [ref=e1768]:
+            - link "Padel Paradies" [ref=e1769] [cursor=pointer]:
+              - /url: /locations/padel-paradies
+          - paragraph
+          - paragraph [ref=e1771]:
+            - strong [ref=e1772]: "Adresse:"
+            - text: Wirtschaftspark 18, 8530 Deutschlandsberg
+            - strong [ref=e1773]: "Ansprechpartner:"
+            - text: Mag. Michael Kernbeis; office@padelparadies.at; 0650/3241933
+            - strong [ref=e1774]: "Anzahl der Padel-Plätze:"
+            - text: 4 Indoor
+          - paragraph
+      - generic [ref=e1776]:
+        - img "Padel Point 82" [ref=e1778]
+        - generic [ref=e1779]:
+          - heading "Padel Point 82" [level=4] [ref=e1780]:
+            - link "Padel Point 82" [ref=e1781] [cursor=pointer]:
+              - /url: /locations/h-p-padel-og
+          - paragraph
+          - paragraph [ref=e1783]:
+            - strong [ref=e1784]: "Adresse:"
+            - text: Hauptstraße 104, 8582 Rosental an der Kainach
+            - strong [ref=e1785]: "Ansprechpartner:"
+            - text: Yanick Pfaffen; hp.padeltennis@gmail.com; 0660/5462377
+            - strong [ref=e1786]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - link:
+              - /url: https://www.padelpoint82.at
+            - text: Platzbuchung und Homepage -->
+            - link "https://www.padelpoint82.at" [ref=e1787] [cursor=pointer]:
+              - /url: https://www.padelpoint82.at
+          - paragraph
+      - generic [ref=e1789]:
+        - img "PADELZONE Graz | Puntigam" [ref=e1791]
+        - generic [ref=e1792]:
+          - heading "PADELZONE Graz | Puntigam" [level=4] [ref=e1793]:
+            - link "PADELZONE Graz | Puntigam" [ref=e1794] [cursor=pointer]:
+              - /url: /locations/padelzone-graz-puntigam
+          - paragraph
+          - generic [ref=e1795]:
+            - paragraph [ref=e1796]:
+              - strong [ref=e1797]: PADELZONE Graz | Puntigam
+              - strong [ref=e1798]: "Adresse:"
+              - text: Alte Poststraße 376, 8055 Graz
+              - strong [ref=e1799]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e1800] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+              - strong [ref=e1801]: "Anzahl der Padel-Plätze:"
+              - text: 3 Double Indoor Courts, 1 Single Indoor Court
+              - strong [ref=e1802]: "Homepage:"
+              - link "www.padelzone.at" [ref=e1803] [cursor=pointer]:
+                - /url: http://www.padelzone.at/
+              - strong [ref=e1804]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e1805] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+            - paragraph [ref=e1806]
+          - paragraph
+      - generic [ref=e1808]:
+        - img "PADELZONE Graz | Racket Sport Center Graz" [ref=e1810]
+        - generic [ref=e1811]:
+          - heading "PADELZONE Graz | Racket Sport Center Graz" [level=4] [ref=e1812]:
+            - link "PADELZONE Graz | Racket Sport Center Graz" [ref=e1813] [cursor=pointer]:
+              - /url: /locations/padelzone-graz-racket-sport-center-graz
+          - paragraph
+          - generic [ref=e1814]:
+            - strong [ref=e1816]: PADELZONE Graz | Racket Sport Center Graz
+            - generic [ref=e1817]:
+              - strong [ref=e1818]: "Adresse:"
+              - text: Ragnitzstraße 58B, A-8047 Graz
+            - generic [ref=e1819]:
+              - strong [ref=e1820]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e1821] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e1822]:
+              - strong [ref=e1823]: "Anzahl der Padel-Plätze:"
+              - text: 3 Double Outdoor Courts, 3 Double Indoor Courts
+            - generic [ref=e1824]:
+              - strong [ref=e1825]: "Homepage:"
+              - link "www.padelzone.at" [ref=e1826] [cursor=pointer]:
+                - /url: http://www.padelzone.at/
+              - strong [ref=e1827]: "Platzbuchungen:"
+              - link "https://playtomic.io/" [ref=e1828] [cursor=pointer]:
+                - /url: https://playtomic.io/
+          - paragraph
+      - generic [ref=e1830]:
+        - img "Sportfreunde Graz" [ref=e1832]
+        - generic [ref=e1833]:
+          - heading "Sportfreunde Graz" [level=4] [ref=e1834]:
+            - link "Sportfreunde Graz" [ref=e1835] [cursor=pointer]:
+              - /url: /locations/sportfreunde-graz
+          - paragraph
+          - generic [ref=e1837]:
+            - strong [ref=e1838]: "Adresse:"
+            - text: Wienerstraße 278, 8051 Graz
+            - strong [ref=e1839]: "Ansprechpartner:"
+            - text: Daniel Vasic; sfpadelgraz@gmx.at; 0660/5690122
+          - paragraph
+      - generic [ref=e1842]:
+        - img "Tapedesign - Padel Performance Center Bad Waltersdorf" [ref=e1844]
+        - generic [ref=e1845]:
+          - heading "Tapedesign - Padel Performance Center Bad Waltersdorf" [level=4] [ref=e1846]:
+            - link "Tapedesign - Padel Performance Center Bad Waltersdorf" [ref=e1847] [cursor=pointer]:
+              - /url: /locations/tapedesign-padel-performance-center-waltersdorf
+          - paragraph
+          - generic [ref=e1849]:
+            - strong [ref=e1850]: "Adresse:"
+            - text: Sebersdorf 314, 8272 Bad Waltersdorf
+            - strong [ref=e1851]: "Ansprechpartner:"
+            - text: Thomas Ofner; info@padel-center.at;
+            - strong [ref=e1852]: "Anzahl der Padel-Plätze:"
+            - text: 4 Indoor, 2 Outdoor
+          - paragraph
+      - generic [ref=e1854]:
+        - img "Tapedesign - Padel Performance Center Wildon" [ref=e1856]
+        - generic [ref=e1857]:
+          - heading "Tapedesign - Padel Performance Center Wildon" [level=4] [ref=e1858]:
+            - link "Tapedesign - Padel Performance Center Wildon" [ref=e1859] [cursor=pointer]:
+              - /url: /locations/padel-performance-center-ppc-gmbh
+          - paragraph
+          - generic [ref=e1861]:
+            - strong [ref=e1862]: "Adresse:"
+            - text: Südbahnweg 31, 8410 Wildon
+            - strong [ref=e1863]: "Ansprechpartner:"
+            - text: Mario Ofner; info@padel-center.at; 0676/889444936
+            - strong [ref=e1864]: "Anzahl der Padel-Plätze:"
+            - text: 6 Indoor
+          - paragraph
+      - generic [ref=e1866]:
+        - img "Tenniscenter Raaba-Grambach" [ref=e1868]
+        - generic [ref=e1869]:
+          - heading "Tenniscenter Raaba-Grambach" [level=4] [ref=e1870]:
+            - link "Tenniscenter Raaba-Grambach" [ref=e1871] [cursor=pointer]:
+              - /url: /locations/tenniscenter-raaba-grambach
+          - paragraph
+          - generic [ref=e1873]:
+            - strong [ref=e1874]: "Adresse:"
+            - text: Spariweg 22, 8074 Raaba-Grambach
+            - strong [ref=e1875]: "Ansprechpartner:"
+            - text: Andrea Krammer; office@tenniscenterraaba.at; 0650/9148291
+            - strong [ref=e1876]: "Anzahl der Padel-Plätze:"
+            - text: 3 Indoor
+          - paragraph
+      - generic [ref=e1878]:
+        - img "The Padel Park" [ref=e1880]
+        - generic [ref=e1881]:
+          - heading "The Padel Park" [level=4] [ref=e1882]:
+            - link "The Padel Park" [ref=e1883] [cursor=pointer]:
+              - /url: /locations/the-padel-park
+          - paragraph
+          - generic [ref=e1885]:
+            - strong [ref=e1886]: "Adresse:"
+            - text: Unterer Windhof 19, 8102 Semriach
+            - strong [ref=e1887]: "Ansprechpartner:"
+            - text: info@thepadelpark.at; 0680/2359808
+            - strong [ref=e1888]: "Anzahl der Padel-Plätze:"
+            - text: 3 Indoor
+            - strong [ref=e1889]: Homepage
+            - text: ": www.thepadelpark.at"
+          - paragraph
+      - generic [ref=e1891]:
+        - img "The Padel Park Frohnleiten" [ref=e1893]
+        - generic [ref=e1894]:
+          - heading "The Padel Park Frohnleiten" [level=4] [ref=e1895]:
+            - link "The Padel Park Frohnleiten" [ref=e1896] [cursor=pointer]:
+              - /url: /locations/the-padel-park-frohnleiten
+          - paragraph
+          - paragraph [ref=e1898]:
+            - strong [ref=e1899]: "Adresse:"
+            - text: Kesselfallstraße 17, 8102 Semriach
+            - strong [ref=e1900]: "Ansprechpartner:"
+            - text: Dawn Foxhall; info@thepadelpark.at; 0680/2359808
+            - strong [ref=e1901]: "Anzahl der Padel-Plätze:"
+            - text: 4 Indoor
+          - paragraph
+      - generic [ref=e1903]:
+        - img "Uhrturmtrophy Sportverein" [ref=e1905]
+        - generic [ref=e1906]:
+          - heading "Uhrturmtrophy Sportverein" [level=4] [ref=e1907]:
+            - link "Uhrturmtrophy Sportverein" [ref=e1908] [cursor=pointer]:
+              - /url: /locations/uhrturmtrophy-sportverein
+          - paragraph
+          - generic [ref=e1909]:
+            - generic [ref=e1910]:
+              - strong [ref=e1911]: "Name:"
+              - text: Uhrturmtrophy Sportverein
+              - strong [ref=e1912]: "Adresse:"
+              - text: St. Peter Hauptstraße 69/7, 8042 Graz
+            - generic [ref=e1913]:
+              - strong [ref=e1914]: "Ansprechpartner:"
+              - text: Stefan Schreiner,
+              - link "office@uhrturmtrophy.at" [ref=e1915] [cursor=pointer]:
+                - /url: mailto:office@uhrturmtrophy.at%20
+            - generic [ref=e1916]:
+              - strong [ref=e1917]: "Homepage:"
+              - link "www.uhrturmtrophy.at/" [ref=e1918] [cursor=pointer]:
+                - /url: https://www.uhrturmtrophy.at/
+          - paragraph
+    - generic [ref=e1919]:
+      - heading "Tirol" [level=3] [ref=e1920]
+      - generic [ref=e1922]:
+        - img "Alp Padel" [ref=e1924]
+        - generic [ref=e1925]:
+          - heading "Alp Padel" [level=4] [ref=e1926]:
+            - link "Alp Padel" [ref=e1927] [cursor=pointer]:
+              - /url: /locations/alp-padel
+          - paragraph
+          - paragraph [ref=e1929]:
+            - strong [ref=e1930]: "Adresse:"
+            - text: Birchfeld 52, 6162 Mutters
+            - strong [ref=e1931]: "Ansprechpartner:"
+            - text: Mathias Nagl; office@alp-padel.at; 0680/1305614
+            - strong [ref=e1932]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1934]:
+        - img "Casa Padel Seefeld" [ref=e1936]
+        - generic [ref=e1937]:
+          - heading "Casa Padel Seefeld" [level=4] [ref=e1938]:
+            - link "Casa Padel Seefeld" [ref=e1939] [cursor=pointer]:
+              - /url: /locations/casa-padel-seefeld
+          - paragraph
+          - generic [ref=e1940]:
+            - generic [ref=e1941]:
+              - strong [ref=e1942]: "Adresse:"
+              - text: Möserer Straße 632, 6100 Seefeld in Tirol
+              - strong [ref=e1943]: "Ansprechpartner:"
+              - text: Markus Kuhnen; info@casapadel.at; +43 676 3775238
+              - strong [ref=e1944]: "Anzahl der Padel-Plätze:"
+              - text: 6 Indoor (4 Double Courts, 2 Single Courts)
+              - strong [ref=e1945]: Homepage
+              - text: ":"
+              - link "http://www.casapadel.at/" [ref=e1946] [cursor=pointer]:
+                - /url: http://www.casapadel.at/
+            - generic [ref=e1947]:
+              - strong [ref=e1948]: Platzbuchungen
+              - text: ":"
+              - link "www.playtomic.io/casa-padel-seefeld" [ref=e1949] [cursor=pointer]:
+                - /url: https://playtomic.io/casa-padel-seefeld/8f8c346a-cb01-47ee-922f-9e3121f32f14?q=PADEL~2023-12-11~~~
+          - paragraph
+      - generic [ref=e1953]:
+        - img "Casa Padel Wilder Kaiser" [ref=e1955]
+        - generic [ref=e1956]:
+          - heading "Casa Padel Wilder Kaiser" [level=4] [ref=e1957]:
+            - link "Casa Padel Wilder Kaiser" [ref=e1958] [cursor=pointer]:
+              - /url: /locations/casa-padel-wilder-kaiser
+          - paragraph
+          - generic [ref=e1960]:
+            - strong [ref=e1961]: "Adresse:"
+            - text: Sportplatzstraße 19, 83080 Oberaudorf (Deutschland)
+            - strong [ref=e1962]: "Ansprechpartner:"
+            - text: Markus Kuhnen; markus@casapadel.at; 0676/3775238
+            - link:
+              - /url: mailto:alterlaa@padeldome.at
+            - strong [ref=e1963]: "Anzahl der Padel-Plätze:"
+            - text: 3 Indoor, 3 Outdoor
+            - strong [ref=e1964]: "Homepage:"
+            - text: www.caspadel.at
+          - paragraph
+      - generic [ref=e1966]:
+        - img "Imst Glenthof" [ref=e1968]
+        - generic [ref=e1969]:
+          - heading "Imst Glenthof" [level=4] [ref=e1970]:
+            - link "Imst Glenthof" [ref=e1971] [cursor=pointer]:
+              - /url: /locations/glenthof-sportstaetten-gmbh
+          - paragraph
+          - generic [ref=e1973]:
+            - strong [ref=e1974]: "Adresse:"
+            - text: Am Raun 24, 6460 Imst
+            - strong [ref=e1975]: "Ansprechpartner:"
+            - text: Lara Rundl, lararundl12@gmail.com, 0677/61575201
+            - strong [ref=e1976]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e1978]:
+        - img "PADELBASE Innsbruck" [ref=e1980]
+        - generic [ref=e1981]:
+          - heading "PADELBASE Innsbruck" [level=4] [ref=e1982]:
+            - link "PADELBASE Innsbruck" [ref=e1983] [cursor=pointer]:
+              - /url: /locations/padelbase-innsbruck
+          - paragraph
+          - paragraph [ref=e1985]:
+            - strong [ref=e1986]: Padelbase Innsbruck
+            - strong [ref=e1987]: Adresse
+            - text: ": Archenweg 60a, 6020 Innsbruck"
+            - strong [ref=e1988]: Plätze
+            - text: ": 2 Outdoor Courts"
+            - strong [ref=e1989]: Ansprechpartner
+            - text: ":"
+            - link "office@padelbase.at" [ref=e1990] [cursor=pointer]:
+              - /url: mailto:info@padelbase.at
+          - paragraph
+      - generic [ref=e1992]:
+        - img "PADELFIELD Tirol" [ref=e1994]
+        - generic [ref=e1995]:
+          - heading "PADELFIELD Tirol" [level=4] [ref=e1996]:
+            - link "PADELFIELD Tirol" [ref=e1997] [cursor=pointer]:
+              - /url: /locations/padelfield-tirol
+          - paragraph
+          - generic [ref=e1998]:
+            - generic [ref=e1999]:
+              - strong [ref=e2000]: "Adresse:"
+              - text: Rinderweg 13, 6116 Weer
+              - strong [ref=e2001]: "Ansprechpartner:"
+              - text: Dominik Hoflach; weer@padel-field.at; 0664/9691882
+              - strong [ref=e2002]: "Anzahl der Padel-Plätze:"
+              - text: 3 Outdoor
+            - generic [ref=e2003]:
+              - strong [ref=e2004]: Webseite
+              - text: ":"
+              - link "https://padel-field.at/" [ref=e2005] [cursor=pointer]:
+                - /url: https://padel-field.at/
+              - strong [ref=e2006]: Platzbuchung
+              - text: ":"
+              - link "Eversports" [ref=e2007] [cursor=pointer]:
+                - /url: https://www.eversports.at/sb/padelfield
+          - paragraph
+      - generic [ref=e2009]:
+        - img "Sv Reutte Tennis and Padel" [ref=e2011]
+        - generic [ref=e2012]:
+          - heading "Sv Reutte Tennis and Padel" [level=4] [ref=e2013]:
+            - link "Sv Reutte Tennis and Padel" [ref=e2014] [cursor=pointer]:
+              - /url: /locations/sv-reutte-tennis
+          - paragraph
+          - generic [ref=e2016]:
+            - strong [ref=e2017]: "Adresse:"
+            - text: Dir. Franz Hosp Straße 1, 6600 Reutte
+            - strong [ref=e2018]: "Ansprechpartner:"
+            - text: je.leuprecht@tnr.at, 0676/9263636
+            - link:
+              - /url: mailto:alterlaa@padeldome.at
+            - strong [ref=e2019]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - link "Homepage" [ref=e2020] [cursor=pointer]:
+              - /url: https://www.svreutte-tennis.at/
+              - strong [ref=e2021]: Homepage
+          - paragraph
+    - generic [ref=e2022]:
+      - heading "Kärnten" [level=3] [ref=e2023]
+      - generic [ref=e2025]:
+        - img "Arena ONE Klagenfurt" [ref=e2027]
+        - generic [ref=e2028]:
+          - heading "Arena ONE Klagenfurt" [level=4] [ref=e2029]:
+            - link "Arena ONE Klagenfurt" [ref=e2030] [cursor=pointer]:
+              - /url: /locations/arena-one-klagenfurt
+          - paragraph
+          - generic [ref=e2032]:
+            - strong [ref=e2033]: "Adresse:"
+            - text: Südring 211, 9020 Klagenfurt am Wörthersee
+            - strong [ref=e2034]: "Ansprechpartner:"
+            - text: Edin Cosic, Vanessa Callegaris; padel@arenaone.at
+            - strong [ref=e2035]: "Anzahl der Padel-Plätze:"
+            - text: 6 Indoor, 3 Outdoor
+            - strong [ref=e2036]: Homepage
+            - text: ":"
+            - link "HIER" [ref=e2037] [cursor=pointer]:
+              - /url: https://www.arenaone.at/
+          - paragraph
+      - generic [ref=e2039]:
+        - img "Lakeside Padel Seeboden" [ref=e2041]
+        - generic [ref=e2042]:
+          - heading "Lakeside Padel Seeboden" [level=4] [ref=e2043]:
+            - link "Lakeside Padel Seeboden" [ref=e2044] [cursor=pointer]:
+              - /url: /locations/lakeside-padel-seeboden
+          - paragraph
+          - paragraph [ref=e2046]:
+            - strong [ref=e2047]: "Adresse:"
+            - text: Am Klauberpark, 9871 Seeboden
+            - strong [ref=e2048]: "Ansprechpartner:"
+            - text: David Hofer; office@lakesidepadel.at; 0681/10723995
+            - strong [ref=e2049]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e2050]: "Homepage:"
+            - link "https://lakesidepadel.at/" [ref=e2051] [cursor=pointer]:
+              - /url: https://lakesidepadel.at/
+            - strong [ref=e2052]: Platzbuchung
+            - text: ":"
+            - link "https://www.eversports.at/sb/lakeside-padel" [ref=e2053] [cursor=pointer]:
+              - /url: https://www.eversports.at/sb/lakeside-padel
+          - paragraph
+      - generic [ref=e2055]:
+        - img "Padelbase Annenheim" [ref=e2057]
+        - generic [ref=e2058]:
+          - heading "Padelbase Annenheim" [level=4] [ref=e2059]:
+            - link "Padelbase Annenheim" [ref=e2060] [cursor=pointer]:
+              - /url: /locations/padelbase-annenheim
+          - paragraph
+          - generic [ref=e2061]:
+            - generic [ref=e2062]:
+              - strong [ref=e2063]: "Adresse:"
+              - text: Lindenhofweg 6, 9520 Annenheim
+              - strong [ref=e2064]: "Ansprechpartner:"
+              - text: Maxi Gfrerer, padel.annenheim@gmx.at; 0677/62016621
+            - generic [ref=e2065]:
+              - strong [ref=e2066]: "Anzahl der Padel-Plätze:"
+              - text: 4 Outdoor
+              - strong [ref=e2067]: "Homepage:"
+              - link "http://padelbase.at/standort/annenheim" [ref=e2068] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e2069]:
+              - strong [ref=e2070]: Platzbuchung
+              - text: ":"
+              - link "https://www.buchung-padelbase.at/reservierung?c=4793" [ref=e2071] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4793
+              - strong [ref=e2072]: Aktuelle Infos
+              - text: ":"
+              - link "https://linktr.ee/padelbase.annenheim" [ref=e2073] [cursor=pointer]:
+                - /url: https://linktr.ee/padelbase.annenheim
+          - paragraph
+      - generic [ref=e2075]:
+        - img "Padelzentrum Magdalensberg" [ref=e2077]
+        - generic [ref=e2078]:
+          - heading "Padelzentrum Magdalensberg" [level=4] [ref=e2079]:
+            - link "Padelzentrum Magdalensberg" [ref=e2080] [cursor=pointer]:
+              - /url: /locations/padelzentrum-magdalensberg
+          - paragraph
+          - paragraph [ref=e2082]:
+            - strong [ref=e2083]: "Adresse:"
+            - text: Görtschitztal Straße 230A, 9064 Pischeldorf
+            - strong [ref=e2084]: "Ansprechpartner:"
+            - text: Christopher Ganzi; info@caldaprojects.at; 0664 1950030
+            - strong [ref=e2085]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+          - paragraph
+      - generic [ref=e2087]:
+        - img "Sportunion Klagenfurt" [ref=e2089]
+        - generic [ref=e2090]:
+          - heading "Sportunion Klagenfurt" [level=4] [ref=e2091]:
+            - link "Sportunion Klagenfurt" [ref=e2092] [cursor=pointer]:
+              - /url: /locations/sportunion-klagenfurt
+          - paragraph
+          - generic [ref=e2094]:
+            - strong [ref=e2095]: "Verein:"
+            - text: Sportunion Klagenfurt
+            - strong [ref=e2096]: "Adresse:"
+            - text: Universitätsstraße 100a, 9020 Klagenfurt am Wörthersee
+            - strong [ref=e2097]: "Ansprechpartner:"
+            - text: Hannes Zienitzer,
+            - link "office@sportunion-padeltennis.at" [ref=e2098] [cursor=pointer]:
+              - /url: mailto:office@sportunion-padeltennis.at
+            - strong [ref=e2099]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - strong [ref=e2100]: "Homepage:"
+            - link "www.sportunion-padeltennis.at" [ref=e2101] [cursor=pointer]:
+              - /url: https://www.sportunion-padeltennis.at
+            - strong [ref=e2102]: Instagram
+            - text: ":"
+            - link "Team Union Padel" [ref=e2103] [cursor=pointer]:
+              - /url: https://www.instagram.com/teamunionpadel
+            - strong [ref=e2104]: Facebook
+            - text: ":"
+            - link "Team Union Padel" [ref=e2105] [cursor=pointer]:
+              - /url: https://www.facebook.com/teamunionpadel
+            - strong [ref=e2106]: "Padelclubs.net:"
+            - link "Padel Tennis Center Wörthersee" [ref=e2107] [cursor=pointer]:
+              - /url: https://www.padelclubs.net/en/clubs/austria/klagenfurt-am-woerthersee/padel-tennis-center-woerthersee-sportunion-klagenfurt/
+            - strong [ref=e2108]: "Platzbuchungen:"
+            - link "hier" [ref=e2109] [cursor=pointer]:
+              - /url: https://sportunion-klagenfurt-tennis.tennisplatz.info/reservierung?c=2900
+              - strong [ref=e2110]: hier
+            - strong
+          - paragraph
+      - generic [ref=e2112]:
+        - img "TC Bad Eisenkappel" [ref=e2114]
+        - generic [ref=e2115]:
+          - heading "TC Bad Eisenkappel" [level=4] [ref=e2116]:
+            - link "TC Bad Eisenkappel" [ref=e2117] [cursor=pointer]:
+              - /url: /locations/tc-bad-eisenkappel
+          - paragraph
+          - generic [ref=e2119]:
+            - strong [ref=e2120]: "Verein:"
+            - text: TC Bad Eisenkappel
+            - strong [ref=e2121]: "Adresse:"
+            - text: Vellach 10
+            - strong [ref=e2122]: "Ansprechpartner:"
+            - text: Jürgen Rauscher,
+            - link "juergen.rauscher@gmx.net" [ref=e2123] [cursor=pointer]:
+              - /url: mailto:juergen.rauscher@gmx.net
+            - strong [ref=e2124]: "Anzahl der Padel-Plätze:"
+            - text: "1"
+            - strong [ref=e2125]
+            - text: Outdoor
+            - strong [ref=e2126]: "Homepage:"
+            - link "www.tc-badeisenkappel.at" [ref=e2127] [cursor=pointer]:
+              - /url: http://www.tc-badeisenkappel.at
+            - strong [ref=e2128]: Platzbuchungen
+            - link "hier" [ref=e2129] [cursor=pointer]:
+              - /url: http://www.tc-badeisenkappel.at/reservierung/Web/view-schedule.php?sid=3
+              - strong [ref=e2130]: hier
+            - strong
+          - paragraph
+    - generic [ref=e2131]:
+      - heading "Salzburg" [level=3] [ref=e2132]
+      - generic [ref=e2134]:
+        - img "ESV Uttendorf" [ref=e2136]
+        - generic [ref=e2137]:
+          - heading "ESV Uttendorf" [level=4] [ref=e2138]:
+            - link "ESV Uttendorf" [ref=e2139] [cursor=pointer]:
+              - /url: /locations/esv-uttendorf
+          - paragraph
+          - generic [ref=e2141]:
+            - strong [ref=e2142]: "Adresse:"
+            - text: Sportplatzweg 1, 5723 Uttendorf
+            - strong [ref=e2143]: "Ansprechpartner:"
+            - text: Jürgen Wanger; padel.uttendorf@gmail.com; 0660/8184364
+            - strong [ref=e2144]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor (ab Mai 2025)
+            - strong [ref=e2145]: Platzbuchung
+            - text: ":"
+            - link "HIER" [ref=e2146] [cursor=pointer]:
+              - /url: https://esv-uttendorf.tennisplatz.info/reservierung?c=3877
+          - paragraph
+      - generic [ref=e2148]:
+        - img "Mountain-Padel" [ref=e2150]
+        - generic [ref=e2151]:
+          - heading "Mountain-Padel" [level=4] [ref=e2152]:
+            - link "Mountain-Padel" [ref=e2153] [cursor=pointer]:
+              - /url: /locations/mountain-padel
+          - paragraph
+          - paragraph [ref=e2155]:
+            - strong [ref=e2156]: "Adresse:"
+            - text: Feuersang 224, 5542 Flachau
+            - strong [ref=e2157]: "Ansprechpartner:"
+            - text: Mag. Manuel Söllner; info@mountain-padel.com; 0670/5534722
+            - strong [ref=e2158]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e2160]:
+        - img "Padelarea Anthering" [ref=e2162]
+        - generic [ref=e2163]:
+          - heading "Padelarea Anthering" [level=4] [ref=e2164]:
+            - link "Padelarea Anthering" [ref=e2165] [cursor=pointer]:
+              - /url: /locations/padelarea-anthering
+          - paragraph
+          - generic [ref=e2167]:
+            - strong [ref=e2168]: "Adresse:"
+            - text: Freizeitpark, 5102 Anthering
+            - strong [ref=e2169]: "Ansprechpartner:"
+            - text: Manuel Schwaighofer; info@padelarea-anthering.at; 0660/4125190
+            - strong [ref=e2170]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - link "Platzbuchungen" [ref=e2171] [cursor=pointer]:
+              - /url: https://www.padelarea-anthering.at/reservierung
+              - strong [ref=e2172]: Platzbuchungen
+          - paragraph
+      - generic [ref=e2174]:
+        - img "PADELBASE Bad Hofgastein (TC Bad Hofgastein)" [ref=e2176]
+        - generic [ref=e2177]:
+          - heading "PADELBASE Bad Hofgastein (TC Bad Hofgastein)" [level=4] [ref=e2178]:
+            - link "PADELBASE Bad Hofgastein (TC Bad Hofgastein)" [ref=e2179] [cursor=pointer]:
+              - /url: /locations/padelbase-bad-hofgastein-tc-bad-hofgastein
+          - paragraph
+          - generic [ref=e2180]:
+            - generic [ref=e2181]:
+              - text: "Ansprechpartner: Anna Fuchs ("
+              - link "a.fuchs@schneesportgastein.com" [ref=e2182] [cursor=pointer]:
+                - /url: mailto:a.fuchs@schneesportgastein.com
+              - text: )
+            - generic [ref=e2183]: "Plätze: 2 Outdoor-Plätze"
+            - generic [ref=e2184]:
+              - text: "Homepage:"
+              - link "https://padelbase.at/bad-hofgastein/" [ref=e2185] [cursor=pointer]:
+                - /url: https://padelbase.at/bad-hofgastein/
+            - generic [ref=e2186]:
+              - text: "Platzbuchung:"
+              - link "https://www.buchung-padelbase.at/reservierung?c=4325" [ref=e2187] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4325
+          - paragraph
+      - generic [ref=e2189]:
+        - img "PADELBASE - Salzburg" [ref=e2191]
+        - generic [ref=e2192]:
+          - heading "PADELBASE - Salzburg" [level=4] [ref=e2193]:
+            - link "PADELBASE - Salzburg" [ref=e2194] [cursor=pointer]:
+              - /url: /locations/padelbase-salzburg
+          - paragraph
+          - generic [ref=e2196]:
+            - strong [ref=e2197]: "Adresse:"
+            - text: Vogelweiderstr. 114, A-5020 Salzburg
+            - strong [ref=e2198]: "Ansprechpartner:"
+            - text: office@padelbase.at
+            - strong [ref=e2199]: "Anzahl der Padel-Plätze:"
+            - text: 8 outdoor
+            - strong [ref=e2200]: "Homepage:"
+            - link "www.padelbase.at" [ref=e2201] [cursor=pointer]:
+              - /url: http://www.padelbase.at/
+            - strong [ref=e2202]: "Platzbuchungen:"
+            - link "hier" [ref=e2203] [cursor=pointer]:
+              - /url: https://www.buchung-padelbase.at/reservierung?c=2886
+          - paragraph
+      - generic [ref=e2206]:
+        - img "PADELBASE Salzburg Halle - CUPRA Arena" [ref=e2208]
+        - generic [ref=e2209]:
+          - heading "PADELBASE Salzburg Halle - CUPRA Arena" [level=4] [ref=e2210]:
+            - link "PADELBASE Salzburg Halle - CUPRA Arena" [ref=e2211] [cursor=pointer]:
+              - /url: /locations/padelbase-salzburg-halle-cupra-arena
+          - paragraph
+          - paragraph [ref=e2213]:
+            - strong [ref=e2214]: Padelbase Salzburg Halle - CUPRA Arena
+            - strong [ref=e2215]: Adresse
+            - text: ": Wasserfeldstraße 19, 5020 Salzburg"
+            - strong [ref=e2216]: Plätze
+            - text: ": 3 Indoor Courts"
+            - strong [ref=e2217]: Ansprechpartner
+            - text: ":"
+            - link "office@padelbase.at" [ref=e2218] [cursor=pointer]:
+              - /url: mailto:info@padelbase.at
+          - paragraph
+      - generic [ref=e2220]:
+        - img "Padelplayz St. Georgen" [ref=e2222]
+        - generic [ref=e2223]:
+          - heading "Padelplayz St. Georgen" [level=4] [ref=e2224]:
+            - link "Padelplayz St. Georgen" [ref=e2225] [cursor=pointer]:
+              - /url: /locations/padelfriendz-st-georgen
+          - paragraph
+          - generic [ref=e2226]:
+            - paragraph [ref=e2227]:
+              - strong [ref=e2228]: "Adresse:"
+              - text: Sportplatzstrasse 12, 5113 St. Georgen
+              - strong [ref=e2229]: "Ansprechpartner:"
+              - text: Sebastian Höller; office@padelplayz.at; 0664/3435970
+              - strong [ref=e2230]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+            - paragraph [ref=e2231]:
+              - strong [ref=e2232]: Homepage
+              - text: ": www.padelplayz.at"
+          - paragraph
+      - generic [ref=e2234]:
+        - img "Randsportverein Werfen" [ref=e2236]
+        - generic [ref=e2237]:
+          - heading "Randsportverein Werfen" [level=4] [ref=e2238]:
+            - link "Randsportverein Werfen" [ref=e2239] [cursor=pointer]:
+              - /url: /locations/randsportverein-werfen
+          - paragraph
+          - generic [ref=e2240]:
+            - generic [ref=e2241]:
+              - strong [ref=e2242]: "Adresse:"
+              - text: Eishöhlenstraße 20, 5450 Werfen
+              - strong [ref=e2243]: "Ansprechpartner:"
+              - text: Silvio Kendbacher; silvio.krameter7@gmail.com; 0664/5051373
+            - generic [ref=e2244]:
+              - strong [ref=e2245]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+              - strong [ref=e2246]: Platzbuchung
+              - text: ":"
+              - link "HIER" [ref=e2247] [cursor=pointer]:
+                - /url: https://www.padel-werfen.at/
+          - paragraph
+      - generic [ref=e2249]:
+        - img "Sharety Padelbase Freilassing" [ref=e2251]
+        - generic [ref=e2252]:
+          - heading "Sharety Padelbase Freilassing" [level=4] [ref=e2253]:
+            - link "Sharety Padelbase Freilassing" [ref=e2254] [cursor=pointer]:
+              - /url: /locations/sharety-padelbase-freilassing
+          - paragraph
+          - generic [ref=e2255]:
+            - generic [ref=e2256]:
+              - strong [ref=e2257]: "Adresse:"
+              - text: Heideweg 24, 83395 Freilassing
+              - strong [ref=e2258]: "Ansprechpartner:"
+              - link "I" [ref=e2259] [cursor=pointer]:
+                - /url: mailto:Info@padelbase.at
+              - text: ngrid Richter; ingrid@sharety-padel.org; +49 160 661 7379
+            - generic [ref=e2260]:
+              - strong [ref=e2261]: "Anzahl der Padel-Plätze:"
+              - text: 4 Outdoor
+          - paragraph
+      - generic [ref=e2263]:
+        - img "Tauern Padel" [ref=e2265]
+        - generic [ref=e2266]:
+          - heading "Tauern Padel" [level=4] [ref=e2267]:
+            - link "Tauern Padel" [ref=e2268] [cursor=pointer]:
+              - /url: /locations/tauern-padel
+          - paragraph
+          - generic [ref=e2270]:
+            - strong [ref=e2271]: "Verein:"
+            - text: Tauern Padel
+            - strong [ref=e2272]: "Ansprechpartner:"
+            - text: Andreas Wieser; info@tauern-padel.at; 0664/5257388
+            - strong [ref=e2273]: "Anzahl der Padel-Plätze:"
+            - text: "0"
+            - strong [ref=e2274]: Homepage
+            - text: ":"
+            - link "www.tauern-padel.at" [ref=e2275] [cursor=pointer]:
+              - /url: http://www.tauern-padel.at/
+          - paragraph
+      - generic [ref=e2278]:
+        - img "TC St. Johann/Pg. (Sektion Padel)" [ref=e2280]
+        - generic [ref=e2281]:
+          - heading "TC St. Johann/Pg. (Sektion Padel)" [level=4] [ref=e2282]:
+            - link "TC St. Johann/Pg. (Sektion Padel)" [ref=e2283] [cursor=pointer]:
+              - /url: /locations/tc-st-johann-pg-sektion-padel
+          - paragraph
+          - generic [ref=e2284]:
+            - generic [ref=e2285]:
+              - strong [ref=e2286]: "Adresse:"
+              - text: Premweg 5, 5600 St. Joahnn/Pg
+              - strong [ref=e2287]: "Ansprechpartner:"
+              - text: Walter Brandstätter; walterbrandstaetter@gmx.at; 0664/2408034
+            - generic [ref=e2288]:
+              - strong [ref=e2289]: "Anzahl der Padel-Plätze:"
+              - text: In Bau
+          - paragraph
+      - generic [ref=e2291]:
+        - img "USK Fusch" [ref=e2293]
+        - generic [ref=e2294]:
+          - heading "USK Fusch" [level=4] [ref=e2295]:
+            - link "USK Fusch" [ref=e2296] [cursor=pointer]:
+              - /url: /locations/usk-fisch
+          - paragraph
+          - generic [ref=e2298]:
+            - strong [ref=e2299]: "Adresse:"
+            - text: Zeller Fusch 134, 5672 Fusch an der Großglocknerstraße
+            - strong [ref=e2300]: "Ansprechpartner:"
+            - text: Patrick Enn; patrick@roemerhof-fusch.at; 0664/3821419
+            - strong [ref=e2301]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e2302]: Platzbuchung
+            - text: ":"
+            - link "HIER" [ref=e2303] [cursor=pointer]:
+              - /url: https://fusch.tennisplatz.info/reservierung
+          - paragraph
+      - generic [ref=e2305]:
+        - img "USV Padel Hollersbach im Pinzgau" [ref=e2307]
+        - generic [ref=e2308]:
+          - heading "USV Padel Hollersbach im Pinzgau" [level=4] [ref=e2309]:
+            - link "USV Padel Hollersbach im Pinzgau" [ref=e2310] [cursor=pointer]:
+              - /url: /locations/usv-padel-hollersbach-im-pinzgau
+          - paragraph
+          - generic [ref=e2312]:
+            - strong [ref=e2313]: "Verein:"
+            - text: USV Hollersbach
+            - strong [ref=e2314]: "Adresse:"
+            - text: Hollersbach 45, 5731 Hollersbach im Pinzgau
+            - strong [ref=e2315]: "Ansprechpartner:"
+            - text: Andreas Wieser
+            - text: "E-Mail:"
+            - link "padelhollersbach@gmx.at" [ref=e2316] [cursor=pointer]:
+              - /url: mailto:padelhollersbach@gmx.at
+            - strong [ref=e2317]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+            - strong [ref=e2318]: "Homepage:"
+            - link "https://hollersbach.tennisplatz.info/" [ref=e2319] [cursor=pointer]:
+              - /url: https://hollersbach.tennisplatz.info/
+              - strong [ref=e2320]: https://hollersbach.tennisplatz.info/
+            - strong
+            - strong [ref=e2321]: "Platzbuchungen:"
+            - link "hier" [ref=e2322] [cursor=pointer]:
+              - /url: https://hollersbach.tennisplatz.info/reservierung
+              - strong [ref=e2323]: hier
+            - strong
+          - paragraph
+    - generic [ref=e2324]:
+      - heading "Vorarlberg" [level=3] [ref=e2325]
+      - generic [ref=e2327]:
+        - img "1. Padel Tennis Club Vorarlberg" [ref=e2329]
+        - generic [ref=e2330]:
+          - heading "1. Padel Tennis Club Vorarlberg" [level=4] [ref=e2331]:
+            - link "1. Padel Tennis Club Vorarlberg" [ref=e2332] [cursor=pointer]:
+              - /url: /locations/1-padel-tennis-club-vorarlberg
+          - paragraph
+          - generic [ref=e2333]:
+            - generic [ref=e2334]:
+              - strong [ref=e2335]: "Verein:"
+              - text: 1. Padel Tennis Club Vorarlberg
+              - strong [ref=e2336]: "Adresse:"
+              - text: Zieglerweg 17, 6830 Rankweil
+              - strong [ref=e2337]: "Ansprechpartner:"
+              - text: "Lukas Berthold: 0664 965 1766 oder Linus Berthold: 0664 965 1770"
+            - generic [ref=e2338]:
+              - strong [ref=e2339]: "E-Mail:"
+              - link "info@ptcv.at" [ref=e2340] [cursor=pointer]:
+                - /url: mailto:info@ptcv.at
+            - generic [ref=e2341]:
+              - strong [ref=e2342]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor (überdacht)
+              - strong [ref=e2343]: "Homepage:"
+              - link "www.ptcv.at" [ref=e2344] [cursor=pointer]:
+                - /url: http://www.ptcv.at/
+                - strong [ref=e2345]: www.ptcv.at
+              - strong
+              - strong [ref=e2346]: "Platzbuchungen:"
+              - link "hier" [ref=e2347] [cursor=pointer]:
+                - /url: https://ptc.tennisplatz.info/reservierung
+                - strong [ref=e2348]: hier
+              - strong
+          - paragraph
+      - generic [ref=e2350]:
+        - img "PADELZONE Dornbirn | TC Dornbirn" [ref=e2352]
+        - generic [ref=e2353]:
+          - heading "PADELZONE Dornbirn | TC Dornbirn" [level=4] [ref=e2354]:
+            - link "PADELZONE Dornbirn | TC Dornbirn" [ref=e2355] [cursor=pointer]:
+              - /url: /locations/padelzone-dornbirn-tc-dornbirn
+          - paragraph
+          - generic [ref=e2357]:
+            - strong [ref=e2358]: PADELZONE Dornbirn | TC Dornbirn
+            - strong [ref=e2359]: "Adresse:"
+            - text: Höchsterstraße 86, 6850 Dornbirn
+            - strong [ref=e2360]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e2361] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e2362]: "Anzahl der Padel-Plätze:"
+            - text: 1 Double Outdoor Court
+            - strong [ref=e2363]: "Homepage:"
+            - link "www.padelzone.at" [ref=e2364] [cursor=pointer]:
+              - /url: http://www.padelzone.at/
+            - strong [ref=e2365]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e2366] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e2369]:
+        - img "PADELZONE Götzis | Indoor Sportzentrum" [ref=e2371]
+        - generic [ref=e2372]:
+          - heading "PADELZONE Götzis | Indoor Sportzentrum" [level=4] [ref=e2373]:
+            - link "PADELZONE Götzis | Indoor Sportzentrum" [ref=e2374] [cursor=pointer]:
+              - /url: /locations/padelzone-goetzis-indoor-sportzentrum
+          - paragraph
+          - generic [ref=e2375]:
+            - strong [ref=e2377]: PADELZONE Götzis | Indoor Sportzentrum
+            - generic [ref=e2378]:
+              - strong [ref=e2379]: "Adresse:"
+              - text: Höchsterstraße 86, 6850 Dornbirn
+            - generic [ref=e2380]:
+              - strong [ref=e2381]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e2382] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e2383]:
+              - strong [ref=e2384]: "Anzahl der Padel-Plätze:"
+              - text: 6 Double Indoor Courts, 1 Single Court
+            - generic [ref=e2385]:
+              - strong [ref=e2386]: "Homepage:"
+              - link "www.padelzone.at" [ref=e2387] [cursor=pointer]:
+                - /url: http://www.padelzone.at/
+              - strong [ref=e2388]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e2389] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e2391]:
+        - img "tcbw Feldkirch" [ref=e2393]
+        - generic [ref=e2394]:
+          - heading "tcbw Feldkirch" [level=4] [ref=e2395]:
+            - link "tcbw Feldkirch" [ref=e2396] [cursor=pointer]:
+              - /url: /locations/tcbw-feldkirch
+          - paragraph
+          - generic [ref=e2397]:
+            - generic [ref=e2398]:
+              - strong [ref=e2399]: "Verein:"
+              - text: TCBW Feldkirch
+            - generic [ref=e2400]:
+              - strong [ref=e2401]: "Adresse:"
+              - text: Sägerstraße 75a, 6800 Feldkirch
+            - generic [ref=e2402]:
+              - strong [ref=e2403]: "Ansprechpartner: Raphael Gächter"
+              - text: ", padel@tcbw.at"
+            - generic [ref=e2404]:
+              - strong [ref=e2405]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+            - generic [ref=e2406]:
+              - strong [ref=e2407]: "Homepage:"
+              - link "www.tcbw.at" [ref=e2408] [cursor=pointer]:
+                - /url: https://www.tcbw.at
+              - strong [ref=e2409]: Platzbuchungen
+              - link "hier" [ref=e2410] [cursor=pointer]:
+                - /url: https://app.tennis04.com/de/bwfv5/buchungsplan
+                - strong [ref=e2411]: hier
+          - paragraph
+      - generic [ref=e2413]:
+        - img "Tennisclub Hard" [ref=e2415]
+        - generic [ref=e2416]:
+          - heading "Tennisclub Hard" [level=4] [ref=e2417]:
+            - link "Tennisclub Hard" [ref=e2418] [cursor=pointer]:
+              - /url: /locations/tennisclub-hard-v
+          - paragraph
+          - generic [ref=e2419]:
+            - generic [ref=e2420]:
+              - strong [ref=e2421]: "Verein:"
+              - text: TC Hard
+            - generic [ref=e2422]:
+              - strong [ref=e2423]: "Adresse:"
+              - text: Walserstraße 20, 6971 Hard
+            - generic [ref=e2424]:
+              - strong [ref=e2425]: "Ansprechpartner:"
+              - text: Simone Egle,
+              - link "padel@tchard.at" [ref=e2426] [cursor=pointer]:
+                - /url: mailto:padel@tchard.at
+            - generic [ref=e2427]:
+              - strong [ref=e2428]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+            - generic [ref=e2429]:
+              - strong [ref=e2430]: "Homepage:"
+              - link "www.tchard.at" [ref=e2431] [cursor=pointer]:
+                - /url: http://www.tchard.at
+              - strong [ref=e2432]: Platzbuchungen
+              - link "hier" [ref=e2433] [cursor=pointer]:
+                - /url: https://app.tennis04.com/de/hard/buchungsplan
+                - strong [ref=e2434]: hier
+          - paragraph
+    - generic [ref=e2435]:
+      - heading "Burgenland" [level=3] [ref=e2436]
+      - generic [ref=e2438]:
+        - img "ASKÖ Eisenstadt (Sektion Padel)" [ref=e2440]
+        - generic [ref=e2441]:
+          - heading "ASKÖ Eisenstadt (Sektion Padel)" [level=4] [ref=e2442]:
+            - link "ASKÖ Eisenstadt (Sektion Padel)" [ref=e2443] [cursor=pointer]:
+              - /url: /locations/askoe-eisenstadt-sektion-padel
+          - paragraph
+          - paragraph [ref=e2445]:
+            - strong [ref=e2446]: "Adresse:"
+            - text: Industriestraße 37-39, 7000 Eisenstadt
+            - strong [ref=e2447]: "Ansprechpartner:"
+            - text: Martin Horvath
+            - strong [ref=e2448]: "E-Mail:"
+            - link "mh-padeltraining@bkf.at" [ref=e2449] [cursor=pointer]:
+              - /url: mailto:mh-padeltraining@bkf.at
+            - strong [ref=e2450]: "Handy:"
+            - text: +43 664 4930085
+            - strong [ref=e2451]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e2452]: "Platzbuchungen:"
+            - link "hier" [ref=e2453] [cursor=pointer]:
+              - /url: https://www.tennishalle-eisenstadt.at/reservierung?c=3652
+              - strong [ref=e2454]: hier
+          - paragraph
+      - generic [ref=e2456]:
+        - img "PADELBASE - Deutschkreutz" [ref=e2458]
+        - generic [ref=e2459]:
+          - heading "PADELBASE - Deutschkreutz" [level=4] [ref=e2460]:
+            - link "PADELBASE - Deutschkreutz" [ref=e2461] [cursor=pointer]:
+              - /url: /locations/padelbase-deutschkreutz
+          - paragraph
+          - generic [ref=e2462]:
+            - generic [ref=e2463]: "Adresse: Gewerbestraße 1/2, 7301 Deutschkreutz"
+            - generic [ref=e2464]:
+              - text: "Ansprechpartner:"
+              - link "padel@dorner.info" [ref=e2465] [cursor=pointer]:
+                - /url: mailto:padel@dorner.info
+            - generic [ref=e2466]:
+              - text: "Anzahl der Padel-Plätze: 2 Outdoor"
+              - text: "Homepage:"
+              - link "www.padelbase.at" [ref=e2467] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e2468]:
+              - text: "Platzbuchungen:"
+              - link "hier" [ref=e2469] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=3717
+          - paragraph
+      - generic [ref=e2471]:
+        - img "Padelclub Mattersburg" [ref=e2473]
+        - generic [ref=e2474]:
+          - heading "Padelclub Mattersburg" [level=4] [ref=e2475]:
+            - link "Padelclub Mattersburg" [ref=e2476] [cursor=pointer]:
+              - /url: /locations/utc-matersburg-bgdl
+          - paragraph
+          - generic [ref=e2478]:
+            - strong [ref=e2479]: "Adresse:"
+            - text: Wulkalände 1, 7210 Mattersburg
+            - strong [ref=e2480]: "Ansprechpartner:"
+            - text: Peter Grandits (Obmann), +43 676 88809231
+            - strong
+            - strong [ref=e2481]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e2482]: "Homepage:"
+            - link "www.mattersburgpadel.at" [ref=e2483] [cursor=pointer]:
+              - /url: http://www.mattersburgpadel.at/
+            - strong [ref=e2484]: "Platzbuchungen:"
+            - link "hier" [ref=e2485] [cursor=pointer]:
+              - /url: https://app.tennis04.com/de/mattersburgpadel/login
+              - strong [ref=e2486]: hier
+            - strong
+          - paragraph
+      - generic [ref=e2490]:
+        - img "Sporthotel Podersdorf" [ref=e2492]
+        - generic [ref=e2493]:
+          - heading "Sporthotel Podersdorf" [level=4] [ref=e2494]:
+            - link "Sporthotel Podersdorf" [ref=e2495] [cursor=pointer]:
+              - /url: /locations/sporthotel-padersdorf
+          - paragraph
+          - generic [ref=e2496]:
+            - generic [ref=e2497]:
+              - strong [ref=e2498]: "Adresse:"
+              - text: Steinbruch 1/36, 7141 Podersdorf am See
+            - generic [ref=e2499]:
+              - strong [ref=e2500]: "Ansprechpartner:"
+              - text: Karl Gnedt,
+              - link "office@sporthotel-podersdorf.at" [ref=e2501] [cursor=pointer]:
+                - /url: mailto:office@sporthotel-podersdorf.at
+            - generic [ref=e2502]:
+              - strong [ref=e2503]: "Anzahl der Padel-Plätze:"
+              - text: 1 Outdoor
+              - strong [ref=e2504]: "Homepage:"
+              - link "www.sporthotel-podersdorf.at/" [ref=e2505] [cursor=pointer]:
+                - /url: http://www.sporthotel-podersdorf.at/
+              - strong [ref=e2506]: "Platzbuchungen:"
+              - link "reservierung@sporthotel-podersdorf.at" [ref=e2507] [cursor=pointer]:
+                - /url: mailto:reservierung@sporthotel-podersdorf.at
+              - text: oder telefonisch unter 02177 20063
+          - paragraph
+      - generic [ref=e2509]:
+        - img "TC Padel Zurndorf" [ref=e2511]
+        - generic [ref=e2512]:
+          - heading "TC Padel Zurndorf" [level=4] [ref=e2513]:
+            - link "TC Padel Zurndorf" [ref=e2514] [cursor=pointer]:
+              - /url: /locations/tc-padel-zurndorf
+          - paragraph
+          - paragraph [ref=e2516]:
+            - strong [ref=e2517]: "Adresse:"
+            - text: Mühlgasse 42, 2424 Zurndorf
+            - strong [ref=e2518]: "Ansprechpartner:"
+            - link "Barbara Neumann" [ref=e2519] [cursor=pointer]:
+              - /url: mailto:barbara.neumann@zn4.at
+            - strong [ref=e2520]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor
+            - strong [ref=e2521]: "Platzbuchungen:"
+            - link "HIER" [ref=e2522] [cursor=pointer]:
+              - /url: https://zurndorf.tennisplatz.info
+              - strong [ref=e2523]: HIER
+          - paragraph
+      - generic [ref=e2525]:
+        - img "Tennisverein Wolfau" [ref=e2527]
+        - generic [ref=e2528]:
+          - heading "Tennisverein Wolfau" [level=4] [ref=e2529]:
+            - link "Tennisverein Wolfau" [ref=e2530] [cursor=pointer]:
+              - /url: /locations/tennisverein-wolfau
+          - paragraph
+          - generic [ref=e2532]:
+            - strong [ref=e2533]: "Adresse:"
+            - text: Badgasse2, 7412 Wolfau
+            - strong [ref=e2534]: "Ansprechpartner:"
+            - link "Patrick Passegger" [ref=e2535] [cursor=pointer]:
+              - /url: mailto:patrickpassegger@hotmail.com
+            - link:
+              - /url: mailto:alterlaa@padeldome.at
+            - strong [ref=e2536]: "Anzahl der Padel-Plätze:"
+            - text: 1 Outdoor
+            - strong [ref=e2537]: "Homepage:"
+            - link "http://www.tv-wolfau.at/" [ref=e2538] [cursor=pointer]:
+              - /url: http://www.tv-wolfau.at/
+            - strong [ref=e2539]: "Platzbuchungen:"
+            - link "hier" [ref=e2540] [cursor=pointer]:
+              - /url: https://wolfau.tennisplatz.info/
+            - text: Neueste Infos findet ihr immer auf unserer
+            - link "Facebook Seite" [ref=e2541] [cursor=pointer]:
+              - /url: https://www.facebook.com/TennisvereinWolfau
+          - paragraph
+  - generic [ref=e2542]:
+    - heading "Folge uns auf" [level=5] [ref=e2543]
+    - generic [ref=e2544]:
+      - link [ref=e2545] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e2546]
+      - link [ref=e2548] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e2549]
+    - generic [ref=e2551]:
+      - link "Impressum" [ref=e2552] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e2553] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e2554]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e2555] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e2556]:
+    - generic [ref=e2557]:
+      - generic [ref=e2558]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e2559]
+        - paragraph [ref=e2560]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e2561]:
+        - generic [ref=e2562]:
+          - button "Alle akzeptieren" [ref=e2563] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e2564] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e2566] [cursor=pointer]
+    - generic [ref=e2569]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e2570] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e2571] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

@@ -1,0 +1,175 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Zu Haupt Inhalt springen" [ref=e6] [cursor=pointer]:
+          - /url: "#main"
+        - link "Eversports Startseite" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+        - link "Suche nach Sport oder Anlage" [ref=e13] [cursor=pointer]:
+          - /url: /?show=search
+          - img [ref=e14]
+          - generic [ref=e17]: Suche nach Sport oder Anlage
+        - navigation [ref=e19]:
+          - list [ref=e20]:
+            - listitem [ref=e21]:
+              - link "Für Unternehmen" [ref=e22] [cursor=pointer]:
+                - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - listitem [ref=e23]:
+              - link "Für Sportanbieter" [ref=e24] [cursor=pointer]:
+                - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+            - listitem [ref=e25]: "|"
+            - listitem [ref=e26]:
+              - link "Login" [ref=e27] [cursor=pointer]:
+                - /url: /auth/
+            - listitem [ref=e28]:
+              - link "Registrieren" [ref=e29] [cursor=pointer]:
+                - /url: /auth/register
+    - main [ref=e30]:
+      - generic [ref=e33]:
+        - generic:
+          - generic [ref=e36]: 
+          - generic:
+            - img "Kultur- und Sportvereinigung der Wiener Gemeindebediensteten" [ref=e38] [cursor=pointer]
+            - img "Kultur- und Sportvereinigung der Wiener Gemeindebediensteten" [ref=e40] [cursor=pointer]
+          - generic [ref=e43]: 
+        - text: 
+      - generic [ref=e44]:
+        - link "Zurück zum Kultur- und Sportvereinigung der Wiener Gemeindebediensteten Profil" [ref=e46] [cursor=pointer]:
+          - /url: /s/kultur-und-sportvereinigung-der-wiener-gemeindebediensteten
+        - list [ref=e51]:
+          - listitem [ref=e52]:
+            - link "Übersicht" [ref=e53] [cursor=pointer]:
+              - /url: /s/kultur-und-sportvereinigung-der-wiener-gemeindebediensteten
+          - listitem [ref=e54]:
+            - link "Sportplätze" [ref=e55]:
+              - /url: "#"
+          - listitem [ref=e56]:
+            - link "Matches" [ref=e57] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e58]:
+            - link "Preise" [ref=e59] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e60]:
+            - link "Bewertungen" [ref=e61] [cursor=pointer]:
+              - /url: /s/kultur-und-sportvereinigung-der-wiener-gemeindebediensteten#gotoratings
+        - generic:
+          - generic:  
+      - generic [ref=e62]:
+        - heading "Kultur- und Sportvereinigung der Wiener Gemeindebediensteten - Belegungsplan" [level=1] [ref=e65]
+        - generic [ref=e69]:
+          - navigation "Sportart auswählen" [ref=e71]:
+            - list [ref=e72]:
+              - listitem [ref=e73] [cursor=pointer]: Tennis Outdoor
+              - listitem [ref=e74] [cursor=pointer]: Tennis Indoor
+              - listitem [ref=e75] [cursor=pointer]: Padel Outdoor
+              - listitem [ref=e76] [cursor=pointer]: Fußball
+              - listitem [ref=e77] [cursor=pointer]: Fußball (halber Platz)
+              - listitem [ref=e78] [cursor=pointer]: Beachvolleyball
+              - listitem [ref=e79] [cursor=pointer]: Minigolf
+          - generic [ref=e81]:
+            - generic [ref=e83]:
+              - textbox "Datum auswählen" [ref=e84]: 08.06.2026
+              - generic [ref=e85] [cursor=pointer]: 
+            - generic [ref=e87]:
+              - button "" [disabled]:
+                - generic: 
+              - button "Heute" [ref=e88] [cursor=pointer]
+              - button "" [ref=e89] [cursor=pointer]:
+                - generic [ref=e90]: 
+        - progressbar [ref=e96]: lade Buchungen...
+    - contentinfo [ref=e97]:
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - heading "Mehr über Eversports" [level=2] [ref=e102]
+              - list [ref=e103]:
+                - listitem [ref=e104]:
+                  - link "Über uns" [ref=e105] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/uber-uns/
+                - listitem [ref=e106]:
+                  - link "Blog" [ref=e107] [cursor=pointer]:
+                    - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+                - listitem [ref=e108]:
+                  - link "Karriere" [ref=e109] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/jobs/
+                - listitem [ref=e110]:
+                  - link "Sicherheit" [ref=e111] [cursor=pointer]:
+                    - /url: /h/security
+                - listitem [ref=e112]:
+                  - link "Für Unternehmen" [ref=e113] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - generic [ref=e114]:
+              - heading "Eversports Manager" [level=2] [ref=e115]
+              - list [ref=e116]:
+                - listitem [ref=e117]:
+                  - link "Zur Website" [ref=e118] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+                - listitem [ref=e119]:
+                  - link "Preise" [ref=e120] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+                - listitem [ref=e121]:
+                  - link "Kostenlose Demo" [ref=e122] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+          - generic [ref=e123]:
+            - generic [ref=e124]:
+              - heading "Kontakt" [level=2] [ref=e125]
+              - list [ref=e126]:
+                - listitem [ref=e127]:
+                  - link "Kontakt" [ref=e128] [cursor=pointer]:
+                    - /url: /h/contact
+                - listitem [ref=e129]:
+                  - link "Impressum" [ref=e130] [cursor=pointer]:
+                    - /url: /h/about
+                - listitem [ref=e131]:
+                  - link "Datenschutz" [ref=e132] [cursor=pointer]:
+                    - /url: /h/privacy
+                - listitem [ref=e133]:
+                  - link "AGB" [ref=e134] [cursor=pointer]:
+                    - /url: /h/terms
+                - listitem [ref=e135]:
+                  - link "Erklärung zur Barrierefreiheit" [ref=e136] [cursor=pointer]:
+                    - /url: /h/accessibility
+                - listitem [ref=e137]:
+                  - link "Cookie-Einstellungen" [ref=e138] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e139]:
+                  - link "Memberships kündigen" [ref=e140] [cursor=pointer]:
+                    - /url: /h/cancel-membership
+            - generic [ref=e141]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e142]
+              - link "Facebook Profil" [ref=e143] [cursor=pointer]:
+                - /url: //fb.com/eversports
+                - img [ref=e144]
+              - link "YouTube Profil" [ref=e146] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                - img [ref=e147]
+              - link "Instagram Profil" [ref=e150] [cursor=pointer]:
+                - /url: https://www.instagram.com/eversports_official
+                - img [ref=e151]
+              - heading "Apps" [level=2] [ref=e154]
+              - link "iOS App Store" [ref=e155] [cursor=pointer]:
+                - /url: https://apps.apple.com/de/app/id946460861
+                - img "iOS App Store" [ref=e156]
+              - link "Android" [ref=e157] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - img "Android" [ref=e158]
+        - generic [ref=e159]:
+          - img [ref=e160]
+          - paragraph [ref=e164]: 2026 Eversports Gmbh. Alle Rechte vorbehalten
+    - dialog [active] [ref=e170]:
+      - document [ref=e172]:
+        - generic [ref=e173]:
+          - generic [ref=e174]:
+            - heading "Cookie-Einstellungen" [level=3] [ref=e175]
+            - button "Close"
+          - generic [ref=e176]:
+            - paragraph [ref=e178]: Wir verwenden Cookies, um dir ein optimales Webseiten-Erlebnis zu bieten. Du kannst dabei entscheiden, welche Kategorien von Cookies du erlaubst. Natürlich kannst du deine Cookie-Einstellungen jederzeit ändern.
+            - button "Cookie-Einstellungen" [ref=e180] [cursor=pointer]:
+              - generic [ref=e181]:
+                - text: Cookie-Einstellungen
+                - img [ref=e182]
+          - button "Alle akzeptieren" [ref=e186] [cursor=pointer]
+  - text:  

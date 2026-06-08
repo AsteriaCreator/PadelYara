@@ -307,7 +307,18 @@
       "WebFetch(domain:alternativeto.net)",
       "mcp__mcp-registry__search_mcp_registry",
       "Bash(python backfill_public_urls.py)",
-      "Bash(git -C \"/c/CodingProjekte/PadelYara\" add Backend/eversports_prices.py)"
+      "Bash(git -C \"/c/CodingProjekte/PadelYara\" add Backend/eversports_prices.py)",
+      "WebFetch(domain:uptimerobot.com)",
+      "Bash(node -p \"require\\('@vercel/analytics/package.json'\\).version\")",
+      "mcp__plugin_mongodb_mongodb__drop-collection",
+      "mcp__plugin_mongodb_mongodb__drop-database",
+      "mcp__plugin_mongodb_mongodb__drop-index",
+      "mcp__plugin_mongodb_mongodb__create-collection",
+      "mcp__plugin_mongodb_mongodb__create-index",
+      "mcp__plugin_mongodb_mongodb__rename-collection",
+      "mcp__plugin_mongodb_mongodb__update-documents",
+      "mcp__plugin_mongodb_mongodb__delete-documents",
+      "mcp__plugin_mongodb_mongodb__insert-documents"
     ],
     "defaultMode": "bypassPermissions"
   }

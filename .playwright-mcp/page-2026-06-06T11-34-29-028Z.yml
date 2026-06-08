@@ -1,0 +1,51 @@
+- generic [ref=e2]:
+  - img "Padel Area Wachau Logo" [ref=e4]
+  - generic [ref=e5]:
+    - link "Platz Buchen →" [ref=e6] [cursor=pointer]:
+      - /url: https://buchung.padel-wachau.at/reservierung
+      - img [ref=e8]
+      - generic [ref=e10]: Platz Buchen
+      - generic [ref=e11]: →
+    - link "Schläger Leihen Online & Vor Ort →" [ref=e12] [cursor=pointer]:
+      - /url: https://kiosk.sportogo.at/location/04bc4be6-b2f9-46aa-be71-bc58ea81fbcc/sports-equipment?
+      - img [ref=e14]
+      - generic [ref=e17]: Schläger Leihen
+      - generic [ref=e18]: Online & Vor Ort
+      - generic [ref=e19]: →
+    - link "Preise & Aktionen →" [ref=e20] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e22]
+      - generic [ref=e24]: Preise & Aktionen
+      - generic [ref=e25]: →
+    - link "Instagram →" [ref=e26] [cursor=pointer]:
+      - /url: https://www.instagram.com/padelarea_wachau?igsh=eGlmanBjdmVmYWhn
+      - img [ref=e28]
+      - generic [ref=e32]: Instagram
+      - generic [ref=e33]: →
+    - link "Facebook →" [ref=e34] [cursor=pointer]:
+      - /url: https://www.facebook.com/share/1DRw6MLMAL/?mibextid=wwXIfr
+      - img [ref=e36]
+      - generic [ref=e38]: Facebook
+      - generic [ref=e39]: →
+    - link "Opening Event 19.06. →" [ref=e40] [cursor=pointer]:
+      - /url: "#"
+      - img [ref=e42]
+      - generic [ref=e44]: Opening Event
+      - generic [ref=e45]: 19.06.
+      - generic [ref=e46]: →
+    - link "Anfahrt →" [ref=e47] [cursor=pointer]:
+      - /url: https://maps.app.goo.gl/Vw8Qt6PyURYS3oE3A?g_st=ic
+      - img [ref=e49]
+      - generic [ref=e52]: Anfahrt
+      - generic [ref=e53]: →
+    - link "Kontakt →" [ref=e54] [cursor=pointer]:
+      - /url: mailto:info@padel-wachau.at
+      - img [ref=e56]
+      - generic [ref=e59]: Kontakt
+      - generic [ref=e60]: →
+  - img "Padel Court Illustration" [ref=e61]
+  - contentinfo [ref=e62]:
+    - generic [ref=e63]: © 2026 Padel Area Wachau
+    - generic [ref=e64]: ·
+    - link "Impressum" [ref=e65] [cursor=pointer]:
+      - /url: impressum.html

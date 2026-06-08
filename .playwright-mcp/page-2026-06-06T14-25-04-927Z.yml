@@ -1,0 +1,11 @@
+- generic [active] [ref=e1]:
+  - link "Zum Inhalt springen" [ref=e2] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e3]:
+    - link "Padel Performance Center" [ref=e7] [cursor=pointer]:
+      - /url: https://padel-center.at/
+  - main [ref=e8]:
+    - heading "Diese Seite konnte nicht gefunden werden." [level=1] [ref=e10]
+    - paragraph [ref=e12]: An diesem Ort konnte nichts gefunden werden.
+  - contentinfo [ref=e13]:
+    - paragraph [ref=e16]: All rights reserved

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Padel Wien Floridsdorf — PadelYara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #080810;
+    --surface:   #11131a;
+    --surface-2: #15171f;
+    --border:    rgba(107,114,128,0.30);
+    --lime:      #d4f53c;
+    --text:      #f5f6f4;
+    --sub:       #9ca3af;
+    --muted:     #6b7280;
+    --green:     #4ade80;
+    --red:       #f87171;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Barlow Condensed", -apple-system, sans-serif;
+    min-height: 100vh;
+    line-height: 1.25;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 16px 64px; }
+
+  /* ── Top bar ── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0; margin-bottom: 8px;
+  }
+  .brand { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+  .brand b { color: var(--lime); font-weight: 700; }
+  .brand .dot { width: 26px; height: 26px; border-radius: 7px; background: var(--lime); display: grid; place-items: center; font-size: 15px; }
+  .backlink { color: var(--sub); font-size: 16px; font-weight: 500; text-decoration: none; }
+  .backlink:hover { color: var(--lime); }
+
+  /* ── Breadcrumb ── */
+  .crumbs { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+  .crumbs a { color: var(--muted); text-decoration: none; }
+  .crumbs a:hover { color: var(--lime); }
+  .crumbs span { color: var(--sub); }
+
+  /* ── Hero ── */
+  .gallery {
+    display: grid; gap: 8px; border-radius: 16px; overflow: hidden;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 110px 110px;
+    margin-bottom: 18px;
+  }
+  .gallery .ph {
+    position: relative;
+    background: linear-gradient(135deg, #1a1d27, #0d0f16);
+    display: grid; place-items: center; overflow: hidden;
+  }
+  .gallery .ph.main { grid-row: 1 / 3; }
+  .gallery .ph svg { width: 34px; height: 34px; opacity: 0.25; }
+  .gallery .ph .src {
+    position: absolute; bottom: 6px; left: 8px;
+    font-size: 11px; letter-spacing: 0.4px; text-transform: uppercase;
+    color: var(--muted); background: rgba(8,8,16,0.6); padding: 1px 6px; border-radius: 5px;
+  }
+
+  .title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-bottom: 6px; }
+  h1 { font-size: 38px; font-weight: 700; letter-spacing: 0.3px; line-height: 1.02; }
+  .addr { font-size: 17px; color: var(--sub); font-weight: 500; margin-bottom: 12px; }
+  .addr a { color: var(--sub); text-decoration: underline; text-underline-offset: 2px; }
+  .addr a:hover { color: var(--lime); }
+
+  .badges { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+  .badge {
+    font-size: 14px; font-weight: 600; letter-spacing: 0.3px;
+    padding: 4px 11px; border-radius: 999px; border: 1px solid var(--border);
+    color: var(--sub); display: inline-flex; align-items: center; gap: 5px;
+  }
+  .badge.lime { border-color: rgba(212,245,60,0.5); color: var(--lime); background: rgba(212,245,60,0.07); }
+
+  .cta {
+    display: block; text-align: center; text-decoration: none;
+    background: var(--lime); color: #080810;
+    font-size: 17px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 14px; border-radius: 11px; margin-bottom: 26px;
+  }
+  .cta:hover { opacity: 0.92; }
+
+  /* ── Section ── */
+  .sec-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase;
+    color: var(--lime); margin: 0 2px 12px;
+  }
+
+  /* ── Facts grid ── */
+  .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }
+  .fact {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 13px; padding: 13px 14px;
+    display: flex; align-items: center; gap: 11px;
+  }
+  .fact .ic { font-size: 21px; width: 26px; text-align: center; flex-shrink: 0; }
+  .fact .body { min-width: 0; }
+  .fact .k { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .fact .v { font-size: 18px; font-weight: 600; color: var(--text); }
+  .fact .v.yes { color: var(--green); }
+  .fact .v.no  { color: var(--red); }
+  .fact.unknown { border-style: dashed; opacity: 0.7; }
+  .fact.unknown .v { color: var(--muted); font-style: italic; font-weight: 500; }
+  .fact .sub { font-size: 13px; color: var(--sub); font-weight: 500; }
+  .fact a { color: var(--lime); text-decoration: none; font-size: 13px; font-weight: 600; }
+  .fact a:hover { text-decoration: underline; }
+  .fact.wide { grid-column: 1 / -1; align-items: flex-start; flex-direction: column; }
+  .fact.wide .top { display: flex; align-items: center; gap: 11px; width: 100%; }
+  .fact.wide .links { display: flex; flex-wrap: wrap; gap: 14px; padding-left: 37px; margin-top: 3px; }
+
+  /* ── Community CTA ── */
+  .community {
+    background: linear-gradient(135deg, rgba(212,245,60,0.06), rgba(212,245,60,0.02));
+    border: 1px dashed rgba(212,245,60,0.4); border-radius: 16px;
+    padding: 20px; margin-bottom: 30px;
+  }
+  .community h3 { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+  .community p { font-size: 16px; color: var(--sub); font-weight: 500; margin-bottom: 14px; max-width: 52ch; }
+  .community .form { display: flex; flex-wrap: wrap; gap: 9px; }
+  .community input, .community select {
+    background: var(--surface-2); border: 1px solid var(--border); color: var(--text);
+    border-radius: 9px; padding: 10px 12px; font-family: inherit; font-size: 16px;
+    font-weight: 500; outline: none; flex: 1; min-width: 160px;
+  }
+  .community input:focus, .community select:focus { border-color: rgba(212,245,60,0.6); }
+  .community button {
+    background: var(--lime); color: #080810; border: none; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+    border-radius: 9px; padding: 10px 20px;
+  }
+
+  /* ── Linked venues ── */
+  .links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .vcard {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 13px;
+    padding: 13px 15px; text-decoration: none; display: block; transition: border-color 0.15s;
+  }
+  .vcard:hover { border-color: rgba(212,245,60,0.5); }
+  .vcard .n { font-size: 19px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+  .vcard .m { font-size: 14px; color: var(--muted); font-weight: 500; }
+  .vcard .m b { color: var(--lime); font-weight: 600; }
+  .group-label { font-size: 14px; color: var(--muted); font-weight: 500; margin: 0 2px 9px; }
+  .group-label b { color: var(--sub); font-weight: 600; }
+  .block { margin-bottom: 30px; }
+
+  footer { text-align: center; color: var(--muted); font-size: 14px; padding-top: 18px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 560px) {
+    h1 { font-size: 30px; }
+    .facts { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 100px 80px; }
+    .gallery .ph.main { grid-column: 1 / 3; grid-row: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="brand"><span class="dot">🎾</span> Padel<b>Yara</b></div>
+    <a class="backlink" href="#">← Zur Suche</a>
+  </div>
+
+  <!-- Breadcrumb -->
+  <div class="crumbs"><a href="#">Padelrevier</a> › <a href="#">Wien</a> › <span>Padel Wien Floridsdorf</span></div>
+
+  <!-- Photo gallery (linked from Eversports / eTennis) -->
+  <div class="gallery">
+    <div class="ph main">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="src">Foto via Eversports</span>
+    </div>
+    <div class="ph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="src">Eversports</span>
+    </div>
+    <div class="ph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="src">Eversports</span>
+    </div>
+    <div class="ph">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      <span class="src">Eversports</span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="title-row"><h1>Padel Wien Floridsdorf</h1></div>
+  <div class="addr">📍 Brünner Straße 72, 1210 Wien · <a href="#">Auf Google Maps öffnen</a></div>
+
+  <div class="badges">
+    <span class="badge lime">🏠🌳 Indoor &amp; Outdoor</span>
+    <span class="badge">6 Courts</span>
+    <span class="badge">Eversports</span>
+  </div>
+
+  <a class="cta" href="#">Freie Courts &amp; Preise prüfen →</a>
+
+  <!-- Ausstattung -->
+  <div class="sec-title">Ausstattung</div>
+  <div class="facts">
+
+    <div class="fact">
+      <span class="ic">🎾</span>
+      <div class="body"><div class="k">Courts</div><div class="v">6 · 4 Indoor, 2 Outdoor</div></div>
+    </div>
+
+    <div class="fact">
+      <span class="ic">🧥</span>
+      <div class="body"><div class="k">Umkleiden</div><div class="v yes">Vorhanden</div></div>
+    </div>
+
+    <div class="fact">
+      <span class="ic">🚿</span>
+      <div class="body"><div class="k">Duschen</div><div class="v yes">Vorhanden</div></div>
+    </div>
+
+    <div class="fact">
+      <span class="ic">🅿️</span>
+      <div class="body"><div class="k">Parkplatz</div><div class="v yes">Gratis vor Ort</div></div>
+    </div>
+
+    <div class="fact">
+      <span class="ic">🏓</span>
+      <div class="body"><div class="k">Leihschläger</div><div class="v yes">Ja</div><div class="sub">Vor Ort an der Rezeption abholen</div></div>
+    </div>
+
+    <!-- Unknown / community-fill example -->
+    <div class="fact unknown">
+      <span class="ic">💡</span>
+      <div class="body"><div class="k">Flutlicht</div><div class="v">Noch unbekannt</div></div>
+    </div>
+
+    <!-- Gastronomie — wide -->
+    <div class="fact wide">
+      <div class="top">
+        <span class="ic">🍽️</span>
+        <div class="body"><div class="k">Gastronomie</div><div class="v yes">Bar &amp; Bistro vor Ort</div></div>
+      </div>
+      <div class="links">
+        <a href="#">📍 Google Maps</a>
+        <a href="#">📋 Speisekarte</a>
+        <span class="sub">🕒 Mo–Fr 9–23 · Sa/So 10–22</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Community CTA -->
+  <div class="community">
+    <h3>Kennst du diese Anlage?</h3>
+    <p>Uns fehlt noch was — z.&nbsp;B. ob's Flutlicht gibt. Wenn du's weißt: schreibs Yara, sie prüft's und ergänzt es.</p>
+    <div class="form">
+      <select>
+        <option>Was fehlt?</option>
+        <option>Flutlicht</option>
+        <option>Anzahl Courts</option>
+        <option>Leihschläger-System</option>
+        <option>Foto</option>
+        <option>Sonstiges</option>
+      </select>
+      <input type="text" placeholder="Deine Info …" />
+      <button>Abschicken</button>
+    </div>
+  </div>
+
+  <!-- Linked venues -->
+  <div class="block">
+    <div class="sec-title">Andere Anlagen</div>
+
+    <div class="group-label">In <b>Wien</b></div>
+    <div class="links-grid" style="margin-bottom:18px">
+      <a class="vcard" href="#"><div class="n">Padel Dome Wien</div><div class="m">1220 Wien · <b>8 Courts</b></div></a>
+      <a class="vcard" href="#"><div class="n">Stadtpadel Simmering</div><div class="m">1110 Wien · <b>4 Courts</b></div></a>
+      <a class="vcard" href="#"><div class="n">Padel Base Donaustadt</div><div class="m">1220 Wien · <b>5 Courts</b></div></a>
+    </div>
+
+    <div class="group-label">Betreiber <b>Padel Wien Gruppe</b></div>
+    <div class="links-grid">
+      <a class="vcard" href="#"><div class="n">Padel Wien Liesing</div><div class="m">1230 Wien · <b>6 Courts</b></div></a>
+      <a class="vcard" href="#"><div class="n">Padel Wien Stadlau</div><div class="m">1220 Wien · <b>4 Courts</b></div></a>
+    </div>
+  </div>
+
+  <footer>PadelYara · Mockup — Dummy-Daten, kein echter Backend-Anschluss</footer>
+
+</div>
+</body>
+</html>

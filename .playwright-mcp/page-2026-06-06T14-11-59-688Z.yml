@@ -1,0 +1,135 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Padelclubs Logo" [ref=e4] [cursor=pointer]:
+        - /url: /en/
+        - img "Padelclubs Logo" [ref=e5]
+      - generic [ref=e6]:
+        - link "Clubs" [ref=e7] [cursor=pointer]:
+          - /url: /en/clubs/
+        - link "Cooperate" [ref=e8] [cursor=pointer]:
+          - /url: /contact/
+      - link "Add club" [ref=e10] [cursor=pointer]:
+        - /url: /contact/
+        - generic [ref=e11]: Add club
+        - img [ref=e12]
+  - main [ref=e14]:
+    - navigation "Breadcrumb Navigation" [ref=e15]:
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Home" [ref=e18] [cursor=pointer]:
+            - /url: /en/
+            - generic [ref=e19]: Home
+        - listitem [ref=e20]:
+          - img [ref=e21]
+          - link "Clubs" [ref=e23] [cursor=pointer]:
+            - /url: /en/clubs/
+        - listitem [ref=e24]:
+          - img [ref=e25]
+          - generic [ref=e27]: Austria
+    - generic [ref=e29]:
+      - heading "Discover 13 Padel clubs in Austria" [level=1] [ref=e30]
+      - paragraph [ref=e32]: Austria, the heart of Europe, boasts stunning alpine scenery and a rich cultural heritage, while also emerging as a hotspot for padel enthusiasts. With a growing network of modern padel courts and an active community, Austria offers excellent opportunities for players of all levels. Whether you're in Vienna, Salzburg or Innsbruck, padel is growing in popularity across the country. Discover the best padel courts, tournaments and clubs in Austria and experience the sport in an exciting new way.
+    - generic [ref=e35]:
+      - link "Vienna Vienna Vienna, the charming capital of Austria, is not only renowned for its culture, history, and quality of life but is also emerging as a hotspot for padel. The city offers a wide range of modern padel courts, perfect for both beginners and professionals. From centrally located facilities to top-class sports centers in the outskirts, playing padel in Vienna is a unique experience. With an active community, regular tournaments, and high-quality clubs, padel is rapidly growing in popularity. Discover the best padel courts and become part of Vienna’s dynamic padel scene! 12 Clubs 78 Courts 4.4 Ratings From 20 €" [ref=e36] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/
+        - generic [ref=e37]:
+          - img "Vienna" [ref=e39]
+          - generic [ref=e41]:
+            - heading "Vienna" [level=3] [ref=e42]
+            - paragraph [ref=e43]: Vienna, the charming capital of Austria, is not only renowned for its culture, history, and quality of life but is also emerging as a hotspot for padel. The city offers a wide range of modern padel courts, perfect for both beginners and professionals. From centrally located facilities to top-class sports centers in the outskirts, playing padel in Vienna is a unique experience. With an active community, regular tournaments, and high-quality clubs, padel is rapidly growing in popularity. Discover the best padel courts and become part of Vienna’s dynamic padel scene!
+            - generic [ref=e45]:
+              - generic [ref=e46]:
+                - img [ref=e47]
+                - generic [ref=e49]: 12 Clubs
+              - generic [ref=e50]:
+                - img [ref=e51]
+                - generic [ref=e53]: 78 Courts
+              - generic [ref=e54]:
+                - img [ref=e55]
+                - generic [ref=e57]: 4.4 Ratings
+              - generic [ref=e58]:
+                - img [ref=e59]
+                - generic [ref=e61]: From 20 €
+      - link "Klagenfurt am Wörthersee Klagenfurt am Wörthersee Klagenfurt am Wörthersee is a rising hotspot for padel in southern Austria. With modern courts set against the stunning backdrop of the Wörthersee, players can enjoy the perfect mix of sport and nature. Whether you're a beginner or seasoned player, the city offers top facilities, a friendly community, and regular events. Play padel, relax by the lake, and experience the unique charm of Klagenfurt. 1 Club 3 Courts 3.6 Ratings From 20 €" [ref=e62] [cursor=pointer]:
+        - /url: /en/clubs/austria/klagenfurt-am-woerthersee/
+        - generic [ref=e63]:
+          - img "Klagenfurt am Wörthersee" [ref=e65]
+          - generic [ref=e67]:
+            - heading "Klagenfurt am Wörthersee" [level=3] [ref=e68]
+            - paragraph [ref=e69]: Klagenfurt am Wörthersee is a rising hotspot for padel in southern Austria. With modern courts set against the stunning backdrop of the Wörthersee, players can enjoy the perfect mix of sport and nature. Whether you're a beginner or seasoned player, the city offers top facilities, a friendly community, and regular events. Play padel, relax by the lake, and experience the unique charm of Klagenfurt.
+            - generic [ref=e71]:
+              - generic [ref=e72]:
+                - img [ref=e73]
+                - generic [ref=e75]: 1 Club
+              - generic [ref=e76]:
+                - img [ref=e77]
+                - generic [ref=e79]: 3 Courts
+              - generic [ref=e80]:
+                - img [ref=e81]
+                - generic [ref=e83]: 3.6 Ratings
+              - generic [ref=e84]:
+                - img [ref=e85]
+                - generic [ref=e87]: From 20 €
+  - generic:
+    - button "Datenschutz Einstellungen" [ref=e88] [cursor=pointer]:
+      - img [ref=e89]
+    - dialog "This site uses cookies! 🍪" [ref=e91]:
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - heading "This site uses cookies! 🍪" [level=2] [ref=e94]
+          - paragraph [ref=e95]: Our website uses cookies. Some are essential, while others help us improve the site and your experience.
+        - generic [ref=e96]:
+          - generic [ref=e97]:
+            - button "Accept all" [ref=e98] [cursor=pointer]
+            - button "Reject all" [ref=e99] [cursor=pointer]
+          - button "Manage preferences" [ref=e101] [cursor=pointer]
+      - generic [ref=e104]:
+        - link "Privacy Policy" [ref=e105] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms of use" [ref=e106] [cursor=pointer]:
+          - /url: /tos
+  - contentinfo [ref=e107]:
+    - generic [ref=e108]:
+      - generic [ref=e109]:
+        - generic [ref=e110]:
+          - img "Padelclubs Logo" [ref=e111]
+          - paragraph [ref=e112]: We love ❤️ Padel
+        - generic [ref=e114]:
+          - paragraph [ref=e115]: Padelclubs.net
+          - link "Add Padel club" [ref=e116] [cursor=pointer]:
+            - /url: /contact/
+          - link "All countries" [ref=e117] [cursor=pointer]:
+            - /url: /en/clubs/
+          - link "About us" [ref=e118] [cursor=pointer]:
+            - /url: /about/
+        - generic [ref=e119]:
+          - button "Language" [ref=e121] [cursor=pointer]:
+            - generic [ref=e122]: Language
+            - img [ref=e123]
+          - paragraph [ref=e125]: Questions or feedback? We'd love to hear from you!
+          - link "Contact" [ref=e126] [cursor=pointer]:
+            - /url: /contact/
+            - img [ref=e127]
+            - generic [ref=e129]: Contact
+      - generic [ref=e131]:
+        - generic [ref=e132]:
+          - generic [ref=e133]: © 2026
+          - generic [ref=e134]: "|"
+          - generic [ref=e135]: padelclubs.net
+          - generic [ref=e136]: "|"
+          - generic [ref=e137]:
+            - text: Made with
+            - img [ref=e138]
+            - text: by
+            - link "Webpunks" [ref=e140] [cursor=pointer]:
+              - /url: https://www.webpunks.at
+        - generic [ref=e141]:
+          - link "Imprint" [ref=e142] [cursor=pointer]:
+            - /url: /imprint/
+          - generic [ref=e143]: "|"
+          - link "Privacy Policy" [ref=e144] [cursor=pointer]:
+            - /url: /privacy/
+          - generic [ref=e145]: "|"
+          - link "Terms of Service" [ref=e146] [cursor=pointer]:
+            - /url: /terms/

@@ -1,0 +1,369 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Padelclubs Logo" [ref=e4] [cursor=pointer]:
+        - /url: /en/
+        - img "Padelclubs Logo" [ref=e5]
+      - generic [ref=e6]:
+        - link "Clubs" [ref=e7] [cursor=pointer]:
+          - /url: /en/clubs/
+        - link "Cooperate" [ref=e8] [cursor=pointer]:
+          - /url: /contact/
+      - link "Add club" [ref=e10] [cursor=pointer]:
+        - /url: /contact/
+        - generic [ref=e11]: Add club
+        - img [ref=e12]
+  - main [ref=e14]:
+    - navigation "Breadcrumb Navigation" [ref=e15]:
+      - list [ref=e16]:
+        - listitem [ref=e17]:
+          - link "Home" [ref=e18] [cursor=pointer]:
+            - /url: /en/
+            - generic [ref=e19]: Home
+        - listitem [ref=e20]:
+          - img [ref=e21]
+          - link "Clubs" [ref=e23] [cursor=pointer]:
+            - /url: /en/clubs/
+        - listitem [ref=e24]:
+          - img [ref=e25]
+          - link "Austria" [ref=e27] [cursor=pointer]:
+            - /url: /en/clubs/austria/
+        - listitem [ref=e28]:
+          - img [ref=e29]
+          - generic [ref=e31]: Vienna
+    - generic [ref=e33]:
+      - heading "Discover 12 Padel courts in Vienna" [level=1] [ref=e34]
+      - paragraph [ref=e36]: Vienna, the charming capital of Austria, is not only renowned for its culture, history, and quality of life but is also emerging as a hotspot for padel. The city offers a wide range of modern padel courts, perfect for both beginners and professionals. From centrally located facilities to top-class sports centers in the outskirts, playing padel in Vienna is a unique experience. With an active community, regular tournaments, and high-quality clubs, padel is rapidly growing in popularity. Discover the best padel courts and become part of Vienna’s dynamic padel scene!
+    - generic [ref=e39]:
+      - link "Padeldome Alte Donau Padeldome Alte Donau 4.9 (514 Bewertungen) Padeldome Alte Donau in Vienna at Arbeiterstrandbadstraße 87A has 6 indoor and 14 outdoor padel courts by the Danube. Free & paid parking, a restaurant, floodlights and online booking via the etennis app or padeldome.at — rated 4.9★ from 514 reviews. Open daily 08:00–23:00 (weekends until 21:00). Arbeiterstrandbadstraße 87A 6 Indoor courts 14 Outdoor courts" [ref=e40] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padeldome-alte-donau/
+        - generic [ref=e41]:
+          - img "Padeldome Alte Donau" [ref=e43]
+          - generic [ref=e45]:
+            - heading "Padeldome Alte Donau" [level=3] [ref=e46]
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - img [ref=e50]
+                - img [ref=e52]
+                - img [ref=e54]
+                - img [ref=e56]
+                - img [ref=e58]
+              - generic [ref=e60]: 4.9 (514 Bewertungen)
+            - paragraph [ref=e61]: Padeldome Alte Donau in Vienna at Arbeiterstrandbadstraße 87A has 6 indoor and 14 outdoor padel courts by the Danube. Free & paid parking, a restaurant, floodlights and online booking via the etennis app or padeldome.at — rated 4.9★ from 514 reviews. Open daily 08:00–23:00 (weekends until 21:00).
+            - generic [ref=e63]:
+              - generic [ref=e64]:
+                - img [ref=e65]
+                - generic [ref=e67]: Arbeiterstrandbadstraße 87A
+              - generic [ref=e68]:
+                - img [ref=e69]
+                - generic [ref=e71]: 6 Indoor courts
+              - generic [ref=e72]:
+                - img [ref=e73]
+                - generic [ref=e75]: 14 Outdoor courts
+      - link "Padel4Fun La Ville Padel4Fun La Ville 4.9 (21 Bewertungen) Padel4Fun La Ville on Kirchfeldgasse 5 in Vienna features four outdoor padel courts for all levels. Bring the family—free parking, an on-site restaurant, kids’ playground and floodlit courts. Book via etennis (reservierung.padel4fun.at) or padel4fun.at; open daily 07:00–22:00 and rated 4.9/5 from 21 reviews. Kirchfeldgasse 5 4 Outdoor courts" [ref=e76] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padel4fun-la-ville/
+        - generic [ref=e77]:
+          - img "Padel4Fun La Ville" [ref=e79]
+          - generic [ref=e81]:
+            - heading "Padel4Fun La Ville" [level=3] [ref=e82]
+            - generic [ref=e84]:
+              - generic [ref=e85]:
+                - img [ref=e86]
+                - img [ref=e88]
+                - img [ref=e90]
+                - img [ref=e92]
+                - img [ref=e94]
+              - generic [ref=e96]: 4.9 (21 Bewertungen)
+            - paragraph [ref=e97]: Padel4Fun La Ville on Kirchfeldgasse 5 in Vienna features four outdoor padel courts for all levels. Bring the family—free parking, an on-site restaurant, kids’ playground and floodlit courts. Book via etennis (reservierung.padel4fun.at) or padel4fun.at; open daily 07:00–22:00 and rated 4.9/5 from 21 reviews.
+            - generic [ref=e99]:
+              - generic [ref=e100]:
+                - img [ref=e101]
+                - generic [ref=e103]: Kirchfeldgasse 5
+              - generic [ref=e104]:
+                - img [ref=e105]
+                - generic [ref=e107]: 4 Outdoor courts
+      - link "Prater Padel Union Wien Prater Padel Union Wien 4.7 (31 Bewertungen) Prater Padel Union Wien in Vienna offers eight outdoor courts with floodlights and free parking. Rent rackets and balls, book lessons, and grab drinks from the vending machine; we're open daily 07:00–22:00. Reserve via etennis at https://www.padelunion.at/reservierung or email office@padelunion.at Meiereistraße 20 8 Outdoor courts" [ref=e108] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/prater-padel-union-wien/
+        - generic [ref=e109]:
+          - img "Prater Padel Union Wien" [ref=e111]
+          - generic [ref=e113]:
+            - heading "Prater Padel Union Wien" [level=3] [ref=e114]
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - img [ref=e118]
+                - img [ref=e120]
+                - img [ref=e122]
+                - img [ref=e124]
+                - img [ref=e126]
+              - generic [ref=e128]: 4.7 (31 Bewertungen)
+            - paragraph [ref=e129]: Prater Padel Union Wien in Vienna offers eight outdoor courts with floodlights and free parking. Rent rackets and balls, book lessons, and grab drinks from the vending machine; we're open daily 07:00–22:00. Reserve via etennis at https://www.padelunion.at/reservierung or email office@padelunion.at
+            - generic [ref=e131]:
+              - generic [ref=e132]:
+                - img [ref=e133]
+                - generic [ref=e135]: Meiereistraße 20
+              - generic [ref=e136]:
+                - img [ref=e137]
+                - generic [ref=e139]: 8 Outdoor courts
+      - link "Padeldome Süßenbrunn Padeldome Süßenbrunn 4.7 (109 Bewertungen) Padeldome Süßenbrunn welcomes players to 8 indoor courts at Weingartenallee 22 in Vienna. Free parking, changing rooms, lessons and an on-site restaurant make it easy to play and linger. LGBTQ+ friendly, rated 4.7/5 (109 reviews). Book via etennis or padeldome.at; open Mon–Fri 8:00–23:00, Sat–Sun 9:00–21:00. Weingartenallee 22 8 Indoor courts" [ref=e140] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padeldome-suessenbrunn/
+        - generic [ref=e141]:
+          - img "Padeldome Süßenbrunn" [ref=e143]
+          - generic [ref=e145]:
+            - heading "Padeldome Süßenbrunn" [level=3] [ref=e146]
+            - generic [ref=e148]:
+              - generic [ref=e149]:
+                - img [ref=e150]
+                - img [ref=e152]
+                - img [ref=e154]
+                - img [ref=e156]
+                - img [ref=e158]
+              - generic [ref=e160]: 4.7 (109 Bewertungen)
+            - paragraph [ref=e161]: Padeldome Süßenbrunn welcomes players to 8 indoor courts at Weingartenallee 22 in Vienna. Free parking, changing rooms, lessons and an on-site restaurant make it easy to play and linger. LGBTQ+ friendly, rated 4.7/5 (109 reviews). Book via etennis or padeldome.at; open Mon–Fri 8:00–23:00, Sat–Sun 9:00–21:00.
+            - generic [ref=e163]:
+              - generic [ref=e164]:
+                - img [ref=e165]
+                - generic [ref=e167]: Weingartenallee 22
+              - generic [ref=e168]:
+                - img [ref=e169]
+                - generic [ref=e171]: 8 Indoor courts
+      - 'link "Sportcenter Donaucity Sportcenter Donaucity 4.6 (1367 Bewertungen) Sportcenter Donaucity, Arbeiterstrandbadstraße 128 in Vienna, offers six outdoor padel courts open daily 07:00–23:30. Book online at https://www.eversports.at/sb/sportcenter-donaucity. Facilities: parking, lockers, changing rooms, restaurant and floodlights; step‑free access and training for all. Arbeiterstrandbadstraße 128 6 Outdoor courts" [ref=e172] [cursor=pointer]':
+        - /url: /en/clubs/austria/vienna/sportcenter-donaucity/
+        - generic [ref=e173]:
+          - img "Sportcenter Donaucity" [ref=e175]
+          - generic [ref=e177]:
+            - heading "Sportcenter Donaucity" [level=3] [ref=e178]
+            - generic [ref=e180]:
+              - generic [ref=e181]:
+                - img [ref=e182]
+                - img [ref=e184]
+                - img [ref=e186]
+                - img [ref=e188]
+                - img [ref=e190]
+              - generic [ref=e192]: 4.6 (1367 Bewertungen)
+            - paragraph [ref=e193]: "Sportcenter Donaucity, Arbeiterstrandbadstraße 128 in Vienna, offers six outdoor padel courts open daily 07:00–23:30. Book online at https://www.eversports.at/sb/sportcenter-donaucity. Facilities: parking, lockers, changing rooms, restaurant and floodlights; step‑free access and training for all."
+            - generic [ref=e195]:
+              - generic [ref=e196]:
+                - img [ref=e197]
+                - generic [ref=e199]: Arbeiterstrandbadstraße 128
+              - generic [ref=e200]:
+                - img [ref=e201]
+                - generic [ref=e203]: 6 Outdoor courts
+      - link "PADELZONE Wien - Sportinsel PADELZONE Wien - Sportinsel 4.5 (30 Bewertungen) PADELZONE Wien - Sportinsel on Georg-Danzer-Steg in Vienna offers two outdoor padel courts. Open daily 07:00–22:00 with racket rental, lessons, a cafeteria and online booking via eversports or at padelzone.at/sportinsel. Questions? office@padelzone.at Georg-Danzer-Steg 2 Outdoor courts" [ref=e204] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padelzone-wien-sportinsel/
+        - generic [ref=e205]:
+          - img "PADELZONE Wien - Sportinsel" [ref=e207]
+          - generic [ref=e209]:
+            - heading "PADELZONE Wien - Sportinsel" [level=3] [ref=e210]
+            - generic [ref=e212]:
+              - generic [ref=e213]:
+                - img [ref=e214]
+                - img [ref=e216]
+                - img [ref=e218]
+                - img [ref=e220]
+                - img [ref=e222]
+              - generic [ref=e224]: 4.5 (30 Bewertungen)
+            - paragraph [ref=e225]: PADELZONE Wien - Sportinsel on Georg-Danzer-Steg in Vienna offers two outdoor padel courts. Open daily 07:00–22:00 with racket rental, lessons, a cafeteria and online booking via eversports or at padelzone.at/sportinsel. Questions? office@padelzone.at
+            - generic [ref=e227]:
+              - generic [ref=e228]:
+                - img [ref=e229]
+                - generic [ref=e231]: Georg-Danzer-Steg
+              - generic [ref=e232]:
+                - img [ref=e233]
+                - generic [ref=e235]: 2 Outdoor courts
+      - link "Padeldome Alterlaa Padeldome Alterlaa 4.5 (63 Bewertungen) Padeldome Alterlaa welcomes players to five indoor padel courts at Anton‑Baumgartner‑Straße 40, Vienna. Open weekdays 07:00–23:00 and weekends 09:00–23:00, the club offers free parking, a cafeteria and online booking via etennis (https://www.padeldome.wien/reservierung?c=2668). Call +43 676 414 529 4 to reserve. Anton-Baumgartner-Straße 40 5 Indoor courts" [ref=e236] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padeldome-alterlaa/
+        - generic [ref=e237]:
+          - img "Padeldome Alterlaa" [ref=e239]
+          - generic [ref=e241]:
+            - heading "Padeldome Alterlaa" [level=3] [ref=e242]
+            - generic [ref=e244]:
+              - generic [ref=e245]:
+                - img [ref=e246]
+                - img [ref=e248]
+                - img [ref=e250]
+                - img [ref=e252]
+                - img [ref=e254]
+              - generic [ref=e256]: 4.5 (63 Bewertungen)
+            - paragraph [ref=e257]: Padeldome Alterlaa welcomes players to five indoor padel courts at Anton‑Baumgartner‑Straße 40, Vienna. Open weekdays 07:00–23:00 and weekends 09:00–23:00, the club offers free parking, a cafeteria and online booking via etennis (https://www.padeldome.wien/reservierung?c=2668). Call +43 676 414 529 4 to reserve.
+            - generic [ref=e259]:
+              - generic [ref=e260]:
+                - img [ref=e261]
+                - generic [ref=e263]: Anton-Baumgartner-Straße 40
+              - generic [ref=e264]:
+                - img [ref=e265]
+                - generic [ref=e267]: 5 Indoor courts
+      - link "Padeldome Erdberg Padeldome Erdberg 4.4 (270 Bewertungen) Padeldome Erdberg in Vienna (Franzosengraben 2) has nine indoor courts open daily 08:00–21:00. Book via the etennis app or padeldome.wien/reservierung; on-site free and paid parking, changing rooms, lessons and a cafeteria. LGBTQ+ friendly with accessible entrance — email erdberg@padeldome.at Franzosengraben 2 9 Indoor courts" [ref=e268] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padeldome-erdberg/
+        - generic [ref=e269]:
+          - img "Padeldome Erdberg" [ref=e271]
+          - generic [ref=e273]:
+            - heading "Padeldome Erdberg" [level=3] [ref=e274]
+            - generic [ref=e276]:
+              - generic [ref=e277]:
+                - img [ref=e278]
+                - img [ref=e280]
+                - img [ref=e282]
+                - img [ref=e284]
+                - img [ref=e286]
+              - generic [ref=e288]: 4.4 (270 Bewertungen)
+            - paragraph [ref=e289]: Padeldome Erdberg in Vienna (Franzosengraben 2) has nine indoor courts open daily 08:00–21:00. Book via the etennis app or padeldome.wien/reservierung; on-site free and paid parking, changing rooms, lessons and a cafeteria. LGBTQ+ friendly with accessible entrance — email erdberg@padeldome.at
+            - generic [ref=e291]:
+              - generic [ref=e292]:
+                - img [ref=e293]
+                - generic [ref=e295]: Franzosengraben 2
+              - generic [ref=e296]:
+                - img [ref=e297]
+                - generic [ref=e299]: 9 Indoor courts
+      - link "PADELZONE Wien - Colony Club PADELZONE Wien - Colony Club 4.3 (6 Bewertungen) PADELZONE Wien - Colony Club welcomes players to three outdoor padel courts at Helene-Odilon-Gasse 10 in Vienna. Open daily 07:00–22:00, the club offers easy online booking via Eversports, racket rental, changing rooms and a restaurant — ideal for casual play, mixed levels and meeting locals. Helene-Odilon-Gasse 10 3 Outdoor courts" [ref=e300] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padelzone-wien-colony-club/
+        - generic [ref=e301]:
+          - img "PADELZONE Wien - Colony Club" [ref=e303]
+          - generic [ref=e305]:
+            - heading "PADELZONE Wien - Colony Club" [level=3] [ref=e306]
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - img [ref=e310]
+                - img [ref=e312]
+                - img [ref=e314]
+                - img [ref=e316]
+                - img [ref=e318]
+              - generic [ref=e320]: 4.3 (6 Bewertungen)
+            - paragraph [ref=e321]: PADELZONE Wien - Colony Club welcomes players to three outdoor padel courts at Helene-Odilon-Gasse 10 in Vienna. Open daily 07:00–22:00, the club offers easy online booking via Eversports, racket rental, changing rooms and a restaurant — ideal for casual play, mixed levels and meeting locals.
+            - generic [ref=e323]:
+              - generic [ref=e324]:
+                - img [ref=e325]
+                - generic [ref=e327]: Helene-Odilon-Gasse 10
+              - generic [ref=e328]:
+                - img [ref=e329]
+                - generic [ref=e331]: 3 Outdoor courts
+      - link "PADELZONE Wien - C&C Wienerberg PADELZONE Wien - C&C Wienerberg 4.1 (45 Bewertungen) PADELZONE Wien - C&C Wienerberg in Vienna welcomes players to three indoor padel courts open daily from 07:00–22:00. Book online via Eversports for hassle-free reservations; we offer racket rental, changing rooms and paid parking to simplify your visit. Reach us at office@padelzone.at. Gutheil-Schoder-Gasse 7 3 Indoor courts" [ref=e332] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padelzone-wien-cc-wienerberg/
+        - generic [ref=e333]:
+          - img "PADELZONE Wien - C&C Wienerberg" [ref=e335]
+          - generic [ref=e337]:
+            - heading "PADELZONE Wien - C&C Wienerberg" [level=3] [ref=e338]
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - img [ref=e342]
+                - img [ref=e344]
+                - img [ref=e346]
+                - img [ref=e348]
+                - img [ref=e350]
+              - generic [ref=e352]: 4.1 (45 Bewertungen)
+            - paragraph [ref=e353]: PADELZONE Wien - C&C Wienerberg in Vienna welcomes players to three indoor padel courts open daily from 07:00–22:00. Book online via Eversports for hassle-free reservations; we offer racket rental, changing rooms and paid parking to simplify your visit. Reach us at office@padelzone.at.
+            - generic [ref=e355]:
+              - generic [ref=e356]:
+                - img [ref=e357]
+                - generic [ref=e359]: Gutheil-Schoder-Gasse 7
+              - generic [ref=e360]:
+                - img [ref=e361]
+                - generic [ref=e363]: 3 Indoor courts
+      - link "PADELZONE Wien - Floridsdorf PADELZONE Wien - Floridsdorf 4 (61 Bewertungen) PADELZONE Wien - Floridsdorf welcomes players to 8 courts (4 indoor, 4 outdoor), open daily 06:00–23:00. Easily book online via eversports or at padelzone.at/floridsdorf and add racket rental, lessons or changing-room access. Unwind in the chillout zone, eat at Marco Polo Golfclub or from the PADELZONE snack machine — Domino's delivers to-site with code 1PADELZONE1. Katharina-Scheiter-Gasse 1 4 Indoor courts 4 Outdoor courts" [ref=e364] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padelzone-wien-floridsdorf/
+        - generic [ref=e365]:
+          - img "PADELZONE Wien - Floridsdorf" [ref=e367]
+          - generic [ref=e369]:
+            - heading "PADELZONE Wien - Floridsdorf" [level=3] [ref=e370]
+            - generic [ref=e372]:
+              - generic [ref=e373]:
+                - img [ref=e374]
+                - img [ref=e376]
+                - img [ref=e378]
+                - img [ref=e380]
+                - img [ref=e382]
+              - generic [ref=e384]: 4 (61 Bewertungen)
+            - paragraph [ref=e385]: PADELZONE Wien - Floridsdorf welcomes players to 8 courts (4 indoor, 4 outdoor), open daily 06:00–23:00. Easily book online via eversports or at padelzone.at/floridsdorf and add racket rental, lessons or changing-room access. Unwind in the chillout zone, eat at Marco Polo Golfclub or from the PADELZONE snack machine — Domino's delivers to-site with code 1PADELZONE1.
+            - generic [ref=e387]:
+              - generic [ref=e388]:
+                - img [ref=e389]
+                - generic [ref=e391]: Katharina-Scheiter-Gasse 1
+              - generic [ref=e392]:
+                - img [ref=e393]
+                - generic [ref=e395]: 4 Indoor courts
+              - generic [ref=e396]:
+                - img [ref=e397]
+                - generic [ref=e399]: 4 Outdoor courts
+      - link "PADELBASE Wien PADELBASE Wien 2.8 (9 Bewertungen) PADELBASE Wien at Jennerpl. 25 in Vienna has two outdoor padel courts with floodlights, lockers, changing rooms, free parking and an on-site restaurant. Open daily 07:00–22:00 for casual rallies, lessons and evening play. Book easily via etennis or at padelbase.at. Jennerpl. 25 2 Outdoor courts" [ref=e400] [cursor=pointer]:
+        - /url: /en/clubs/austria/vienna/padelbase-wien/
+        - generic [ref=e401]:
+          - img "PADELBASE Wien" [ref=e403]
+          - generic [ref=e405]:
+            - heading "PADELBASE Wien" [level=3] [ref=e406]
+            - generic [ref=e408]:
+              - generic [ref=e409]:
+                - img [ref=e410]
+                - img [ref=e412]
+                - img [ref=e414]
+                - img [ref=e416]
+                - img [ref=e418]
+              - generic [ref=e420]: 2.8 (9 Bewertungen)
+            - paragraph [ref=e421]: PADELBASE Wien at Jennerpl. 25 in Vienna has two outdoor padel courts with floodlights, lockers, changing rooms, free parking and an on-site restaurant. Open daily 07:00–22:00 for casual rallies, lessons and evening play. Book easily via etennis or at padelbase.at.
+            - generic [ref=e423]:
+              - generic [ref=e424]:
+                - img [ref=e425]
+                - generic [ref=e427]: Jennerpl. 25
+              - generic [ref=e428]:
+                - img [ref=e429]
+                - generic [ref=e431]: 2 Outdoor courts
+  - generic:
+    - button "Datenschutz Einstellungen" [ref=e432] [cursor=pointer]:
+      - img [ref=e433]
+    - dialog "This site uses cookies! 🍪" [ref=e435]:
+      - generic [ref=e436]:
+        - generic [ref=e437]:
+          - heading "This site uses cookies! 🍪" [level=2] [ref=e438]
+          - paragraph [ref=e439]: Our website uses cookies. Some are essential, while others help us improve the site and your experience.
+        - generic [ref=e440]:
+          - generic [ref=e441]:
+            - button "Accept all" [ref=e442] [cursor=pointer]
+            - button "Reject all" [ref=e443] [cursor=pointer]
+          - button "Manage preferences" [ref=e445] [cursor=pointer]
+      - generic [ref=e448]:
+        - link "Privacy Policy" [ref=e449] [cursor=pointer]:
+          - /url: /privacy
+        - link "Terms of use" [ref=e450] [cursor=pointer]:
+          - /url: /tos
+  - contentinfo [ref=e451]:
+    - generic [ref=e452]:
+      - generic [ref=e453]:
+        - generic [ref=e454]:
+          - img "Padelclubs Logo" [ref=e455]
+          - paragraph [ref=e456]: We love ❤️ Padel
+        - generic [ref=e458]:
+          - paragraph [ref=e459]: Padelclubs.net
+          - link "Add Padel club" [ref=e460] [cursor=pointer]:
+            - /url: /contact/
+          - link "All countries" [ref=e461] [cursor=pointer]:
+            - /url: /en/clubs/
+          - link "About us" [ref=e462] [cursor=pointer]:
+            - /url: /about/
+        - generic [ref=e463]:
+          - button "Language" [ref=e465] [cursor=pointer]:
+            - generic [ref=e466]: Language
+            - img [ref=e467]
+          - paragraph [ref=e469]: Questions or feedback? We'd love to hear from you!
+          - link "Contact" [ref=e470] [cursor=pointer]:
+            - /url: /contact/
+            - img [ref=e471]
+            - generic [ref=e473]: Contact
+      - generic [ref=e475]:
+        - generic [ref=e476]:
+          - generic [ref=e477]: © 2026
+          - generic [ref=e478]: "|"
+          - generic [ref=e479]: padelclubs.net
+          - generic [ref=e480]: "|"
+          - generic [ref=e481]:
+            - text: Made with
+            - img [ref=e482]
+            - text: by
+            - link "Webpunks" [ref=e484] [cursor=pointer]:
+              - /url: https://www.webpunks.at
+        - generic [ref=e485]:
+          - link "Imprint" [ref=e486] [cursor=pointer]:
+            - /url: /imprint/
+          - generic [ref=e487]: "|"
+          - link "Privacy Policy" [ref=e488] [cursor=pointer]:
+            - /url: /privacy/
+          - generic [ref=e489]: "|"
+          - link "Terms of Service" [ref=e490] [cursor=pointer]:
+            - /url: /terms/

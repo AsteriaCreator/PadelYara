@@ -1,0 +1,241 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e38]:
+    - heading "Austrian Padel Union - Mitglieder Standorte" [level=1] [ref=e41]
+    - generic [ref=e45]:
+      - combobox [ref=e46]:
+        - option "Alle Standorte"
+        - option "Wien"
+        - option "Niederösterreich"
+        - option "Oberösterreich"
+        - option "Steiermark"
+        - option "Tirol"
+        - option "Salzburg"
+        - option "Vorarlberg"
+        - option "Burgenland"
+        - option "Kärnten" [selected]
+      - generic [ref=e48] [cursor=pointer]:
+        - generic [ref=e49]:
+          - text: Kärnten
+          - link "×" [ref=e50]:
+            - /url: javascript:void(0)
+        - combobox "Alle Standorte" [ref=e51]
+    - generic [ref=e52]:
+      - heading "Kärnten" [level=3] [ref=e53]
+      - generic [ref=e55]:
+        - img "Arena ONE Klagenfurt" [ref=e57]
+        - generic [ref=e58]:
+          - heading "Arena ONE Klagenfurt" [level=4] [ref=e59]:
+            - link "Arena ONE Klagenfurt" [ref=e60] [cursor=pointer]:
+              - /url: /locations/arena-one-klagenfurt
+          - paragraph
+          - generic [ref=e62]:
+            - strong [ref=e63]: "Adresse:"
+            - text: Südring 211, 9020 Klagenfurt am Wörthersee
+            - strong [ref=e64]: "Ansprechpartner:"
+            - text: Edin Cosic, Vanessa Callegaris; padel@arenaone.at
+            - strong [ref=e65]: "Anzahl der Padel-Plätze:"
+            - text: 6 Indoor, 3 Outdoor
+            - strong [ref=e66]: Homepage
+            - text: ":"
+            - link "HIER" [ref=e67] [cursor=pointer]:
+              - /url: https://www.arenaone.at/
+          - paragraph
+      - generic [ref=e69]:
+        - img "Lakeside Padel Seeboden" [ref=e71]
+        - generic [ref=e72]:
+          - heading "Lakeside Padel Seeboden" [level=4] [ref=e73]:
+            - link "Lakeside Padel Seeboden" [ref=e74] [cursor=pointer]:
+              - /url: /locations/lakeside-padel-seeboden
+          - paragraph
+          - paragraph [ref=e76]:
+            - strong [ref=e77]: "Adresse:"
+            - text: Am Klauberpark, 9871 Seeboden
+            - strong [ref=e78]: "Ansprechpartner:"
+            - text: David Hofer; office@lakesidepadel.at; 0681/10723995
+            - strong [ref=e79]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e80]: "Homepage:"
+            - link "https://lakesidepadel.at/" [ref=e81] [cursor=pointer]:
+              - /url: https://lakesidepadel.at/
+            - strong [ref=e82]: Platzbuchung
+            - text: ":"
+            - link "https://www.eversports.at/sb/lakeside-padel" [ref=e83] [cursor=pointer]:
+              - /url: https://www.eversports.at/sb/lakeside-padel
+          - paragraph
+      - generic [ref=e85]:
+        - img "Padelbase Annenheim" [ref=e87]
+        - generic [ref=e88]:
+          - heading "Padelbase Annenheim" [level=4] [ref=e89]:
+            - link "Padelbase Annenheim" [ref=e90] [cursor=pointer]:
+              - /url: /locations/padelbase-annenheim
+          - paragraph
+          - generic [ref=e91]:
+            - generic [ref=e92]:
+              - strong [ref=e93]: "Adresse:"
+              - text: Lindenhofweg 6, 9520 Annenheim
+              - strong [ref=e94]: "Ansprechpartner:"
+              - text: Maxi Gfrerer, padel.annenheim@gmx.at; 0677/62016621
+            - generic [ref=e95]:
+              - strong [ref=e96]: "Anzahl der Padel-Plätze:"
+              - text: 4 Outdoor
+              - strong [ref=e97]: "Homepage:"
+              - link "http://padelbase.at/standort/annenheim" [ref=e98] [cursor=pointer]:
+                - /url: http://www.padelbase.at/
+            - generic [ref=e99]:
+              - strong [ref=e100]: Platzbuchung
+              - text: ":"
+              - link "https://www.buchung-padelbase.at/reservierung?c=4793" [ref=e101] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4793
+              - strong [ref=e102]: Aktuelle Infos
+              - text: ":"
+              - link "https://linktr.ee/padelbase.annenheim" [ref=e103] [cursor=pointer]:
+                - /url: https://linktr.ee/padelbase.annenheim
+          - paragraph
+      - generic [ref=e105]:
+        - img "Padelzentrum Magdalensberg" [ref=e107]
+        - generic [ref=e108]:
+          - heading "Padelzentrum Magdalensberg" [level=4] [ref=e109]:
+            - link "Padelzentrum Magdalensberg" [ref=e110] [cursor=pointer]:
+              - /url: /locations/padelzentrum-magdalensberg
+          - paragraph
+          - paragraph [ref=e112]:
+            - strong [ref=e113]: "Adresse:"
+            - text: Görtschitztal Straße 230A, 9064 Pischeldorf
+            - strong [ref=e114]: "Ansprechpartner:"
+            - text: Christopher Ganzi; info@caldaprojects.at; 0664 1950030
+            - strong [ref=e115]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+          - paragraph
+      - generic [ref=e117]:
+        - img "Sportunion Klagenfurt" [ref=e119]
+        - generic [ref=e120]:
+          - heading "Sportunion Klagenfurt" [level=4] [ref=e121]:
+            - link "Sportunion Klagenfurt" [ref=e122] [cursor=pointer]:
+              - /url: /locations/sportunion-klagenfurt
+          - paragraph
+          - generic [ref=e124]:
+            - strong [ref=e125]: "Verein:"
+            - text: Sportunion Klagenfurt
+            - strong [ref=e126]: "Adresse:"
+            - text: Universitätsstraße 100a, 9020 Klagenfurt am Wörthersee
+            - strong [ref=e127]: "Ansprechpartner:"
+            - text: Hannes Zienitzer,
+            - link "office@sportunion-padeltennis.at" [ref=e128] [cursor=pointer]:
+              - /url: mailto:office@sportunion-padeltennis.at
+            - strong [ref=e129]: "Anzahl der Padel-Plätze:"
+            - text: 3 Outdoor
+            - strong [ref=e130]: "Homepage:"
+            - link "www.sportunion-padeltennis.at" [ref=e131] [cursor=pointer]:
+              - /url: https://www.sportunion-padeltennis.at
+            - strong [ref=e132]: Instagram
+            - text: ":"
+            - link "Team Union Padel" [ref=e133] [cursor=pointer]:
+              - /url: https://www.instagram.com/teamunionpadel
+            - strong [ref=e134]: Facebook
+            - text: ":"
+            - link "Team Union Padel" [ref=e135] [cursor=pointer]:
+              - /url: https://www.facebook.com/teamunionpadel
+            - strong [ref=e136]: "Padelclubs.net:"
+            - link "Padel Tennis Center Wörthersee" [ref=e137] [cursor=pointer]:
+              - /url: https://www.padelclubs.net/en/clubs/austria/klagenfurt-am-woerthersee/padel-tennis-center-woerthersee-sportunion-klagenfurt/
+            - strong [ref=e138]: "Platzbuchungen:"
+            - link "hier" [ref=e139] [cursor=pointer]:
+              - /url: https://sportunion-klagenfurt-tennis.tennisplatz.info/reservierung?c=2900
+              - strong [ref=e140]: hier
+            - strong
+          - paragraph
+      - generic [ref=e142]:
+        - img "TC Bad Eisenkappel" [ref=e144]
+        - generic [ref=e145]:
+          - heading "TC Bad Eisenkappel" [level=4] [ref=e146]:
+            - link "TC Bad Eisenkappel" [ref=e147] [cursor=pointer]:
+              - /url: /locations/tc-bad-eisenkappel
+          - paragraph
+          - generic [ref=e149]:
+            - strong [ref=e150]: "Verein:"
+            - text: TC Bad Eisenkappel
+            - strong [ref=e151]: "Adresse:"
+            - text: Vellach 10
+            - strong [ref=e152]: "Ansprechpartner:"
+            - text: Jürgen Rauscher,
+            - link "juergen.rauscher@gmx.net" [ref=e153] [cursor=pointer]:
+              - /url: mailto:juergen.rauscher@gmx.net
+            - strong [ref=e154]: "Anzahl der Padel-Plätze:"
+            - text: "1"
+            - strong [ref=e155]
+            - text: Outdoor
+            - strong [ref=e156]: "Homepage:"
+            - link "www.tc-badeisenkappel.at" [ref=e157] [cursor=pointer]:
+              - /url: http://www.tc-badeisenkappel.at
+            - strong [ref=e158]: Platzbuchungen
+            - link "hier" [ref=e159] [cursor=pointer]:
+              - /url: http://www.tc-badeisenkappel.at/reservierung/Web/view-schedule.php?sid=3
+              - strong [ref=e160]: hier
+            - strong
+          - paragraph
+  - generic [ref=e161]:
+    - heading "Folge uns auf" [level=5] [ref=e162]
+    - generic [ref=e163]:
+      - link [ref=e164] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e165]
+      - link [ref=e167] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e168]
+    - generic [ref=e170]:
+      - link "Impressum" [ref=e171] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e172] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e173]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e174] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e175]:
+    - generic [ref=e176]:
+      - generic [ref=e177]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e178]
+        - paragraph [ref=e179]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e180]:
+        - generic [ref=e181]:
+          - button "Alle akzeptieren" [ref=e182] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e183] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e185] [cursor=pointer]
+    - generic [ref=e188]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e189] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e190] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

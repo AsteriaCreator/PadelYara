@@ -1,0 +1,212 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Allround Sport- und Freizeitanlagen Ges.m.b.H. & C" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Allround Sport- und Freizeitanlagen Ges.m.b.H. & C" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Allround Sport- und Freizeitanlagen Ges.m.b.H. & C" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+      - link " Anmelden" [ref=e20] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e21]: 
+        - text: Anmelden
+    - list [ref=e26]:
+      - listitem [ref=e27]:
+        - link "Padel Indoor Plätze" [ref=e28] [cursor=pointer]:
+          - /url: /reservierung?c=4004
+      - listitem [ref=e29]:
+        - link "Padel Outdoor Plätze" [ref=e30] [cursor=pointer]:
+          - /url: /reservierung?c=4337
+      - listitem [ref=e31]:
+        - link "Spielguthaben" [ref=e32] [cursor=pointer]:
+          - /url: /spielguthaben
+      - listitem [ref=e33]:
+        - link "Registrierung" [ref=e34] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e36]:
+      - heading "Reservierung Padel Indoor Plätze" [level=1] [ref=e37]
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - generic [ref=e40]:
+            - generic [ref=e41]:
+              - generic [ref=e42] [cursor=pointer]: 
+              - generic [ref=e43] [cursor=pointer]: 
+            - generic [ref=e45]:
+              - link "Samstag 06.06.2026" [ref=e46] [cursor=pointer]:
+                - /url: "?c=4004&d=1780725600"
+                - generic [ref=e47]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e49]:
+              - link "Sonntag 07.06.2026" [ref=e50] [cursor=pointer]:
+                - /url: "?c=4004&d=1780812000"
+                - generic [ref=e51]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e53]:
+              - link "Montag 08.06.2026" [ref=e54] [cursor=pointer]:
+                - /url: "?c=4004&d=1780898400"
+                - generic [ref=e55]: Montag
+                - text: 08.06.2026
+              - text: 
+            - generic [ref=e57]:
+              - link "Dienstag 09.06.2026" [ref=e58] [cursor=pointer]:
+                - /url: "?c=4004&d=1780984800"
+                - generic [ref=e59]: Dienstag
+                - text: 09.06.2026
+              - text: 
+            - generic [ref=e60]:
+              - generic [ref=e61] [cursor=pointer]: 
+              - generic [ref=e62] [cursor=pointer]: 
+          - generic [ref=e63]:
+            - generic [ref=e65]: 08:00
+            - generic [ref=e67]: 09:00
+            - generic [ref=e69]: 10:00
+            - generic [ref=e71]: 11:00
+            - generic [ref=e73]: 12:00
+            - generic [ref=e75]: 13:00
+            - generic [ref=e77]: 14:00
+            - generic [ref=e79]: 15:00
+            - generic [ref=e81]: 16:00
+            - generic [ref=e83]: 17:00
+            - generic [ref=e85]: 18:00
+            - generic [ref=e87]: 19:00
+            - generic [ref=e89]: 20:00
+            - generic [ref=e91]: 21:00
+            - generic [ref=e93]: 22:00
+          - generic [ref=e95]:
+            - generic [ref=e96]:
+              - generic [ref=e98]:
+                - generic [ref=e99]: Halle 1
+                - generic [ref=e100]: Halle 2
+                - generic [ref=e101]: Halle 3
+                - generic [ref=e102]: Halle 4
+                - generic [ref=e103]: Halle 5
+                - generic [ref=e104]: Halle 6
+              - generic [ref=e194]:
+                - generic [ref=e195]: Halle 1
+                - generic [ref=e196]: Halle 2
+                - generic [ref=e197]: Halle 3
+                - generic [ref=e198]: Halle 4
+                - generic [ref=e199]: Halle 5
+                - generic [ref=e200]: Halle 6
+            - generic [ref=e201]:
+              - generic [ref=e203]:
+                - generic [ref=e204]: Halle 1
+                - generic [ref=e205]: Halle 2
+                - generic [ref=e206]: Halle 3
+                - generic [ref=e207]: Halle 4
+                - generic [ref=e208]: Halle 5
+                - generic [ref=e209]: Halle 6
+              - generic [ref=e294]:
+                - generic [ref=e295]: Halle 1
+                - generic [ref=e296]: Halle 2
+                - generic [ref=e297]: Halle 3
+                - generic [ref=e298]: Halle 4
+                - generic [ref=e299]: Halle 5
+                - generic [ref=e300]: Halle 6
+            - generic [ref=e301]:
+              - generic [ref=e303]:
+                - generic [ref=e304]: Halle 1
+                - generic [ref=e305]: Halle 2
+                - generic [ref=e306]: Halle 3
+                - generic [ref=e307]: Halle 4
+                - generic [ref=e308]: Halle 5
+                - generic [ref=e309]: Halle 6
+              - generic [ref=e323] [cursor=pointer]: USC LANDHAUS
+              - generic [ref=e395]:
+                - generic [ref=e396]: Halle 1
+                - generic [ref=e397]: Halle 2
+                - generic [ref=e398]: Halle 3
+                - generic [ref=e399]: Halle 4
+                - generic [ref=e400]: Halle 5
+                - generic [ref=e401]: Halle 6
+            - generic [ref=e402]:
+              - generic [ref=e404]:
+                - generic [ref=e405]: Halle 1
+                - generic [ref=e406]: Halle 2
+                - generic [ref=e407]: Halle 3
+                - generic [ref=e408]: Halle 4
+                - generic [ref=e409]: Halle 5
+                - generic [ref=e410]: Halle 6
+              - generic [ref=e411]:
+                - generic [ref=e415] [cursor=pointer]: Seidl
+                - generic [ref=e428] [cursor=pointer]: Seidl
+                - generic [ref=e440] [cursor=pointer]: Seidl
+                - generic [ref=e476] [cursor=pointer]: Bertleff
+                - generic [ref=e492] [cursor=pointer]: Bertleff
+              - generic [ref=e497]:
+                - generic [ref=e498]: Halle 1
+                - generic [ref=e499]: Halle 2
+                - generic [ref=e500]: Halle 3
+                - generic [ref=e501]: Halle 4
+                - generic [ref=e502]: Halle 5
+                - generic [ref=e503]: Halle 6
+          - generic [ref=e504]:
+            - generic [ref=e506]: 08:00
+            - generic [ref=e508]: 09:00
+            - generic [ref=e510]: 10:00
+            - generic [ref=e512]: 11:00
+            - generic [ref=e514]: 12:00
+            - generic [ref=e516]: 13:00
+            - generic [ref=e518]: 14:00
+            - generic [ref=e520]: 15:00
+            - generic [ref=e522]: 16:00
+            - generic [ref=e524]: 17:00
+            - generic [ref=e526]: 18:00
+            - generic [ref=e528]: 19:00
+            - generic [ref=e530]: 20:00
+            - generic [ref=e532]: 21:00
+            - generic [ref=e534]: 22:00
+        - generic [ref=e535]:
+          - heading "Preise/h" [level=3] [ref=e536]
+          - generic [ref=e537]: € 24
+          - generic [ref=e538]: € 26
+          - generic [ref=e539]: € 28
+        - generic [ref=e540]:
+          - heading "Farben" [level=3] [ref=e541]
+          - generic [ref=e542]: Abo
+          - generic [ref=e543]: Vorjahresmitglied
+          - generic [ref=e544]: Gastspieler
+          - generic [ref=e545]: Mitglied inkl. Halle
+    - contentinfo [ref=e546]:
+      - generic [ref=e548]:
+        - generic [ref=e549]:
+          - text: Allround Sport- und Freizeitanlagen Ges.m.b.H. & C |
+          - link "Impressum" [ref=e550] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e551] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e552]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e553] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e555]:
+    - paragraph [ref=e556]:
+      - generic [ref=e557]:
+        - paragraph [ref=e558]:
+          - img "Allround Sport- und Freizeitanlagen Ges.m.b.H. & C" [ref=e559]
+          - text: Allround Sport- und Freizeitanlagen Ges.m.b.H. & C
+        - paragraph [ref=e560]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e561]:
+      - link "Einstellungen verwalten" [ref=e562] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e563]:
+        - button "Alle ablehnen" [ref=e564] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e565] [cursor=pointer]

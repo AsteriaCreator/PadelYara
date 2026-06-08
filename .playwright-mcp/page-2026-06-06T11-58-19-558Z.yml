@@ -1,0 +1,160 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Zu Haupt Inhalt springen" [ref=e6] [cursor=pointer]:
+          - /url: "#main"
+        - link "Eversports Startseite" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+        - link "Suche nach Sport oder Anlage" [ref=e13] [cursor=pointer]:
+          - /url: /?show=search
+          - img [ref=e14]
+          - generic [ref=e17]: Suche nach Sport oder Anlage
+    - main [ref=e18]:
+      - generic [ref=e21]:
+        - generic:
+          - generic [ref=e24]: 
+          - generic:
+            - img "PADELFIELD" [ref=e26] [cursor=pointer]
+            - img "PADELFIELD" [ref=e28] [cursor=pointer]
+          - generic [ref=e31]: 
+        - text: 
+      - generic [ref=e32]:
+        - link "Zurück zum PADELFIELD Profil" [ref=e34] [cursor=pointer]:
+          - /url: /s/padelfield
+        - list [ref=e39]:
+          - listitem [ref=e40]:
+            - link "Übersicht" [ref=e41] [cursor=pointer]:
+              - /url: /s/padelfield
+          - listitem [ref=e42]:
+            - link "Sportplätze" [ref=e43]:
+              - /url: "#"
+          - listitem [ref=e44]:
+            - link "Matches" [ref=e45] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e46]:
+            - link "Trainings" [ref=e47] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e48]:
+            - link "Preise" [ref=e49] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e50]:
+            - link "Team" [ref=e51] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e52]:
+            - link "Bewertungen" [ref=e53] [cursor=pointer]:
+              - /url: /s/padelfield#gotoratings
+        - generic:
+          - generic:  
+      - generic [ref=e54]:
+        - heading "PADELFIELD - Belegungsplan" [level=1] [ref=e57]
+        - generic [ref=e61]:
+          - navigation "Sportart auswählen" [ref=e63]:
+            - list [ref=e64]:
+              - listitem [ref=e65] [cursor=pointer]: Padel
+          - generic [ref=e67]:
+            - generic [ref=e69]:
+              - textbox "Datum auswählen" [ref=e70]: 06.06.2026
+              - generic [ref=e71] [cursor=pointer]: 
+            - generic [ref=e73]:
+              - button "" [disabled]:
+                - generic: 
+              - button "Heute" [ref=e74] [cursor=pointer]
+              - button "" [ref=e75] [cursor=pointer]:
+                - generic [ref=e76]: 
+        - progressbar [ref=e82]: lade Buchungen...
+    - contentinfo [ref=e83]:
+      - generic [ref=e84]:
+        - generic [ref=e85]:
+          - generic [ref=e86]:
+            - generic [ref=e87]:
+              - heading "Mehr über Eversports" [level=2] [ref=e88]
+              - list [ref=e89]:
+                - listitem [ref=e90]:
+                  - link "Über uns" [ref=e91] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/uber-uns/
+                - listitem [ref=e92]:
+                  - link "Blog" [ref=e93] [cursor=pointer]:
+                    - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+                - listitem [ref=e94]:
+                  - link "Karriere" [ref=e95] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/jobs/
+                - listitem [ref=e96]:
+                  - link "Sicherheit" [ref=e97] [cursor=pointer]:
+                    - /url: /h/security
+                - listitem [ref=e98]:
+                  - link "Für Unternehmen" [ref=e99] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - generic [ref=e100]:
+              - heading "Eversports Manager" [level=2] [ref=e101]
+              - list [ref=e102]:
+                - listitem [ref=e103]:
+                  - link "Zur Website" [ref=e104] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+                - listitem [ref=e105]:
+                  - link "Preise" [ref=e106] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+                - listitem [ref=e107]:
+                  - link "Kostenlose Demo" [ref=e108] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - heading "Kontakt" [level=2] [ref=e111]
+              - list [ref=e112]:
+                - listitem [ref=e113]:
+                  - link "Kontakt" [ref=e114] [cursor=pointer]:
+                    - /url: /h/contact
+                - listitem [ref=e115]:
+                  - link "Impressum" [ref=e116] [cursor=pointer]:
+                    - /url: /h/about
+                - listitem [ref=e117]:
+                  - link "Datenschutz" [ref=e118] [cursor=pointer]:
+                    - /url: /h/privacy
+                - listitem [ref=e119]:
+                  - link "AGB" [ref=e120] [cursor=pointer]:
+                    - /url: /h/terms
+                - listitem [ref=e121]:
+                  - link "Erklärung zur Barrierefreiheit" [ref=e122] [cursor=pointer]:
+                    - /url: /h/accessibility
+                - listitem [ref=e123]:
+                  - link "Cookie-Einstellungen" [ref=e124] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e125]:
+                  - link "Memberships kündigen" [ref=e126] [cursor=pointer]:
+                    - /url: /h/cancel-membership
+            - generic [ref=e127]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e128]
+              - link "Facebook Profil" [ref=e129] [cursor=pointer]:
+                - /url: //fb.com/eversports
+                - img [ref=e130]
+              - link "YouTube Profil" [ref=e132] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                - img [ref=e133]
+              - link "Instagram Profil" [ref=e136] [cursor=pointer]:
+                - /url: https://www.instagram.com/eversports_official
+                - img [ref=e137]
+              - heading "Apps" [level=2] [ref=e140]
+              - link "iOS App Store" [ref=e141] [cursor=pointer]:
+                - /url: https://apps.apple.com/de/app/id946460861
+                - img "iOS App Store" [ref=e142]
+              - link "Android" [ref=e143] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - img "Android" [ref=e144]
+        - generic [ref=e145]:
+          - img [ref=e146]
+          - paragraph [ref=e150]: 2026 Eversports Gmbh. Alle Rechte vorbehalten
+    - dialog [active] [ref=e156]:
+      - document [ref=e158]:
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - heading "Cookie-Einstellungen" [level=3] [ref=e161]
+            - button "Close"
+          - generic [ref=e162]:
+            - paragraph [ref=e164]: Wir verwenden Cookies, um dir ein optimales Webseiten-Erlebnis zu bieten. Du kannst dabei entscheiden, welche Kategorien von Cookies du erlaubst. Natürlich kannst du deine Cookie-Einstellungen jederzeit ändern.
+            - button "Cookie-Einstellungen" [ref=e166] [cursor=pointer]:
+              - generic [ref=e167]:
+                - text: Cookie-Einstellungen
+                - img [ref=e168]
+          - button "Alle akzeptieren" [ref=e172] [cursor=pointer]
+  - text:  

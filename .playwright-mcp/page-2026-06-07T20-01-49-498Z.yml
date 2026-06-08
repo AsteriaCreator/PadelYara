@@ -1,0 +1,174 @@
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - img "PadelYara" [ref=e62]
+    - generic [ref=e6]:
+      - link "Court Finder" [ref=e7] [cursor=pointer]:
+        - /url: /
+      - link "Padelrevier" [ref=e8] [cursor=pointer]:
+        - /url: /padelrevier
+      - link "Turnierjagd" [ref=e9] [cursor=pointer]:
+        - /url: /turnierjaeger
+      - link "Über Yara" [ref=e10] [cursor=pointer]:
+        - /url: /about
+    - paragraph [ref=e11]: Yara findet einen freien Court für dich. Wo willst du spielen?
+    - paragraph [ref=e12]:
+      - text: PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?
+      - link "Schreib Yara." [ref=e13] [cursor=pointer]:
+        - /url: mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback
+    - generic [ref=e14]:
+      - paragraph [ref=e15]: Neue Features kommen. Ob du das mitbekommst, ist deine Entscheidung.
+      - generic [ref=e16]:
+        - textbox "deine@email.at" [ref=e17]
+        - button "INFORMIER MICH" [ref=e18]
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Wo?
+          - textbox "z.B. 2500 oder Baden" [ref=e24]: Sportcenter Donaucity
+        - generic [ref=e25]:
+          - generic [ref=e26]: Umkreis
+          - combobox [ref=e27]:
+            - option "5 km" [selected]
+            - option "10 km"
+            - option "20 km"
+            - option "25 km"
+            - option "50 km"
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]: Wann?
+          - textbox [ref=e31]: 2026-06-08
+        - generic [ref=e32]:
+          - generic [ref=e33]: Ab wann?
+          - combobox [ref=e34]:
+            - option "07:00" [selected]
+            - option "08:00"
+            - option "09:00"
+            - option "10:00"
+            - option "11:00"
+            - option "12:00"
+            - option "13:00"
+            - option "14:00"
+            - option "15:00"
+            - option "16:00"
+            - option "17:00"
+            - option "18:00"
+            - option "19:00"
+            - option "20:00"
+            - option "21:00"
+            - option "22:00"
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e37]: Court-Typ
+          - generic [ref=e38]:
+            - generic [ref=e39] [cursor=pointer]:
+              - checkbox "Indoor" [checked] [ref=e40]
+              - generic [ref=e41]: Indoor
+            - generic [ref=e42] [cursor=pointer]:
+              - checkbox "Outdoor" [checked] [ref=e43]
+              - generic [ref=e44]: Outdoor
+        - generic [ref=e45]:
+          - generic [ref=e46]: Verfügbarkeit
+          - generic [ref=e47]:
+            - generic [ref=e48] [cursor=pointer]:
+              - checkbox "Frei" [checked] [ref=e49]
+              - generic [ref=e50]: Frei
+            - generic [ref=e51] [cursor=pointer]:
+              - checkbox "Belegt" [checked] [ref=e52]
+              - generic [ref=e53]: Belegt
+      - button "SUCHEN" [active] [ref=e54]
+    - generic [ref=e63]:
+      - paragraph [ref=e64]: Das Wetter in deiner Suchlocation
+      - generic [ref=e65]:
+        - generic [ref=e66]: ☁️
+        - generic [ref=e67]:
+          - generic [ref=e68]: 16.6°C
+          - generic [ref=e69]: Bewölkt
+        - generic [ref=e70]:
+          - generic [ref=e71]: 10%
+          - paragraph [ref=e72]: Regenwahrsch.
+          - paragraph [ref=e73]: Outdoor gut möglich
+    - generic [ref=e74]:
+      - img "Yara" [ref=e76]
+      - generic [ref=e77]: Yara ist auf der Jagd…
+    - paragraph [ref=e78]: Sportcenter Donaucity · 5 km Umkreis
+    - generic [ref=e79]:
+      - paragraph [ref=e80]: 7 Ergebnisse im Umkreis von 5 km
+      - button "TEILEN" [ref=e81]
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - generic [ref=e85]: Alte Donau outdoor
+          - generic [ref=e88]: Wird noch geprüft …
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - generic [ref=e91]: 🌳 outdoor
+            - generic [ref=e92]: 📍 1.2 km
+          - link "LINK →" [ref=e93] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=3218&t=1780869600
+      - generic [ref=e94]:
+        - generic [ref=e95]:
+          - generic [ref=e96]: Alte Donau indoor
+          - generic [ref=e99]: Wird noch geprüft …
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - generic [ref=e102]: 🏠 indoor
+            - generic [ref=e103]: 📍 1.2 km
+          - link "LINK →" [ref=e104] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=3216&t=1780869600
+      - generic [ref=e105]:
+        - generic [ref=e106]:
+          - generic [ref=e107]: Wien Sportinsel
+          - generic [ref=e110]: Wird noch geprüft …
+        - generic [ref=e111]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 🌳 outdoor
+            - generic [ref=e114]: 📍 2.2 km
+          - link "LINK →" [ref=e115] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-wien-or-spezi-sportinsel?date=2026-06-08
+      - generic [ref=e116]:
+        - generic [ref=e117]:
+          - generic [ref=e118]: Wien Floridsdorf
+          - generic [ref=e121]: Wird noch geprüft …
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - generic [ref=e124]: 🏠🌳 indoor+outdoor
+            - generic [ref=e125]: 📍 4.3 km
+          - link "LINK →" [ref=e126] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/padelzone-wien-or-floridsdorf-powered-by-cupra?date=2026-06-08
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e129]: PadelUnion Wien Prater
+          - generic [ref=e132]: Wird noch geprüft …
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: 🌳 outdoor
+            - generic [ref=e136]: 📍 4.6 km
+          - link "LINK →" [ref=e137] [cursor=pointer]:
+            - /url: https://www.padelunion.at/reservierung?c=3776&t=1780869600
+      - generic [ref=e138]:
+        - generic [ref=e139]:
+          - generic [ref=e140]: PadelDome Wien Stadlau
+          - generic [ref=e143]: Wird noch geprüft …
+        - generic [ref=e144]:
+          - generic [ref=e145]:
+            - generic [ref=e146]: 🏠 indoor
+            - generic [ref=e147]: 📍 4.9 km
+          - link "LINK →" [ref=e148] [cursor=pointer]:
+            - /url: https://www.padeldome.wien/reservierung?c=5175&t=1780869600
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]: Sportcenter Donaucity
+          - generic [ref=e154]: Nicht geprüft
+        - generic [ref=e155]:
+          - generic [ref=e156]:
+            - generic [ref=e157]: 🌳 outdoor
+            - generic [ref=e158]: 📍 0.0 km
+          - link "LINK →" [ref=e159] [cursor=pointer]:
+            - /url: https://www.eversports.at/sb/sportcenter-donaucity?date=2026-06-08
+    - paragraph [ref=e160]: Zuletzt aktualisiert gerade eben
+  - contentinfo [ref=e57]:
+    - paragraph [ref=e58]: PadelYara
+    - generic [ref=e59]:
+      - button "Impressum" [ref=e60]
+      - link "Datenschutz" [ref=e61] [cursor=pointer]:
+        - /url: /datenschutz

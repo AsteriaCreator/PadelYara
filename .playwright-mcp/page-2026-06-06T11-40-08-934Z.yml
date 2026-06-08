@@ -1,0 +1,325 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "PadelFun Zwentendorf" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "PadelFun Zwentendorf" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "PadelFun Zwentendorf" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "News" [ref=e30] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e31]:
+        - link "Spielregeln" [ref=e32] [cursor=pointer]:
+          - /url: /s/Spielregeln
+      - listitem [ref=e33]:
+        - link "Haftungen" [ref=e34] [cursor=pointer]:
+          - /url: /s/Haftungen
+      - listitem [ref=e35]:
+        - link "Mitgliedschaft" [ref=e36] [cursor=pointer]:
+          - /url: /mitgliedschaft
+      - listitem [ref=e37]:
+        - link "Registrierung" [ref=e38] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e40]:
+      - heading "Startseite" [level=1] [ref=e41]
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - link "Einsteiger-Training" [ref=e46] [cursor=pointer]:
+              - /url: /news-26424-Einsteiger_Training
+              - img "Einsteiger-Training" [ref=e47]
+            - generic [ref=e48]:
+              - heading "Einsteiger-Training" [level=2] [ref=e49]:
+                - link "Einsteiger-Training" [ref=e50] [cursor=pointer]:
+                  - /url: /news-26424-Einsteiger_Training
+              - paragraph [ref=e51]: "NEU IN ZWENTENDORF: DEIN START IM PADEL-TENNIS!"
+              - paragraph [ref=e52]: Lust auf Action, neue Leute und den Trendsport Nummer 1? Dann komm zu unserem Anfängertraining! Egal ob blutiger Anfänger oder sportbegeisterter Einsteiger – wir zeigen dir die Basics und garantieren 100 % Spielspaß ab der ersten Minute.
+              - paragraph [ref=e53]: Schläger und Bälle stellen wir dir direkt vor Ort zur Verfügung!
+              - paragraph [ref=e54]
+              - generic [ref=e55]:
+                - generic [ref=e56]:
+                  - img "User Image" [ref=e57]
+                  - text: Sabrina Prager
+                - text: ", 01. April 2026"
+              - link " Mehr dazu" [ref=e58] [cursor=pointer]:
+                - /url: /news-26424-Einsteiger_Training
+                - generic [ref=e59]: 
+                - text: Mehr dazu
+          - generic [ref=e60]:
+            - link "Kinder-Training" [ref=e62] [cursor=pointer]:
+              - /url: /news-26850-Kinder_Training
+              - img "Kinder-Training" [ref=e63]
+            - generic [ref=e64]:
+              - heading "Kinder-Training" [level=2] [ref=e65]:
+                - link "Kinder-Training" [ref=e66] [cursor=pointer]:
+                  - /url: /news-26850-Kinder_Training
+              - paragraph [ref=e67]: PADEL-ACTION FÜR KIDS!
+              - paragraph [ref=e68]: Spiel, Spaß & Power auf dem Court
+              - paragraph [ref=e69]:
+                - text: Du bist zwischen 6 und 12 Jahre alt und hast Lust auf den coolsten Trendsport der Welt? Dann komm zu unserem Kids-Training!
+                - text: Padel ist kinderleicht zu lernen, actionreich und macht im Team am meisten Spaß.
+              - generic [ref=e70]:
+                - generic [ref=e71]:
+                  - img "User Image" [ref=e72]
+                  - text: Daniel Prager
+                - text: ", 31. März 2026"
+              - link " Mehr dazu" [ref=e73] [cursor=pointer]:
+                - /url: /news-26850-Kinder_Training
+                - generic [ref=e74]: 
+                - text: Mehr dazu
+          - generic [ref=e75]:
+            - link "Unsere Padel-Anlage kurz erklärt" [ref=e77] [cursor=pointer]:
+              - /url: /news-27107-Unsere_Padel_Anlage_kurz_erklaert
+              - img "Unsere Padel-Anlage kurz erklärt" [ref=e78]
+            - generic [ref=e79]:
+              - heading "Unsere Padel-Anlage kurz erklärt" [level=2] [ref=e80]:
+                - link "Unsere Padel-Anlage kurz erklärt" [ref=e81] [cursor=pointer]:
+                  - /url: /news-27107-Unsere_Padel_Anlage_kurz_erklaert
+              - paragraph [ref=e82]: PadelFun Zwentendorf bietet die modernste Padel-Anlage der Region mit 2 Premium Regular-Courts und 1 Single-Court. Egal ob Anfänger, Freizeitspieler oder ambitionierte Sportler – bei uns findest du ideale Bedingungen für Spaß, Bewegung und spannende Matches.
+              - generic [ref=e83]:
+                - generic [ref=e84]:
+                  - img "User Image" [ref=e85]
+                  - text: Daniel Prager
+                - text: ", 02. September 2025"
+              - link " Mehr dazu" [ref=e86] [cursor=pointer]:
+                - /url: /news-27107-Unsere_Padel_Anlage_kurz_erklaert
+                - generic [ref=e87]: 
+                - text: Mehr dazu
+          - generic [ref=e88]:
+            - link "PadelFun Connect – unsere WhatsApp-Gruppe für alle, die dabei sein wollen" [ref=e90] [cursor=pointer]:
+              - /url: /news-26227-PadelFun_Connect_____unsere_WhatsApp_Gruppe_fuer_alle__die_dabei_sein_wollen
+              - img "PadelFun Connect – unsere WhatsApp-Gruppe für alle, die dabei sein wollen" [ref=e91]
+            - generic [ref=e92]:
+              - heading "PadelFun Connect – unsere WhatsApp-Gruppe für alle, die dabei sein wollen" [level=2] [ref=e93]:
+                - link "PadelFun Connect – unsere WhatsApp-Gruppe für alle, die dabei sein wollen" [ref=e94] [cursor=pointer]:
+                  - /url: /news-26227-PadelFun_Connect_____unsere_WhatsApp_Gruppe_fuer_alle__die_dabei_sein_wollen
+              - paragraph [ref=e95]: Du suchst Mitspieler*innen, hast eine Frage oder willst spontan spielen? In unserer WhatsApp-Gruppe „PadelFun Connect“ kannst du dich einfach austauschen, vernetzen und informieren. Jetzt beitreten und Teil der Community werden!
+              - generic [ref=e96]:
+                - generic [ref=e97]:
+                  - img "User Image" [ref=e98]
+                  - text: Daniel Prager
+                - text: ", 13. Juli 2025"
+              - link " Mehr dazu" [ref=e99] [cursor=pointer]:
+                - /url: /news-26227-PadelFun_Connect_____unsere_WhatsApp_Gruppe_fuer_alle__die_dabei_sein_wollen
+                - generic [ref=e100]: 
+                - text: Mehr dazu
+          - generic [ref=e101]:
+            - link "OPEN DAY – Wir feiern Eröffnung!" [ref=e103] [cursor=pointer]:
+              - /url: /news-26191-OPEN_DAY_____Wir_feiern_Eroeffnung_
+              - img "OPEN DAY – Wir feiern Eröffnung!" [ref=e104]
+            - generic [ref=e105]:
+              - heading "OPEN DAY – Wir feiern Eröffnung!" [level=2] [ref=e106]:
+                - link "OPEN DAY – Wir feiern Eröffnung!" [ref=e107] [cursor=pointer]:
+                  - /url: /news-26191-OPEN_DAY_____Wir_feiern_Eroeffnung_
+              - paragraph [ref=e108]: PadelFun Zwentendorf lädt ein zum Open Day – am 19. Juli 2025! Wir öffnen offiziell unsere Tore – mit kostenlosem Spielbetrieb, Hüpfburg, Essen, Getränken, Tombola, Musik & mehr.
+              - paragraph [ref=e109]: Sei dabei, wenn PadelFun Zwentendorf startet!
+              - generic [ref=e110]:
+                - generic [ref=e111]:
+                  - img "User Image" [ref=e112]
+                  - text: Daniel Prager
+                - text: ", 11. Juli 2025"
+              - link " Mehr dazu" [ref=e113] [cursor=pointer]:
+                - /url: /news-26191-OPEN_DAY_____Wir_feiern_Eroeffnung_
+                - generic [ref=e114]: 
+                - text: Mehr dazu
+          - generic [ref=e115]:
+            - link "Startschuss für PadelFun!" [ref=e117] [cursor=pointer]:
+              - /url: /news-25693-Startschuss_fuer_PadelFun_
+              - img "Startschuss für PadelFun!" [ref=e118]
+            - generic [ref=e119]:
+              - heading "Startschuss für PadelFun!" [level=2] [ref=e120]:
+                - link "Startschuss für PadelFun!" [ref=e121] [cursor=pointer]:
+                  - /url: /news-25693-Startschuss_fuer_PadelFun_
+              - paragraph [ref=e122]: "Unsere Courts sind fertig – bald ist es so weit:"
+              - paragraph [ref=e123]: Ab 4. Juli kann gebucht werden.
+              - paragraph [ref=e124]: Am 19. Juli feiern wir gemeinsam die offizielle Eröffnung der Anlage mit Essen und Getränken, kostenlosem Spielen, Musik und guter Stimmung.
+              - generic [ref=e125]:
+                - generic [ref=e126]:
+                  - img "User Image" [ref=e127]
+                  - text: Daniel Prager
+                - text: ", 16. Juni 2025"
+              - link " Mehr dazu" [ref=e128] [cursor=pointer]:
+                - /url: /news-25693-Startschuss_fuer_PadelFun_
+                - generic [ref=e129]: 
+                - text: Mehr dazu
+          - generic [ref=e130]:
+            - link "PadelFun Zwentendorf – Wir bringen Action auf den Platz!" [ref=e132] [cursor=pointer]:
+              - /url: /news-23453-PadelFun_Zwentendorf_____Wir_bringen_Action_auf_den_Platz_
+              - img "PadelFun Zwentendorf – Wir bringen Action auf den Platz!" [ref=e133]
+            - generic [ref=e134]:
+              - heading "PadelFun Zwentendorf – Wir bringen Action auf den Platz!" [level=2] [ref=e135]:
+                - link "PadelFun Zwentendorf – Wir bringen Action auf den Platz!" [ref=e136] [cursor=pointer]:
+                  - /url: /news-23453-PadelFun_Zwentendorf_____Wir_bringen_Action_auf_den_Platz_
+              - paragraph [ref=e137]: Hey Padel-Fans und alle, die es noch werden wollen – willkommen bei PadelFun Zwentendorf! Wir sind ein Familienunternehmen, das aus purer Leidenschaft für den Sport entstanden ist. Unser Ziel? Padel-Tennis nach Zwentendorf bringen und euch eine neue, richtig coole Möglichkeit bieten, euch auszupowern, Matches zu spielen und einfach Spaß zu haben!
+              - paragraph [ref=e138]: Hinter PadelFun stehen Reini, Daniel, Sabrina und Raphael – vier sportverrückte Enthusiasten, die für euch die beste Padel-Anlage der Region auf die Beine stellen wollen!
+              - text: gelöschter Benutzer, 05. März 2025
+              - link " Mehr dazu" [ref=e139] [cursor=pointer]:
+                - /url: /news-23453-PadelFun_Zwentendorf_____Wir_bringen_Action_auf_den_Platz_
+                - generic [ref=e140]: 
+                - text: Mehr dazu
+          - link " weitere News im Archiv" [ref=e142] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e143]: 
+            - text: weitere News im Archiv
+        - generic [ref=e146]:
+          - heading "Anfahrt" [level=2] [ref=e147]
+          - paragraph [ref=e148]: "Adresse: Gewerbepark Objekt 10, 3435 Zwentendorf an der Donau"
+          - generic [ref=e154]:
+            - paragraph [ref=e155]: Möchten Sie von Google Map bereitgestellte externe Inhalte laden?
+            - paragraph [ref=e156]:
+              - button "Ja" [ref=e157] [cursor=pointer]
+              - button "Immer" [ref=e158] [cursor=pointer]
+        - list [ref=e160]:
+          - listbox [ref=e162]:
+            - listitem [ref=e163]:
+              - link [ref=e164] [cursor=pointer]:
+                - /url: https://www.rohrdorfer.at
+                - img [ref=e165]
+            - listitem [ref=e166]:
+              - link [ref=e167] [cursor=pointer]:
+                - /url: https://www.lukas-tulln.at
+                - img [ref=e168]
+            - listitem [ref=e169]:
+              - link [ref=e170] [cursor=pointer]:
+                - /url: https://www.glosara.at
+                - img [ref=e171]
+            - listitem [ref=e172]:
+              - link [ref=e173] [cursor=pointer]:
+                - /url: https://www.nv.at/
+                - img [ref=e174]
+            - listitem [ref=e175]:
+              - link [ref=e176] [cursor=pointer]:
+                - /url: https://www.hyponoe.at
+                - img [ref=e177]
+            - listitem [ref=e178]:
+              - link [ref=e179] [cursor=pointer]:
+                - /url: https://www.rohrdorfer.at
+                - img [ref=e180]
+            - listitem [ref=e181]:
+              - link [ref=e182] [cursor=pointer]:
+                - /url: https://www.lukas-tulln.at
+                - img [ref=e183]
+            - listitem [ref=e184]:
+              - link [ref=e185] [cursor=pointer]:
+                - /url: https://www.glosara.at
+                - img [ref=e186]
+            - option "NV" [ref=e187]:
+              - link "NV" [ref=e188] [cursor=pointer]:
+                - /url: https://www.nv.at/
+                - img "NV" [ref=e189]
+            - option "HYPO NOE" [ref=e190]:
+              - link "HYPO NOE" [ref=e191] [cursor=pointer]:
+                - /url: https://www.hyponoe.at
+                - img "HYPO NOE" [ref=e192]
+            - option "Rohrdorfer" [ref=e193]:
+              - link "Rohrdorfer" [ref=e194] [cursor=pointer]:
+                - /url: https://www.rohrdorfer.at
+                - img "Rohrdorfer" [ref=e195]
+            - option "Lukas-Tulln" [ref=e196]:
+              - link "Lukas-Tulln" [ref=e197] [cursor=pointer]:
+                - /url: https://www.lukas-tulln.at
+                - img "Lukas-Tulln" [ref=e198]
+            - option "Der Glosara" [ref=e199]:
+              - link "Der Glosara" [ref=e200] [cursor=pointer]:
+                - /url: https://www.glosara.at
+                - img "Der Glosara" [ref=e201]
+            - option "NV" [ref=e202]:
+              - link "NV" [ref=e203] [cursor=pointer]:
+                - /url: https://www.nv.at/
+                - img "NV" [ref=e204]
+            - option "HYPO NOE" [ref=e205]:
+              - link "HYPO NOE" [ref=e206] [cursor=pointer]:
+                - /url: https://www.hyponoe.at
+                - img "HYPO NOE" [ref=e207]
+            - option "Rohrdorfer" [ref=e208]:
+              - link "Rohrdorfer" [ref=e209] [cursor=pointer]:
+                - /url: https://www.rohrdorfer.at
+                - img "Rohrdorfer" [ref=e210]
+            - option [ref=e211]:
+              - link [ref=e212] [cursor=pointer]:
+                - /url: https://www.lukas-tulln.at
+                - img [ref=e213]
+            - option [ref=e214]:
+              - link [ref=e215] [cursor=pointer]:
+                - /url: https://www.glosara.at
+                - img [ref=e216]
+            - listitem [ref=e217]:
+              - link [ref=e218] [cursor=pointer]:
+                - /url: https://www.nv.at/
+                - img [ref=e219]
+            - listitem [ref=e220]:
+              - link [ref=e221] [cursor=pointer]:
+                - /url: https://www.hyponoe.at
+                - img [ref=e222]
+            - listitem [ref=e223]:
+              - link [ref=e224] [cursor=pointer]:
+                - /url: https://www.rohrdorfer.at
+                - img [ref=e225]
+            - listitem [ref=e226]:
+              - link [ref=e227] [cursor=pointer]:
+                - /url: https://www.lukas-tulln.at
+                - img [ref=e228]
+            - listitem [ref=e229]:
+              - link [ref=e230] [cursor=pointer]:
+                - /url: https://www.glosara.at
+                - img [ref=e231]
+            - listitem [ref=e232]:
+              - link [ref=e233] [cursor=pointer]:
+                - /url: https://www.nv.at/
+                - img [ref=e234]
+            - listitem [ref=e235]:
+              - link [ref=e236] [cursor=pointer]:
+                - /url: https://www.hyponoe.at
+                - img [ref=e237]
+            - listitem [ref=e238]:
+              - link [ref=e239] [cursor=pointer]:
+                - /url: https://www.rohrdorfer.at
+                - img [ref=e240]
+    - contentinfo [ref=e241]:
+      - generic [ref=e243]:
+        - generic [ref=e244]:
+          - text: PadelFun Zwentendorf |
+          - link "Impressum" [ref=e245] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e246]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e247] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e249]:
+    - paragraph [ref=e250]:
+      - generic [ref=e251]:
+        - paragraph [ref=e252]:
+          - img "PadelFun Zwentendorf" [ref=e253]
+          - text: PadelFun Zwentendorf
+        - paragraph [ref=e254]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e255]:
+      - link "Einstellungen verwalten" [ref=e256] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e257]:
+        - button "Alle ablehnen" [ref=e258] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e259] [cursor=pointer]

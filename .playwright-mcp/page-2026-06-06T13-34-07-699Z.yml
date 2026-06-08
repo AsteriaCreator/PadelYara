@@ -1,0 +1,232 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e38]:
+    - heading "Austrian Padel Union - Mitglieder Standorte" [level=1] [ref=e41]
+    - generic [ref=e45]:
+      - combobox [ref=e46]:
+        - option "Alle Standorte"
+        - option "Wien"
+        - option "Niederösterreich"
+        - option "Oberösterreich"
+        - option "Steiermark"
+        - option "Tirol"
+        - option "Kärnten"
+        - option "Salzburg"
+        - option "Burgenland"
+        - option "Vorarlberg" [selected]
+      - generic [ref=e48] [cursor=pointer]:
+        - generic [ref=e49]:
+          - text: Vorarlberg
+          - link "×" [ref=e50]:
+            - /url: javascript:void(0)
+        - combobox "Alle Standorte" [ref=e51]
+    - generic [ref=e52]:
+      - heading "Vorarlberg" [level=3] [ref=e53]
+      - generic [ref=e55]:
+        - img "1. Padel Tennis Club Vorarlberg" [ref=e57]
+        - generic [ref=e58]:
+          - heading "1. Padel Tennis Club Vorarlberg" [level=4] [ref=e59]:
+            - link "1. Padel Tennis Club Vorarlberg" [ref=e60] [cursor=pointer]:
+              - /url: /locations/1-padel-tennis-club-vorarlberg
+          - paragraph
+          - generic [ref=e61]:
+            - generic [ref=e62]:
+              - strong [ref=e63]: "Verein:"
+              - text: 1. Padel Tennis Club Vorarlberg
+              - strong [ref=e64]: "Adresse:"
+              - text: Zieglerweg 17, 6830 Rankweil
+              - strong [ref=e65]: "Ansprechpartner:"
+              - text: "Lukas Berthold: 0664 965 1766 oder Linus Berthold: 0664 965 1770"
+            - generic [ref=e66]:
+              - strong [ref=e67]: "E-Mail:"
+              - link "info@ptcv.at" [ref=e68] [cursor=pointer]:
+                - /url: mailto:info@ptcv.at
+            - generic [ref=e69]:
+              - strong [ref=e70]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor (überdacht)
+              - strong [ref=e71]: "Homepage:"
+              - link "www.ptcv.at" [ref=e72] [cursor=pointer]:
+                - /url: http://www.ptcv.at/
+                - strong [ref=e73]: www.ptcv.at
+              - strong
+              - strong [ref=e74]: "Platzbuchungen:"
+              - link "hier" [ref=e75] [cursor=pointer]:
+                - /url: https://ptc.tennisplatz.info/reservierung
+                - strong [ref=e76]: hier
+              - strong
+          - paragraph
+      - generic [ref=e78]:
+        - img "PADELZONE Dornbirn | TC Dornbirn" [ref=e80]
+        - generic [ref=e81]:
+          - heading "PADELZONE Dornbirn | TC Dornbirn" [level=4] [ref=e82]:
+            - link "PADELZONE Dornbirn | TC Dornbirn" [ref=e83] [cursor=pointer]:
+              - /url: /locations/padelzone-dornbirn-tc-dornbirn
+          - paragraph
+          - generic [ref=e85]:
+            - strong [ref=e86]: PADELZONE Dornbirn | TC Dornbirn
+            - strong [ref=e87]: "Adresse:"
+            - text: Höchsterstraße 86, 6850 Dornbirn
+            - strong [ref=e88]: "Ansprechpartner:"
+            - link "office@padelzone.at" [ref=e89] [cursor=pointer]:
+              - /url: mailto:office@padelzone.at
+            - strong [ref=e90]: "Anzahl der Padel-Plätze:"
+            - text: 1 Double Outdoor Court
+            - strong [ref=e91]: "Homepage:"
+            - link "www.padelzone.at" [ref=e92] [cursor=pointer]:
+              - /url: http://www.padelzone.at/
+            - strong [ref=e93]: "Platzbuchungen:"
+            - link "www.eversports.at" [ref=e94] [cursor=pointer]:
+              - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e97]:
+        - img "PADELZONE Götzis | Indoor Sportzentrum" [ref=e99]
+        - generic [ref=e100]:
+          - heading "PADELZONE Götzis | Indoor Sportzentrum" [level=4] [ref=e101]:
+            - link "PADELZONE Götzis | Indoor Sportzentrum" [ref=e102] [cursor=pointer]:
+              - /url: /locations/padelzone-goetzis-indoor-sportzentrum
+          - paragraph
+          - generic [ref=e103]:
+            - strong [ref=e105]: PADELZONE Götzis | Indoor Sportzentrum
+            - generic [ref=e106]:
+              - strong [ref=e107]: "Adresse:"
+              - text: Höchsterstraße 86, 6850 Dornbirn
+            - generic [ref=e108]:
+              - strong [ref=e109]: "Ansprechpartner:"
+              - link "office@padelzone.at" [ref=e110] [cursor=pointer]:
+                - /url: mailto:office@padelzone.at
+            - generic [ref=e111]:
+              - strong [ref=e112]: "Anzahl der Padel-Plätze:"
+              - text: 6 Double Indoor Courts, 1 Single Court
+            - generic [ref=e113]:
+              - strong [ref=e114]: "Homepage:"
+              - link "www.padelzone.at" [ref=e115] [cursor=pointer]:
+                - /url: http://www.padelzone.at/
+              - strong [ref=e116]: "Platzbuchungen:"
+              - link "www.eversports.at" [ref=e117] [cursor=pointer]:
+                - /url: http://www.eversports.at/
+          - paragraph
+      - generic [ref=e119]:
+        - img "tcbw Feldkirch" [ref=e121]
+        - generic [ref=e122]:
+          - heading "tcbw Feldkirch" [level=4] [ref=e123]:
+            - link "tcbw Feldkirch" [ref=e124] [cursor=pointer]:
+              - /url: /locations/tcbw-feldkirch
+          - paragraph
+          - generic [ref=e125]:
+            - generic [ref=e126]:
+              - strong [ref=e127]: "Verein:"
+              - text: TCBW Feldkirch
+            - generic [ref=e128]:
+              - strong [ref=e129]: "Adresse:"
+              - text: Sägerstraße 75a, 6800 Feldkirch
+            - generic [ref=e130]:
+              - strong [ref=e131]: "Ansprechpartner: Raphael Gächter"
+              - text: ", padel@tcbw.at"
+            - generic [ref=e132]:
+              - strong [ref=e133]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+            - generic [ref=e134]:
+              - strong [ref=e135]: "Homepage:"
+              - link "www.tcbw.at" [ref=e136] [cursor=pointer]:
+                - /url: https://www.tcbw.at
+              - strong [ref=e137]: Platzbuchungen
+              - link "hier" [ref=e138] [cursor=pointer]:
+                - /url: https://app.tennis04.com/de/bwfv5/buchungsplan
+                - strong [ref=e139]: hier
+          - paragraph
+      - generic [ref=e141]:
+        - img "Tennisclub Hard" [ref=e143]
+        - generic [ref=e144]:
+          - heading "Tennisclub Hard" [level=4] [ref=e145]:
+            - link "Tennisclub Hard" [ref=e146] [cursor=pointer]:
+              - /url: /locations/tennisclub-hard-v
+          - paragraph
+          - generic [ref=e147]:
+            - generic [ref=e148]:
+              - strong [ref=e149]: "Verein:"
+              - text: TC Hard
+            - generic [ref=e150]:
+              - strong [ref=e151]: "Adresse:"
+              - text: Walserstraße 20, 6971 Hard
+            - generic [ref=e152]:
+              - strong [ref=e153]: "Ansprechpartner:"
+              - text: Simone Egle,
+              - link "padel@tchard.at" [ref=e154] [cursor=pointer]:
+                - /url: mailto:padel@tchard.at
+            - generic [ref=e155]:
+              - strong [ref=e156]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+            - generic [ref=e157]:
+              - strong [ref=e158]: "Homepage:"
+              - link "www.tchard.at" [ref=e159] [cursor=pointer]:
+                - /url: http://www.tchard.at
+              - strong [ref=e160]: Platzbuchungen
+              - link "hier" [ref=e161] [cursor=pointer]:
+                - /url: https://app.tennis04.com/de/hard/buchungsplan
+                - strong [ref=e162]: hier
+          - paragraph
+  - generic [ref=e163]:
+    - heading "Folge uns auf" [level=5] [ref=e164]
+    - generic [ref=e165]:
+      - link [ref=e166] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e167]
+      - link [ref=e169] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e170]
+    - generic [ref=e172]:
+      - link "Impressum" [ref=e173] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e174] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e175]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e176] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e177]:
+    - generic [ref=e178]:
+      - generic [ref=e179]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e180]
+        - paragraph [ref=e181]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e182]:
+        - generic [ref=e183]:
+          - button "Alle akzeptieren" [ref=e184] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e185] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e187] [cursor=pointer]
+    - generic [ref=e190]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e191] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e192] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

@@ -1,0 +1,356 @@
+- generic [ref=e2]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Eversports" [ref=e12]
+        - generic [ref=e25]:
+          - generic [ref=e28]:
+            - img [ref=e32]
+            - textbox "Ort" [ref=e35]:
+              - /placeholder: Wien, AT
+              - text: Wien, AT
+            - group
+          - generic [ref=e38]:
+            - img [ref=e42]
+            - textbox "Sport oder Anbieter" [ref=e44]:
+              - /placeholder: Suche nach einem Sport oder Anbieter
+            - group
+      - generic [ref=e45]:
+        - link "Für Unternehmen" [ref=e46] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - paragraph [ref=e47]: Für Unternehmen
+        - paragraph [ref=e48]: "|"
+        - link "Für Sportanbieter" [ref=e49] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - paragraph [ref=e50]: Für Sportanbieter
+        - generic [ref=e52]:
+          - paragraph [ref=e53]: "|"
+          - link "User login" [ref=e54] [cursor=pointer]:
+            - /url: /auth
+            - paragraph [ref=e55]: Login
+          - link "Registrieren" [ref=e57] [cursor=pointer]:
+            - /url: /auth/register
+            - paragraph [ref=e58]: Registrieren
+  - main [ref=e59]:
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - img "Anbieter Bild 1" [ref=e65] [cursor=pointer]
+        - img "Anbieter Bild 2" [ref=e67] [cursor=pointer]
+        - img "Anbieter Bild 3" [ref=e69] [cursor=pointer]
+        - img "Anbieter Bild 4" [ref=e71] [cursor=pointer]
+        - img "Anbieter Bild 5" [ref=e73] [cursor=pointer]
+      - generic [ref=e75]:
+        - link "Übersicht" [ref=e76] [cursor=pointer]:
+          - /url: /s/padel-challenge
+          - paragraph [ref=e79]: Übersicht
+        - link "Sportplätze" [ref=e80] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e83]: Sportplätze
+        - separator [ref=e84]
+        - link "Matches" [ref=e85] [cursor=pointer]:
+          - /url: /s/padel-challenge
+          - paragraph [ref=e88]: Matches
+        - separator [ref=e89]
+        - link "Preise" [ref=e90] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e93]: Preise
+    - generic [ref=e96]:
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - img "Anbieter Logo" [ref=e99]
+          - heading "Padel Challenge" [level=1] [ref=e100]
+          - generic [ref=e101] [cursor=pointer]:
+            - img "rating" [ref=e102]
+            - link "4,9 (8 Rezensionen)" [ref=e103]:
+              - /url: "#ratings"
+              - paragraph [ref=e104]: 4,9 (8 Rezensionen)
+          - generic [ref=e105]:
+            - link "Weitere Standorte ansehen":
+              - /url: "#branches"
+            - list
+          - link "Pachergasse 8 , 2601 Sollenau" [ref=e107] [cursor=pointer]:
+            - /url: "#location_map"
+            - generic [ref=e108]:
+              - img [ref=e111]
+              - paragraph [ref=e113]: Pachergasse 8 , 2601 Sollenau
+          - generic [ref=e114]:
+            - button "Als Favorit hinzufügen Unfavorited heart" [ref=e115] [cursor=pointer]:
+              - generic [ref=e116]:
+                - paragraph [ref=e117]: Als Favorit hinzufügen
+                - img "Unfavorited heart" [ref=e118]
+            - button "Teilen" [ref=e119] [cursor=pointer]:
+              - generic [ref=e120]:
+                - paragraph [ref=e121]: Teilen
+                - img [ref=e124]
+        - generic [ref=e128]:
+          - generic [ref=e129]:
+            - heading "Über uns" [level=2] [ref=e130]
+            - generic [ref=e131]:
+              - paragraph [ref=e137]:
+                - text: Wir bieten direkt neben dem Gasthaus am Kirchenfeld in der Pachergasse 8 in 2601 Sollenau zwei Outdoor-
+                - strong [ref=e138]: PADEL
+                - text: "-Courts, einen Outdoor-"
+                - strong [ref=e139]: PADBOL
+                - text: "-Court, einen"
+                - strong [ref=e140]: TEQBALL
+                - text: "-Tisch und einen"
+                - strong [ref=e141]: TISCHTENNIS
+                - text: "-Tisch an. Ausgestattet mit hochwertigem Kunstrasen, Panorama-Banden und einer Flutlichtanlage wird ein ultimatives Freizeiterlebnis in zentraler Lage angeboten. Garderoben und Duschen für Benutzer*innen sind ausreichend auf der Anlage vorhanden."
+              - button "Mehr anzeigen" [ref=e142] [cursor=pointer]:
+                - paragraph [ref=e143]: Mehr anzeigen
+          - generic [ref=e144]:
+            - paragraph [ref=e145]: Ausstattung
+            - list [ref=e146]:
+              - listitem [ref=e147]:
+                - img "VENUE_AMENITY_SANITARY" [ref=e148]
+                - paragraph [ref=e149]: Duschen
+              - listitem [ref=e150]:
+                - img "VENUE_AMENITY_GASTRONOMY" [ref=e151]
+                - paragraph [ref=e152]: Essen
+              - listitem [ref=e153]:
+                - img "VENUE_AMENITY_SHOP" [ref=e154]
+                - paragraph [ref=e155]: Shop
+              - listitem [ref=e156]:
+                - img "VENUE_AMENITY_WELLNESS" [ref=e157]
+                - paragraph [ref=e158]: Wellness
+              - listitem [ref=e159]:
+                - img "VENUE_AMENITY_LOCKERROOM" [ref=e160]
+                - paragraph [ref=e161]: Umkleiden
+              - listitem [ref=e162]:
+                - img "VENUE_AMENITY_PARKING" [ref=e163]
+                - paragraph [ref=e164]: Parkplatz
+              - listitem [ref=e165]:
+                - img "VENUE_AMENITY_CARDPAYMENT" [ref=e166]
+                - paragraph [ref=e167]: Kartenzahlung
+              - listitem [ref=e168]:
+                - img "VENUE_AMENITY_AIR_CONDITIONING" [ref=e169]
+                - paragraph [ref=e170]: Klimaanlage
+              - listitem [ref=e171]:
+                - img "VENUE_AMENITY_ACCESSIBLE" [ref=e172]
+                - paragraph [ref=e173]: Barrierefrei
+          - generic [ref=e174]:
+            - paragraph [ref=e175]: Standort
+            - paragraph [ref=e176]: Pachergasse 8 , 2601 Sollenau
+            - link "Google Maps Icon Google Maps öffnen" [ref=e190] [cursor=pointer]:
+              - /url: https://www.google.com/maps/dir/?api=1&destination=47.8983535767,16.2536754608
+              - button "Google Maps Icon Google Maps öffnen" [ref=e191]:
+                - generic [ref=e192]:
+                  - img "Google Maps Icon" [ref=e193]
+                  - paragraph [ref=e194]: Google Maps öffnen
+        - generic [ref=e195]:
+          - heading "Bewertungen" [level=2] [ref=e196]
+          - generic [ref=e197]:
+            - generic [ref=e198]:
+              - generic [ref=e199]:
+                - generic [ref=e200]:
+                  - img "rating" [ref=e201]
+                  - paragraph [ref=e202]: "4.9"
+                - paragraph [ref=e203]: 8 Rezensionen
+              - generic [ref=e204]:
+                - generic [ref=e205]:
+                  - paragraph [ref=e206]: Raumqualität
+                  - generic [ref=e207]:
+                    - img "5 Stars"
+                    - paragraph [ref=e208]: "5.0"
+                - generic [ref=e209]:
+                  - paragraph [ref=e210]: Freundlichkeit & Service
+                  - generic [ref=e211]:
+                    - img "5 Stars"
+                    - paragraph [ref=e212]: "5.0"
+                - generic [ref=e213]:
+                  - paragraph [ref=e214]: Sauberkeit
+                  - generic [ref=e215]:
+                    - img "4.8 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e216]: "4.8"
+                - generic [ref=e217]:
+                  - paragraph [ref=e218]: Atmosphäre
+                  - generic [ref=e219]:
+                    - img "5 Stars"
+                    - paragraph [ref=e220]: "5.0"
+                - generic [ref=e221]:
+                  - paragraph [ref=e222]: Preis-Leistung
+                  - generic [ref=e223]:
+                    - img "4.8 Stars":
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                        - generic:
+                          - generic:
+                            - img "unfulfilled rating score"
+                    - paragraph [ref=e224]: "4.8"
+            - generic [ref=e225]:
+              - generic [ref=e226]:
+                - generic [ref=e227]:
+                  - generic [ref=e228]:
+                    - generic [ref=e229]: R
+                    - generic [ref=e230]:
+                      - paragraph [ref=e231]: Rene
+                      - paragraph [ref=e232]: vor 27 Tagen
+                  - paragraph [ref=e236]: Top👌
+                - separator [ref=e237]
+              - generic [ref=e238]:
+                - generic [ref=e239]:
+                  - generic [ref=e240]:
+                    - generic [ref=e241]: R
+                    - generic [ref=e242]:
+                      - paragraph [ref=e243]: Ricardo
+                      - paragraph [ref=e244]: vor 11 Monaten
+                  - generic [ref=e246]:
+                    - paragraph [ref=e251]: Super Plätze in Toplage, dazu ein feines Gasthaus mit nettem Personal (Mo. Ruhetag) für den Durst bzw. den Hunger danach!
+                    - button "Mehr anzeigen" [ref=e252] [cursor=pointer]:
+                      - paragraph [ref=e253]: Mehr anzeigen
+                - separator [ref=e254]
+              - generic [ref=e255]:
+                - generic [ref=e256]:
+                  - generic [ref=e257]:
+                    - generic [ref=e258]: D
+                    - generic [ref=e259]:
+                      - paragraph [ref=e260]: Daniel
+                      - paragraph [ref=e261]: vor 11 Monaten
+                  - paragraph [ref=e265]: Wödklass
+                - separator [ref=e266]
+              - generic [ref=e267]:
+                - generic [ref=e268]:
+                  - generic [ref=e269]:
+                    - img "Jürgen" [ref=e271]
+                    - generic [ref=e272]:
+                      - paragraph [ref=e273]: Jürgen
+                      - paragraph [ref=e274]: vor einem Jahr
+                  - paragraph [ref=e278]: Der beste Platz draußen in der Umgebung bzw. Eigentlich in Niederösterreich
+                - separator [ref=e279]
+              - generic [ref=e280]:
+                - button "Vorige Seite" [ref=e281]:
+                  - img [ref=e284]
+                - button "Nächste Seite" [ref=e286] [cursor=pointer]:
+                  - img [ref=e289]
+        - generic [ref=e292]:
+          - heading "Angebotene Sportarten und Aktivitäten" [level=3] [ref=e293]
+          - list [ref=e294]:
+            - listitem [ref=e295]:
+              - paragraph [ref=e296]: Padel
+            - listitem [ref=e297]:
+              - paragraph [ref=e298]: Teqball
+            - listitem [ref=e299]:
+              - paragraph [ref=e300]: Padbol
+      - generic [ref=e303]:
+        - link "Jetzt buchen" [ref=e306] [cursor=pointer]:
+          - /url: "#"
+          - paragraph [ref=e307]: Jetzt buchen
+        - generic [ref=e309]:
+          - generic [ref=e310]:
+            - link "view venue's instagram page" [ref=e311] [cursor=pointer]:
+              - /url: https://www.instagram.com/padel_challenge_padbolsollenau?igsh=MWZxMXNzM3Z2YjdpOA%3D%3D&utm_source=qr
+              - img "Instagram Badge" [ref=e315]
+            - link "email venue" [ref=e317] [cursor=pointer]:
+              - /url: "mailto: office@padel-challenge.at"
+              - img [ref=e321]
+            - link "view venue's website page" [ref=e323] [cursor=pointer]:
+              - /url: http://www.padel-challenge.at
+              - img [ref=e327]
+            - link "call venue" [ref=e329] [cursor=pointer]:
+              - /url: tel:+436766033436
+              - img [ref=e333]
+          - separator [ref=e335]
+          - paragraph [ref=e336]:
+            - text: Wusstest du, dass dich dein Arbeitgeber bei deiner Sportroutine unterstützen kann?
+            - link "Learn about Eversports' special corporate deals" [ref=e337] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+              - text: Weitere Infos
+  - contentinfo [ref=e338]:
+    - generic [ref=e339]:
+      - generic [ref=e340]:
+        - link "Du arbeitest im HR-Bereich? Entdecke alle Vorteile mit Eversports Corporate" [ref=e341] [cursor=pointer]:
+          - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e342]:
+            - paragraph [ref=e343]: Du arbeitest im HR-Bereich?
+            - paragraph [ref=e344]: Entdecke alle Vorteile mit Eversports Corporate
+        - link "Du betreibst ein Studio oder eine Sportanlage? Erfahre, wie du dein Business boosten kannst!" [ref=e345] [cursor=pointer]:
+          - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+          - generic [ref=e346]:
+            - paragraph [ref=e347]: Du betreibst ein Studio oder eine Sportanlage?
+            - paragraph [ref=e348]: Erfahre, wie du dein Business boosten kannst!
+      - generic [ref=e349]:
+        - generic [ref=e350]:
+          - generic [ref=e351]:
+            - heading "Mehr über Eversports" [level=2] [ref=e352]
+            - link "Über uns" [ref=e353] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/
+            - link "Blog" [ref=e354] [cursor=pointer]:
+              - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+            - link "Jobs" [ref=e355] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/uber-uns/#jobs
+            - link "Sicherheit" [ref=e356] [cursor=pointer]:
+              - /url: /h/security
+            - link "Für Unternehmen" [ref=e357] [cursor=pointer]:
+              - /url: https://www.eversportscorporate.com/de/corporate-sports/
+          - generic [ref=e358]:
+            - heading "Eversports Manager" [level=2] [ref=e359]
+            - link "Zur Webseite" [ref=e360] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+            - link "Preise" [ref=e361] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+            - link "Kostenlose Demo" [ref=e362] [cursor=pointer]:
+              - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+        - generic [ref=e363]:
+          - generic [ref=e364]:
+            - heading "Kontakt" [level=2] [ref=e365]
+            - link "Kontaktiere uns" [ref=e366] [cursor=pointer]:
+              - /url: /h/contact
+            - link "Impressum" [ref=e367] [cursor=pointer]:
+              - /url: /h/about
+            - link "Datenschutz" [ref=e368] [cursor=pointer]:
+              - /url: /h/privacy
+            - link "Erklärung zur Barrierefreiheit" [ref=e369] [cursor=pointer]:
+              - /url: /h/accessibility
+            - link "AGB" [ref=e370] [cursor=pointer]:
+              - /url: /h/terms
+            - button "Cookie-Einstellungen" [ref=e371] [cursor=pointer]
+            - link "Memberships kündigen" [ref=e372] [cursor=pointer]:
+              - /url: /h/cancel-membership
+          - generic [ref=e373]:
+            - generic [ref=e374]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e375]
+              - generic [ref=e376]:
+                - link "Eversports Facebook" [ref=e377] [cursor=pointer]:
+                  - /url: https://www.facebook.com/eversports
+                  - img "Facebook Badge" [ref=e381]
+                - link "Eversports Manager Youtube" [ref=e383] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                  - img [ref=e387]
+                - link "Eversports Instagram" [ref=e389] [cursor=pointer]:
+                  - /url: https://www.instagram.com/eversports_official/
+                  - img "Instagram Badge" [ref=e393]
+            - generic [ref=e395]:
+              - link "Eversports Apple App Store" [ref=e396] [cursor=pointer]:
+                - /url: https://itunes.apple.com/app/eversport-now/id946460861
+                - generic [ref=e397]:
+                  - img "app-store-badge" [ref=e398]
+                  - generic [ref=e399]:
+                    - paragraph [ref=e400]: Jetzt bei
+                    - paragraph [ref=e401]: App Store
+              - link "Eversports Google Play" [ref=e402] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - generic [ref=e403]:
+                  - img "play-store-badge" [ref=e404]
+                  - generic [ref=e405]:
+                    - paragraph [ref=e406]: Jetzt bei
+                    - paragraph [ref=e407]: Google Play
+      - generic [ref=e408]:
+        - generic [ref=e409]:
+          - img "Eversports Logo" [ref=e410]
+          - paragraph [ref=e411]: 2026 Eversports GmbH. Alle Rechte vorbehalten.
+        - generic [ref=e412]:
+          - img "Paypal ist eine akzeptierte Zahlunsart" [ref=e414]
+          - img "Mastercard ist eine akzeptierte Zahlunsart" [ref=e416]
+          - img "Visa ist eine akzeptierte Zahlunsart" [ref=e418]
+          - img "Klarna ist eine akzeptierte Zahlunsart" [ref=e420]

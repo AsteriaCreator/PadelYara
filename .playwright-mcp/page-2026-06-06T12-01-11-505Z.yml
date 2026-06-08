@@ -1,0 +1,169 @@
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e5]:
+        - link "Zu Haupt Inhalt springen" [ref=e6] [cursor=pointer]:
+          - /url: "#main"
+        - link "Eversports Startseite" [ref=e7] [cursor=pointer]:
+          - /url: /
+          - img [ref=e8]
+        - link "Suche nach Sport oder Anlage" [ref=e13] [cursor=pointer]:
+          - /url: /?show=search
+          - img [ref=e14]
+          - generic [ref=e17]: Suche nach Sport oder Anlage
+        - navigation [ref=e19]:
+          - list [ref=e20]:
+            - listitem [ref=e21]:
+              - link "Für Unternehmen" [ref=e22] [cursor=pointer]:
+                - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - listitem [ref=e23]:
+              - link "Für Sportanbieter" [ref=e24] [cursor=pointer]:
+                - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-for-studios&utm_campaign=mp-b2b-landingpage
+            - listitem [ref=e25]: "|"
+            - listitem [ref=e26]:
+              - link "Login" [ref=e27] [cursor=pointer]:
+                - /url: /auth/
+            - listitem [ref=e28]:
+              - link "Registrieren" [ref=e29] [cursor=pointer]:
+                - /url: /auth/register
+    - main [ref=e30]:
+      - generic [ref=e33]:
+        - generic:
+          - generic [ref=e36]: 
+          - generic:
+            - img "PADELZONE Ebensee | Traunsee" [ref=e38] [cursor=pointer]
+            - img "PADELZONE Ebensee | Traunsee" [ref=e40] [cursor=pointer]
+          - generic [ref=e43]: 
+        - text: 
+      - generic [ref=e44]:
+        - link "Zurück zum PADELZONE Ebensee | Traunsee Profil" [ref=e46] [cursor=pointer]:
+          - /url: /s/padelzone-ebensee-or-traunsee
+        - list [ref=e51]:
+          - listitem [ref=e52]:
+            - link "Übersicht" [ref=e53] [cursor=pointer]:
+              - /url: /s/padelzone-ebensee-or-traunsee
+          - listitem [ref=e54]:
+            - link "Sportplätze" [ref=e55]:
+              - /url: "#"
+          - listitem [ref=e56]:
+            - link "Matches" [ref=e57] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e58]:
+            - link "Preise" [ref=e59] [cursor=pointer]:
+              - /url: "#"
+          - listitem [ref=e60]:
+            - link "Bewertungen" [ref=e61] [cursor=pointer]:
+              - /url: /s/padelzone-ebensee-or-traunsee#gotoratings
+        - generic:
+          - generic:  
+      - generic [ref=e62]:
+        - heading "PADELZONE Ebensee | Traunsee - Belegungsplan" [level=1] [ref=e65]
+        - generic [ref=e69]:
+          - navigation "Sportart auswählen" [ref=e71]:
+            - list [ref=e72]:
+              - listitem [ref=e73] [cursor=pointer]: Padel
+          - generic [ref=e75]:
+            - generic [ref=e77]:
+              - textbox "Datum auswählen" [ref=e78]: 06.06.2026
+              - generic [ref=e79] [cursor=pointer]: 
+            - generic [ref=e81]:
+              - button "" [disabled]:
+                - generic: 
+              - button "Heute" [ref=e82] [cursor=pointer]
+              - button "" [ref=e83] [cursor=pointer]:
+                - generic [ref=e84]: 
+        - progressbar [ref=e90]: lade Kalender...
+    - contentinfo [ref=e91]:
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]:
+              - heading "Mehr über Eversports" [level=2] [ref=e96]
+              - list [ref=e97]:
+                - listitem [ref=e98]:
+                  - link "Über uns" [ref=e99] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/uber-uns/
+                - listitem [ref=e100]:
+                  - link "Blog" [ref=e101] [cursor=pointer]:
+                    - /url: https://blog.eversports.com/?utm_source=marketplace&utm_medium=footer_link&utm_campaign=b2c_blog_footer_link
+                - listitem [ref=e102]:
+                  - link "Karriere" [ref=e103] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/jobs/
+                - listitem [ref=e104]:
+                  - link "Sicherheit" [ref=e105] [cursor=pointer]:
+                    - /url: /h/security
+                - listitem [ref=e106]:
+                  - link "Für Unternehmen" [ref=e107] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/corporate-fitness/
+            - generic [ref=e108]:
+              - heading "Eversports Manager" [level=2] [ref=e109]
+              - list [ref=e110]:
+                - listitem [ref=e111]:
+                  - link "Zur Website" [ref=e112] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/partner-werden/?utm_source=Referrals&utm_medium=marketplace-website-footer&utm_campaign=mp-b2b-landingpage
+                - listitem [ref=e113]:
+                  - link "Preise" [ref=e114] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/preise/?utm_source=Referrals&utm_medium=marketplace-pricing-footer&utm_campaign=mp-b2b-pricingpage
+                - listitem [ref=e115]:
+                  - link "Kostenlose Demo" [ref=e116] [cursor=pointer]:
+                    - /url: https://www.eversportsmanager.com/de/demo/?utm_source=Referrals&utm_medium=marketplace-demo-footer&utm_campaign=mp-b2b-demopage
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - heading "Kontakt" [level=2] [ref=e119]
+              - list [ref=e120]:
+                - listitem [ref=e121]:
+                  - link "Kontakt" [ref=e122] [cursor=pointer]:
+                    - /url: /h/contact
+                - listitem [ref=e123]:
+                  - link "Impressum" [ref=e124] [cursor=pointer]:
+                    - /url: /h/about
+                - listitem [ref=e125]:
+                  - link "Datenschutz" [ref=e126] [cursor=pointer]:
+                    - /url: /h/privacy
+                - listitem [ref=e127]:
+                  - link "AGB" [ref=e128] [cursor=pointer]:
+                    - /url: /h/terms
+                - listitem [ref=e129]:
+                  - link "Erklärung zur Barrierefreiheit" [ref=e130] [cursor=pointer]:
+                    - /url: /h/accessibility
+                - listitem [ref=e131]:
+                  - link "Cookie-Einstellungen" [ref=e132] [cursor=pointer]:
+                    - /url: "#"
+                - listitem [ref=e133]:
+                  - link "Memberships kündigen" [ref=e134] [cursor=pointer]:
+                    - /url: /h/cancel-membership
+            - generic [ref=e135]:
+              - heading "Soziale Netzwerke" [level=2] [ref=e136]
+              - link "Facebook Profil" [ref=e137] [cursor=pointer]:
+                - /url: //fb.com/eversports
+                - img [ref=e138]
+              - link "YouTube Profil" [ref=e140] [cursor=pointer]:
+                - /url: https://www.youtube.com/channel/UCJvG0QxfPt33Ds1bx436-vQ
+                - img [ref=e141]
+              - link "Instagram Profil" [ref=e144] [cursor=pointer]:
+                - /url: https://www.instagram.com/eversports_official
+                - img [ref=e145]
+              - heading "Apps" [level=2] [ref=e148]
+              - link "iOS App Store" [ref=e149] [cursor=pointer]:
+                - /url: https://apps.apple.com/de/app/id946460861
+                - img "iOS App Store" [ref=e150]
+              - link "Android" [ref=e151] [cursor=pointer]:
+                - /url: https://play.google.com/store/apps/details?id=at.eversport&hl=de
+                - img "Android" [ref=e152]
+        - generic [ref=e153]:
+          - img [ref=e154]
+          - paragraph [ref=e158]: 2026 Eversports Gmbh. Alle Rechte vorbehalten
+    - dialog [active] [ref=e164]:
+      - document [ref=e166]:
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - heading "Cookie-Einstellungen" [level=3] [ref=e169]
+            - button "Close"
+          - generic [ref=e170]:
+            - paragraph [ref=e172]: Wir verwenden Cookies, um dir ein optimales Webseiten-Erlebnis zu bieten. Du kannst dabei entscheiden, welche Kategorien von Cookies du erlaubst. Natürlich kannst du deine Cookie-Einstellungen jederzeit ändern.
+            - button "Cookie-Einstellungen" [ref=e174] [cursor=pointer]:
+              - generic [ref=e175]:
+                - text: Cookie-Einstellungen
+                - img [ref=e176]
+          - button "Alle akzeptieren" [ref=e180] [cursor=pointer]
+  - text:  

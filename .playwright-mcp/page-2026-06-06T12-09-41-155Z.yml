@@ -1,0 +1,584 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Padel Bruck" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Padel Bruck" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Padel Bruck" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  ESV-Tennis" [ref=e19] [cursor=pointer]:
+            - /url: https://bruck.tennisplatz.info/
+            - generic [ref=e20]:  
+            - text: ESV-Tennis
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "News" [ref=e30] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e31]:
+        - link "Preisliste" [ref=e32] [cursor=pointer]:
+          - /url: /s/Preisliste
+      - listitem [ref=e33]:
+        - link "Padelschule" [ref=e34] [cursor=pointer]:
+          - /url: /s/Padelschule
+      - listitem [ref=e35]:
+        - link "Sponsoring" [ref=e36] [cursor=pointer]:
+          - /url: /s/Sponsoring
+      - listitem [ref=e37]:
+        - link "Shop" [ref=e38] [cursor=pointer]:
+          - /url: /s/Shop
+      - listitem [ref=e39]:
+        - link "Padelshop HEAD" [ref=e40] [cursor=pointer]:
+          - /url: /s/Padelshop_HEAD
+      - listitem [ref=e41]:
+        - link "Padelshop BABOLAT" [ref=e42] [cursor=pointer]:
+          - /url: /s/Padelshop_BABOLAT
+      - listitem [ref=e43]:
+        - link "Mannschaften" [ref=e44] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e45]:
+        - link "Registrierung" [ref=e46] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e48]:
+      - heading "Startseite" [level=1] [ref=e49]
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e52]:
+            - link "Saisoneröffnung 2026" [ref=e54] [cursor=pointer]:
+              - /url: /news-31022-Saisoneroeffnung_2026
+              - img "Saisoneröffnung 2026" [ref=e55]
+            - generic [ref=e56]:
+              - heading "Saisoneröffnung 2026" [level=2] [ref=e57]:
+                - link "Saisoneröffnung 2026" [ref=e58] [cursor=pointer]:
+                  - /url: /news-31022-Saisoneroeffnung_2026
+              - paragraph [ref=e59]:
+                - strong [ref=e60]: Saisoneröffnung 2026
+              - paragraph [ref=e61]: "Beste Stimmung beim Eröffnungsturnier der Lions am 08.04.26:"
+              - paragraph [ref=e62]: Kinder- und Juxturnier auf 7 Plätzen und anschließendes Spanferkelgrillen !
+              - generic [ref=e63]:
+                - generic [ref=e64]:
+                  - img "User Image" [ref=e65]
+                  - text: Lukas Labitsch
+                - text: ", 14. Mai 2026"
+              - link " Mehr dazu" [ref=e66] [cursor=pointer]:
+                - /url: /news-31022-Saisoneroeffnung_2026
+                - generic [ref=e67]: 
+                - text: Mehr dazu
+          - generic [ref=e68]:
+            - link "Masters der Lions Winter Tour 2025/26" [ref=e70] [cursor=pointer]:
+              - /url: /news-29872-Masters_der_Lions_Winter_Tour_2025_26
+              - img "Masters der Lions Winter Tour 2025/26" [ref=e71]
+            - generic [ref=e72]:
+              - heading "Masters der Lions Winter Tour 2025/26" [level=2] [ref=e73]:
+                - link "Masters der Lions Winter Tour 2025/26" [ref=e74] [cursor=pointer]:
+                  - /url: /news-29872-Masters_der_Lions_Winter_Tour_2025_26
+              - paragraph [ref=e75]:
+                - strong [ref=e76]: Masters der Lions Winter Tour 2025/26 - Starter am 21.03.2026
+              - paragraph [ref=e77]: "1. Platz: Andreas Pachner / Mark Schranz"
+              - paragraph [ref=e78]: "2. Platz: Roberto Asoltanei / Alexander Köck"
+              - paragraph [ref=e79]: "3. Platz: Thomas Csima / Christian Hahn"
+              - generic [ref=e80]:
+                - generic [ref=e81]:
+                  - img "User Image" [ref=e82]
+                  - text: Lukas Labitsch
+                - text: ", 31. März 2026"
+          - generic [ref=e83]:
+            - link "Masters der Lions Winter Tour 2025/26" [ref=e85] [cursor=pointer]:
+              - /url: /news-29873-Masters_der_Lions_Winter_Tour_2025_26
+              - img "Masters der Lions Winter Tour 2025/26" [ref=e86]
+            - generic [ref=e87]:
+              - heading "Masters der Lions Winter Tour 2025/26" [level=2] [ref=e88]:
+                - link "Masters der Lions Winter Tour 2025/26" [ref=e89] [cursor=pointer]:
+                  - /url: /news-29873-Masters_der_Lions_Winter_Tour_2025_26
+              - paragraph [ref=e90]:
+                - strong [ref=e91]: Masters der Lions Winter Tour 2025/26 - Advanced am 21.03.2026
+              - paragraph [ref=e92]: "1. Platz: Mohanad Abdelhamed / Markus Grabner"
+              - paragraph [ref=e93]: "2. Platz: Daniel Maier / Alexander Scheipl"
+              - paragraph [ref=e94]: "3. Platz: Daniel Pesendorfer / Patrick Weissensteiner"
+              - generic [ref=e95]:
+                - generic [ref=e96]:
+                  - img "User Image" [ref=e97]
+                  - text: Lukas Labitsch
+                - text: ", 31. März 2026"
+          - generic [ref=e98]:
+            - link "Masters der Lions Winter Tour 2025/26" [ref=e100] [cursor=pointer]:
+              - /url: /news-29874-Masters_der_Lions_Winter_Tour_2025_26
+              - img "Masters der Lions Winter Tour 2025/26" [ref=e101]
+            - generic [ref=e102]:
+              - heading "Masters der Lions Winter Tour 2025/26" [level=2] [ref=e103]:
+                - link "Masters der Lions Winter Tour 2025/26" [ref=e104] [cursor=pointer]:
+                  - /url: /news-29874-Masters_der_Lions_Winter_Tour_2025_26
+              - paragraph [ref=e105]:
+                - strong [ref=e106]: Masters der Lions Winter Tour 2025/26 - Expert am 21.03.2026
+              - paragraph [ref=e107]: "1. Platz: Constantin Bernecker / Sebastian Bernecker"
+              - paragraph [ref=e108]: "2. Platz: Bernd Engelbrecht / Anton Pleva"
+              - paragraph [ref=e109]: "3. Platz: Patrick Kriegl / Alexander Scheriau"
+              - generic [ref=e110]:
+                - generic [ref=e111]:
+                  - img "User Image" [ref=e112]
+                  - text: Lukas Labitsch
+                - text: ", 31. März 2026"
+          - generic [ref=e113]:
+            - link "Steirische Meisterschaften 2025" [ref=e115] [cursor=pointer]:
+              - /url: /news-28654-Steirische_Meisterschaften_2025
+              - img "Steirische Meisterschaften 2025" [ref=e116]
+            - generic [ref=e117]:
+              - heading "Steirische Meisterschaften 2025" [level=2] [ref=e118]:
+                - link "Steirische Meisterschaften 2025" [ref=e119] [cursor=pointer]:
+                  - /url: /news-28654-Steirische_Meisterschaften_2025
+              - paragraph [ref=e120]:
+                - strong [ref=e121]: Steirische Meisterschaften am 17.12.2025 bei den Lions in Bruck
+              - paragraph [ref=e122]: "1. Platz: Jakob Peer, Tobias Peer"
+              - paragraph [ref=e123]: "2. Platz: Aaron Jevschenak, Sebastian Steinscherer"
+              - paragraph [ref=e124]: "3. Platz: Bernd Engelbrecht, Christoph Willenshofer"
+              - generic [ref=e125]:
+                - generic [ref=e126]:
+                  - img "User Image" [ref=e127]
+                  - text: Lukas Labitsch
+                - text: ", 30. Dezember 2025"
+          - generic [ref=e128]:
+            - link "Lions Winter Tour 2025/26" [ref=e130] [cursor=pointer]:
+              - /url: /news-28248-Lions_Winter_Tour_2025_26
+              - img "Lions Winter Tour 2025/26" [ref=e131]
+            - generic [ref=e132]:
+              - heading "Lions Winter Tour 2025/26" [level=2] [ref=e133]:
+                - link "Lions Winter Tour 2025/26" [ref=e134] [cursor=pointer]:
+                  - /url: /news-28248-Lions_Winter_Tour_2025_26
+              - paragraph [ref=e135]:
+                - strong [ref=e136]: Lions Winter Tour 2025/26 - Advanced am 11.11.25
+              - paragraph [ref=e137]: "1. Platz: Daniel Pesendorfer / Phlipp Tischler"
+              - paragraph [ref=e138]: "2. Platz: Markus Grabner / Christoph Klösch"
+              - paragraph [ref=e139]: "2. Platz: Nico Glösl, Patrick Kriegl"
+              - generic [ref=e140]:
+                - generic [ref=e141]:
+                  - img "User Image" [ref=e142]
+                  - text: Lukas Labitsch
+                - text: ", 12. November 2025"
+          - generic [ref=e143]:
+            - link "Lions Winter Tour 2025/26" [ref=e145] [cursor=pointer]:
+              - /url: /news-28226-Lions_Winter_Tour_2025_26
+              - img "Lions Winter Tour 2025/26" [ref=e146]
+            - generic [ref=e147]:
+              - heading "Lions Winter Tour 2025/26" [level=2] [ref=e148]:
+                - link "Lions Winter Tour 2025/26" [ref=e149] [cursor=pointer]:
+                  - /url: /news-28226-Lions_Winter_Tour_2025_26
+              - paragraph [ref=e150]:
+                - strong [ref=e151]: Lions Winter Tour 2025/26 - Mixed Advanced am 08.11.25
+              - paragraph [ref=e152]: "1. Platz: Nico Glösl / Elisabeth Scheriau"
+              - paragraph [ref=e153]: "2. Platz: Karin Moeller / Alexander Wernig"
+              - paragraph [ref=e154]: "3. Platz: Nicole Paar / Florian Bär"
+              - generic [ref=e155]:
+                - generic [ref=e156]:
+                  - img "User Image" [ref=e157]
+                  - text: Lukas Labitsch
+                - text: ", 10. November 2025"
+          - generic [ref=e158]:
+            - link "Lions Winter Tour 2025/26" [ref=e160] [cursor=pointer]:
+              - /url: /news-28088-Lions_Winter_Tour_2025_26
+              - img "Lions Winter Tour 2025/26" [ref=e161]
+            - generic [ref=e162]:
+              - heading "Lions Winter Tour 2025/26" [level=2] [ref=e163]:
+                - link "Lions Winter Tour 2025/26" [ref=e164] [cursor=pointer]:
+                  - /url: /news-28088-Lions_Winter_Tour_2025_26
+              - paragraph [ref=e165]:
+                - strong [ref=e166]: Lions Winter Tour 25/26 - Expert am 28.10.25
+              - paragraph [ref=e167]: "1. Platz: Clemens Haid / Aaron Jevschenak"
+              - paragraph [ref=e168]: "2. Platz: Daniel Meier / Timm Wapper"
+              - paragraph [ref=e169]: "3. Platz: René Wilding / Alexander Scheriau"
+              - generic [ref=e170]:
+                - generic [ref=e171]:
+                  - img "User Image" [ref=e172]
+                  - text: Lukas Labitsch
+                - text: ", 29. Oktober 2025"
+          - generic [ref=e173]:
+            - link "Lions Winter Tour 2025/26" [ref=e175] [cursor=pointer]:
+              - /url: /news-28046-Lions_Winter_Tour_2025_26
+              - img "Lions Winter Tour 2025/26" [ref=e176]
+            - generic [ref=e177]:
+              - heading "Lions Winter Tour 2025/26" [level=2] [ref=e178]:
+                - link "Lions Winter Tour 2025/26" [ref=e179] [cursor=pointer]:
+                  - /url: /news-28046-Lions_Winter_Tour_2025_26
+              - paragraph [ref=e180]:
+                - strong [ref=e181]: Lions Winter Tour 2025/26 - Starter am 25.10.25
+              - paragraph [ref=e182]: "1. Platz: Philipp Tischler / Moritz Wittmann"
+              - paragraph [ref=e183]: "2. Platz: Claudio Beljan / Patrick Tosold"
+              - paragraph [ref=e184]: "3. Platz: Mark Schranz / Patrick Tatzl"
+              - generic [ref=e185]:
+                - generic [ref=e186]:
+                  - img "User Image" [ref=e187]
+                  - text: Lukas Labitsch
+                - text: ", 25. Oktober 2025"
+          - generic [ref=e188]:
+            - link "Steirische Mannschaftsmeisterschaften 2025" [ref=e190] [cursor=pointer]:
+              - /url: /news-27785-Steirische_Mannschaftsmeisterschaften_2025
+              - img "Steirische Mannschaftsmeisterschaften 2025" [ref=e191]
+            - generic [ref=e192]:
+              - heading "Steirische Mannschaftsmeisterschaften 2025" [level=2] [ref=e193]:
+                - link "Steirische Mannschaftsmeisterschaften 2025" [ref=e194] [cursor=pointer]:
+                  - /url: /news-27785-Steirische_Mannschaftsmeisterschaften_2025
+              - paragraph [ref=e195]:
+                - strong [ref=e196]: Steirische Mannschaftsmeisterschaften am 4/5.10.25 in Bruck
+              - paragraph [ref=e197]: Die Lions sind mit 3 Damen- und 5 Herrenmannschaften dabei
+              - generic [ref=e198]:
+                - generic [ref=e199]:
+                  - img "User Image" [ref=e200]
+                  - text: Lukas Labitsch
+                - text: ", 06. Oktober 2025"
+          - generic [ref=e201]:
+            - link "Lions Tour 2025" [ref=e203] [cursor=pointer]:
+              - /url: /news-27688-Lions_Tour_2025
+              - img "Lions Tour 2025" [ref=e204]
+            - generic [ref=e205]:
+              - heading "Lions Tour 2025" [level=2] [ref=e206]:
+                - link "Lions Tour 2025" [ref=e207] [cursor=pointer]:
+                  - /url: /news-27688-Lions_Tour_2025
+              - paragraph [ref=e208]:
+                - strong [ref=e209]: Lions Tour 2025 - Expert am 28.09.25
+              - paragraph [ref=e210]: "1. Platz: Bernd Engelbrecht / Dominik Troschl"
+              - paragraph [ref=e211]: "2. Platz: David Paar / Alexander Scheriau"
+              - paragraph [ref=e212]: "3. Platz: Roland Novak / Aaron Jevschenak"
+              - generic [ref=e213]:
+                - generic [ref=e214]:
+                  - img "User Image" [ref=e215]
+                  - text: Lukas Labitsch
+                - text: ", 30. September 2025"
+          - generic [ref=e216]:
+            - link "Padel Lions Vereinsmeisterschaften 2025" [ref=e218] [cursor=pointer]:
+              - /url: /news-27394-Padel_Lions_Vereinsmeisterschaften_2025
+              - img "Padel Lions Vereinsmeisterschaften 2025" [ref=e219]
+            - generic [ref=e220]:
+              - heading "Padel Lions Vereinsmeisterschaften 2025" [level=2] [ref=e221]:
+                - link "Padel Lions Vereinsmeisterschaften 2025" [ref=e222] [cursor=pointer]:
+                  - /url: /news-27394-Padel_Lions_Vereinsmeisterschaften_2025
+              - paragraph [ref=e223]:
+                - strong [ref=e224]: Padel Lions Vereinsmeisterschaften am 13.09.25
+              - paragraph [ref=e225]: "Damen 1. Platz: Claudia Dornhofer / Elfriede Wieltschnig"
+              - paragraph [ref=e226]: "Mixed 1. Platz: Bianca Kvas Spanninger / Jakob Domberger"
+              - paragraph [ref=e227]: "Herren 1. Platz: Jakob Domberger / Daniel Repolusk"
+              - generic [ref=e228]:
+                - generic [ref=e229]:
+                  - img "User Image" [ref=e230]
+                  - text: Lukas Labitsch
+                - text: ", 15. September 2025"
+          - link " weitere News im Archiv" [ref=e232] [cursor=pointer]:
+            - /url: /archiv
+            - generic [ref=e233]: 
+            - text: weitere News im Archiv
+        - generic [ref=e234]:
+          - generic [ref=e239]:
+            - paragraph [ref=e240]: Möchten Sie von Facebook bereitgestellte externe Inhalte laden?
+            - paragraph [ref=e241]:
+              - button "Ja" [ref=e242] [cursor=pointer]
+              - button "Immer" [ref=e243] [cursor=pointer]
+          - generic [ref=e244]:
+            - generic [ref=e245]:
+              - paragraph [ref=e246]:
+                - generic [ref=e248]:
+                  - img "User Image" [ref=e249]
+                  - text: roberto Asoltanei
+                - text: nimmt mit
+                - generic [ref=e251]:
+                  - img "User Image" [ref=e252]
+                  - text: Matthias Danilet
+                - text: am Forderungs-Bewerb „Herren Padel Lions” teil!
+              - text: 11. April 2024, 18:20 Uhr
+            - generic [ref=e253]:
+              - paragraph [ref=e254]:
+                - generic [ref=e256]:
+                  - img "User Image" [ref=e257]
+                  - text: Florian Bär
+                - text: nimmt mit
+                - generic [ref=e259]:
+                  - img "User Image" [ref=e260]
+                  - text: Christoph Heiter
+                - text: am Forderungs-Bewerb „Herren Padel Lions” teil!
+              - text: 13. Dezember 2023, 13:42 Uhr
+            - generic [ref=e261]:
+              - paragraph [ref=e262]:
+                - generic [ref=e263]:
+                  - generic [ref=e264]:
+                    - img "User Image" [ref=e265]
+                    - text: Assinger M./
+                  - generic [ref=e266]:
+                    - img "User Image" [ref=e267]
+                    - text: Strohmaier M./
+                - text: gewinnen gegen
+                - generic [ref=e268]:
+                  - generic [ref=e269]:
+                    - img "User Image" [ref=e270]
+                    - text: Ebner R./
+                  - generic [ref=e271]:
+                    - img "User Image" [ref=e272]
+                    - text: Stadlober C./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 23. Oktober 2023, 17:47 Uhr
+            - link "Padel Lions" [ref=e274] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Padel Lions" [ref=e275]
+            - generic [ref=e276]:
+              - paragraph [ref=e277]:
+                - generic [ref=e278]:
+                  - generic [ref=e279]:
+                    - img "User Image" [ref=e280]
+                    - text: Ebner R./
+                  - generic [ref=e281]:
+                    - img "User Image" [ref=e282]
+                    - text: Stadlober C./
+                - text: (4) haben
+                - generic [ref=e283]:
+                  - generic [ref=e284]:
+                    - img "User Image" [ref=e285]
+                    - text: Assinger M./
+                  - generic [ref=e286]:
+                    - img "User Image" [ref=e287]
+                    - text: Strohmaier M./
+                - text: (2) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 18. Oktober 2023, 20:43 Uhr
+            - generic [ref=e288]:
+              - paragraph [ref=e289]:
+                - generic [ref=e290]:
+                  - generic [ref=e291]:
+                    - img "User Image" [ref=e292]
+                    - text: Scheriau A./
+                  - generic [ref=e293]:
+                    - img "User Image" [ref=e294]
+                    - text: Paar D./
+                - text: gewinnen gegen
+                - generic [ref=e295]:
+                  - generic [ref=e296]:
+                    - img "User Image" [ref=e297]
+                    - text: Assinger M./
+                  - generic [ref=e298]:
+                    - img "User Image" [ref=e299]
+                    - text: Strohmaier M./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 18. Oktober 2023, 20:40 Uhr
+            - generic [ref=e300]:
+              - paragraph [ref=e301]:
+                - generic [ref=e302]:
+                  - generic [ref=e303]:
+                    - img "User Image" [ref=e304]
+                    - text: Ebner R./
+                  - generic [ref=e305]:
+                    - img "User Image" [ref=e306]
+                    - text: Stadlober C./
+                - text: gewinnen gegen
+                - generic [ref=e307]:
+                  - generic [ref=e308]:
+                    - img "User Image" [ref=e309]
+                    - text: Klösch C./
+                  - generic [ref=e310]:
+                    - img "User Image" [ref=e311]
+                    - text: Holzgruber T./
+                - text: im Forderungsbewerb „Herren Padel Lions” und sind nun auf Platz 4
+              - text: 18. Oktober 2023, 20:38 Uhr
+            - link "Stadtwerke" [ref=e313] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Stadtwerke" [ref=e314]
+            - generic [ref=e315]:
+              - paragraph [ref=e316]:
+                - generic [ref=e317]:
+                  - generic [ref=e318]:
+                    - img "User Image" [ref=e319]
+                    - text: Karelly K./
+                  - generic [ref=e320]:
+                    - img "User Image" [ref=e321]
+                    - text: Stark T./
+                - text: (12) haben
+                - generic [ref=e322]:
+                  - generic [ref=e323]:
+                    - img "User Image" [ref=e324]
+                    - text: Feiler R./
+                  - generic [ref=e325]:
+                    - img "User Image" [ref=e326]
+                    - text: Riedler M./
+                - text: (9) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 08. Oktober 2023, 13:05 Uhr
+            - generic [ref=e327]:
+              - paragraph [ref=e328]:
+                - generic [ref=e329]:
+                  - generic [ref=e330]:
+                    - img "User Image" [ref=e331]
+                    - text: Feiler R./
+                  - generic [ref=e332]:
+                    - img "User Image" [ref=e333]
+                    - text: Riedler M./
+                - text: gewinnen gegen
+                - generic [ref=e334]:
+                  - generic [ref=e335]:
+                    - img "User Image" [ref=e336]
+                    - text: Kathrein C./
+                  - generic [ref=e337]:
+                    - img "User Image" [ref=e338]
+                    - text: Spanninger P./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 08. Oktober 2023, 12:59 Uhr
+            - generic [ref=e339]:
+              - paragraph [ref=e340]:
+                - generic [ref=e341]:
+                  - generic [ref=e342]:
+                    - img "User Image" [ref=e343]
+                    - text: Nimmrichter C./
+                  - generic [ref=e344]:
+                    - img "User Image" [ref=e345]
+                    - text: Rom G./
+                - text: (11) haben
+                - generic [ref=e346]:
+                  - generic [ref=e347]:
+                    - img "User Image" [ref=e348]
+                    - text: Labitsch H./
+                  - generic [ref=e349]:
+                    - img "User Image" [ref=e350]
+                    - text: Galler H./
+                - text: (10) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 06. Oktober 2023, 15:02 Uhr
+            - link "Nussmüller" [ref=e352] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Nussmüller" [ref=e353]
+            - generic [ref=e354]:
+              - paragraph [ref=e355]:
+                - generic [ref=e356]:
+                  - generic [ref=e357]:
+                    - img "User Image" [ref=e358]
+                    - text: Nimmrichter C./
+                  - generic [ref=e359]:
+                    - img "User Image" [ref=e360]
+                    - text: Rom G./
+                - text: gewinnen gegen
+                - generic [ref=e361]:
+                  - generic [ref=e362]:
+                    - img "User Image" [ref=e363]
+                    - text: Karelly K./
+                  - generic [ref=e364]:
+                    - img "User Image" [ref=e365]
+                    - text: Stark T./
+                - text: im Forderungsbewerb „Herren Padel Lions”
+              - text: 06. Oktober 2023, 14:54 Uhr
+            - generic [ref=e366]:
+              - paragraph [ref=e367]:
+                - generic [ref=e368]:
+                  - generic [ref=e369]:
+                    - img "User Image" [ref=e370]
+                    - text: Kathrein C./
+                  - generic [ref=e371]:
+                    - img "User Image" [ref=e372]
+                    - text: Spanninger P./
+                - text: (13) haben
+                - generic [ref=e373]:
+                  - generic [ref=e374]:
+                    - img "User Image" [ref=e375]
+                    - text: Feiler R./
+                  - generic [ref=e376]:
+                    - img "User Image" [ref=e377]
+                    - text: Riedler M./
+                - text: (9) im Forderungs-Bewerb „Herren Padel Lions” gefordert!
+              - text: 04. Oktober 2023, 00:11 Uhr
+            - generic [ref=e378]:
+              - paragraph [ref=e379]:
+                - generic [ref=e380]:
+                  - generic [ref=e381]:
+                    - img "User Image" [ref=e382]
+                    - text: Feiler R./
+                  - generic [ref=e383]:
+                    - img "User Image" [ref=e384]
+                    - text: Riedler M./
+                - text: gewinnen gegen
+                - generic [ref=e385]:
+                  - generic [ref=e386]:
+                    - img "User Image" [ref=e387]
+                    - text: Labitsch H./
+                  - generic [ref=e388]:
+                    - img "User Image" [ref=e389]
+                    - text: Galler H./
+                - text: im Forderungsbewerb „Herren Padel Lions” und sind nun auf Platz 9
+              - text: 03. Oktober 2023, 08:21 Uhr
+            - link "Pankl" [ref=e391] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Pankl" [ref=e392]
+        - list [ref=e394]:
+          - listitem [ref=e395]:
+            - link "Stadtwerke" [ref=e396] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Stadtwerke" [ref=e397]
+          - listitem [ref=e398]:
+            - link "Nussmüller" [ref=e399] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Nussmüller" [ref=e400]
+          - listitem [ref=e401]:
+            - link "Prattes" [ref=e402] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Prattes" [ref=e403]
+          - listitem [ref=e404]:
+            - link "Brünner" [ref=e405] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Brünner" [ref=e406]
+          - listitem [ref=e407]:
+            - link "Padel Lions" [ref=e408] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Padel Lions" [ref=e409]
+          - listitem [ref=e410]:
+            - link "Stadtgemeinde Bruck" [ref=e411] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Stadtgemeinde Bruck" [ref=e412]
+          - listitem [ref=e413]:
+            - link "Pankl" [ref=e414] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Pankl" [ref=e415]
+          - listitem [ref=e416]:
+            - link "Hochsteiermark" [ref=e417] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Hochsteiermark" [ref=e418]
+          - listitem [ref=e419]:
+            - link "Inteco" [ref=e420] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Inteco" [ref=e421]
+          - listitem [ref=e422]:
+            - link "Wüsenrot" [ref=e423] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "Wüsenrot" [ref=e424]
+          - listitem [ref=e425]:
+            - link "LL sports" [ref=e426] [cursor=pointer]:
+              - /url: https://www.eTennis.at
+              - img "LL sports" [ref=e427]
+    - contentinfo [ref=e428]:
+      - generic [ref=e430]:
+        - generic [ref=e431]:
+          - text: Padel Bruck |
+          - link "Impressum" [ref=e432] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e433]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e434] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e436]:
+    - paragraph [ref=e437]:
+      - generic [ref=e438]:
+        - paragraph [ref=e439]:
+          - img "Padel Bruck" [ref=e440]
+          - text: Padel Bruck
+        - paragraph [ref=e441]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e442]:
+      - link "Einstellungen verwalten" [ref=e443] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e444]:
+        - button "Alle ablehnen" [ref=e445] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e446] [cursor=pointer]
+  - generic [ref=e449]: Seite nicht gefunden

@@ -1,0 +1,129 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Padel Point 82" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Padel Point 82" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Padel Point 82" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+          - link "Instagram" [ref=e21] [cursor=pointer]:
+            - /url: https://www.instagram.com/padelpoint82/
+            - text: Instagram
+      - link " Anmelden" [ref=e23] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e24]: 
+        - text: Anmelden
+    - list [ref=e29]:
+      - listitem [ref=e30]:
+        - link "News" [ref=e31] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e32]:
+        - link "Preisliste" [ref=e33] [cursor=pointer]:
+          - /url: /s/Preisliste?c=2232
+      - listitem [ref=e34]:
+        - link "Allgemeine Buchungsinformationen" [ref=e35] [cursor=pointer]:
+          - /url: /s/Allgemeine_Buchungsinformationen?c=2387
+      - listitem [ref=e36]:
+        - link "Sommerabos 2026" [ref=e37] [cursor=pointer]:
+          - /url: /s/Sommerabos_2026
+      - listitem [ref=e38]:
+        - link "Trainingsangebote" [ref=e39] [cursor=pointer]:
+          - /url: /s/Trainingsangebote?c=2234
+      - listitem [ref=e40]:
+        - link "Padel Point 82 Shop" [ref=e41] [cursor=pointer]:
+          - /url: /s/Padel_Point_82_Shop?c=2231
+      - listitem [ref=e42]:
+        - link "Sponsoring" [ref=e43] [cursor=pointer]:
+          - /url: /s/Sponsoring?c=2237
+      - listitem [ref=e44]:
+        - link "ÜBER UNS" [ref=e45] [cursor=pointer]:
+          - /url: "#!"
+      - listitem [ref=e46]:
+        - link "Hausordnung" [ref=e47] [cursor=pointer]:
+          - /url: /s/Hausordnung
+      - listitem [ref=e48]:
+        - link "Registrierung" [ref=e49] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e51]:
+      - heading "Die Anlage" [level=1] [ref=e52]
+      - generic [ref=e53]:
+        - generic [ref=e55]:
+          - paragraph [ref=e56]: Padel Point 82 in Rosental an der Kainach ist deine Anlaufstelle für Padel und Tennis in entspannter Atmosphäre.
+          - paragraph [ref=e57]:
+            - text: Unsere moderne Anlage bietet drei Outdoor-Padelplätze mit Flutlicht, sodass du auch optimal abends spielen kannst.
+            - img [ref=e58]
+          - paragraph [ref=e59]
+          - paragraph [ref=e60]
+          - paragraph [ref=e61]: Zusätzlich findest du bei uns einen kleinen Shop mit ausgewähltem Padel- und Tennis-Equipment der Marken Head und Tecnifibre. Auch dein Tennisschläger ist bei uns in besten Händen, wir bieten professionellen Besaitungsservice direkt vor Ort.
+          - paragraph [ref=e62]
+          - paragraph [ref=e63]:
+            - img [ref=e64]
+          - paragraph [ref=e65]
+          - paragraph [ref=e66]: Wir freuen uns auf dich!
+          - paragraph [ref=e67]: Padel Point 82
+          - paragraph [ref=e68]: Yanick & Gerd
+          - paragraph [ref=e69]
+          - paragraph [ref=e70]
+          - paragraph [ref=e71]
+          - separator [ref=e72]
+          - paragraph [ref=e73]: Für weitere Fragen stehen wir gerne per Mail oder telefonisch zur Verfügung
+          - paragraph [ref=e74]: "Telefon: 0664 2131847 / 0660 5462377"
+          - paragraph [ref=e75]: "Mail: hp.padeltennis@gmail.com"
+          - paragraph [ref=e76]
+        - generic [ref=e77]:
+          - generic [ref=e79]:
+            - heading "Anfahrt" [level=2] [ref=e80]
+            - paragraph [ref=e81]: "Adresse: Hauptstraße 104, 8582 Rosental an der Kainach"
+            - generic [ref=e87]:
+              - paragraph [ref=e88]: Möchten Sie von Google Map bereitgestellte externe Inhalte laden?
+              - paragraph [ref=e89]:
+                - button "Ja" [ref=e90] [cursor=pointer]
+                - button "Immer" [ref=e91] [cursor=pointer]
+          - link "Ajtnik Holzbau" [ref=e94] [cursor=pointer]:
+            - /url: https://www.eTennis.at
+            - img "Ajtnik Holzbau" [ref=e95]
+    - contentinfo [ref=e96]:
+      - generic [ref=e98]:
+        - generic [ref=e99]:
+          - text: Padel Point 82 |
+          - link "Impressum" [ref=e100] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e101] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e102]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e103] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e105]:
+    - paragraph [ref=e106]:
+      - generic [ref=e107]:
+        - paragraph [ref=e108]:
+          - img "Padel Point 82" [ref=e109]
+          - text: Padel Point 82
+        - paragraph [ref=e110]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e111]:
+      - link "Einstellungen verwalten" [ref=e112] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e113]:
+        - button "Alle ablehnen" [ref=e114] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e115] [cursor=pointer]

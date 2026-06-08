@@ -1,0 +1,228 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e6]:
+    - img "Firmenlogo" [ref=e8] [cursor=pointer]
+    - button [ref=e10]:
+      - img [ref=e11]
+  - main [ref=e13]:
+    - generic [ref=e20]:
+      - heading "1. Padel Tennis Club Vorarlberg" [level=1] [ref=e21]
+      - textbox [ref=e23]:
+        - paragraph [ref=e24]: Erlebe Padel auf modernen Anlagen in Rankweil – buche jetzt deinen Platz und spiel eine der am schnellsten wachsenden Sportarten der Welt.
+    - generic [ref=e27]:
+      - heading "Padel spielen – flexibel buchen" [level=1] [ref=e29]
+      - generic [ref=e33] [cursor=pointer]:
+        - img "Padel-Tennis-Plätze buchen" [ref=e35]
+        - generic [ref=e36]:
+          - heading "Padel-Tennis-Plätze buchen" [level=1] [ref=e37]
+          - paragraph [ref=e38]: "UnserePadel-Tennisanlage des 1. Padel Tennis Club Vorarlbergin Rankweil verfügt über zwei moderne Padel-Courts: einenbeleuchteten Innenplatz mit Heizungund einenbeleuchteten Außenplatz, die beide bei unterschiedlichen Wetter- und Jahreszeiten ideale Spielbedingungen bieten. DerIndoor-Courtermöglicht komfortables Spielen auch an kühleren Tagen, während derOutdoor-CourtFrischluft und Sonne für sportliche Matches bietet. Die Anlage ist für Spieler aller Niveaus ausgelegt und schafft eine sportliche Atmosphäre für spannende Spiele, Trainingseinheiten oder gesellige Runden mit Freundinnen.Eine Stornierung deiner Buchung ist bis 36 Stunden vor Beginn kostenlos möglich. Bei späterer Absage oder Nichterscheinen wird der volle Betrag verrechnet.Bei Buchungsproblemen können Sie auch gerne telefonisch oder per Whatsapp buchen unter +436649651770."
+    - generic [ref=e42]:
+      - img "Unsere Preise" [ref=e45]
+      - generic [ref=e47]:
+        - heading "Unsere Preise" [level=1] [ref=e49]
+        - textbox [ref=e51]:
+          - paragraph [ref=e52]: Wir wollen eine Möglichkeit bieten, dass Interessierte und sportbegeisterte Menschen in unserer Umgebung die Faszination Padel-Tennis kennenlernen können. Hat man nämlich einmal einen packenden Ballwechsel gespielt, will man dieses Gefühl immer wieder erleben. Es gibt mehrere Möglichkeiten dies zu tun.
+          - paragraph [ref=e53]: Stundentickets können direkt über unsere Platz-Buchungs-Plattform gebucht werden. Dabei erhält man einen vierstelligen Code, mit dem sich das Zugangstor unserer Anlage öffnen lässt!
+          - paragraph [ref=e54]
+          - paragraph [ref=e55]:
+            - strong [ref=e56]: Jahresabo
+            - text: "Erwachsene: 350,00 € p.P."
+            - text: "Studenten & Schüler: 250,00 € p.P."
+          - paragraph [ref=e57]
+          - paragraph [ref=e58]:
+            - strong [ref=e59]: Einzelpreise
+            - text: "08:00 - 16:00 Uhr: 20,00 € Platz/h"
+            - text: "16:00 - 21:30 Uhr: 40,00 € Platz/h"
+          - paragraph [ref=e60]
+          - paragraph [ref=e61]:
+            - strong [ref=e62]: Trainerstunde
+          - paragraph [ref=e63]: Infos gerne per WhatsApp unter +43 6649651770
+    - generic [ref=e66]:
+      - heading "Mitgliedschaften" [level=1] [ref=e68]
+      - generic [ref=e70]:
+        - group [ref=e72] [cursor=pointer]:
+          - heading "Jahresabo Erwachsene" [level=1] [ref=e73]
+          - generic [ref=e75]:
+            - generic [ref=e76]:
+              - img [ref=e77]
+              - paragraph [ref=e79]: Ganzjähriger Zugang
+            - generic [ref=e80]:
+              - img [ref=e81]
+              - paragraph [ref=e83]: Feste, planbare Kosten
+            - generic [ref=e84]:
+              - img [ref=e85]
+              - paragraph [ref=e87]: Indoor & Outdoor spielbar
+            - generic [ref=e88]:
+              - img [ref=e89]
+              - paragraph [ref=e91]: Ideal für Vielspieler
+            - generic [ref=e92]:
+              - img [ref=e93]
+              - paragraph [ref=e95]: Günstiger als Einzelbuchungen
+        - group [ref=e97] [cursor=pointer]:
+          - heading "Jahresabo Studenten & Schüler" [level=1] [ref=e98]
+          - generic [ref=e100]:
+            - generic [ref=e101]:
+              - img [ref=e102]
+              - paragraph [ref=e104]: Vergünstigter Jahrespreis
+            - generic [ref=e105]:
+              - img [ref=e106]
+              - paragraph [ref=e108]: Ganzjähriger Zugang
+            - generic [ref=e109]:
+              - img [ref=e110]
+              - paragraph [ref=e112]: Indoor & Outdoor spielbar
+            - generic [ref=e113]:
+              - img [ref=e114]
+              - paragraph [ref=e116]: Beheizter Innenplatz
+            - generic [ref=e117]:
+              - img [ref=e118]
+              - paragraph [ref=e120]: Ideal für regelmäßiges Training
+    - generic [ref=e124]:
+      - img "Wie wird Padel gespielt?" [ref=e127]
+      - generic [ref=e129]:
+        - heading "Wie wird Padel gespielt?" [level=1] [ref=e131]
+        - textbox [ref=e133]:
+          - heading "Spielregeln" [level=3] [ref=e134]
+          - paragraph [ref=e135]:
+            - text: Gespielt wird
+            - strong [ref=e136]: 2 gegen 2
+            - text: .
+          - paragraph [ref=e137]:
+            - text: Der
+            - strong [ref=e138]: Aufschlag
+            - text: erfolgt
+            - strong [ref=e139]: von unten
+            - text: (unter Hüfthöhe) diagonal ins gegnerische Aufschlagfeld.
+          - paragraph [ref=e140]:
+            - text: Der Ball darf
+            - strong [ref=e141]: nach dem Boden auch die Wände
+            - text: berühren und bleibt im Spiel.
+          - paragraph [ref=e142]:
+            - strong [ref=e143]: Direkte Treffer an der Wand ohne Bodenkontakt
+            - text: sind im gegnerischen Feld
+            - strong [ref=e144]: nicht erlaubt
+            - text: .
+          - paragraph [ref=e145]:
+            - text: Nach dem Aufsprung darf der Ball
+            - strong [ref=e146]: einmal
+            - text: den Boden berühren; danach kann er auch von den Wänden zurückkommen.
+          - paragraph [ref=e147]
+          - heading "Zählweise" [level=3] [ref=e148]
+          - paragraph [ref=e149]:
+            - text: "Die Zählweise ist wie beim Tennis:"
+            - strong [ref=e150]: 15 – 30 – 40 – Spiel
+            - text: .
+          - paragraph [ref=e151]:
+            - text: Bei
+            - strong [ref=e152]: 40:40 (Einstand)
+            - text: wird meist mit
+            - strong [ref=e153]: Golden Point
+            - text: "gespielt: Der nächste Punkt entscheidet das Spiel."
+          - paragraph [ref=e154]:
+            - text: Ein
+            - strong [ref=e155]: Satz
+            - text: geht in der Regel bis
+            - strong [ref=e156]: 6 Spiele
+            - text: (mit
+            - strong [ref=e157]: 2 Spielen Vorsprung
+            - text: ).
+          - paragraph [ref=e158]:
+            - text: Steht es
+            - strong [ref=e159]: 6:6
+            - text: ", wird ein"
+            - strong [ref=e160]: Tiebreak
+            - text: gespielt (meist bis 7 Punkte, 2 Punkte Vorsprung).
+          - paragraph [ref=e161]:
+            - text: Ein Match wird üblicherweise
+            - strong [ref=e162]: über 2 Gewinnsätze
+            - text: entschieden.
+    - generic [ref=e166]:
+      - heading "Partner & Sponsoren" [level=1] [ref=e167]
+      - textbox [ref=e170]:
+        - paragraph [ref=e171]: Unternehmen, die unsere Leidenschaft für Padel teilen und unsere Community unterstützen.
+      - generic [ref=e172]:
+        - img "Gallery image 1" [ref=e175]
+        - img "Gallery image 2" [ref=e178]
+    - generic [ref=e181]:
+      - heading "Stornierungsbedingungen" [level=1] [ref=e183]
+      - textbox [ref=e186]:
+        - paragraph [ref=e187]: Eine Stornierung deiner Buchung ist bis 36 Stunden vor Beginn kostenlos möglich. Bei späterer Absage oder Nichterscheinen wird der volle Betrag verrechnet.
+  - contentinfo [ref=e188]:
+    - generic [ref=e189]:
+      - generic [ref=e190]:
+        - img "https://storage.bookingbird.io/69611e323dafc7b41872b950/52f82a474aa590b830e95d18b34172f6ca590f3c1d19020896cd8933213358fe.jpg" [ref=e191]
+        - paragraph [ref=e192]: PTCV Booking Site
+        - generic [ref=e193]:
+          - link "Instagram" [ref=e194] [cursor=pointer]:
+            - /url: https://www.instagram.com/1.ptc_vorarlberg
+            - img [ref=e195]
+          - link "Custom link" [ref=e197] [cursor=pointer]:
+            - /url: https://www.ptcv.at
+            - img [ref=e198]
+      - generic [ref=e200]:
+        - generic [ref=e201]: Buchungsoptionen
+        - list [ref=e202]:
+          - listitem [ref=e203]:
+            - link "Padel-Platz buchen" [ref=e204] [cursor=pointer]:
+              - /url: /services/padel-platz-buchen
+      - generic [ref=e205]:
+        - generic [ref=e206]: Ressourcen
+        - list [ref=e207]:
+          - listitem [ref=e208]:
+            - link "Padel-Tennis-Plätze buchen" [ref=e209] [cursor=pointer]:
+              - /url: /resources/padel-tennis-plaetze-buchen
+        - generic [ref=e210]: Pläne
+        - list [ref=e211]:
+          - listitem [ref=e212]:
+            - link "Jahresabo Erwachsene" [ref=e213] [cursor=pointer]:
+              - /url: /plans/jahresabo-erwachsene
+          - listitem [ref=e214]:
+            - link "Jahresabo Studenten & Schüler" [ref=e215] [cursor=pointer]:
+              - /url: /plans/jahresabo-studenten-schueler
+      - generic [ref=e216]:
+        - generic [ref=e217]: Kontakt
+        - link "+43 5522 44031" [ref=e218] [cursor=pointer]:
+          - /url: tel:+43 5522 44031
+          - img [ref=e219]
+          - text: +43 5522 44031
+        - link "info@ptcv.at" [ref=e221] [cursor=pointer]:
+          - /url: mailto:info@ptcv.at
+          - img [ref=e222]
+          - text: info@ptcv.at
+        - generic [ref=e224]:
+          - img [ref=e225]
+          - text: Zieglerweg, 6830, Rankweil
+      - generic [ref=e227]:
+        - generic [ref=e228]: Öffnungszeiten
+        - generic [ref=e229]:
+          - generic [ref=e230]: Montag
+          - generic [ref=e231]: 08:00 – 21:30
+        - generic [ref=e232]:
+          - generic [ref=e233]: Dienstag
+          - generic [ref=e234]: 08:00 – 21:30
+        - generic [ref=e235]:
+          - generic [ref=e236]: Mittwoch
+          - generic [ref=e237]: 08:00 – 21:30
+        - generic [ref=e238]:
+          - generic [ref=e239]: Donnerstag
+          - generic [ref=e240]: 08:00 – 21:30
+        - generic [ref=e241]:
+          - generic [ref=e242]: Freitag
+          - generic [ref=e243]: 08:00 – 21:30
+        - generic [ref=e244]:
+          - generic [ref=e245]: Samstag
+          - generic [ref=e246]: 08:00 – 21:30
+        - generic [ref=e247]:
+          - generic [ref=e248]: Sonntag
+          - generic [ref=e249]: 08:00 – 21:30
+    - generic [ref=e250]:
+      - generic [ref=e251]:
+        - link "Datenschutz" [ref=e252] [cursor=pointer]:
+          - /url: /privacy
+        - link "AGB" [ref=e253] [cursor=pointer]:
+          - /url: /terms
+        - link "Impressum" [ref=e254] [cursor=pointer]:
+          - /url: /imprint
+      - generic [ref=e255]:
+        - text: Bereitgestellt von
+        - link "bookingbird.io" [ref=e256] [cursor=pointer]:
+          - /url: https://bookingbird.io
+  - alert [ref=e257]

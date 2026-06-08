@@ -1,0 +1,1210 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link [ref=e4] [cursor=pointer]:
+      - /url: /
+      - img [ref=e5]
+    - generic [ref=e6]:
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e10]: 
+          - text: Anlage
+        - generic [ref=e11]: Greinsfurth
+      - generic [ref=e13]:
+        - generic [ref=e14]:
+          - generic [ref=e15]: 
+          - text: Adresse
+        - generic [ref=e16]: Waidhofner Str. 4, 3300 Amstetten
+      - link "Unsere Website " [ref=e18] [cursor=pointer]:
+        - /url: https://padel-gmbh.at
+        - text: Unsere Website
+        - generic [ref=e19]: 
+      - generic [ref=e20]:
+        - link "English" [ref=e22] [cursor=pointer]:
+          - /url: https://reservierung.padel-gmbh.at/?locale=en-US
+          - img "English" [ref=e23]
+        - link "Deutsch" [ref=e25] [cursor=pointer]:
+          - /url: https://reservierung.padel-gmbh.at/?locale=de-DE
+          - img "Deutsch" [ref=e26]
+  - generic [ref=e28]:
+    - generic [ref=e29]:
+      - table [ref=e31]:
+        - rowgroup [ref=e32]:
+          - row "Heute  06.06.2026" [ref=e33]:
+            - cell [ref=e34]:
+              - link [ref=e35] [cursor=pointer]:
+                - /url: /?date=2026-06-05
+            - cell "Heute" [ref=e37]:
+              - link "Heute" [ref=e38] [cursor=pointer]:
+                - /url: /?date=2026-06-06
+            - cell " 06.06.2026" [ref=e39]:
+              - generic [ref=e41]:
+                - generic [ref=e43]: 
+                - textbox "" [ref=e44]: 06.06.2026
+            - cell [ref=e45]:
+              - link [ref=e46] [cursor=pointer]:
+                - /url: /?date=2026-06-07
+      - table [ref=e50]:
+        - rowgroup [ref=e51]:
+          - row "Um Plätze zu buchen, registrieren Sie sich bitte oder melden Sie sich an  E-Mail Adresse Passwort Anmelden ?" [ref=e52]:
+            - cell "Um Plätze zu buchen, registrieren Sie sich bitte" [ref=e53]:
+              - text: Um Plätze zu buchen,
+              - link "registrieren Sie sich bitte" [ref=e54] [cursor=pointer]:
+                - /url: /user/registration
+            - cell "oder melden Sie sich an" [ref=e55]:
+              - text: oder melden
+              - text: Sie sich an
+            - cell " E-Mail Adresse" [ref=e56]:
+              - generic [ref=e57]:
+                - generic [ref=e58]:  E-Mail Adresse
+                - textbox " E-Mail Adresse" [ref=e59]
+            - cell "Passwort" [ref=e60]:
+              - generic [ref=e61]:
+                - generic [ref=e62]: Passwort
+                - textbox "Passwort" [ref=e63]
+            - cell "Anmelden" [ref=e64]:
+              - button "Anmelden" [ref=e65] [cursor=pointer]
+            - cell "?" [ref=e66]:
+              - link "?" [ref=e67] [cursor=pointer]:
+                - /url: /service/help
+    - table [ref=e69]:
+      - rowgroup [ref=e70]:
+        - row [ref=e71]:
+          - cell "Platz 06:00 bis 06:30 Uhr 06:30 bis 07:00 Uhr 07:00 bis 07:30 Uhr 07:30 bis 08:00 Uhr 08:00 bis 08:30 Uhr 08:30 bis 09:00 Uhr 09:00 bis 09:30 Uhr 09:30 bis 10:00 Uhr 10:00 bis 10:30 Uhr 10:30 bis 11:00 Uhr 11:00 bis 11:30 Uhr 11:30 bis 12:00 Uhr 12:00 bis 12:30 Uhr 12:30 bis 13:00 Uhr 13:00 bis 13:30 Uhr 13:30 bis 14:00 Uhr 14:00 bis 14:30 Uhr 14:30 bis 15:00 Uhr 15:00 bis 15:30 Uhr 15:30 bis 16:00 Uhr 16:00 bis 16:30 Uhr 16:30 bis 17:00 Uhr 17:00 bis 17:30 Uhr 17:30 bis 18:00 Uhr 18:00 bis 18:30 Uhr 18:30 bis 19:00 Uhr 19:00 bis 19:30 Uhr 19:30 bis 20:00 Uhr 20:00 bis 20:30 Uhr 20:30 bis 21:00 Uhr 21:00 bis 21:30 Uhr 21:30 bis 22:00 Uhr 22:00 bis 22:30 Uhr 22:30 bis 23:00 Uhr 23:00 bis 23:30 Uhr 23:30 bis 24:00 Uhr Platz" [ref=e72]:
+            - table [ref=e73]:
+              - rowgroup [ref=e74]:
+                - row [ref=e75]:
+                  - cell [ref=e76]
+                - row "Platz" [ref=e77]:
+                  - cell "Platz" [ref=e78]
+                - row "06:00 bis 06:30 Uhr" [ref=e79]:
+                  - cell "06:00 bis 06:30 Uhr" [ref=e80]:
+                    - generic [ref=e81]: 06:00
+                    - generic [ref=e82]: bis 06:30 Uhr
+                - row "06:30 bis 07:00 Uhr" [ref=e83]:
+                  - cell "06:30 bis 07:00 Uhr" [ref=e84]:
+                    - generic [ref=e85]: 06:30
+                    - generic [ref=e86]: bis 07:00 Uhr
+                - row "07:00 bis 07:30 Uhr" [ref=e87]:
+                  - cell "07:00 bis 07:30 Uhr" [ref=e88]:
+                    - generic [ref=e89]: 07:00
+                    - generic [ref=e90]: bis 07:30 Uhr
+                - row "07:30 bis 08:00 Uhr" [ref=e91]:
+                  - cell "07:30 bis 08:00 Uhr" [ref=e92]:
+                    - generic [ref=e93]: 07:30
+                    - generic [ref=e94]: bis 08:00 Uhr
+                - row "08:00 bis 08:30 Uhr" [ref=e95]:
+                  - cell "08:00 bis 08:30 Uhr" [ref=e96]:
+                    - generic [ref=e97]: 08:00
+                    - generic [ref=e98]: bis 08:30 Uhr
+                - row "08:30 bis 09:00 Uhr" [ref=e99]:
+                  - cell "08:30 bis 09:00 Uhr" [ref=e100]:
+                    - generic [ref=e101]: 08:30
+                    - generic [ref=e102]: bis 09:00 Uhr
+                - row "09:00 bis 09:30 Uhr" [ref=e103]:
+                  - cell "09:00 bis 09:30 Uhr" [ref=e104]:
+                    - generic [ref=e105]: 09:00
+                    - generic [ref=e106]: bis 09:30 Uhr
+                - row "09:30 bis 10:00 Uhr" [ref=e107]:
+                  - cell "09:30 bis 10:00 Uhr" [ref=e108]:
+                    - generic [ref=e109]: 09:30
+                    - generic [ref=e110]: bis 10:00 Uhr
+                - row "10:00 bis 10:30 Uhr" [ref=e111]:
+                  - cell "10:00 bis 10:30 Uhr" [ref=e112]:
+                    - generic [ref=e113]: 10:00
+                    - generic [ref=e114]: bis 10:30 Uhr
+                - row "10:30 bis 11:00 Uhr" [ref=e115]:
+                  - cell "10:30 bis 11:00 Uhr" [ref=e116]:
+                    - generic [ref=e117]: 10:30
+                    - generic [ref=e118]: bis 11:00 Uhr
+                - row "11:00 bis 11:30 Uhr" [ref=e119]:
+                  - cell "11:00 bis 11:30 Uhr" [ref=e120]:
+                    - generic [ref=e121]: 11:00
+                    - generic [ref=e122]: bis 11:30 Uhr
+                - row "11:30 bis 12:00 Uhr" [ref=e123]:
+                  - cell "11:30 bis 12:00 Uhr" [ref=e124]:
+                    - generic [ref=e125]: 11:30
+                    - generic [ref=e126]: bis 12:00 Uhr
+                - row "12:00 bis 12:30 Uhr" [ref=e127]:
+                  - cell "12:00 bis 12:30 Uhr" [ref=e128]:
+                    - generic [ref=e129]: 12:00
+                    - generic [ref=e130]: bis 12:30 Uhr
+                - row "12:30 bis 13:00 Uhr" [ref=e131]:
+                  - cell "12:30 bis 13:00 Uhr" [ref=e132]:
+                    - generic [ref=e133]: 12:30
+                    - generic [ref=e134]: bis 13:00 Uhr
+                - row "13:00 bis 13:30 Uhr" [ref=e135]:
+                  - cell "13:00 bis 13:30 Uhr" [ref=e136]:
+                    - generic [ref=e137]: 13:00
+                    - generic [ref=e138]: bis 13:30 Uhr
+                - row "13:30 bis 14:00 Uhr" [ref=e139]:
+                  - cell "13:30 bis 14:00 Uhr" [ref=e140]:
+                    - generic [ref=e141]: 13:30
+                    - generic [ref=e142]: bis 14:00 Uhr
+                - row "14:00 bis 14:30 Uhr" [ref=e143]:
+                  - cell "14:00 bis 14:30 Uhr" [ref=e144]:
+                    - generic [ref=e145]: 14:00
+                    - generic [ref=e146]: bis 14:30 Uhr
+                - row "14:30 bis 15:00 Uhr" [ref=e147]:
+                  - cell "14:30 bis 15:00 Uhr" [ref=e148]:
+                    - generic [ref=e149]: 14:30
+                    - generic [ref=e150]: bis 15:00 Uhr
+                - row "15:00 bis 15:30 Uhr" [ref=e151]:
+                  - cell "15:00 bis 15:30 Uhr" [ref=e152]:
+                    - generic [ref=e153]: 15:00
+                    - generic [ref=e154]: bis 15:30 Uhr
+                - row "15:30 bis 16:00 Uhr" [ref=e155]:
+                  - cell "15:30 bis 16:00 Uhr" [ref=e156]:
+                    - generic [ref=e157]: 15:30
+                    - generic [ref=e158]: bis 16:00 Uhr
+                - row "16:00 bis 16:30 Uhr" [ref=e159]:
+                  - cell "16:00 bis 16:30 Uhr" [ref=e160]:
+                    - generic [ref=e161]: 16:00
+                    - generic [ref=e162]: bis 16:30 Uhr
+                - row "16:30 bis 17:00 Uhr" [ref=e163]:
+                  - cell "16:30 bis 17:00 Uhr" [ref=e164]:
+                    - generic [ref=e165]: 16:30
+                    - generic [ref=e166]: bis 17:00 Uhr
+                - row "17:00 bis 17:30 Uhr" [ref=e167]:
+                  - cell "17:00 bis 17:30 Uhr" [ref=e168]:
+                    - generic [ref=e169]: 17:00
+                    - generic [ref=e170]: bis 17:30 Uhr
+                - row "17:30 bis 18:00 Uhr" [ref=e171]:
+                  - cell "17:30 bis 18:00 Uhr" [ref=e172]:
+                    - generic [ref=e173]: 17:30
+                    - generic [ref=e174]: bis 18:00 Uhr
+                - row "18:00 bis 18:30 Uhr" [ref=e175]:
+                  - cell "18:00 bis 18:30 Uhr" [ref=e176]:
+                    - generic [ref=e177]: 18:00
+                    - generic [ref=e178]: bis 18:30 Uhr
+                - row "18:30 bis 19:00 Uhr" [ref=e179]:
+                  - cell "18:30 bis 19:00 Uhr" [ref=e180]:
+                    - generic [ref=e181]: 18:30
+                    - generic [ref=e182]: bis 19:00 Uhr
+                - row "19:00 bis 19:30 Uhr" [ref=e183]:
+                  - cell "19:00 bis 19:30 Uhr" [ref=e184]:
+                    - generic [ref=e185]: 19:00
+                    - generic [ref=e186]: bis 19:30 Uhr
+                - row "19:30 bis 20:00 Uhr" [ref=e187]:
+                  - cell "19:30 bis 20:00 Uhr" [ref=e188]:
+                    - generic [ref=e189]: 19:30
+                    - generic [ref=e190]: bis 20:00 Uhr
+                - row "20:00 bis 20:30 Uhr" [ref=e191]:
+                  - cell "20:00 bis 20:30 Uhr" [ref=e192]:
+                    - generic [ref=e193]: 20:00
+                    - generic [ref=e194]: bis 20:30 Uhr
+                - row "20:30 bis 21:00 Uhr" [ref=e195]:
+                  - cell "20:30 bis 21:00 Uhr" [ref=e196]:
+                    - generic [ref=e197]: 20:30
+                    - generic [ref=e198]: bis 21:00 Uhr
+                - row "21:00 bis 21:30 Uhr" [ref=e199]:
+                  - cell "21:00 bis 21:30 Uhr" [ref=e200]:
+                    - generic [ref=e201]: 21:00
+                    - generic [ref=e202]: bis 21:30 Uhr
+                - row "21:30 bis 22:00 Uhr" [ref=e203]:
+                  - cell "21:30 bis 22:00 Uhr" [ref=e204]:
+                    - generic [ref=e205]: 21:30
+                    - generic [ref=e206]: bis 22:00 Uhr
+                - row "22:00 bis 22:30 Uhr" [ref=e207]:
+                  - cell "22:00 bis 22:30 Uhr" [ref=e208]:
+                    - generic [ref=e209]: 22:00
+                    - generic [ref=e210]: bis 22:30 Uhr
+                - row "22:30 bis 23:00 Uhr" [ref=e211]:
+                  - cell "22:30 bis 23:00 Uhr" [ref=e212]:
+                    - generic [ref=e213]: 22:30
+                    - generic [ref=e214]: bis 23:00 Uhr
+                - row "23:00 bis 23:30 Uhr" [ref=e215]:
+                  - cell "23:00 bis 23:30 Uhr" [ref=e216]:
+                    - generic [ref=e217]: 23:00
+                    - generic [ref=e218]: bis 23:30 Uhr
+                - row "23:30 bis 24:00 Uhr" [ref=e219]:
+                  - cell "23:30 bis 24:00 Uhr" [ref=e220]:
+                    - generic [ref=e221]: 23:30
+                    - generic [ref=e222]: bis 24:00 Uhr
+                - row "Platz" [ref=e223]:
+                  - cell "Platz" [ref=e224]
+                - row [ref=e225]:
+                  - cell [ref=e226]
+          - cell "Samstag 6. Juni 2026 1 2 Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Vorbei Frei Frei Frei Belegt Frei Belegt Frei Frei Belegt Frei Belegt Frei Belegt Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei 1 2 Samstag 6. Juni 2026" [ref=e227]:
+            - table [ref=e228]:
+              - rowgroup [ref=e229]:
+                - row "Samstag 6. Juni 2026" [ref=e230]:
+                  - cell "Samstag 6. Juni 2026" [ref=e231]:
+                    - generic [ref=e232]: Samstag
+                    - generic [ref=e233]: 6. Juni 2026
+                - row "1 2" [ref=e234]:
+                  - cell "1" [ref=e235]:
+                    - generic [ref=e236]: "1"
+                  - cell "2" [ref=e237]:
+                    - generic [ref=e238]: "2"
+                - row "Vorbei Vorbei" [ref=e239]:
+                  - cell "Vorbei" [ref=e240]:
+                    - generic [ref=e242]: Vorbei
+                  - cell "Vorbei" [ref=e243]:
+                    - generic [ref=e245]: Vorbei
+                - row "Vorbei Vorbei" [ref=e246]:
+                  - cell "Vorbei" [ref=e247]:
+                    - generic [ref=e249]: Vorbei
+                  - cell "Vorbei" [ref=e250]:
+                    - generic [ref=e252]: Vorbei
+                - row "Vorbei Vorbei" [ref=e253]:
+                  - cell "Vorbei" [ref=e254]:
+                    - generic [ref=e256]: Vorbei
+                  - cell "Vorbei" [ref=e257]:
+                    - generic [ref=e259]: Vorbei
+                - row "Vorbei Vorbei" [ref=e260]:
+                  - cell "Vorbei" [ref=e261]:
+                    - generic [ref=e263]: Vorbei
+                  - cell "Vorbei" [ref=e264]:
+                    - generic [ref=e266]: Vorbei
+                - row "Vorbei Vorbei" [ref=e267]:
+                  - cell "Vorbei" [ref=e268]:
+                    - generic [ref=e270]: Vorbei
+                  - cell "Vorbei" [ref=e271]:
+                    - generic [ref=e273]: Vorbei
+                - row "Vorbei Vorbei" [ref=e274]:
+                  - cell "Vorbei" [ref=e275]:
+                    - generic [ref=e277]: Vorbei
+                  - cell "Vorbei" [ref=e278]:
+                    - generic [ref=e280]: Vorbei
+                - row "Vorbei Vorbei" [ref=e281]:
+                  - cell "Vorbei" [ref=e282]:
+                    - generic [ref=e284]: Vorbei
+                  - cell "Vorbei" [ref=e285]:
+                    - generic [ref=e287]: Vorbei
+                - row "Vorbei Vorbei" [ref=e288]:
+                  - cell "Vorbei" [ref=e289]:
+                    - generic [ref=e291]: Vorbei
+                  - cell "Vorbei" [ref=e292]:
+                    - generic [ref=e294]: Vorbei
+                - row "Vorbei Vorbei" [ref=e295]:
+                  - cell "Vorbei" [ref=e296]:
+                    - generic [ref=e298]: Vorbei
+                  - cell "Vorbei" [ref=e299]:
+                    - generic [ref=e301]: Vorbei
+                - row "Vorbei Vorbei" [ref=e302]:
+                  - cell "Vorbei" [ref=e303]:
+                    - generic [ref=e305]: Vorbei
+                  - cell "Vorbei" [ref=e306]:
+                    - generic [ref=e308]: Vorbei
+                - row "Vorbei Vorbei" [ref=e309]:
+                  - cell "Vorbei" [ref=e310]:
+                    - generic [ref=e312]: Vorbei
+                  - cell "Vorbei" [ref=e313]:
+                    - generic [ref=e315]: Vorbei
+                - row "Vorbei Vorbei" [ref=e316]:
+                  - cell "Vorbei" [ref=e317]:
+                    - generic [ref=e319]: Vorbei
+                  - cell "Vorbei" [ref=e320]:
+                    - generic [ref=e322]: Vorbei
+                - row "Vorbei Vorbei" [ref=e323]:
+                  - cell "Vorbei" [ref=e324]:
+                    - generic [ref=e326]: Vorbei
+                  - cell "Vorbei" [ref=e327]:
+                    - generic [ref=e329]: Vorbei
+                - row "Vorbei Vorbei" [ref=e330]:
+                  - cell "Vorbei" [ref=e331]:
+                    - generic [ref=e333]: Vorbei
+                  - cell "Vorbei" [ref=e334]:
+                    - generic [ref=e336]: Vorbei
+                - row "Vorbei Vorbei" [ref=e337]:
+                  - cell "Vorbei" [ref=e338]:
+                    - generic [ref=e340]: Vorbei
+                  - cell "Vorbei" [ref=e341]:
+                    - generic [ref=e343]: Vorbei
+                - row "Frei Frei" [ref=e344]:
+                  - cell "Frei" [ref=e345]:
+                    - link "Frei" [ref=e346] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=13:30&te=14:00&s=1
+                      - generic [ref=e347]: Frei
+                  - cell "Frei" [ref=e348]:
+                    - link "Frei" [ref=e349] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=13:30&te=14:00&s=2
+                      - generic [ref=e350]: Frei
+                - row "Frei Belegt" [ref=e351]:
+                  - cell "Frei" [ref=e352]:
+                    - link "Frei" [ref=e353] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=14:00&te=14:30&s=1
+                      - generic [ref=e354]: Frei
+                  - cell "Belegt" [ref=e355]:
+                    - link "Belegt" [ref=e356] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=14:00&te=14:30&s=2
+                      - generic [ref=e357]: Belegt
+                - row "Frei Belegt" [ref=e358]:
+                  - cell "Frei" [ref=e359]:
+                    - link "Frei" [ref=e360] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=14:30&te=15:00&s=1
+                      - generic [ref=e361]: Frei
+                  - cell "Belegt" [ref=e362]:
+                    - link "Belegt" [ref=e363] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=14:30&te=15:00&s=2
+                      - generic [ref=e364]: Belegt
+                - row "Frei Frei" [ref=e365]:
+                  - cell "Frei" [ref=e366]:
+                    - link "Frei" [ref=e367] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=15:00&te=15:30&s=1
+                      - generic [ref=e368]: Frei
+                  - cell "Frei" [ref=e369]:
+                    - link "Frei" [ref=e370] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=15:00&te=15:30&s=2
+                      - generic [ref=e371]: Frei
+                - row "Belegt Frei" [ref=e372]:
+                  - cell "Belegt" [ref=e373]:
+                    - link "Belegt" [ref=e374] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=15:30&te=16:00&s=1
+                      - generic [ref=e375]: Belegt
+                  - cell "Frei" [ref=e376]:
+                    - link "Frei" [ref=e377] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=15:30&te=16:00&s=2
+                      - generic [ref=e378]: Frei
+                - row "Belegt Frei" [ref=e379]:
+                  - cell "Belegt" [ref=e380]:
+                    - link "Belegt" [ref=e381] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=16:00&te=16:30&s=1
+                      - generic [ref=e382]: Belegt
+                  - cell "Frei" [ref=e383]:
+                    - link "Frei" [ref=e384] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=16:00&te=16:30&s=2
+                      - generic [ref=e385]: Frei
+                - row "Belegt Frei" [ref=e386]:
+                  - cell "Belegt" [ref=e387]:
+                    - link "Belegt" [ref=e388] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=16:30&te=17:00&s=1
+                      - generic [ref=e389]: Belegt
+                  - cell "Frei" [ref=e390]:
+                    - link "Frei" [ref=e391] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=16:30&te=17:00&s=2
+                      - generic [ref=e392]: Frei
+                - row "Frei Frei" [ref=e393]:
+                  - cell "Frei" [ref=e394]:
+                    - link "Frei" [ref=e395] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=17:00&te=17:30&s=1
+                      - generic [ref=e396]: Frei
+                  - cell "Frei" [ref=e397]:
+                    - link "Frei" [ref=e398] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=17:00&te=17:30&s=2
+                      - generic [ref=e399]: Frei
+                - row "Frei Frei" [ref=e400]:
+                  - cell "Frei" [ref=e401]:
+                    - link "Frei" [ref=e402] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=17:30&te=18:00&s=1
+                      - generic [ref=e403]: Frei
+                  - cell "Frei" [ref=e404]:
+                    - link "Frei" [ref=e405] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=17:30&te=18:00&s=2
+                      - generic [ref=e406]: Frei
+                - row "Frei Frei" [ref=e407]:
+                  - cell "Frei" [ref=e408]:
+                    - link "Frei" [ref=e409] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=18:00&te=18:30&s=1
+                      - generic [ref=e410]: Frei
+                  - cell "Frei" [ref=e411]:
+                    - link "Frei" [ref=e412] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=18:00&te=18:30&s=2
+                      - generic [ref=e413]: Frei
+                - row "Frei Frei" [ref=e414]:
+                  - cell "Frei" [ref=e415]:
+                    - link "Frei" [ref=e416] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=18:30&te=19:00&s=1
+                      - generic [ref=e417]: Frei
+                  - cell "Frei" [ref=e418]:
+                    - link "Frei" [ref=e419] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=18:30&te=19:00&s=2
+                      - generic [ref=e420]: Frei
+                - row "Frei Frei" [ref=e421]:
+                  - cell "Frei" [ref=e422]:
+                    - link "Frei" [ref=e423] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=19:00&te=19:30&s=1
+                      - generic [ref=e424]: Frei
+                  - cell "Frei" [ref=e425]:
+                    - link "Frei" [ref=e426] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=19:00&te=19:30&s=2
+                      - generic [ref=e427]: Frei
+                - row "Frei Frei" [ref=e428]:
+                  - cell "Frei" [ref=e429]:
+                    - link "Frei" [ref=e430] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=19:30&te=20:00&s=1
+                      - generic [ref=e431]: Frei
+                  - cell "Frei" [ref=e432]:
+                    - link "Frei" [ref=e433] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=19:30&te=20:00&s=2
+                      - generic [ref=e434]: Frei
+                - row "Frei Frei" [ref=e435]:
+                  - cell "Frei" [ref=e436]:
+                    - link "Frei" [ref=e437] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=20:00&te=20:30&s=1
+                      - generic [ref=e438]: Frei
+                  - cell "Frei" [ref=e439]:
+                    - link "Frei" [ref=e440] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=20:00&te=20:30&s=2
+                      - generic [ref=e441]: Frei
+                - row "Frei Frei" [ref=e442]:
+                  - cell "Frei" [ref=e443]:
+                    - link "Frei" [ref=e444] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=20:30&te=21:00&s=1
+                      - generic [ref=e445]: Frei
+                  - cell "Frei" [ref=e446]:
+                    - link "Frei" [ref=e447] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=20:30&te=21:00&s=2
+                      - generic [ref=e448]: Frei
+                - row "Frei Frei" [ref=e449]:
+                  - cell "Frei" [ref=e450]:
+                    - link "Frei" [ref=e451] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=21:00&te=21:30&s=1
+                      - generic [ref=e452]: Frei
+                  - cell "Frei" [ref=e453]:
+                    - link "Frei" [ref=e454] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=21:00&te=21:30&s=2
+                      - generic [ref=e455]: Frei
+                - row "Frei Frei" [ref=e456]:
+                  - cell "Frei" [ref=e457]:
+                    - link "Frei" [ref=e458] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=21:30&te=22:00&s=1
+                      - generic [ref=e459]: Frei
+                  - cell "Frei" [ref=e460]:
+                    - link "Frei" [ref=e461] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=21:30&te=22:00&s=2
+                      - generic [ref=e462]: Frei
+                - row "Frei Frei" [ref=e463]:
+                  - cell "Frei" [ref=e464]:
+                    - link "Frei" [ref=e465] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=22:00&te=22:30&s=1
+                      - generic [ref=e466]: Frei
+                  - cell "Frei" [ref=e467]:
+                    - link "Frei" [ref=e468] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=22:00&te=22:30&s=2
+                      - generic [ref=e469]: Frei
+                - row "Frei Frei" [ref=e470]:
+                  - cell "Frei" [ref=e471]:
+                    - link "Frei" [ref=e472] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=22:30&te=23:00&s=1
+                      - generic [ref=e473]: Frei
+                  - cell "Frei" [ref=e474]:
+                    - link "Frei" [ref=e475] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=22:30&te=23:00&s=2
+                      - generic [ref=e476]: Frei
+                - row "Frei Frei" [ref=e477]:
+                  - cell "Frei" [ref=e478]:
+                    - link "Frei" [ref=e479] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=23:00&te=23:30&s=1
+                      - generic [ref=e480]: Frei
+                  - cell "Frei" [ref=e481]:
+                    - link "Frei" [ref=e482] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=23:00&te=23:30&s=2
+                      - generic [ref=e483]: Frei
+                - row "Frei Frei" [ref=e484]:
+                  - cell "Frei" [ref=e485]:
+                    - link "Frei" [ref=e486] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=23:30&te=24:00&s=1
+                      - generic [ref=e487]: Frei
+                  - cell "Frei" [ref=e488]:
+                    - link "Frei" [ref=e489] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-06&ts=23:30&te=24:00&s=2
+                      - generic [ref=e490]: Frei
+                - row "1 2" [ref=e491]:
+                  - cell "1" [ref=e492]:
+                    - generic [ref=e493]: "1"
+                  - cell "2" [ref=e494]:
+                    - generic [ref=e495]: "2"
+                - row "Samstag 6. Juni 2026" [ref=e496]:
+                  - cell "Samstag 6. Juni 2026" [ref=e497]:
+                    - generic [ref=e498]: Samstag
+                    - generic [ref=e499]: 6. Juni 2026
+          - cell "Sonntag 7. Juni 2026 1 2 Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Belegt Frei Belegt Frei Belegt Belegt Belegt Belegt Frei Belegt Frei Belegt Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Belegt Frei Belegt Frei Belegt Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei 1 2 Sonntag 7. Juni 2026" [ref=e500]:
+            - table [ref=e501]:
+              - rowgroup [ref=e502]:
+                - row "Sonntag 7. Juni 2026" [ref=e503]:
+                  - cell "Sonntag 7. Juni 2026" [ref=e504]:
+                    - generic [ref=e505]: Sonntag
+                    - generic [ref=e506]: 7. Juni 2026
+                - row "1 2" [ref=e507]:
+                  - cell "1" [ref=e508]:
+                    - generic [ref=e509]: "1"
+                  - cell "2" [ref=e510]:
+                    - generic [ref=e511]: "2"
+                - row "Frei Frei" [ref=e512]:
+                  - cell "Frei" [ref=e513]:
+                    - link "Frei" [ref=e514] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=06:00&te=06:30&s=1
+                      - generic [ref=e515]: Frei
+                  - cell "Frei" [ref=e516]:
+                    - link "Frei" [ref=e517] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=06:00&te=06:30&s=2
+                      - generic [ref=e518]: Frei
+                - row "Frei Frei" [ref=e519]:
+                  - cell "Frei" [ref=e520]:
+                    - link "Frei" [ref=e521] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=06:30&te=07:00&s=1
+                      - generic [ref=e522]: Frei
+                  - cell "Frei" [ref=e523]:
+                    - link "Frei" [ref=e524] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=06:30&te=07:00&s=2
+                      - generic [ref=e525]: Frei
+                - row "Frei Frei" [ref=e526]:
+                  - cell "Frei" [ref=e527]:
+                    - link "Frei" [ref=e528] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=07:00&te=07:30&s=1
+                      - generic [ref=e529]: Frei
+                  - cell "Frei" [ref=e530]:
+                    - link "Frei" [ref=e531] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=07:00&te=07:30&s=2
+                      - generic [ref=e532]: Frei
+                - row "Frei Frei" [ref=e533]:
+                  - cell "Frei" [ref=e534]:
+                    - link "Frei" [ref=e535] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=07:30&te=08:00&s=1
+                      - generic [ref=e536]: Frei
+                  - cell "Frei" [ref=e537]:
+                    - link "Frei" [ref=e538] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=07:30&te=08:00&s=2
+                      - generic [ref=e539]: Frei
+                - row "Frei Frei" [ref=e540]:
+                  - cell "Frei" [ref=e541]:
+                    - link "Frei" [ref=e542] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=08:00&te=08:30&s=1
+                      - generic [ref=e543]: Frei
+                  - cell "Frei" [ref=e544]:
+                    - link "Frei" [ref=e545] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=08:00&te=08:30&s=2
+                      - generic [ref=e546]: Frei
+                - row "Frei Frei" [ref=e547]:
+                  - cell "Frei" [ref=e548]:
+                    - link "Frei" [ref=e549] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=08:30&te=09:00&s=1
+                      - generic [ref=e550]: Frei
+                  - cell "Frei" [ref=e551]:
+                    - link "Frei" [ref=e552] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=08:30&te=09:00&s=2
+                      - generic [ref=e553]: Frei
+                - row "Belegt Frei" [ref=e554]:
+                  - cell "Belegt" [ref=e555]:
+                    - link "Belegt" [ref=e556] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=09:00&te=09:30&s=1
+                      - generic [ref=e557]: Belegt
+                  - cell "Frei" [ref=e558]:
+                    - link "Frei" [ref=e559] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=09:00&te=09:30&s=2
+                      - generic [ref=e560]: Frei
+                - row "Belegt Frei" [ref=e561]:
+                  - cell "Belegt" [ref=e562]:
+                    - link "Belegt" [ref=e563] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=09:30&te=10:00&s=1
+                      - generic [ref=e564]: Belegt
+                  - cell "Frei" [ref=e565]:
+                    - link "Frei" [ref=e566] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=09:30&te=10:00&s=2
+                      - generic [ref=e567]: Frei
+                - row "Belegt Belegt" [ref=e568]:
+                  - cell "Belegt" [ref=e569]:
+                    - link "Belegt" [ref=e570] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=10:00&te=10:30&s=1
+                      - generic [ref=e571]: Belegt
+                  - cell "Belegt" [ref=e572]:
+                    - link "Belegt" [ref=e573] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=10:00&te=10:30&s=2
+                      - generic [ref=e574]: Belegt
+                - row "Belegt Belegt" [ref=e575]:
+                  - cell "Belegt" [ref=e576]:
+                    - link "Belegt" [ref=e577] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=10:30&te=11:00&s=1
+                      - generic [ref=e578]: Belegt
+                  - cell "Belegt" [ref=e579]:
+                    - link "Belegt" [ref=e580] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=10:30&te=11:00&s=2
+                      - generic [ref=e581]: Belegt
+                - row "Frei Belegt" [ref=e582]:
+                  - cell "Frei" [ref=e583]:
+                    - link "Frei" [ref=e584] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=11:00&te=11:30&s=1
+                      - generic [ref=e585]: Frei
+                  - cell "Belegt" [ref=e586]:
+                    - link "Belegt" [ref=e587] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=11:00&te=11:30&s=2
+                      - generic [ref=e588]: Belegt
+                - row "Frei Belegt" [ref=e589]:
+                  - cell "Frei" [ref=e590]:
+                    - link "Frei" [ref=e591] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=11:30&te=12:00&s=1
+                      - generic [ref=e592]: Frei
+                  - cell "Belegt" [ref=e593]:
+                    - link "Belegt" [ref=e594] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=11:30&te=12:00&s=2
+                      - generic [ref=e595]: Belegt
+                - row "Frei Frei" [ref=e596]:
+                  - cell "Frei" [ref=e597]:
+                    - link "Frei" [ref=e598] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=12:00&te=12:30&s=1
+                      - generic [ref=e599]: Frei
+                  - cell "Frei" [ref=e600]:
+                    - link "Frei" [ref=e601] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=12:00&te=12:30&s=2
+                      - generic [ref=e602]: Frei
+                - row "Frei Frei" [ref=e603]:
+                  - cell "Frei" [ref=e604]:
+                    - link "Frei" [ref=e605] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=12:30&te=13:00&s=1
+                      - generic [ref=e606]: Frei
+                  - cell "Frei" [ref=e607]:
+                    - link "Frei" [ref=e608] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=12:30&te=13:00&s=2
+                      - generic [ref=e609]: Frei
+                - row "Frei Frei" [ref=e610]:
+                  - cell "Frei" [ref=e611]:
+                    - link "Frei" [ref=e612] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=13:00&te=13:30&s=1
+                      - generic [ref=e613]: Frei
+                  - cell "Frei" [ref=e614]:
+                    - link "Frei" [ref=e615] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=13:00&te=13:30&s=2
+                      - generic [ref=e616]: Frei
+                - row "Frei Frei" [ref=e617]:
+                  - cell "Frei" [ref=e618]:
+                    - link "Frei" [ref=e619] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=13:30&te=14:00&s=1
+                      - generic [ref=e620]: Frei
+                  - cell "Frei" [ref=e621]:
+                    - link "Frei" [ref=e622] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=13:30&te=14:00&s=2
+                      - generic [ref=e623]: Frei
+                - row "Frei Frei" [ref=e624]:
+                  - cell "Frei" [ref=e625]:
+                    - link "Frei" [ref=e626] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=14:00&te=14:30&s=1
+                      - generic [ref=e627]: Frei
+                  - cell "Frei" [ref=e628]:
+                    - link "Frei" [ref=e629] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=14:00&te=14:30&s=2
+                      - generic [ref=e630]: Frei
+                - row "Frei Frei" [ref=e631]:
+                  - cell "Frei" [ref=e632]:
+                    - link "Frei" [ref=e633] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=14:30&te=15:00&s=1
+                      - generic [ref=e634]: Frei
+                  - cell "Frei" [ref=e635]:
+                    - link "Frei" [ref=e636] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=14:30&te=15:00&s=2
+                      - generic [ref=e637]: Frei
+                - row "Frei Frei" [ref=e638]:
+                  - cell "Frei" [ref=e639]:
+                    - link "Frei" [ref=e640] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=15:00&te=15:30&s=1
+                      - generic [ref=e641]: Frei
+                  - cell "Frei" [ref=e642]:
+                    - link "Frei" [ref=e643] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=15:00&te=15:30&s=2
+                      - generic [ref=e644]: Frei
+                - row "Frei Frei" [ref=e645]:
+                  - cell "Frei" [ref=e646]:
+                    - link "Frei" [ref=e647] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=15:30&te=16:00&s=1
+                      - generic [ref=e648]: Frei
+                  - cell "Frei" [ref=e649]:
+                    - link "Frei" [ref=e650] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=15:30&te=16:00&s=2
+                      - generic [ref=e651]: Frei
+                - row "Belegt Frei" [ref=e652]:
+                  - cell "Belegt" [ref=e653]:
+                    - link "Belegt" [ref=e654] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=16:00&te=16:30&s=1
+                      - generic [ref=e655]: Belegt
+                  - cell "Frei" [ref=e656]:
+                    - link "Frei" [ref=e657] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=16:00&te=16:30&s=2
+                      - generic [ref=e658]: Frei
+                - row "Belegt Frei" [ref=e659]:
+                  - cell "Belegt" [ref=e660]:
+                    - link "Belegt" [ref=e661] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=16:30&te=17:00&s=1
+                      - generic [ref=e662]: Belegt
+                  - cell "Frei" [ref=e663]:
+                    - link "Frei" [ref=e664] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=16:30&te=17:00&s=2
+                      - generic [ref=e665]: Frei
+                - row "Belegt Frei" [ref=e666]:
+                  - cell "Belegt" [ref=e667]:
+                    - link "Belegt" [ref=e668] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=17:00&te=17:30&s=1
+                      - generic [ref=e669]: Belegt
+                  - cell "Frei" [ref=e670]:
+                    - link "Frei" [ref=e671] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=17:00&te=17:30&s=2
+                      - generic [ref=e672]: Frei
+                - row "Frei Frei" [ref=e673]:
+                  - cell "Frei" [ref=e674]:
+                    - link "Frei" [ref=e675] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=17:30&te=18:00&s=1
+                      - generic [ref=e676]: Frei
+                  - cell "Frei" [ref=e677]:
+                    - link "Frei" [ref=e678] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=17:30&te=18:00&s=2
+                      - generic [ref=e679]: Frei
+                - row "Frei Frei" [ref=e680]:
+                  - cell "Frei" [ref=e681]:
+                    - link "Frei" [ref=e682] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=18:00&te=18:30&s=1
+                      - generic [ref=e683]: Frei
+                  - cell "Frei" [ref=e684]:
+                    - link "Frei" [ref=e685] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=18:00&te=18:30&s=2
+                      - generic [ref=e686]: Frei
+                - row "Frei Frei" [ref=e687]:
+                  - cell "Frei" [ref=e688]:
+                    - link "Frei" [ref=e689] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=18:30&te=19:00&s=1
+                      - generic [ref=e690]: Frei
+                  - cell "Frei" [ref=e691]:
+                    - link "Frei" [ref=e692] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=18:30&te=19:00&s=2
+                      - generic [ref=e693]: Frei
+                - row "Frei Frei" [ref=e694]:
+                  - cell "Frei" [ref=e695]:
+                    - link "Frei" [ref=e696] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=19:00&te=19:30&s=1
+                      - generic [ref=e697]: Frei
+                  - cell "Frei" [ref=e698]:
+                    - link "Frei" [ref=e699] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=19:00&te=19:30&s=2
+                      - generic [ref=e700]: Frei
+                - row "Frei Frei" [ref=e701]:
+                  - cell "Frei" [ref=e702]:
+                    - link "Frei" [ref=e703] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=19:30&te=20:00&s=1
+                      - generic [ref=e704]: Frei
+                  - cell "Frei" [ref=e705]:
+                    - link "Frei" [ref=e706] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=19:30&te=20:00&s=2
+                      - generic [ref=e707]: Frei
+                - row "Frei Frei" [ref=e708]:
+                  - cell "Frei" [ref=e709]:
+                    - link "Frei" [ref=e710] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=20:00&te=20:30&s=1
+                      - generic [ref=e711]: Frei
+                  - cell "Frei" [ref=e712]:
+                    - link "Frei" [ref=e713] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=20:00&te=20:30&s=2
+                      - generic [ref=e714]: Frei
+                - row "Frei Frei" [ref=e715]:
+                  - cell "Frei" [ref=e716]:
+                    - link "Frei" [ref=e717] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=20:30&te=21:00&s=1
+                      - generic [ref=e718]: Frei
+                  - cell "Frei" [ref=e719]:
+                    - link "Frei" [ref=e720] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=20:30&te=21:00&s=2
+                      - generic [ref=e721]: Frei
+                - row "Frei Frei" [ref=e722]:
+                  - cell "Frei" [ref=e723]:
+                    - link "Frei" [ref=e724] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=21:00&te=21:30&s=1
+                      - generic [ref=e725]: Frei
+                  - cell "Frei" [ref=e726]:
+                    - link "Frei" [ref=e727] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=21:00&te=21:30&s=2
+                      - generic [ref=e728]: Frei
+                - row "Frei Frei" [ref=e729]:
+                  - cell "Frei" [ref=e730]:
+                    - link "Frei" [ref=e731] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=21:30&te=22:00&s=1
+                      - generic [ref=e732]: Frei
+                  - cell "Frei" [ref=e733]:
+                    - link "Frei" [ref=e734] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=21:30&te=22:00&s=2
+                      - generic [ref=e735]: Frei
+                - row "Frei Frei" [ref=e736]:
+                  - cell "Frei" [ref=e737]:
+                    - link "Frei" [ref=e738] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=22:00&te=22:30&s=1
+                      - generic [ref=e739]: Frei
+                  - cell "Frei" [ref=e740]:
+                    - link "Frei" [ref=e741] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=22:00&te=22:30&s=2
+                      - generic [ref=e742]: Frei
+                - row "Frei Frei" [ref=e743]:
+                  - cell "Frei" [ref=e744]:
+                    - link "Frei" [ref=e745] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=22:30&te=23:00&s=1
+                      - generic [ref=e746]: Frei
+                  - cell "Frei" [ref=e747]:
+                    - link "Frei" [ref=e748] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=22:30&te=23:00&s=2
+                      - generic [ref=e749]: Frei
+                - row "Frei Frei" [ref=e750]:
+                  - cell "Frei" [ref=e751]:
+                    - link "Frei" [ref=e752] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=23:00&te=23:30&s=1
+                      - generic [ref=e753]: Frei
+                  - cell "Frei" [ref=e754]:
+                    - link "Frei" [ref=e755] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=23:00&te=23:30&s=2
+                      - generic [ref=e756]: Frei
+                - row "Frei Frei" [ref=e757]:
+                  - cell "Frei" [ref=e758]:
+                    - link "Frei" [ref=e759] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=23:30&te=24:00&s=1
+                      - generic [ref=e760]: Frei
+                  - cell "Frei" [ref=e761]:
+                    - link "Frei" [ref=e762] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-07&ts=23:30&te=24:00&s=2
+                      - generic [ref=e763]: Frei
+                - row "1 2" [ref=e764]:
+                  - cell "1" [ref=e765]:
+                    - generic [ref=e766]: "1"
+                  - cell "2" [ref=e767]:
+                    - generic [ref=e768]: "2"
+                - row "Sonntag 7. Juni 2026" [ref=e769]:
+                  - cell "Sonntag 7. Juni 2026" [ref=e770]:
+                    - generic [ref=e771]: Sonntag
+                    - generic [ref=e772]: 7. Juni 2026
+          - cell "Montag 8. Juni 2026 1 2 Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Belegt Frei Belegt Frei Belegt Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Belegt Frei Belegt Belegt Belegt Belegt Belegt Belegt Frei Belegt Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei Frei 1 2 Montag 8. Juni 2026" [ref=e773]:
+            - table [ref=e774]:
+              - rowgroup [ref=e775]:
+                - row "Montag 8. Juni 2026" [ref=e776]:
+                  - cell "Montag 8. Juni 2026" [ref=e777]:
+                    - generic [ref=e778]: Montag
+                    - generic [ref=e779]: 8. Juni 2026
+                - row "1 2" [ref=e780]:
+                  - cell "1" [ref=e781]:
+                    - generic [ref=e782]: "1"
+                  - cell "2" [ref=e783]:
+                    - generic [ref=e784]: "2"
+                - row "Frei Frei" [ref=e785]:
+                  - cell "Frei" [ref=e786]:
+                    - link "Frei" [ref=e787] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=06:00&te=06:30&s=1
+                      - generic [ref=e788]: Frei
+                  - cell "Frei" [ref=e789]:
+                    - link "Frei" [ref=e790] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=06:00&te=06:30&s=2
+                      - generic [ref=e791]: Frei
+                - row "Frei Frei" [ref=e792]:
+                  - cell "Frei" [ref=e793]:
+                    - link "Frei" [ref=e794] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=06:30&te=07:00&s=1
+                      - generic [ref=e795]: Frei
+                  - cell "Frei" [ref=e796]:
+                    - link "Frei" [ref=e797] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=06:30&te=07:00&s=2
+                      - generic [ref=e798]: Frei
+                - row "Frei Frei" [ref=e799]:
+                  - cell "Frei" [ref=e800]:
+                    - link "Frei" [ref=e801] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=07:00&te=07:30&s=1
+                      - generic [ref=e802]: Frei
+                  - cell "Frei" [ref=e803]:
+                    - link "Frei" [ref=e804] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=07:00&te=07:30&s=2
+                      - generic [ref=e805]: Frei
+                - row "Frei Frei" [ref=e806]:
+                  - cell "Frei" [ref=e807]:
+                    - link "Frei" [ref=e808] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=07:30&te=08:00&s=1
+                      - generic [ref=e809]: Frei
+                  - cell "Frei" [ref=e810]:
+                    - link "Frei" [ref=e811] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=07:30&te=08:00&s=2
+                      - generic [ref=e812]: Frei
+                - row "Frei Frei" [ref=e813]:
+                  - cell "Frei" [ref=e814]:
+                    - link "Frei" [ref=e815] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=08:00&te=08:30&s=1
+                      - generic [ref=e816]: Frei
+                  - cell "Frei" [ref=e817]:
+                    - link "Frei" [ref=e818] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=08:00&te=08:30&s=2
+                      - generic [ref=e819]: Frei
+                - row "Frei Frei" [ref=e820]:
+                  - cell "Frei" [ref=e821]:
+                    - link "Frei" [ref=e822] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=08:30&te=09:00&s=1
+                      - generic [ref=e823]: Frei
+                  - cell "Frei" [ref=e824]:
+                    - link "Frei" [ref=e825] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=08:30&te=09:00&s=2
+                      - generic [ref=e826]: Frei
+                - row "Frei Frei" [ref=e827]:
+                  - cell "Frei" [ref=e828]:
+                    - link "Frei" [ref=e829] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=09:00&te=09:30&s=1
+                      - generic [ref=e830]: Frei
+                  - cell "Frei" [ref=e831]:
+                    - link "Frei" [ref=e832] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=09:00&te=09:30&s=2
+                      - generic [ref=e833]: Frei
+                - row "Belegt Frei" [ref=e834]:
+                  - cell "Belegt" [ref=e835]:
+                    - link "Belegt" [ref=e836] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=09:30&te=10:00&s=1
+                      - generic [ref=e837]: Belegt
+                  - cell "Frei" [ref=e838]:
+                    - link "Frei" [ref=e839] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=09:30&te=10:00&s=2
+                      - generic [ref=e840]: Frei
+                - row "Belegt Frei" [ref=e841]:
+                  - cell "Belegt" [ref=e842]:
+                    - link "Belegt" [ref=e843] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=10:00&te=10:30&s=1
+                      - generic [ref=e844]: Belegt
+                  - cell "Frei" [ref=e845]:
+                    - link "Frei" [ref=e846] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=10:00&te=10:30&s=2
+                      - generic [ref=e847]: Frei
+                - row "Belegt Frei" [ref=e848]:
+                  - cell "Belegt" [ref=e849]:
+                    - link "Belegt" [ref=e850] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=10:30&te=11:00&s=1
+                      - generic [ref=e851]: Belegt
+                  - cell "Frei" [ref=e852]:
+                    - link "Frei" [ref=e853] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=10:30&te=11:00&s=2
+                      - generic [ref=e854]: Frei
+                - row "Frei Frei" [ref=e855]:
+                  - cell "Frei" [ref=e856]:
+                    - link "Frei" [ref=e857] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=11:00&te=11:30&s=1
+                      - generic [ref=e858]: Frei
+                  - cell "Frei" [ref=e859]:
+                    - link "Frei" [ref=e860] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=11:00&te=11:30&s=2
+                      - generic [ref=e861]: Frei
+                - row "Frei Frei" [ref=e862]:
+                  - cell "Frei" [ref=e863]:
+                    - link "Frei" [ref=e864] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=11:30&te=12:00&s=1
+                      - generic [ref=e865]: Frei
+                  - cell "Frei" [ref=e866]:
+                    - link "Frei" [ref=e867] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=11:30&te=12:00&s=2
+                      - generic [ref=e868]: Frei
+                - row "Frei Frei" [ref=e869]:
+                  - cell "Frei" [ref=e870]:
+                    - link "Frei" [ref=e871] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=12:00&te=12:30&s=1
+                      - generic [ref=e872]: Frei
+                  - cell "Frei" [ref=e873]:
+                    - link "Frei" [ref=e874] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=12:00&te=12:30&s=2
+                      - generic [ref=e875]: Frei
+                - row "Frei Frei" [ref=e876]:
+                  - cell "Frei" [ref=e877]:
+                    - link "Frei" [ref=e878] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=12:30&te=13:00&s=1
+                      - generic [ref=e879]: Frei
+                  - cell "Frei" [ref=e880]:
+                    - link "Frei" [ref=e881] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=12:30&te=13:00&s=2
+                      - generic [ref=e882]: Frei
+                - row "Frei Frei" [ref=e883]:
+                  - cell "Frei" [ref=e884]:
+                    - link "Frei" [ref=e885] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=13:00&te=13:30&s=1
+                      - generic [ref=e886]: Frei
+                  - cell "Frei" [ref=e887]:
+                    - link "Frei" [ref=e888] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=13:00&te=13:30&s=2
+                      - generic [ref=e889]: Frei
+                - row "Frei Frei" [ref=e890]:
+                  - cell "Frei" [ref=e891]:
+                    - link "Frei" [ref=e892] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=13:30&te=14:00&s=1
+                      - generic [ref=e893]: Frei
+                  - cell "Frei" [ref=e894]:
+                    - link "Frei" [ref=e895] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=13:30&te=14:00&s=2
+                      - generic [ref=e896]: Frei
+                - row "Frei Frei" [ref=e897]:
+                  - cell "Frei" [ref=e898]:
+                    - link "Frei" [ref=e899] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=14:00&te=14:30&s=1
+                      - generic [ref=e900]: Frei
+                  - cell "Frei" [ref=e901]:
+                    - link "Frei" [ref=e902] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=14:00&te=14:30&s=2
+                      - generic [ref=e903]: Frei
+                - row "Frei Frei" [ref=e904]:
+                  - cell "Frei" [ref=e905]:
+                    - link "Frei" [ref=e906] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=14:30&te=15:00&s=1
+                      - generic [ref=e907]: Frei
+                  - cell "Frei" [ref=e908]:
+                    - link "Frei" [ref=e909] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=14:30&te=15:00&s=2
+                      - generic [ref=e910]: Frei
+                - row "Frei Frei" [ref=e911]:
+                  - cell "Frei" [ref=e912]:
+                    - link "Frei" [ref=e913] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=15:00&te=15:30&s=1
+                      - generic [ref=e914]: Frei
+                  - cell "Frei" [ref=e915]:
+                    - link "Frei" [ref=e916] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=15:00&te=15:30&s=2
+                      - generic [ref=e917]: Frei
+                - row "Frei Frei" [ref=e918]:
+                  - cell "Frei" [ref=e919]:
+                    - link "Frei" [ref=e920] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=15:30&te=16:00&s=1
+                      - generic [ref=e921]: Frei
+                  - cell "Frei" [ref=e922]:
+                    - link "Frei" [ref=e923] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=15:30&te=16:00&s=2
+                      - generic [ref=e924]: Frei
+                - row "Frei Frei" [ref=e925]:
+                  - cell "Frei" [ref=e926]:
+                    - link "Frei" [ref=e927] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=16:00&te=16:30&s=1
+                      - generic [ref=e928]: Frei
+                  - cell "Frei" [ref=e929]:
+                    - link "Frei" [ref=e930] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=16:00&te=16:30&s=2
+                      - generic [ref=e931]: Frei
+                - row "Frei Frei" [ref=e932]:
+                  - cell "Frei" [ref=e933]:
+                    - link "Frei" [ref=e934] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=16:30&te=17:00&s=1
+                      - generic [ref=e935]: Frei
+                  - cell "Frei" [ref=e936]:
+                    - link "Frei" [ref=e937] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=16:30&te=17:00&s=2
+                      - generic [ref=e938]: Frei
+                - row "Frei Frei" [ref=e939]:
+                  - cell "Frei" [ref=e940]:
+                    - link "Frei" [ref=e941] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=17:00&te=17:30&s=1
+                      - generic [ref=e942]: Frei
+                  - cell "Frei" [ref=e943]:
+                    - link "Frei" [ref=e944] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=17:00&te=17:30&s=2
+                      - generic [ref=e945]: Frei
+                - row "Frei Frei" [ref=e946]:
+                  - cell "Frei" [ref=e947]:
+                    - link "Frei" [ref=e948] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=17:30&te=18:00&s=1
+                      - generic [ref=e949]: Frei
+                  - cell "Frei" [ref=e950]:
+                    - link "Frei" [ref=e951] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=17:30&te=18:00&s=2
+                      - generic [ref=e952]: Frei
+                - row "Frei Belegt" [ref=e953]:
+                  - cell "Frei" [ref=e954]:
+                    - link "Frei" [ref=e955] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=18:00&te=18:30&s=1
+                      - generic [ref=e956]: Frei
+                  - cell "Belegt" [ref=e957]:
+                    - link "Belegt" [ref=e958] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=18:00&te=18:30&s=2
+                      - generic [ref=e959]: Belegt
+                - row "Frei Belegt" [ref=e960]:
+                  - cell "Frei" [ref=e961]:
+                    - link "Frei" [ref=e962] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=18:30&te=19:00&s=1
+                      - generic [ref=e963]: Frei
+                  - cell "Belegt" [ref=e964]:
+                    - link "Belegt" [ref=e965] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=18:30&te=19:00&s=2
+                      - generic [ref=e966]: Belegt
+                - row "Belegt Belegt" [ref=e967]:
+                  - cell "Belegt" [ref=e968]:
+                    - link "Belegt" [ref=e969] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=19:00&te=19:30&s=1
+                      - generic [ref=e970]: Belegt
+                  - cell "Belegt" [ref=e971]:
+                    - link "Belegt" [ref=e972] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=19:00&te=19:30&s=2
+                      - generic [ref=e973]: Belegt
+                - row "Belegt Belegt" [ref=e974]:
+                  - cell "Belegt" [ref=e975]:
+                    - link "Belegt" [ref=e976] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=19:30&te=20:00&s=1
+                      - generic [ref=e977]: Belegt
+                  - cell "Belegt" [ref=e978]:
+                    - link "Belegt" [ref=e979] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=19:30&te=20:00&s=2
+                      - generic [ref=e980]: Belegt
+                - row "Belegt Frei" [ref=e981]:
+                  - cell "Belegt" [ref=e982]:
+                    - link "Belegt" [ref=e983] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=20:00&te=20:30&s=1
+                      - generic [ref=e984]: Belegt
+                  - cell "Frei" [ref=e985]:
+                    - link "Frei" [ref=e986] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=20:00&te=20:30&s=2
+                      - generic [ref=e987]: Frei
+                - row "Belegt Frei" [ref=e988]:
+                  - cell "Belegt" [ref=e989]:
+                    - link "Belegt" [ref=e990] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=20:30&te=21:00&s=1
+                      - generic [ref=e991]: Belegt
+                  - cell "Frei" [ref=e992]:
+                    - link "Frei" [ref=e993] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=20:30&te=21:00&s=2
+                      - generic [ref=e994]: Frei
+                - row "Frei Frei" [ref=e995]:
+                  - cell "Frei" [ref=e996]:
+                    - link "Frei" [ref=e997] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=21:00&te=21:30&s=1
+                      - generic [ref=e998]: Frei
+                  - cell "Frei" [ref=e999]:
+                    - link "Frei" [ref=e1000] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=21:00&te=21:30&s=2
+                      - generic [ref=e1001]: Frei
+                - row "Frei Frei" [ref=e1002]:
+                  - cell "Frei" [ref=e1003]:
+                    - link "Frei" [ref=e1004] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=21:30&te=22:00&s=1
+                      - generic [ref=e1005]: Frei
+                  - cell "Frei" [ref=e1006]:
+                    - link "Frei" [ref=e1007] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=21:30&te=22:00&s=2
+                      - generic [ref=e1008]: Frei
+                - row "Frei Frei" [ref=e1009]:
+                  - cell "Frei" [ref=e1010]:
+                    - link "Frei" [ref=e1011] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=22:00&te=22:30&s=1
+                      - generic [ref=e1012]: Frei
+                  - cell "Frei" [ref=e1013]:
+                    - link "Frei" [ref=e1014] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=22:00&te=22:30&s=2
+                      - generic [ref=e1015]: Frei
+                - row "Frei Frei" [ref=e1016]:
+                  - cell "Frei" [ref=e1017]:
+                    - link "Frei" [ref=e1018] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=22:30&te=23:00&s=1
+                      - generic [ref=e1019]: Frei
+                  - cell "Frei" [ref=e1020]:
+                    - link "Frei" [ref=e1021] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=22:30&te=23:00&s=2
+                      - generic [ref=e1022]: Frei
+                - row "Frei Frei" [ref=e1023]:
+                  - cell "Frei" [ref=e1024]:
+                    - link "Frei" [ref=e1025] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=23:00&te=23:30&s=1
+                      - generic [ref=e1026]: Frei
+                  - cell "Frei" [ref=e1027]:
+                    - link "Frei" [ref=e1028] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=23:00&te=23:30&s=2
+                      - generic [ref=e1029]: Frei
+                - row "Frei Frei" [ref=e1030]:
+                  - cell "Frei" [ref=e1031]:
+                    - link "Frei" [ref=e1032] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=23:30&te=24:00&s=1
+                      - generic [ref=e1033]: Frei
+                  - cell "Frei" [ref=e1034]:
+                    - link "Frei" [ref=e1035] [cursor=pointer]:
+                      - /url: /square?ds=2026-06-08&ts=23:30&te=24:00&s=2
+                      - generic [ref=e1036]: Frei
+                - row "1 2" [ref=e1037]:
+                  - cell "1" [ref=e1038]:
+                    - generic [ref=e1039]: "1"
+                  - cell "2" [ref=e1040]:
+                    - generic [ref=e1041]: "2"
+                - row "Montag 8. Juni 2026" [ref=e1042]:
+                  - cell "Montag 8. Juni 2026" [ref=e1043]:
+                    - generic [ref=e1044]: Montag
+                    - generic [ref=e1045]: 8. Juni 2026
+  - generic [ref=e1047]:
+    - generic [ref=e1048]:
+      - text: © 2026
+      - link "GWR-Padel Gmbh" [ref=e1049] [cursor=pointer]:
+        - /url: https://padel-gmbh.at
+    - text: (
+    - link "Impressum & Datenschutz" [ref=e1050] [cursor=pointer]:
+      - /url: https://padel-gmbh.at/impressum
+    - text: )

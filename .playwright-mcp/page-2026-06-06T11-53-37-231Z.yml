@@ -1,0 +1,67 @@
+- generic [ref=e1]:
+  - text:  
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - figure [ref=e4]
+      - paragraph [ref=e6]: eTennis wird geladen …
+  - text:           
+  - dialog "Privatsphäre-Einstellungen" [active] [ref=e8]:
+    - generic [ref=e10]:
+      - link "Zu Einwilligungsoptionen springen" [ref=e11] [cursor=pointer]:
+        - /url: "#adbc5-ext-0-255"
+      - heading "Privatsphäre-Einstellungen" [level=2] [ref=e14]
+      - generic [ref=e16]:
+        - generic [ref=e18]:
+          - text: Wir verwenden Cookies und ähnliche Technologien auf unserer Website und verarbeiten personenbezogene Daten von dir (z.B. IP-Adresse), um z.B. Inhalte und Anzeigen zu personalisieren, Medien von Drittanbietern einzubinden oder Zugriffe auf unsere Website zu analysieren. Die Datenverarbeitung kann auch erst in Folge gesetzter Cookies stattfinden. Wir teilen diese Daten mit Dritten, die wir in den Privatsphäre-Einstellungen benennen.
+          - text: Die Datenverarbeitung kann mit deiner Einwilligung oder auf Basis eines berechtigten Interesses erfolgen, dem du in den Privatsphäre-Einstellungen widersprechen kannst. Du hast das Recht, nicht einzuwilligen und deine Einwilligung zu einem späteren Zeitpunkt zu ändern oder zu widerrufen. Weitere Informationen zur Verwendung deiner Daten findest du in unserer
+          - link "Datenschutzerklärung" [ref=e19] [cursor=pointer]:
+            - /url: https://www.smash-house.at/datenschutzerklaerung
+          - text: .
+          - paragraph [ref=e21]: Du bist unter 14 Jahre alt? Dann kannst du nicht in optionale Services einwilligen. Du kannst deine Eltern oder Erziehungsberechtigten bitten, mit dir in diese Services einzuwilligen.
+          - paragraph [ref=e22]:
+            - generic [ref=e23]:
+              - text: Wenn du alle Services akzeptierst, erlaubst du, dass OpenStreetMap
+              - superscript [ref=e24]: "2"
+              - generic [ref=e25]: (Funktional)
+              - text: und Google Analytics
+              - superscript [ref=e26]: "3"
+              - generic [ref=e27]: (Statistik)
+              - text: geladen werden. Diese sind nach ihrem Zweck in Gruppen Funktional
+              - superscript [ref=e28]: "2"
+              - text: und Statistik
+              - superscript [ref=e29]: "3"
+              - text: unterteilt (Zugehörigkeit durch hochgestellte Zahlen gekennzeichnet).
+          - paragraph [ref=e30]: "Außerdem erlaubst du die Datenverarbeitung gemäß dem Google Consent Mode von Google auf der Grundlage deiner Einwilligung für die folgenden Zwecke:"
+          - generic [ref=e31]:
+            - link "Speichern und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Analysen (z. B. Besuchsdauer)." [ref=e33]:
+              - /url: "#"
+              - img [ref=e35]
+              - generic [ref=e37]: Speichern und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Analysen (z. B. Besuchsdauer).
+            - link "Speichern und Auslesen von Daten für die Funktionalität der Website oder App (z. B. Spracheinstellungen)." [ref=e39]:
+              - /url: "#"
+              - img [ref=e41]
+              - generic [ref=e43]: Speichern und Auslesen von Daten für die Funktionalität der Website oder App (z. B. Spracheinstellungen).
+            - link "Übermitteln von Nutzerdaten an Google für Online-Werbezwecke." [ref=e45]:
+              - /url: "#"
+              - img [ref=e47]
+              - generic [ref=e49]: Übermitteln von Nutzerdaten an Google für Online-Werbezwecke.
+            - link "Speicherung und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Werbung." [ref=e51]:
+              - /url: "#"
+              - img [ref=e53]
+              - generic [ref=e55]: Speicherung und Auslesen von Daten wie Cookies (Web) oder Gerätekennungen (Apps) im Zusammenhang mit Werbung.
+        - generic [ref=e56]:
+          - button "Privatsphäre-Einstellungen individuell festlegen" [ref=e57] [cursor=pointer]:
+            - generic [ref=e58]: Privatsphäre-Einstellungen individuell festlegen
+          - button "Weiter ohne Einwilligung" [ref=e59] [cursor=pointer]:
+            - generic [ref=e60]: Weiter ohne Einwilligung
+          - button "✔ Alle akzeptieren" [ref=e61] [cursor=pointer]:
+            - generic [ref=e62]: ✔ Alle akzeptieren
+      - generic [ref=e64]:
+        - link "Datenschutzerklärung" [ref=e65] [cursor=pointer]:
+          - /url: https://www.smash-house.at/datenschutzerklaerung
+        - text: •
+        - link "Impressum" [ref=e66] [cursor=pointer]:
+          - /url: https://www.smash-house.at/impressum
+        - text: •
+        - link "Cookie-Richtlinie" [ref=e67] [cursor=pointer]:
+          - /url: https://www.smash-house.at/cookie-richtlinie

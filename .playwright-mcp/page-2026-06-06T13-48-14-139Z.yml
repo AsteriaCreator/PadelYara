@@ -1,0 +1,97 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e39]:
+    - iframe [ref=e41]:
+      - generic [ref=f22e3]:
+        - strong [ref=f22e4]: www.google.com
+        - text: hat die Verbindung abgelehnt.
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "P3X Tulln" [level=1] [ref=e44]
+        - generic [ref=e45]:
+          - heading "Padel 3xperience Tulln" [level=1] [ref=e46]
+          - paragraph [ref=e47]:
+            - strong [ref=e48]: "E-Mail:"
+            - text: info@padel-3xperience.at
+          - paragraph [ref=e49]:
+            - strong [ref=e50]: "Adresse:"
+            - text: Gutenbergstr. 21, 3430 Tulln
+          - paragraph [ref=e51]:
+            - strong [ref=e52]: "Ansprechpartner:"
+            - text: Björn Schade
+            - strong [ref=e53]: "Anzahl der Padel-Plätze:"
+            - text: 4 Indoor, 1 Single-Court Indoor
+            - strong [ref=e54]: "Homepage:"
+            - link "padel-3xperience.at" [ref=e55] [cursor=pointer]:
+              - /url: https://padel-3xperience.at/
+          - paragraph [ref=e56]:
+            - strong [ref=e57]: "Platzbuchungen:"
+            - link "hier" [ref=e58] [cursor=pointer]:
+              - /url: https://buchung.padel-3xperience.at/reservierung
+          - paragraph [ref=e59]
+      - img "P3X Tulln" [ref=e61]
+  - generic [ref=e62]:
+    - heading "Folge uns auf" [level=5] [ref=e63]
+    - generic [ref=e64]:
+      - link [ref=e65] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e66]
+      - link [ref=e68] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e69]
+    - generic [ref=e71]:
+      - link "Impressum" [ref=e72] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e73] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e74]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e75] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e76]:
+    - generic [ref=e77]:
+      - generic [ref=e78]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e79]
+        - paragraph [ref=e80]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - button "Alle akzeptieren" [ref=e83] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e84] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e86] [cursor=pointer]
+    - generic [ref=e89]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e90] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e91] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

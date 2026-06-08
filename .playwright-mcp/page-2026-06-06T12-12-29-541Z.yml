@@ -1,0 +1,81 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - banner [ref=e4]:
+      - generic [ref=e8]:
+        - link "llw" [ref=e11] [cursor=pointer]:
+          - /url: https://wilhelmer.net/
+          - img "llw" [ref=e13]
+        - generic [ref=e17]:
+          - navigation [ref=e19]:
+            - list [ref=e20]:
+              - listitem [ref=e21]:
+                - link "Zimmer" [ref=e22] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/zimmer/
+              - listitem [ref=e23]:
+                - link "Kulinarik" [ref=e24] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/restaurant/
+              - listitem [ref=e25]:
+                - link "Seminar" [ref=e26] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/seminar/
+              - listitem [ref=e27]:
+                - link "Packages" [ref=e28] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/packages/
+              - listitem [ref=e29]:
+                - link "Aktivitäten" [ref=e30] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/aktivitaeten/
+              - listitem [ref=e31]:
+                - link "Aktuelles" [ref=e32] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/aktuelles/
+              - listitem [ref=e33]:
+                - link "Kontakt" [ref=e34] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/kontakt/
+              - listitem [ref=e35]:
+                - link "De" [ref=e36] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/
+              - listitem [ref=e37]:
+                - link "En" [ref=e38] [cursor=pointer]:
+                  - /url: https://wilhelmer.net/en/wilhelmer-en/
+          - text: a
+    - generic [ref=e39]:
+      - article [ref=e41]:
+        - generic [ref=e48]:
+          - generic [ref=e50]:
+            - img "herzlichwillkommen" [ref=e53]
+            - paragraph [ref=e56]: Wir freuen uns auf Ihren Besuch!
+          - generic [ref=e57]:
+            - link "Menüplan" [ref=e59] [cursor=pointer]:
+              - /url: https://wilhelmer.net/menueplan/
+            - link "Aktuelles" [ref=e61] [cursor=pointer]:
+              - /url: https://wilhelmer.net/aktuelles/
+            - link "Padel" [ref=e63] [cursor=pointer]:
+              - /url: https://wilhelmer.net/padel/
+      - contentinfo [ref=e64]:
+        - generic [ref=e67]:
+          - paragraph [ref=e71]:
+            - text: "Reservierung & Anfragen: +43 3577 22631 oder"
+            - link "landhaus@wilhelmer.net" [ref=e72] [cursor=pointer]:
+              - /url: mailto:landhaus@wilhelmer.net
+          - generic [ref=e74]:
+            - link "Impressum" [ref=e75] [cursor=pointer]:
+              - /url: https://wilhelmer.net/impressum/
+              - generic [ref=e77]: Impressum
+            - link "Datenschutz" [ref=e78] [cursor=pointer]:
+              - /url: https://wilhelmer.net/datenschutz/
+              - generic [ref=e80]: Datenschutz
+            - link "Anfahrt" [ref=e81] [cursor=pointer]:
+              - /url: https://wilhelmer.net/anfahrt/
+              - generic [ref=e83]: Anfahrt
+  - generic [ref=e85]:
+    - heading "We use Cookies" [level=3] [ref=e86]
+    - generic [ref=e87]: We use cookies on our website. Some cookies are necessary (e.g. for the shopping cart) others are not necessary. The non-essential cookies help us to optimize our online offer, our website functions and are used for marketing purposes. The consent includes the storage of information on your terminal device, the reading of personal data and its processing. Click 'Accept all' to consent to the use of cookies that are not necessary or 'Reject all' if you decide otherwise. You can get detailed information of the types of cookies we use and access their settings under 'Manage Settings'. You can access the settings at any time and also subsequently deselect cookies at any time (e.g. in the privacy policy or at the bottom of our website).
+    - generic [ref=e88]:
+      - button "Accept All" [ref=e89] [cursor=pointer]
+      - generic [ref=e90]:
+        - button "Deny All" [ref=e91] [cursor=pointer]
+        - button "Settings" [ref=e92] [cursor=pointer]
+    - generic [ref=e93]:
+      - link "Privacy Policy" [ref=e94] [cursor=pointer]:
+        - /url: https://wilhelmer.net/datenschutz/
+      - text: "|"
+      - link "Legal Notice" [ref=e95] [cursor=pointer]:
+        - /url: https://wilhelmer.net/impressum/

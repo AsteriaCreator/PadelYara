@@ -1,0 +1,244 @@
+- generic [ref=e3]:
+  - banner:
+    - generic [ref=e5]:
+      - img [ref=e9] [cursor=pointer]
+      - generic [ref=e76]:
+        - list [ref=e79]:
+          - listitem [ref=e80]:
+            - link "Courts" [ref=e81] [cursor=pointer]:
+              - /url: /#courts
+          - listitem [ref=e82]:
+            - link "Halle" [ref=e83] [cursor=pointer]:
+              - /url: /#halle
+          - listitem [ref=e84]:
+            - link "Preise & Öffnungszeiten" [ref=e85] [cursor=pointer]:
+              - /url: /#preise
+          - listitem [ref=e86]:
+            - link "Galerie" [ref=e87] [cursor=pointer]:
+              - /url: https://padeldynamics.at/impressionen/
+          - listitem [ref=e88]:
+            - link "Kontakt" [ref=e89] [cursor=pointer]:
+              - /url: https://padeldynamics.at/kontakt/
+        - link "Court buchen" [ref=e97] [cursor=pointer]:
+          - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-28~~~
+  - generic [ref=e98]:
+    - article [ref=e100]:
+      - generic [ref=e103]:
+        - generic [ref=e105]:
+          - generic [ref=e106]:
+            - generic [ref=e108]:
+              - generic [ref=e110]:
+                - img "Adresse" [ref=e113]
+                - generic [ref=e114]:
+                  - heading "So findet Ihr uns" [level=3] [ref=e115]
+                  - paragraph [ref=e117]: Hönigtaler Straße 46, 8301 Hönigtal
+              - generic [ref=e123]:
+                - paragraph [ref=e125]:
+                  - text: Sie sehen gerade einen Platzhalterinhalt von
+                  - strong [ref=e126]: Google Maps
+                  - text: . Um auf den eigentlichen Inhalt zuzugreifen, klicken Sie auf die Schaltfläche unten. Bitte beachten Sie, dass dabei Daten an Drittanbieter weitergegeben werden.
+                  - button "Mehr Informationen" [ref=e127] [cursor=pointer]
+                - generic [ref=e128]:
+                  - button "Inhalt entsperren" [ref=e129] [cursor=pointer]
+                  - button "Erforderlichen Service akzeptieren und Inhalte entsperren" [ref=e130] [cursor=pointer]
+              - link "Route" [ref=e132] [cursor=pointer]:
+                - /url: https://www.google.com/maps/dir//Padelpark+Kainbach+bei+Graz,+H%C3%B6nigtaler+Str.+46,+8301+H%C3%B6nigtal/@47.0895235,15.5712249,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x476e4dfa774efa3b:0x1d696c85afe5fdd8!2m2!1d15.5737998!2d47.0895199!3e0?entry=ttu&g_ep=EgoyMDI0MTAyNy4wIKXMDSoASAFQAw%3D%3D
+            - generic [ref=e134]:
+              - generic [ref=e137]:
+                - heading "Buchen und loslegen" [level=3] [ref=e138]
+                - paragraph [ref=e140]: Dein Court, Aktivitäten, Matches und mehr
+              - img "Padeltennis Halle Kainbach bei Graz" [ref=e143]
+              - link "Court buchen" [ref=e145] [cursor=pointer]:
+                - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-30~~~
+          - generic [ref=e147]:
+            - generic:
+              - generic: Video-Player
+              - application "Video-Player"
+            - heading "Padeltennis Halle in Kainbach bei Graz" [level=1] [ref=e151]
+            - heading "Padel-Action für alle – Dein neuer Lieblingssport wartet auf dich!" [level=3] [ref=e154]
+            - img [ref=e157]
+            - link "Courts entdecken" [ref=e396] [cursor=pointer]:
+              - /url: "#courts"
+        - generic [ref=e397]:
+          - img [ref=e402]
+          - generic [ref=e640]:
+            - generic [ref=e641]:
+              - heading "Willkommen in deiner Padeltennis Halle in Graz!" [level=2] [ref=e644]
+              - paragraph [ref=e647]: Die Padeltennis Halle in Kainbach bei Graz bietet fünf moderne Courts für Sportbegeisterte jeden Alters. Unsere Anlage ist vollständig online buchbar und mit kostenlosem Equipment für Erwachsene und Kinder ausgestattet. Genieße eine beheizte Halle mit hoher Decke für optimales Spiel, moderne LED-Beleuchtung und komfortable Einrichtungen wie Umkleiden und Duschen. Eine gemütliche Lounge und eine Bar mit ausgewählten Getränken runden deinen Besuch ab. Ideal für Freizeitspieler, Schulen und Vereine!
+            - img "Padeltennis Halle Graz" [ref=e651]
+          - img [ref=e656]
+        - generic [ref=e896]:
+          - heading "Die Courts" [level=2] [ref=e899]
+          - generic [ref=e902]:
+            - generic [ref=e903]:
+              - group "1 / 5" [ref=e904]:
+                - img "Padeltennis Spiel" [ref=e905]
+                - generic [ref=e906]:
+                  - paragraph [ref=e907]:
+                    - link "Indoor" [ref=e908] [cursor=pointer]:
+                      - /url: https://padeldynamics.at/category/indoor/
+                  - heading "Court 1" [level=3] [ref=e909]
+                  - paragraph [ref=e910]: Unser erster Court, perfekt für Anfänger und Profis gleichermaßen.
+                  - link "Buchen" [ref=e911] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-30~~~
+              - group "2 / 5" [ref=e912]:
+                - img "Padeltennis Spiel" [ref=e913]
+                - generic [ref=e914]:
+                  - paragraph [ref=e915]:
+                    - link "Indoor" [ref=e916] [cursor=pointer]:
+                      - /url: https://padeldynamics.at/category/indoor/
+                  - heading "Court 2" [level=3] [ref=e917]
+                  - paragraph [ref=e918]: Ein geräumiger Platz mit bestem Boden für schnelle Matches.
+                  - link "Buchen" [ref=e919] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-30~~~
+              - group "3 / 5" [ref=e920]:
+                - img "Padeltennis Spiel" [ref=e921]
+                - generic [ref=e922]:
+                  - paragraph [ref=e923]:
+                    - link "Indoor" [ref=e924] [cursor=pointer]:
+                      - /url: https://padeldynamics.at/category/indoor/
+                  - heading "Court 3" [level=3] [ref=e925]
+                  - paragraph [ref=e926]: Ausgestattet für Top-Leistung und maximale Spielfreude.
+                  - link "Buchen" [ref=e927] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-30~~~
+              - group "4 / 5" [ref=e928]:
+                - img "Padel Court" [ref=e929]
+                - generic [ref=e930]:
+                  - paragraph [ref=e931]:
+                    - link "Indoor" [ref=e932] [cursor=pointer]:
+                      - /url: https://padeldynamics.at/category/indoor/
+                  - heading "Court 4" [level=3] [ref=e933]
+                  - paragraph [ref=e934]: Black Edition Courts, padeln in beeindruckender Location.
+                  - link "Buchen" [ref=e935] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-30~~~
+              - group "5 / 5" [ref=e936]:
+                - img "Padel Court" [ref=e937]
+                - generic [ref=e938]:
+                  - paragraph [ref=e939]:
+                    - link "Indoor" [ref=e940] [cursor=pointer]:
+                      - /url: https://padeldynamics.at/category/indoor/
+                  - heading "Court 5" [level=3] [ref=e941]
+                  - paragraph [ref=e942]: Black Edition Courts, padeln in beeindruckender Location.
+                  - link "Buchen" [ref=e943] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-30~~~
+            - text: prev next
+        - generic [ref=e947]:
+          - generic [ref=e948]:
+            - generic [ref=e951]:
+              - heading "Die Halle" [level=2] [ref=e952]
+              - paragraph [ref=e954]: "Unsere Halle setzt neue Maßstäbe: gut beheizt und hoch genug, um auch hohe Lobs problemlos zu spielen. Die moderne LED-Beleuchtung sorgt für optimale Sicht und beste Spielbedingungen, egal zu welcher Tageszeit. Komfortable Umkleideräume mit Duschen und WC sind ebenfalls Teil unserer Ausstattung. Unsere Ruhezonen mit Sofas und Sesseln sowie eine Bar bieten dir Platz für Erholung zwischen den Spielen."
+            - link "Impressionen" [ref=e956] [cursor=pointer]:
+              - /url: https://padeldynamics.at/impressionen/
+          - generic [ref=e960]:
+            - generic [ref=e961]:
+              - group "1 / 9" [ref=e962]:
+                - img "Padelpark" [ref=e963]
+              - group "2 / 9" [ref=e964]:
+                - img "Padelpark" [ref=e965]
+              - group "3 / 9" [ref=e966]:
+                - img "Padelpark" [ref=e967]
+              - group "4 / 9" [ref=e968]:
+                - img "Padelpark" [ref=e969]
+              - group "5 / 9" [ref=e970]:
+                - img "Padelpark" [ref=e971]
+              - group "6 / 9" [ref=e972]:
+                - img "Padelpark" [ref=e973]
+              - group "7 / 9" [ref=e974]:
+                - img "Padelpark" [ref=e975]
+              - group "8 / 9" [ref=e976]:
+                - img "Padelpark" [ref=e977]
+              - group "9 / 9" [ref=e978]:
+                - img "Padelpark" [ref=e979]
+            - generic [ref=e980]:
+              - text: prev
+              - button "Next slide" [ref=e981] [cursor=pointer]: Nächstes Bild
+        - generic [ref=e982]:
+          - img [ref=e987]
+          - heading "Preise und Öffnungszeiten" [level=2] [ref=e1229]:
+            - text: Preise und
+            - text: Öffnungszeiten
+          - generic [ref=e1231]:
+            - generic [ref=e1234]:
+              - heading "1 Stunde" [level=4] [ref=e1235]
+              - generic [ref=e1236]:
+                - paragraph [ref=e1237]:
+                  - text: schon ab
+                  - text: € 15,00
+                - paragraph [ref=e1238]:
+                  - link "Buchen" [ref=e1239] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-28~~~
+            - generic [ref=e1242]:
+              - heading "1,5 Stunden" [level=4] [ref=e1243]
+              - generic [ref=e1244]:
+                - paragraph [ref=e1245]:
+                  - text: schon ab
+                  - text: € 22,50
+                - paragraph [ref=e1246]:
+                  - link "Buchen" [ref=e1247] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-28~~~
+            - generic [ref=e1250]:
+              - heading "2 Stunden" [level=4] [ref=e1251]
+              - generic [ref=e1252]:
+                - paragraph [ref=e1253]:
+                  - text: schon ab
+                  - text: € 30,00
+                - paragraph [ref=e1254]:
+                  - link "Buchen" [ref=e1255] [cursor=pointer]:
+                    - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-28~~~
+          - generic [ref=e1256]:
+            - generic [ref=e1257]:
+              - heading "Montag bis Freitag" [level=4] [ref=e1260]
+              - heading "07.00 - 22.00" [level=2] [ref=e1263]
+            - generic [ref=e1264]:
+              - heading "Samstag bis Sonntag" [level=4] [ref=e1267]
+              - heading "06.00 - 22.00" [level=2] [ref=e1270]
+          - img [ref=e1275]
+    - contentinfo [ref=e1513]:
+      - generic [ref=e1514]:
+        - generic [ref=e1521]:
+          - generic [ref=e1522]:
+            - paragraph [ref=e1523]:
+              - text: Sie sehen gerade einen Platzhalterinhalt von
+              - strong [ref=e1524]: Google Maps
+              - text: . Um auf den eigentlichen Inhalt zuzugreifen, klicken Sie auf die Schaltfläche unten. Bitte beachten Sie, dass dabei Daten an Drittanbieter weitergegeben werden.
+            - button "Mehr Informationen" [ref=e1525] [cursor=pointer]
+          - generic [ref=e1526]:
+            - button "Inhalt entsperren" [ref=e1527] [cursor=pointer]
+            - button "Erforderlichen Service akzeptieren und Inhalte entsperren" [ref=e1528] [cursor=pointer]
+        - generic [ref=e1530]:
+          - generic [ref=e1531]:
+            - img [ref=e1534] [cursor=pointer]
+            - list [ref=e1569]:
+              - listitem [ref=e1570]:
+                - link "" [ref=e1571] [cursor=pointer]:
+                  - /url: https://www.facebook.com/share/VZQPaYoBY3U9t7d8/?mibextid=LQQJ4d
+              - listitem [ref=e1572]:
+                - link "" [ref=e1573] [cursor=pointer]:
+                  - /url: https://www.instagram.com/padel_dynamics?igsh=NDc5YnU4cW9qMWZ6
+          - generic [ref=e1577]:
+            - heading "So erreichst du uns" [level=5] [ref=e1578]
+            - paragraph [ref=e1580]:
+              - link "+43 664 13 44 435" [ref=e1581] [cursor=pointer]:
+                - /url: tel:+436641344435
+              - link "info@padeldynamics.at" [ref=e1582] [cursor=pointer]:
+                - /url: mailto:info@padeldynamics.at
+          - generic [ref=e1586]:
+            - heading "Hier findest du uns" [level=5] [ref=e1587]
+            - paragraph [ref=e1589]:
+              - text: Hönigtaler Straße 46
+              - text: 8301 Hönigtal
+          - generic [ref=e1590]:
+            - generic [ref=e1593]:
+              - heading "Links" [level=5] [ref=e1594]
+              - paragraph [ref=e1596]:
+                - link "Buchung" [ref=e1597] [cursor=pointer]:
+                  - /url: https://playtomic.io/padeldynamics-kainbach-bei-graz/12979538-ad79-479d-aeda-c62dae4742ba?q=PADEL~2024-10-28~~~
+                - link "Impressum" [ref=e1598] [cursor=pointer]:
+                  - /url: /impressum/
+                - link "Datenschutz" [ref=e1599] [cursor=pointer]:
+                  - /url: /datenschutz/
+            - generic [ref=e1602]:
+              - paragraph [ref=e1603]: powered by
+              - link [ref=e1604] [cursor=pointer]:
+                - /url: https://software-entwicklung-graz.at/
+                - img [ref=e1605]

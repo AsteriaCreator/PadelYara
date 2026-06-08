@@ -1,0 +1,406 @@
+- generic [active] [ref=e1]:
+  - dialog "Einwilligung verwalten" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Logo Arena One – Padel and more" [ref=e5] [cursor=pointer]:
+        - /url: https://www.arenaone.at/
+        - img "Logo Arena One – Padel and more" [ref=e6]
+      - generic [ref=e7]: Einwilligung verwalten
+      - button "Dialog schließen" [ref=e8] [cursor=pointer]:
+        - img [ref=e9]: 
+    - generic [ref=e12]: Um dir ein optimales Erlebnis zu bieten, verwenden wir Technologien wie Cookies, um Geräteinformationen zu speichern und/oder darauf zuzugreifen. Wenn du diesen Technologien zustimmst, können wir Daten wie das Surfverhalten oder eindeutige IDs auf dieser Website verarbeiten. Wenn du deine Einwilligung nicht erteilst oder zurückziehst, können bestimmte Merkmale und Funktionen beeinträchtigt werden.
+    - list [ref=e14]:
+      - listitem
+      - listitem [ref=e15]:
+        - link "Dienste verwalten" [ref=e16] [cursor=pointer]:
+          - /url: https://www.arenaone.at/cookie-richtlinie-eu/#cmplz-cookies-overview
+      - listitem
+      - listitem
+    - generic [ref=e17]:
+      - button "Akzeptieren" [ref=e18] [cursor=pointer]
+      - button "Ablehnen" [ref=e19] [cursor=pointer]
+      - button "Einstellungen ansehen" [ref=e20] [cursor=pointer]
+    - list [ref=e22]:
+      - listitem [ref=e23]:
+        - link "Cookie-Richtlinie" [ref=e24] [cursor=pointer]:
+          - /url: https://www.arenaone.at/cookie-richtlinie-eu/
+      - listitem [ref=e25]:
+        - link "Datenschutz" [ref=e26] [cursor=pointer]:
+          - /url: https://www.arenaone.at/datenschutz/
+      - listitem [ref=e27]:
+        - link "Impressum" [ref=e28] [cursor=pointer]:
+          - /url: https://www.arenaone.at/impressum/
+  - link "Zum Inhalt springen" [ref=e29] [cursor=pointer]:
+    - /url: "#content"
+  - banner [ref=e30]:
+    - generic [ref=e32]:
+      - list [ref=e35]:
+        - listitem [ref=e36]:
+          - link "Instagram" [ref=e37] [cursor=pointer]:
+            - /url: http://www.instagram.com/arenaone.klagenfurt
+            - generic [ref=e38]: Instagram
+            - img [ref=e39]
+        - listitem [ref=e41]:
+          - link "Facebook" [ref=e42] [cursor=pointer]:
+            - /url: https://www.facebook.com/profile.php?id=61585902698497
+            - generic [ref=e43]: Facebook
+            - img [ref=e44]
+      - list [ref=e48]:
+        - listitem [ref=e49]:
+          - link "padel@arenaone.at" [ref=e50] [cursor=pointer]:
+            - /url: mailto:padel@arenaone.at
+            - img [ref=e52]
+            - generic [ref=e54]: padel@arenaone.at
+        - listitem [ref=e55]:
+          - link "+43 463 207 123" [ref=e56] [cursor=pointer]:
+            - /url: tel:0043463207123
+            - generic [ref=e58]: 
+            - generic [ref=e59]: +43 463 207 123
+    - generic [ref=e61]:
+      - link [ref=e64] [cursor=pointer]:
+        - /url: https://www.arenaone.at
+      - navigation "Menü" [ref=e67]:
+        - list [ref=e68]:
+          - listitem [ref=e69]:
+            - link "Padel" [ref=e70] [cursor=pointer]:
+              - /url: https://www.arenaone.at/
+          - listitem [ref=e71]:
+            - link "Turniere" [ref=e72] [cursor=pointer]:
+              - /url: https://padel-austria.at/tournaments?q%5Blocation_id%5D=133&q%5Bstate%5D=5&commit=Filtern&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAREZN9leHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAaeo_aiY38TKDFhlgx-Dm8lYMrN-KlvFpOUsgHmAKHUS0d5at50TrwLrM-W8sg_aem_WEY2FhaO-bXRbnJROUQYLg
+          - listitem [ref=e73]:
+            - link "Preise" [ref=e74] [cursor=pointer]:
+              - /url: https://www.arenaone.at/#preise
+          - listitem [ref=e75]:
+            - link "Über uns" [ref=e76] [cursor=pointer]:
+              - /url: https://www.arenaone.at/ueber-uns/
+          - listitem [ref=e77]:
+            - link "FAQ" [ref=e78] [cursor=pointer]:
+              - /url: https://www.arenaone.at/faq/
+          - listitem [ref=e79]:
+            - link "Kontakt" [ref=e80] [cursor=pointer]:
+              - /url: https://www.arenaone.at/kontakt/
+  - main [ref=e81]:
+    - generic [ref=e83]:
+      - generic [ref=e86]:
+        - heading "Die neue Heimat für Padel in Kärnten" [level=1] [ref=e88]
+        - paragraph [ref=e90]:
+          - generic [ref=e91]:
+            - text: In der
+            - strong [ref=e92]: Arena ONE
+            - text: in Klagenfurt erwartet dich modernes Padel auf professionellen Courts, wetterunabhängig und zentral erreichbar. Turnierspieler und Einsteiger spielen hier auf höchstem Niveau.
+        - link "Jetzt Court buchen" [ref=e94] [cursor=pointer]:
+          - /url: https://arenaone.wansport.com/de-de/bookingspanel
+          - generic [ref=e95]:
+            - generic [ref=e97]: 
+            - generic [ref=e98]: Jetzt Court buchen
+      - text: 
+      - generic [ref=e101]:
+        - heading "Eine neue Dimension für Sport & Lifestyle" [level=2] [ref=e103]:
+          - text: Eine neue Dimension
+          - text: für Sport & Lifestyle
+        - generic [ref=e104]:
+          - paragraph [ref=e105]: Arena ONE schließt die Lücke im Kärntner Padelsport. Wir verwandeln den bekannten Standort der ehemaligen Jump World One in die modernste Padel Arena Österreichs.
+          - paragraph [ref=e106]:
+            - generic [ref=e107]:
+              - strong [ref=e108]: "Unser Anspruch ist Professionalität auf jedem Level:"
+              - text: Von der ersten Padel-Akademie des Landes in Kooperation mit verschiedenen Ausbildungsstätten bis hin zum modernen Panoramacourt für dein Feierabend-Match. Arena ONE ist eine offene Sportanlage für alle, die Wert auf Qualität, Community und Lifestyle legen.
+        - text:   
+      - generic [ref=e112]:
+        - heading "Alles an einem Ort. Mehr als nur Padel." [level=2] [ref=e114]
+        - paragraph [ref=e116]:
+          - text: Bei Arena ONE spielst du nicht nur Padel.
+          - text: Du trainierst, regenerierst und triffst dich mit deiner Community.
+        - generic [ref=e118]:
+          - text: 
+          - generic [ref=e119]:
+            - generic [ref=e121]:
+              - generic [ref=e124]:
+                - heading [level=3] [ref=e126]: Events & Firmenfeiern
+                - paragraph [ref=e129]: Der Seminar- und Eventbereich bietet Raum für Seminare, Workshops, Geburtstagsfeiern und besondere Formate wie Spieleabende, Comedy-Abende oder Pop-up-Quiz.
+              - generic [ref=e132]:
+                - heading [level=3] [ref=e134]: Sportangebote
+                - paragraph [ref=e137]: Im Bewegungsraum bieten externe Trainer:innen eigenständig Sportkurse für Kinder, Jugendliche und Erwachsene an.
+              - generic [ref=e140]:
+                - heading [level=3] [ref=e142]: Gesundheit & Regeneration
+                - paragraph [ref=e145]: Der Bereich Gesundheit & Regeneration bietet dir Physiotherapie, Massage, Osteopathie und Beratung.
+              - tabpanel [ref=e146]:
+                - generic [ref=e148]:
+                  - heading "Padel" [level=3] [ref=e150]
+                  - paragraph [ref=e153]: Buche deinen Court bequem über die Arena ONE App. Triff dich mit deinem Teampartner oder buche dich bei einem freien Spiel dazu und lerne neue Leute kennen. So oder so – du wirst es lieben.
+              - tabpanel [ref=e154]:
+                - generic [ref=e156]:
+                  - heading "Café & Bistro" [level=3] [ref=e158]
+                  - paragraph [ref=e161]: Frühstück, Snacks und warme Speisen erwarten dich in entspannter Atmosphäre. Vor dem Spiel, danach oder einfach als Treffpunkt zwischendurch. Du bist immer willkommen.
+              - tabpanel [ref=e162]:
+                - generic [ref=e164]:
+                  - heading "Macron Padel Shop" [level=3] [ref=e166]
+                  - paragraph [ref=e169]: In unserem Macron Shop findest du Schläger, Bälle, Bekleidung und Zubehör. Genieße persönliche Beratung und exklusiven Zugang zu Macron-Kollektionen. Mach deinen Sport zum Lifestyle.
+              - tabpanel [ref=e170]:
+                - generic [ref=e172]:
+                  - heading [level=3] [ref=e174]: Events & Firmenfeiern
+                  - paragraph [ref=e177]: Der Seminar- und Eventbereich bietet Raum für Seminare, Workshops, Geburtstagsfeiern und besondere Formate wie Spieleabende, Comedy-Abende oder Pop-up-Quiz.
+              - tabpanel [ref=e178]:
+                - generic [ref=e180]:
+                  - heading [level=3] [ref=e182]: Sportangebote
+                  - paragraph [ref=e185]: Im Bewegungsraum bieten externe Trainer:innen eigenständig Sportkurse für Kinder, Jugendliche und Erwachsene an.
+              - tabpanel [ref=e186]:
+                - generic [ref=e188]:
+                  - heading [level=3] [ref=e190]: Gesundheit & Regeneration
+                  - paragraph [ref=e193]: Der Bereich Gesundheit & Regeneration bietet dir Physiotherapie, Massage, Osteopathie und Beratung.
+              - generic [ref=e196]:
+                - heading [level=3] [ref=e198]: Padel
+                - paragraph [ref=e201]: Buche deinen Court bequem über die Arena ONE App. Triff dich mit deinem Teampartner oder buche dich bei einem freien Spiel dazu und lerne neue Leute kennen. So oder so – du wirst es lieben.
+              - generic [ref=e204]:
+                - heading [level=3] [ref=e206]: Café & Bistro
+                - paragraph [ref=e209]: Frühstück, Snacks und warme Speisen erwarten dich in entspannter Atmosphäre. Vor dem Spiel, danach oder einfach als Treffpunkt zwischendurch. Du bist immer willkommen.
+              - generic [ref=e212]:
+                - heading [level=3] [ref=e214]: Macron Padel Shop
+                - paragraph [ref=e217]: In unserem Macron Shop findest du Schläger, Bälle, Bekleidung und Zubehör. Genieße persönliche Beratung und exklusiven Zugang zu Macron-Kollektionen. Mach deinen Sport zum Lifestyle.
+              - generic [ref=e220]:
+                - heading [level=3] [ref=e222]: Events & Firmenfeiern
+                - paragraph [ref=e225]: Der Seminar- und Eventbereich bietet Raum für Seminare, Workshops, Geburtstagsfeiern und besondere Formate wie Spieleabende, Comedy-Abende oder Pop-up-Quiz.
+              - generic [ref=e228]:
+                - heading [level=3] [ref=e230]: Sportangebote
+                - paragraph [ref=e233]: Im Bewegungsraum bieten externe Trainer:innen eigenständig Sportkurse für Kinder, Jugendliche und Erwachsene an.
+              - generic [ref=e236]:
+                - heading [level=3] [ref=e238]: Gesundheit & Regeneration
+                - paragraph [ref=e241]: Der Bereich Gesundheit & Regeneration bietet dir Physiotherapie, Massage, Osteopathie und Beratung.
+            - tablist [ref=e242]:
+              - generic [ref=e243] [cursor=pointer]: 
+              - generic [ref=e244] [cursor=pointer]: 
+              - generic [ref=e245] [cursor=pointer]: 
+              - generic [ref=e246] [cursor=pointer]: 
+              - generic [ref=e247] [cursor=pointer]: 
+              - generic [ref=e248] [cursor=pointer]: 
+          - generic [ref=e249]:
+            - button "Previous" [ref=e250] [cursor=pointer]:
+              - generic [ref=e251]: 
+            - button "Next" [ref=e252] [cursor=pointer]:
+              - generic [ref=e253]: 
+      - generic [ref=e261]:
+        - generic [ref=e263]:
+          - heading "Preise" [level=3] [ref=e265]
+          - button "ab 10 € / Stunde" [ref=e267]:
+            - generic [ref=e269]: ab 10 € / Stunde
+          - paragraph [ref=e271]:
+            - generic [ref=e272]: "Mo – Fr: 10 € / Person bis 16 Uhr"
+            - generic [ref=e273]:
+              - text: "Mo – Fr: 12 € / Person ab 16 Uhr"
+              - text: "Sa / So / Feiertag: 12€ / Person"
+          - link "Jetzt Court buchen" [ref=e275] [cursor=pointer]:
+            - /url: https://arenaone.wansport.com/de-de/bookingspanel
+            - generic [ref=e276]:
+              - generic [ref=e278]: 
+              - generic [ref=e279]: Jetzt Court buchen
+          - paragraph [ref=e281]: "Hinweis: Preis gilt bei Vollbelegung mit 4 Spielern."
+        - generic [ref=e282]:
+          - heading "Noch nie gespielt?" [level=2] [ref=e284]
+          - generic [ref=e285]:
+            - paragraph [ref=e286]:
+              - generic [ref=e287]:
+                - text: Du brauchst
+                - strong [ref=e288]: keine Vorkenntnisse
+                - text: ", um bei Arena ONE einzusteigen. Padel ist leicht zu lernen und macht schon beim ersten Spiel Spaß."
+            - paragraph [ref=e289]: Einen Schläger kannst du direkt bei der Buchung in der Wansport-App dazubuchen und vor Ort im Shop abholen. Bälle erhältst du ebenfalls bei uns. Bequeme Sportkleidung und Hallen- oder Tennisschuhe mit gutem Grip reichen aus.
+            - paragraph [ref=e290]: Wenn du dir beim Einstieg Unterstützung wünschst, buche ein Training oder nimm an einem Einsteigerkurs teil. So lernst du die Grundschläge, das Spiel über die Wand und die wichtigsten Regeln in kurzer Zeit.
+      - generic [ref=e292]:
+        - heading "Dein Spiel. Deine Zeit. Deine App." [level=2] [ref=e294]
+        - paragraph [ref=e296]:
+          - generic [ref=e297]:
+            - text: Wir setzen auf modernste Technologie für ein nahtloses Erlebnis. Flexibilität statt starrer Strukturen.
+            - text: Mit der
+          - text: Arena ONE APP
+          - generic [ref=e298]:
+            - text: organisierst du dein gesamtes Sporterlebnis in einer einzigen App.
+            - text: Von der Buchung bis zum Match-Point.
+      - generic [ref=e300]:
+        - generic [ref=e301]:
+          - heading "Smart organisiert" [level=3] [ref=e303]
+          - generic [ref=e305]:
+            - generic [ref=e308]: 
+            - generic [ref=e309]:
+              - heading "Instant Booking & Fair Split:" [level=3] [ref=e310]
+              - paragraph [ref=e311]: Buche deinen Court in Echtzeit und teile die Kosten automatisch gerecht per App. Jeder zahlt nur seinen Anteil.
+          - generic [ref=e313]:
+            - generic [ref=e316]: 
+            - generic [ref=e317]:
+              - heading "Matchmaking & Chat:" [level=3] [ref=e318]
+              - paragraph [ref=e319]: Finde sofort Spielpartner auf deinem Niveau, trete offenen Runden bei und kläre alles im integrierten Chat.
+        - img "Screenshot der Arena One App zur Platzbuchung" [ref=e322]
+        - generic [ref=e323]:
+          - heading "Gamification" [level=3] [ref=e325]
+          - generic [ref=e327]:
+            - generic [ref=e330]: 
+            - generic [ref=e331]:
+              - heading "Rankings & Trophies:" [level=3] [ref=e332]
+              - paragraph [ref=e333]: Sammle Punkte für jedes Match, klettere die Season-Leiter hoch und verdiene dir Auszeichnungen.
+          - generic [ref=e335]:
+            - generic [ref=e338]: 
+            - generic [ref=e339]:
+              - heading "Challenges:" [level=3] [ref=e340]
+              - paragraph [ref=e341]: Mach es spannend! Fordere Freunde heraus und spielt um kleine Einsätze wie ein Getränk nach dem Match oder einfach um Ruhm und Ehre.
+      - generic [ref=e343]:
+        - generic [ref=e344]:
+          - heading "So buchst du deinen Court" [level=2] [ref=e346]
+          - paragraph [ref=e348]:
+            - generic [ref=e349]:
+              - text: Die Buchung läuft schnell und komplett digital über die
+              - strong [ref=e350]: Arena ONE App.
+          - generic [ref=e351]:
+            - generic [ref=e353]:
+              - link:
+                - /url: https://apps.apple.com/at/app/arena-one-padel-and-more/id6760184674
+            - generic [ref=e355]:
+              - link:
+                - /url: https://play.google.com/store/apps/details?id=com.wansport.app.wsm.arenaone
+        - generic [ref=e357]:
+          - generic [ref=e358]:
+            - paragraph [ref=e360]: "01."
+            - heading "Arena ONE-App herunterladen" [level=3] [ref=e362]
+            - paragraph [ref=e364]: Lade die Arena ONE App im App Store oder Google Play Store herunter und erstelle dein kostenloses Konto.
+          - generic [ref=e365]:
+            - paragraph [ref=e367]: "02."
+            - heading "Datum und Uhrzeit wählen" [level=3] [ref=e369]
+            - paragraph [ref=e371]: Öffne den Buchungskalender und sieh dir an, welche Courts verfügbar sind. Du kannst bis zu zwei Wochen im Voraus buchen.
+          - generic [ref=e372]:
+            - paragraph [ref=e374]: "03."
+            - heading "Slot buchen" [level=3] [ref=e376]
+            - paragraph [ref=e378]: Du kannst entweder einen Court buchen, dich zu einem offenen Court mit anderen Spielern dazu buchen oder einen Court reservieren und andere Spieler einladen.
+          - generic [ref=e379]:
+            - paragraph [ref=e381]: "04."
+            - heading "Direkt bezahlen" [level=3] [ref=e383]
+            - paragraph [ref=e385]: Die Bezahlung erfolgt direkt in der App. Jeder Spieler zahlt entweder für sich selbst oder für alle.
+          - generic [ref=e388]:
+            - img [ref=e391]
+            - generic [ref=e393]:
+              - heading "Gut zu wissen:" [level=3] [ref=e394]
+              - paragraph [ref=e395]:
+                - text: • Eine kostenlose Stornierung ist bis 48 Stunden vor Spielbeginn möglich.
+                - text: • Leihschläger kannst du direkt bei der Buchung hinzufügen und vor Ort im Shop abholen.
+      - text:       
+      - generic [ref=e398]:
+        - heading "Werde Teil der Padel-Community in Kärnten" [level=2] [ref=e400]:
+          - text: Werde Teil der
+          - text: Padel-Community in Kärnten
+        - paragraph [ref=e402]:
+          - text: Arena ONE wächst.
+          - generic [ref=e403]: Mit neuen Formaten, Ligen, Events und Partnerschaften.
+          - generic [ref=e404]:
+            - text: Bleib informiert und gestalte die Padel-Bewegung in Kärnten mit. Registriere dich in der
+            - strong [ref=e405]: Arena ONE
+            - strong [ref=e406]: App
+            - text: und bleibe immer Up-to-date.
+        - link "Registriere dich jetzt" [ref=e408] [cursor=pointer]:
+          - /url: https://arenaone.wansport.com/de-de/signup
+          - generic [ref=e409]:
+            - generic [ref=e411]: 
+            - generic [ref=e412]: Registriere dich jetzt
+      - generic [ref=e419]:
+        - heading "Häufig gestellte Fragen" [level=2] [ref=e421]
+        - generic [ref=e424]:
+          - generic [ref=e425]:
+            - tab "Wie lange im Voraus kann ich mich für ein Padel Spiel anmelden?" [ref=e426] [cursor=pointer]:
+              - generic [ref=e428]: Wie lange im Voraus kann ich mich für ein Padel Spiel anmelden?
+              - generic [ref=e429]:
+                - generic [ref=e430]: 
+                - text: 
+            - tabpanel "Wie lange im Voraus kann ich mich für ein Padel Spiel anmelden?" [ref=e431]:
+              - paragraph [ref=e432]: Du kannst über die Arena ONE App zwei Wochen im Voraus buchen.
+          - tab "Ich kann nicht kommen. Kann ich stornieren?" [ref=e434] [cursor=pointer]:
+            - generic [ref=e436]: Ich kann nicht kommen. Kann ich stornieren?
+            - generic [ref=e437]:
+              - text: 
+              - generic [ref=e438]: 
+          - tab "Kann ich auch Padel spielen, wenn ich keinen Spielpartner habe?" [ref=e440] [cursor=pointer]:
+            - generic [ref=e442]: Kann ich auch Padel spielen, wenn ich keinen Spielpartner habe?
+            - generic [ref=e443]:
+              - text: 
+              - generic [ref=e444]: 
+          - tab "Kann ich in der Arena ONE Padel Turniere spielen?" [ref=e446] [cursor=pointer]:
+            - generic [ref=e448]: Kann ich in der Arena ONE Padel Turniere spielen?
+            - generic [ref=e449]:
+              - text: 
+              - generic [ref=e450]: 
+          - tab "Kann ich auch ohne Padel-Buchung in die Gastro kommen?" [ref=e452] [cursor=pointer]:
+            - generic [ref=e454]: Kann ich auch ohne Padel-Buchung in die Gastro kommen?
+            - generic [ref=e455]:
+              - text: 
+              - generic [ref=e456]: 
+          - tab "Muss ich bei Arena ONE eine Mitgliedschaft abschließen?" [ref=e458] [cursor=pointer]:
+            - generic [ref=e460]: Muss ich bei Arena ONE eine Mitgliedschaft abschließen?
+            - generic [ref=e461]:
+              - text: 
+              - generic [ref=e462]: 
+          - tab "Wie lange dauert ein Padel Match?" [ref=e464] [cursor=pointer]:
+            - generic [ref=e466]: Wie lange dauert ein Padel Match?
+            - generic [ref=e467]:
+              - text: 
+              - generic [ref=e468]: 
+        - link "Alle Fragen & Antworten" [ref=e470] [cursor=pointer]:
+          - /url: https://www.arenaone.at/faq/
+          - generic [ref=e472]: Alle Fragen & Antworten
+      - generic [ref=e474]:
+        - generic [ref=e476]:
+          - link:
+            - /url: https://padel-austria.at/
+        - generic [ref=e478]:
+          - link:
+            - /url: https://www.padelkaernten.at/
+        - generic [ref=e480]:
+          - link:
+            - /url: https://www.macron.com/eu/
+  - contentinfo [ref=e481]:
+    - generic [ref=e484]:
+      - generic [ref=e485]:
+        - img "Logo Arena One – Padel and more" [ref=e487]
+        - list [ref=e489]:
+          - listitem [ref=e490]:
+            - link "+43 463 207 123" [ref=e491] [cursor=pointer]:
+              - /url: tel:0043463207123
+              - generic [ref=e493]: 
+              - generic [ref=e494]: +43 463 207 123
+          - listitem [ref=e495]:
+            - link "padel@arenaone.at" [ref=e496] [cursor=pointer]:
+              - /url: mailto:padel@arenaone.at
+              - img [ref=e498]
+              - generic [ref=e500]: padel@arenaone.at
+          - listitem [ref=e501]:
+            - img [ref=e503]
+            - generic [ref=e505]: Südring 211, 9020 Klagenfurt am Wörthersee
+          - listitem [ref=e506]:
+            - img [ref=e508]
+            - generic [ref=e510]: 08 – 22 Uhr
+      - generic [ref=e511]:
+        - heading "Social Media" [level=2] [ref=e513]
+        - list [ref=e515]:
+          - listitem [ref=e516]:
+            - link "Icon-social-instagram" [ref=e517] [cursor=pointer]:
+              - /url: http://www.instagram.com/arenaone.klagenfurt
+              - generic [ref=e518]: Icon-social-instagram
+              - generic [ref=e519]: 
+          - listitem [ref=e520]:
+            - link "Facebook-f" [ref=e521] [cursor=pointer]:
+              - /url: https://www.facebook.com/profile.php?id=61585902698497
+              - generic [ref=e522]: Facebook-f
+              - img [ref=e523]
+      - generic [ref=e525]:
+        - heading "Quick Links" [level=2] [ref=e527]
+        - paragraph [ref=e529]:
+          - link "Court buchen" [ref=e530] [cursor=pointer]:
+            - /url: https://arenaone.wansport.com/de-de/bookingspanel
+          - link "Registrieren" [ref=e531] [cursor=pointer]:
+            - /url: https://arenaone.wansport.com/de-de/signup
+          - link "Newsletter" [ref=e532] [cursor=pointer]:
+            - /url: https://www.arenaone.at/newsletter
+          - link "FAQ" [ref=e533] [cursor=pointer]:
+            - /url: https://www.arenaone.at/faq
+          - link "Hausordnung" [ref=e534] [cursor=pointer]:
+            - /url: https://www.arenaone.at/wp-content/uploads/2026/06/Hausordnung-Arena-ONE.pdf
+    - paragraph [ref=e538]:
+      - link "Impressum" [ref=e539] [cursor=pointer]:
+        - /url: https://www.arenaone.at/impressum
+      - text: "|"
+      - link "Datenschutz |" [ref=e540] [cursor=pointer]:
+        - /url: https://www.arenaone.at/datenschutz
+      - link "Barrierefreiheit" [ref=e541] [cursor=pointer]:
+        - /url: https://www.arenaone.at/barrierefreiheit
+  - generic [ref=e542]: desktop

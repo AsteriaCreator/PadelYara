@@ -1,0 +1,199 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "SV Kematen/ZV Tennis" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "SV Kematen/ZV Tennis" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "SV Kematen/ZV Tennis" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - link "  Reservierung" [ref=e15] [cursor=pointer]:
+          - /url: /reservierung
+          - generic [ref=e16]:  
+          - text: Reservierung
+      - link " Anmelden" [ref=e18] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e19]: 
+        - text: Anmelden
+    - list [ref=e24]:
+      - listitem [ref=e25]:
+        - link "Red +" [ref=e26] [cursor=pointer]:
+          - /url: /reservierung?c=2518
+      - listitem [ref=e27]:
+        - link "Red Court" [ref=e28] [cursor=pointer]:
+          - /url: /reservierung?c=2896
+      - listitem [ref=e29]:
+        - link "Padel" [ref=e30] [cursor=pointer]:
+          - /url: /reservierung?c=2814
+      - listitem [ref=e31]:
+        - link "Spielguthaben" [ref=e32] [cursor=pointer]:
+          - /url: /spielguthaben
+      - listitem [ref=e33]:
+        - link "Mitgliedschaft" [ref=e34] [cursor=pointer]:
+          - /url: /mitgliedschaft
+      - listitem [ref=e35]:
+        - link "Registrierung" [ref=e36] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e38]:
+      - heading "Reservierung Padel" [level=1] [ref=e39]
+      - generic [ref=e42]:
+        - list:
+          - listitem [ref=e43]: Das Tenniscafe ist jeden Tag von 10 h bis 14 h und von 16 h geöffnet! Nach einer Platzbuchung erhält man per eMail eine Buchungsbestätigung mit einem 6-stelligen Zutrittscode, der die Platztüre öffnet. Dieser Code sperrt im selben Zeitfenster auch die Türen der Tennisplätze 5 und 6 (fürs allfällige Holen von verschossenen Bällen). Das Flutlicht schaltet bei Bedarf automatisch ein und aus. Schläger stehen auf der Terrasse des Clubhauses zur leihweisen Entnahme bereit. Diese sind dort auch wieder zu retournieren.
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - generic [ref=e46]:
+            - generic [ref=e47]:
+              - generic [ref=e48] [cursor=pointer]: 
+              - generic [ref=e49] [cursor=pointer]: 
+            - generic [ref=e51]:
+              - link "Samstag 06.06.2026" [ref=e52] [cursor=pointer]:
+                - /url: "?c=2814&d=1780722000"
+                - generic [ref=e53]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e55]:
+              - link "Sonntag 07.06.2026" [ref=e56] [cursor=pointer]:
+                - /url: "?c=2814&d=1780808400"
+                - generic [ref=e57]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e59]:
+              - link "Montag 08.06.2026" [ref=e60] [cursor=pointer]:
+                - /url: "?c=2814&d=1780894800"
+                - generic [ref=e61]: Montag
+                - text: 08.06.2026
+              - text: 
+            - generic [ref=e63]:
+              - link "Dienstag 09.06.2026" [ref=e64] [cursor=pointer]:
+                - /url: "?c=2814&d=1780981200"
+                - generic [ref=e65]: Dienstag
+                - text: 09.06.2026
+              - text: 
+            - generic [ref=e67]:
+              - link "Mittwoch 10.06.2026" [ref=e68] [cursor=pointer]:
+                - /url: "?c=2814&d=1781067600"
+                - generic [ref=e69]: Mittwoch
+                - text: 10.06.2026
+              - text: 
+            - generic [ref=e70]:
+              - generic [ref=e71] [cursor=pointer]: 
+              - generic [ref=e72] [cursor=pointer]: 
+          - generic [ref=e73]:
+            - generic [ref=e75]: 07:00
+            - generic [ref=e77]: 07:30
+            - generic [ref=e79]: 08:00
+            - generic [ref=e81]: 08:30
+            - generic [ref=e83]: 09:00
+            - generic [ref=e85]: 09:30
+            - generic [ref=e87]: 10:00
+            - generic [ref=e89]: 10:30
+            - generic [ref=e91]: 11:00
+            - generic [ref=e93]: 11:30
+            - generic [ref=e95]: 12:00
+            - generic [ref=e97]: 12:30
+            - generic [ref=e99]: 13:00
+            - generic [ref=e101]: 13:30
+            - generic [ref=e103]: 14:00
+            - generic [ref=e105]: 14:30
+            - generic [ref=e107]: 15:00
+            - generic [ref=e109]: 15:30
+            - generic [ref=e111]: 16:00
+            - generic [ref=e113]: 16:30
+            - generic [ref=e115]: 17:00
+            - generic [ref=e117]: 17:30
+            - generic [ref=e119]: 18:00
+            - generic [ref=e121]: 18:30
+            - generic [ref=e123]: 19:00
+            - generic [ref=e125]: 19:30
+            - generic [ref=e127]: 20:00
+            - generic [ref=e129]: 20:30
+            - generic [ref=e131]: 21:00
+            - generic [ref=e133]: 21:30
+            - generic [ref=e135]: 22:00
+            - generic [ref=e137]: 22:30
+          - generic [ref=e139]:
+            - generic [ref=e140]:
+              - generic [ref=e143]: Platz 7
+              - generic [ref=e170]: Platz 7
+            - generic [ref=e171]:
+              - generic [ref=e174]: Platz 7
+              - generic [ref=e208]: Platz 7
+            - generic [ref=e209]:
+              - generic [ref=e212]: Platz 7
+              - generic [ref=e249]: Platz 7
+            - generic [ref=e250]:
+              - generic [ref=e253]: Platz 7
+              - generic [ref=e290]: Platz 7
+            - generic [ref=e291]:
+              - generic [ref=e294]: Platz 7
+              - generic [ref=e331]: Platz 7
+          - generic [ref=e332]:
+            - generic [ref=e334]: 07:00
+            - generic [ref=e336]: 07:30
+            - generic [ref=e338]: 08:00
+            - generic [ref=e340]: 08:30
+            - generic [ref=e342]: 09:00
+            - generic [ref=e344]: 09:30
+            - generic [ref=e346]: 10:00
+            - generic [ref=e348]: 10:30
+            - generic [ref=e350]: 11:00
+            - generic [ref=e352]: 11:30
+            - generic [ref=e354]: 12:00
+            - generic [ref=e356]: 12:30
+            - generic [ref=e358]: 13:00
+            - generic [ref=e360]: 13:30
+            - generic [ref=e362]: 14:00
+            - generic [ref=e364]: 14:30
+            - generic [ref=e366]: 15:00
+            - generic [ref=e368]: 15:30
+            - generic [ref=e370]: 16:00
+            - generic [ref=e372]: 16:30
+            - generic [ref=e374]: 17:00
+            - generic [ref=e376]: 17:30
+            - generic [ref=e378]: 18:00
+            - generic [ref=e380]: 18:30
+            - generic [ref=e382]: 19:00
+            - generic [ref=e384]: 19:30
+            - generic [ref=e386]: 20:00
+            - generic [ref=e388]: 20:30
+            - generic [ref=e390]: 21:00
+            - generic [ref=e392]: 21:30
+            - generic [ref=e394]: 22:00
+            - generic [ref=e396]: 22:30
+        - generic [ref=e397]:
+          - heading "Preise/h" [level=3] [ref=e398]
+          - generic [ref=e399]: € 28
+          - generic [ref=e400]: € 36
+        - generic [ref=e401]:
+          - heading "Farben" [level=3] [ref=e402]
+          - generic [ref=e403]: Gastspieler
+          - generic [ref=e404]: Mitglied
+          - generic [ref=e405]: Jugendliche ab 15
+    - contentinfo [ref=e406]:
+      - generic [ref=e408]:
+        - generic [ref=e409]:
+          - text: SV Kematen/ZV Tennis |
+          - link "Impressum" [ref=e410] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e411]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e412] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:               
+  - generic [ref=e414]:
+    - paragraph [ref=e415]:
+      - generic [ref=e416]:
+        - paragraph [ref=e417]:
+          - img "SV Kematen/ZV Tennis" [ref=e418]
+          - text: SV Kematen/ZV Tennis
+        - paragraph [ref=e419]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e420]:
+      - link "Einstellungen verwalten" [ref=e421] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e422]:
+        - button "Alle ablehnen" [ref=e423] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e424] [cursor=pointer]

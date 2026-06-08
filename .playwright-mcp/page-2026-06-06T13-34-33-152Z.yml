@@ -1,0 +1,346 @@
+- generic [active] [ref=e1]:
+  - dialog "cookieconsent" [ref=e2]:
+    - generic [ref=e3]:
+      - text: Wir verwenden Technologien, wie beispielsweise Cookies und externe Plugins zur Verbesserung der Benutzerfreundlichkeit und Analyse unserer Webseite. Wenn Sie dies nicht wünschen, kann die Funktion der Website eingeschränkt sein.
+      - button "learn more about cookies" [ref=e4] [cursor=pointer]: Mehr Informationen
+    - generic [ref=e5]:
+      - button "deny cookies" [ref=e6] [cursor=pointer]: Ablehnen
+      - button "allow cookies" [ref=e7] [cursor=pointer]: Zustimmen
+  - generic [ref=e8]:
+    - banner [ref=e10]:
+      - generic [ref=e12]:
+        - link "eTennis" [ref=e15] [cursor=pointer]:
+          - /url: /
+          - img "eTennis" [ref=e16]
+        - navigation [ref=e17]:
+          - list [ref=e19]:
+            - listitem [ref=e20]:
+              - link "Startseite" [ref=e21] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e22]:
+              - link "Vorteile" [ref=e23] [cursor=pointer]:
+                - /url: /vorteile
+            - listitem [ref=e24]:
+              - link "Funktionen" [ref=e25] [cursor=pointer]:
+                - /url: /funktionen
+            - listitem [ref=e26]:
+              - link "Preise" [ref=e27] [cursor=pointer]:
+                - /url: /preise
+            - listitem [ref=e28]:
+              - link "Referenzen" [ref=e29] [cursor=pointer]:
+                - /url: /referenzen
+            - listitem [ref=e30]:
+              - link "Konzept Halle" [ref=e31] [cursor=pointer]:
+                - /url: /konzept-halle
+            - listitem [ref=e32]:
+              - link "Kontakt" [ref=e33] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e34]:
+              - link "Demo" [ref=e35] [cursor=pointer]:
+                - /url: /demo
+    - generic [ref=e38]:
+      - generic [ref=e40]:
+        - generic [ref=e41]: Weniger Verwaltung - mehr Tennis
+        - heading "Wir digitalisieren Tennisvereine & Sportanlagen" [level=2] [ref=e42]
+        - link "Jetzt kostenlos testen" [ref=e44] [cursor=pointer]:
+          - /url: /demo
+      - figure [ref=e48]
+    - generic [ref=e51]:
+      - generic [ref=e53]:
+        - link "Mehr Infos zur Mitgliederverwaltung mit eTennis" [ref=e54] [cursor=pointer]:
+          - /url: /funktionen/mitgliederverwaltung-vereinsverwaltung
+        - heading "Mitgliederverwaltung" [level=3] [ref=e56]:
+          - link "Mitgliederverwaltung" [ref=e57] [cursor=pointer]:
+            - /url: /funktionen/mitgliederverwaltung-vereinsverwaltung
+        - generic [ref=e58]: Behalte deine Mitglieder im Überblick, erweitere individuell die Felder der Datenbank und nutze die autom. Mitgliedsgebührenabrechnung inkl. Online Payment. Der Vereinskassier wird sich freuen...
+      - generic [ref=e60]:
+        - link "Mehr Infos zur Online Reservierung mit eTennis" [ref=e61] [cursor=pointer]:
+          - /url: /funktionen/online-reservierung
+        - heading "Online Reservierung" [level=3] [ref=e63]:
+          - link "Online Reservierung" [ref=e64] [cursor=pointer]:
+            - /url: /funktionen/online-reservierung
+        - generic [ref=e65]: "Einfach, schnell & komfortabel: die Tennisplatz-Reservierung bietet für Spieler und Tennisanlagen eine Menge: Gaststundenabrechnung, autom. Info bei Platzsperre, Regeln, Tarife und vieles mehr..."
+      - generic [ref=e67]:
+        - link "Mehr zur Spielpartner-Suche" [ref=e68] [cursor=pointer]:
+          - /url: /funktionen/spielpartner-suche-finde-passende-gegner-und-mitspieler
+        - heading "Spielpartner-Suche" [level=3] [ref=e70]:
+          - link "Spielpartner-Suche" [ref=e71] [cursor=pointer]:
+            - /url: /funktionen/spielpartner-suche-finde-passende-gegner-und-mitspieler
+        - generic [ref=e72]: Erhöhe die Auslastung indem Spieler andere Spielpartner finden. Anfragen werden nach einer Platzreservierung oder über die Angabe eines Datum und Zeitrahmens erstellt.
+      - generic [ref=e74]:
+        - link "Mehr über die Öffentlichkeitsarbeit-Funktionen von eTennis" [ref=e75] [cursor=pointer]:
+          - /url: /funktionen/oeffentlichkeitsarbeit
+        - heading "Öffentlichkeitsarbeit" [level=3] [ref=e77]:
+          - link "Öffentlichkeitsarbeit" [ref=e78] [cursor=pointer]:
+            - /url: /funktionen/oeffentlichkeitsarbeit
+        - generic [ref=e79]: Erreiche die Spieler, Fans und Freunde mit News auf eurer Homepage, erstelle Events, Camps oder Kurse inkl. Anmeldung, gestaltet individuelle Seiten oder sende Newsletter per E-Mail oder SMS...
+      - generic [ref=e81]:
+        - link [ref=e82] [cursor=pointer]:
+          - /url: /partner
+        - heading "Partner Portal" [level=3] [ref=e84]:
+          - link "Partner Portal" [ref=e85] [cursor=pointer]:
+            - /url: /partner
+        - generic [ref=e86]: Wir vernetzen regionalen Shops und Händler mit den vielen eTennis Vereinen. Denn diese regionalen Experten braucht der Tennissport und jeder Verein!
+      - generic [ref=e88]:
+        - link [ref=e89] [cursor=pointer]:
+          - /url: /bespannbox
+        - heading "Bespannbox" [level=3] [ref=e91]:
+          - link "Bespannbox" [ref=e92] [cursor=pointer]:
+            - /url: /bespannbox
+        - generic [ref=e93]: Direkt nach dem Match wird das Racket in der Bespannbox abgegeben. Der regionale Bespanner holt die Rackets ab und bringt fertig bespannte Schläger wieder zurück.
+      - generic [ref=e95]:
+        - link [ref=e96] [cursor=pointer]:
+          - /url: /funktionen/buchhaltung-einnahmen-ausgabenrechnung-kassabuch-vereine
+        - heading "Buchhaltung" [level=3] [ref=e98]:
+          - link "Buchhaltung" [ref=e99] [cursor=pointer]:
+            - /url: /funktionen/buchhaltung-einnahmen-ausgabenrechnung-kassabuch-vereine
+        - generic [ref=e100]: Einnahmen- / Ausgabenrechnung, Kassabuch, Buchungs- und Zahlungskonten und den Jahresabschluss auf Knopfdruck für den Vereinskassier
+      - generic [ref=e102]:
+        - link "Zu den Vorteilen von eTennis" [ref=e103] [cursor=pointer]:
+          - /url: /vorteile
+        - heading "Jetzt neu als App" [level=3] [ref=e105]:
+          - link "Jetzt neu als App" [ref=e106] [cursor=pointer]:
+            - /url: /vorteile
+        - generic [ref=e107]: Die Web App kann direkt über das mobile Menü am Smartphone installiert werden und ermöglicht einen direkten Start deines eTennis Portals über den Home Screen...
+      - generic [ref=e109]:
+        - link "Mehr zur Forderungspyramide von eTennis" [ref=e110] [cursor=pointer]:
+          - /url: /funktionen/forderungspyramide
+        - heading "Forderungspyramide" [level=3] [ref=e112]:
+          - link "Forderungspyramide" [ref=e113] [cursor=pointer]:
+            - /url: /funktionen/forderungspyramide
+        - generic [ref=e114]: "Belebe deinen Verein mit der eTennis Forderungspyramide: Ob Einzel oder Doppel, Damen, Herren oder allgemein - Spieltermine und Ergebnisse online eingeben..."
+      - generic [ref=e116]:
+        - link "Mehr zur Turnierverwaltung mit eTennis" [ref=e117] [cursor=pointer]:
+          - /url: /funktionen/turniersystem
+        - heading "Turnierverwaltung" [level=3] [ref=e119]:
+          - link "Turnierverwaltung" [ref=e120] [cursor=pointer]:
+            - /url: /funktionen/turniersystem
+        - generic [ref=e121]: Spiele die nächste Clubmeisterschaft oder ein Hobby-Turnier mit eTennis und erstelle individuelle Bewerbe. Aufwändige Rasterverwaltung ist Vergangenheit...
+      - generic [ref=e123]:
+        - link "Mehr zum Steuerungsmodul mit eTennis" [ref=e124] [cursor=pointer]:
+          - /url: /funktionen/steuerungsmodul
+        - heading "Steuerungsmodul" [level=3] [ref=e126]:
+          - link "Steuerungsmodul" [ref=e127] [cursor=pointer]:
+            - /url: /funktionen/steuerungsmodul
+        - generic [ref=e128]: Mit dem Steuerungsmodul kannst du beliebige Geräte wie das Flutlicht, eine Zusatzheizung usw. auf Basis der eingetragenen Reservierungen auf deiner Tennisanlage steuern...
+      - generic [ref=e130]:
+        - link "Mehr zum Zutrittssystem mit eTennis" [ref=e131] [cursor=pointer]:
+          - /url: /funktionen/zutrittssteuerung
+        - heading "Zutrittssteuerung" [level=3] [ref=e133]:
+          - link "Zutrittssteuerung" [ref=e134] [cursor=pointer]:
+            - /url: /funktionen/zutrittssteuerung
+        - generic [ref=e135]: Steuere Zutrittsberechtigungen direkt über eTennis auf Basis der Benutzergruppen oder lass Gäste mit einem Zutrittscode auf deine Anlage. Login vor Ort mit individuellen Clubkarten
+      - generic [ref=e137]:
+        - link "Mehr zu den Zahlungs- und Abrechnungsmöglichkeiten von eTennis" [ref=e138] [cursor=pointer]:
+          - /url: /funktionen/online-zahlung-und-abrechnung
+        - heading "Online Zahlung & Abrechnung" [level=3] [ref=e140]:
+          - link "Online Zahlung & Abrechnung" [ref=e141] [cursor=pointer]:
+            - /url: /funktionen/online-zahlung-und-abrechnung
+        - generic [ref=e142]: Übersichtliche Gaststundenabrechnung und/oder Online Bezahlung mit Sofortüberweisung und Kreditkarten ersparen eine Menge Zeit und Arbeit für den Vereinskassier oder Anlagenbetreiber...
+      - generic [ref=e144]:
+        - link "Mehr zur Mannschaftsverwaltung mit eTennis" [ref=e145] [cursor=pointer]:
+          - /url: /funktionen/mannschaftsverwaltung-terminkoordination
+        - heading "Mannschaftsverwaltung" [level=3] [ref=e147]:
+          - link "Mannschaftsverwaltung" [ref=e148] [cursor=pointer]:
+            - /url: /funktionen/mannschaftsverwaltung-terminkoordination
+        - generic [ref=e149]: Präsentiere und koordiniere deine Mannschaften, gibt Spieltermine ein, ermittle Verfügbarkeiten der Spieler und blockiere die Heimspiele auf Knopfdruck im Kalender...
+      - generic [ref=e151]:
+        - link [ref=e152] [cursor=pointer]:
+          - /url: /funktionen/kiosk-fuer-vereine-und-kommerzielle-anlagen
+        - heading "Kiosk" [level=3] [ref=e154]:
+          - link "Kiosk" [ref=e155] [cursor=pointer]:
+            - /url: /funktionen/kiosk-fuer-vereine-und-kommerzielle-anlagen
+        - generic [ref=e156]: Nutze die Tablet optimierte Kiosk Oberfläche zum Verkaufen von Getränken, Speisen, Bällen usw. im Clubhaus oder vereinfachte die Arbeit euer Mitarbeiter an der Rezeption...
+    - generic [ref=e159]:
+      - generic [ref=e161]:
+        - heading "Sicher & schnell verfügbar" [level=4] [ref=e162]:
+          - link "Sicher & schnell verfügbar" [ref=e163] [cursor=pointer]:
+            - /url: /vorteile
+        - generic [ref=e164]: Wir sorgen für eure Datensicherheit! Die Demoversion ist schnell eingerichtet und einem Start steht nichts mehr im Wege!
+      - generic [ref=e166]:
+        - heading "PC, Tablet & Smartphone?" [level=4] [ref=e167]:
+          - link "PC, Tablet & Smartphone?" [ref=e168] [cursor=pointer]:
+            - /url: /vorteile
+        - generic [ref=e169]: Alles kein Problem - mittlerweile buchen >65% mit mobilen Endgeräten. Mit Web-App und mobiler Optimierung macht's Spaß!
+      - generic [ref=e171]:
+        - heading "Zeit sparen & Tennis spielen" [level=4] [ref=e172]:
+          - link "Zeit sparen & Tennis spielen" [ref=e173] [cursor=pointer]:
+            - /url: /vorteile
+        - generic [ref=e174]: Digitalisiere mit eTennis Verwaltungs-prozesse und spare wertvolle Zeit, die du für andere Dinge verwenden kannst!
+    - generic [ref=e187]:
+      - generic [ref=e188]: CEO DI Andreas Munk zur Vision von eTennis
+      - heading "Die Digitalisierung von Tennisvereinen und Sportanlagen!" [level=2] [ref=e189]
+      - paragraph [ref=e191]: Wir haben uns zum Ziel gesetzt, Tennisvereine und Sportanlagen zu digitalisieren & zu beleben, die Vereinsverwaltung zu vereinfachen und somit dabei zu helfen, wertvolle Zeit der Funktionäre zu sparen, die für sinnvollere Dinge wie Jugendarbeit, Sponsorensuche oder einfach um Tennis zu spielen verwendet werden kann!
+    - generic [ref=e198]:
+      - generic [ref=e200]:
+        - generic [ref=e201]: "0"
+        - heading "reservierte Stunden" [level=4] [ref=e202]
+      - generic [ref=e204]:
+        - generic [ref=e205]: "0"
+        - heading "Reservierungen" [level=4] [ref=e206]
+      - generic [ref=e208]:
+        - generic [ref=e209]: "0"
+        - heading "Spieler" [level=4] [ref=e210]
+      - generic [ref=e212]:
+        - generic [ref=e213]: "0"
+        - heading "seit der letzten Reservierung" [level=4] [ref=e214]
+    - generic [ref=e216]:
+      - generic [ref=e217]:
+        - heading "Bereit?" [level=2] [ref=e218]
+        - generic [ref=e219]:
+          - paragraph [ref=e220]: Jetzt geht's los!
+          - paragraph [ref=e221]: Konfiguriere dein Portal nach deinen Bedürfnissen und mach' es startklar für den Saisonbeginn!
+          - paragraph [ref=e222]: Die Demoversion hat kein Ablaufdatum - teste so lange, bis du von eTennis überzeugt bist!
+      - generic [ref=e223]:
+        - generic [ref=e225]:
+          - heading "Demo" [level=4] [ref=e228]
+          - paragraph [ref=e229]: kostenlos anfordern
+        - generic [ref=e231]:
+          - heading "Portal" [level=4] [ref=e234]
+          - paragraph [ref=e235]: konfigurieren
+        - generic [ref=e237]:
+          - heading "Lizenz" [level=4] [ref=e240]
+          - paragraph [ref=e241]: buchen & durchstarten
+    - link "Demoversion jetzt kostenlos & unverbindlich testen" [ref=e245] [cursor=pointer]:
+      - /url: /demo
+    - contentinfo [ref=e246]:
+      - generic [ref=e251]:
+        - generic [ref=e254]:
+          - heading "eTennis" [level=3] [ref=e255]
+          - list [ref=e256]:
+            - listitem [ref=e257]:
+              - link "Startseite" [ref=e258] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e259]:
+              - link "Vorteile" [ref=e260] [cursor=pointer]:
+                - /url: /vorteile
+            - listitem [ref=e261]:
+              - link "Funktionen" [ref=e262] [cursor=pointer]:
+                - /url: /funktionen
+            - listitem [ref=e263]:
+              - link "Preise" [ref=e264] [cursor=pointer]:
+                - /url: /preise
+            - listitem [ref=e265]:
+              - link "Referenzen" [ref=e266] [cursor=pointer]:
+                - /url: /referenzen
+            - listitem [ref=e267]:
+              - link "Konzept Halle" [ref=e268] [cursor=pointer]:
+                - /url: /konzept-halle
+            - listitem [ref=e269]:
+              - link "Kontakt" [ref=e270] [cursor=pointer]:
+                - /url: /kontakt
+            - listitem [ref=e271]:
+              - link "Demo" [ref=e272] [cursor=pointer]:
+                - /url: /demo
+            - listitem [ref=e273]:
+              - link "Bespannbox" [ref=e274] [cursor=pointer]:
+                - /url: /bespannbox
+            - listitem [ref=e275]:
+              - link "Datenschutz" [ref=e276] [cursor=pointer]:
+                - /url: /datenschutz
+            - listitem [ref=e277]:
+              - link "Impressum" [ref=e278] [cursor=pointer]:
+                - /url: /impressum
+        - generic [ref=e281]:
+          - heading "Funktionen" [level=3] [ref=e282]
+          - list [ref=e283]:
+            - listitem [ref=e284]:
+              - link "Online Reservierung" [ref=e285] [cursor=pointer]:
+                - /url: /funktionen/online-reservierung
+            - listitem [ref=e286]:
+              - link "Öffentlichkeitsarbeit" [ref=e287] [cursor=pointer]:
+                - /url: /funktionen/oeffentlichkeitsarbeit
+            - listitem [ref=e288]:
+              - link "Spielpartner-Suche" [ref=e289] [cursor=pointer]:
+                - /url: /funktionen/spielpartner-suche-finde-passende-gegner-und-mitspieler
+            - listitem [ref=e290]:
+              - link "Forderungspyramide" [ref=e291] [cursor=pointer]:
+                - /url: /funktionen/forderungspyramide
+            - listitem [ref=e292]:
+              - link "Turniersystem" [ref=e293] [cursor=pointer]:
+                - /url: /funktionen/turniersystem
+            - listitem [ref=e294]:
+              - link "Mitgliederverwaltung" [ref=e295] [cursor=pointer]:
+                - /url: /funktionen/mitgliederverwaltung-vereinsverwaltung
+            - listitem [ref=e296]:
+              - link "Buchhaltung / Kassabuch" [ref=e297] [cursor=pointer]:
+                - /url: /funktionen/buchhaltung-einnahmen-ausgabenrechnung-kassabuch-vereine
+            - listitem [ref=e298]:
+              - link "Zahlung & Abrechnung" [ref=e299] [cursor=pointer]:
+                - /url: /funktionen/online-zahlung-und-abrechnung
+            - listitem [ref=e300]:
+              - link "Steuerungsmodul" [ref=e301] [cursor=pointer]:
+                - /url: /funktionen/steuerungsmodul
+            - listitem [ref=e302]:
+              - link "Zutrittssteuerung" [ref=e303] [cursor=pointer]:
+                - /url: /funktionen/zutrittssteuerung
+            - listitem [ref=e304]:
+              - link "Event-, Kurs- & Campverwaltung" [ref=e305] [cursor=pointer]:
+                - /url: /funktionen/event-kurs-campverwaltung
+            - listitem [ref=e306]:
+              - link "Mannschafts- & Terminverwaltung" [ref=e307] [cursor=pointer]:
+                - /url: /funktionen/mannschaftsverwaltung-terminkoordination
+            - listitem [ref=e308]:
+              - link "Kiosk" [ref=e309] [cursor=pointer]:
+                - /url: /funktionen/kiosk-fuer-vereine-und-kommerzielle-anlagen
+            - listitem [ref=e310]:
+              - link "Partner Portal" [ref=e311] [cursor=pointer]:
+                - /url: /partner
+        - generic [ref=e314]:
+          - heading "Erfolgsgeschichten" [level=3] [ref=e315]
+          - list [ref=e316]:
+            - listitem [ref=e317]:
+              - link "eTennis Konzept Halle Perschling" [ref=e318] [cursor=pointer]:
+                - /url: /konzept-halle
+            - listitem [ref=e319]:
+              - link "TC St.Bartholomä" [ref=e320] [cursor=pointer]:
+                - /url: /referenzen/tc-stbartholomae
+            - listitem [ref=e321]:
+              - link "TC Höhenkirchen" [ref=e322] [cursor=pointer]:
+                - /url: /referenzen/tc-hoehenkirchen-der-digitale-vorzeigeverein-in-bayern
+            - listitem [ref=e323]:
+              - link "SC Cagitz Rutzing" [ref=e324] [cursor=pointer]:
+                - /url: /referenzen/sc-cagitz-rutzing
+            - listitem [ref=e325]:
+              - link "TC Blindenmarkt" [ref=e326] [cursor=pointer]:
+                - /url: /referenzen/tc-blindenmarkt
+            - listitem [ref=e327]:
+              - link "Kasseler Tennisclub 1931" [ref=e328] [cursor=pointer]:
+                - /url: /referenzen/kasseler-tennisclub-1931
+            - listitem [ref=e329]:
+              - link "TC Aurach am Hongar" [ref=e330] [cursor=pointer]:
+                - /url: /referenzen/tc-aurach-am-hongar
+            - listitem [ref=e331]:
+              - link "HSG Universität Greifswald" [ref=e332] [cursor=pointer]:
+                - /url: /referenzen/hsg-universitaet-greifswald
+            - listitem [ref=e333]:
+              - link "TC Kamper St.Valentin" [ref=e334] [cursor=pointer]:
+                - /url: /referenzen/tc-kamper-stvalentin
+            - listitem [ref=e335]:
+              - link "Kitzbüheler Tennis Club" [ref=e336] [cursor=pointer]:
+                - /url: /referenzen/kitzbueheler-tennis-club
+            - listitem [ref=e337]:
+              - link "Tennisclub Dietach" [ref=e338] [cursor=pointer]:
+                - /url: /referenzen/tennisclub-dietach
+            - listitem [ref=e339]:
+              - link "TV Bissingen/Teck" [ref=e340] [cursor=pointer]:
+                - /url: /referenzen/tv-bissingen/teck
+            - listitem [ref=e341]:
+              - link "zu den Referenzen" [ref=e342] [cursor=pointer]:
+                - /url: /referenzen
+        - generic [ref=e345]:
+          - heading "Kontakt" [level=3] [ref=e346]
+          - list [ref=e347]:
+            - listitem [ref=e348]:
+              - generic [ref=e349]: 
+              - link "+43 2784 30 800" [ref=e350] [cursor=pointer]:
+                - /url: tel://0043278430800
+            - listitem [ref=e351]:
+              - generic [ref=e352]: 
+              - link "info@eTennis.at" [ref=e353] [cursor=pointer]:
+                - /url: mailto:info@eTennis.at
+            - listitem [ref=e354]:
+              - generic [ref=e355]: 
+              - link "fb.com/eTennis" [ref=e356] [cursor=pointer]:
+                - /url: https://www.facebook.com/eTennis
+  - text: 

@@ -1,0 +1,20 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]: 404 - NOT FOUND
+    - generic [ref=e5]:
+      - img "error_icon" [ref=e7]
+      - generic [ref=e8]: Die von Ihnen aufgerufene Seite bzw. der Ordner konnte unter der angegebenen URL nicht gefunden werden.
+  - generic [ref=e10]:
+    - generic [ref=e11]:
+      - text: Mögliche Gründe und Lösungsansätze
+      - list [ref=e12]:
+        - listitem [ref=e13]: Laden Sie die Website erneut oder versuchen Sie es in einigen Minuten nochmal.
+        - listitem [ref=e14]: Überprüfen Sie die URL, unter Umständen haben Sie eine falsche Webadresse eingegeben. Bitte beachten Sie auch die Groß- und Kleinschreibung.
+        - listitem [ref=e15]: Versuchen Sie, die Startseite der URL aufzurufen (z.B. https://www.beispielwebsite.at/)
+    - generic [ref=e16]:
+      - text: Sind Sie der Webmaster dieser Seite?
+      - paragraph [ref=e17]:
+        - text: Erklärungen und Lösungshinweise finden Sie in unseren
+        - link "FAQs" [ref=e18] [cursor=pointer]:
+          - /url: https://www.world4you.com/faq/de/webspace.html#article-401-403-404-500
+        - text: .

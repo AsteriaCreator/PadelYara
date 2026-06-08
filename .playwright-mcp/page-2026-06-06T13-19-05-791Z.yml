@@ -1,0 +1,347 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e38]:
+    - heading "Austrian Padel Union - Mitglieder Standorte" [level=1] [ref=e41]
+    - generic [ref=e45]:
+      - combobox [ref=e46]:
+        - option "Alle Standorte"
+        - option "Wien"
+        - option "Niederösterreich"
+        - option "Oberösterreich"
+        - option "Steiermark"
+        - option "Tirol"
+        - option "Kärnten"
+        - option "Vorarlberg"
+        - option "Burgenland"
+        - option "Salzburg" [selected]
+      - generic [ref=e48] [cursor=pointer]:
+        - generic [ref=e49]:
+          - text: Salzburg
+          - link "×" [ref=e50]:
+            - /url: javascript:void(0)
+        - combobox "Alle Standorte" [ref=e51]
+    - generic [ref=e52]:
+      - heading "Salzburg" [level=3] [ref=e53]
+      - generic [ref=e55]:
+        - img "ESV Uttendorf" [ref=e57]
+        - generic [ref=e58]:
+          - heading "ESV Uttendorf" [level=4] [ref=e59]:
+            - link "ESV Uttendorf" [ref=e60] [cursor=pointer]:
+              - /url: /locations/esv-uttendorf
+          - paragraph
+          - generic [ref=e62]:
+            - strong [ref=e63]: "Adresse:"
+            - text: Sportplatzweg 1, 5723 Uttendorf
+            - strong [ref=e64]: "Ansprechpartner:"
+            - text: Jürgen Wanger; padel.uttendorf@gmail.com; 0660/8184364
+            - strong [ref=e65]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor (ab Mai 2025)
+            - strong [ref=e66]: Platzbuchung
+            - text: ":"
+            - link "HIER" [ref=e67] [cursor=pointer]:
+              - /url: https://esv-uttendorf.tennisplatz.info/reservierung?c=3877
+          - paragraph
+      - generic [ref=e69]:
+        - img "Mountain-Padel" [ref=e71]
+        - generic [ref=e72]:
+          - heading "Mountain-Padel" [level=4] [ref=e73]:
+            - link "Mountain-Padel" [ref=e74] [cursor=pointer]:
+              - /url: /locations/mountain-padel
+          - paragraph
+          - paragraph [ref=e76]:
+            - strong [ref=e77]: "Adresse:"
+            - text: Feuersang 224, 5542 Flachau
+            - strong [ref=e78]: "Ansprechpartner:"
+            - text: Mag. Manuel Söllner; info@mountain-padel.com; 0670/5534722
+            - strong [ref=e79]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+          - paragraph
+      - generic [ref=e81]:
+        - img "Padelarea Anthering" [ref=e83]
+        - generic [ref=e84]:
+          - heading "Padelarea Anthering" [level=4] [ref=e85]:
+            - link "Padelarea Anthering" [ref=e86] [cursor=pointer]:
+              - /url: /locations/padelarea-anthering
+          - paragraph
+          - generic [ref=e88]:
+            - strong [ref=e89]: "Adresse:"
+            - text: Freizeitpark, 5102 Anthering
+            - strong [ref=e90]: "Ansprechpartner:"
+            - text: Manuel Schwaighofer; info@padelarea-anthering.at; 0660/4125190
+            - strong [ref=e91]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - link "Platzbuchungen" [ref=e92] [cursor=pointer]:
+              - /url: https://www.padelarea-anthering.at/reservierung
+              - strong [ref=e93]: Platzbuchungen
+          - paragraph
+      - generic [ref=e95]:
+        - img "PADELBASE Bad Hofgastein (TC Bad Hofgastein)" [ref=e97]
+        - generic [ref=e98]:
+          - heading "PADELBASE Bad Hofgastein (TC Bad Hofgastein)" [level=4] [ref=e99]:
+            - link "PADELBASE Bad Hofgastein (TC Bad Hofgastein)" [ref=e100] [cursor=pointer]:
+              - /url: /locations/padelbase-bad-hofgastein-tc-bad-hofgastein
+          - paragraph
+          - generic [ref=e101]:
+            - generic [ref=e102]:
+              - text: "Ansprechpartner: Anna Fuchs ("
+              - link "a.fuchs@schneesportgastein.com" [ref=e103] [cursor=pointer]:
+                - /url: mailto:a.fuchs@schneesportgastein.com
+              - text: )
+            - generic [ref=e104]: "Plätze: 2 Outdoor-Plätze"
+            - generic [ref=e105]:
+              - text: "Homepage:"
+              - link "https://padelbase.at/bad-hofgastein/" [ref=e106] [cursor=pointer]:
+                - /url: https://padelbase.at/bad-hofgastein/
+            - generic [ref=e107]:
+              - text: "Platzbuchung:"
+              - link "https://www.buchung-padelbase.at/reservierung?c=4325" [ref=e108] [cursor=pointer]:
+                - /url: https://www.buchung-padelbase.at/reservierung?c=4325
+          - paragraph
+      - generic [ref=e110]:
+        - img "PADELBASE - Salzburg" [ref=e112]
+        - generic [ref=e113]:
+          - heading "PADELBASE - Salzburg" [level=4] [ref=e114]:
+            - link "PADELBASE - Salzburg" [ref=e115] [cursor=pointer]:
+              - /url: /locations/padelbase-salzburg
+          - paragraph
+          - generic [ref=e117]:
+            - strong [ref=e118]: "Adresse:"
+            - text: Vogelweiderstr. 114, A-5020 Salzburg
+            - strong [ref=e119]: "Ansprechpartner:"
+            - text: office@padelbase.at
+            - strong [ref=e120]: "Anzahl der Padel-Plätze:"
+            - text: 8 outdoor
+            - strong [ref=e121]: "Homepage:"
+            - link "www.padelbase.at" [ref=e122] [cursor=pointer]:
+              - /url: http://www.padelbase.at/
+            - strong [ref=e123]: "Platzbuchungen:"
+            - link "hier" [ref=e124] [cursor=pointer]:
+              - /url: https://www.buchung-padelbase.at/reservierung?c=2886
+          - paragraph
+      - generic [ref=e127]:
+        - img "PADELBASE Salzburg Halle - CUPRA Arena" [ref=e129]
+        - generic [ref=e130]:
+          - heading "PADELBASE Salzburg Halle - CUPRA Arena" [level=4] [ref=e131]:
+            - link "PADELBASE Salzburg Halle - CUPRA Arena" [ref=e132] [cursor=pointer]:
+              - /url: /locations/padelbase-salzburg-halle-cupra-arena
+          - paragraph
+          - paragraph [ref=e134]:
+            - strong [ref=e135]: Padelbase Salzburg Halle - CUPRA Arena
+            - strong [ref=e136]: Adresse
+            - text: ": Wasserfeldstraße 19, 5020 Salzburg"
+            - strong [ref=e137]: Plätze
+            - text: ": 3 Indoor Courts"
+            - strong [ref=e138]: Ansprechpartner
+            - text: ":"
+            - link "office@padelbase.at" [ref=e139] [cursor=pointer]:
+              - /url: mailto:info@padelbase.at
+          - paragraph
+      - generic [ref=e141]:
+        - img "Padelplayz St. Georgen" [ref=e143]
+        - generic [ref=e144]:
+          - heading "Padelplayz St. Georgen" [level=4] [ref=e145]:
+            - link "Padelplayz St. Georgen" [ref=e146] [cursor=pointer]:
+              - /url: /locations/padelfriendz-st-georgen
+          - paragraph
+          - generic [ref=e147]:
+            - paragraph [ref=e148]:
+              - strong [ref=e149]: "Adresse:"
+              - text: Sportplatzstrasse 12, 5113 St. Georgen
+              - strong [ref=e150]: "Ansprechpartner:"
+              - text: Sebastian Höller; office@padelplayz.at; 0664/3435970
+              - strong [ref=e151]: "Anzahl der Padel-Plätze:"
+              - text: 2 Outdoor
+            - paragraph [ref=e152]:
+              - strong [ref=e153]: Homepage
+              - text: ": www.padelplayz.at"
+          - paragraph
+      - generic [ref=e155]:
+        - img "Randsportverein Werfen" [ref=e157]
+        - generic [ref=e158]:
+          - heading "Randsportverein Werfen" [level=4] [ref=e159]:
+            - link "Randsportverein Werfen" [ref=e160] [cursor=pointer]:
+              - /url: /locations/randsportverein-werfen
+          - paragraph
+          - generic [ref=e161]:
+            - generic [ref=e162]:
+              - strong [ref=e163]: "Adresse:"
+              - text: Eishöhlenstraße 20, 5450 Werfen
+              - strong [ref=e164]: "Ansprechpartner:"
+              - text: Silvio Kendbacher; silvio.krameter7@gmail.com; 0664/5051373
+            - generic [ref=e165]:
+              - strong [ref=e166]: "Anzahl der Padel-Plätze:"
+              - text: "2"
+              - strong [ref=e167]: Platzbuchung
+              - text: ":"
+              - link "HIER" [ref=e168] [cursor=pointer]:
+                - /url: https://www.padel-werfen.at/
+          - paragraph
+      - generic [ref=e170]:
+        - img "Sharety Padelbase Freilassing" [ref=e172]
+        - generic [ref=e173]:
+          - heading "Sharety Padelbase Freilassing" [level=4] [ref=e174]:
+            - link "Sharety Padelbase Freilassing" [ref=e175] [cursor=pointer]:
+              - /url: /locations/sharety-padelbase-freilassing
+          - paragraph
+          - generic [ref=e176]:
+            - generic [ref=e177]:
+              - strong [ref=e178]: "Adresse:"
+              - text: Heideweg 24, 83395 Freilassing
+              - strong [ref=e179]: "Ansprechpartner:"
+              - link "I" [ref=e180] [cursor=pointer]:
+                - /url: mailto:Info@padelbase.at
+              - text: ngrid Richter; ingrid@sharety-padel.org; +49 160 661 7379
+            - generic [ref=e181]:
+              - strong [ref=e182]: "Anzahl der Padel-Plätze:"
+              - text: 4 Outdoor
+          - paragraph
+      - generic [ref=e184]:
+        - img "Tauern Padel" [ref=e186]
+        - generic [ref=e187]:
+          - heading "Tauern Padel" [level=4] [ref=e188]:
+            - link "Tauern Padel" [ref=e189] [cursor=pointer]:
+              - /url: /locations/tauern-padel
+          - paragraph
+          - generic [ref=e191]:
+            - strong [ref=e192]: "Verein:"
+            - text: Tauern Padel
+            - strong [ref=e193]: "Ansprechpartner:"
+            - text: Andreas Wieser; info@tauern-padel.at; 0664/5257388
+            - strong [ref=e194]: "Anzahl der Padel-Plätze:"
+            - text: "0"
+            - strong [ref=e195]: Homepage
+            - text: ":"
+            - link "www.tauern-padel.at" [ref=e196] [cursor=pointer]:
+              - /url: http://www.tauern-padel.at/
+          - paragraph
+      - generic [ref=e199]:
+        - img "TC St. Johann/Pg. (Sektion Padel)" [ref=e201]
+        - generic [ref=e202]:
+          - heading "TC St. Johann/Pg. (Sektion Padel)" [level=4] [ref=e203]:
+            - link "TC St. Johann/Pg. (Sektion Padel)" [ref=e204] [cursor=pointer]:
+              - /url: /locations/tc-st-johann-pg-sektion-padel
+          - paragraph
+          - generic [ref=e205]:
+            - generic [ref=e206]:
+              - strong [ref=e207]: "Adresse:"
+              - text: Premweg 5, 5600 St. Joahnn/Pg
+              - strong [ref=e208]: "Ansprechpartner:"
+              - text: Walter Brandstätter; walterbrandstaetter@gmx.at; 0664/2408034
+            - generic [ref=e209]:
+              - strong [ref=e210]: "Anzahl der Padel-Plätze:"
+              - text: In Bau
+          - paragraph
+      - generic [ref=e212]:
+        - img "USK Fusch" [ref=e214]
+        - generic [ref=e215]:
+          - heading "USK Fusch" [level=4] [ref=e216]:
+            - link "USK Fusch" [ref=e217] [cursor=pointer]:
+              - /url: /locations/usk-fisch
+          - paragraph
+          - generic [ref=e219]:
+            - strong [ref=e220]: "Adresse:"
+            - text: Zeller Fusch 134, 5672 Fusch an der Großglocknerstraße
+            - strong [ref=e221]: "Ansprechpartner:"
+            - text: Patrick Enn; patrick@roemerhof-fusch.at; 0664/3821419
+            - strong [ref=e222]: "Anzahl der Padel-Plätze:"
+            - text: 2 Outdoor
+            - strong [ref=e223]: Platzbuchung
+            - text: ":"
+            - link "HIER" [ref=e224] [cursor=pointer]:
+              - /url: https://fusch.tennisplatz.info/reservierung
+          - paragraph
+      - generic [ref=e226]:
+        - img "USV Padel Hollersbach im Pinzgau" [ref=e228]
+        - generic [ref=e229]:
+          - heading "USV Padel Hollersbach im Pinzgau" [level=4] [ref=e230]:
+            - link "USV Padel Hollersbach im Pinzgau" [ref=e231] [cursor=pointer]:
+              - /url: /locations/usv-padel-hollersbach-im-pinzgau
+          - paragraph
+          - generic [ref=e233]:
+            - strong [ref=e234]: "Verein:"
+            - text: USV Hollersbach
+            - strong [ref=e235]: "Adresse:"
+            - text: Hollersbach 45, 5731 Hollersbach im Pinzgau
+            - strong [ref=e236]: "Ansprechpartner:"
+            - text: Andreas Wieser
+            - text: "E-Mail:"
+            - link "padelhollersbach@gmx.at" [ref=e237] [cursor=pointer]:
+              - /url: mailto:padelhollersbach@gmx.at
+            - strong [ref=e238]: "Anzahl der Padel-Plätze:"
+            - text: 4 Outdoor
+            - strong [ref=e239]: "Homepage:"
+            - link "https://hollersbach.tennisplatz.info/" [ref=e240] [cursor=pointer]:
+              - /url: https://hollersbach.tennisplatz.info/
+              - strong [ref=e241]: https://hollersbach.tennisplatz.info/
+            - strong
+            - strong [ref=e242]: "Platzbuchungen:"
+            - link "hier" [ref=e243] [cursor=pointer]:
+              - /url: https://hollersbach.tennisplatz.info/reservierung
+              - strong [ref=e244]: hier
+            - strong
+          - paragraph
+  - generic [ref=e245]:
+    - heading "Folge uns auf" [level=5] [ref=e246]
+    - generic [ref=e247]:
+      - link [ref=e248] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e249]
+      - link [ref=e251] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e252]
+    - generic [ref=e254]:
+      - link "Impressum" [ref=e255] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e256] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e257]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e258] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e259]:
+    - generic [ref=e260]:
+      - generic [ref=e261]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e262]
+        - paragraph [ref=e263]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e264]:
+        - generic [ref=e265]:
+          - button "Alle akzeptieren" [ref=e266] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e267] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e269] [cursor=pointer]
+    - generic [ref=e272]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e273] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e274] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

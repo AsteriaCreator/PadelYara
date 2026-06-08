@@ -1,0 +1,81 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - banner [ref=e5]:
+      - generic [ref=e6]:
+        - link "Playtomic" [ref=e8] [cursor=pointer]:
+          - /url: /
+          - img "Playtomic" [ref=e9]
+        - generic [ref=e20]:
+          - navigation "Main menu" [ref=e21]:
+            - list [ref=e22]:
+              - button "For players" [ref=e25] [cursor=pointer]:
+                - generic [ref=e26]: For players
+                - img [ref=e27]
+              - button "For clubs" [ref=e31] [cursor=pointer]:
+                - generic [ref=e32]: For clubs
+                - img [ref=e33]
+              - listitem "Blog" [ref=e35]:
+                - link "Blog" [ref=e36] [cursor=pointer]:
+                  - /url: /blog
+                  - generic [ref=e37]: Blog
+          - link [ref=e39] [cursor=pointer]:
+            - /url: /api/web-app/login?return_url=https%3A%2F%2Fplaytomic.com%2Fclubs%2Fstanglwirt-gmbh
+            - generic [ref=e40]:
+              - img [ref=e43]
+              - img [ref=e46]
+    - main [ref=e48]:
+      - generic [ref=e52]:
+        - generic [ref=e53]:
+          - heading "Oops!" [level=2] [ref=e54]
+          - generic [ref=e55]: That page is out of bounds!
+        - paragraph [ref=e56]: Looks like it's gone, just like that last shot. Try returning to the home page and give it another go!
+        - link "Go to homepage" [ref=e57] [cursor=pointer]:
+          - /url: /
+    - contentinfo [ref=e58]:
+      - generic [ref=e59]:
+        - link "Playtomic" [ref=e61] [cursor=pointer]:
+          - /url: /
+          - img "Playtomic" [ref=e62]
+        - generic [ref=e73]:
+          - navigation [ref=e74]:
+            - paragraph [ref=e75]: Playtomic
+            - list [ref=e76]:
+              - listitem [ref=e77]:
+                - link "Download our app" [ref=e78] [cursor=pointer]:
+                  - /url: https://app.playtomic.io/
+              - listitem [ref=e79]:
+                - link "Work with us" [ref=e80] [cursor=pointer]:
+                  - /url: https://playtomic.factorialhr.es/
+              - listitem [ref=e81]:
+                - link "Global padel report" [ref=e82] [cursor=pointer]:
+                  - /url: /global-padel-report
+          - navigation [ref=e83]:
+            - paragraph [ref=e84]: Legal
+            - list [ref=e85]:
+              - listitem [ref=e86]:
+                - link "Legal conditions" [ref=e87] [cursor=pointer]:
+                  - /url: /legal-conditions
+              - listitem [ref=e88]:
+                - link "Privacy policy" [ref=e89] [cursor=pointer]:
+                  - /url: /privacy-policy
+              - listitem [ref=e90]:
+                - link "Cookies policy" [ref=e91] [cursor=pointer]:
+                  - /url: /cookies
+      - generic [ref=e92]:
+        - navigation [ref=e93]:
+          - paragraph [ref=e94]: Follow us
+          - generic [ref=e95]:
+            - link "Linkedin" [ref=e96] [cursor=pointer]:
+              - /url: https://www.linkedin.com/company/playtomic/posts/?feedView=all
+              - img [ref=e97]
+            - link "Instagram" [ref=e98] [cursor=pointer]:
+              - /url: https://www.instagram.com/playtomic/
+              - img [ref=e99]
+            - link "Facebook" [ref=e100] [cursor=pointer]:
+              - /url: https://www.facebook.com/playtomic.io/
+              - img [ref=e101]
+            - link "Youtube" [ref=e102] [cursor=pointer]:
+              - /url: https://www.youtube.com/@playtomic_app
+              - img [ref=e103]
+        - generic [ref=e104]: © 2010-2026 Playtomic S.L. All rights reserved.
+  - alert [ref=e105]

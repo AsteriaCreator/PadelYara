@@ -1,0 +1,131 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Kremstaler Padel King" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Kremstaler Padel King" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Kremstaler Padel King" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "News" [ref=e30] [cursor=pointer]:
+          - /url: /
+      - listitem [ref=e31]:
+        - link "Kontakt & Anfahrt" [ref=e32] [cursor=pointer]:
+          - /url: /s/Kontakt___Anfahrt
+      - listitem [ref=e33]:
+        - link "Preise & Betriebszeiten" [ref=e34] [cursor=pointer]:
+          - /url: /s/Preise___Betriebszeiten
+      - listitem [ref=e35]:
+        - link "Spielregeln" [ref=e36] [cursor=pointer]:
+          - /url: /s/Spielregeln
+      - listitem [ref=e37]:
+        - link "Veranstaltungen" [ref=e38] [cursor=pointer]:
+          - /url: /veranstaltungen
+      - listitem [ref=e39]:
+        - link "Registrierung" [ref=e40] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e42]:
+      - heading "Kontakt & Anfahrt" [level=1] [ref=e43]
+      - generic [ref=e46]:
+        - paragraph [ref=e47]:
+          - strong [ref=e48]: "Kontakt:"
+        - paragraph [ref=e49]: Kremstaler Padel King | 4531 Kematen an der Krems
+        - paragraph [ref=e50]: Obmann Rene Fanninger
+        - paragraph [ref=e51]: "Telefon: +43 664 88 456 860"
+        - paragraph [ref=e52]: "E-Mail: padel-king@gmx.at"
+        - paragraph [ref=e53]:
+          - text: "Web:"
+          - link "www.padelking.at" [ref=e54] [cursor=pointer]:
+            - /url: //www.padelking.at
+        - paragraph [ref=e55]: "Instagram: @KREMSTALER_PADEL_KING"
+        - paragraph [ref=e56]
+        - paragraph [ref=e57]: Wir sind als Verein seit 20.4.2024 in Kematen an der Krems tätig und haben uns zum Ziel gesetzt, den Trendsport Padel-Tennis auch im ländlichen Raum zu etablieren - und das zu einem fairen Preis!
+        - paragraph [ref=e58]: Die Förderung gesunder Bewegung, ein soziales Miteinander und die Abrundung des bestehenden Freizeitangebotes mit Tennis, Beachvolleyball, Skater-Park, Fußball sowie einer Bademöglichkeit entlang der Krems stehen dabei bei uns in Kematen/Krems im Vordergrund.
+        - paragraph [ref=e59]
+        - paragraph [ref=e60]:
+          - strong [ref=e61]: "Anfahrt:"
+        - paragraph [ref=e62]: Winden 22
+        - paragraph [ref=e63]: 4531 Kematen an der Krems
+        - paragraph [ref=e64]:
+          - link "Google Maps Anfahrt" [ref=e65] [cursor=pointer]:
+            - /url: https://g.co/kgs/LqpaM6m
+            - strong [ref=e66]: Google Maps Anfahrt
+        - paragraph [ref=e67]
+        - paragraph [ref=e68]:
+          - strong
+        - heading "Wie kann ich Padel in Kematen spielen?" [level=3] [ref=e69]
+        - paragraph [ref=e70]
+        - paragraph [ref=e71]:
+          - text: Lege dir erstmalig einen
+          - strong [ref=e72]: Zugang zur Plattform eTENNIS
+          - text: "an:"
+          - link "https://padelking.tennisplatz.info/registrieren" [ref=e73] [cursor=pointer]:
+            - /url: https://padelking.tennisplatz.info/registrieren
+        - paragraph [ref=e74]:
+          - text: Buche deinen gewünschten Padelcourt auf unserer Plattform unter
+          - strong [ref=e75]: Reservierung
+          - text: (
+          - link "https://padelking.tennisplatz.info/reservierung" [ref=e76] [cursor=pointer]:
+            - /url: https://padelking.tennisplatz.info/reservierung
+          - text: ) zu den dort angeführten Tarifen und komme vorbei.
+        - paragraph [ref=e77]: "Ausrüstung leihen oder mitbringen: Wenn du keine eigene Ausrüstung hast, stellen wir dir gerne Schläger und Bälle zur Verfügung. Leihschläger können einfach bei der Platzreservierung online gegen eine geringe Gebühr hinzugefügt werden. Neue Bälle werden vor Ort im Automaten angeboten."
+        - paragraph [ref=e78]: "Schnupperkurse & Trainerstunden: Ideal für Anfänger! Unsere erfahrenen Trainer helfen dir gerne, die Grundlagen zu erlernen und dein Spiel zu verbessern. Am besten meldest du dich direkt per Email oder Anruf kurz bei uns!"
+        - paragraph [ref=e79]
+        - paragraph [ref=e80]: Wer kann Padel spielen?
+        - paragraph [ref=e81]:
+          - strong [ref=e82]: "Anfänger:"
+          - text: Padel ist leicht zu erlernen – in wenigen Minuten hast du die Grundlagen drauf.
+        - paragraph [ref=e83]:
+          - strong [ref=e84]: Fortgeschrittene
+          - text: ": Verbessere deine Technik und Strategie mit regelmäßigen Trainings und Turnieren."
+        - paragraph [ref=e85]:
+          - strong [ref=e86]: Kinder & Familien
+          - text: ": Ein Spiel für die ganze Familie – Spaß und Bewegung für alle!"
+        - paragraph [ref=e87]: Egal, ob du regelmäßig spielen oder Padel einfach mal ausprobieren möchtest – wir haben für jeden die passende Möglichkeit. Entdecke jetzt, wie viel Spaß Padel machen kann, und buche deinen Platz noch heute!
+    - contentinfo [ref=e88]:
+      - generic [ref=e90]:
+        - generic [ref=e91]:
+          - text: Kremstaler Padel King |
+          - link "Impressum" [ref=e92] [cursor=pointer]:
+            - /url: /impressum
+          - text: "| Cookie Policy"
+        - generic [ref=e93]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e94] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e96]:
+    - paragraph [ref=e97]:
+      - generic [ref=e98]:
+        - paragraph [ref=e99]:
+          - img "Kremstaler Padel King" [ref=e100]
+          - text: Kremstaler Padel King
+        - paragraph [ref=e101]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e102]:
+      - link "Einstellungen verwalten" [ref=e103] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e104]:
+        - button "Alle ablehnen" [ref=e105] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e106] [cursor=pointer]

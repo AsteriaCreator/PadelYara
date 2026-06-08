@@ -1,0 +1,367 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Padel Kärnten Logo" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Padel Kärnten Logo" [ref=e6]
+      - list [ref=e7]:
+        - listitem [ref=e8]:
+          - link "News" [ref=e9] [cursor=pointer]:
+            - /url: /news
+        - listitem [ref=e10]:
+          - link "Team" [ref=e11] [cursor=pointer]:
+            - /url: /team
+        - listitem [ref=e12]:
+          - link "Standorte" [ref=e13] [cursor=pointer]:
+            - /url: /standorte
+        - listitem [ref=e14]:
+          - link "Padel" [ref=e15] [cursor=pointer]:
+            - /url: /padel
+        - listitem [ref=e16]:
+          - link "Regeln" [ref=e17] [cursor=pointer]:
+            - /url: /regeln
+  - main [ref=e18]:
+    - heading "Padelplätze in Kärnten" [level=1] [ref=e21]
+    - generic [ref=e23]:
+      - heading "Von den Bergen bis an den See" [level=2] [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - paragraph [ref=e27]: Padel begeistert immer mehr Sportlerinnen und Sportler in Österreich – und Kärnten ist da keine Ausnahme! Mit insgesamt über 300 Anlagen im ganzen Land (Stand 2025) findet dieser dynamische und gesellige Sport auch hierzulande großen Anklang.
+          - paragraph [ref=e28]: Kärnten bietet aktuell 5 hochwertige Padel-Standorte, die sowohl Anfänger als auch erfahrene Spieler herzlich willkommen heißen. Dazu zählen unter anderem das Padel Tennis Center Wörthersee der Sportunion Klagenfurt oder die Padelbase in Annenheim am Ossiacher See.
+        - generic [ref=e29]:
+          - paragraph [ref=e30]: Jeder Standort bietet eine einzigartige Kombination aus professionellen Spielmöglichkeiten und dem Charme der Region – sei es umgeben von alpiner Natur, direkt am See oder in zentraler Lage.
+          - paragraph [ref=e31]: Padel in Kärnten bietet die perfekte Kombination aus Sport, Spaß und Gemeinschaft – ideal für spannende Matches mit Freunden oder die Teilnahme an Turnieren. Die Kärntner Padelplätze überzeugen mit vielfältigen Möglichkeiten und einzigartigen Standorten.
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - img "Padel Tennis Center Wörthersee" [ref=e35]
+        - generic [ref=e36]:
+          - generic [ref=e37]:
+            - heading "Padel Tennis Center Wörthersee" [level=2] [ref=e38]
+            - paragraph [ref=e39]:
+              - text: Die Sportunion betreibt seit 2021 drei Padelplätze in Klagenfurt am Wörthersee. Regelmäßig finden Turniere und Firmenveranstaltungen statt.
+              - text: Der Ansprechpartner ist Sektionsleiter Markus Pirker-Rodrix. Anfragen für Buchungen, Turniere und Firmenevents unter
+              - link "sportunion_padel@gmx.at" [ref=e40] [cursor=pointer]:
+                - /url: mailto:sportunion_padel@gmx.at
+              - text: .
+              - generic [ref=e41]:
+                - text: "Foto:"
+                - link "Sportunion Klagenfurt" [ref=e42] [cursor=pointer]:
+                  - /url: https://sportunion-tennis.at/padel-tennis-center-woerthersee/
+            - generic [ref=e43]:
+              - generic [ref=e44]:
+                - paragraph [ref=e45]: "0"
+                - paragraph [ref=e46]: Plätze Indoor
+              - generic [ref=e47]:
+                - paragraph [ref=e48]: "3"
+                - paragraph [ref=e49]: Plätze Outdoor
+          - paragraph [ref=e50]: Wilsonstraße 25, 9020 Klagenfurt am Wörthersee
+      - generic [ref=e51]:
+        - img "Padelbase Annenheim" [ref=e52]
+        - generic [ref=e53]:
+          - generic [ref=e54]:
+            - heading "Padelbase Annenheim" [level=2] [ref=e55]
+            - paragraph [ref=e56]:
+              - text: Die Padelbase in Annenheim bietet vier Outdoor Padel Plätze mit Flutlicht an. Eine tolle Padelanlage im Herzen von Kärnten direkt am Ossiacher See.
+              - text: Der Ansprechpartner ist Maxi Gfrerer. Anfragen per E-Mail an
+              - link "padel.annenheim@gmx.at" [ref=e57] [cursor=pointer]:
+                - /url: mailto:padel.annenheim@gmx.at
+              - text: .
+              - generic [ref=e58]:
+                - text: "Foto:"
+                - link "padelbase.at" [ref=e59] [cursor=pointer]:
+                  - /url: https://www.padelbase.at
+            - generic [ref=e60]:
+              - generic [ref=e61]:
+                - paragraph [ref=e62]: "0"
+                - paragraph [ref=e63]: Plätze Indoor
+              - generic [ref=e64]:
+                - paragraph [ref=e65]: "4"
+                - paragraph [ref=e66]: Plätze Outdoor
+          - paragraph [ref=e67]: Lindenhofweg 6, 9520 Annenheim
+      - generic [ref=e68]:
+        - img "Arena One Klagenfurt" [ref=e69]
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - heading "Arena One Klagenfurt" [level=2] [ref=e72]
+            - paragraph [ref=e73]:
+              - text: Am Standort der ehemaligen Jump World One befindet sich mit der Arena One eine Padelanlage mit sechs Indoor- und drei Outdoor-Plätzen.
+              - text: Der Ansprechpartner ist Edin Cosic. Anfragen per E-Mail an
+              - link "padel@arenaone.at" [ref=e74] [cursor=pointer]:
+                - /url: mailto:padel@arenaone.at
+              - text: .
+              - generic [ref=e75]:
+                - text: "Foto:"
+                - link "arenaone.at" [ref=e76] [cursor=pointer]:
+                  - /url: https://www.arenaone.at
+            - generic [ref=e77]:
+              - generic [ref=e78]:
+                - paragraph [ref=e79]: "6"
+                - paragraph [ref=e80]: Plätze Indoor
+              - generic [ref=e81]:
+                - paragraph [ref=e82]: "3"
+                - paragraph [ref=e83]: Plätze Outdoor
+          - paragraph [ref=e84]: Südring 211, 9020 Klagenfurt am Wörthersee
+      - generic [ref=e85]:
+        - img "Lakeside Padel Seeboden" [ref=e86]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - heading "Lakeside Padel Seeboden" [level=2] [ref=e89]
+            - paragraph [ref=e90]:
+              - text: Im Klauberpark in Seeboden befindet sich die erste Padelanlage in Oberkärnten – ausgestattet mit zwei modernen Panorama Courts und beeindruckendem Blick auf den Millstätter See.
+              - text: Die Anlage bietet optimale Bedingungen in einer einzigartigen Umgebung
+              - text: Der Ansprechpartner ist David Hofer. Anfragen per E-Mail an
+              - link "office@lakesidepadel.at" [ref=e91] [cursor=pointer]:
+                - /url: mailto:office@lakesidepadel.at
+              - text: .
+              - generic [ref=e92]:
+                - text: "Foto:"
+                - link "lakesidepadel.at" [ref=e93] [cursor=pointer]:
+                  - /url: https://lakesidepadel.at
+            - generic [ref=e94]:
+              - generic [ref=e95]:
+                - paragraph [ref=e96]: "0"
+                - paragraph [ref=e97]: Plätze Indoor
+              - generic [ref=e98]:
+                - paragraph [ref=e99]: "2"
+                - paragraph [ref=e100]: Plätze Outdoor
+          - paragraph [ref=e101]: Am Klauberpark, 9871 Seeboden
+      - generic [ref=e102]:
+        - img "Padelzentrum Magdalensberg" [ref=e103]
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - heading "Padelzentrum Magdalensberg" [level=2] [ref=e106]
+            - paragraph [ref=e107]:
+              - text: Das Padelzentrum Magdalensberg ist mit 3 Courts die erste turnierfähige Padelanlage im Bezirk Klagenfurt-Land und bietet dadurch optimale Bedingungen für Training, Freizeitspiele und Meisterschaften. Die Eröffnung erfolgt Mitte April 2026.
+              - text: Der Ansprechpartner ist Christopher Ganzi. Anfragen per E-Mail an
+              - link "info@caldaprojects.at" [ref=e108] [cursor=pointer]:
+                - /url: mailto:info@caldaprojects.at
+              - text: .
+              - generic [ref=e109]:
+                - text: "Foto:"
+                - link "caldaprojects.at" [ref=e110] [cursor=pointer]:
+                  - /url: https://www.caldaprojects.at
+            - generic [ref=e111]:
+              - generic [ref=e112]:
+                - paragraph [ref=e113]: "0"
+                - paragraph [ref=e114]: Plätze Indoor
+              - generic [ref=e115]:
+                - paragraph [ref=e116]: "3"
+                - paragraph [ref=e117]: Plätze Outdoor
+          - paragraph [ref=e118]: Görtschitztal Straße 230A, 9064 Pischeldorf
+      - generic [ref=e119]:
+        - img "TC Bad Eisenkappel" [ref=e120]
+        - generic [ref=e121]:
+          - generic [ref=e122]:
+            - heading "TC Bad Eisenkappel" [level=2] [ref=e123]
+            - paragraph [ref=e124]:
+              - text: Der TC Bad Eisenkappel bietet einen "Outdoor" Padel Platz an. Ein Sporterlebnis, umrandet von Bergen.
+              - text: Ansprechpartner ist Jürgen Rauscher und unter
+              - link "juergen.rauscher@gmx.net" [ref=e125] [cursor=pointer]:
+                - /url: "mailto: juergen.rauscher@gmx.net"
+              - text: erreichbar.
+              - generic [ref=e126]:
+                - text: "Foto:"
+                - link "woerthersee.com" [ref=e127] [cursor=pointer]:
+                  - /url: https://www.woerthersee.com
+            - generic [ref=e128]:
+              - generic [ref=e129]:
+                - paragraph [ref=e130]: "0"
+                - paragraph [ref=e131]: Plätze Indoor
+              - generic [ref=e132]:
+                - paragraph [ref=e133]: "1"
+                - paragraph [ref=e134]: Plätze Outdoor
+          - paragraph [ref=e135]: Vellach 10, 9135 Vellach
+      - generic [ref=e136]:
+        - img "Seefels Hotel" [ref=e137]
+        - generic [ref=e138]:
+          - generic [ref=e139]:
+            - heading "Seefels Hotel" [level=2] [ref=e140]
+            - paragraph [ref=e141]:
+              - text: Ein Padel Court, der prominent an einer prächtigen Schloss-Einfahrt liegt. Erfrischend beschattet von Bäuen des Schlossparks.
+              - text: Der Ansprechpartner Alexander Hechenberger ist unter
+              - link "alexander.hechenberger@hotmail.com" [ref=e142] [cursor=pointer]:
+                - /url: mailto:alexander.hechenberger@hotmail.com
+              - text: erreichbar.
+              - generic [ref=e143]:
+                - text: "Foto:"
+                - link "seefels.at" [ref=e144] [cursor=pointer]:
+                  - /url: https://www.seefels.at/sport-bewegung/tennis/
+            - generic [ref=e145]:
+              - generic [ref=e146]:
+                - paragraph [ref=e147]: "0"
+                - paragraph [ref=e148]: Plätze Indoor
+              - generic [ref=e149]:
+                - paragraph [ref=e150]: "1"
+                - paragraph [ref=e151]: Plätze Outdoor
+          - paragraph [ref=e152]: Töschling 1, 9212 Pörtschach
+  - button "Datenschutz Einstellungen" [ref=e153] [cursor=pointer]:
+    - img [ref=e154]
+  - generic [ref=e156]:
+    - generic [ref=e157]:
+      - link "Offizielle Eröffnung von Padel Magdalensberg Mit der offiziellen Eröffnung der Padelanlage in Magdalensberg gibt es nun auch im Bezirk Klagenfurt-Land die ersten Padel Courts." [ref=e158] [cursor=pointer]:
+        - /url: /news/eroeffnungsfeier-padel-magdalensberg-2026
+        - generic [ref=e159]:
+          - heading "Offizielle Eröffnung von Padel Magdalensberg" [level=3] [ref=e160]
+          - paragraph [ref=e161]: Mit der offiziellen Eröffnung der Padelanlage in Magdalensberg gibt es nun auch im Bezirk Klagenfurt-Land die ersten Padel Courts.
+      - link "2026 APU Österreichische Jugendmeisterschaften Die 2026 APU Österreichische Jugendmeisterschaften fanden vom 25. Mai 2026 im Padel Park in Semriach statt." [ref=e162] [cursor=pointer]:
+        - /url: /news/2026-apu-oesterreichische-jugendmeisterschaften
+        - generic [ref=e163]:
+          - heading "2026 APU Österreichische Jugendmeisterschaften" [level=3] [ref=e164]
+          - paragraph [ref=e165]: Die 2026 APU Österreichische Jugendmeisterschaften fanden vom 25. Mai 2026 im Padel Park in Semriach statt.
+      - link "Übungsleiterkurs Sportunion Klagenfurt 2026 Von 24. bis 26. April fand auf der Anlage der Sportunion Klagenfurt ein Übungsleiterkurs der Sportunion Kärnten statt." [ref=e166] [cursor=pointer]:
+        - /url: /news/uebungsleiter-kurs-sportunion-klagenfurt-2026
+        - generic [ref=e167]:
+          - heading "Übungsleiterkurs Sportunion Klagenfurt 2026" [level=3] [ref=e168]
+          - paragraph [ref=e169]: Von 24. bis 26. April fand auf der Anlage der Sportunion Klagenfurt ein Übungsleiterkurs der Sportunion Kärnten statt.
+      - link "KPV bei der Eröffnung der Lakeside Padel Anlage in Seeboden Unser Präsident Markus Pirker-Rodrix war gestern bei der Eröffnung der neuen Lakeside Padel Anlage in Seeboden mit dabei." [ref=e170] [cursor=pointer]:
+        - /url: /news/eroeffnungsfeier-lakeside-padel
+        - generic [ref=e171]:
+          - heading "KPV bei der Eröffnung der Lakeside Padel Anlage in Seeboden" [level=3] [ref=e172]
+          - paragraph [ref=e173]: Unser Präsident Markus Pirker-Rodrix war gestern bei der Eröffnung der neuen Lakeside Padel Anlage in Seeboden mit dabei.
+      - link "KPV bei der Eröffnung der Padelbase Annenheim Ein richtig gelungener Start am Ossiacher See! Unser Team vom Kärntner Padel Verband war mit Präsident Markus Pirker-Rodrix vor Ort." [ref=e174] [cursor=pointer]:
+        - /url: /news/eroeffnungsfeier-padelbase-annenheim
+        - generic [ref=e175]:
+          - heading "KPV bei der Eröffnung der Padelbase Annenheim" [level=3] [ref=e176]
+          - paragraph [ref=e177]: Ein richtig gelungener Start am Ossiacher See! Unser Team vom Kärntner Padel Verband war mit Präsident Markus Pirker-Rodrix vor Ort.
+      - 'link "Eröffnungsfeier der Padelbase Annenheim Am Samstag, den 11. April, ist es endlich so weit: Die Padelbase Annenheim am Ossiacher See feiert ihre große Eröffnung!" [ref=e178] [cursor=pointer]':
+        - /url: /news/padelbase-annenheim-eroeffnung-2026
+        - generic [ref=e179]:
+          - heading "Eröffnungsfeier der Padelbase Annenheim" [level=3] [ref=e180]
+          - paragraph [ref=e181]: "Am Samstag, den 11. April, ist es endlich so weit: Die Padelbase Annenheim am Ossiacher See feiert ihre große Eröffnung!"
+      - link "Lakeside Padel Eröffnung in Seeboden Mit Lakeside Padel in Seeboden am Millstätter See eröffnet eine weitere moderne Padelanlage in Kärnten. Das ist ein weiterer wichtiger Schritt für die Entwicklung des Sports in der Region – insbesondere für den Ausbau des Padelsports in Oberkärnten." [ref=e182] [cursor=pointer]:
+        - /url: /news/lakeside-padel-opening-2026
+        - generic [ref=e183]:
+          - heading "Lakeside Padel Eröffnung in Seeboden" [level=3] [ref=e184]
+          - paragraph [ref=e185]: Mit Lakeside Padel in Seeboden am Millstätter See eröffnet eine weitere moderne Padelanlage in Kärnten. Das ist ein weiterer wichtiger Schritt für die Entwicklung des Sports in der Region – insbesondere für den Ausbau des Padelsports in Oberkärnten.
+      - link "Padel Bundesliga 2025 Das größte nationale Padel-Event des Jahres zog mehr als 800 Spieler:innen aus ganz Österreich nach Wien, wo in sechs Ligen um die begehrten Meisterteller gespielt wurde." [ref=e186] [cursor=pointer]:
+        - /url: /news/padel-bundesliga-2025
+        - generic [ref=e187]:
+          - heading "Padel Bundesliga 2025" [level=3] [ref=e188]
+          - paragraph [ref=e189]: Das größte nationale Padel-Event des Jahres zog mehr als 800 Spieler:innen aus ganz Österreich nach Wien, wo in sechs Ligen um die begehrten Meisterteller gespielt wurde.
+      - 'link "Neue Padelanlage in Annenheim Der Kärntner Padelsport wächst weiter: In Annenheim am Ossiacher See entsteht derzeit eine neue Outdoor-Padelanlage mit insgesamt vier Plätzen." [ref=e190] [cursor=pointer]':
+        - /url: /news/neue-anlage-padelbase-annenheim
+        - generic [ref=e191]:
+          - heading "Neue Padelanlage in Annenheim" [level=3] [ref=e192]
+          - paragraph [ref=e193]: "Der Kärntner Padelsport wächst weiter: In Annenheim am Ossiacher See entsteht derzeit eine neue Outdoor-Padelanlage mit insgesamt vier Plätzen."
+      - link "Kärntner Padel Meisterschaften 2025 Am vergangenen Wochenende lud der Kärntner Padel Verband gemeinsam mit der Sportunion Klagenfurt zu den bereits 3. Kärntner Padelmeisterschaften ein" [ref=e194] [cursor=pointer]:
+        - /url: /news/kaerntner-padel-meisterschaften-2025
+        - generic [ref=e195]:
+          - heading "Kärntner Padel Meisterschaften 2025" [level=3] [ref=e196]
+          - paragraph [ref=e197]: Am vergangenen Wochenende lud der Kärntner Padel Verband gemeinsam mit der Sportunion Klagenfurt zu den bereits 3. Kärntner Padelmeisterschaften ein
+      - link "3. Kärntner Padel Meisterschaften Am letzten September-Wochenende 2025 finden die 3. Kärntner Padel-Landesmeisterschaften statt! Spannende Duelle in den Kategorien Damen, Herren und Mixed! Gastgeber und Veranstalter ist die Sportunion Klagenfurt." [ref=e198] [cursor=pointer]:
+        - /url: /news/dritte-kaerntner-padel-meisterschaften
+        - generic [ref=e199]:
+          - heading "3. Kärntner Padel Meisterschaften" [level=3] [ref=e200]
+          - paragraph [ref=e201]: Am letzten September-Wochenende 2025 finden die 3. Kärntner Padel-Landesmeisterschaften statt! Spannende Duelle in den Kategorien Damen, Herren und Mixed! Gastgeber und Veranstalter ist die Sportunion Klagenfurt.
+      - link "Padel Day 2025 – Ein voller Erfolg für die Kärntner Padel-Community Strahlender Sonnenschein, volle Plätze und beste Stimmung – der Padel Day 2025, veranstaltet vom Team der Sportunion Klagenfurt, war ein echtes Highlight für die Padel-Begeisterten in Kärnten." [ref=e202] [cursor=pointer]:
+        - /url: /news/sportunion-padelday-2025
+        - generic [ref=e203]:
+          - heading "Padel Day 2025 – Ein voller Erfolg für die Kärntner Padel-Community" [level=3] [ref=e204]
+          - paragraph [ref=e205]: Strahlender Sonnenschein, volle Plätze und beste Stimmung – der Padel Day 2025, veranstaltet vom Team der Sportunion Klagenfurt, war ein echtes Highlight für die Padel-Begeisterten in Kärnten.
+      - 'link "Die neue Spielerlizenz für Padel in Österreich Neue Spielerlizenz für Padel in Österreich: Ab 2025 unterstützt eine jährliche Gebühr von 20 € die Anerkennung, Nachwuchsförderung und Professionalisierung des Sports." [ref=e206] [cursor=pointer]':
+        - /url: /news/apu-spielerlizenz
+        - generic [ref=e207]:
+          - heading "Die neue Spielerlizenz für Padel in Österreich" [level=3] [ref=e208]
+          - paragraph [ref=e209]: "Neue Spielerlizenz für Padel in Österreich: Ab 2025 unterstützt eine jährliche Gebühr von 20 € die Anerkennung, Nachwuchsförderung und Professionalisierung des Sports."
+      - 'link "Das größte Padel-Event des Jahres: Padel Bundesliga 2024 Das größte Padel-Event des Jahres 2024 in Österreich! Die Bundesliga der Allgemeinen Klasse begeisterte mit spannenden Matches, Top-Teams und packender Atmosphäre." [ref=e210] [cursor=pointer]':
+        - /url: /news/padel-bundesliga-2024
+        - generic [ref=e211]:
+          - 'heading "Das größte Padel-Event des Jahres: Padel Bundesliga 2024" [level=3] [ref=e212]'
+          - paragraph [ref=e213]: Das größte Padel-Event des Jahres 2024 in Österreich! Die Bundesliga der Allgemeinen Klasse begeisterte mit spannenden Matches, Top-Teams und packender Atmosphäre.
+      - link "2. Kärntner Padel Meisterschaften Am vergangenen Samstag ging es bei den Kärntner Padel Meisterschaften heiß her! 🔥 Bei sonnigen Bedingungen kämpften insgesamt 8 Mixed-Teams und 12 Herren-Teams in spannenden Matches um den begehrten Meistertitel." [ref=e214] [cursor=pointer]:
+        - /url: /news/zweite-kaerntner-padel-meisterschaften
+        - generic [ref=e215]:
+          - heading "2. Kärntner Padel Meisterschaften" [level=3] [ref=e216]
+          - paragraph [ref=e217]: Am vergangenen Samstag ging es bei den Kärntner Padel Meisterschaften heiß her! 🔥 Bei sonnigen Bedingungen kämpften insgesamt 8 Mixed-Teams und 12 Herren-Teams in spannenden Matches um den begehrten Meistertitel.
+      - 'link "Gründung des Kärntner Padel Verbands Die Gründung des Kärntner Padel Verbands stärkt den Padelsport in der Region: Mit einer klaren Vision fördern wir den Sport für alle Altersgruppen." [ref=e218] [cursor=pointer]':
+        - /url: /news/gruendung-kaerntner-padel-verband
+        - generic [ref=e219]:
+          - heading "Gründung des Kärntner Padel Verbands" [level=3] [ref=e220]
+          - paragraph [ref=e221]: "Die Gründung des Kärntner Padel Verbands stärkt den Padelsport in der Region: Mit einer klaren Vision fördern wir den Sport für alle Altersgruppen."
+    - generic "Nach links scrollen" [ref=e222] [cursor=pointer]:
+      - img "Nach links" [ref=e223]
+    - generic "Nach rechts scrollen" [ref=e224] [cursor=pointer]:
+      - img "Nach rechts" [ref=e225]
+  - contentinfo [ref=e226]:
+    - generic [ref=e227]:
+      - generic [ref=e228]:
+        - heading "Padel Kärnten" [level=2] [ref=e229]
+        - generic [ref=e230]:
+          - link "Kärntner Padel Verband Instagram" [ref=e231] [cursor=pointer]:
+            - /url: https://www.instagram.com/padel_kaernten/
+            - img "Kärntner Padel Verband Instagram" [ref=e232]
+          - link "Kärntner Padel Verband Facebook" [ref=e233] [cursor=pointer]:
+            - /url: https://www.facebook.com/padelkaernten
+            - img "Kärntner Padel Verband Facebook" [ref=e234]
+      - generic [ref=e235]:
+        - generic [ref=e236]:
+          - heading "Kontakt" [level=3] [ref=e237]
+          - paragraph [ref=e238]:
+            - text: "Telefon:"
+            - link "+43 676 5533983" [ref=e239] [cursor=pointer]:
+              - /url: tel:+43 676 5533983
+          - paragraph [ref=e240]:
+            - text: "E-Mail:"
+            - link "office@padelkaernten.at" [ref=e241] [cursor=pointer]:
+              - /url: mailto:office@padelkaernten.at
+        - generic [ref=e242]:
+          - heading "Verband" [level=3] [ref=e243]
+          - link "TurniereÖffnet sich in neuem Tab" [ref=e244] [cursor=pointer]:
+            - /url: https://padel-austria.at/tournaments?q%5Bweekday%5D=&q%5Blocation_id%5D=&q%5Bstate%5D=5&q%5Bcategory%5D=&q%5Bcompetition%5D=&q%5Bown_events%5D=0&commit=Filtern
+            - text: Turniere
+            - img "Öffnet sich in neuem Tab" [ref=e245]
+          - link "Team" [ref=e246] [cursor=pointer]:
+            - /url: /team
+          - link "Standorte" [ref=e247] [cursor=pointer]:
+            - /url: /standorte
+          - link "Downloads" [ref=e248] [cursor=pointer]:
+            - /url: /downloads
+        - generic [ref=e249]:
+          - heading "Padel" [level=3] [ref=e250]
+          - link "Über Padel" [ref=e251] [cursor=pointer]:
+            - /url: /padel
+          - link "Regelwerk" [ref=e252] [cursor=pointer]:
+            - /url: /regeln
+          - link "Merchandise" [ref=e253] [cursor=pointer]:
+            - /url: /merchandise
+        - generic [ref=e254]:
+          - heading "Rechtliches" [level=3] [ref=e255]
+          - link "Statuten" [ref=e256] [cursor=pointer]:
+            - /url: /statuten
+          - link "Impressum" [ref=e257] [cursor=pointer]:
+            - /url: /impressum
+          - link "Datenschutz" [ref=e258] [cursor=pointer]:
+            - /url: /datenschutz
+      - separator [ref=e259]
+      - generic [ref=e260]:
+        - link "Austrian Padel Union" [ref=e261] [cursor=pointer]:
+          - /url: https://www.padeltennis.at
+          - img "Austrian Padel Union" [ref=e262]
+        - link "Kärnten Sport" [ref=e263] [cursor=pointer]:
+          - /url: https://www.kaerntensport.net
+          - img "Kärnten Sport" [ref=e264]
+        - link "Land Kärnten" [ref=e265] [cursor=pointer]:
+          - /url: https://sport.ktn.gv.at
+          - img "Land Kärnten" [ref=e266]
+        - link "Petzner Textildesign Textilveredelung" [ref=e267] [cursor=pointer]:
+          - /url: https://www.petzner.at
+          - img "Petzner Textildesign Textilveredelung" [ref=e268]
+        - link "WEBPUNKS" [ref=e269] [cursor=pointer]:
+          - /url: https://www.webpunks.at
+          - img "WEBPUNKS" [ref=e270]
+        - link "M & S Installationen" [ref=e271] [cursor=pointer]:
+          - /url: https://www.ms-installationen.com
+          - img "M & S Installationen" [ref=e272]
+  - paragraph [ref=e275]: © 2026 Kärntner Padel Verband
+  - dialog "Diese Seite verwendet Cookies! 🍪" [ref=e276]:
+    - generic [ref=e277]:
+      - generic [ref=e278]:
+        - heading "Diese Seite verwendet Cookies! 🍪" [level=2] [ref=e279]
+        - paragraph [ref=e280]: Unsere Website verwendet Cookies. Einige sind essenziell, während andere uns helfen, die Website und Ihre Erfahrung zu verbessern.
+      - generic [ref=e281]:
+        - generic [ref=e282]:
+          - button "Alle akzeptieren" [ref=e283] [cursor=pointer]
+          - button "Ablehnen" [ref=e284] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e286] [cursor=pointer]
+    - link "Datenschutzerklärung" [ref=e290] [cursor=pointer]:
+      - /url: /datenschutz

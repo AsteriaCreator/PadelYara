@@ -1,0 +1,92 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - link "Austrian Padel Union Logo" [ref=e6] [cursor=pointer]:
+      - /url: /
+      - img "Austrian Padel Union Logo" [ref=e7]
+    - link "ÖPV Logo" [ref=e9] [cursor=pointer]:
+      - /url: /
+      - img "ÖPV Logo" [ref=e10]
+    - heading "powered by" [level=5] [ref=e12]
+    - link "HEAD Logo" [ref=e14] [cursor=pointer]:
+      - /url: https://www.head.com/de_AT/padel.html?_gl=1*13ib9ks*_up*MQ..&gclid=CjwKCAiAivGuBhBEEiwAWiFmYcyIWrkIgNUMcfPN8kXrcFuwt4MPD8UkrGbU6I2cz7Lzzsk8D_047RoCKgsQAvD_BwE
+      - img "HEAD Logo" [ref=e15]
+  - navigation [ref=e16]:
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - button "Turniere" [ref=e21] [cursor=pointer]
+        - button "Rangliste" [ref=e23] [cursor=pointer]
+        - button "Nationalkader" [ref=e25] [cursor=pointer]
+        - link "Workshops" [ref=e26] [cursor=pointer]:
+          - /url: /workshops
+        - link "Lehrgänge" [ref=e27] [cursor=pointer]:
+          - /url: /instructions
+        - link "Standorte" [ref=e28] [cursor=pointer]:
+          - /url: /locations
+        - button "Landesverbände" [ref=e30] [cursor=pointer]
+        - link "Unterstützer" [ref=e31] [cursor=pointer]:
+          - /url: /supporters
+        - button "Über Padel" [ref=e33] [cursor=pointer]
+        - button "Über uns" [ref=e35] [cursor=pointer]
+      - link "Login" [ref=e37] [cursor=pointer]:
+        - /url: /users/sign_in
+  - generic [ref=e39]:
+    - iframe [ref=e41]:
+      - generic [ref=f32e6]:
+        - region "Karte" [ref=f32e7]
+        - iframe [ref=f32e42]:
+          
+    - generic [ref=e42]:
+      - generic [ref=e43]:
+        - heading "PADELZONE | Bad Ischl" [level=1] [ref=e44]
+        - generic [ref=e46]:
+          - strong [ref=e47]: "Adresse:"
+          - text: Engleitenstraße 6 (Kaltenbach), 4820 Bad Ischl
+          - strong [ref=e48]: "Ansprechpartner:"
+          - text: Königsmaier Hannes, 069912770469,
+          - link "hk@padelzone.partners" [ref=e49] [cursor=pointer]:
+            - /url: mailto:hk@padelzone.partners
+          - strong [ref=e50]: "Anzahl der Padel-Plätze:"
+          - text: 2 Outdoor
+          - strong [ref=e51]: "Homepage:"
+          - link "www.padelzone.at" [ref=e52] [cursor=pointer]:
+            - /url: https://www.padelzone.at/ebensee
+          - strong [ref=e53]: "Platzbuchungen:"
+          - link "www.padelzone.at/bad-ischl" [ref=e54] [cursor=pointer]:
+            - /url: http://www.padelzone.at/bad-ischl
+      - img "PADELZONE | Bad Ischl" [ref=e56]
+  - generic [ref=e57]:
+    - heading "Folge uns auf" [level=5] [ref=e58]
+    - generic [ref=e59]:
+      - link [ref=e60] [cursor=pointer]:
+        - /url: https://www.facebook.com/austrianpadelunion
+        - img [ref=e61]
+      - link [ref=e63] [cursor=pointer]:
+        - /url: https://www.instagram.com/austrianpadelunion
+        - img [ref=e64]
+    - generic [ref=e66]:
+      - link "Impressum" [ref=e67] [cursor=pointer]:
+        - /url: /imprint
+      - text: "|"
+      - link "Datenschutzerklärung" [ref=e68] [cursor=pointer]:
+        - /url: /privacy-policy
+    - generic [ref=e69]:
+      - text: © 2026
+      - link "padel-austria.at" [ref=e70] [cursor=pointer]:
+        - /url: https://padel-austria.at
+  - dialog "Wir verwenden Cookies" [ref=e71]:
+    - generic [ref=e72]:
+      - generic [ref=e73]:
+        - heading "Wir verwenden Cookies" [level=2] [ref=e74]
+        - paragraph [ref=e75]: Wir verwenden Cookies, um unsere Website nutzerfreundlich zu gestalten, Inhalte und Anzeigen zu personalisieren und die Zugriffe auf unsere Website zu analysieren.
+      - generic [ref=e76]:
+        - generic [ref=e77]:
+          - button "Alle akzeptieren" [ref=e78] [cursor=pointer]
+          - button "Nur essenzielle akzeptieren" [ref=e79] [cursor=pointer]
+        - button "Einstellungen verwalten" [ref=e81] [cursor=pointer]
+    - generic [ref=e84]:
+      - text: Sie können Ihre Auswahl jederzeit widerrufen oder anpassen. Weitere Informationen finden Sie in unserer
+      - link "Datenschutzerklärung" [ref=e85] [cursor=pointer]:
+        - /url: /privacy-policy
+      - text: und
+      - link "Cookie-Richtlinie" [ref=e86] [cursor=pointer]:
+        - /url: /privacy-policy#cookie-consent

@@ -1,0 +1,375 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e4]:
+    - generic [ref=e7]:
+      - link "Padelbär Deutschfeistritz" [ref=e8] [cursor=pointer]:
+        - /url: /
+        - img "Padelbär Deutschfeistritz" [ref=e9]
+      - link "eTennis" [ref=e10] [cursor=pointer]:
+        - /url: https://www.etennis.at
+        - img "eTennis" [ref=e11]
+      - generic [ref=e12]:
+        - link "Padelbär Deutschfeistritz" [ref=e13] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e14]:
+          - link "  Info" [ref=e15] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e16]:  
+            - text: Info
+          - link "  Reservierung" [ref=e17] [cursor=pointer]:
+            - /url: /reservierung
+            - generic [ref=e18]:  
+            - text: Reservierung
+          - link "  Spielpartner" [ref=e19] [cursor=pointer]:
+            - /url: /spielpartner
+            - generic [ref=e20]:  
+            - text: Spielpartner
+      - link " Anmelden" [ref=e22] [cursor=pointer]:
+        - /url: "#login"
+        - generic [ref=e23]: 
+        - text: Anmelden
+    - list [ref=e28]:
+      - listitem [ref=e29]:
+        - link "Padelplatz" [ref=e30] [cursor=pointer]:
+          - /url: /reservierung?c=3395
+      - listitem [ref=e31]:
+        - link "Spielguthaben" [ref=e32] [cursor=pointer]:
+          - /url: /spielguthaben
+      - listitem [ref=e33]:
+        - link "Gutscheine" [ref=e34] [cursor=pointer]:
+          - /url: /gutscheine
+      - listitem [ref=e35]:
+        - link "Registrierung" [ref=e36] [cursor=pointer]:
+          - /url: registrieren
+    - generic [ref=e38]:
+      - heading "Reservierung Padelplatz" [level=1] [ref=e39]
+      - list [ref=e41]:
+        - listbox [ref=e43]:
+          - listitem [ref=e44]:
+            - link [ref=e45] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img [ref=e46]
+          - listitem [ref=e47]:
+            - link [ref=e48] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img [ref=e49]
+          - listitem [ref=e50]:
+            - link [ref=e51] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img [ref=e52]
+          - listitem [ref=e53]:
+            - link [ref=e54] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img [ref=e55]
+          - listitem [ref=e56]:
+            - link [ref=e57] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img [ref=e58]
+          - listitem [ref=e59]:
+            - link [ref=e60] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img [ref=e61]
+          - listitem [ref=e62]:
+            - link [ref=e63] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img [ref=e64]
+          - listitem [ref=e65]:
+            - link [ref=e66] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img [ref=e67]
+          - option "WhatsApp" [ref=e68]:
+            - link "WhatsApp" [ref=e69] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img "WhatsApp" [ref=e70]
+          - option "Trainerstunden" [ref=e71]:
+            - link "Trainerstunden" [ref=e72] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img "Trainerstunden" [ref=e73]
+          - option "Studenten und Senioren" [ref=e74]:
+            - link "Studenten und Senioren" [ref=e75] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img "Studenten und Senioren" [ref=e76]
+          - option "Mitgliedschaft" [ref=e77]:
+            - link "Mitgliedschaft" [ref=e78] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img "Mitgliedschaft" [ref=e79]
+          - option "WhatsApp" [ref=e80]:
+            - link "WhatsApp" [ref=e81] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img "WhatsApp" [ref=e82]
+          - option "Trainerstunden" [ref=e83]:
+            - link "Trainerstunden" [ref=e84] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img "Trainerstunden" [ref=e85]
+          - option "Studenten und Senioren" [ref=e86]:
+            - link "Studenten und Senioren" [ref=e87] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img "Studenten und Senioren" [ref=e88]
+          - option "Mitgliedschaft" [ref=e89]:
+            - link "Mitgliedschaft" [ref=e90] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img "Mitgliedschaft" [ref=e91]
+          - option [ref=e92]:
+            - link [ref=e93] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img [ref=e94]
+          - option [ref=e95]:
+            - link [ref=e96] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img [ref=e97]
+          - option [ref=e98]:
+            - link [ref=e99] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img [ref=e100]
+          - option [ref=e101]:
+            - link [ref=e102] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img [ref=e103]
+          - listitem [ref=e104]:
+            - link [ref=e105] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img [ref=e106]
+          - listitem [ref=e107]:
+            - link [ref=e108] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img [ref=e109]
+          - listitem [ref=e110]:
+            - link [ref=e111] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img [ref=e112]
+          - listitem [ref=e113]:
+            - link [ref=e114] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img [ref=e115]
+          - listitem [ref=e116]:
+            - link [ref=e117] [cursor=pointer]:
+              - /url: https://chat.whatsapp.com/F4Ms7WeQhDO3uqVFy8LMWR
+              - img [ref=e118]
+          - listitem [ref=e119]:
+            - link [ref=e120] [cursor=pointer]:
+              - /url: https://calendly.com/padelbaer-stunde-buchen-sebi/padeltraining
+              - img [ref=e121]
+          - listitem [ref=e122]:
+            - link [ref=e123] [cursor=pointer]:
+              - /url: http://www.padelbaer.at
+              - img [ref=e124]
+          - listitem [ref=e125]:
+            - link [ref=e126] [cursor=pointer]:
+              - /url: https://padelbaer.systeme.io/mitgliedschaft
+              - img [ref=e127]
+      - generic [ref=e130]:
+        - list:
+          - listitem [ref=e131]: "Umkleidecode: 052024 Den PIN für die Leihschläger findest du in deinen Buchungsdetails! | Besuche unsere Homepage für Updates: www.padelbaer.at | Leihschläger vergessen auszuwählen, rufe uns an unter: +436642427509"
+      - generic [ref=e132]:
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - generic [ref=e136] [cursor=pointer]: 
+              - generic [ref=e137] [cursor=pointer]: 
+            - generic [ref=e139]:
+              - link "Montag 01.06.2026" [ref=e140] [cursor=pointer]:
+                - /url: "?c=3395&d=1780290000"
+                - generic [ref=e141]: Montag
+                - text: 01.06.2026
+              - text: 
+            - generic [ref=e143]:
+              - link "Dienstag 02.06.2026" [ref=e144] [cursor=pointer]:
+                - /url: "?c=3395&d=1780376400"
+                - generic [ref=e145]: Dienstag
+                - text: 02.06.2026
+              - text: 
+            - generic [ref=e147]:
+              - link "Mittwoch 03.06.2026" [ref=e148] [cursor=pointer]:
+                - /url: "?c=3395&d=1780462800"
+                - generic [ref=e149]: Mittwoch
+                - text: 03.06.2026
+              - text: 
+            - generic [ref=e151]:
+              - link "Donnerstag 04.06.2026" [ref=e152] [cursor=pointer]:
+                - /url: "?c=3395&d=1780549200"
+                - generic [ref=e153]: Donnerstag
+                - text: 04.06.2026
+              - text: 
+            - generic [ref=e155]:
+              - link "Freitag 05.06.2026" [ref=e156] [cursor=pointer]:
+                - /url: "?c=3395&d=1780635600"
+                - generic [ref=e157]: Freitag
+                - text: 05.06.2026
+              - text: 
+            - generic [ref=e159]:
+              - link "Samstag 06.06.2026" [ref=e160] [cursor=pointer]:
+                - /url: "?c=3395&d=1780722000"
+                - generic [ref=e161]: Samstag
+                - text: 06.06.2026
+              - text: 
+            - generic [ref=e163]:
+              - link "Sonntag 07.06.2026" [ref=e164] [cursor=pointer]:
+                - /url: "?c=3395&d=1780808400"
+                - generic [ref=e165]: Sonntag
+                - text: 07.06.2026
+              - text: 
+            - generic [ref=e166]:
+              - generic [ref=e167] [cursor=pointer]: 
+              - generic [ref=e168] [cursor=pointer]: 
+          - generic [ref=e169]:
+            - generic [ref=e171]: 07:00
+            - generic [ref=e173]: 07:30
+            - generic [ref=e175]: 08:00
+            - generic [ref=e177]: 08:30
+            - generic [ref=e179]: 09:00
+            - generic [ref=e181]: 09:30
+            - generic [ref=e183]: 10:00
+            - generic [ref=e185]: 10:30
+            - generic [ref=e187]: 11:00
+            - generic [ref=e189]: 11:30
+            - generic [ref=e191]: 12:00
+            - generic [ref=e193]: 12:30
+            - generic [ref=e195]: 13:00
+            - generic [ref=e197]: 13:30
+            - generic [ref=e199]: 14:00
+            - generic [ref=e201]: 14:30
+            - generic [ref=e203]: 15:00
+            - generic [ref=e205]: 15:30
+            - generic [ref=e207]: 16:00
+            - generic [ref=e209]: 16:30
+            - generic [ref=e211]: 17:00
+            - generic [ref=e213]: 17:30
+            - generic [ref=e215]: 18:00
+            - generic [ref=e217]: 18:30
+            - generic [ref=e219]: 19:00
+            - generic [ref=e221]: 19:30
+            - generic [ref=e223]: 20:00
+            - generic [ref=e225]: 20:30
+            - generic [ref=e227]: 21:00
+            - generic [ref=e229]: 21:30
+          - generic [ref=e231]:
+            - generic [ref=e232]:
+              - generic [ref=e234]:
+                - generic [ref=e235]: Platz 1
+                - generic [ref=e236]: Platz 2
+              - generic [ref=e301]:
+                - generic [ref=e302]: Platz 1
+                - generic [ref=e303]: Platz 2
+            - generic [ref=e304]:
+              - generic [ref=e306]:
+                - generic [ref=e307]: Platz 1
+                - generic [ref=e308]: Platz 2
+              - generic [ref=e373]:
+                - generic [ref=e374]: Platz 1
+                - generic [ref=e375]: Platz 2
+            - generic [ref=e376]:
+              - generic [ref=e378]:
+                - generic [ref=e379]: Platz 1
+                - generic [ref=e380]: Platz 2
+              - generic [ref=e445]:
+                - generic [ref=e446]: Platz 1
+                - generic [ref=e447]: Platz 2
+            - generic [ref=e448]:
+              - generic [ref=e450]:
+                - generic [ref=e451]: Platz 1
+                - generic [ref=e452]: Platz 2
+              - generic [ref=e517]:
+                - generic [ref=e518]: Platz 1
+                - generic [ref=e519]: Platz 2
+            - generic [ref=e520]:
+              - generic [ref=e522]:
+                - generic [ref=e523]: Platz 1
+                - generic [ref=e524]: Platz 2
+              - generic [ref=e589]:
+                - generic [ref=e590]: Platz 1
+                - generic [ref=e591]: Platz 2
+            - generic [ref=e592]:
+              - generic [ref=e594]:
+                - generic [ref=e595]: Platz 1
+                - generic [ref=e596]: Platz 2
+              - generic [ref=e597]:
+                - generic [ref=e598]:
+                  - generic [ref=e616] [cursor=pointer]: Leihschläger - Leihbälle
+                  - generic [ref=e621] [cursor=pointer]: Leihschläger - Leihbälle
+                  - generic [ref=e623] [cursor=pointer]: Leihschläger - Leihbälle
+                - generic [ref=e650] [cursor=pointer]: Leihschläger - Leihbälle
+              - generic [ref=e654]:
+                - generic [ref=e655]: Platz 1
+                - generic [ref=e656]: Platz 2
+            - generic [ref=e657]:
+              - generic [ref=e659]:
+                - generic [ref=e660]: Platz 1
+                - generic [ref=e661]: Platz 2
+              - generic [ref=e662]:
+                - generic [ref=e671] [cursor=pointer]: Leihschläger - Leihbälle
+                - generic [ref=e688]:
+                  - generic [ref=e696] [cursor=pointer]: Leihschläger - Leihbälle
+                  - generic [ref=e698] [cursor=pointer]: Leihschläger - Leihbälle
+              - generic [ref=e713]:
+                - generic [ref=e714]: Platz 1
+                - generic [ref=e715]: Platz 2
+          - generic [ref=e716]:
+            - generic [ref=e718]: 07:00
+            - generic [ref=e720]: 07:30
+            - generic [ref=e722]: 08:00
+            - generic [ref=e724]: 08:30
+            - generic [ref=e726]: 09:00
+            - generic [ref=e728]: 09:30
+            - generic [ref=e730]: 10:00
+            - generic [ref=e732]: 10:30
+            - generic [ref=e734]: 11:00
+            - generic [ref=e736]: 11:30
+            - generic [ref=e738]: 12:00
+            - generic [ref=e740]: 12:30
+            - generic [ref=e742]: 13:00
+            - generic [ref=e744]: 13:30
+            - generic [ref=e746]: 14:00
+            - generic [ref=e748]: 14:30
+            - generic [ref=e750]: 15:00
+            - generic [ref=e752]: 15:30
+            - generic [ref=e754]: 16:00
+            - generic [ref=e756]: 16:30
+            - generic [ref=e758]: 17:00
+            - generic [ref=e760]: 17:30
+            - generic [ref=e762]: 18:00
+            - generic [ref=e764]: 18:30
+            - generic [ref=e766]: 19:00
+            - generic [ref=e768]: 19:30
+            - generic [ref=e770]: 20:00
+            - generic [ref=e772]: 20:30
+            - generic [ref=e774]: 21:00
+            - generic [ref=e776]: 21:30
+        - generic [ref=e777]:
+          - heading "Preise/h" [level=3] [ref=e778]
+          - generic [ref=e779]: € 26
+        - generic [ref=e780]:
+          - heading "Farben" [level=3] [ref=e781]
+          - generic [ref=e782]: Abo
+          - generic [ref=e783]: Admin
+          - generic [ref=e784]: Trainer Padelbär
+          - generic [ref=e785]: Gastspieler
+          - generic [ref=e786]: Mitglied
+          - generic [ref=e787]: Fiktive Spieler
+          - generic [ref=e788]: Student / Senioren
+    - contentinfo [ref=e789]:
+      - generic [ref=e791]:
+        - generic [ref=e792]:
+          - text: Padelbär Deutschfeistritz |
+          - link "Impressum" [ref=e793] [cursor=pointer]:
+            - /url: /impressum
+          - text: "|"
+          - link "Datenschutz- und Nutzungsbedingungen" [ref=e794] [cursor=pointer]:
+            - /url: /datenschutz
+          - text: "| Cookie Policy"
+        - generic [ref=e795]:
+          - text: © 2012-2026
+          - link "eTennis" [ref=e796] [cursor=pointer]:
+            - /url: https://www.etennis.at
+  - text:                
+  - generic [ref=e798]:
+    - paragraph [ref=e799]:
+      - generic [ref=e800]:
+        - paragraph [ref=e801]:
+          - img "Padelbär Deutschfeistritz" [ref=e802]
+          - text: Padelbär Deutschfeistritz
+        - paragraph [ref=e803]: Dieses Portal verwendet Cookies für ein optimales Erlebnis und für die anonyme Analyse des Online-Verhaltens der Besucher. Diese Analyse soll helfen, das Informationsangebot besser zu gestalten.
+    - generic [ref=e804]:
+      - link "Einstellungen verwalten" [ref=e805] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e806]:
+        - button "Alle ablehnen" [ref=e807] [cursor=pointer]
+        - button "Alle akzeptieren" [ref=e808] [cursor=pointer]
