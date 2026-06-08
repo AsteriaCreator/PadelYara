@@ -43,3 +43,6 @@ Backend/*.json
 # Local productivity board (private, never pushed)
 TASKS.md
 dashboard.html
+
+# Playwright MCP snapshots
+.playwright-mcp/
