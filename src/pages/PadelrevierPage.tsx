@@ -169,14 +169,14 @@ export default function PadelrevierPage() {
           </p>
 
           <div
-            className="rounded-xl overflow-hidden border border-gray-800 mb-4"
-            style={{ height: "70vh", minHeight: 420 }}
+            className="padelrevier-map rounded-xl overflow-hidden mb-4"
+            style={{ height: "70vh", minHeight: 420, border: "1px solid rgba(212,245,60,0.25)" }}
           >
             <MapContainer
               center={[47.7, 14.3]}
               zoom={7}
               scrollWheelZoom
-              style={{ height: "100%", width: "100%", background: "#080810" }}
+              style={{ height: "100%", width: "100%", background: "#1a1c24" }}
             >
               <TileLayer
                 url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"

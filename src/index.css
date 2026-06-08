@@ -39,6 +39,12 @@ textarea {
   color: #9ca3af !important;
 }
 
+/* Lift the very-dark CartoDB dark_all tiles so the map reads as a dark-grey
+   map instead of blending into the near-black (#080810) page background. */
+.padelrevier-map .leaflet-tile {
+  filter: brightness(1.8) contrast(0.9);
+}
+
 /* Padelrevier cluster bubbles — brand lime instead of the default blue/green */
 .marker-cluster-small,
 .marker-cluster-medium,
