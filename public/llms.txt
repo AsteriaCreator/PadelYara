@@ -1,0 +1,30 @@
+# PadelYara
+
+PadelYara ist ein österreichischer Padel-Court-Aggregator. Die Website zeigt freie Padel-Courts in Wien und Österreich in Echtzeit – mit Verfügbarkeit, Preisen und direkten Buchungslinks.
+
+## Was PadelYara macht
+
+- Durchsucht mehrere Buchungsplattformen gleichzeitig (eTennis, Eversports, tennis04)
+- Zeigt freie Court-Slots für ein gewähltes Datum, Uhrzeit und einen Standort
+- Filtert nach Indoor/Outdoor und Verfügbarkeit
+- Zeigt Preise pro Slot (wo verfügbar)
+- Listet alle Padel-Anlagen in Österreich auf einer Karte (Padelrevier)
+- Listet aktuelle Padel-Turniere in Österreich (Turnierjagd)
+
+## Zielgruppe
+
+Padel-Spieler in Österreich, vorwiegend Wien und Umgebung.
+
+## Technologie
+
+- Frontend: React, Vite, Tailwind CSS (gehostet auf Vercel)
+- Backend: FastAPI, Python (gehostet auf Railway)
+- Datenbank: MongoDB Atlas
+
+## Live-URL
+
+https://padelyara.at
+
+## Kontakt
+
+cornelia.mayer@adventure-it.at

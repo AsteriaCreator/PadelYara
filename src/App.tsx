@@ -261,6 +261,45 @@ function FinderPage() {
     }
   }
 
+  // Inject structured data for search engines / AI assistants whenever results change
+  useEffect(() => {
+    const existing = document.getElementById("jsonld-venues")
+    if (results.length === 0) {
+      existing?.remove()
+      return
+    }
+    const items = results.map((v, i) => ({
+      "@type": "SportsActivityLocation",
+      "position": i + 1,
+      "name": v.name,
+      ...(v.public_url ? { "url": v.public_url } : {}),
+      ...(v.price_eur != null ? {
+        "offers": {
+          "@type": "Offer",
+          "price": v.price_eur,
+          "priceCurrency": "EUR",
+          "availability": v.status === "free" ? "https://schema.org/InStock" : "https://schema.org/SoldOut"
+        }
+      } : {}),
+      "amenityFeature": {
+        "@type": "LocationFeatureSpecification",
+        "name": v.court_type === "indoor" ? "Indoor Padel" : v.court_type === "outdoor" ? "Outdoor Padel" : "Indoor & Outdoor Padel",
+        "value": true
+      }
+    }))
+    const script = existing ?? document.createElement("script")
+    script.id = "jsonld-venues"
+    script.setAttribute("type", "application/ld+json")
+    script.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Padel Courts in Österreich",
+      "numberOfItems": results.length,
+      "itemListElement": items
+    })
+    if (!existing) document.head.appendChild(script)
+  }, [results])
+
   const filteredResults = results.filter((v) => {
     if (v.court_type === "indoor" && !courtFilter.indoor) return false
     if (v.court_type === "outdoor" && !courtFilter.outdoor) return false
