@@ -336,15 +336,71 @@ Worth investigating once tennis04 is live.
 ## ScrapeGraphAI — for venue onboarding, not availability scraping
 
 ScrapeGraphAI (LLM-powered scraper) is **not** useful for structured APIs like tennis04 or Eversports.
-It would add value in the **venue onboarding pipeline**:
+Those have clean JSON endpoints — use the dedicated checkers. ScrapeGraphAI earns its keep on
+**unstructured / one-off pages** where writing a custom parser isn't worth it:
 
-- `add_venue.py` currently uses regex to detect platform from HTML — ScrapeGraphAI could handle
-  arbitrary venue sites and return `{platform, booking_url, court_type, address}` without
-  platform-specific detection logic per site.
-- Phone-only venue websites: extract opening hours, phone, prices from unstructured HTML.
-- Venue discovery: structured extraction from directory pages.
+- **Venue onboarding** — point it at any venue site and get back
+  `{platform, booking_url, court_type, address, prices, opening_hours}` without writing a
+  platform-specific parser per site. Replaces the regex platform-detection in `add_venue.py` for
+  weird sites.
+- **Phone-only venues** — extract opening hours, phone, prices from messy HTML.
+- **Venue discovery** — structured extraction from directory / listing pages.
 
-Install: `pip install scrapegraphai`. Uses the Anthropic key already in `.env`.
+### Connected as a Claude MCP server (set up June 2026)
+
+It's wired into Claude Code as an MCP server at **user scope** (available in every project, not just
+PadelYara). Claude reaches for these tools automatically when a task needs scraping.
+
+- **Package:** `scrapegraph-mcp` (pip-installed on local Python 3.14, runs fine).
+- **Launch command:** `python -m scrapegraph_mcp.server`
+- **Config + API key location:** `C:\Users\Topfreisen Queen\.claude.json` (same file as the other
+  MCP servers). Env vars set there:
+  - `SGAI_API_KEY` — the ScrapeGraph key (from the dashboard, see below)
+  - `FASTMCP_SHOW_SERVER_BANNER=false` and `FASTMCP_CHECK_FOR_UPDATES=off` — **required**, without
+    them the server makes a slow pypi call on startup and Claude's health check reports
+    "Failed to connect."
+- **Re-register from scratch (if it ever breaks):**
+  ```
+  claude mcp remove scrapegraph -s user
+  claude mcp add --scope user scrapegraph \
+    -e SGAI_API_KEY=<key> \
+    -e FASTMCP_SHOW_SERVER_BANNER=false \
+    -e FASTMCP_CHECK_FOR_UPDATES=off \
+    -- python -m scrapegraph_mcp.server
+  ```
+  A "Failed to connect" right after registering is usually just the strict one-shot health check —
+  restart Claude Code and check `claude mcp get scrapegraph` (should say `✓ Connected`).
+
+### The 8 tools — when to use which
+
+Tools appear as `mcp__scrapegraph__<name>`.
+
+| Tool | Use when |
+|---|---|
+| **smartscraper** | The workhorse. Scrape **one page** + an AI prompt → structured data. "Get address, phone, prices, court types from this venue page." First choice for onboarding a single venue. |
+| **searchscraper** | You don't have the URL yet. Searches the web **and** scrapes the results in one call. "Find the booking page for padel club X." |
+| **markdownify** | Just want the page as clean markdown (no extraction). Good for feeding a page into Claude to read. |
+| **scrape** | Raw page scrape (less processing than markdownify). Rarely the right pick over the two above. |
+| **smartcrawler_initiate** + **smartcrawler_fetch_results** | Multi-page crawl across a whole site. Two-step: kick it off, then fetch results. Use for operator sites with many location subpages. |
+| **sitemap** | List every URL on a site. Use to discover all location pages before crawling. |
+| **agentic_scrapper** | Pages that need clicking/navigating (JS-heavy, behind interactions) before the data shows. Slowest + most credits — last resort. |
+
+Rule of thumb: **single known URL → smartscraper**; **don't have the URL → searchscraper**;
+**whole site → sitemap then smartcrawler**; **needs clicking → agentic_scrapper**.
+
+### Free tier & credits ⚠️
+
+- ScrapeGraph runs on a **credit system**. The free tier gives a limited starting balance — no card
+  needed to begin.
+- Each tool call spends credits; `agentic_scrapper` and `smartcrawler` cost the most.
+- **Check the balance:** https://dashboard.scrapegraphai.com — if scraping suddenly stops working,
+  you've most likely run out and need to top up.
+- The server also exposes usage info; Claude can report remaining credits on request.
+
+### Local Python alternative (no MCP)
+
+For scripts rather than Claude tools: `pip install scrapegraphai`, uses the Anthropic key already in
+`.env`. The MCP route above is preferred for interactive onboarding.
 
 ---
 
