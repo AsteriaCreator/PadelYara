@@ -346,61 +346,71 @@ Those have clean JSON endpoints — use the dedicated checkers. ScrapeGraphAI ea
 - **Phone-only venues** — extract opening hours, phone, prices from messy HTML.
 - **Venue discovery** — structured extraction from directory / listing pages.
 
-### Connected as a Claude MCP server (set up June 2026)
+### MCP server status (June 2026) — ⚠️ tools DO NOT WORK against the current API
 
-It's wired into Claude Code as an MCP server at **user scope** (available in every project, not just
-PadelYara). Claude reaches for these tools automatically when a task needs scraping.
+The `scrapegraph` MCP server is registered in Claude Code at user scope, **but its tools are
+non-functional** and should not be relied on. Why:
 
-- **Package:** `scrapegraph-mcp` (pip-installed on local Python 3.14, runs fine).
-- **Launch command:** `python -m scrapegraph_mcp.server`
-- **Config + API key location:** `C:\Users\Topfreisen Queen\.claude.json` (same file as the other
-  MCP servers). Env vars set there:
-  - `SGAI_API_KEY` — the ScrapeGraph key (from the dashboard, see below)
-  - `FASTMCP_SHOW_SERVER_BANNER=false` and `FASTMCP_CHECK_FOR_UPDATES=off` — **required**, without
-    them the server makes a slow pypi call on startup and Claude's health check reports
-    "Failed to connect."
-- **Re-register from scratch (if it ever breaks):**
-  ```
-  claude mcp remove scrapegraph -s user
-  claude mcp add --scope user scrapegraph \
-    -e SGAI_API_KEY=<key> \
-    -e FASTMCP_SHOW_SERVER_BANNER=false \
-    -e FASTMCP_CHECK_FOR_UPDATES=off \
-    -- python -m scrapegraph_mcp.server
-  ```
-  A "Failed to connect" right after registering is usually just the strict one-shot health check —
-  restart Claude Code and check `claude mcp get scrapegraph` (should say `✓ Connected`).
+- The published package (`scrapegraph-mcp` v1.0.1, the latest) is **hardcoded to the old
+  `https://api.scrapegraphai.com/v1` API**, which ScrapeGraph has **deprecated/decommissioned**.
+- Keys issued by the current dashboard (`dashboard.scrapegraphai.com`) only work on the **new
+  `https://v2-api.scrapegraphai.com/api` host**. So every MCP tool call returns
+  `403 {"error":"Invalid API key."}` — the key is fine, the package is calling a dead endpoint.
+- **`claude mcp get scrapegraph` showing `✓ Connected` is misleading** — it only confirms the local
+  server process boots. It never validates the key against ScrapeGraph. The first real API call is
+  what exposes the failure.
 
-### The 8 tools — when to use which
+The key itself is **valid** (verified June 2026): a `GET https://v2-api.scrapegraphai.com/api/credits`
+with header `SGAI-APIKEY: <key>` returns `{"remaining":500,"plan":"Free Plan",...}`. Key + the two
+FastMCP env vars (`FASTMCP_SHOW_SERVER_BANNER=false`, `FASTMCP_CHECK_FOR_UPDATES=off`) live in
+`C:\Users\Topfreisen Queen\.claude.json`.
 
-Tools appear as `mcp__scrapegraph__<name>`.
+### How to actually use ScrapeGraph today — call the v2 API directly
 
-| Tool | Use when |
-|---|---|
-| **smartscraper** | The workhorse. Scrape **one page** + an AI prompt → structured data. "Get address, phone, prices, court types from this venue page." First choice for onboarding a single venue. |
-| **searchscraper** | You don't have the URL yet. Searches the web **and** scrapes the results in one call. "Find the booking page for padel club X." |
-| **markdownify** | Just want the page as clean markdown (no extraction). Good for feeding a page into Claude to read. |
-| **scrape** | Raw page scrape (less processing than markdownify). Rarely the right pick over the two above. |
-| **smartcrawler_initiate** + **smartcrawler_fetch_results** | Multi-page crawl across a whole site. Two-step: kick it off, then fetch results. Use for operator sites with many location subpages. |
-| **sitemap** | List every URL on a site. Use to discover all location pages before crawling. |
-| **agentic_scrapper** | Pages that need clicking/navigating (JS-heavy, behind interactions) before the data shows. Slowest + most credits — last resort. |
+Until the package is updated upstream (or patched locally), skip the MCP tools and hit v2 with
+`httpx` + the key. Endpoints discovered to work:
 
-Rule of thumb: **single known URL → smartscraper**; **don't have the URL → searchscraper**;
-**whole site → sitemap then smartcrawler**; **needs clicking → agentic_scrapper**.
+| Purpose | v2 call | Notes |
+|---|---|---|
+| Credits | `GET /api/credits` | Free. Returns `{remaining, used, plan}`. |
+| Scrape one page | `POST /api/scrape` `{"url":..., "prompt":...}` | Returns **raw markdown** under `results.markdown.data`. The `prompt` is currently **ignored** (no LLM extraction) — you parse the markdown yourself. Add `"render_heavy_js": true` to attempt JS rendering. |
+| Web search + scrape | `POST /api/search` `{"query":..., "num_results":N}` | Body key is `query` (not `user_prompt`). Returns `results[]` of `{url,title,content}` pages. ~30 credits for 3 pages. |
+
+Base URL `https://v2-api.scrapegraphai.com`, auth header `SGAI-APIKEY: <key>`. The old v1 tool names
+(`smartscraper`, `searchscraper`, `markdownify`, `sitemap`, `agentic-scrapper`, `crawl`) and their
+request/response shapes from the package are **outdated** — do not assume they map 1:1 to v2.
 
 ### Free tier & credits ⚠️
 
-- ScrapeGraph runs on a **credit system**. The free tier gives a limited starting balance — no card
-  needed to begin.
-- Each tool call spends credits; `agentic_scrapper` and `smartcrawler` cost the most.
-- **Check the balance:** https://dashboard.scrapegraphai.com — if scraping suddenly stops working,
-  you've most likely run out and need to top up.
-- The server also exposes usage info; Claude can report remaining credits on request.
+- Credit system. Free plan started with **500 credits**. `scrape` is cheap (~3–5 credits);
+  `search` is ~30 credits per call (3 pages).
+- Check balance: `GET /api/credits` or https://dashboard.scrapegraphai.com.
+
+### Reality check — ScrapeGraph adds little for venue discovery (tested June 2026)
+
+Diffed ScrapeGraph output against the live `venues` collection (166 venues):
+
+- **padelclubs.net** (Austria) → 13 clubs, **0 new**.
+- **padel-test.de** (Austria section) → 8 venues, **all already in the DB**.
+- **Eversports city listings** → venue cards are JS/XHR-rendered; v2 `scrape` (even with
+  `render_heavy_js`) could not read them.
+
+**Conclusion:** public padel directories are *less* complete than this DB — they yield nothing new.
+Genuinely new venues only exist on the live booking platforms (Eversports/Playtomic, JS-rendered) and
+Google Maps/Places. For discovery, prefer the existing `discover_venues_vienna.py` (Google Places) or
+Playwright MCP on live platform pages — not ScrapeGraph.
+
+### If you want the MCP tools working
+
+Two options: (a) **patch** `scrapegraph_mcp/server.py` in site-packages to target
+`v2-api.scrapegraphai.com/api` with the new paths + response parsing — works, but it's a
+site-packages edit that's lost on reinstall/upgrade; or (b) **wait** for an upstream package release
+that supports v2. Neither is done yet.
 
 ### Local Python alternative (no MCP)
 
 For scripts rather than Claude tools: `pip install scrapegraphai`, uses the Anthropic key already in
-`.env`. The MCP route above is preferred for interactive onboarding.
+`.env`.
 
 ---
 
