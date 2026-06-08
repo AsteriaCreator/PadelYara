@@ -205,13 +205,20 @@ export default function PadelrevierPage() {
                           {courtTypeLabel(v.court_type)}
                         </p>
                         <div className="flex items-center gap-3" style={{ marginBottom: 8 }}>
+                          <button
+                            onClick={() => navigate(`/court/${v.id}`)}
+                            className={POPUP_LINK}
+                            style={{ color: "#d4f53c", background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                          >
+                            Details →
+                          </button>
                           {(v.public_url || v.booking_url) && (
                             <a
                               href={v.public_url || v.booking_url}
                               target="_blank"
                               rel="noopener noreferrer"
                               className={POPUP_LINK}
-                              style={{ color: "#d4f53c" }}
+                              style={{ color: "#9ca3af" }}
                             >
                               Zur Anlage →
                             </a>

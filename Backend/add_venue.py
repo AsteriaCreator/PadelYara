@@ -239,7 +239,17 @@ def lookup_place(query: str) -> dict:
     try:
         r = requests.post(
             "https://places.googleapis.com/v1/places:searchText",
-            json={"textQuery": query},
+            json={
+                "textQuery": query,
+                # Restrict results to Austria so we never pull a geographically
+                # wrong match from another country or a same-named place abroad.
+                "locationRestriction": {
+                    "rectangle": {
+                        "low":  {"latitude": 46.37, "longitude": 9.53},
+                        "high": {"latitude": 49.02, "longitude": 17.17},
+                    }
+                },
+            },
             headers={
                 "X-Goog-Api-Key": GOOGLE_API_KEY,
                 "X-Goog-FieldMask": "places.displayName,places.formattedAddress,places.location",

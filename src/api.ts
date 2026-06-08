@@ -1,4 +1,4 @@
-import type { SearchParams, SearchResponse, Venue, Status, Weather, MapVenue } from "./types"
+import type { SearchParams, SearchResponse, Venue, Status, Weather, MapVenue, VenueDetail } from "./types"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -183,6 +183,14 @@ export async function fetchVenues(): Promise<MapVenue[]> {
   if (!res.ok) throw new Error(`HTTP ${res.status}`)
   const data = await res.json()
   return (data.venues ?? []) as MapVenue[]
+}
+
+/** Full detail for one venue (Court-Detailseite). Returns null on 404. */
+export async function fetchVenueDetail(slug: string): Promise<VenueDetail | null> {
+  const res = await fetch(`${API_BASE}/api/venues/${encodeURIComponent(slug)}`)
+  if (res.status === 404) return null
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return await res.json() as VenueDetail
 }
 
 const ADMIN_TOKEN = import.meta.env.VITE_ADMIN_TOKEN ?? ""

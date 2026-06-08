@@ -1,0 +1,391 @@
+import { useEffect, useState } from "react"
+import { useParams, useNavigate, Link } from "react-router-dom"
+import { fetchVenueDetail } from "../api"
+import { trackBookingClick } from "../api"
+import type { VenueDetail, RelatedVenue } from "../types"
+
+const COURT_TYPE_LABEL: Record<string, string> = {
+  indoor: "Indoor",
+  outdoor: "Outdoor",
+  "indoor+outdoor": "Indoor & Outdoor",
+}
+const COURT_TYPE_ICON: Record<string, string> = {
+  indoor: "🏠",
+  outdoor: "🌳",
+  "indoor+outdoor": "🏠🌳",
+}
+
+// Build the "6 Courts · 4 Indoor, 2 Outdoor" line from whatever counts we have.
+function courtsText(d: VenueDetail): string | null {
+  if (d.num_courts == null) return null
+  const parts = [
+    d.indoor_count ? `${d.indoor_count} Indoor` : null,
+    d.outdoor_count ? `${d.outdoor_count} Outdoor` : null,
+  ].filter(Boolean)
+  const split = parts.length ? ` · ${parts.join(", ")}` : ""
+  return `${d.num_courts} Courts${split}`
+}
+
+// One amenity row. state: true = yes, false = no, null/undefined = unknown.
+function AmenityFact({
+  icon, label, state, yesText = "Vorhanden", noText = "Nicht vorhanden", sub, wide,
+}: {
+  icon: string
+  label: string
+  state?: boolean | null
+  yesText?: string
+  noText?: string
+  sub?: string | null
+  wide?: boolean
+}) {
+  const unknown = state == null
+  return (
+    <div className={`vd-fact${wide ? " vd-wide" : ""}${unknown ? " vd-unknown" : ""}`}>
+      <div className="vd-top">
+        <span className="vd-ic">{icon}</span>
+        <div className="vd-body">
+          <div className="vd-k">{label}</div>
+          <div className={`vd-v ${unknown ? "" : state ? "yes" : "no"}`}>
+            {unknown ? "Noch unbekannt" : state ? yesText : noText}
+          </div>
+          {!unknown && state && sub && <div className="vd-sub">{sub}</div>}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function RelatedCard({ v }: { v: RelatedVenue }) {
+  return (
+    <Link className="vd-vcard" to={`/court/${v.id}`}>
+      <div className="vd-n">{v.name}</div>
+      <div className="vd-m">
+        {v.city || v.operator}
+        {v.num_courts ? <> · <b>{v.num_courts} Courts</b></> : null}
+      </div>
+    </Link>
+  )
+}
+
+export default function CourtDetailPage() {
+  const { slug = "" } = useParams()
+  const navigate = useNavigate()
+  const [d, setD] = useState<VenueDetail | null>(null)
+  const [state, setState] = useState<"loading" | "ok" | "notfound" | "error">("loading")
+
+  // Community "Schreibs Yara" form (persisted in Phase 2 — local thank-you for now)
+  const [missing, setMissing] = useState("")
+  const [info, setInfo] = useState("")
+  const [sent, setSent] = useState(false)
+
+  useEffect(() => {
+    let alive = true
+    setState("loading")
+    fetchVenueDetail(slug)
+      .then((res) => {
+        if (!alive) return
+        if (!res) { setState("notfound"); return }
+        setD(res)
+        setState("ok")
+      })
+      .catch(() => alive && setState("error"))
+    return () => { alive = false }
+  }, [slug])
+
+  // SEO: page title + JSON-LD structured data for the venue
+  useEffect(() => {
+    if (!d) return
+    const prevTitle = document.title
+    document.title = `${d.name}${d.city ? " · " + d.city : ""} — PadelYara`
+
+    const ld = {
+      "@context": "https://schema.org",
+      "@type": "SportsActivityLocation",
+      "name": d.name,
+      "url": `https://padelyara.at/court/${d.id}`,
+      ...(d.address ? { "address": d.address } : {}),
+      ...(d.lat != null && d.lon != null
+        ? { "geo": { "@type": "GeoCoordinates", "latitude": d.lat, "longitude": d.lon } }
+        : {}),
+      "sport": "Padel",
+      ...(d.photos && d.photos.length ? { "image": d.photos } : {}),
+    }
+    const script = document.createElement("script")
+    script.id = "jsonld-venue-detail"
+    script.type = "application/ld+json"
+    script.textContent = JSON.stringify(ld)
+    document.getElementById("jsonld-venue-detail")?.remove()
+    document.head.appendChild(script)
+
+    return () => {
+      document.title = prevTitle
+      document.getElementById("jsonld-venue-detail")?.remove()
+    }
+  }, [d])
+
+  if (state === "loading") {
+    return <div className="py-16 text-center text-gray-600 text-sm">Lädt …</div>
+  }
+  if (state === "notfound") {
+    return (
+      <div className="py-16 text-center">
+        <p className="text-3xl mb-3">🎾</p>
+        <p className="text-white font-semibold mb-1">Diese Anlage kennt Yara nicht.</p>
+        <Link to="/padelrevier" className="text-sm" style={{ color: "#d4f53c" }}>← Zurück zur Karte</Link>
+      </div>
+    )
+  }
+  if (state === "error" || !d) {
+    return (
+      <div className="py-16 text-center">
+        <p className="text-white font-semibold mb-1">Da ist was schiefgelaufen.</p>
+        <button onClick={() => navigate(0)} className="text-sm" style={{ color: "#d4f53c" }}>Nochmal versuchen</button>
+      </div>
+    )
+  }
+
+  const photos = d.photos ?? []
+  const cText = courtsText(d)
+  const rel = d.related
+  const finderHref = `/?ort=${encodeURIComponent(d.city || d.name)}`
+
+  return (
+    <div className="vd">
+      <DetailStyles />
+
+      {/* Breadcrumb */}
+      <div className="vd-crumbs">
+        <Link to="/padelrevier">Padelrevier</Link> ›{" "}
+        {d.city ? <><Link to="/padelrevier">{d.city}</Link> › </> : null}
+        <span>{d.name}</span>
+      </div>
+
+      {/* Photo gallery — only when we actually have photos */}
+      {photos.length > 0 && (
+        <div className={`vd-gallery vd-g-${Math.min(photos.length, 4)}`}>
+          {photos.slice(0, 4).map((src, i) => (
+            <div key={i} className={`vd-ph${i === 0 ? " vd-main" : ""}`}>
+              <img src={src} alt={`${d.name} — Foto ${i + 1}`} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Hero */}
+      <h1 className="vd-h1">{d.name}</h1>
+      <div className="vd-addr">
+        {d.address ? <>📍 {d.address}</> : null}
+        {d.maps_url ? <> · <a href={d.maps_url} target="_blank" rel="noopener noreferrer">Auf Google Maps öffnen</a></> : null}
+        {d.website_url ? <> · <a href={d.website_url} target="_blank" rel="noopener noreferrer">🌐 Webseite des Anbieters</a></> : null}
+      </div>
+
+      <div className="vd-badges">
+        <span className="vd-badge lime">{COURT_TYPE_ICON[d.court_type]} {COURT_TYPE_LABEL[d.court_type] ?? d.court_type}</span>
+        {d.num_courts ? <span className="vd-badge">{d.num_courts} Courts</span> : null}
+        {d.platform ? <span className="vd-badge">{d.platform}</span> : null}
+      </div>
+
+      <Link className="vd-cta vd-primary" to={finderHref}>Freie Courts &amp; Preise prüfen →</Link>
+      {d.booking_url && (
+        <a
+          className="vd-cta-secondary"
+          href={d.booking_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => trackBookingClick(d.id, d.platform ?? "")}
+        >
+          Direkt {d.platform ? `auf ${d.platform} ` : ""}buchen ↗
+        </a>
+      )}
+
+      {/* Ausstattung */}
+      <div className="vd-sec-title">Ausstattung</div>
+      <div className="vd-facts">
+        {cText
+          ? <div className="vd-fact vd-wide"><div className="vd-top"><span className="vd-ic">🎾</span><div className="vd-body"><div className="vd-k">Courts</div><div className="vd-v">{cText}</div></div></div></div>
+          : <AmenityFact icon="🎾" label="Courts" state={null} wide />}
+
+        <AmenityFact icon="🧥" label="Umkleiden" state={d.changing_rooms} />
+        <AmenityFact icon="🚿" label="Duschen" state={d.showers} />
+        <AmenityFact
+          icon="🅿️" label="Parkplatz" state={d.parking}
+          yesText={d.parking_note || "Vorhanden"}
+        />
+        <AmenityFact
+          icon="🏓" label="Leihschläger" state={d.rental_rackets}
+          yesText="Ja" sub={d.rental_rackets_system}
+        />
+
+        {/* Gastronomie */}
+        {d.gastro == null ? (
+          <AmenityFact icon="🍽️" label="Gastronomie" state={null} wide />
+        ) : d.gastro === false ? (
+          <AmenityFact icon="🍽️" label="Gastronomie" state={false} wide />
+        ) : (
+          <div className="vd-fact vd-wide">
+            <div className="vd-top">
+              <span className="vd-ic">🍽️</span>
+              <div className="vd-body">
+                <div className="vd-k">Gastronomie</div>
+                <div className="vd-v yes">{d.gastro_name || "Vorhanden"}</div>
+              </div>
+            </div>
+            {(d.gastro_maps_url || d.gastro_menu_url || d.gastro_hours) && (
+              <div className="vd-links">
+                {d.gastro_maps_url && <a href={d.gastro_maps_url} target="_blank" rel="noopener noreferrer">📍 Google Maps</a>}
+                {d.gastro_menu_url && <a href={d.gastro_menu_url} target="_blank" rel="noopener noreferrer">📋 Speisekarte</a>}
+                {d.gastro_hours && <span className="vd-sub">🕒 {d.gastro_hours}</span>}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Besonderheiten — only when present */}
+        {d.extras && (
+          <div className="vd-fact vd-wide">
+            <div className="vd-top">
+              <span className="vd-ic">⭐</span>
+              <div className="vd-body"><div className="vd-k">Besonderheiten</div><div className="vd-v">{d.extras}</div></div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Community CTA */}
+      <div className="vd-community">
+        {sent ? (
+          <>
+            <h3>Hat Yara.</h3>
+            <p>Danke. Sie prüft's und ergänzt's.</p>
+          </>
+        ) : (
+          <>
+            <h3>Kennst du diese Anlage?</h3>
+            <p>Fehlt was oder stimmt was nicht? Du warst dort und weißt mehr — schreibs Yara, sie prüft's und ergänzt's.</p>
+            <form
+              className="vd-form"
+              onSubmit={(e) => { e.preventDefault(); if (info.trim()) setSent(true) }}
+            >
+              <select value={missing} onChange={(e) => setMissing(e.target.value)}>
+                <option value="">Was fehlt?</option>
+                <option>Anzahl Courts</option>
+                <option>Leihschläger-System</option>
+                <option>Gastronomie / Öffnungszeiten</option>
+                <option>Foto</option>
+                <option>Besonderheiten</option>
+                <option>Sonstiges</option>
+              </select>
+              <input type="text" placeholder="Deine Info …" value={info} onChange={(e) => setInfo(e.target.value)} />
+              <button type="submit">Abschicken</button>
+            </form>
+          </>
+        )}
+      </div>
+
+      {/* Cross-links */}
+      {rel && (rel.same_city.length > 0 || rel.same_operator.length > 0) && (
+        <div className="vd-block">
+          <div className="vd-sec-title">Andere Anlagen</div>
+          {rel.same_city.length > 0 && (
+            <>
+              <div className="vd-group-label">In <b>{rel.city}</b></div>
+              <div className="vd-links-grid" style={{ marginBottom: rel.same_operator.length ? 18 : 0 }}>
+                {rel.same_city.map((v) => <RelatedCard key={v.id} v={v} />)}
+              </div>
+            </>
+          )}
+          {rel.same_operator.length > 0 && (
+            <>
+              <div className="vd-group-label">Betreiber <b>{rel.operator}</b></div>
+              <div className="vd-links-grid">
+                {rel.same_operator.map((v) => <RelatedCard key={v.id} v={v} />)}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+// Scoped styles ported from the approved mockup (prefixed `vd-` to avoid clashes).
+function DetailStyles() {
+  return (
+    <style>{`
+      .vd { font-family: "Barlow Condensed", sans-serif; color: #f5f6f4; line-height: 1.25; }
+      .vd a { text-decoration: none; }
+
+      .vd-crumbs { font-size: 14px; color: #6b7280; margin-bottom: 14px; }
+      .vd-crumbs a { color: #6b7280; }
+      .vd-crumbs a:hover { color: #d4f53c; }
+      .vd-crumbs span { color: #9ca3af; }
+
+      .vd-gallery { display: grid; gap: 8px; border-radius: 16px; overflow: hidden; margin-bottom: 18px; grid-template-rows: 110px 110px; }
+      .vd-gallery.vd-g-1 { grid-template-columns: 1fr; grid-template-rows: 220px; }
+      .vd-gallery.vd-g-2 { grid-template-columns: 1fr 1fr; grid-template-rows: 180px; }
+      .vd-gallery.vd-g-3, .vd-gallery.vd-g-4 { grid-template-columns: 2fr 1fr 1fr; }
+      .vd-ph { background: linear-gradient(135deg, #1a1d27, #0d0f16); overflow: hidden; }
+      .vd-gallery.vd-g-3 .vd-main, .vd-gallery.vd-g-4 .vd-main { grid-row: 1 / 3; }
+      .vd-ph img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      .vd-h1 { font-size: 38px; font-weight: 700; letter-spacing: 0.3px; line-height: 1.02; margin-bottom: 6px; }
+      .vd-addr { font-size: 17px; color: #9ca3af; font-weight: 500; margin-bottom: 12px; }
+      .vd-addr a { color: #9ca3af; text-decoration: underline; text-underline-offset: 2px; }
+      .vd-addr a:hover { color: #d4f53c; }
+
+      .vd-badges { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
+      .vd-badge { font-size: 14px; font-weight: 600; letter-spacing: 0.3px; padding: 4px 11px; border-radius: 999px; border: 1px solid rgba(107,114,128,0.30); color: #9ca3af; display: inline-flex; align-items: center; gap: 5px; }
+      .vd-badge.lime { border-color: rgba(212,245,60,0.5); color: #d4f53c; background: rgba(212,245,60,0.07); }
+
+      .vd-cta { display: block; text-align: center; background: #d4f53c; color: #080810; font-size: 17px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 14px; border-radius: 11px; }
+      .vd-cta:hover { opacity: 0.92; }
+      .vd-cta.vd-primary { margin-bottom: 10px; }
+      .vd-cta-secondary { display: block; text-align: center; background: transparent; color: rgba(212,245,60,0.8); border: 1px solid rgba(212,245,60,0.35); font-size: 16px; font-weight: 600; letter-spacing: 0.6px; padding: 12px; border-radius: 11px; margin-bottom: 26px; }
+      .vd-cta-secondary:hover { border-color: rgba(212,245,60,0.7); color: #d4f53c; }
+
+      .vd-sec-title { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: #d4f53c; margin: 0 2px 12px; }
+
+      .vd-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 28px; }
+      .vd-fact { background: #11131a; border: 1px solid rgba(107,114,128,0.30); border-radius: 13px; padding: 13px 14px; }
+      .vd-fact .vd-top { display: flex; align-items: center; gap: 11px; }
+      .vd-ic { font-size: 21px; width: 26px; text-align: center; flex-shrink: 0; }
+      .vd-body { min-width: 0; }
+      .vd-k { font-size: 12px; letter-spacing: 0.8px; text-transform: uppercase; color: #6b7280; font-weight: 600; }
+      .vd-v { font-size: 18px; font-weight: 600; color: #f5f6f4; }
+      .vd-v.yes { color: #4ade80; }
+      .vd-v.no { color: #f87171; }
+      .vd-unknown { border-style: dashed; opacity: 0.7; }
+      .vd-unknown .vd-v { color: #6b7280; font-style: italic; font-weight: 500; }
+      .vd-sub { font-size: 13px; color: #9ca3af; font-weight: 500; }
+      .vd-fact.vd-wide { grid-column: 1 / -1; }
+      .vd-links { display: flex; flex-wrap: wrap; gap: 14px; padding-left: 37px; margin-top: 6px; align-items: center; }
+      .vd-links a { color: #d4f53c; font-size: 13px; font-weight: 600; }
+      .vd-links a:hover { text-decoration: underline; }
+
+      .vd-community { background: linear-gradient(135deg, rgba(212,245,60,0.06), rgba(212,245,60,0.02)); border: 1px dashed rgba(212,245,60,0.4); border-radius: 16px; padding: 20px; margin-bottom: 30px; }
+      .vd-community h3 { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+      .vd-community p { font-size: 16px; color: #9ca3af; font-weight: 500; margin-bottom: 14px; max-width: 52ch; }
+      .vd-form { display: flex; flex-wrap: wrap; gap: 9px; }
+      .vd-form input, .vd-form select { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #f5f6f4; border-radius: 9px; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: 500; outline: none; flex: 1; min-width: 160px; }
+      .vd-form input:focus, .vd-form select:focus { border-color: rgba(212,245,60,0.6); }
+      .vd-form button { background: #d4f53c; color: #080810; border: none; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: 9px; padding: 10px 20px; }
+
+      .vd-links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+      .vd-vcard { background: #11131a; border: 1px solid rgba(107,114,128,0.30); border-radius: 13px; padding: 13px 15px; display: block; transition: border-color 0.15s; }
+      .vd-vcard:hover { border-color: rgba(212,245,60,0.5); }
+      .vd-n { font-size: 19px; font-weight: 600; color: #f5f6f4; margin-bottom: 2px; }
+      .vd-m { font-size: 14px; color: #6b7280; font-weight: 500; }
+      .vd-m b { color: #d4f53c; font-weight: 600; }
+      .vd-group-label { font-size: 14px; color: #6b7280; font-weight: 500; margin: 0 2px 9px; }
+      .vd-group-label b { color: #9ca3af; font-weight: 600; }
+      .vd-block { margin-bottom: 30px; }
+
+      @media (max-width: 560px) {
+        .vd-h1 { font-size: 30px; }
+        .vd-facts { grid-template-columns: 1fr; }
+        .vd-gallery.vd-g-3, .vd-gallery.vd-g-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 100px 80px; }
+        .vd-gallery.vd-g-3 .vd-main, .vd-gallery.vd-g-4 .vd-main { grid-column: 1 / 3; grid-row: 1; }
+      }
+    `}</style>
+  )
+}

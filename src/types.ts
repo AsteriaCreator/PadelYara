@@ -52,6 +52,58 @@ export interface MapVenue {
   lon: number
 }
 
+// Compact venue shape for the "Andere Anlagen" cross-links on a detail page.
+export interface RelatedVenue {
+  id: string
+  name: string
+  operator?: string
+  city?: string
+  num_courts?: number | null
+}
+
+// Full venue payload for the /court/:slug detail page (GET /api/venues/:slug).
+// Amenity booleans are tri-state: true = yes, false = no, null/undefined = unknown
+// (the page then shows "Noch unbekannt" + the community prompt).
+export interface VenueDetail {
+  id: string
+  name: string
+  operator?: string
+  address?: string
+  bezirk?: string | null
+  region_label?: string | null
+  city?: string
+  court_type: "indoor" | "outdoor" | "indoor+outdoor"
+  platform?: string
+  booking_url?: string
+  public_url?: string
+  website_url?: string | null
+  maps_url?: string | null
+  lat?: number | null
+  lon?: number | null
+  num_courts?: number | null
+  indoor_count?: number | null
+  outdoor_count?: number | null
+  changing_rooms?: boolean | null
+  showers?: boolean | null
+  parking?: boolean | null
+  parking_note?: string | null
+  rental_rackets?: boolean | null
+  rental_rackets_system?: string | null
+  gastro?: boolean | null
+  gastro_name?: string | null
+  gastro_maps_url?: string | null
+  gastro_menu_url?: string | null
+  gastro_hours?: string | null
+  extras?: string | null
+  photos?: string[]
+  related?: {
+    operator: string
+    city: string
+    same_operator: RelatedVenue[]
+    same_city: RelatedVenue[]
+  }
+}
+
 export interface Tournament {
   source: string
   source_id: string

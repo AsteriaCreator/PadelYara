@@ -13,6 +13,7 @@ import LoadingCat from "./components/LoadingCat"
 import AboutSection from "./components/AboutSection"
 import TurnierjagerPage from "./pages/TurnierjagerPage"
 import PadelrevierPage from "./pages/PadelrevierPage"
+import CourtDetailPage from "./pages/CourtDetailPage"
 import DatenschutzPage from "./pages/DatenschutzPage"
 
 const SKELETON_COUNT = 5
@@ -677,6 +678,17 @@ export default function App() {
             </div>
             <Nav />
             <PadelrevierPage />
+          </div>
+        </div>
+      } />
+      <Route path="/court/:slug" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <CourtDetailPage />
           </div>
         </div>
       } />

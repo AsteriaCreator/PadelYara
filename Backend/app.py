@@ -58,7 +58,7 @@ from tennis04_checker import get_cached_entries as get_tennis04_entries
 from tennis04_checker import get_cached_statuses as get_tennis04_cached
 from eversports_service import check_eversports_slot
 from distance import filter_by_radius
-from venues_mongo import load_venues
+from venues_mongo import load_venues, get_venue_detail
 from weather import WeatherResult, get_weather_for_hour
 
 
@@ -1370,6 +1370,16 @@ async def get_venues():
         if v.get("lat") is not None and v.get("lon") is not None
     ]
     return {"venues": out, "count": len(out)}
+
+
+@app.get("/api/venues/{slug}")
+async def get_venue_detail_endpoint(slug: str):
+    """Full detail for one venue (Court-Detailseite). Amenities + cross-links to
+    same-operator / same-city venues. 404 if the slug is unknown or inactive."""
+    detail = await get_venue_detail(slug)
+    if not detail:
+        raise HTTPException(status_code=404, detail="Venue not found")
+    return detail
 
 
 @app.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])
