@@ -249,6 +249,29 @@ export default function CourtDetailPage() {
             </div>
           </div>
         )}
+
+        {/* Stornobedingungen — scraped text + "no guarantee" disclaimer + verify link */}
+        <div className={`vd-fact vd-wide${d.cancellation_policy ? "" : " vd-unknown"}`}>
+          <div className="vd-top">
+            <span className="vd-ic">📋</span>
+            <div className="vd-body">
+              <div className="vd-k">Stornobedingungen</div>
+              {d.cancellation_policy
+                ? <div className="vd-policy">{d.cancellation_policy}</div>
+                : <div className="vd-v">Noch unbekannt</div>}
+            </div>
+          </div>
+          <div className="vd-storno-foot">
+            {d.cancellation_policy && (
+              <span className="vd-disclaimer">⚠️ Ohne Gewähr — kann sich geändert haben.</span>
+            )}
+            {d.cancellation_url && (
+              <a href={d.cancellation_url} target="_blank" rel="noopener noreferrer">
+                Beim Anbieter prüfen →
+              </a>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Community CTA */}
@@ -264,7 +287,16 @@ export default function CourtDetailPage() {
             <p>Fehlt was oder stimmt was nicht? Du warst dort und weißt mehr — schreibs Yara, sie prüft's und ergänzt's.</p>
             <form
               className="vd-form"
-              onSubmit={(e) => { e.preventDefault(); if (info.trim()) setSent(true) }}
+              onSubmit={(e) => {
+                e.preventDefault()
+                if (!info.trim()) return
+                // No backend yet — route community input straight to Yara's inbox.
+                const subject = `PadelYara: Info zu ${d.name}`
+                const body = `Anlage: ${d.name} (${d.id})\nWas fehlt: ${missing || "—"}\nInfo: ${info}`
+                window.location.href =
+                  `mailto:cornelia.mayer@adventure-it.at?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+                setSent(true)
+              }}
             >
               <select value={missing} onChange={(e) => setMissing(e.target.value)}>
                 <option value="">Was fehlt?</option>
@@ -361,6 +393,12 @@ function DetailStyles() {
       .vd-links { display: flex; flex-wrap: wrap; gap: 14px; padding-left: 37px; margin-top: 6px; align-items: center; }
       .vd-links a { color: #d4f53c; font-size: 13px; font-weight: 600; }
       .vd-links a:hover { text-decoration: underline; }
+
+      .vd-policy { font-size: 15px; font-weight: 500; color: #d1d5db; line-height: 1.4; margin-top: 2px; }
+      .vd-storno-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding-left: 37px; margin-top: 8px; }
+      .vd-disclaimer { font-size: 12.5px; color: #c89a2a; font-weight: 500; }
+      .vd-storno-foot a { color: #d4f53c; font-size: 13px; font-weight: 600; }
+      .vd-storno-foot a:hover { text-decoration: underline; }
 
       .vd-community { background: linear-gradient(135deg, rgba(212,245,60,0.06), rgba(212,245,60,0.02)); border: 1px dashed rgba(212,245,60,0.4); border-radius: 16px; padding: 20px; margin-bottom: 30px; }
       .vd-community h3 { font-size: 24px; font-weight: 700; margin-bottom: 5px; }

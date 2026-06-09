@@ -136,9 +136,28 @@ def _detail(doc: dict) -> dict:
         "gastro_menu_url":       doc.get("gastro_menu_url") or None,
         "gastro_hours":          doc.get("gastro_hours") or None,
         "extras":                doc.get("extras") or None,
-        "photos":                list(doc.get("photos") or []),
+        # Cancellation policy (Stornobedingungen) — scraped venue text, shown
+        # with a "no guarantee / may be outdated" disclaimer on the frontend.
+        # cancellation_url always points somewhere the user can verify the
+        # current terms: the Eversports sportpage, else the booking page.
+        "cancellation_policy":   doc.get("cancellation_policy") or doc.get("cancellation_policy_scraped") or None,
+        "cancellation_url":      _cancellation_url(doc),
+        # Photo priority: own/community uploads (`photos`) win over scraped
+        # Eversports/eTennis links (`photos_scraped`), so a manual upload is
+        # never clobbered by the scraper.
+        "photos":                list(doc.get("photos") or doc.get("photos_scraped") or []),
     })
     return base
+
+
+def _cancellation_url(doc: dict) -> str | None:
+    """Where the user can check the venue's current cancellation terms."""
+    if doc.get("cancellation_url"):
+        return doc["cancellation_url"]
+    ev_slug = doc.get("eversports_slug")
+    if ev_slug:
+        return f"https://www.eversports.at/s/{ev_slug}"
+    return doc.get("booking_url") or doc.get("public_url") or None
 
 
 def _related_card(v: dict) -> dict:

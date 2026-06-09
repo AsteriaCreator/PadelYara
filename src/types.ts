@@ -95,6 +95,8 @@ export interface VenueDetail {
   gastro_menu_url?: string | null
   gastro_hours?: string | null
   extras?: string | null
+  cancellation_policy?: string | null
+  cancellation_url?: string | null
   photos?: string[]
   related?: {
     operator: string
