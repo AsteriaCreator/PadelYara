@@ -150,6 +150,20 @@ export default function PadelrevierPage() {
     return blOk && ctOk
   }), [venues, bundesland, courtType])
 
+  // Some places are stored as two records on identical coordinates (e.g. an
+  // indoor and an outdoor venue at the same address — Padeldome Alte Donau).
+  // Group the (already-filtered) venues by coordinate so each location is one
+  // pin; the popup then lists every venue at that spot.
+  const groups = useMemo(() => {
+    const m = new Map<string, MapVenue[]>()
+    for (const v of visible) {
+      const key = `${v.lat},${v.lon}`
+      const g = m.get(key)
+      if (g) g.push(v); else m.set(key, [v])
+    }
+    return [...m.values()]
+  }, [visible])
+
   // Jump into the Court Finder pre-filled to this venue. We pass the venue's
   // exact coords (lat/lon) so the Finder centers on it directly — bare PLZ
   // geocodes to a district centroid that can exclude the venue, and full street
@@ -238,64 +252,74 @@ export default function PadelrevierPage() {
                 spiderfyOnMaxZoom
                 showCoverageOnHover={false}
               >
-                {visible.map(v => (
-                  <Marker key={v.id} position={[v.lat, v.lon]} icon={pinIcon}>
-                    <Popup>
-                      <div style={{ minWidth: 200 }}>
-                        <p className="font-semibold" style={{ margin: "0 0 4px", color: "#fff" }}>
-                          {v.name}
-                        </p>
-                        <p className="text-xs" style={{ margin: "0 0 2px", color: "#9ca3af" }}>
-                          {v.address}
-                        </p>
-                        <p className="text-xs" style={{ margin: "0 0 10px", color: "#9ca3af" }}>
-                          {courtTypeLabel(v.court_type)}
-                        </p>
-                        <div className="flex items-center gap-3" style={{ marginBottom: 8 }}>
-                          <button
-                            onClick={() => navigate(`/court/${v.id}`)}
-                            className={POPUP_LINK}
-                            style={{ color: "#d4f53c", background: "none", border: "none", padding: 0, cursor: "pointer" }}
-                          >
-                            Details →
-                          </button>
-                          {(v.public_url || v.booking_url) && (
-                            <a
-                              href={v.public_url || v.booking_url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={POPUP_LINK}
-                              style={{ color: "#9ca3af" }}
+                {groups.map(group => {
+                  const head = group[0]
+                  return (
+                    <Marker key={head.id} position={[head.lat, head.lon]} icon={pinIcon}>
+                      <Popup>
+                        <div style={{ minWidth: 210 }}>
+                          <p className="text-xs" style={{ margin: "0 0 10px", color: "#9ca3af" }}>
+                            {head.address}
+                          </p>
+                          {group.map((v, i) => (
+                            <div
+                              key={v.id}
+                              style={i > 0 ? { marginTop: 10, paddingTop: 10, borderTop: "1px solid rgba(255,255,255,0.1)" } : undefined}
                             >
-                              Zur Anlage →
-                            </a>
-                          )}
+                              <p className="font-semibold" style={{ margin: "0 0 1px", color: "#fff" }}>
+                                {v.name}
+                              </p>
+                              <p className="text-xs" style={{ margin: "0 0 8px", color: "#9ca3af" }}>
+                                {courtTypeLabel(v.court_type)}
+                              </p>
+                              <div className="flex items-center gap-3" style={{ marginBottom: 8 }}>
+                                <button
+                                  onClick={() => navigate(`/court/${v.id}`)}
+                                  className={POPUP_LINK}
+                                  style={{ color: "#d4f53c", background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                                >
+                                  Details →
+                                </button>
+                                {(v.public_url || v.booking_url) && (
+                                  <a
+                                    href={v.public_url || v.booking_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={POPUP_LINK}
+                                    style={{ color: "#9ca3af" }}
+                                  >
+                                    Zur Anlage →
+                                  </a>
+                                )}
+                              </div>
+                              <button
+                                onClick={() => checkAvailability(v)}
+                                className="w-full rounded text-xs font-bold tracking-wide cursor-pointer"
+                                style={{
+                                  padding: "6px 10px",
+                                  background: "rgba(212,245,60,0.12)",
+                                  color: "#d4f53c",
+                                  border: "1px solid rgba(212,245,60,0.3)",
+                                }}
+                              >
+                                VERFÜGBARKEIT PRÜFEN
+                              </button>
+                            </div>
+                          ))}
                           <a
-                            href={`https://www.google.com/maps/dir/?api=1&destination=${v.lat},${v.lon}`}
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${head.lat},${head.lon}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={POPUP_LINK}
-                            style={{ color: "#9ca3af" }}
+                            style={{ display: "inline-block", marginTop: 10, color: "#9ca3af" }}
                           >
                             Route →
                           </a>
                         </div>
-                        <button
-                          onClick={() => checkAvailability(v)}
-                          className="w-full rounded text-xs font-bold tracking-wide cursor-pointer"
-                          style={{
-                            padding: "6px 10px",
-                            background: "rgba(212,245,60,0.12)",
-                            color: "#d4f53c",
-                            border: "1px solid rgba(212,245,60,0.3)",
-                          }}
-                        >
-                          VERFÜGBARKEIT PRÜFEN
-                        </button>
-                      </div>
-                    </Popup>
-                  </Marker>
-                ))}
+                      </Popup>
+                    </Marker>
+                  )
+                })}
               </MarkerClusterGroup>
             </MapContainer>
           </div>
