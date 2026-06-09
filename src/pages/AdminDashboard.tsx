@@ -79,6 +79,14 @@ function pageLabel(path: string): string {
   return clean
 }
 
+/** Convert a venue slug like "padelzone-traiskirchen" → "Padelzone Traiskirchen" */
+function slugToTitle(slug: string): string {
+  return (slug || "")
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join(" ")
+}
+
 function Tip({ text }: { text: string }) {
   return (
     <span className="tip-wrapper">
@@ -412,6 +420,43 @@ export default function AdminDashboard() {
           )}
         </div>
         <SuccessRate breakdown={breakdown} />
+
+        {/* Conversion funnel */}
+        {(() => {
+          const searches = breakdown["search_completed"] ?? 0
+          const bookings = breakdown["booking_clicked"] ?? 0
+          const rate = searches > 0 ? Math.round((bookings / searches) * 100) : null
+          const rate30 = insights && insights.searches_30d > 0
+            ? Math.round((insights.bookings_30d / insights.searches_30d) * 100)
+            : null
+          if (searches === 0) return null
+          return (
+            <div className="funnel-wrap">
+              <div className="funnel-title">
+                📊 Conversion Funnel — Today
+                <Tip text="How many searches lead to someone clicking 'Book'. This is your most important metric — it shows whether people actually find a court they want." />
+              </div>
+              <div className="funnel-steps">
+                <div className="funnel-step">
+                  <span className="funnel-emoji">🔍</span>
+                  <span className="funnel-label">Searches</span>
+                  <span className="funnel-num">{searches}</span>
+                  <div className="funnel-bar-bg"><div className="funnel-bar-fill" style={{ width: "100%", background: "#6366f1" }} /></div>
+                </div>
+                <div className="funnel-arrow">↓ {rate !== null ? `${rate}%` : "—"}</div>
+                <div className="funnel-step">
+                  <span className="funnel-emoji">📅</span>
+                  <span className="funnel-label">Booking Clicks</span>
+                  <span className="funnel-num">{bookings}</span>
+                  <div className="funnel-bar-bg"><div className="funnel-bar-fill" style={{ width: `${rate ?? 0}%`, background: "#22c55e" }} /></div>
+                </div>
+              </div>
+              {rate30 !== null && (
+                <p className="funnel-hint">30-day average: <strong>{rate30}%</strong> of searches lead to a booking click.</p>
+              )}
+            </div>
+          )
+        })()}
       </section>
 
       {/* What did people do? */}
@@ -564,6 +609,32 @@ export default function AdminDashboard() {
         </section>
       )}
 
+      {/* Most booked venues */}
+      {insights && insights.top_venues && insights.top_venues.length > 0 && (
+        <section className="admin-section">
+          <h2>🏆 Most Booked Venues <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">Which courts people click "Book" on most — useful for knowing who to approach for partnerships.</p>
+          <div className="event-breakdown">
+            {insights.top_venues.map(({ venue, count }: { venue: string; count: number }) => {
+              const max = insights.top_venues[0].count
+              const pct = Math.round((count / max) * 100)
+              return (
+                <div key={venue} className="event-row">
+                  <span className="event-emoji">🏆</span>
+                  <div className="event-info">
+                    <div className="event-name">{slugToTitle(venue)}</div>
+                    <div className="event-bar-bg">
+                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#22c55e" }} />
+                    </div>
+                  </div>
+                  <span className="event-count">{count}</span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Popular search locations */}
       {insights && insights.top_locations.length > 0 && (
         <section className="admin-section">
@@ -587,6 +658,38 @@ export default function AdminDashboard() {
               )
             })}
           </div>
+        </section>
+      )}
+
+      {/* Zero-results searches — demand without coverage */}
+      {insights && insights.zero_results_total > 0 && (
+        <section className="admin-section">
+          <h2>🚫 Searches With No Results <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">
+            <strong>{insights.zero_results_total}</strong> searches found zero courts — these locations have demand but no venue coverage yet. Good candidates for adding new venues.
+          </p>
+          {insights.zero_results_locations.filter((r: any) => r.location).length > 0 && (
+            <div className="event-breakdown">
+              {insights.zero_results_locations
+                .filter((r: any) => r.location && r.location !== "Ort nicht angegeben")
+                .map(({ location, count }: { location: string; count: number }) => {
+                  const max = insights.zero_results_locations[0].count
+                  const pct = Math.round((count / max) * 100)
+                  return (
+                    <div key={location} className="event-row">
+                      <span className="event-emoji">📍</span>
+                      <div className="event-info">
+                        <div className="event-name">{location}</div>
+                        <div className="event-bar-bg">
+                          <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#ef4444" }} />
+                        </div>
+                      </div>
+                      <span className="event-count">{count}</span>
+                    </div>
+                  )
+                })}
+            </div>
+          )}
         </section>
       )}
 

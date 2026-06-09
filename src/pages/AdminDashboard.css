@@ -258,6 +258,20 @@
 }
 .success-rate-label { font-size: 0.8rem; font-weight: 600; }
 
+/* Conversion funnel */
+.funnel-wrap { margin-top: 1.25rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 1rem 1.25rem; }
+.funnel-title { font-size: 0.85rem; font-weight: 600; color: #94a3b8; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+.funnel-steps { display: flex; flex-direction: column; gap: 0; }
+.funnel-step { display: grid; grid-template-columns: 1.5rem 7rem 3rem 1fr; align-items: center; gap: 0.75rem; }
+.funnel-emoji { font-size: 1.1rem; }
+.funnel-label { font-size: 0.82rem; color: #94a3b8; }
+.funnel-num { font-size: 1.1rem; font-weight: 700; color: #f8fafc; text-align: right; }
+.funnel-bar-bg { height: 8px; background: #1e293b; border-radius: 99px; overflow: hidden; }
+.funnel-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
+.funnel-arrow { font-size: 0.85rem; color: #64748b; padding: 0.25rem 0 0.25rem 2.25rem; font-weight: 600; }
+.funnel-hint { font-size: 0.78rem; color: #64748b; margin-top: 0.75rem; }
+.funnel-hint strong { color: #94a3b8; }
+
 /* Event breakdown */
 .event-breakdown { display: flex; flex-direction: column; gap: 0.85rem; }
 .event-row { display: flex; align-items: center; gap: 0.75rem; }

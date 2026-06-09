@@ -1205,17 +1205,50 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         {"$limit": 15},
     ]).to_list(15)
 
+    # Most booked venues (last 30 days)
+    venue_rows = await col.aggregate([
+        {"$match": {"event": "booking_clicked", "timestamp": {"$gte": thirty_days_ago}, **_excl}},
+        {"$group": {"_id": "$venue_id", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10},
+    ]).to_list(10)
+
+    # Zero-results searches by location (last 30 days) — demand without coverage
+    zero_rows = await col.aggregate([
+        {"$match": {"event": "search_completed", "timestamp": {"$gte": thirty_days_ago}, "results_count": 0, **_excl}},
+        {"$group": {"_id": "$search_location", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 10},
+    ]).to_list(10)
+    zero_total = await col.count_documents({
+        "event": "search_completed", "timestamp": {"$gte": thirty_days_ago},
+        "results_count": 0, **_excl,
+    })
+
+    # 30-day conversion: searches → booking clicks
+    searches_30d = await col.count_documents(
+        {"event": "search_completed", "timestamp": {"$gte": thirty_days_ago}, **_excl}
+    )
+    bookings_30d = await col.count_documents(
+        {"event": "booking_clicked", "timestamp": {"$gte": thirty_days_ago}, **_excl}
+    )
+
     # Fill all 24 hours with 0 for missing hours
     hours_map = {r["_id"]: r["count"] for r in hour_rows}
     hourly = [{"hour": h, "count": hours_map.get(h, 0)} for h in range(24)]
 
     return {
-        "top_locations":  [{"location": r["_id"], "count": r["count"]} for r in location_rows],
-        "hourly_searches": hourly,
-        "device_breakdown": {r["_id"]: r["count"] for r in device_rows},
-        "top_referrers":  [{"referrer": r["_id"], "count": r["count"]} for r in referrer_rows],
-        "top_pages":      [{"path": r["_id"], "count": r["count"]} for r in page_rows],
-        "top_countries":  [{"country": r["_id"], "count": r["count"]} for r in country_rows],
+        "top_locations":         [{"location": r["_id"], "count": r["count"]} for r in location_rows],
+        "hourly_searches":       hourly,
+        "device_breakdown":      {r["_id"]: r["count"] for r in device_rows},
+        "top_referrers":         [{"referrer": r["_id"], "count": r["count"]} for r in referrer_rows],
+        "top_pages":             [{"path": r["_id"], "count": r["count"]} for r in page_rows],
+        "top_countries":         [{"country": r["_id"], "count": r["count"]} for r in country_rows],
+        "top_venues":            [{"venue": r["_id"], "count": r["count"]} for r in venue_rows],
+        "zero_results_locations":[{"location": r["_id"] or "Ort nicht angegeben", "count": r["count"]} for r in zero_rows],
+        "zero_results_total":    zero_total,
+        "searches_30d":          searches_30d,
+        "bookings_30d":          bookings_30d,
     }
 
 
