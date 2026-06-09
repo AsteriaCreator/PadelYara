@@ -178,6 +178,7 @@ async def main() -> None:
                 for f in ("changing_rooms", "showers", "reception", "parking", "rental_rackets", "gastro"):
                     if v.get(f) is None and d[f] is not None:
                         upd[f] = d[f]
+                        upd[f"field_sources.{f}"] = "padeldome_scraper"
                 for note in ("reception_note", "parking_note"):
                     if not v.get(note) and d[note]:
                         upd[note] = d[note]

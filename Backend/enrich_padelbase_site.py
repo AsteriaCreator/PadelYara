@@ -151,8 +151,10 @@ async def main() -> None:
                 for f in ("changing_rooms", "showers", "rental_rackets", "gastro", "parking"):
                     if v.get(f) is None and d[f]:
                         upd[f] = True
+                        upd[f"field_sources.{f}"] = "padelbase_scraper"
                 if v.get("reception") is None and d["reception"] is not None:
                     upd["reception"] = d["reception"]
+                    upd["field_sources.reception"] = "padelbase_scraper"
                 await db["venues"].update_one({"_id": v["_id"]}, {"$set": upd})
                 updated += 1
 

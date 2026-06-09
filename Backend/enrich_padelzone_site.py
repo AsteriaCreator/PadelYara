@@ -204,13 +204,17 @@ async def main() -> None:
                     upd["cancellation_policy_scraped"] = d["cancellation"]
                     if not v.get("cancellation_url"):
                         upd["cancellation_url"] = d["website_url"]  # specific location page
-                # amenities + courts: set only where currently unset (never clobber)
+                # amenities + courts: set only where currently unset (never clobber a
+                # manual or community value). Also tag the source so provenance is
+                # queryable: field_sources.{field} = "padelzone_scraper".
                 for field in ("changing_rooms", "showers", "rental_rackets", "gastro", "parking"):
                     if v.get(field) is None and d[field]:
                         upd[field] = True
+                        upd[f"field_sources.{field}"] = "padelzone_scraper"
                 # reception is tri-state: False ('Zutrittscode') is a real signal.
                 if v.get("reception") is None and d["reception"] is not None:
                     upd["reception"] = d["reception"]
+                    upd["field_sources.reception"] = "padelzone_scraper"
                 # Only fill num_courts when there's no authoritative Eversports
                 # court list AND none stored — the booking-platform count wins.
                 if not v.get("courts") and v.get("num_courts") is None and d["num_courts"]:
