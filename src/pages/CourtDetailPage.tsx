@@ -208,6 +208,10 @@ export default function CourtDetailPage() {
         <AmenityFact icon="🧥" label="Umkleiden" state={d.changing_rooms} />
         <AmenityFact icon="🚿" label="Duschen" state={d.showers} />
         <AmenityFact
+          icon="🛎️" label="Rezeption" state={d.reception}
+          yesText="Vorhanden" noText="Self-Service" sub={d.reception_note}
+        />
+        <AmenityFact
           icon="🅿️" label="Parkplatz" state={d.parking}
           yesText={d.parking_note || "Vorhanden"}
         />

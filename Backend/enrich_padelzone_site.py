@@ -140,6 +140,10 @@ async def scrape_location(session: AsyncSession, slug: str) -> dict:
         "outdoor_count":  outdoor,
         "changing_rooms": _has(low, "umkleide"),
         "showers":        _has(low, "dusche"),
+        # Padelzone is keyless self-service (access code in the booking mail).
+        "reception":      (True if _has(low, "rezeption", "empfang")
+                           else False if _has(low, "zutrittscode", "self-service", "selbstbedienung")
+                           else None),
         "rental_rackets": _has(low, "racketverleih", "leihschläger", "schlägerverleih", "racket verleih"),
         # Real gastro only — a Snackautomat (vending machine) is NOT Gastronomie.
         "gastro":         bool(re.search(r"\b(gastronomie|gastro\s?bereich|bistro|restaurant|caf[eé])\b", low)),
@@ -148,8 +152,8 @@ async def scrape_location(session: AsyncSession, slug: str) -> dict:
     }
 
 
-def _b(v: bool) -> str:
-    return "✓" if v else "·"
+def _b(v) -> str:
+    return "✓" if v is True else "✗" if v is False else "·"
 
 
 async def main() -> None:
@@ -186,7 +190,7 @@ async def main() -> None:
             courts = f"{d['num_courts']}c" if d["num_courts"] else "?c"
             print(f"  {vid}  →  {slug}")
             print(f"      courts={courts} (in {d['indoor_count']}/out {d['outdoor_count']}) | "
-                  f"Umkl {_b(d['changing_rooms'])} Dusch {_b(d['showers'])} "
+                  f"Umkl {_b(d['changing_rooms'])} Dusch {_b(d['showers'])} Rezeption {_b(d['reception'])} "
                   f"Verleih {_b(d['rental_rackets'])} Gastro {_b(d['gastro'])} Park {_b(d['parking'])} | "
                   f"{len(d['photos'])} photos | storno {'✓' if d['cancellation'] else '·'}")
             if d["cancellation"]:
@@ -202,6 +206,9 @@ async def main() -> None:
                 for field in ("changing_rooms", "showers", "rental_rackets", "gastro", "parking"):
                     if v.get(field) is None and d[field]:
                         upd[field] = True
+                # reception is tri-state: False ('Zutrittscode') is a real signal.
+                if v.get("reception") is None and d["reception"] is not None:
+                    upd["reception"] = d["reception"]
                 # Only fill num_courts when there's no authoritative Eversports
                 # court list AND none stored — the booking-platform count wins.
                 if not v.get("courts") and v.get("num_courts") is None and d["num_courts"]:

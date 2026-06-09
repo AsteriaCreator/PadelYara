@@ -127,6 +127,8 @@ def _detail(doc: dict) -> dict:
         "outdoor_count":         outdoor,
         "changing_rooms":        doc.get("changing_rooms"),
         "showers":               doc.get("showers"),
+        "reception":             doc.get("reception"),
+        "reception_note":        doc.get("reception_note") or None,
         "parking":               doc.get("parking"),
         "parking_note":          doc.get("parking_note") or None,
         "rental_rackets":        doc.get("rental_rackets"),

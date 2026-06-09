@@ -85,6 +85,8 @@ export interface VenueDetail {
   outdoor_count?: number | null
   changing_rooms?: boolean | null
   showers?: boolean | null
+  reception?: boolean | null
+  reception_note?: string | null
   parking?: boolean | null
   parking_note?: string | null
   rental_rackets?: boolean | null
