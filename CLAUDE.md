@@ -13,7 +13,8 @@ Both servers must be up or the frontend's API calls fail (the page looks broken)
 Both are registered in `.claude/launch.json` (`frontend`, `backend`). The preview tool does **not** auto-start the backend — start it too. Local Python is 3.14: `pip install -r Backend/requirements.txt` fails (`greenlet` has no 3.14 wheel); the backend needs `apscheduler` installed or startup crashes.
 
 ## Tooling — prefer MCPs over manual work
-- **Local UI verification:** use the **Claude Preview** tools (`preview_*`) — they start the dev server, read console/network/server logs, and screenshot. Never ask the user to check the browser manually.
+- **Local UI verification:** use the **Claude Preview** tools (`preview_*`) — they start the dev server, read console/network/server logs, and inspect the DOM. Never ask the user to check the browser manually.
+  - **Screenshots: don't use `preview_screenshot` locally — it hangs/times out on Windows.** The preview renders in a hidden Electron window; Windows freezes the renderer when the window is hidden (rAF stops, no frame to capture). To *see* the local site, drive **Playwright MCP** against `http://localhost:5173` (`browser_navigate` + `browser_take_screenshot`) — verified working. The other `preview_*` tools (console/network/DOM/eval) are fine.
 - **Live / deployed URLs** (padelyara.at, Vercel previews): use the **Playwright** MCP to navigate and inspect.
 - **Database:** query MongoDB via the **MongoDB MCP**, not throwaway Python scripts.
 - **Deploys & logs:** use the **Railway** and **Vercel** MCPs to check deploy status and runtime logs instead of guessing.
