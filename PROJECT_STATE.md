@@ -47,7 +47,7 @@ Backend (single Railway service):
 - Docker deploy on Railway
 - Playwright installed in container
 - Handles both eTennis scraping and Eversports scraping in-process
-- CSV venue source (`Padel_Venues.csv`)
+- MongoDB venue source — db `padel_checker`, collection `venues`, loaded via `venues_mongo.py` (`load_venues()`)
 - Open-Meteo weather integration
 - `RAILWAY_ENVIRONMENT` env var gates Eversports (auto-set by Railway)
 
@@ -60,7 +60,7 @@ Availability Providers:
 ## Important Infrastructure
 
 Frontend (Vercel):
-https://neo-padel-checker.vercel.app
+https://www.padelyara.at  (primary live domain; padelyara.com redirects here. Also reachable at neo-padel-checker.vercel.app)
 
 Backend (Railway):
 https://neo-padel-checker-backend-production.up.railway.app
@@ -200,11 +200,9 @@ Unless explicitly requested.
 ## Venue Data Source
 
 Current production source:
-- `Padel_Venues.csv`
+- MongoDB Atlas — db `padel_checker`, collection `venues`, loaded at startup via `venues_mongo.py` `load_venues()` (cached 5 min).
 
-CSV loading is currently stable and sufficient.
-
-MongoDB migration remains optional and is not currently required for production stability.
+`Padel_Venues.csv` is retained only as a backup/seed for the one-time `Backend/migrate_csv_to_mongo.py`; it is **no longer read by the running app**.
 
 ---
 
@@ -220,7 +218,7 @@ Eversports checker (in-process):
 - `Backend/eversports_service.py`
 
 Venue source:
-- `Padel_Venues.csv`
+- MongoDB `venues` collection, via `Backend/venues_mongo.py`
 
 Railway config:
 - `railway.json`
