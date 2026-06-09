@@ -49,8 +49,14 @@ def slugify(name: str) -> str:
     return s or "venue"
 
 
-def _is_missing(v: dict) -> bool:
-    return not v.get("id")  # missing, None, or ""
+_HASH_ID = re.compile(r"^[0-9a-f]{8}$")
+
+
+def _needs_slug(v: dict) -> bool:
+    """Missing id, or an ugly 8-char hash id from the discovery scraper
+    (e.g. '24ddd88c') — both get a real name-based slug for SEO."""
+    vid = v.get("id")
+    return (not vid) or bool(_HASH_ID.fullmatch(str(vid)))
 
 
 async def main() -> None:
@@ -64,11 +70,14 @@ async def main() -> None:
     db = AsyncIOMotorClient(uri)["padel_checker"]
 
     all_venues = [v async for v in db["venues"].find({})]
-    taken = {v["id"] for v in all_venues if v.get("id")}
-    missing = [v for v in all_venues if _is_missing(v) and v.get("active", False)]
+    missing = [v for v in all_venues if _needs_slug(v) and v.get("active", False)]
+    # `taken` excludes the hash ids we're about to replace, so a new slug can't
+    # collide with an id that's going away.
+    replacing = {id(v) for v in missing}
+    taken = {v["id"] for v in all_venues if v.get("id") and id(v) not in replacing}
 
-    print(f"{len(all_venues)} venues total; {len(taken)} already have an id; "
-          f"{len(missing)} active venues need one.\n")
+    print(f"{len(all_venues)} venues total; {len(missing)} active venues need a slug "
+          f"(missing or hash id).\n")
 
     assignments: list[tuple] = []
     for v in missing:
