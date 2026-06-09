@@ -59,6 +59,25 @@ function meta(event: string) {
   return EVENT_META[event] ?? { label: event, emoji: "📊", color: "#94a3b8", tip: event }
 }
 
+// Friendly names for raw URL paths shown in "Most-Viewed Pages".
+function pageLabel(path: string): string {
+  const clean = (path || "/").split("?")[0].replace(/\/+$/, "") || "/"
+  const STATIC: Record<string, string> = {
+    "/": "Startseite (Platzsuche)",
+    "/turnierjaeger": "Turnierjäger",
+    "/padelrevier": "Padelrevier (Karte)",
+    "/about": "Über uns",
+    "/datenschutz": "Datenschutz",
+    "/admin": "Admin-Dashboard",
+  }
+  if (STATIC[clean]) return STATIC[clean]
+  if (clean.startsWith("/court/")) {
+    const slug = clean.slice("/court/".length)
+    return `Court-Detail: ${slug}`
+  }
+  return clean
+}
+
 function Tip({ text }: { text: string }) {
   return (
     <span className="tip-wrapper">
@@ -494,7 +513,7 @@ export default function AdminDashboard() {
                 <div key={path} className="event-row">
                   <span className="event-emoji">📄</span>
                   <div className="event-info">
-                    <div className="event-name">{path}</div>
+                    <div className="event-name" title={path}>{pageLabel(path)}</div>
                     <div className="event-bar-bg">
                       <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
                     </div>
