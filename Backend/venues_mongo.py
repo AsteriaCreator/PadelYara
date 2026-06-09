@@ -162,13 +162,16 @@ def _detail(doc: dict) -> dict:
 
 
 def _cancellation_url(doc: dict) -> str | None:
-    """Where the user can check the venue's current cancellation terms."""
+    """Where the user can check the venue's current cancellation terms.
+    Priority: explicit stored URL > Eversports sportpage (storno is inline there) >
+    venue marketing website > booking calendar (last resort — not ideal but beats nothing)."""
     if doc.get("cancellation_url"):
         return doc["cancellation_url"]
     ev_slug = doc.get("eversports_slug")
     if ev_slug:
         return f"https://www.eversports.at/s/{ev_slug}"
-    return doc.get("booking_url") or doc.get("public_url") or None
+    # website_url is a far better reference than the raw booking calendar
+    return doc.get("website_url") or doc.get("booking_url") or doc.get("public_url") or None
 
 
 def _related_card(v: dict) -> dict:

@@ -188,6 +188,14 @@ async def main() -> None:
                     update["photos_scraped"] = photos
                 if cancellation:
                     update["cancellation_policy_scraped"] = cancellation
+                    # Also store the direct URL so the frontend links straight to the
+                    # storno text rather than a generic venue/booking page.
+                    if not v.get("cancellation_url"):
+                        if plat == "eversports" and v.get("eversports_slug"):
+                            update["cancellation_url"] = f"https://www.eversports.at/s/{v['eversports_slug']}"
+                        elif plat in ("etennis",):
+                            # eTennis storno text lives in the booking/reservation page.
+                            update["cancellation_url"] = v.get("booking_url") or v.get("public_url", "")
                 if update:
                     await db["venues"].update_one({"_id": v["_id"]}, {"$set": update})
                     updated += 1

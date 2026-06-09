@@ -146,6 +146,8 @@ async def main() -> None:
                 upd = {"website_url": f"{BASE}/standort/{slug}"}
                 if d["cancellation"]:
                     upd["cancellation_policy_scraped"] = d["cancellation"]
+                    if not v.get("cancellation_url"):
+                        upd["cancellation_url"] = f"{BASE}/standort/{slug}"  # specific /standort/ page
                 for f in ("changing_rooms", "showers", "rental_rackets", "gastro", "parking"):
                     if v.get(f) is None and d[f]:
                         upd[f] = True

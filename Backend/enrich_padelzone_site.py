@@ -202,6 +202,8 @@ async def main() -> None:
                     upd["photos_scraped"] = d["photos"]
                 if d["cancellation"]:
                     upd["cancellation_policy_scraped"] = d["cancellation"]
+                    if not v.get("cancellation_url"):
+                        upd["cancellation_url"] = d["website_url"]  # specific location page
                 # amenities + courts: set only where currently unset (never clobber)
                 for field in ("changing_rooms", "showers", "rental_rackets", "gastro", "parking"):
                     if v.get(field) is None and d[field]:
