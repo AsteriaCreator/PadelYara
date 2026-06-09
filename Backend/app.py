@@ -917,9 +917,11 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     hours_elapsed = int((now - today_start).total_seconds())
     yesterday_window_end = yesterday_start + timedelta(seconds=hours_elapsed)
 
-    # Base filter: optionally exclude one or more owner sessions (comma-separated)
+    # Base filter: optionally exclude one or more owner sessions (comma-separated).
+    # None is included in $nin so it replaces the {"$ne": None} checks below
+    # without accidentally letting null-session events leak back in.
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
-    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    _excl: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
     async def _session_count(start, end):
         pipeline = [
@@ -1013,7 +1015,7 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     dates = [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]
 
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
-    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    _excl: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
     event_rows = await col.aggregate([
         {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": {"$ne": "pageview"}, **_excl}},
@@ -1074,7 +1076,7 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
     now = datetime.now(timezone.utc)
     thirty_days_ago = now - timedelta(days=30)
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
-    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    _excl: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
     base_match = {
         "event": "search_completed",
         "timestamp": {"$gte": thirty_days_ago},
