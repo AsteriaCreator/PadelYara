@@ -3,6 +3,7 @@ import copy
 import json
 import os
 import secrets
+import sys
 from pathlib import Path
 
 # Load .env from the Backend directory (local dev only; production uses real env vars)
@@ -113,7 +114,7 @@ def _call_eversports_service(
             venue_url=booking_url,
             venue_id=venue_id,
         )
-        result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=18)
+        result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=18)
         status = result.get("status", "platform_check_required")
         slots_count = result.get("slots_count")
         _log(status)
@@ -137,6 +138,37 @@ def _call_eversports_service(
 
 
 _main_loop: asyncio.AbstractEventLoop | None = None
+
+# Dedicated event loop for Eversports' Playwright (Chromium) calls.
+# Eversports launches a browser subprocess. On Windows, `uvicorn --reload` runs the
+# app under a SelectorEventLoop (uvicorn forces this for its subprocess reloader), and
+# a SelectorEventLoop cannot spawn subprocesses -> NotImplementedError. On Linux
+# (Railway/production) the main loop spawns subprocesses fine, so we keep using it.
+# Prices use curl_cffi (no subprocess), so they stay on the main loop regardless.
+_ev_loop: asyncio.AbstractEventLoop | None = None
+_ev_loop_lock = threading.Lock()
+
+
+def _get_ev_loop() -> asyncio.AbstractEventLoop:
+    """Loop to run Eversports Playwright coroutines on.
+
+    Linux/prod: the main loop (unchanged). Windows: a dedicated ProactorEventLoop in
+    its own thread, since uvicorn's --reload main loop is a SelectorEventLoop that
+    can't launch the Chromium subprocess. All Eversports browser work shares this one
+    loop, so the lazily-created `_cf_lock` stays bound to a single loop.
+    """
+    global _ev_loop
+    if sys.platform != "win32":
+        return _main_loop
+    if _ev_loop is None:
+        with _ev_loop_lock:
+            if _ev_loop is None:
+                loop = asyncio.ProactorEventLoop()
+                threading.Thread(
+                    target=loop.run_forever, daemon=True, name="eversports-pw-loop"
+                ).start()
+                _ev_loop = loop
+    return _ev_loop
 
 
 def _run_tournament_scrape(is_seed: bool = False) -> None:
@@ -682,7 +714,7 @@ async def search(
                     venue_id=result["venue_id"],
                 )
                 try:
-                    ev_result = asyncio.run_coroutine_threadsafe(coro, _main_loop).result(timeout=30)
+                    ev_result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=30)
                     return ev_result
                 except Exception as exc:
                     print(json.dumps({"event": "eversports_thread_error", "venue_id": result["venue_id"], "error": str(exc)}))
