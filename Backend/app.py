@@ -23,7 +23,7 @@ from zoneinfo import ZoneInfo
 
 import httpx
 import uvicorn
-from fastapi import Depends, FastAPI, HTTPException, Query, Request, Security
+from fastapi import BackgroundTasks, Depends, FastAPI, HTTPException, Query, Request, Security
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import APIKeyHeader
@@ -535,6 +535,45 @@ def _device_type(user_agent: str) -> str:
     if any(k in ua for k in ("ipad", "tablet")):
         return "tablet"
     return "desktop"
+
+
+# ── IP → country (DSGVO-safe: only country name stored, never the IP) ─────────
+
+_geo_cache: dict[str, str | None] = {}  # simple in-process cache, reset on restart
+
+
+def _client_ip(request: Request) -> str | None:
+    """Best-effort real client IP from X-Forwarded-For (Railway sets this)."""
+    forwarded = request.headers.get("x-forwarded-for", "")
+    if forwarded:
+        return forwarded.split(",")[0].strip()
+    if request.client:
+        return request.client.host
+    return None
+
+
+async def _get_country(ip: str | None) -> str | None:
+    """Resolve an IP to a country name via ip-api.com (free, server-side only).
+    Returns None for private/loopback IPs and on any error. Result is cached."""
+    if not ip:
+        return None
+    if ip in ("127.0.0.1", "::1", "localhost") or ip.startswith("192.168.") or ip.startswith("10."):
+        return None
+    if ip in _geo_cache:
+        return _geo_cache[ip]
+    try:
+        async with httpx.AsyncClient(timeout=3.0) as client:
+            r = await client.get(
+                f"http://ip-api.com/json/{ip}",
+                params={"fields": "status,country"},
+            )
+            data = r.json()
+            country = data.get("country") if data.get("status") == "success" else None
+    except Exception:
+        country = None
+    if len(_geo_cache) < 5000:  # cap memory; restart clears it anyway
+        _geo_cache[ip] = country
+    return country
 
 
 @app.get("/health")
@@ -1158,6 +1197,14 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         {"$limit": 10},
     ]).to_list(10)
 
+    # Top countries by pageviews (last 30 days)
+    country_rows = await col.aggregate([
+        {"$match": {**pv_match, "country": {"$nin": [None, ""]}}},
+        {"$group": {"_id": "$country", "count": {"$sum": 1}}},
+        {"$sort": {"count": -1}},
+        {"$limit": 15},
+    ]).to_list(15)
+
     # Fill all 24 hours with 0 for missing hours
     hours_map = {r["_id"]: r["count"] for r in hour_rows}
     hourly = [{"hour": h, "count": hours_map.get(h, 0)} for h in range(24)]
@@ -1168,6 +1215,7 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         "device_breakdown": {r["_id"]: r["count"] for r in device_rows},
         "top_referrers":  [{"referrer": r["_id"], "count": r["count"]} for r in referrer_rows],
         "top_pages":      [{"path": r["_id"], "count": r["count"]} for r in page_rows],
+        "top_countries":  [{"country": r["_id"], "count": r["count"]} for r in country_rows],
     }
 
 
@@ -1191,15 +1239,24 @@ class PageviewBody(BaseModel):
 
 
 @app.post("/api/pageview")
-async def pageview(body: PageviewBody, request: Request):
-    """Record a first-party, cookieless page view. Fire-and-forget from the frontend."""
+async def pageview(body: PageviewBody, request: Request, background_tasks: BackgroundTasks):
+    """Record a first-party, cookieless page view. Fire-and-forget from the frontend.
+    Country is resolved from the client IP in a background task so it never delays the response.
+    Only the country name is stored — the IP is never persisted (DSGVO-safe)."""
     device_type = _device_type(request.headers.get("user-agent", ""))
-    track_pageview(
-        path=body.path,
-        referrer_host=body.referrer_host,
-        device_type=device_type,
-        session_id=body.session_id,
-    )
+    ip = _client_ip(request)
+
+    async def _track():
+        country = await _get_country(ip)
+        track_pageview(
+            path=body.path,
+            referrer_host=body.referrer_host,
+            device_type=device_type,
+            country=country,
+            session_id=body.session_id,
+        )
+
+    background_tasks.add_task(_track)
     return {"ok": True}
 
 

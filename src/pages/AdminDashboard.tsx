@@ -538,6 +538,32 @@ export default function AdminDashboard() {
         </section>
       )}
 
+      {/* Geography */}
+      {insights && insights.top_countries && insights.top_countries.length > 0 && (
+        <section className="admin-section">
+          <h2>🌍 Where Are Visitors From? <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">Countries your visitors come from, based on their IP address. Only the country name is stored — no IPs.</p>
+          <div className="event-breakdown">
+            {insights.top_countries.map(({ country, count }: { country: string; count: number }) => {
+              const max = insights.top_countries[0].count
+              const pct = Math.round((count / max) * 100)
+              return (
+                <div key={country} className="event-row">
+                  <span className="event-emoji">🌍</span>
+                  <div className="event-info">
+                    <div className="event-name">{country}</div>
+                    <div className="event-bar-bg">
+                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
+                    </div>
+                  </div>
+                  <span className="event-count">{count}</span>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+      )}
+
       {/* Popular search locations */}
       {insights && insights.top_locations.length > 0 && (
         <section className="admin-section">

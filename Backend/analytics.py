@@ -202,13 +202,15 @@ def track_pageview(
     path: str,
     referrer_host: str | None = None,
     device_type: str | None = None,
+    country: str | None = None,
     session_id: str | None = None,
 ) -> None:
     """
     Fired on each client-side page view (first-party, cookieless).
 
     DSGVO note: no IPs, no full URLs, no query strings. Only the internal
-    route path and the bare hostname of an external referrer are stored.
+    route path, the bare hostname of an external referrer, and the country
+    name (derived server-side from IP, never stored) are stored.
 
     Stored:
       path           — internal route path, e.g. "/" or "/turnierjaeger"
@@ -217,6 +219,8 @@ def track_pageview(
                        visit had no referrer, or None for internal (same-site)
                        navigations
       device_type    — "mobile" | "tablet" | "desktop" (UA category only)
+      country        — country name resolved server-side from client IP
+                       (e.g. "Austria", "Germany"); IP itself is never stored
       session_id     — anonymous random UUID from the browser (localStorage)
     """
     _enqueue({
@@ -224,6 +228,7 @@ def track_pageview(
         "path":          path,
         "referrer_host": referrer_host,
         "device_type":   device_type,
+        "country":       country,
         "session_id":    session_id,
     })
 
