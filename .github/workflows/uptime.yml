@@ -1,12 +1,13 @@
 name: Uptime check
 
-# Pings the live backend every 10 minutes and exercises the real Courtfinder
-# search path — not just /health. If anything returns non-200 (or search comes
-# back empty), the job FAILS and GitHub emails the repo owner.
+# Pings the live site every 10 minutes and exercises the real Courtfinder
+# search path — not just /health. Covers BOTH the Vercel frontend
+# (padelyara.at) and the Railway backend. If anything returns non-200 (or
+# search comes back empty), the job FAILS and GitHub emails the repo owner.
 #
 # Why this exists: on 2026-06-09 a removed `region` field made /api/search 500
 # for ~17 hours. /health stayed 200 the whole time, so a homepage ping would
-# have missed it. This check hits the endpoint a real user hits.
+# have missed it. This check hits the endpoints a real user hits.
 #
 # Repo is public → Actions minutes are free, so a 10-minute cadence costs nothing.
 # To change how often it runs, edit the cron below (every 5 min is the practical
@@ -21,30 +22,39 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Hit backend endpoints
+      - name: Hit frontend + backend
         run: |
-          BASE="https://neo-padel-checker-backend-production.up.railway.app"
+          FRONTEND="https://www.padelyara.at"
+          BACKEND="https://neo-padel-checker-backend-production.up.railway.app"
           fail=0
 
+          # check <label> <full-url>  → asserts HTTP 200, saves body to /tmp/body
           check() {
-            local label="$1" path="$2"
-            code=$(curl -s -m 30 -o /tmp/body -w "%{http_code}" "$BASE$path")
+            local label="$1" url="$2"
+            code=$(curl -s -m 30 -o /tmp/body -w "%{http_code}" "$url")
             if [ "$code" != "200" ]; then
-              echo "::error::$label -> HTTP $code (expected 200)  [$path]"
+              echo "::error::$label -> HTTP $code (expected 200)  [$url]"
               fail=1
             else
               echo "OK  $label -> 200"
             fi
           }
 
-          # Tomorrow's date so the slot time is never in the past.
-          DATE=$(date -u -d "+1 day" +%F)
+          # ── Frontend (Vercel) ──────────────────────────────────────────────
+          check "frontend" "$FRONTEND/"
+          # A 200 from a blank/error deploy would still be broken — confirm it's
+          # really our app by looking for the title in the static HTML shell.
+          if ! grep -qi "PadelYara" /tmp/body; then
+            echo "::error::frontend returned 200 but the page content looks wrong (no 'PadelYara')"
+            fail=1
+          fi
 
-          check "health"      "/health"
-          check "venue list"  "/api/venues"
+          # ── Backend (Railway) ──────────────────────────────────────────────
+          DATE=$(date -u -d "+1 day" +%F)   # tomorrow, so the slot time is never past
+          check "health"      "$BACKEND/health"
+          check "venue list"  "$BACKEND/api/venues"
           # The exact user-facing search that broke — Mattersburg, 20 km, padel+tennis.
-          check "court search" "/api/search?date=${DATE}&time=10:00&court_type=all&lat=47.7234746&lon=16.3774428&radius=20"
-
+          check "court search" "$BACKEND/api/search?date=${DATE}&time=10:00&court_type=all&lat=47.7234746&lon=16.3774428&radius=20"
           # A 200 with no venues means the search path is silently broken.
           if ! grep -q '"venue_id"' /tmp/body; then
             echo "::error::court search returned 200 but no venues in the response body"
@@ -52,7 +62,7 @@ jobs:
           fi
 
           if [ "$fail" -ne 0 ]; then
-            echo "Uptime check FAILED — padelyara.at backend is not healthy."
+            echo "Uptime check FAILED — padelyara.at is not fully healthy."
             exit 1
           fi
           echo "All checks passed."
