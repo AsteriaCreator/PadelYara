@@ -64,6 +64,7 @@ function pageLabel(path: string): string {
   const clean = (path || "/").split("?")[0].replace(/\/+$/, "") || "/"
   const STATIC: Record<string, string> = {
     "/": "Startseite (Platzsuche)",
+    "/courtfinder": "Startseite (Platzsuche)",
     "/turnierjaeger": "Turnierjäger",
     "/padelrevier": "Padelrevier (Karte)",
     "/about": "Über uns",
@@ -506,22 +507,33 @@ export default function AdminDashboard() {
           <h2>📑 Most-Viewed Pages <span className="period-hint">last 30 days</span></h2>
           <p className="section-hint">Which pages get opened the most.</p>
           <div className="event-breakdown">
-            {insights.top_pages.map(({ path, count }: { path: string; count: number }) => {
-              const max = insights.top_pages[0].count
-              const pct = Math.round((count / max) * 100)
-              return (
-                <div key={path} className="event-row">
-                  <span className="event-emoji">📄</span>
-                  <div className="event-info">
-                    <div className="event-name" title={path}>{pageLabel(path)}</div>
-                    <div className="event-bar-bg">
-                      <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
+            {(() => {
+              // Merge paths that resolve to the same page (e.g. / and /courtfinder).
+              const byLabel = new Map<string, { label: string; count: number; paths: string[] }>()
+              for (const { path, count } of insights.top_pages as { path: string; count: number }[]) {
+                const label = pageLabel(path)
+                const cur = byLabel.get(label)
+                if (cur) { cur.count += count; cur.paths.push(path) }
+                else byLabel.set(label, { label, count, paths: [path] })
+              }
+              const rows = [...byLabel.values()].sort((a, b) => b.count - a.count)
+              const max = rows[0]?.count ?? 1
+              return rows.map(({ label, count, paths }) => {
+                const pct = Math.round((count / max) * 100)
+                return (
+                  <div key={label} className="event-row">
+                    <span className="event-emoji">📄</span>
+                    <div className="event-info">
+                      <div className="event-name" title={paths.join(", ")}>{label}</div>
+                      <div className="event-bar-bg">
+                        <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
+                      </div>
                     </div>
+                    <span className="event-count">{count}</span>
                   </div>
-                  <span className="event-count">{count}</span>
-                </div>
-              )
-            })}
+                )
+              })
+            })()}
           </div>
         </section>
       )}

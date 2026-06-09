@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/courtfinder", "destination": "/", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
