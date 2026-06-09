@@ -42,6 +42,12 @@ _EXCLUDE = (
     "facebook.com", "instagram.com", "tiktok.com", "linkedin.com", "youtube.com",
     "twitter.com", "x.com", "wikipedia.org", "tripadvisor.", "padelyara.at",
     "openstreetmap.", "bing.com", "duckduckgo.com", "apple.com", "spotify.",
+    # padel directories / booking-aggregator SaaS / business listings (not a venue's own site)
+    "trustpadel.com", "padello.de", "padellands.com", "findglocal.com", "citiesapps.com",
+    "bestpadel.com", "padeldir.com", "courtbrain.com", "caldaprojects.at",
+    "lebenswertes-weinviertel.at", "chayns.site", "cylex.", "padelmaps.org",
+    "padelscout.io", "steiermark.com", "salzburgtennis.at", "wildkogelresorts.at",
+    "haus-der-zaehne.de", "findglocal.com",
 )
 _EXCLUDE_PREFIX = ("buchung-", "buchung.", "reservierung.", "booking.")
 
