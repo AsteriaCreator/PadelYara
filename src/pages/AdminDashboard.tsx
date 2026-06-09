@@ -1,6 +1,31 @@
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, getMySessionIds, registerThisDevice, removeMySession, getSessionId } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
 import "./AdminDashboard.css"
+
+function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
+  const [value, setValue] = useState("")
+  return (
+    <div className="admin-state admin-login">
+      <form
+        className="admin-login-form"
+        onSubmit={(e) => { e.preventDefault(); if (value.trim()) onSubmit(value.trim()) }}
+      >
+        <h2>🔒 Admin-Login</h2>
+        <p>Gib dein Admin-Geheimnis ein, um die Analytics zu sehen.</p>
+        <input
+          type="password"
+          autoFocus
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Admin-Token"
+          aria-label="Admin-Token"
+        />
+        <button type="submit" disabled={!value.trim()}>Anmelden</button>
+        {error && <p className="admin-login-error">{error}</p>}
+      </form>
+    </div>
+  )
+}
 
 // Plain-English labels for each event type
 const EVENT_META: Record<string, { label: string; emoji: string; color: string; tip: string }> = {
@@ -154,6 +179,8 @@ export default function AdminDashboard() {
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
+  const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
+  const [loginError, setLoginError] = useState<string | null>(null)
   const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
@@ -162,15 +189,39 @@ export default function AdminDashboard() {
   const excludeIds = excludeEnabled ? mySessions : []
 
   useEffect(() => {
+    if (!authed) return
     // Don't wipe data — keep old values visible while refreshing so the
     // toggle button stays on screen and the user sees the change immediately.
     setError(null)
     setRefreshing(true)
     Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
       .then(([s, t, i, sc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number) })
-      .catch((e: Error) => setError(e.message))
+      .catch((e: Error) => {
+        // Wrong / expired token → drop it and show the login form again.
+        if (e.message === "Unauthorized") {
+          clearAdminToken()
+          setAuthed(false)
+          setLoginError("Falsches Geheimnis — bitte nochmal versuchen.")
+        } else {
+          setError(e.message)
+        }
+      })
       .finally(() => setRefreshing(false))
-  }, [excludeEnabled, mySessions])
+  }, [authed, excludeEnabled, mySessions])
+
+  function handleLogin(token: string) {
+    setAdminToken(token)
+    setLoginError(null)
+    setAuthed(true)
+  }
+
+  function handleLogout() {
+    clearAdminToken()
+    setSummary(null)
+    setTrends(null)
+    setInsights(null)
+    setAuthed(false)
+  }
 
   function toggleExclude() {
     // If no devices registered yet, add this one first then enable
@@ -201,10 +252,12 @@ export default function AdminDashboard() {
   const thisDeviceId = getSessionId()
   const thisDeviceRegistered = mySessions.includes(thisDeviceId)
 
+  if (!authed)
+    return <AdminLogin onSubmit={handleLogin} error={loginError} />
   if (error)
     return (
       <div className="admin-state admin-error">
-        🔒 Access denied — make sure <code>VITE_ADMIN_TOKEN</code> is set correctly in your <code>.env.local</code> file.
+        ⚠️ Konnte die Analytics nicht laden: {error}
       </div>
     )
   if (!summary || !trends)
@@ -236,6 +289,9 @@ export default function AdminDashboard() {
       <header className="admin-header">
         <div className="admin-header-row">
           <h1>📊 Analytics Dashboard</h1>
+          <button type="button" className="admin-logout-btn" onClick={handleLogout} title="Abmelden">
+            🔓 Abmelden
+          </button>
           <div className="exclude-me-toggle">
             <button
               type="button"

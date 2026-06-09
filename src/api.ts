@@ -193,10 +193,32 @@ export async function fetchVenueDetail(slug: string): Promise<VenueDetail | null
   return await res.json() as VenueDetail
 }
 
-const ADMIN_TOKEN = import.meta.env.VITE_ADMIN_TOKEN ?? ""
+// The admin secret is NEVER baked into the frontend bundle. The admin types it
+// into the dashboard login once; it lives only in this browser's localStorage.
+const ADMIN_TOKEN_KEY = "admin_token"
+
+export function getAdminToken(): string {
+  try {
+    return localStorage.getItem(ADMIN_TOKEN_KEY) ?? ""
+  } catch {
+    return ""
+  }
+}
+
+export function setAdminToken(token: string): void {
+  try { localStorage.setItem(ADMIN_TOKEN_KEY, token) } catch { /* */ }
+}
+
+export function clearAdminToken(): void {
+  try { localStorage.removeItem(ADMIN_TOKEN_KEY) } catch { /* */ }
+}
+
+export function hasAdminToken(): boolean {
+  return getAdminToken().length > 0
+}
 
 function adminHeaders() {
-  return { "Content-Type": "application/json", "X-Admin-Token": ADMIN_TOKEN }
+  return { "Content-Type": "application/json", "X-Admin-Token": getAdminToken() }
 }
 
 const MY_SESSIONS_KEY = "analytics_my_sessions"

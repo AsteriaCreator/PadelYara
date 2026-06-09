@@ -2,6 +2,7 @@ import asyncio
 import copy
 import json
 import os
+import secrets
 from pathlib import Path
 
 # Load .env from the Backend directory (local dev only; production uses real env vars)
@@ -893,7 +894,8 @@ _ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
 _api_key_header = APIKeyHeader(name="X-Admin-Token", auto_error=False)
 
 async def _require_admin(token: str = Security(_api_key_header)):
-    if not _ADMIN_TOKEN or token != _ADMIN_TOKEN:
+    # Constant-time compare to avoid leaking the token via timing.
+    if not _ADMIN_TOKEN or not token or not secrets.compare_digest(token, _ADMIN_TOKEN):
         raise HTTPException(status_code=403, detail="Forbidden")
 
 
