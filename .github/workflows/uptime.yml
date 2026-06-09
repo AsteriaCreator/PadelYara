@@ -1,0 +1,58 @@
+name: Uptime check
+
+# Pings the live backend every 10 minutes and exercises the real Courtfinder
+# search path — not just /health. If anything returns non-200 (or search comes
+# back empty), the job FAILS and GitHub emails the repo owner.
+#
+# Why this exists: on 2026-06-09 a removed `region` field made /api/search 500
+# for ~17 hours. /health stayed 200 the whole time, so a homepage ping would
+# have missed it. This check hits the endpoint a real user hits.
+#
+# Repo is public → Actions minutes are free, so a 10-minute cadence costs nothing.
+# To change how often it runs, edit the cron below (every 5 min is the practical
+# floor; GitHub may delay scheduled runs under load).
+
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch: {}   # lets you run it manually from the Actions tab
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hit backend endpoints
+        run: |
+          BASE="https://neo-padel-checker-backend-production.up.railway.app"
+          fail=0
+
+          check() {
+            local label="$1" path="$2"
+            code=$(curl -s -m 30 -o /tmp/body -w "%{http_code}" "$BASE$path")
+            if [ "$code" != "200" ]; then
+              echo "::error::$label -> HTTP $code (expected 200)  [$path]"
+              fail=1
+            else
+              echo "OK  $label -> 200"
+            fi
+          }
+
+          # Tomorrow's date so the slot time is never in the past.
+          DATE=$(date -u -d "+1 day" +%F)
+
+          check "health"      "/health"
+          check "venue list"  "/api/venues"
+          # The exact user-facing search that broke — Mattersburg, 20 km, padel+tennis.
+          check "court search" "/api/search?date=${DATE}&time=10:00&court_type=all&lat=47.7234746&lon=16.3774428&radius=20"
+
+          # A 200 with no venues means the search path is silently broken.
+          if ! grep -q '"venue_id"' /tmp/body; then
+            echo "::error::court search returned 200 but no venues in the response body"
+            fail=1
+          fi
+
+          if [ "$fail" -ne 0 ]; then
+            echo "Uptime check FAILED — padelyara.at backend is not healthy."
+            exit 1
+          fi
+          echo "All checks passed."
