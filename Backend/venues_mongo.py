@@ -103,6 +103,14 @@ def _court_counts(doc: dict) -> tuple[int | None, int | None, int | None]:
     total = doc.get("num_courts")
     if total is None and courts:
         total = len(courts)
+    # eTennis venues store num_courts but no per-court types — use the venue's
+    # overall court_type for the indoor/outdoor split when we have no breakdown.
+    if total and not indoor and not outdoor:
+        ct = doc.get("court_type", "")
+        if ct == "indoor":
+            indoor = total
+        elif ct == "outdoor":
+            outdoor = total
     return (int(total) if total is not None else None, indoor or None, outdoor or None)
 
 
