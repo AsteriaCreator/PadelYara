@@ -101,6 +101,23 @@ New dependency: `apscheduler==3.11.2`
 
 ---
 
+## Padelrevier (live)
+
+Standalone subpage at `/padelrevier` — interactive map of all active venues.
+
+Architecture:
+- API: `GET /api/venues` (in `app.py`) — lightweight, **no scraping**; returns each active venue's static info (name, address, lat/lon, court_type, platform, booking_url, public_url) from the cached `load_venues()`. Requires `address` in `venues_mongo._normalize()`.
+- Frontend: `src/pages/PadelrevierPage.tsx` — Leaflet + react-leaflet + react-leaflet-cluster on dark CartoDB `dark_all` tiles. Tiles are brightened via a CSS filter (`src/index.css` → `.padelrevier-map .leaflet-tile`) because the raw tiles are near-black against the dark page.
+- Austria highlight + region zoom: bundled simplified GeoJSON `src/data/austria-bundeslaender.json` (9 Bundesländer). Drawn as a lime overlay so Austria stands out; clicking a Bundesland chip fits the map to that region (`MapFit` + `useMap`).
+- Filters: Bundesland (derived from the address PLZ via `src/data/plz.ts`, since the `region` field is empty on most venues) + Platztyp (Indoor/Outdoor; a both-courts venue matches either).
+- Pin popup: name, address, court type, a "Details →" link to the venue detail page, "Zur Anlage", a Google Maps "Route" link, and "Verfügbarkeit prüfen" → jumps to the Court Finder pre-filled to that venue (passes the venue's lat/lon to bypass geocoding + a `venueId` that highlights/scrolls the matching result row).
+
+New deps: `leaflet`, `react-leaflet`, `react-leaflet-cluster`, `@types/leaflet`. The MarkerCluster CSS imports (`MarkerCluster.css` + `MarkerCluster.Default.css`) are mandatory — without them the cluster bubbles render with no size and are invisible.
+
+Note: this map page defeats automated screenshot capture (the Leaflet renderer stays busy, so Preview/Chrome CDP both time out) — verify map visuals on a real foreground browser; computed-style/JS-eval checks still work.
+
+---
+
 ## Current Scraper Strategy
 
 ### eTennis
