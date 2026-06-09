@@ -354,7 +354,7 @@ def _build_venue_result(venue: dict) -> VenueResult:
         "venue_id":            venue["id"],
         "name":                venue["name"],
         "operator":            venue.get("operator", ""),
-        "region":              venue["region"],
+        "region":              venue.get("region", ""),
         "court_type":          venue["court_type"],
         "platform":            venue["platform"],
         "priority":            venue["priority"],
@@ -1372,6 +1372,7 @@ async def get_venues():
     return {"venues": out, "count": len(out)}
 
 
+# Court-Detailseite endpoint (venue detail by slug)
 @app.get("/api/venues/{slug}")
 async def get_venue_detail_endpoint(slug: str):
     """Full detail for one venue (Court-Detailseite). Amenities + cross-links to
