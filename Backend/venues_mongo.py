@@ -2,6 +2,7 @@ import os
 import re
 import time
 
+from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 
 _client: AsyncIOMotorClient | None = None
@@ -176,6 +177,10 @@ async def get_venue_detail(slug: str) -> dict | None:
     other venues of the same operator chain / same city."""
     db = _get_db()
     doc = await db["venues"].find_one({"id": slug, "active": True})
+    # Many venues (esp. eTennis) have no `id` field — the map then links them by
+    # their _id hex, so fall back to an _id lookup or those detail pages 404.
+    if not doc and ObjectId.is_valid(slug):
+        doc = await db["venues"].find_one({"_id": ObjectId(slug), "active": True})
     if not doc:
         return None
 

@@ -1,21 +1,32 @@
-"""Scrape venue info from Eversports into MongoDB:
-  - photos    -> `photos_scraped`            (from the /sb/<slug> booking page)
-  - storno    -> `cancellation_policy_scraped` (from the /s/<slug> sportpage)
+"""Scrape venue info into MongoDB:
+
+  Eversports venues:
+    - photos -> `photos_scraped`              (from the /sb/<slug> booking page)
+    - storno -> `cancellation_policy_scraped` (from the /s/<slug> sportpage)
+
+  eTennis venues (white-label /reservierung pages):
+    - storno -> `cancellation_policy_scraped` (only ~8% of venues publish it;
+      no photo source exists — these pages only carry the club logo)
 
 Never touches the manual fields `photos` / `cancellation_policy` — those are
 reserved for own/community input and win in the API (see venues_mongo._detail).
+
+tennis04 is intentionally skipped: its /buchungsplan page is a JS shell with
+nothing scrapable statically (and only 4 venues).
 
 Maintenance script, run locally against the production DB (like
 enrich_venues_bezirk.py). NOT part of the Docker runtime build.
 
 Usage:
-    python Backend/enrich_venue_info.py                # dry-run, all Eversports venues
-    python Backend/enrich_venue_info.py --slug <id>    # dry-run, one venue by id
-    python Backend/enrich_venue_info.py --limit 5      # dry-run, first 5
-    python Backend/enrich_venue_info.py --write        # ACTUALLY write to MongoDB
+    python Backend/enrich_venue_info.py                 # dry-run, all venues
+    python Backend/enrich_venue_info.py --platform etennis
+    python Backend/enrich_venue_info.py --slug <id>     # dry-run, one venue
+    python Backend/enrich_venue_info.py --limit 5
+    python Backend/enrich_venue_info.py --write         # ACTUALLY write
 """
 import argparse
 import asyncio
+import html as htmllib
 import os
 import re
 import sys
@@ -36,7 +47,7 @@ except ImportError:
 from curl_cffi.requests import AsyncSession
 from motor.motor_asyncio import AsyncIOMotorClient
 
-# ── Photos (from the legacy /sb booking page) ─────────────────────────────────
+# ── Eversports photos (from the legacy /sb booking page) ──────────────────────
 _PHOTO_RE = re.compile(
     r"https://files\.eversports\.com/([0-9a-f-]{36})/([^\"'\\\s]+?)-(x-large|large|x-small|small)\.webp",
     re.I,
@@ -58,11 +69,8 @@ def extract_gallery(html: str) -> list[str]:
     return [by_uuid[u] for u in order][:_MAX_PHOTOS]
 
 
-# ── Cancellation policy (from the modern /s sportpage description JSON) ────────
-def extract_cancellation(html: str) -> str | None:
-    """The venue's Stornobedingungen live inside its description as a <p> that
-    mentions 'storniert'/'Stornierung'. The JSON escapes angle brackets, so we
-    un-escape, then pull the matching paragraph and strip tags + a leading '*'."""
+# ── Eversports cancellation (from the modern /s sportpage description JSON) ────
+def extract_cancellation_eversports(html: str) -> str | None:
     text = (html
             .replace("\\u003C", "<").replace("\\u003E", ">")
             .replace("\\u002F", "/").replace("\\u0026", "&")
@@ -70,37 +78,65 @@ def extract_cancellation(html: str) -> str | None:
     for m in re.finditer(r"<p>(.*?)</p>", text, re.S):
         inner = m.group(1)
         if re.search(r"stornier", inner, re.I):
-            clean = re.sub(r"<[^>]+>", "", inner)       # strip nested tags
-            clean = re.sub(r"\s+", " ", clean).strip()
-            clean = clean.lstrip("*").strip()           # drop markdown emphasis
+            clean = re.sub(r"<[^>]+>", "", inner)
+            clean = re.sub(r"\s+", " ", clean).strip().lstrip("*").strip()
             return clean or None
     return None
 
 
-async def scrape_venue(session: AsyncSession, slug: str) -> tuple[list[str], str | None]:
+# ── eTennis cancellation (announcement marquee / page text) ───────────────────
+def extract_cancellation_etennis(html: str) -> str | None:
+    """eTennis reservation pages occasionally publish the Stornobedingungen in
+    an announcement marquee <li>, or a <p>/<div>. Return the first block whose
+    text mentions 'stornier' and is a full sentence (not a one-word footer link)."""
+    for li in re.findall(r"<li[^>]*>(.*?)</li>", html, re.I | re.S):
+        flat = re.sub(r"<[^>]+>", "", li)
+        if re.search(r"stornier", flat, re.I) and len(flat.strip()) > 30:
+            return re.sub(r"\s+", " ", htmllib.unescape(flat)).strip() or None
+    for tag in ("p", "div"):
+        for blk in re.findall(rf"<{tag}[^>]*>(.*?)</{tag}>", html, re.I | re.S):
+            flat = re.sub(r"<[^>]+>", "", blk)
+            if re.search(r"stornier", flat, re.I) and 30 < len(flat.strip()) < 600:
+                return re.sub(r"\s+", " ", htmllib.unescape(flat)).strip() or None
+    return None
+
+
+# ── Per-platform scrape ───────────────────────────────────────────────────────
+async def scrape_eversports(session: AsyncSession, slug: str) -> tuple[list[str], str | None]:
     photos: list[str] = []
     cancellation: str | None = None
-    # /sb booking page → photos
     try:
         r = await session.get(f"https://www.eversports.at/sb/{slug}", timeout=30)
         if r.status_code == 200:
             photos = extract_gallery(r.text)
     except Exception as e:  # noqa: BLE001
         print(f"    ! /sb fetch failed: {e}")
-    # /s sportpage → cancellation policy
     try:
         r = await session.get(f"https://www.eversports.at/s/{slug}", timeout=30)
         if r.status_code == 200:
-            cancellation = extract_cancellation(r.text)
+            cancellation = extract_cancellation_eversports(r.text)
     except Exception as e:  # noqa: BLE001
         print(f"    ! /s fetch failed: {e}")
     return photos, cancellation
+
+
+async def scrape_etennis(session: AsyncSession, url: str) -> str | None:
+    if not url:
+        return None
+    try:
+        r = await session.get(url, timeout=15)
+        if r.status_code == 200:
+            return extract_cancellation_etennis(r.text)
+    except Exception as e:  # noqa: BLE001
+        print(f"    ! eTennis fetch failed: {e}")
+    return None
 
 
 async def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true", help="actually write to MongoDB")
     ap.add_argument("--slug", help="only this venue id")
+    ap.add_argument("--platform", choices=["eversports", "etennis"], help="limit to one platform")
     ap.add_argument("--limit", type=int, default=0, help="cap number of venues")
     args = ap.parse_args()
 
@@ -109,27 +145,43 @@ async def main() -> None:
         raise SystemExit("MONGODB_URI not set (copy Backend/.env.example to Backend/.env)")
     db = AsyncIOMotorClient(uri)["padel_checker"]
 
-    query: dict = {"active": True, "platform": "Eversports", "eversports_slug": {"$nin": [None, ""]}}
+    platforms = {
+        "eversports": ["Eversports"],
+        "etennis": ["eTennis", "etennis"],
+    }
+    wanted = platforms.get(args.platform) if args.platform else ["Eversports", "eTennis", "etennis"]
+    query: dict = {"active": True, "platform": {"$in": wanted}}
     if args.slug:
-        query["id"] = args.slug
+        query = {"active": True, "id": args.slug}
 
     venues = [v async for v in db["venues"].find(query)]
     if args.limit:
         venues = venues[: args.limit]
 
-    print(f"{'WRITE' if args.write else 'DRY-RUN'} — {len(venues)} Eversports venue(s)\n")
+    print(f"{'WRITE' if args.write else 'DRY-RUN'} — {len(venues)} venue(s)\n")
 
     n_photos = n_storno = updated = 0
     async with AsyncSession(impersonate="chrome124") as session:
         for v in venues:
             vid = v.get("id", "?")
-            slug = v.get("eversports_slug")
-            photos, cancellation = await scrape_venue(session, slug)
+            plat = (v.get("platform") or "").lower()
+            photos: list[str] = []
+            cancellation: str | None = None
+
+            if plat == "eversports" and v.get("eversports_slug"):
+                photos, cancellation = await scrape_eversports(session, v["eversports_slug"])
+            elif plat == "etennis":
+                cancellation = await scrape_etennis(session, v.get("booking_url") or v.get("public_url") or "")
+            else:
+                continue
+
             n_photos += len(photos)
             n_storno += 1 if cancellation else 0
-            print(f"  {vid}: {len(photos)} photo(s), storno={'YES' if cancellation else '—'}")
+            tag = "" if (photos or cancellation) else "  (nothing)"
+            print(f"  [{plat}] {vid}: {len(photos)} photo(s), storno={'YES' if cancellation else '—'}{tag}")
             if cancellation:
                 print(f"      ↳ {cancellation[:110]}{'…' if len(cancellation) > 110 else ''}")
+
             if args.write:
                 update: dict = {}
                 if photos:
