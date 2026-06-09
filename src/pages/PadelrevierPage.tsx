@@ -1,19 +1,48 @@
 import { useEffect, useMemo, useState } from "react"
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
+import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap } from "react-leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import L from "leaflet"
+import type { GeoJsonObject, FeatureCollection } from "geojson"
 import { useNavigate } from "react-router-dom"
 import "leaflet/dist/leaflet.css"
 import "leaflet.markercluster/dist/MarkerCluster.css"
 import "leaflet.markercluster/dist/MarkerCluster.Default.css"
 import { fetchVenues } from "../api"
 import type { MapVenue } from "../types"
+import bundeslaenderRaw from "../data/austria-bundeslaender.json"
 import { bundeslandFromAddress } from "../data/plz"
 
 const BUNDESLAENDER = [
   "Wien", "Niederösterreich", "Oberösterreich", "Steiermark",
   "Tirol", "Kärnten", "Salzburg", "Vorarlberg", "Burgenland",
 ]
+
+// Austria's 9 Bundesländer as boundary polygons — used to (a) draw Austria as a
+// distinct lime shape against the dark neighbours and (b) zoom the map to the
+// selected region. Feature `name` matches the chip labels above.
+const BUNDESLAENDER_GEO = bundeslaenderRaw as unknown as FeatureCollection
+const AUSTRIA_BOUNDS = L.geoJSON(BUNDESLAENDER_GEO as GeoJsonObject).getBounds()
+
+function boundsForSelection(selected: string[]): L.LatLngBounds {
+  const names = selected.filter(n => n !== "Unbekannt")
+  if (names.length === 0) return AUSTRIA_BOUNDS
+  const feats = BUNDESLAENDER_GEO.features.filter(f => names.includes(f.properties?.name))
+  if (feats.length === 0) return AUSTRIA_BOUNDS
+  return L.geoJSON({ type: "FeatureCollection", features: feats } as GeoJsonObject).getBounds()
+}
+
+// Lives inside MapContainer so it can grab the Leaflet map; re-fits the view to
+// the selected Bundesland(s) whenever the selection changes (or to all of
+// Austria when nothing is selected).
+function MapFit({ selected }: { selected: string[] }) {
+  const map = useMap()
+  const key = selected.slice().sort().join("|")
+  useEffect(() => {
+    map.fitBounds(boundsForSelection(selected), { padding: [24, 24] })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
+  return null
+}
 
 // Labels for popups — includes the combined type (a venue can have both).
 const COURT_TYPE_LABELS: Record<string, string> = {
@@ -184,10 +213,28 @@ export default function PadelrevierPage() {
                 subdomains="abcd"
                 maxZoom={20}
               />
+              {/* Austria highlighted as a lime shape so it stands out from the
+                  dark neighbouring countries. Selected Bundesländer glow brighter.
+                  Non-interactive so it never swallows pin clicks. */}
+              <GeoJSON
+                key={bundesland.slice().sort().join("|")}
+                data={BUNDESLAENDER_GEO as GeoJsonObject}
+                interactive={false}
+                style={(feature) => {
+                  const sel = bundesland.length > 0 && bundesland.includes(feature?.properties?.name)
+                  return {
+                    color: sel ? "rgba(212,245,60,0.8)" : "rgba(212,245,60,0.45)",
+                    weight: sel ? 2 : 1,
+                    fillColor: "#d4f53c",
+                    fillOpacity: sel ? 0.16 : 0.07,
+                  }
+                }}
+              />
+              <MapFit selected={bundesland} />
               <MarkerClusterGroup
                 chunkedLoading
-                maxClusterRadius={40}
-                disableClusteringAtZoom={10}
+                maxClusterRadius={30}
+                disableClusteringAtZoom={9}
                 spiderfyOnMaxZoom
                 showCoverageOnHover={false}
               >
