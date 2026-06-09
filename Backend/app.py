@@ -65,10 +65,8 @@ from weather import WeatherResult, get_weather_for_hour
 class VenueResult(TypedDict):
     venue_id:            str
     name:                str
-    region:              str
     court_type:          str
     platform:            str
-    priority:            int
     booking_url:         str
     distance_km:         float | None
     availability_status: str
@@ -354,10 +352,8 @@ def _build_venue_result(venue: dict) -> VenueResult:
         "venue_id":            venue["id"],
         "name":                venue["name"],
         "operator":            venue.get("operator", ""),
-        "region":              venue.get("region", ""),
         "court_type":          venue["court_type"],
         "platform":            venue["platform"],
-        "priority":            venue["priority"],
         "booking_url":         venue["booking_url"],
         "public_url":          venue.get("public_url", ""),
         "distance_km":         venue.get("distance_km"),
@@ -1358,7 +1354,6 @@ async def get_venues():
             "name":        v["name"],
             "operator":    v.get("operator", ""),
             "address":     v.get("address", ""),
-            "region":      v.get("region", ""),
             "court_type":  v["court_type"],
             "platform":    v.get("platform", ""),
             "booking_url": v.get("booking_url", ""),
