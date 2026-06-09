@@ -67,15 +67,26 @@ function RelatedCard({ v }: { v: RelatedVenue }) {
   )
 }
 
+// Fields that can be community-reported. Only unknown ones (null) are shown.
+const SUGGEST_FIELDS: { key: string; label: string; type: "bool" | "number" }[] = [
+  { key: "num_courts",     label: "Anzahl Courts",  type: "number" },
+  { key: "changing_rooms", label: "Umkleiden",      type: "bool"   },
+  { key: "showers",        label: "Duschen",        type: "bool"   },
+  { key: "reception",      label: "Rezeption",      type: "bool"   },
+  { key: "parking",        label: "Parkplatz",      type: "bool"   },
+  { key: "rental_rackets", label: "Leihschläger",   type: "bool"   },
+  { key: "gastro",         label: "Gastronomie",    type: "bool"   },
+]
+
 export default function CourtDetailPage() {
   const { slug = "" } = useParams()
   const navigate = useNavigate()
   const [d, setD] = useState<VenueDetail | null>(null)
   const [state, setState] = useState<"loading" | "ok" | "notfound" | "error">("loading")
 
-  // Community "Schreibs Yara" form (persisted in Phase 2 — local thank-you for now)
-  const [missing, setMissing] = useState("")
-  const [info, setInfo] = useState("")
+  // Community "Schreibs Yara" form — picks maps field key → "Ja" | "Nein" | free text
+  const [picks, setPicks] = useState<Record<string, string>>({})
+  const [freeText, setFreeText] = useState("")
   const [sent, setSent] = useState(false)
 
   useEffect(() => {
@@ -148,6 +159,7 @@ export default function CourtDetailPage() {
   const cText = courtsText(d)
   const rel = d.related
   const finderHref = `/?ort=${encodeURIComponent(d.city || d.name)}`
+  const unknown = SUGGEST_FIELDS.filter(f => (d as Record<string, unknown>)[f.key] == null)
 
   return (
     <div className="vd">
@@ -288,30 +300,55 @@ export default function CourtDetailPage() {
         ) : (
           <>
             <h3>Kennst du diese Anlage?</h3>
-            <p>Fehlt was oder stimmt was nicht? Du warst dort und weißt mehr — schreibs Yara, sie prüft's und ergänzt's.</p>
+            <p>Du warst dort und weißt mehr? Trag alles auf einmal ein — Yara prüft's und ergänzt's.</p>
             <form
               className="vd-form"
               onSubmit={(e) => {
                 e.preventDefault()
-                if (!info.trim()) return
-                // No backend yet — route community input straight to Yara's inbox.
+                const filled = unknown.filter(f => picks[f.key])
+                if (!filled.length && !freeText.trim()) return
                 const subject = `PadelYara: Info zu ${d.name}`
-                const body = `Anlage: ${d.name} (${d.id})\nWas fehlt: ${missing || "—"}\nInfo: ${info}`
+                const lines: string[] = [`Anlage: ${d.name} (${d.id})`]
+                for (const f of filled) lines.push(`${f.label}: ${picks[f.key]}`)
+                if (freeText.trim()) lines.push(`\nSonstiges: ${freeText.trim()}`)
                 window.location.href =
-                  `mailto:cornelia.mayer@adventure-it.at?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+                  `mailto:yara@adventure-it.at?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`
                 setSent(true)
               }}
             >
-              <select value={missing} onChange={(e) => setMissing(e.target.value)}>
-                <option value="">Was fehlt?</option>
-                <option>Anzahl Courts</option>
-                <option>Leihschläger-System</option>
-                <option>Gastronomie / Öffnungszeiten</option>
-                <option>Foto</option>
-                <option>Besonderheiten</option>
-                <option>Sonstiges</option>
-              </select>
-              <input type="text" placeholder="Deine Info …" value={info} onChange={(e) => setInfo(e.target.value)} />
+              {unknown.length > 0 && (
+                <div className="vd-suggest-grid">
+                  {unknown.map(f => (
+                    <div key={f.key} className="vd-suggest-row">
+                      <span className="vd-suggest-label">{f.label}</span>
+                      {f.type === "bool" ? (
+                        <span className="vd-toggle-group">
+                          <button type="button"
+                            className={`vd-toggle${picks[f.key] === "Ja" ? " on-yes" : ""}`}
+                            onClick={() => setPicks(p => ({ ...p, [f.key]: p[f.key] === "Ja" ? "" : "Ja" }))}>
+                            Ja
+                          </button>
+                          <button type="button"
+                            className={`vd-toggle${picks[f.key] === "Nein" ? " on-no" : ""}`}
+                            onClick={() => setPicks(p => ({ ...p, [f.key]: p[f.key] === "Nein" ? "" : "Nein" }))}>
+                            Nein
+                          </button>
+                        </span>
+                      ) : (
+                        <input type="number" className="vd-suggest-input" placeholder="Anzahl" min={1} max={30}
+                          value={picks[f.key] || ""}
+                          onChange={e => setPicks(p => ({ ...p, [f.key]: e.target.value }))} />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <textarea
+                placeholder={unknown.length ? "Sonst noch was? Freier Text …" : "Was weißt du? Freier Text …"}
+                value={freeText}
+                onChange={e => setFreeText(e.target.value)}
+                rows={2}
+              />
               <button type="submit">Abschicken</button>
             </form>
           </>
@@ -407,10 +444,20 @@ function DetailStyles() {
       .vd-community { background: linear-gradient(135deg, rgba(212,245,60,0.06), rgba(212,245,60,0.02)); border: 1px dashed rgba(212,245,60,0.4); border-radius: 16px; padding: 20px; margin-bottom: 30px; }
       .vd-community h3 { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
       .vd-community p { font-size: 16px; color: #9ca3af; font-weight: 500; margin-bottom: 14px; max-width: 52ch; }
-      .vd-form { display: flex; flex-wrap: wrap; gap: 9px; }
-      .vd-form input, .vd-form select { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #f5f6f4; border-radius: 9px; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: 500; outline: none; flex: 1; min-width: 160px; }
-      .vd-form input:focus, .vd-form select:focus { border-color: rgba(212,245,60,0.6); }
-      .vd-form button { background: #d4f53c; color: #080810; border: none; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: 9px; padding: 10px 20px; }
+      .vd-form { display: flex; flex-direction: column; gap: 9px; }
+      .vd-form textarea { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #f5f6f4; border-radius: 9px; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: 500; outline: none; resize: vertical; }
+      .vd-form textarea:focus { border-color: rgba(212,245,60,0.6); }
+      .vd-form button { background: #d4f53c; color: #080810; border: none; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: 9px; padding: 10px 20px; align-self: flex-start; }
+      .vd-suggest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; margin-bottom: 4px; }
+      .vd-suggest-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+      .vd-suggest-label { font-size: 15px; font-weight: 600; color: #d1d5db; }
+      .vd-toggle-group { display: flex; gap: 5px; flex-shrink: 0; }
+      .vd-toggle { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #9ca3af; border-radius: 7px; padding: 5px 13px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.12s; }
+      .vd-toggle:hover { border-color: rgba(212,245,60,0.4); color: #d4f53c; }
+      .vd-toggle.on-yes { background: rgba(74,222,128,0.12); border-color: #4ade80; color: #4ade80; }
+      .vd-toggle.on-no  { background: rgba(248,113,113,0.12); border-color: #f87171; color: #f87171; }
+      .vd-suggest-input { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #f5f6f4; border-radius: 7px; padding: 5px 10px; font-family: inherit; font-size: 15px; font-weight: 600; outline: none; width: 70px; text-align: center; }
+      .vd-suggest-input:focus { border-color: rgba(212,245,60,0.6); }
 
       .vd-links-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
       .vd-vcard { background: #11131a; border: 1px solid rgba(107,114,128,0.30); border-radius: 13px; padding: 13px 15px; display: block; transition: border-color 0.15s; }
@@ -427,6 +474,7 @@ function DetailStyles() {
         .vd-facts { grid-template-columns: 1fr; }
         .vd-gallery.vd-g-3, .vd-gallery.vd-g-4 { grid-template-columns: 1fr 1fr; grid-template-rows: 100px 80px; }
         .vd-gallery.vd-g-3 .vd-main, .vd-gallery.vd-g-4 .vd-main { grid-column: 1 / 3; grid-row: 1; }
+        .vd-suggest-grid { grid-template-columns: 1fr; }
       }
     `}</style>
   )
