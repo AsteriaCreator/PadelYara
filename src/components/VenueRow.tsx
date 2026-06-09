@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { trackBookingClick } from "../api"
 import type { Venue } from "../types"
 
@@ -106,9 +107,12 @@ export default function VenueRow({ venue, pollingActive, searchDate, highlighted
       {/* min-w-0 on the row is required so the truncate span can actually shrink.
           Without it, flex items default to min-width:auto and ignore overflow:hidden. */}
       <div className="flex items-center justify-between mb-1 min-w-0">
-        <span className="font-semibold text-white truncate min-w-0 text-sm">
+        <Link
+          to={`/court/${venue.id}`}
+          className="font-semibold text-white truncate min-w-0 text-sm hover:text-[#d4f53c] transition-colors"
+        >
           {venue.name || venue.operator}
-        </span>
+        </Link>
         <div className="flex flex-col items-end shrink-0 ml-3">
           <div className="flex items-center gap-2">
             {venue.price_eur != null && (
