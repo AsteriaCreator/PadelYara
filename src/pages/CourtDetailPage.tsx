@@ -159,7 +159,7 @@ export default function CourtDetailPage() {
   const cText = courtsText(d)
   const rel = d.related
   const finderHref = `/?ort=${encodeURIComponent(d.city || d.name)}`
-  const unknown = SUGGEST_FIELDS.filter(f => (d as Record<string, unknown>)[f.key] == null)
+  const unknown = SUGGEST_FIELDS.filter(f => (d as unknown as Record<string, unknown>)[f.key] == null)
 
   return (
     <div className="vd">
