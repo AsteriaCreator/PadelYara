@@ -192,7 +192,11 @@ async def lifespan(_app: FastAPI):
     scheduler.start()
     print("[tournaments] Daily scraper scheduled at 06:00 Vienna time.")
 
-    # Price scraping is triggered lazily on first search (see _maybe_refresh_prices)
+    # Kick off a background price scrape at startup so stale venues populate
+    # immediately after deploy — don't wait for the first user search.
+    asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
+    print("[startup] Eversports price refresh started in background.")
+
     yield
     scheduler.shutdown(wait=False)
 
