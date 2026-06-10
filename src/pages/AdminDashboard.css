@@ -153,8 +153,8 @@
 }
 
 .admin-section {
-  background: #0d0d0d;
-  border: 1px solid #1a1a1a;
+  background: #111;
+  border: 1px solid #2a2a2a;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -179,8 +179,8 @@
   margin-bottom: 1.25rem;
 }
 .stat-card {
-  background: #111;
-  border: 1px solid #1a1a1a;
+  background: #161616;
+  border: 1px solid #2a2a2a;
   border-top: 4px solid #6366f1;
   border-radius: 10px;
   padding: 1rem 0.75rem;
@@ -246,7 +246,7 @@
 .success-rate-wrap { margin-top: 0.5rem; }
 .success-rate-bar-bg {
   height: 10px;
-  background: #1a1a1a;
+  background: #222;
   border-radius: 99px;
   overflow: hidden;
   margin-bottom: 0.3rem;
@@ -266,7 +266,7 @@
 .funnel-emoji { font-size: 1.1rem; }
 .funnel-label { font-size: 0.82rem; color: #64748b; }
 .funnel-num { font-size: 1.1rem; font-weight: 700; color: #f8fafc; text-align: right; }
-.funnel-bar-bg { height: 8px; background: #1a1a1a; border-radius: 99px; overflow: hidden; }
+.funnel-bar-bg { height: 8px; background: #222; border-radius: 99px; overflow: hidden; }
 .funnel-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
 .funnel-arrow { font-size: 0.85rem; color: #475569; padding: 0.25rem 0 0.25rem 2.25rem; font-weight: 600; }
 .funnel-hint { font-size: 0.78rem; color: #475569; margin-top: 0.75rem; }
@@ -289,7 +289,7 @@
 }
 .event-bar-bg {
   height: 7px;
-  background: #1a1a1a;
+  background: #222;
   border-radius: 99px;
   overflow: hidden;
 }
@@ -415,7 +415,7 @@
   white-space: nowrap;
 }
 .analytics-table th {
-  background: #111;
+  background: #161616;
   padding: 0.55rem 0.75rem;
   border: 1px solid #1a1a1a;
   font-weight: 600;
@@ -440,8 +440,8 @@
   padding: 2rem 1.5rem;
   font-size: 1rem;
   border-radius: 12px;
-  background: #0d0d0d;
-  border: 1px solid #1a1a1a;
+  background: #111;
+  border: 1px solid #2a2a2a;
   color: #e2e8f0;
 }
 .admin-loading { color: #475569; }
@@ -466,10 +466,10 @@
 .admin-login-form p { margin: 0; color: #475569; font-size: 0.9rem; text-align: center; }
 .admin-login-form input {
   padding: 0.6rem 0.8rem;
-  border: 1px solid #1e293b;
+  border: 1px solid #2a2a2a;
   border-radius: 8px;
   font-size: 1rem;
-  background: #111;
+  background: #1a1a1a;
   color: #f8fafc;
 }
 .admin-login-form input:focus { outline: none; border-color: #6366f1; }
