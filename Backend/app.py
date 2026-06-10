@@ -594,6 +594,8 @@ async def search(
     request:         Request      = None,
 ):
     t0 = time_monotonic()
+    ua = request.headers.get("user-agent", "").lower() if request else ""
+    _is_bot = any(m in ua for m in _BOT_UA_MARKERS)
     session_id:  str | None = (request.headers.get("X-Session-Id") or None) if request else None
     device_type: str        = _device_type(request.headers.get("user-agent", "")) if request else "desktop"
 
@@ -626,7 +628,8 @@ async def search(
     # ── Phase 1: datetime + venue filtering ──────────────────────────────────
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
-        track_search_failed(reason="invalid_datetime", court_type=court_type, session_id=session_id)
+        if not _is_bot:
+            track_search_failed(reason="invalid_datetime", court_type=court_type, session_id=session_id)
         return JSONResponse(status_code=400, content={"ok": False, "error": parse_error})
 
     venues = await _filter_venues(court_type, lat, lon, radius)
@@ -914,15 +917,16 @@ async def search(
         "has_more":    has_more,
         "response_ms": response_ms,
     }))
-    track_search_completed(
-        radius=radius,
-        court_type=court_type,
-        results_count=len(results),
-        response_ms=response_ms,
-        session_id=session_id,
-        search_location=search_location,
-        device_type=device_type,
-    )
+    if not _is_bot:
+        track_search_completed(
+            radius=radius,
+            court_type=court_type,
+            results_count=len(results),
+            response_ms=response_ms,
+            session_id=session_id,
+            search_location=search_location,
+            device_type=device_type,
+        )
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
 
@@ -1271,11 +1275,18 @@ class PageviewBody(BaseModel):
     session_id:    str | None = None
 
 
+_BOT_UA_MARKERS = ("headlesschrome", "headless", "playwright", "puppeteer", "selenium", "bot/", "crawler", "spider")
+
+
 @app.post("/api/pageview")
 async def pageview(body: PageviewBody, request: Request, background_tasks: BackgroundTasks):
     """Record a first-party, cookieless page view. Fire-and-forget from the frontend.
     Country is resolved from the client IP in a background task so it never delays the response.
     Only the country name is stored — the IP is never persisted (DSGVO-safe)."""
+    ua = request.headers.get("user-agent", "").lower()
+    if any(m in ua for m in _BOT_UA_MARKERS):
+        return {"ok": True}  # silently drop headless/bot pageviews
+
     device_type = _device_type(request.headers.get("user-agent", ""))
     ip = _client_ip(request)
 
