@@ -64,6 +64,9 @@ https://www.padelyara.at  (primary live domain; padelyara.com redirects here. Al
 
 Backend (Railway):
 https://neo-padel-checker-backend-production.up.railway.app
+- Single Docker service — `Backend/Dockerfile`, config in `railway.json`
+- Start command: `sh -c 'python -m uvicorn app:app --host 0.0.0.0 --port ${PORT:-8000}'`
+- Up to 8 GB RAM available; Playwright runs in-process (eTennis + Eversports)
 
 ---
 
@@ -185,7 +188,7 @@ Last verified:
 ## Deprecated / Legacy Concepts
 
 The old region-based architecture is deprecated.
-The old Render backend is retired.
+The old Render backend is retired (deleted 2026-06-01).
 The old Railway Eversports microservice (separate service) is retired — code merged into `app.py`.
 
 Do not:

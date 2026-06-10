@@ -22,7 +22,7 @@ Backend requires a `.env` with `MONGODB_URI`.
 
 ## Architecture
 
-See [INFA.md](INFA.md) for infrastructure details, deployment config, and known constraints.
+See [PROJECT_STATE.md](PROJECT_STATE.md) for architecture, infrastructure, deployment config, and known constraints.
 
 ## Scrapers
 
