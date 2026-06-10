@@ -4,8 +4,8 @@
   margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
   font-family: system-ui, sans-serif;
-  color: #e2e8f0;
-  background: #000;
+  color: #1e293b;
+  background: #f1f5f9;
   min-height: 100vh;
 }
 
@@ -18,14 +18,14 @@
   gap: 0.75rem;
   margin-bottom: 0.4rem;
 }
-.admin-header h1 { font-size: 1.8rem; margin: 0; color: #f8fafc; }
+.admin-header h1 { font-size: 1.8rem; margin: 0; }
 .admin-subtitle { color: #64748b; margin: 0; font-size: 0.9rem; }
 
 /* My devices panel */
 .my-devices-panel {
   margin-top: 1rem;
-  background: #0d0d0d;
-  border: 1px solid #1e293b;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 10px;
   padding: 0.75rem 1rem;
 }
@@ -44,7 +44,7 @@
 }
 .my-devices-empty {
   font-size: 0.78rem;
-  color: #475569;
+  color: #94a3b8;
   margin: 0;
 }
 .my-devices-list {
@@ -61,11 +61,11 @@
   gap: 0.5rem;
   font-size: 0.8rem;
 }
-.device-icon { font-weight: 600; color: #94a3b8; }
+.device-icon { font-weight: 600; color: #334155; }
 .device-id {
   font-family: monospace;
   font-size: 0.75rem;
-  color: #475569;
+  color: #94a3b8;
   flex: 1;
 }
 .add-device-btn {
@@ -74,19 +74,19 @@
   padding: 0.3rem 0.7rem;
   border-radius: 99px;
   border: 1.5px solid #6366f1;
-  background: transparent;
-  color: #818cf8;
+  background: #eef2ff;
+  color: #4338ca;
   cursor: pointer;
   transition: all 0.15s;
 }
-.add-device-btn:hover { background: #1e1b4b; }
+.add-device-btn:hover { background: #e0e7ff; }
 .remove-device-btn {
   font-size: 0.7rem;
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
-  border: 1px solid #1e293b;
-  background: transparent;
-  color: #475569;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #94a3b8;
   cursor: pointer;
   line-height: 1;
 }
@@ -105,7 +105,7 @@
   padding: 0;
   border: none;
   background: none;
-  color: #64748b;
+  color: #475569;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -120,7 +120,7 @@
   width: 42px;
   height: 24px;
   border-radius: 99px;
-  background: #1e293b;
+  background: #cbd5e1;
   transition: background 0.15s;
   flex-shrink: 0;
 }
@@ -131,41 +131,41 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #475569;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   transition: transform 0.15s;
 }
 .exclude-switch.on .exclude-switch-track {
   background: #6366f1;
 }
 .exclude-switch.on .exclude-switch-thumb {
-  background: #fff;
   transform: translateX(18px);
 }
 .exclude-switch.on .exclude-switch-text {
-  color: #818cf8;
+  color: #4338ca;
 }
 .exclude-switch-state {
   margin: 0;
   font-size: 0.75rem;
-  color: #475569;
+  color: #64748b;
   text-align: right;
 }
 
 .admin-section {
-  background: #111;
-  border: 1px solid #2a2a2a;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 .admin-section h2 {
   font-size: 1.1rem;
   margin: 0 0 0.5rem;
-  color: #f8fafc;
+  color: #0f172a;
 }
 .section-hint {
-  color: #475569;
+  color: #64748b;
   font-size: 0.82rem;
   margin: 0 0 1rem;
   line-height: 1.5;
@@ -179,18 +179,18 @@
   margin-bottom: 1.25rem;
 }
 .stat-card {
-  background: #161616;
-  border: 1px solid #2a2a2a;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-top: 4px solid #6366f1;
   border-radius: 10px;
   padding: 1rem 0.75rem;
   text-align: center;
 }
 .stat-emoji { font-size: 1.5rem; margin-bottom: 0.2rem; }
-.stat-value { font-size: 1.85rem; font-weight: 800; line-height: 1; color: #f8fafc; }
+.stat-value { font-size: 1.85rem; font-weight: 800; line-height: 1; color: #0f172a; }
 .stat-label {
   font-size: 0.7rem;
-  color: #475569;
+  color: #64748b;
   margin-top: 0.3rem;
   display: flex;
   align-items: center;
@@ -213,8 +213,8 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #1e293b;
-  color: #64748b;
+  background: #cbd5e1;
+  color: #475569;
   font-size: 0.6rem;
   font-weight: 700;
   cursor: default;
@@ -227,7 +227,7 @@
   left: 50%;
   transform: translateX(-50%);
   background: #1e293b;
-  color: #e2e8f0;
+  color: #fff;
   font-size: 0.72rem;
   padding: 0.5rem 0.7rem;
   border-radius: 8px;
@@ -246,7 +246,7 @@
 .success-rate-wrap { margin-top: 0.5rem; }
 .success-rate-bar-bg {
   height: 10px;
-  background: #222;
+  background: #f1f5f9;
   border-radius: 99px;
   overflow: hidden;
   margin-bottom: 0.3rem;
@@ -259,17 +259,17 @@
 .success-rate-label { font-size: 0.8rem; font-weight: 600; }
 
 /* Conversion funnel */
-.funnel-wrap { margin-top: 1.25rem; background: #111; border: 1px solid #1a1a1a; border-radius: 10px; padding: 1rem 1.25rem; }
-.funnel-title { font-size: 0.85rem; font-weight: 600; color: #64748b; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+.funnel-wrap { margin-top: 1.25rem; background: #0f172a; border: 1px solid #1e293b; border-radius: 10px; padding: 1rem 1.25rem; }
+.funnel-title { font-size: 0.85rem; font-weight: 600; color: #94a3b8; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
 .funnel-steps { display: flex; flex-direction: column; gap: 0; }
 .funnel-step { display: grid; grid-template-columns: 1.5rem 7rem 3rem 1fr; align-items: center; gap: 0.75rem; }
 .funnel-emoji { font-size: 1.1rem; }
-.funnel-label { font-size: 0.82rem; color: #64748b; }
+.funnel-label { font-size: 0.82rem; color: #94a3b8; }
 .funnel-num { font-size: 1.1rem; font-weight: 700; color: #f8fafc; text-align: right; }
-.funnel-bar-bg { height: 8px; background: #222; border-radius: 99px; overflow: hidden; }
+.funnel-bar-bg { height: 8px; background: #1e293b; border-radius: 99px; overflow: hidden; }
 .funnel-bar-fill { height: 100%; border-radius: 99px; transition: width 0.6s ease; }
-.funnel-arrow { font-size: 0.85rem; color: #475569; padding: 0.25rem 0 0.25rem 2.25rem; font-weight: 600; }
-.funnel-hint { font-size: 0.78rem; color: #475569; margin-top: 0.75rem; }
+.funnel-arrow { font-size: 0.85rem; color: #64748b; padding: 0.25rem 0 0.25rem 2.25rem; font-weight: 600; }
+.funnel-hint { font-size: 0.78rem; color: #64748b; margin-top: 0.75rem; }
 .funnel-hint strong { color: #94a3b8; }
 
 /* Event breakdown */
@@ -281,7 +281,6 @@
   font-size: 0.8rem;
   font-weight: 600;
   margin-bottom: 0.25rem;
-  color: #e2e8f0;
   display: flex;
   align-items: center;
   gap: 5px;
@@ -289,7 +288,7 @@
 }
 .event-bar-bg {
   height: 7px;
-  background: #222;
+  background: #f1f5f9;
   border-radius: 99px;
   overflow: hidden;
 }
@@ -298,14 +297,14 @@
   border-radius: 99px;
   transition: width 0.6s ease;
 }
-.event-count { font-size: 1rem; font-weight: 700; color: #f8fafc; width: 38px; text-align: right; flex-shrink: 0; }
-.event-pct { font-size: 0.72rem; color: #475569; width: 34px; text-align: right; flex-shrink: 0; }
+.event-count { font-size: 1rem; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
+.event-pct { font-size: 0.72rem; color: #94a3b8; width: 34px; text-align: right; flex-shrink: 0; }
 
 /* Period hint */
 .period-hint {
   font-size: 0.72rem;
   font-weight: 400;
-  color: #475569;
+  color: #94a3b8;
   margin-left: 0.4rem;
 }
 
@@ -338,7 +337,7 @@
 }
 .hour-label {
   font-size: 0.55rem;
-  color: #475569;
+  color: #94a3b8;
   margin-top: 3px;
   white-space: nowrap;
 }
@@ -361,7 +360,7 @@
 }
 .bar-total-label {
   font-size: 0.6rem;
-  color: #475569;
+  color: #94a3b8;
   margin-bottom: 2px;
   min-height: 13px;
   line-height: 1;
@@ -382,7 +381,7 @@
 }
 .bar-date {
   font-size: 0.62rem;
-  color: #475569;
+  color: #64748b;
   margin-top: 5px;
   white-space: nowrap;
 }
@@ -397,7 +396,7 @@
   align-items: center;
   gap: 5px;
   font-size: 0.73rem;
-  color: #64748b;
+  color: #475569;
 }
 .legend-dot {
   width: 9px;
@@ -415,21 +414,19 @@
   white-space: nowrap;
 }
 .analytics-table th {
-  background: #161616;
+  background: #f1f5f9;
   padding: 0.55rem 0.75rem;
-  border: 1px solid #1a1a1a;
+  border: 1px solid #e2e8f0;
   font-weight: 600;
   text-align: left;
   font-size: 0.75rem;
-  color: #94a3b8;
 }
 .analytics-table td {
   padding: 0.45rem 0.75rem;
-  border: 1px solid #1a1a1a;
-  color: #e2e8f0;
+  border: 1px solid #e2e8f0;
 }
-.analytics-table tbody tr:hover { background: #111; }
-.date-cell { font-weight: 600; color: #64748b; }
+.analytics-table tbody tr:hover { background: #f8fafc; }
+.date-cell { font-weight: 600; color: #475569; }
 .sessions-cell { font-weight: 700; color: #d97706; }
 
 /* States */
@@ -440,18 +437,17 @@
   padding: 2rem 1.5rem;
   font-size: 1rem;
   border-radius: 12px;
-  background: #111;
-  border: 1px solid #2a2a2a;
-  color: #e2e8f0;
+  background: #fff;
+  border: 1px solid #e2e8f0;
 }
-.admin-loading { color: #475569; }
-.admin-error { color: #ef4444; }
+.admin-loading { color: #64748b; }
+.admin-error { color: #dc2626; }
 .admin-error code {
-  background: #1a0a0a;
+  background: #fef2f2;
   padding: 0.1em 0.4em;
   border-radius: 4px;
   font-size: 0.85em;
-  color: #f87171;
+  color: #b91c1c;
 }
 
 /* Login */
@@ -462,17 +458,14 @@
   align-items: stretch;
   text-align: left;
 }
-.admin-login-form h2 { margin: 0; font-size: 1.3rem; text-align: center; color: #f8fafc; }
-.admin-login-form p { margin: 0; color: #475569; font-size: 0.9rem; text-align: center; }
+.admin-login-form h2 { margin: 0; font-size: 1.3rem; text-align: center; }
+.admin-login-form p { margin: 0; color: #64748b; font-size: 0.9rem; text-align: center; }
 .admin-login-form input {
   padding: 0.6rem 0.8rem;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
   font-size: 1rem;
-  background: #1a1a1a;
-  color: #f8fafc;
 }
-.admin-login-form input:focus { outline: none; border-color: #6366f1; }
 .admin-login-form button {
   padding: 0.6rem 0.8rem;
   border: none;
@@ -484,16 +477,16 @@
   cursor: pointer;
 }
 .admin-login-form button:disabled { opacity: 0.5; cursor: not-allowed; }
-.admin-login-error { color: #f87171 !important; font-weight: 600; }
+.admin-login-error { color: #dc2626 !important; font-weight: 600; }
 
 /* Logout */
 .admin-logout-btn {
   padding: 0.35rem 0.7rem;
-  border: 1px solid #1e293b;
+  border: 1px solid #cbd5e1;
   border-radius: 8px;
-  background: transparent;
-  color: #64748b;
+  background: #fff;
+  color: #475569;
   font-size: 0.8rem;
   cursor: pointer;
 }
-.admin-logout-btn:hover { background: #111; color: #94a3b8; }
+.admin-logout-btn:hover { background: #f1f5f9; }
