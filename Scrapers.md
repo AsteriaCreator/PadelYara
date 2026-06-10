@@ -160,6 +160,8 @@ Two-layer system:
 - Playwright Chromium
 - browser rendering
 - DOM parsing fallback
+- CF cookie warmup ~45 s first time, then cached ~60 min
+- only runs when `RAILWAY_ENVIRONMENT` is set — skipped locally to keep dev searches fast
 
 ---
 
@@ -214,6 +216,7 @@ Returned when:
 Do:
 - preserve proven fallback logic
 - keep Playwright fallback operational
+- run all Eversports async code on uvicorn's main event loop via `run_coroutine_threadsafe` (never `_run_async`)
 - maintain structured logs
 - validate production behavior carefully
 

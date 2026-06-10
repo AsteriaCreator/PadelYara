@@ -121,44 +121,12 @@ Note: this map page defeats automated screenshot capture (the Leaflet renderer s
 
 ---
 
-## Current Scraper Strategy
+## Scrapers
 
-### eTennis
+Availability comes from three scrapers running in-process on the single Railway service:
+eTennis (Playwright), Eversports (curl_cffi fast path + Playwright CF bypass), and tennis04 (plain HTTP).
 
-- shared Playwright browser
-- controlled concurrency: 2 venues parallel
-- one page per venue
-- aggressive early exit once slot state is known
-- pending responses return immediately
-- final status resolution optimized separately
-- structured timing logs enabled
-
-### Eversports
-
-- `check_eversports_slot()` called directly in-process from `app.py`
-- curl_cffi fast path (Chrome TLS fingerprint)
-- Playwright CF cookie warmup fallback (~45s first time, then cached for 60 min)
-- Only runs when `RAILWAY_ENVIRONMENT` is set — skipped locally to keep dev searches fast
-- All asyncio coroutines share uvicorn's main event loop via `run_coroutine_threadsafe`
-
----
-
-## eTennis Performance Strategy
-
-Goals:
-- fast pending response
-- faster final status resolution
-- stable memory usage
-- avoid duplicate browser launches
-
-Current implementation:
-- shared browser per batch
-- controlled concurrency via semaphore
-- reduced timeout values
-- per-venue duration logging
-- total batch duration logging
-- `_RUNNING` guard retained
-- cache and cooldown behavior retained
+**Strategy, performance tuning, constraints, fragile areas, per-platform internals, and the venue-onboarding pipeline all live in [Scrapers.md](Scrapers.md) — the single source of truth for scrapers.** Don't duplicate scraper internals here.
 
 ---
 
@@ -242,9 +210,6 @@ Docker build:
 
 ## Important Development Rules
 
-- Do not rewrite working scraper systems without strong reason
-- Reuse proven scraping logic where possible
-- Optimize reliability before adding features
-- Keep Eversports and eTennis logic clearly separated in `eversports_service.py` vs `etennis_checker.py`
-- Prioritize production stability over theoretical optimizations
-- Eversports async code must run on uvicorn's main loop — use `run_coroutine_threadsafe`, not `_run_async`
+- Prioritize production stability over theoretical optimizations; add features only after reliability holds.
+- Don't rewrite working systems without a strong, measured reason.
+- Scraper-specific rules (eTennis/Eversports separation, the async-loop requirement, fragility) live in [Scrapers.md](Scrapers.md).
