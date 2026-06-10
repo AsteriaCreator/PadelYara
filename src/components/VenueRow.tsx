@@ -107,17 +107,12 @@ export default function VenueRow({ venue, pollingActive, searchDate, highlighted
       {/* min-w-0 on the row is required so the truncate span can actually shrink.
           Without it, flex items default to min-width:auto and ignore overflow:hidden. */}
       <div className="flex items-center justify-between mb-1 min-w-0">
-        <div className="flex flex-col min-w-0">
-          <Link
-            to={`/court/${venue.id}`}
-            className="font-semibold text-white truncate min-w-0 text-sm hover:text-[#d4f53c] transition-colors"
-          >
-            {venue.name || venue.operator}
-          </Link>
-          {venue.operator && venue.name && venue.operator !== venue.name && (
-            <span className="text-xs text-gray-500 truncate">{venue.operator}</span>
-          )}
-        </div>
+        <Link
+          to={`/court/${venue.id}`}
+          className="font-semibold text-white truncate min-w-0 text-sm hover:text-[#d4f53c] transition-colors"
+        >
+          {venue.name || venue.operator}
+        </Link>
         <div className="flex flex-col items-end shrink-0 ml-3">
           <div className="flex items-center gap-2">
             {venue.price_eur != null && (
