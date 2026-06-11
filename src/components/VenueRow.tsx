@@ -60,6 +60,9 @@ function etennisBookingUrl(baseUrl: string, dateStr: string): string {
       .format(new Date(noonUtc))
   )
   const offsetH = viennaHourAtNoon - 12  // +1 (CET) or +2 (CEST)
+  // Only append timestamp when it's a real eTennis booking URL (has ?c= param).
+  // Plain website homepages don't accept &t= and produce broken links.
+  if (!baseUrl.includes("?")) return baseUrl
   return `${baseUrl}&t=${Math.floor((utcMidnight - offsetH * 3600 * 1000) / 1000)}`
 }
 
