@@ -45,7 +45,8 @@ interface Props {
 
 function eversportsBookingUrl(baseUrl: string, dateStr: string): string {
   // Eversports /sb/<slug> pages accept ?date=YYYY-MM-DD to jump to that day.
-  return `${baseUrl}?date=${dateStr}`
+  const sep = baseUrl.includes("?") ? "&" : "?"
+  return `${baseUrl}${sep}date=${dateStr}`
 }
 
 function etennisBookingUrl(baseUrl: string, dateStr: string): string {

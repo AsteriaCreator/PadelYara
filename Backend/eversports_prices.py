@@ -199,7 +199,9 @@ async def _fetch_venue_prices(venue: dict) -> list[dict]:
     vid         = venue["id"]
     facility_id = venue.get("eversports_facility_id")
     booking_url = venue.get("booking_url", "")
-    slug        = booking_url.rstrip("/").split("/")[-1]
+    # Prefer the stored eversports_slug; fall back to parsing booking_url but
+    # strip any query string first (e.g. "?sport=padel" breaks the calendar POST).
+    slug = venue.get("eversports_slug") or booking_url.rstrip("/").split("/")[-1].split("?")[0]
 
     if not facility_id:
         print(f"[ev-prices] skip  venue={vid}  reason=no_facility_id")
