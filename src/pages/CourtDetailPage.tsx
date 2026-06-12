@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
+import { Helmet } from "react-helmet-async"
 import { fetchVenueDetail } from "../api"
 import { trackBookingClick } from "../api"
 import type { VenueDetail, RelatedVenue } from "../types"
@@ -103,36 +104,7 @@ export default function CourtDetailPage() {
     return () => { alive = false }
   }, [slug])
 
-  // SEO: page title + JSON-LD structured data for the venue
-  useEffect(() => {
-    if (!d) return
-    const prevTitle = document.title
-    document.title = `${d.name}${d.city ? " · " + d.city : ""} — PadelYara`
-
-    const ld = {
-      "@context": "https://schema.org",
-      "@type": "SportsActivityLocation",
-      "name": d.name,
-      "url": `https://padelyara.at/court/${d.id}`,
-      ...(d.address ? { "address": d.address } : {}),
-      ...(d.lat != null && d.lon != null
-        ? { "geo": { "@type": "GeoCoordinates", "latitude": d.lat, "longitude": d.lon } }
-        : {}),
-      "sport": "Padel",
-      ...(d.photos && d.photos.length ? { "image": d.photos } : {}),
-    }
-    const script = document.createElement("script")
-    script.id = "jsonld-venue-detail"
-    script.type = "application/ld+json"
-    script.textContent = JSON.stringify(ld)
-    document.getElementById("jsonld-venue-detail")?.remove()
-    document.head.appendChild(script)
-
-    return () => {
-      document.title = prevTitle
-      document.getElementById("jsonld-venue-detail")?.remove()
-    }
-  }, [d])
+  // SEO handled via <Helmet> below — no manual document.title needed
 
   if (state === "loading") {
     return <div className="py-16 text-center text-gray-600 text-sm">Lädt …</div>
@@ -161,8 +133,37 @@ export default function CourtDetailPage() {
   const finderHref = `/?ort=${encodeURIComponent(d.city || d.name)}`
   const unknown = SUGGEST_FIELDS.filter(f => (d as unknown as Record<string, unknown>)[f.key] == null)
 
+  const pageTitle = `${d.name}${d.city ? " · " + d.city : ""} — PadelYara`
+  const metaDesc = [
+    d.name,
+    d.city ? `in ${d.city}` : null,
+    d.court_type === "indoor" ? "Indoor Padel" : d.court_type === "outdoor" ? "Outdoor Padel" : "Indoor & Outdoor Padel",
+    d.num_courts ? `${d.num_courts} Courts` : null,
+    "Verfügbarkeit & Preise auf PadelYara prüfen.",
+  ].filter(Boolean).join(" · ")
+
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "SportsActivityLocation",
+    "name": d.name,
+    "url": `https://padelyara.at/court/${d.id}`,
+    ...(d.address ? { "address": d.address } : {}),
+    ...(d.lat != null && d.lon != null
+      ? { "geo": { "@type": "GeoCoordinates", "latitude": d.lat, "longitude": d.lon } }
+      : {}),
+    "sport": "Padel",
+    ...(d.photos && d.photos.length ? { "image": d.photos } : {}),
+  }
+
   return (
     <div className="vd">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={metaDesc} />
+        <link rel="canonical" href={`https://padelyara.at/court/${d.id}`} />
+        <script type="application/ld+json">{JSON.stringify(ld)}</script>
+      </Helmet>
+
       <DetailStyles />
 
       {/* Breadcrumb */}
