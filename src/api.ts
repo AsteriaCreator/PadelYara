@@ -275,6 +275,14 @@ export async function fetchAnalyticsTrends(excludeIds: string[] = []) {
   return res.json()
 }
 
+export async function fetchSearchConsole() {
+  const res = await fetch(`${API_BASE}/api/analytics/search-console`, { headers: adminHeaders() })
+  if (res.status === 403) throw new Error("Unauthorized")
+  if (res.status === 503) return null  // not configured yet
+  if (!res.ok) throw new Error("Failed to fetch Search Console data")
+  return res.json()
+}
+
 export async function fetchSubscriberCount(): Promise<number> {
   const res = await fetch(`${API_BASE}/api/subscribers/count`, { headers: adminHeaders() })
   if (!res.ok) throw new Error("Failed to fetch subscriber count")

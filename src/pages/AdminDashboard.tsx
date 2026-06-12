@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
 import "./AdminDashboard.css"
 
 function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
@@ -204,6 +204,7 @@ export default function AdminDashboard() {
   const [summary, setSummary] = useState<any>(null)
   const [trends, setTrends] = useState<any>(null)
   const [insights, setInsights] = useState<any>(null)
+  const [searchConsole, setSearchConsole] = useState<any>(null)
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
@@ -222,8 +223,8 @@ export default function AdminDashboard() {
     // toggle button stays on screen and the user sees the change immediately.
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
-      .then(([s, t, i, sc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchSearchConsole()])
+      .then(([s, t, i, sc, gsc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setSearchConsole(gsc) })
       .catch((e: Error) => {
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
@@ -742,6 +743,87 @@ export default function AdminDashboard() {
               )
             })}
           </div>
+        </section>
+      )}
+
+      {/* Google Search Console */}
+      {searchConsole && (
+        <section className="admin-section">
+          <h2>🔎 Google Search Console <span className="period-hint">last 28 days</span></h2>
+          <p className="section-hint">What people search for on Google before finding PadelYara — clicks, impressions, and your average ranking position.</p>
+
+          {/* 28-day clicks + impressions trend */}
+          {searchConsole.daily && searchConsole.daily.length > 0 && (() => {
+            const maxImpr = Math.max(...searchConsole.daily.map((d: any) => d.impressions), 1)
+            return (
+              <div className="sc-trend">
+                {searchConsole.daily.map((d: any) => (
+                  <div key={d.date} className="sc-trend-col" title={`${d.date}: ${d.clicks} clicks, ${d.impressions} impressions`}>
+                    <div className="sc-trend-bar-bg">
+                      <div className="sc-trend-bar-impr" style={{ height: `${Math.round((d.impressions / maxImpr) * 100)}%` }} />
+                      <div className="sc-trend-bar-clicks" style={{ height: `${Math.round((d.clicks / maxImpr) * 100)}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )
+          })()}
+          <div className="sc-legend">
+            <span className="legend-item"><span className="legend-dot" style={{ background: "#6366f1" }} />Impressions</span>
+            <span className="legend-item"><span className="legend-dot" style={{ background: "#22c55e" }} />Clicks</span>
+          </div>
+
+          {/* Top queries */}
+          {searchConsole.top_queries?.length > 0 && (
+            <>
+              <h3 className="sc-subhead">Top Search Queries</h3>
+              <div className="event-breakdown">
+                {searchConsole.top_queries.map(({ query, clicks, impressions, ctr, position }: any) => {
+                  const max = searchConsole.top_queries[0].impressions
+                  const pct = Math.round((impressions / max) * 100)
+                  return (
+                    <div key={query} className="event-row">
+                      <span className="event-emoji">🔍</span>
+                      <div className="event-info">
+                        <div className="event-name">{query}</div>
+                        <div className="event-bar-bg">
+                          <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#6366f1" }} />
+                        </div>
+                      </div>
+                      <span className="sc-meta">{clicks} clicks</span>
+                      <span className="sc-meta sc-ctr">{ctr}% CTR</span>
+                      <span className="sc-meta sc-pos">#{Math.round(position)}</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          )}
+
+          {/* Top countries from GSC */}
+          {searchConsole.top_countries?.length > 0 && (
+            <>
+              <h3 className="sc-subhead">Countries (Google Search)</h3>
+              <div className="event-breakdown">
+                {searchConsole.top_countries.map(({ country, clicks, impressions }: any) => {
+                  const max = searchConsole.top_countries[0].impressions
+                  const pct = Math.round((impressions / max) * 100)
+                  return (
+                    <div key={country} className="event-row">
+                      <span className="event-emoji">🌍</span>
+                      <div className="event-info">
+                        <div className="event-name">{country}</div>
+                        <div className="event-bar-bg">
+                          <div className="event-bar-fill" style={{ width: `${pct}%`, background: "#14b8a6" }} />
+                        </div>
+                      </div>
+                      <span className="sc-meta">{clicks} clicks</span>
+                    </div>
+                  )
+                })}
+              </div>
+            </>
+          )}
         </section>
       )}
 

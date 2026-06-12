@@ -1304,6 +1304,69 @@ async def pageview(body: PageviewBody, request: Request, background_tasks: Backg
     return {"ok": True}
 
 
+# ── Google Search Console ─────────────────────────────────────────────────────
+
+@app.get("/api/analytics/search-console", dependencies=[Depends(_require_admin)])
+async def get_search_console():
+    """Fetch last 28 days of Search Console data: top queries, pages, countries."""
+    import json as _json
+    from google.oauth2 import service_account
+    from googleapiclient.discovery import build
+
+    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "")
+    if not raw:
+        raise HTTPException(status_code=503, detail="GOOGLE_SERVICE_ACCOUNT_JSON not configured")
+
+    try:
+        info = _json.loads(raw)
+        creds = service_account.Credentials.from_service_account_info(
+            info,
+            scopes=["https://www.googleapis.com/auth/webmasters.readonly"],
+        )
+        svc = build("searchconsole", "v1", credentials=creds, cache_discovery=False)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Auth error: {exc}")
+
+    site = "https://www.padelyara.at/"
+
+    def _query(dimensions, row_limit=10):
+        body = {
+            "startDate": (datetime.now(timezone.utc) - timedelta(days=28)).strftime("%Y-%m-%d"),
+            "endDate":   datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+            "dimensions": dimensions,
+            "rowLimit": row_limit,
+        }
+        try:
+            resp = svc.searchanalytics().query(siteUrl=site, body=body).execute()
+            return resp.get("rows", [])
+        except Exception:
+            return []
+
+    query_rows   = _query(["query"], 15)
+    page_rows    = _query(["page"], 10)
+    country_rows = _query(["country"], 10)
+    date_rows    = _query(["date"], 28)
+
+    def _fmt(rows, key):
+        return [
+            {
+                key: r["keys"][0],
+                "clicks":      r.get("clicks", 0),
+                "impressions": r.get("impressions", 0),
+                "ctr":         round(r.get("ctr", 0) * 100, 1),
+                "position":    round(r.get("position", 0), 1),
+            }
+            for r in rows
+        ]
+
+    return {
+        "top_queries":   _fmt(query_rows, "query"),
+        "top_pages":     _fmt(page_rows, "page"),
+        "top_countries": _fmt(country_rows, "country"),
+        "daily":         [{"date": r["keys"][0], "clicks": r.get("clicks", 0), "impressions": r.get("impressions", 0)} for r in date_rows],
+    }
+
+
 class SubscribeBody(BaseModel):
     email: str
 
