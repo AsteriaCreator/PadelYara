@@ -223,8 +223,8 @@ export default function AdminDashboard() {
     // toggle button stays on screen and the user sees the change immediately.
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchSearchConsole()])
-      .then(([s, t, i, sc, gsc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setSearchConsole(gsc) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
+      .then(([s, t, i, sc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number) })
       .catch((e: Error) => {
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
@@ -236,6 +236,8 @@ export default function AdminDashboard() {
         }
       })
       .finally(() => setRefreshing(false))
+    // GSC is loaded independently so a failure there never breaks the rest of the dashboard.
+    fetchSearchConsole().then(setSearchConsole).catch(() => setSearchConsole(false))
   }, [authed, excludeEnabled, mySessions])
 
   function handleLogin(token: string) {
@@ -377,6 +379,7 @@ export default function AdminDashboard() {
 
       {/* Today's numbers */}
       <section className="admin-section">
+        <div className="data-source-label">📊 PadelYara Analytics — eigene Daten</div>
         <h2>Today at a Glance</h2>
         <div className="stats-grid">
           <StatCard
@@ -462,6 +465,7 @@ export default function AdminDashboard() {
 
       {/* What did people do? */}
       <section className="admin-section">
+        <div className="data-source-label">📊 PadelYara Analytics — eigene Daten</div>
         <h2>What Did People Do Today?</h2>
         <p className="section-hint">
           Every action a user takes is recorded. Here's the breakdown — hover the ? for an explanation.
@@ -496,6 +500,7 @@ export default function AdminDashboard() {
 
       {/* 7-day activity chart */}
       <section className="admin-section">
+        <div className="data-source-label">📊 PadelYara Analytics — eigene Daten</div>
         <h2>📅 Activity This Week</h2>
         <p className="section-hint">
           Each bar shows how many actions happened that day. Hover over a bar to see the exact number.
@@ -747,11 +752,22 @@ export default function AdminDashboard() {
       )}
 
       {/* Google Search Console */}
-      {searchConsole && (
-        <section className="admin-section">
-          <h2>🔎 Google Search Console <span className="period-hint">last 28 days</span></h2>
-          <p className="section-hint">What people search for on Google before finding PadelYara — clicks, impressions, and your average ranking position.</p>
+      <section className="admin-section">
+        <div className="data-source-label">🔎 Google Search Console</div>
+        <h2>🔎 Google Search Console <span className="period-hint">last 28 days</span></h2>
+        <p className="section-hint">Was Menschen auf Google suchen, bevor sie PadelYara finden — Klicks, Impressionen und deine durchschnittliche Ranking-Position.</p>
 
+        {searchConsole === null && (
+          <p className="section-hint" style={{ color: "#94a3b8" }}>⏳ Wird geladen…</p>
+        )}
+        {searchConsole === false && (
+          <p className="section-hint" style={{ color: "#ef4444" }}>
+            ⚠️ Konnte keine Daten laden. Prüf ob <code>GOOGLE_SERVICE_ACCOUNT_JSON</code> in Railway gesetzt ist und ob die Service-Account-E-Mail in Search Console als User eingetragen ist.
+          </p>
+        )}
+
+        {searchConsole && (
+          <>
           {/* 28-day clicks + impressions trend */}
           {searchConsole.daily && searchConsole.daily.length > 0 && (() => {
             const maxImpr = Math.max(...searchConsole.daily.map((d: any) => d.impressions), 1)
@@ -824,8 +840,9 @@ export default function AdminDashboard() {
               </div>
             </>
           )}
-        </section>
-      )}
+          </>
+        )}
+      </section>
 
       {/* Day-by-day table */}
       <section className="admin-section">

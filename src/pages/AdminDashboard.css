@@ -300,6 +300,20 @@
 .event-count { font-size: 1rem; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
 .event-pct { font-size: 0.72rem; color: #94a3b8; width: 34px; text-align: right; flex-shrink: 0; }
 
+/* Data source badge */
+.data-source-label {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6366f1;
+  background: #eef2ff;
+  border-radius: 4px;
+  padding: 2px 8px;
+  margin-bottom: 0.6rem;
+}
+
 /* Period hint */
 .period-hint {
   font-size: 0.72rem;
