@@ -1313,7 +1313,7 @@ async def get_search_console():
     from google.oauth2 import service_account
     from googleapiclient.discovery import build
 
-    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "")
+    raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     if not raw:
         raise HTTPException(status_code=503, detail="GOOGLE_SERVICE_ACCOUNT_JSON not configured")
 
