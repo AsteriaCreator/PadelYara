@@ -300,18 +300,21 @@
 .event-count { font-size: 1rem; font-weight: 700; width: 38px; text-align: right; flex-shrink: 0; }
 .event-pct { font-size: 0.72rem; color: #94a3b8; width: 34px; text-align: right; flex-shrink: 0; }
 
-/* Data source badge */
+/* Data source badge — sits inline next to the h2 text */
 .data-source-label {
   display: inline-block;
-  font-size: 0.68rem;
+  vertical-align: middle;
+  font-size: 0.62rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: #6366f1;
   background: #eef2ff;
   border-radius: 4px;
-  padding: 2px 8px;
-  margin-bottom: 0.6rem;
+  padding: 2px 7px;
+  margin-left: 0.5rem;
+  position: relative;
+  top: -1px;
 }
 
 /* Period hint */
