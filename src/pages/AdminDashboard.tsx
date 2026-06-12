@@ -10,8 +10,8 @@ function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; er
         className="admin-login-form"
         onSubmit={(e) => { e.preventDefault(); if (value.trim()) onSubmit(value.trim()) }}
       >
-        <h2>🔒 Admin-Login</h2>
-        <p>Gib dein Admin-Geheimnis ein, um die Analytics zu sehen.</p>
+        <h2>🔒 Admin Login</h2>
+        <p>Enter your admin secret to view the analytics.</p>
         <input
           type="password"
           autoFocus
@@ -20,7 +20,7 @@ function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; er
           placeholder="Admin-Token"
           aria-label="Admin-Token"
         />
-        <button type="submit" disabled={!value.trim()}>Anmelden</button>
+        <button type="submit" disabled={!value.trim()}>Log in</button>
         {error && <p className="admin-login-error">{error}</p>}
       </form>
     </div>
@@ -77,6 +77,12 @@ function pageLabel(path: string): string {
     return `Court-Detail: ${slug}`
   }
   return clean
+}
+
+/** Convert YYYY-MM-DD → D.M.YYYY (European format) */
+function formatDate(iso: string, short = false): string {
+  const [y, m, d] = iso.split("-")
+  return short ? `${parseInt(d)}.${parseInt(m)}.` : `${parseInt(d)}.${parseInt(m)}.${y}`
 }
 
 /** Convert a venue slug like "padelzone-traiskirchen" → "Padelzone Traiskirchen" */
@@ -164,7 +170,7 @@ function BarChart({
                   />
                 ))}
               </div>
-              <div className="bar-date">{date.slice(5)}</div>
+              <div className="bar-date">{formatDate(date, true)}</div>
             </div>
           )
         })}
@@ -230,7 +236,7 @@ export default function AdminDashboard() {
         if (e.message === "Unauthorized") {
           clearAdminToken()
           setAuthed(false)
-          setLoginError("Falsches Geheimnis — bitte nochmal versuchen.")
+          setLoginError("Wrong secret — please try again.")
         } else {
           setError(e.message)
         }
@@ -379,7 +385,7 @@ export default function AdminDashboard() {
 
       {/* Today's numbers */}
       <section className="admin-section">
-        <h2>Today at a Glance <span className="data-source-label">📊 Eigene Analytics</span></h2>
+        <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics</span></h2>
         <div className="stats-grid">
           <StatCard
             emoji="👥" label="Visitors Today" value={summary.unique_sessions_today}
@@ -464,7 +470,7 @@ export default function AdminDashboard() {
 
       {/* What did people do? */}
       <section className="admin-section">
-        <h2>What Did People Do Today? <span className="data-source-label">📊 Eigene Analytics</span></h2>
+        <h2>What Did People Do Today? <span className="data-source-label">📊 Own Analytics</span></h2>
         <p className="section-hint">
           Every action a user takes is recorded. Here's the breakdown — hover the ? for an explanation.
         </p>
@@ -498,7 +504,7 @@ export default function AdminDashboard() {
 
       {/* 7-day activity chart */}
       <section className="admin-section">
-        <h2>📅 Activity This Week <span className="data-source-label">📊 Eigene Analytics</span></h2>
+        <h2>📅 Activity This Week <span className="data-source-label">📊 Own Analytics</span></h2>
         <p className="section-hint">
           Each bar shows how many actions happened that day. Hover over a bar to see the exact number.
         </p>
@@ -507,7 +513,7 @@ export default function AdminDashboard() {
 
       {/* 7-day visitors chart */}
       <section className="admin-section">
-        <h2>👥 Unique Visitors This Week <span className="data-source-label">📊 Eigene Analytics</span></h2>
+        <h2>👥 Unique Visitors This Week <span className="data-source-label">📊 Own Analytics</span></h2>
         <p className="section-hint">
           How many different people visited each day. One person = one bar, no matter how many searches they did.
         </p>
@@ -516,7 +522,7 @@ export default function AdminDashboard() {
 
       {/* 7-day pageviews chart */}
       <section className="admin-section">
-        <h2>📄 Page Views This Week <span className="data-source-label">📊 Eigene Analytics</span></h2>
+        <h2>📄 Page Views This Week <span className="data-source-label">📊 Own Analytics</span></h2>
         <p className="section-hint">
           Total page opens per day — counts everyone, including visitors who never search.
         </p>
@@ -526,7 +532,7 @@ export default function AdminDashboard() {
       {/* Where does traffic come from? */}
       {insights && insights.top_referrers && insights.top_referrers.length > 0 && (
         <section className="admin-section">
-          <h2>🔗 Where Does Traffic Come From? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>🔗 Where Does Traffic Come From? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">Which sites send you visitors. "direct" = typed the URL or opened a bookmark.</p>
           <div className="event-breakdown">
             {insights.top_referrers.map(({ referrer, count }: { referrer: string; count: number }) => {
@@ -552,7 +558,7 @@ export default function AdminDashboard() {
       {/* Most-viewed pages */}
       {insights && insights.top_pages && insights.top_pages.length > 0 && (
         <section className="admin-section">
-          <h2>📑 Most-Viewed Pages <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>📑 Most-Viewed Pages <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">Which pages get opened the most.</p>
           <div className="event-breakdown">
             {(() => {
@@ -589,7 +595,7 @@ export default function AdminDashboard() {
       {/* Geography */}
       {insights && insights.top_countries && insights.top_countries.length > 0 && (
         <section className="admin-section">
-          <h2>🌍 Where Are Visitors From? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>🌍 Where Are Visitors From? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">Countries your visitors come from, based on their IP address. Only the country name is stored — no IPs.</p>
           <div className="event-breakdown">
             {insights.top_countries.map(({ country, count }: { country: string; count: number }) => {
@@ -615,7 +621,7 @@ export default function AdminDashboard() {
       {/* Most booked venues */}
       {insights && insights.top_venues && insights.top_venues.length > 0 && (
         <section className="admin-section">
-          <h2>🏆 Most Booked Venues <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>🏆 Most Booked Venues <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">Which courts people click "Book" on most — useful for knowing who to approach for partnerships.</p>
           <div className="event-breakdown">
             {insights.top_venues.map(({ venue, count }: { venue: string; count: number }) => {
@@ -641,7 +647,7 @@ export default function AdminDashboard() {
       {/* Popular search locations */}
       {insights && insights.top_locations.length > 0 && (
         <section className="admin-section">
-          <h2>📍 Where Are People Searching? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>📍 Where Are People Searching? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">The locations users typed in — which areas get the most searches.</p>
           <div className="event-breakdown">
             {insights.top_locations.map(({ location, count }: { location: string; count: number }) => {
@@ -667,14 +673,14 @@ export default function AdminDashboard() {
       {/* Zero-results searches — demand without coverage */}
       {insights && insights.zero_results_total > 0 && (
         <section className="admin-section">
-          <h2>🚫 Searches With No Results <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>🚫 Searches With No Results <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">
             <strong>{insights.zero_results_total}</strong> searches found zero courts — these locations have demand but no venue coverage yet. Good candidates for adding new venues.
           </p>
           {insights.zero_results_locations.filter((r: any) => r.location).length > 0 && (
             <div className="event-breakdown">
               {insights.zero_results_locations
-                .filter((r: any) => r.location && r.location !== "Ort nicht angegeben")
+                .filter((r: any) => r.location && r.location !== "Ort nicht angegeben" && r.location !== "Location not specified")
                 .map(({ location, count }: { location: string; count: number }) => {
                   const max = insights.zero_results_locations[0].count
                   const pct = Math.round((count / max) * 100)
@@ -699,7 +705,7 @@ export default function AdminDashboard() {
       {/* Peak hours heatmap */}
       {insights && (
         <section className="admin-section">
-          <h2>🕐 When Do People Search? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>🕐 When Do People Search? <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">Which hours of the day get the most searches (Vienna time).</p>
           <div className="hour-chart">
             {insights.hourly_searches.map(({ hour, count }: { hour: number; count: number }) => {
@@ -722,7 +728,7 @@ export default function AdminDashboard() {
       {/* Device breakdown */}
       {insights && Object.keys(insights.device_breakdown).length > 0 && (
         <section className="admin-section">
-          <h2>📱 Mobile vs Desktop <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Eigene Analytics</span></h2>
+          <h2>📱 Mobile vs Desktop <span className="period-hint">last 30 days</span> <span className="data-source-label">📊 Own Analytics</span></h2>
           <p className="section-hint">What kind of device people use to search.</p>
           <div className="event-breakdown">
             {Object.entries(insights.device_breakdown as Record<string, number>).map(([device, count]) => {
@@ -752,14 +758,14 @@ export default function AdminDashboard() {
       <section className="admin-section">
         <div className="data-source-label">🔎 Google Search Console</div>
         <h2>🔎 Google Search Console <span className="period-hint">last 28 days</span> <span className="data-source-label">🔎 Google Search Console</span></h2>
-        <p className="section-hint">Was Menschen auf Google suchen, bevor sie PadelYara finden — Klicks, Impressionen und deine durchschnittliche Ranking-Position.</p>
+        <p className="section-hint">What people search for on Google before finding PadelYara — clicks, impressions, and your average ranking position.</p>
 
         {searchConsole === null && (
-          <p className="section-hint" style={{ color: "#94a3b8" }}>⏳ Wird geladen…</p>
+          <p className="section-hint" style={{ color: "#94a3b8" }}>⏳ Loading…</p>
         )}
         {searchConsole === false && (
           <p className="section-hint" style={{ color: "#ef4444" }}>
-            ⚠️ Konnte keine Daten laden. Prüf ob <code>GOOGLE_SERVICE_ACCOUNT_JSON</code> in Railway gesetzt ist und ob die Service-Account-E-Mail in Search Console als User eingetragen ist.
+            ⚠️ Could not load data. Check that <code>GOOGLE_SERVICE_ACCOUNT_JSON</code> is set in Railway and that the service account email is added as a user in Search Console.
           </p>
         )}
 
@@ -843,7 +849,7 @@ export default function AdminDashboard() {
 
       {/* Day-by-day table */}
       <section className="admin-section">
-        <h2>📋 Day-by-Day Breakdown <span className="data-source-label">📊 Eigene Analytics</span></h2>
+        <h2>📋 Day-by-Day Breakdown <span className="data-source-label">📊 Own Analytics</span></h2>
         <p className="section-hint">The full numbers for every day — easy to compare at a glance.</p>
         <div className="table-scroll">
           <table className="analytics-table">
@@ -859,7 +865,7 @@ export default function AdminDashboard() {
             <tbody>
               {trends.dates.map((date: string) => (
                 <tr key={date}>
-                  <td className="date-cell">{date}</td>
+                  <td className="date-cell">{formatDate(date)}</td>
                   {trends.event_types.map((e: string) => (
                     <td key={e} style={{ color: meta(e).color, fontWeight: 600 }}>
                       {trends.events_by_date[date]?.[e] ?? 0}
