@@ -769,7 +769,15 @@ export default function AdminDashboard() {
           </p>
         )}
 
-        {searchConsole && (
+        {searchConsole && (() => {
+          const hasData = searchConsole.daily?.length > 0 || searchConsole.top_queries?.length > 0
+          if (!hasData) return (
+            <p className="section-hint" style={{ color: "#94a3b8" }}>
+              No data yet — Google hasn't recorded any search impressions for this site in the last 28 days.
+              This will fill in once Google indexes more pages and people start finding the site via search.
+            </p>
+          )
+          return (
           <>
           {/* 28-day clicks + impressions trend */}
           {searchConsole.daily && searchConsole.daily.length > 0 && (() => {
@@ -844,13 +852,14 @@ export default function AdminDashboard() {
             </>
           )}
           </>
-        )}
+          )
+        })()}
       </section>
 
       {/* Day-by-day table */}
       <section className="admin-section">
         <h2>📋 Day-by-Day Breakdown <span className="data-source-label">📊 Own Analytics</span></h2>
-        <p className="section-hint">The full numbers for every day — easy to compare at a glance.</p>
+        <p className="section-hint">Your own site data — recorded directly by PadelYara every time someone visits or searches. Not related to Google Search Console.</p>
         <div className="table-scroll">
           <table className="analytics-table">
             <thead>
