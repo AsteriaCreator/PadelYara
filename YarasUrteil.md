@@ -24,8 +24,9 @@ not a win-rate bar. Numbers are the *evidence*; Yara delivers the *sentence*.
 3. **Doppel-Check** — two profiles → "do you two actually win together?"
 4. **Turnier-Scouting** — paste a tournament link → scout the whole field before you play.
 
-Build order: Solo first (it's the core; "self" vs "opponent" is just a label),
-then the two-profile and tournament views.
+**v1 scope (decided 2026-06-13): everything** — all four modes *and* the
+group- & schedule-strength layer. Internal build sequence still starts with the Solo
+single-profile engine (the other modes reuse it), but all of it ships in v1.
 
 ### Output
 - AI-written (Claude API, Yara voice) grounded in computed stats, in **two distinct parts**
