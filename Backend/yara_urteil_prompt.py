@@ -19,6 +19,7 @@ Requires a free GEMINI_API_KEY (from Google AI Studio) in the environment.
 
 import json
 import os
+import re
 
 # Model is overridable via env in case Google renames the free flash model.
 # Flash models are on the free tier.
@@ -108,7 +109,6 @@ def generate_urteil(facts: dict) -> dict:
             ),
             config=types.GenerateContentConfig(
                 system_instruction=SYSTEM_PROMPT,
-                response_mime_type="application/json",
                 temperature=0.9,
                 max_output_tokens=2048,
             ),
@@ -117,10 +117,13 @@ def generate_urteil(facts: dict) -> dict:
         raise UrteilUnavailable(f"Gemini error: {e}") from e
 
     text = (resp.text or "").strip()
+    # Strip markdown code fences if the model wrapped the JSON
+    text = re.sub(r"^```(?:json)?\s*", "", text)
+    text = re.sub(r"\s*```$", "", text.strip()).strip()
     try:
         data = json.loads(text)
     except json.JSONDecodeError as e:
-        raise UrteilUnavailable(f"Gemini returned non-JSON: {e}") from e
+        raise UrteilUnavailable(f"Gemini returned non-JSON: {e} | raw: {text[:200]}") from e
     return {
         "beobachtungen": data.get("beobachtungen", []),
         "urteil": data.get("urteil", ""),
