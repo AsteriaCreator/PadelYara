@@ -92,6 +92,7 @@ type RawVenue = {
   adjustment_label?: string
   price_eur?: number | null
   slot_duration_h?: number | null
+  matched_duration_h?: number | null
 }
 
 function mapVenue(v: RawVenue): Venue {
@@ -111,6 +112,7 @@ function mapVenue(v: RawVenue): Venue {
     adjustment_label: v.adjustment_label,
     price_eur: v.price_eur,
     slot_duration_h: v.slot_duration_h,
+    matched_duration_h: v.matched_duration_h,
   }
 }
 
@@ -143,6 +145,11 @@ export async function fetchAvailability(
   // Pass the human-readable location name for analytics (no PII — user typed it)
   if (params.location) {
     url.searchParams.set("search_location", params.location)
+  }
+
+  // Acceptable play durations (minutes). Omitted → backend default (2 h).
+  if (params.durations && params.durations.length > 0) {
+    url.searchParams.set("durations", params.durations.join(","))
   }
 
   if (etOffset > 0) {

@@ -8,6 +8,10 @@ export interface SearchParams {
   court_type: CourtType
   location?: string
   radius: number
+  // Acceptable play durations in minutes (e.g. [120] or [90, 120]).
+  // A venue counts as free only if it can host one of these continuously.
+  // Omitted/undefined → backend default (2 h).
+  durations?: number[]
 }
 
 export interface Weather {
@@ -34,6 +38,10 @@ export interface Venue {
   adjustment_label?: string
   price_eur?: number | null
   slot_duration_h?: number | null
+  // The longest requested duration (hours) this venue can actually host
+  // continuously at the searched time, e.g. 2 for "2h frei". Set by the backend
+  // when a duration filter is active and the venue matches.
+  matched_duration_h?: number | null
 }
 
 // Lightweight venue shape for the Padelrevier map (GET /api/venues).

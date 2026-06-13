@@ -38,6 +38,7 @@ from zoneinfo import ZoneInfo
 import requests as _requests
 
 from analytics import track_scraper_timeout
+from availability import venue_free_durations
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
 _BASE = "https://app.tennis04.com"
@@ -283,15 +284,18 @@ def _check_one(
     venue: dict,
     dt: datetime,
     fallback_offsets: list[int] = (),
-) -> tuple[str, str, str | None, int | None, int | None, float | None]:
+) -> tuple[str, str, str | None, int | None, int | None, float | None, list[int], list[dict]]:
     """
     Check one tennis04 venue at the given datetime.
 
-    Returns (venue_id, status, error, next_free_ts, price_eur, slot_duration_h):
-      - status:          "free" | "busy" | "no_slot" | "unknown"
-      - next_free_ts:    Unix ts of the nearest free fallback slot, or None
-      - price_eur:       per-hour guest price (EUR, rounded), or None
-      - slot_duration_h: courtgroup default duration in hours, or None
+    Returns (venue_id, status, error, next_free_ts, price_eur, slot_duration_h,
+             free_durations, fallback_durations):
+      - status:             "free" | "busy" | "no_slot" | "unknown"
+      - next_free_ts:       Unix ts of the nearest free fallback slot, or None
+      - price_eur:          per-hour guest price (EUR, rounded), or None
+      - slot_duration_h:    courtgroup default duration in hours, or None
+      - free_durations:     bookable continuous durations (min) free at T
+      - fallback_durations: [{ts, durations}] for the scanned fallback offsets
     """
     vid = venue["id"]
     vname = venue.get("name", vid)
@@ -307,19 +311,48 @@ def _check_one(
     }))
 
     if not club_id:
-        return vid, "unknown", "missing tennis04_club_id", None, None, None
+        return vid, "unknown", "missing tennis04_club_id", None, None, None, [], []
 
     meta = _fetch_courtgroup_meta(int(club_id), cg_id or "")
     if not meta or not meta["courts"]:
-        return vid, "unknown", "courtgroup_meta_unavailable", None, None, None
+        return vid, "unknown", "courtgroup_meta_unavailable", None, None, None, [], []
 
     bookings = _fetch_bookings(int(club_id), cg_id or "", dt.date())
     if bookings is None:
-        return vid, "unknown", "bookings_unavailable", None, None, None
+        return vid, "unknown", "bookings_unavailable", None, None, None, [], []
 
     courts = meta["courts"]
     duration_h = (meta["default_duration_min"] / 60) if meta["default_duration_min"] else None
     price_eur = _price_at(meta, int(club_id), cg_id or "", dt)
+
+    # ── Continuous-block model: per-court busy intervals (minutes since midnight) ─
+    # so we can answer "which durations are free starting at T?", not just the
+    # single-slot free/busy. grid_min is the courtgroup's booking step; the venue
+    # closes default_duration after the last valid start hour (hour_until).
+    grid_min  = int(meta["default_duration_min"] or 60)
+    open_min  = int(meta["hour_from"]) * 60
+    close_min = int(meta["hour_until"]) * 60 + grid_min
+    courts_busy: dict[str, list[tuple[int, int]]] = {c: [] for c in courts}
+    for b in bookings:
+        rid = b.get("resourceId")
+        if rid is None:
+            continue
+        rid = str(rid)
+        if rid not in courts_busy:
+            continue
+        bs = _parse_naive(b.get("start"))
+        be = _parse_naive(b.get("end"))
+        if bs is None or be is None:
+            continue
+        start_min = bs.hour * 60 + bs.minute
+        # Use the full datetime delta so a slot ending at/after midnight is sane.
+        end_min = start_min + int((be - bs).total_seconds() // 60)
+        courts_busy[rid].append((start_min, end_min))
+
+    def _free_durs_at(d: datetime) -> list[int]:
+        return venue_free_durations(
+            courts_busy, d.hour * 60 + d.minute, grid_min, open_min, close_min
+        )
 
     def _status_at(d: datetime) -> str:
         # hour_until is the last valid START hour (inclusive): a slot at hourUntil
@@ -330,36 +363,42 @@ def _check_one(
         return "free" if _free_courts_at(bookings, courts, d.replace(tzinfo=None)) else "busy"
 
     status = _status_at(dt)
+    free_durations = _free_durs_at(dt)
 
     # Single-pass fallback scan: nearest free slot among the configured offsets.
     # Only consider candidates on the SAME calendar day — we fetched bookings for
     # dt.date() only, so a post-midnight candidate would be checked against the
     # wrong day's bookings (and is outside opening hours anyway).
+    # We record each offset's free_durations so app.py can pick the next time a
+    # *requested* duration opens up (duration-aware fallback), not just any slot.
     next_free_ts: int | None = None
+    fallback_durations: list[dict] = []
     if status != "free":
         for offset_min in fallback_offsets:
             fb_dt = dt + timedelta(minutes=offset_min)
             if fb_dt.date() != dt.date():
                 continue
-            if _status_at(fb_dt) == "free":
+            fb_durs = _free_durs_at(fb_dt)
+            fallback_durations.append({"ts": _target_ts(fb_dt), "durations": fb_durs})
+            if next_free_ts is None and _status_at(fb_dt) == "free":
                 next_free_ts = _target_ts(fb_dt)
-                break
 
     print(json.dumps({
-        "event":        "tennis04_scrape_result",
-        "venue_id":     vid,
-        "venue_name":   vname,
-        "date":         dt.strftime("%Y-%m-%d"),
-        "time":         dt.strftime("%H:%M"),
-        "status":       status,
-        "courts":       len(courts),
-        "bookings":     len(bookings),
-        "next_free_ts": next_free_ts,
-        "price_eur":    price_eur,
-        "duration_h":   duration_h,
-        "duration_ms":  round((time.monotonic() - t0) * 1000),
+        "event":          "tennis04_scrape_result",
+        "venue_id":       vid,
+        "venue_name":     vname,
+        "date":           dt.strftime("%Y-%m-%d"),
+        "time":           dt.strftime("%H:%M"),
+        "status":         status,
+        "courts":         len(courts),
+        "bookings":       len(bookings),
+        "next_free_ts":   next_free_ts,
+        "price_eur":      price_eur,
+        "duration_h":     duration_h,
+        "free_durations": free_durations,
+        "duration_ms":    round((time.monotonic() - t0) * 1000),
     }))
-    return vid, status, None, next_free_ts, price_eur, duration_h
+    return vid, status, None, next_free_ts, price_eur, duration_h, free_durations, fallback_durations
 
 
 def _store_result(
@@ -369,6 +408,8 @@ def _store_result(
     next_free_ts: int | None = None,
     price_eur: int | None = None,
     slot_duration_h: float | None = None,
+    free_durations: list[int] | None = None,
+    fallback_durations: list[dict] | None = None,
 ) -> None:
     """Write one venue result to cache immediately — called per-venue as checks complete."""
     store_ts = time.time()
@@ -383,6 +424,10 @@ def _store_result(
             entry["price_eur"] = price_eur
         if slot_duration_h is not None:
             entry["slot_duration_h"] = slot_duration_h
+        if free_durations is not None:
+            entry["free_durations"] = free_durations
+        if fallback_durations:
+            entry["fallback_durations"] = fallback_durations
         _CACHE[_cache_key(venue_id, dt)] = entry
         _COOLDOWN.pop(venue_id, None)
 
@@ -406,11 +451,11 @@ def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         fb_offsets = venue.get("slot_fallback_minutes") or DEFAULT_FALLBACK_MINUTES
         t_venue = time.monotonic()
         try:
-            vid, status, err, next_free_ts, price_eur, slot_duration_h = _check_one(
+            vid, status, err, next_free_ts, price_eur, slot_duration_h, free_durations, fallback_durations = _check_one(
                 venue, dt, fallback_offsets=fb_offsets
             )
         except Exception as exc:
-            status, err, next_free_ts, price_eur, slot_duration_h = "unknown", str(exc), None, None, None
+            status, err, next_free_ts, price_eur, slot_duration_h, free_durations, fallback_durations = "unknown", str(exc), None, None, None, [], []
             print(json.dumps({
                 "event":      "tennis04_scrape_error",
                 "venue_id":   vid,
@@ -420,7 +465,9 @@ def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
         if err and "timeout" not in err:
             print(f"[tennis04] {vid} error: {err}")
         out[vid] = status
-        _store_result(vid, status, dt, next_free_ts=next_free_ts, price_eur=price_eur, slot_duration_h=slot_duration_h)
+        _store_result(vid, status, dt, next_free_ts=next_free_ts, price_eur=price_eur,
+                      slot_duration_h=slot_duration_h, free_durations=free_durations,
+                      fallback_durations=fallback_durations)
 
     with ThreadPoolExecutor(max_workers=min(_CONCURRENCY, len(venues))) as pool:
         futures = {pool.submit(fetch_one, v): v for v in venues}
