@@ -58,15 +58,24 @@ This is where she lives or dies. Get the face right and everything follows. The 
 
 ---
 
+## The high ground — a core composition rule
+
+**Yara is always positioned above the human eye-line, looking down. Never among the players.**
+
+Even in illustration, stage her on a perch — glass wall above the court, fence, umpire chair, reception desk, keyboard, car roof, windowsill overlooking the courts. The viewer looks *up* at her; she looks *down* at them. This vantage is part of her identity — it says "above all this" without a word. Avoid ground-level, eye-level, or "one of the group" compositions.
+
+---
+
 ## Pose / shot library (the recurring set)
 
-Build a small, reusable set so she's consistent across a feed:
+Build a small, reusable set so she's consistent across a feed. **All of them keep her above the eye-line (see composition rule above).**
 
 1. **The Look** — front-facing, direct level stare. The profile-picture pose. (≈ `yaraoncourt.png`.)
-2. **Seated, unbothered** — sitting bolt upright, tail curled, surveying.
+2. **Seated, unbothered** — sitting bolt upright, tail curled, surveying from a perch.
 3. **Paw on ball** — one paw resting on a tennis ball, owning it.
 4. **Over-the-shoulder glance** — turning back at you, mid-judgment.
 5. **Racket, claimed** — sitting on / beside the red-black racket like it's hers and beneath her.
+6. **Overlooking the courts** — perched on the glass wall / windowsill above the play, looking down at the game she's already judged.
 
 Keep the *face, eye color, and proportions identical* across all of them — that's what makes it read as one cat.
 
@@ -84,6 +93,7 @@ Keep the *face, eye color, and proportions identical* across all of them — tha
 | Neutral closed mouth | Open smiles, tongues, hearts |
 | Recognizable silhouette in solid black | Fussy detail that dies when shrunk |
 | Racket/ball as dry punctuation | Costumes, headbands, sweatbands |
+| Perched above, looking down | At ground/net level, among the players |
 
 ---
 
@@ -95,6 +105,7 @@ The hard part with AI is "same cat, new pose." Lock these and repeat them in eve
 - **Signature:** bright green-gold eyes (the only accent color), tall pointed ears, fine white whiskers
 - **Palette:** black / white / grey everywhere except the green-gold eyes
 - **Attitude keyword:** *unimpressed, contemptuous, composed, direct stare*
+- **Vantage:** perched above the viewer, looking down — never at ground/eye level
 - **Use the real photo.** Feed `brand/photos/yaraoncourt.png` as an image reference / character reference so the model matches the actual cat, then generate a strong front-facing "hero" version. Drive every other pose from that hero image rather than re-rolling from text.
 
 ### Starter prompt

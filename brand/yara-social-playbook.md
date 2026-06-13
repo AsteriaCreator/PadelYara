@@ -16,6 +16,25 @@ She is a **real cat**, so you don't make her "act." You film what she actually d
 
 ---
 
+## The high ground — her single strongest visual rule
+
+**Yara is always physically above humans. She watches from above. Never among the players.**
+
+This alone creates her identity without a word. When you choose where to put the camera and where to put her, put her *up* and looking *down*.
+
+**Where she sits:**
+- on the glass wall above the court
+- on the fence
+- on the umpire / referee chair
+- on the reception desk
+- on a keyboard
+- on top of a car
+- on a windowsill overlooking the courts
+
+**Never** at net height, never on the floor among players, never being carried at human level. If she has to be low, she's still the one being looked *at*, not one of the group.
+
+---
+
 ## On camera — behaviour direction
 
 **On-brand footage**
