@@ -17,6 +17,7 @@ class EversportsResult(TypedDict):
 from curl_cffi.requests import AsyncSession
 
 from availability import court_free_durations
+from opening_hours import DEFAULT_OPEN_MIN, DEFAULT_CLOSE_MIN
 
 # If EVERSPORTS_SLOT_PROXY is set, use that URL instead of hitting eversports.at
 # directly. Intended for the Vercel Edge Function proxy which runs on CF's own
@@ -833,8 +834,8 @@ async def check_eversports_slot(
     time:        str,
     venue_url:   str = "",
     venue_id:    str = "",
-    open_min:    int = 7 * 60,
-    close_min:   int = 23 * 60,
+    open_min:    int = DEFAULT_OPEN_MIN,
+    close_min:   int = DEFAULT_CLOSE_MIN,
 ) -> EversportsResult:
     """
     Core Eversports availability check.  Returns {"status": ..., "slots_count": ...}.
@@ -1052,7 +1053,11 @@ async def check_eversports_slot(
         # Method 3 remains available in the codebase for non-Railway deployments
         # where the booking-page AJAX is reachable.
 
-        return {"status": slot_status, "slots_count": slots_count, "free_durations": ev_free}
+        # Guard: grid-alignment returns [] the same as "no durations computed"
+        # but the venue IS free (slot_status confirms no booking). Pass None so
+        # the caller doesn't downgrade a free venue to busy on a :30 search.
+        ev_free_out = None if (slot_status == "free" and not ev_free) else ev_free
+        return {"status": slot_status, "slots_count": slots_count, "free_durations": ev_free_out}
 
     except Exception as exc:
         print(f"[check] EXCEPTION {type(exc).__name__}: {exc}")

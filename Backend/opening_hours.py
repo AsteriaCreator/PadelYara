@@ -25,7 +25,7 @@ fall back to a generous default window.
 import json
 import os
 import re
-from datetime import datetime, timezone
+from datetime import datetime
 
 WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
@@ -38,7 +38,8 @@ DEFAULT_CLOSE_MIN = 23 * 60
 _HHMM_RE = re.compile(r"^([01]?\d|2[0-3]):([0-5]\d)$")
 
 
-def hhmm_to_min(hhmm: str) -> int | None:
+def _parse_hhmm(hhmm: str) -> int | None:
+    """Parse 'HH:MM' → minutes since midnight, or None on bad input."""
     m = _HHMM_RE.match(hhmm.strip())
     if not m:
         return None
@@ -56,8 +57,8 @@ def day_window_min(opening_hours: dict | None, weekday_idx: int) -> tuple[int, i
     if opening_hours:
         day = opening_hours.get(WEEKDAYS[weekday_idx])
         if isinstance(day, dict):
-            o = hhmm_to_min(str(day.get("open", "")))
-            c = hhmm_to_min(str(day.get("close", "")))
+            o = _parse_hhmm(str(day.get("open", "")))
+            c = _parse_hhmm(str(day.get("close", "")))
             if o is not None and c is not None and c > o:
                 return o, c
     return DEFAULT_OPEN_MIN, DEFAULT_CLOSE_MIN
@@ -98,7 +99,7 @@ def _validate(parsed: dict) -> dict | None:
         if not isinstance(day, dict):
             continue
         o, c = day.get("open"), day.get("close")
-        if isinstance(o, str) and isinstance(c, str) and hhmm_to_min(o) is not None and hhmm_to_min(c) is not None:
+        if isinstance(o, str) and isinstance(c, str) and _parse_hhmm(o) is not None and _parse_hhmm(c) is not None:
             out[wd] = {"open": o, "close": c}
     return out or None
 

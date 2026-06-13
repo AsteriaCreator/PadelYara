@@ -364,6 +364,11 @@ def _check_one(
 
     status = _status_at(dt)
     free_durations = _free_durs_at(dt)
+    # Guard: grid-alignment returns [] the same as "no durations computed" but
+    # the venue IS free (status confirms it). Pass None so the caller doesn't
+    # downgrade a free venue to busy on a :30 search.
+    if status == "free" and not free_durations:
+        free_durations = None
 
     # Single-pass fallback scan: nearest free slot among the configured offsets.
     # Only consider candidates on the SAME calendar day — we fetched bookings for

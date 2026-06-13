@@ -38,6 +38,10 @@ function FinderPage() {
   const urlDate     = searchParams.get("datum") ?? ""
   const urlTime     = searchParams.get("zeit") ?? ""
   const urlRadius   = Number(searchParams.get("radius")) || 0
+  const _urlDurRaw  = searchParams.get("dur") ?? ""
+  const urlDurations: number[] = _urlDurRaw
+    ? _urlDurRaw.split(",").map(Number).filter(n => [60, 90, 120].includes(n))
+    : []
   // Set by the Padelrevier map's "Verfügbarkeit prüfen" jump — highlight + scroll
   // to this venue once results render. Captured in state so the search's URL
   // rewrite (which drops the param) doesn't clear it.
@@ -94,7 +98,10 @@ function FinderPage() {
   // Auto-trigger search when URL params are present (shared link)
   useEffect(() => {
     if (urlLocation && urlDate && urlTime && urlRadius) {
-      onSearch({ location: urlLocation, date: urlDate, time: urlTime, radius: urlRadius, court_type: "both" })
+      onSearch({
+        location: urlLocation, date: urlDate, time: urlTime, radius: urlRadius, court_type: "both",
+        ...(urlDurations.length > 0 ? { durations: urlDurations } : {}),
+      })
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -218,7 +225,13 @@ function FinderPage() {
       setSearched(true)
       setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
       setBookingWindowNotice(res.booking_window_notice ?? null)
-      setSearchParams({ ort: params.location!, datum: params.date, zeit: params.time, radius: String(params.radius) }, { replace: true })
+      setSearchParams({
+        ort: params.location!,
+        datum: params.date,
+        zeit: params.time,
+        radius: String(params.radius),
+        ...(params.durations?.length ? { dur: params.durations.join(",") } : {}),
+      }, { replace: true })
       if (res.availability_pending) {
         scheduleRefresh(params, geo, 1)
       }
@@ -309,7 +322,8 @@ function FinderPage() {
       if (!courtFilter.indoor && !courtFilter.outdoor) return false
     }
     if (v.status !== "pending") {
-      const isFree = v.status === "free"
+      // other_duration = free court, wrong block length → counts as "frei" for filtering.
+      const isFree = v.status === "free" || v.status === "other_duration"
       if (isFree && !statusFilter.frei) return false
       if (!isFree && !statusFilter.belegt) return false
     }
@@ -363,7 +377,7 @@ function FinderPage() {
 
         <NewsletterBanner />
 
-        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} initialLocation={urlLocation || undefined} initialDate={urlDate || undefined} initialTime={urlTime || undefined} initialRadius={urlRadius || undefined} />
+        <SearchCard onSearch={onSearch} isLoading={isLoading} courtFilter={courtFilter} onCourtFilterChange={setCourtFilter} statusFilter={statusFilter} onStatusFilterChange={setStatusFilter} initialLocation={urlLocation || undefined} initialDate={urlDate || undefined} initialTime={urlTime || undefined} initialRadius={urlRadius || undefined} initialDurations={urlDurations.length > 0 ? urlDurations : undefined} />
 
         {!searched && !isLoading && !error && (
           <div className="text-center py-8 text-gray-600 text-sm">

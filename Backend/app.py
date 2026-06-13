@@ -272,12 +272,6 @@ async def lifespan(_app: FastAPI):
     print("[tournaments] Daily scraper scheduled at 06:00 Vienna time.")
     print("[opening_hours] Weekly Eversports hours refresh scheduled Mon 04:00.")
 
-    # First-deploy seed: if no Eversports venue has learned hours yet, populate
-    # them once in the background so 2 h search is bounded correctly from day one.
-    if not any(v.get("opening_hours") for v in VENUES if v["platform"] == "Eversports"):
-        print("[opening_hours] No learned hours yet — seeding in background.")
-        threading.Thread(target=_run_opening_hours_refresh, daemon=True).start()
-
     # Kick off a background price scrape at startup so stale venues populate
     # immediately after deploy — don't wait for the first user search.
     asyncio.create_task(eversports_prices.refresh_prices_async(VENUES))
@@ -354,51 +348,58 @@ def _run_key(platform: str, dt: datetime) -> str:
     return f"{platform}*{dt.strftime('%Y-%m-%d')}*{dt.hour:02d}"
 
 
-def _apply_cached_entry(result: dict, status: str, entry: dict, wanted: list[int] | None = None) -> None:
+def _apply_duration_filter(result: dict, base_status: str, free_durs: list[int] | None, wanted: list[int] | None) -> None:
     """
-    Write a cached availability status plus its optional detail fields onto a
-    result. Shared by the eTennis and tennis04 phases, whose checker modules
-    expose the same cache-entry shape ({status, next_free_ts?, price_eur?,
-    slot_duration_h?, free_durations?, fallback_durations?}).
-
-    Duration awareness: when `wanted` (the durations the user selected, in
-    minutes) is given AND the checker reported `free_durations`, a venue that is
-    single-slot "free" but cannot host any requested duration continuously is
-    downgraded to "busy", and the fallback points at the next time a requested
-    duration actually opens up. Checkers that don't yet report free_durations
-    (or requests without a duration filter) keep the legacy single-slot
-    behaviour. next_available_time is only set for non-free statuses.
+    Core duration-filter logic shared by every availability path.
+    Writes availability_status (and matched_duration_h / available_durations_h) onto result.
+    Callers may set additional fields (price, fallback ts, etc.) after this call.
     """
-    free_durs = entry.get("free_durations")
-    if wanted and free_durs is not None and status in ("free", "busy"):
+    if wanted and free_durs is not None and base_status in ("free", "busy"):
         matched = match_durations(free_durs, wanted)
         if matched:
             result["availability_status"] = "free"
             result["matched_duration_h"] = max(matched) / 60
+            return
+        # Requested length not free. Other selectable lengths that ARE free here
+        # get an "other_duration" badge (amber "Nur 1 Std / 2 Std frei") instead
+        # of a misleading "Belegt" — the court itself is available, just not for
+        # the requested block length.
+        other = [d for d in SELECTABLE_DURATIONS if d in set(free_durs)]
+        if other:
+            result["availability_status"] = "other_duration"
+            result["available_durations_h"] = [d / 60 for d in other]
         else:
-            # Requested length not free now. Distinguish two cases:
-            #  • Other selectable lengths ARE free here (e.g. only 1 h/2 h slots,
-            #    so 1.5 h is structurally unavailable) → "other_duration" + the
-            #    lengths that are free, so the UI can say so instead of "Belegt".
-            #  • Nothing free → genuinely "busy"; point at the next time the
-            #    requested length opens up (duration-aware fallback).
-            other = [d for d in SELECTABLE_DURATIONS if d in set(free_durs)]
-            if other:
-                result["availability_status"] = "other_duration"
-                result["available_durations_h"] = [d / 60 for d in other]
-            else:
-                result["availability_status"] = "busy"
-                wanted_set = set(wanted)
-                for fb in entry.get("fallback_durations", []):
-                    if wanted_set & set(fb.get("durations", [])):
-                        result["next_available_time"] = fb["ts"]
-                        break
+            result["availability_status"] = "busy"
     else:
-        result["availability_status"] = status
-        if status != "free":
-            nft = entry.get("next_free_ts")
-            if nft is not None:
-                result["next_available_time"] = nft
+        result["availability_status"] = base_status
+
+
+def _apply_cached_entry(result: dict, status: str, entry: dict, wanted: list[int] | None = None) -> None:
+    """
+    Write a cached availability status plus its optional detail fields onto a
+    result. Shared by the eTennis and tennis04 phases.
+
+    Duration awareness: when `wanted` is given AND the checker reported
+    `free_durations`, venues are checked for continuous-block availability.
+    The fallback points at the next time a requested duration actually opens up.
+    Without a duration filter, the legacy single-slot behaviour applies.
+    """
+    free_durs = entry.get("free_durations")
+    duration_filter_active = bool(wanted and free_durs is not None and status in ("free", "busy"))
+    _apply_duration_filter(result, status, free_durs, wanted)
+    shown = result["availability_status"]
+    if duration_filter_active and shown == "busy":
+        # Duration-aware fallback: point at the next time a requested length opens.
+        wanted_set = set(wanted)  # type: ignore[arg-type]
+        for fb in entry.get("fallback_durations", []):
+            if wanted_set & set(fb.get("durations", [])):
+                result["next_available_time"] = fb["ts"]
+                break
+    elif not duration_filter_active and shown != "free":
+        # Legacy single-slot fallback: next time any slot is free.
+        nft = entry.get("next_free_ts")
+        if nft is not None:
+            result["next_available_time"] = nft
     price = entry.get("price_eur")
     if price is not None:
         result["price_eur"] = price
@@ -576,33 +577,9 @@ def _purge_ev_result_cache() -> None:
         _EV_FREE_CACHE.pop(k, None)
 
 
-def _apply_ev_duration(result: dict, base_status: str, free_durs: list[int] | None, wanted: list[int] | None) -> bool:
-    """
-    Apply the user's duration filter to an Eversports result. Mirrors the
-    duration logic in _apply_cached_entry but for the Eversports path (which sets
-    status directly rather than via cache entries). Returns True when the venue
-    can host a requested duration at the searched time (i.e. shows "free").
-
-    With no duration filter or no free_durations (e.g. platform_check_required),
-    the base single-slot status is used unchanged.
-    """
-    if wanted and free_durs is not None and base_status in ("free", "busy"):
-        matched = match_durations(free_durs, wanted)
-        if matched:
-            result["availability_status"] = "free"
-            result["matched_duration_h"] = max(matched) / 60
-            return True
-        # Requested length not free. If other selectable lengths ARE free here
-        # (e.g. a 60-min-grid court can't do 1.5 h), say so instead of "Belegt".
-        other = [d for d in SELECTABLE_DURATIONS if d in set(free_durs)]
-        if other:
-            result["availability_status"] = "other_duration"
-            result["available_durations_h"] = [d / 60 for d in other]
-        else:
-            result["availability_status"] = "busy"
-        return False
-    result["availability_status"] = base_status
-    return base_status == "free"
+def _apply_ev_duration(result: dict, base_status: str, free_durs: list[int] | None, wanted: list[int] | None) -> None:
+    """Apply the user's duration filter to an Eversports result (delegates to shared helper)."""
+    _apply_duration_filter(result, base_status, free_durs, wanted)
 
 
 def _purge_search_cache() -> None:
@@ -911,7 +888,7 @@ async def search(
                     if free_durs is not None:
                         _EV_FREE_CACHE[key] = (free_durs, time_monotonic())
             # Apply the user's duration filter to derive the shown status.
-            matched_free = _apply_ev_duration(result, base_status, free_durs, wanted_durations)
+            _apply_ev_duration(result, base_status, free_durs, wanted_durations)
             live_price = ev_result.get("price_eur")
             if live_price is None:
                 live_price = eversports_prices.get_price(result["venue_id"], date_str_ev, time_hhmm)
