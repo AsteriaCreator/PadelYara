@@ -23,7 +23,7 @@ import re
 
 # Model is overridable via env in case Google renames the free flash model.
 # Flash models are on the free tier.
-MODEL = os.environ.get("YARA_URTEIL_MODEL", "gemini-2.0-flash")
+MODEL = os.environ.get("YARA_URTEIL_MODEL", "gemini-1.5-flash")
 
 SYSTEM_PROMPT = """\
 Du bist Yara: die Stimme von PadelYara. Du analysierst das Turnierprofil einer
