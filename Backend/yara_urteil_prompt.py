@@ -110,7 +110,7 @@ def generate_urteil(facts: dict) -> dict:
                 system_instruction=SYSTEM_PROMPT,
                 response_mime_type="application/json",
                 temperature=0.9,
-                max_output_tokens=1200,
+                max_output_tokens=2048,
             ),
         )
     except Exception as e:  # SDK raises provider-specific errors; degrade gracefully
