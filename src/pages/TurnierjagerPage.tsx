@@ -368,7 +368,6 @@ export default function TurnierjagerPage() {
   const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
   const [myLoading, setMyLoading] = useState(false)
   const [myError, setMyError] = useState<string | null>(null)
-  const [myExpanded, setMyExpanded] = useState(false)
   // Venue options fetched from API, scoped to selected bundesländer
   const [venueOptions, setVenueOptions] = useState<string[]>([])
 
@@ -520,35 +519,19 @@ export default function TurnierjagerPage() {
 
       {/* Meine Turniere */}
       <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-4">
-        <button
-          className="w-full flex items-center justify-between"
-          onClick={() => setMyExpanded(v => !v)}
-        >
-          <div className="flex items-center gap-2">
-            <span
-              className="text-sm font-semibold"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: mySlug ? "#d4f53c" : "#9ca3af" }}
-            >
-              MEINE TURNIERE
-            </span>
-            {mySlug && myTournaments.length > 0 && (
-              <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>({myTournaments.length})</span>
-            )}
-            {mySlug && !myLoading && myTournaments.length === 0 && (
-              <span className="text-xs text-gray-600">— keine offenen Anmeldungen</span>
-            )}
-          </div>
-          <svg
-            viewBox="0 0 10 6" className="w-2.5 h-2.5 transition-transform flex-shrink-0"
-            style={{ transform: myExpanded ? "rotate(180deg)" : "rotate(0deg)", color: "#6b7280" }}
-            fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+        <div className="flex items-center gap-2 mb-4">
+          <span
+            className="text-sm font-semibold"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: mySlug ? "#d4f53c" : "#9ca3af" }}
           >
-            <polyline points="1,1 5,5 9,1" />
-          </svg>
-        </button>
+            MEINE TURNIERE
+          </span>
+          {mySlug && myTournaments.length > 0 && (
+            <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>({myTournaments.length})</span>
+          )}
+        </div>
 
-        {myExpanded && (
-          <div className="mt-4">
+        <div>
             <p className="text-xs text-gray-500 mb-3 leading-relaxed">
               Profil-Link von padel-austria.at eingeben — ich zeige dir deine offenen Anmeldungen.
             </p>
@@ -613,7 +596,6 @@ export default function TurnierjagerPage() {
               </div>
             )}
           </div>
-        )}
       </div>
 
       {/* Filters */}
