@@ -315,10 +315,16 @@ _SEARCH_CACHE_TTL_PENDING   = 3   # s — short so polls every ~3 s see fresh EV
                                   #     lets clients poll for real statuses quickly
 
 # ── Eversports venue-level result cache ──────────────────────────────────────
-# key → (status_string, stored_at_monotonic)
+# key → (status_string, stored_at_monotonic, ttl)
 _EV_RESULT_CACHE: dict[str, tuple[str, float]] = {}
 _EV_RESULT_LOCK = threading.Lock()
 _EV_RESULT_TTL = 300  # s — match eTennis _TTL
+
+# Parallel cache of the BASE (single-slot) status' free_durations, same key/lock.
+# Kept separate from _EV_RESULT_CACHE so its tuple shape (and the legacy readers
+# of that cache) stay untouched. The duration the user picked is applied at read
+# time from these — so one cached scrape serves every duration selection.
+_EV_FREE_CACHE: dict[str, tuple[list[int], float]] = {}
 
 
 def _run_key(platform: str, dt: datetime) -> str:
@@ -536,6 +542,29 @@ def _purge_ev_result_cache() -> None:
     expired = [k for k, (_, ts, ttl) in _EV_RESULT_CACHE.items() if now_t - ts >= ttl]
     for k in expired:
         del _EV_RESULT_CACHE[k]
+        _EV_FREE_CACHE.pop(k, None)
+
+
+def _apply_ev_duration(result: dict, base_status: str, free_durs: list[int] | None, wanted: list[int] | None) -> bool:
+    """
+    Apply the user's duration filter to an Eversports result. Mirrors the
+    duration logic in _apply_cached_entry but for the Eversports path (which sets
+    status directly rather than via cache entries). Returns True when the venue
+    can host a requested duration at the searched time (i.e. shows "free").
+
+    With no duration filter or no free_durations (e.g. platform_check_required),
+    the base single-slot status is used unchanged.
+    """
+    if wanted and free_durs is not None and base_status in ("free", "busy"):
+        matched = match_durations(free_durs, wanted)
+        if matched:
+            result["availability_status"] = "free"
+            result["matched_duration_h"] = max(matched) / 60
+            return True
+        result["availability_status"] = "busy"
+        return False
+    result["availability_status"] = base_status
+    return base_status == "free"
 
 
 def _purge_search_cache() -> None:
@@ -804,6 +833,12 @@ async def search(
                 result["availability_status"] = status
                 return
             booking_url = venue.get("booking_url", "") if venue else ""
+            # Opening window for the searched weekday (auto-learned; generous
+            # default until learned). Bounds the continuous-block computation so
+            # we never report a 2 h slot that runs past closing.
+            ev_open_min, ev_close_min = opening_hours.day_window_min(
+                venue.get("opening_hours") if venue else None, dt.weekday()
+            )
 
             def _run(time_str: str, date_str: str) -> str:
                 coro = check_eversports_slot(
@@ -813,6 +848,8 @@ async def search(
                     time=time_str,
                     venue_url=booking_url,
                     venue_id=result["venue_id"],
+                    open_min=ev_open_min,
+                    close_min=ev_close_min,
                 )
                 try:
                     ev_result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=30)
@@ -822,16 +859,21 @@ async def search(
                     return {"status": "platform_check_required", "slots_count": 0}
 
             ev_result = _run(f"{time_hhmm[:2]}:{time_hhmm[2:]}", date_str_ev)
-            status = ev_result.get("status", "platform_check_required")
-            if status in ("free", "no_slot", "busy", "platform_check_required"):
-                ttl = (_EV_BUSY_TTL   if status == "busy"
-                       else _EV_FAILED_TTL if status == "platform_check_required"
+            base_status = ev_result.get("status", "platform_check_required")
+            free_durs   = ev_result.get("free_durations")
+            if base_status in ("free", "no_slot", "busy", "platform_check_required"):
+                ttl = (_EV_BUSY_TTL   if base_status == "busy"
+                       else _EV_FAILED_TTL if base_status == "platform_check_required"
                        else _EV_RESULT_TTL)
                 with _EV_RESULT_LOCK:
                     if len(_EV_RESULT_CACHE) > 500:
                         _purge_ev_result_cache()
-                    _EV_RESULT_CACHE[_ev_result_key(result["venue_id"], date_str_ev, time_hhmm)] = (status, time_monotonic(), ttl)
-            result["availability_status"] = status
+                    key = _ev_result_key(result["venue_id"], date_str_ev, time_hhmm)
+                    _EV_RESULT_CACHE[key] = (base_status, time_monotonic(), ttl)
+                    if free_durs is not None:
+                        _EV_FREE_CACHE[key] = (free_durs, time_monotonic())
+            # Apply the user's duration filter to derive the shown status.
+            matched_free = _apply_ev_duration(result, base_status, free_durs, wanted_durations)
             live_price = ev_result.get("price_eur")
             if live_price is None:
                 live_price = eversports_prices.get_price(result["venue_id"], date_str_ev, time_hhmm)
@@ -839,25 +881,30 @@ async def search(
                 result["price_eur"] = live_price
             if ev_result.get("slot_duration_h") is not None:
                 result["slot_duration_h"] = ev_result["slot_duration_h"]
-            if status in ("busy", "no_slot"):
+            # Duration-aware fallback: when the requested length doesn't fit now,
+            # scan offsets for the next time it does (not just any free slot).
+            if not matched_free and base_status in ("free", "busy", "no_slot"):
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
                     dt_fb     = dt + timedelta(minutes=offset_min)
                     fb_result = _run(dt_fb.strftime("%H:%M"), dt_fb.strftime("%Y-%m-%d"))
                     fb_status = fb_result.get("status", "platform_check_required")
+                    fb_free   = fb_result.get("free_durations")
+                    fits = fb_free is not None and bool(match_durations(fb_free, wanted_durations))
                     print(json.dumps({
                         "event":      "eversports_fallback_result",
                         "venue_id":   result["venue_id"],
                         "offset_min": offset_min,
-                        "primary":    status,
+                        "primary":    base_status,
                         "fallback":   fb_status,
+                        "fits":       fits,
                     }))
-                    if fb_status == "free":
+                    if fits:
                         result["next_available_time"] = int(
                             dt_fb.replace(tzinfo=VIENNA_TZ).timestamp()
                         )
                         break
-                    if fb_status not in ("busy", "no_slot"):
+                    if fb_status not in ("busy", "no_slot", "free"):
                         break
 
         ev_results = [r for r in results if r["platform"] == "Eversports"]
@@ -877,7 +924,9 @@ async def search(
                     if entry is not None:
                         status, ts, ttl = entry
                         if now_t - ts < ttl:
-                            r["availability_status"] = status
+                            free_entry = _EV_FREE_CACHE.get(key)
+                            free_durs  = free_entry[0] if free_entry else None
+                            _apply_ev_duration(r, status, free_durs, wanted_durations)
                             cached_price = (
                                 eversports_prices.get_price(r["venue_id"], date_str_ev, time_hhmm)
                                 or eversports_prices.get_any_price(r["venue_id"], date_str_ev)

@@ -16,6 +16,8 @@ class EversportsResult(TypedDict):
 
 from curl_cffi.requests import AsyncSession
 
+from availability import court_free_durations
+
 # If EVERSPORTS_SLOT_PROXY is set, use that URL instead of hitting eversports.at
 # directly. Intended for the Vercel Edge Function proxy which runs on CF's own
 # network and is not subject to Railway's IP block.
@@ -765,6 +767,48 @@ def _parse_slots(text: str) -> list | None:
         return None
 
 
+def _ev_free_durations(
+    slots: list, date: str, court_ids: list[int],
+    target_min: int, open_min: int, close_min: int,
+) -> list[int]:
+    """
+    Bookable continuous durations (minutes) free at target_min across the given
+    courts, derived from Eversports' BOOKED-slot list.
+
+    Eversports /api/slot lists one entry per occupied grid-cell (a free cell is
+    simply absent — verified against live data). Each court's grid (cell width)
+    is inferred from the spacing of its OWN booked cells: 30 min only when we
+    actually observe a 30-min gap, otherwise the coarser 60 min. Assuming the
+    coarser grid when unsure means a booked cell is treated as covering a full
+    hour, so we err toward "busy" and never report a 2 h block that is in truth
+    only part-free (the original bug this feature fixes).
+    """
+    by_court: dict[int, set[int]] = {}
+    for s in slots:
+        if s.get("date") != date:
+            continue
+        c  = s.get("court")
+        st = s.get("start")
+        if c is None or not st:
+            continue
+        try:
+            by_court.setdefault(c, set()).add(int(st[:2]) * 60 + int(st[2:]))
+        except (ValueError, IndexError):
+            continue
+
+    available: set[int] = set()
+    for cid in court_ids:
+        booked = sorted(by_court.get(cid, set()))
+        grid = 60
+        for a, b in zip(booked, booked[1:]):
+            if b - a == 30:
+                grid = 30
+                break
+        busy = [(m, m + grid) for m in booked]
+        available.update(court_free_durations(busy, target_min, grid, open_min, close_min))
+    return sorted(available)
+
+
 def _build_params(
     facility_id: int, court_ids: str, date: str
 ) -> tuple[list[tuple], list[int]]:
@@ -789,9 +833,15 @@ async def check_eversports_slot(
     time:        str,
     venue_url:   str = "",
     venue_id:    str = "",
+    open_min:    int = 7 * 60,
+    close_min:   int = 23 * 60,
 ) -> EversportsResult:
     """
     Core Eversports availability check.  Returns {"status": ..., "slots_count": ...}.
+    On the /api/slot path it also returns "free_durations": the bookable
+    continuous durations (minutes) free at the requested time, bounded by the
+    venue's [open_min, close_min) opening window (auto-learned; see
+    opening_hours.py). Callers intersect that with the durations the user picked.
     Replaces the former /check HTTP endpoint — call directly instead of via HTTP.
     """
     time_hhmm = time.replace(":", "")
@@ -881,6 +931,7 @@ async def check_eversports_slot(
         first_starts: list[str] = []
         last_starts:  list[str] = []
         scope_max_date = ""
+        ev_free: list[int] = []
 
         params, cids = _build_params(facility_id, court_ids, date)
         http_status, text = await _fetch_slots(params)
@@ -986,6 +1037,10 @@ async def check_eversports_slot(
                     )
                     slot_status = "free"
 
+                # Bookable continuous durations free at the requested time,
+                # bounded by opening hours (duration-aware availability).
+                ev_free = _ev_free_durations(slots, date, cids, target_min, open_min, close_min)
+
                 _log(slot_status, slots_count,
                      first_starts=first_starts, last_starts=last_starts,
                      max_date=scope_max_date)
@@ -997,7 +1052,7 @@ async def check_eversports_slot(
         # Method 3 remains available in the codebase for non-Railway deployments
         # where the booking-page AJAX is reachable.
 
-        return {"status": slot_status, "slots_count": slots_count}
+        return {"status": slot_status, "slots_count": slots_count, "free_durations": ev_free}
 
     except Exception as exc:
         print(f"[check] EXCEPTION {type(exc).__name__}: {exc}")
