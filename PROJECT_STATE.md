@@ -8,6 +8,7 @@ Core flow:
 - location input
 - radius search
 - date/time search
+- play-duration filter (1 / 1.5 / 2 h, multi-select, default 2 h)
 - court type filtering
 - weather integration
 - booking deep links
@@ -118,6 +119,18 @@ Architecture:
 New deps: `leaflet`, `react-leaflet`, `react-leaflet-cluster`, `@types/leaflet`. The MarkerCluster CSS imports (`MarkerCluster.css` + `MarkerCluster.Default.css`) are mandatory — without them the cluster bubbles render with no size and are invisible.
 
 Note: this map page defeats automated screenshot capture (the Leaflet renderer stays busy, so Preview/Chrome CDP both time out) — verify map visuals on a real foreground browser; computed-style/JS-eval checks still work.
+
+---
+
+## Play-Duration Availability (live, 2026-06-13)
+
+Search filters by how long you want to play, not just the start time — a venue is "Frei" only if a single court is free **continuously** for a selected duration.
+
+- Shared block math: `Backend/availability.py`. Each scraper emits `free_durations` (duration-agnostic, cached per venue/date/time) + `fallback_durations`; `app.py` intersects with the `durations` query param (minutes).
+- Frontend: multi-select chips (`DURATION_OPTIONS`) + half-hour `TIME_SLOTS`; "2 Std frei" tag via `matched_duration_h`.
+- "Andere Dauer" state: when the requested length isn't free but other selectable lengths are (e.g. a 60-min-grid venue can't sell 1.5 h), the API returns `availability_status: "other_duration"` + `available_durations_h` → amber "Nur 1 Std / 2 Std frei" instead of misleading "Belegt".
+- Opening hours (Eversports only — its slot API can't see closing time): auto-learned via Gemini + Google Search grounding (`Backend/opening_hours.py`), weekly Mon 04:00 + first-deploy seed, throttled for the Gemini free tier; 07–23 default until learned. tennis04 / eTennis expose hours themselves.
+- Every platform errs toward **Belegt**, never a false **Frei**, when grid/hours are ambiguous.
 
 ---
 
