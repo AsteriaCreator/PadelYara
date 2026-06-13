@@ -1,5 +1,5 @@
 """
-Yaras Urteil — verdict generation.
+Yaras Urteil — verdict generation (Google Gemini, free tier).
 
 THIS FILE IS THE SOURCE OF TRUTH FOR HOW YARA JUDGES EVERY PLAYER.
 
@@ -8,19 +8,21 @@ results-beat-win-rate, confidence-by-sample-size, the disclaimer, the tone split
 live here as the system prompt, so EVERY user's verdict follows the same rules.
 The human-readable spec is in the repo root: YarasUrteil.md — keep the two in sync.
 
-The model receives only computed facts (never raw HTML) and must turn them into:
-  - Beobachtungen: sober, almost statistical, neutral observations (a list)
-  - Urteil: 2-4 sentences, dry and slightly superior, ending on a mean punchline
-
+The model is Google Gemini (free tier) so there is no per-verdict cost. The model
+receives only computed facts (never raw HTML) and must return JSON with:
+  - beobachtungen: sober, almost statistical, neutral observations (a list)
+  - urteil: 2-4 sentences, dry and slightly superior, ending on a mean punchline
 It is constrained to use ONLY the facts it is given — no invented numbers.
+
+Requires a free GEMINI_API_KEY (from Google AI Studio) in the environment.
 """
 
 import json
 import os
 
-# Model is overridable via env so cost can be tuned without a code change.
-# Default is Opus 4.8 (best voice); set YARA_URTEIL_MODEL=claude-haiku-4-5 to save.
-MODEL = os.environ.get("YARA_URTEIL_MODEL", "claude-opus-4-8")
+# Model is overridable via env in case Google renames the free flash model.
+# Flash models are on the free tier.
+MODEL = os.environ.get("YARA_URTEIL_MODEL", "gemini-3.5-flash")
 
 SYSTEM_PROMPT = """\
 Du bist Yara: die Stimme von PadelYara. Du analysierst das Turnierprofil einer
@@ -64,25 +66,14 @@ EHERNE REGELN (gelten für JEDEN Spieler):
    ("vielversprechend", "ein Experiment"), niemals "besser/bewiesen". Große
    Stichprobe -> sichere Sprache ("bewiesen", "Rückgrat").
 3. JEDE Behauptung ist durch eine echte Zahl gedeckt. Gemein ja, falsch nein.
-4. Gendere natürlich nach dem Geschlecht/Namen, bleib aber knapp."""
+4. Gendere natürlich nach dem Geschlecht/Namen, bleib aber knapp.
 
-# Structured-output schema — guarantees we get back clean {beobachtungen, urteil}.
-URTEIL_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "beobachtungen": {
-            "type": "array",
-            "items": {"type": "string"},
-            "description": "4-7 nüchterne, datenbasierte Beobachtungen (Teil 1).",
-        },
-        "urteil": {
-            "type": "string",
-            "description": "2-4 Sätze, trocken/überheblich, mit Pointe (Teil 2).",
-        },
-    },
-    "required": ["beobachtungen", "urteil"],
-    "additionalProperties": False,
-}
+== AUSGABEFORMAT ==
+Antworte AUSSCHLIESSLICH mit einem JSON-Objekt, ohne weiteren Text, mit genau diesen
+Feldern:
+{"beobachtungen": ["...", "..."], "urteil": "..."}
+- "beobachtungen": 4 bis 7 Strings (Teil 1).
+- "urteil": ein String mit 2 bis 4 Sätzen (Teil 2)."""
 
 
 class UrteilUnavailable(RuntimeError):
@@ -91,45 +82,45 @@ class UrteilUnavailable(RuntimeError):
 
 def generate_urteil(facts: dict) -> dict:
     """
-    Turn computed `facts` into Yara's verdict.
+    Turn computed `facts` into Yara's verdict via Google Gemini (free tier).
 
     Returns {"beobachtungen": [str, ...], "urteil": str}.
-    Raises UrteilUnavailable if ANTHROPIC_API_KEY is missing or the SDK isn't
-    installed, so the caller (app.py) can degrade gracefully instead of crashing.
+    Raises UrteilUnavailable if GEMINI_API_KEY is missing or the SDK isn't installed,
+    so the caller (app.py) can degrade gracefully instead of crashing.
     """
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        raise UrteilUnavailable("ANTHROPIC_API_KEY not set")
+    key = os.environ.get("GEMINI_API_KEY")
+    if not key:
+        raise UrteilUnavailable("GEMINI_API_KEY not set")
     try:
-        import anthropic
-    except ImportError as e:  # anthropic not installed
-        raise UrteilUnavailable("anthropic SDK not installed") from e
+        from google import genai
+        from google.genai import types
+    except ImportError as e:
+        raise UrteilUnavailable("google-genai SDK not installed") from e
 
-    client = anthropic.Anthropic()
+    client = genai.Client(api_key=key)
     try:
-        resp = client.messages.create(
+        resp = client.models.generate_content(
             model=MODEL,
-            max_tokens=1500,
-            system=SYSTEM_PROMPT,
-            output_config={
-                "format": {"type": "json_schema", "schema": URTEIL_SCHEMA},
-                "effort": "medium",
-            },
-            messages=[
-                {
-                    "role": "user",
-                    "content": (
-                        "Hier sind die berechneten Fakten. Erstelle Beobachtungen "
-                        "und Yaras Urteil streng nach den Regeln:\n\n"
-                        + json.dumps(facts, ensure_ascii=False, indent=2)
-                    ),
-                }
-            ],
+            contents=(
+                "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
+                "Urteil streng nach den Regeln:\n\n"
+                + json.dumps(facts, ensure_ascii=False, indent=2)
+            ),
+            config=types.GenerateContentConfig(
+                system_instruction=SYSTEM_PROMPT,
+                response_mime_type="application/json",
+                temperature=0.9,
+                max_output_tokens=1200,
+            ),
         )
-    except anthropic.APIError as e:
-        raise UrteilUnavailable(f"Anthropic API error: {e}") from e
+    except Exception as e:  # SDK raises provider-specific errors; degrade gracefully
+        raise UrteilUnavailable(f"Gemini error: {e}") from e
 
-    text = "".join(b.text for b in resp.content if getattr(b, "type", None) == "text")
-    data = json.loads(text)
+    text = (resp.text or "").strip()
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as e:
+        raise UrteilUnavailable(f"Gemini returned non-JSON: {e}") from e
     return {
         "beobachtungen": data.get("beobachtungen", []),
         "urteil": data.get("urteil", ""),

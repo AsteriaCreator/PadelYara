@@ -48,8 +48,10 @@ import tournaments_mongo
 from padel_austria_scraper import scrape_all as scrape_padel_austria
 from padel_austria_player import analyze_player
 from yara_urteil_prompt import generate_urteil, UrteilUnavailable, DISCLAIMER
+import urteil_mongo
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
 import eversports_prices
+from availability import parse_durations, match_durations
 
 # Eversports venues can have 30-min or 60-min slots depending on the court
 # (e.g. Traiskirchen Court 3 has 30-min slots), so check both offsets.
@@ -297,18 +299,43 @@ def _run_key(platform: str, dt: datetime) -> str:
     return f"{platform}*{dt.strftime('%Y-%m-%d')}*{dt.hour:02d}"
 
 
-def _apply_cached_entry(result: dict, status: str, entry: dict) -> None:
+def _apply_cached_entry(result: dict, status: str, entry: dict, wanted: list[int] | None = None) -> None:
     """
     Write a cached availability status plus its optional detail fields onto a
     result. Shared by the eTennis and tennis04 phases, whose checker modules
     expose the same cache-entry shape ({status, next_free_ts?, price_eur?,
-    slot_duration_h?}). next_available_time is only set for non-free statuses.
+    slot_duration_h?, free_durations?, fallback_durations?}).
+
+    Duration awareness: when `wanted` (the durations the user selected, in
+    minutes) is given AND the checker reported `free_durations`, a venue that is
+    single-slot "free" but cannot host any requested duration continuously is
+    downgraded to "busy", and the fallback points at the next time a requested
+    duration actually opens up. Checkers that don't yet report free_durations
+    (or requests without a duration filter) keep the legacy single-slot
+    behaviour. next_available_time is only set for non-free statuses.
     """
-    result["availability_status"] = status
-    if status != "free":
-        nft = entry.get("next_free_ts")
-        if nft is not None:
-            result["next_available_time"] = nft
+    free_durs = entry.get("free_durations")
+    if wanted and free_durs is not None and status in ("free", "busy"):
+        matched = match_durations(free_durs, wanted)
+        if matched:
+            result["availability_status"] = "free"
+            result["matched_duration_h"] = max(matched) / 60
+        else:
+            # The requested length doesn't fit at T — even if a single slot is
+            # free. Point at the next offset whose free durations include one of
+            # the requested lengths (duration-aware fallback).
+            result["availability_status"] = "busy"
+            wanted_set = set(wanted)
+            for fb in entry.get("fallback_durations", []):
+                if wanted_set & set(fb.get("durations", [])):
+                    result["next_available_time"] = fb["ts"]
+                    break
+    else:
+        result["availability_status"] = status
+        if status != "free":
+            nft = entry.get("next_free_ts")
+            if nft is not None:
+                result["next_available_time"] = nft
     price = entry.get("price_eur")
     if price is not None:
         result["price_eur"] = price
@@ -467,8 +494,10 @@ def _validate_date(date_str: str | None) -> tuple[str | None, JSONResponse | Non
 def _search_cache_key(
     date: str | None, time_str: str | None, lat: float | None, lon: float | None,
     radius: float | None, court_type: str | None, et_offset: int,
+    durations: list[int] | None = None,
 ) -> str:
-    return f"{date}|{time_str}|{lat}|{lon}|{radius}|{court_type}|{et_offset}"
+    dur_key = ",".join(str(d) for d in durations) if durations else ""
+    return f"{date}|{time_str}|{lat}|{lon}|{radius}|{court_type}|{et_offset}|{dur_key}"
 
 
 def _ev_result_key(venue_id: str, date_str: str, time_hhmm: str) -> str:
@@ -593,6 +622,7 @@ async def search(
     radius:          float | None = Query(default=None),
     et_offset:       int          = Query(default=0),
     search_location: str | None   = Query(default=None),
+    durations:       str | None   = Query(default=None),
     request:         Request      = None,
 ):
     t0 = time_monotonic()
@@ -612,7 +642,8 @@ async def search(
     # immediately; misses proceed through the full pipeline. This preserves the
     # pending-first architecture where the first response is fast (eTennis
     # pending + Eversports real status) and polls pick up updated statuses.
-    cache_key = _search_cache_key(date, time, lat, lon, radius, court_type, et_offset)
+    wanted_durations = parse_durations(durations)
+    cache_key = _search_cache_key(date, time, lat, lon, radius, court_type, et_offset, wanted_durations)
 
     with _SEARCH_LOCK:
         cached_entry = _SEARCH_CACHE.get(cache_key)
@@ -678,7 +709,7 @@ async def search(
         for result in results:
             vid = result["venue_id"]
             if vid in cached:
-                _apply_cached_entry(result, cached[vid], entries.get(vid, {}))
+                _apply_cached_entry(result, cached[vid], entries.get(vid, {}), wanted_durations)
             elif result["platform"] == "eTennis":
                 result["availability_status"] = "pending" if vid in scrape_ids else "not_checked"
         to_fetch = [v for v in etennis_venues
@@ -714,7 +745,7 @@ async def search(
                     )
                     continue
                 if vid in cached_t04:
-                    _apply_cached_entry(result, cached_t04[vid], entries_t04.get(vid, {}))
+                    _apply_cached_entry(result, cached_t04[vid], entries_t04.get(vid, {}), wanted_durations)
                 else:
                     result["availability_status"] = "pending"
             to_fetch_t04 = [v for v in t04_venues
@@ -1603,6 +1634,17 @@ async def get_urteil(
     except UrteilUnavailable as e:
         result["ai_available"] = False
         result["ai_error"] = str(e)
+
+    # Record the search + verdict for accountability (best-effort, never blocks).
+    await urteil_mongo.log_urteil({
+        "slug": slug,
+        "profile": profile,
+        "player_name": facts.get("player", {}).get("name"),
+        "facts": facts,
+        "beobachtungen": result["beobachtungen"],
+        "urteil": result["urteil"],
+        "ai_available": result["ai_available"],
+    })
     return result
 
 
