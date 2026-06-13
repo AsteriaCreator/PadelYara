@@ -135,48 +135,14 @@ def lookup_opening_hours(name: str, address: str) -> dict | None:
     try:
         parsed = json.loads(_strip_json(resp.text or ""))
     except (json.JSONDecodeError, TypeError):
-        print(json.dumps({"event": "opening_hours_parse_failed", "venue": name}))
+        print(json.dumps({"event": "opening_hours_parse_failed", "venue": name, "raw": (resp.text or "")[:160]}))
         return None
-    return _validate(parsed) if isinstance(parsed, dict) else None
+    result = _validate(parsed) if isinstance(parsed, dict) else None
+    if result is None:
+        print(json.dumps({"event": "opening_hours_no_data", "venue": name}))
+    return result
 
 
-# ── Weekly refresh job (sync; runs in the BackgroundScheduler thread) ──────────
-
-def refresh_eversports_hours() -> int:
-    """
-    Look up + store opening hours for every active Eversports venue. Uses a
-    synchronous pymongo client so it's independent of the app's async event loop.
-    Returns the number of venues updated. Safe to run weekly.
-    """
-    uri = os.environ.get("MONGODB_URI", "")
-    if not uri:
-        print(json.dumps({"event": "opening_hours_refresh_skip", "reason": "no_mongodb_uri"}))
-        return 0
-    try:
-        from pymongo import MongoClient
-    except ImportError:
-        return 0
-
-    cli = MongoClient(uri)
-    updated = 0
-    try:
-        col = cli["padel_checker"]["venues"]
-        cursor = col.find(
-            {"active": True, "platform": {"$regex": "eversports", "$options": "i"}},
-            {"name": 1, "address": 1},
-        )
-        for doc in cursor:
-            hours = lookup_opening_hours(doc.get("name", ""), doc.get("address", ""))
-            if hours:
-                col.update_one(
-                    {"_id": doc["_id"]},
-                    {"$set": {
-                        "opening_hours": hours,
-                        "opening_hours_updated": datetime.now(timezone.utc).isoformat(),
-                    }},
-                )
-                updated += 1
-        print(json.dumps({"event": "opening_hours_refresh_done", "updated": updated}))
-    finally:
-        cli.close()
-    return updated
+# Orchestration (which venues to refresh, how to persist) lives in app.py
+# `_run_opening_hours_refresh`, which reuses the app's motor client on the main
+# event loop. This module stays focused on the lookup + parsing.

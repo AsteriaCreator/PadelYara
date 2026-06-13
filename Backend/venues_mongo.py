@@ -1,6 +1,7 @@
 import os
 import re
 import time
+from datetime import datetime, timezone
 
 from bson import ObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -53,6 +54,27 @@ def _normalize(doc: dict) -> dict:
         "slot_fallback_minutes":  list(doc.get("slot_fallback_minutes") or []),
         "opening_hours":          doc.get("opening_hours") or None,
     }
+
+
+async def set_opening_hours(venue_id: str, hours: dict) -> bool:
+    """Persist learned opening hours onto a venue document. Matches by the
+    `id` field, falling back to `_id` (ObjectId) for legacy docs. Returns True
+    when a document was matched."""
+    db = _get_db()
+    query: dict = {"id": venue_id}
+    if await db["venues"].find_one(query, {"_id": 1}) is None:
+        try:
+            query = {"_id": ObjectId(venue_id)}
+        except Exception:
+            return False
+    res = await db["venues"].update_one(
+        query,
+        {"$set": {
+            "opening_hours": hours,
+            "opening_hours_updated": datetime.now(timezone.utc).isoformat(),
+        }},
+    )
+    return res.matched_count > 0
 
 
 def invalidate_venues_cache() -> None:

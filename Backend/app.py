@@ -65,6 +65,7 @@ from tennis04_checker import get_cached_statuses as get_tennis04_cached
 from eversports_service import check_eversports_slot
 from distance import filter_by_radius
 from venues_mongo import load_venues, get_venue_detail, invalidate_venues_cache
+import venues_mongo
 import opening_hours
 from weather import WeatherResult, get_weather_for_hour
 
@@ -203,15 +204,33 @@ def _run_tournament_scrape(is_seed: bool = False) -> None:
 
 
 def _run_opening_hours_refresh() -> None:
-    """Blocking Gemini+Google lookup of Eversports opening hours, intended to run
-    in a thread. Uses its own sync pymongo client (see opening_hours.py), so it's
-    independent of the app's event loop and motor. Invalidates the venue cache so
-    freshly learned hours are picked up without a restart."""
+    """Gemini+Google lookup of Eversports opening hours, intended to run in a
+    thread. The blocking Gemini calls stay off the event loop; the Mongo writes
+    go through motor on the main loop (run_coroutine_threadsafe), reusing the
+    client the rest of the app uses. Reads the venue list from the in-memory
+    VENUES snapshot. Invalidates the venue cache so learned hours apply live."""
     try:
-        updated = opening_hours.refresh_eversports_hours()
+        evs = [v for v in VENUES if v.get("platform") == "Eversports" and v.get("name")]
+        print(f"[opening_hours] Refreshing hours for {len(evs)} Eversports venues...")
+        if _main_loop is None:
+            print("[opening_hours] Main loop not ready — skipping.")
+            return
+        updated = 0
+        for v in evs:
+            hours = opening_hours.lookup_opening_hours(v["name"], v.get("address", ""))
+            if not hours:
+                continue
+            try:
+                ok = asyncio.run_coroutine_threadsafe(
+                    venues_mongo.set_opening_hours(v["id"], hours), _main_loop
+                ).result(timeout=15)
+                if ok:
+                    updated += 1
+            except Exception as exc:
+                print(f"[opening_hours] write failed for {v['id']}: {exc}")
         if updated:
             invalidate_venues_cache()
-        print(f"[opening_hours] Refresh done: {updated} venue(s) updated.")
+        print(f"[opening_hours] Refresh done: {updated}/{len(evs)} venue(s) updated.")
     except Exception as exc:
         print(f"[opening_hours] Refresh failed: {exc}")
 
