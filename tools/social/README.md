@@ -48,7 +48,7 @@ pip install cairosvg
 
 ## How to run
 
-### 1. Drop your AI-generated image into `tools/social/input/`
+### 1. Drop your AI-generated image into `brand/social/input/`
 
 Name it `scene.png` (or update `input_image` in `config.yaml`).
 
@@ -58,7 +58,7 @@ Name it `scene.png` (or update `input_image` in `config.yaml`).
 python tools/social/generate.py
 ```
 
-The finished image is saved to `tools/social/output/post.png`.
+The finished image is saved to `brand/social/output/post.png`.
 
 ### 3. Optional: use a different config file
 
@@ -110,11 +110,13 @@ Everything is controlled by `config.yaml`. No Python knowledge needed.
 tools/social/
 ├── generate.py      ← the script
 ├── config.yaml      ← all settings (edit this, not the script)
+└── README.md
+
+brand/social/
 ├── input/           ← put your AI images here
 │   └── scene.png    ← example name (configured in config.yaml)
-├── output/          ← finished posts are saved here
-│   └── post.png
-└── README.md
+└── output/          ← finished posts are saved here
+    └── post.png
 ```
 
 Brand assets used (never modified, only read):

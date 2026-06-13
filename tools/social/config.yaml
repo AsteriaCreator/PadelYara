@@ -8,11 +8,11 @@
 # ── Input image ──────────────────────────────────────────────────────────────
 # The AI-generated image to use as the base.
 # Drop your image into tools/social/input/ and update this path.
-input_image: tools/social/input/scene.png
+input_image: brand/social/input/scene.png
 
 
 # ── Output ───────────────────────────────────────────────────────────────────
-output_path: tools/social/output/post.png
+output_path: brand/social/output/post.png
 
 
 # ── Canvas ───────────────────────────────────────────────────────────────────
