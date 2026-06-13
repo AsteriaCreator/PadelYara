@@ -46,6 +46,8 @@ from analytics import (
 )
 import tournaments_mongo
 from padel_austria_scraper import scrape_all as scrape_padel_austria
+from padel_austria_player import analyze_player
+from yara_urteil_prompt import generate_urteil, UrteilUnavailable, DISCLAIMER
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
 import eversports_prices
 
@@ -1552,6 +1554,56 @@ async def get_player_tournaments(slug: str = Query(..., description="Player slug
     slug = slug.strip().lower()
     tournaments = await tournaments_mongo.get_tournaments_for_player(slug)
     return {"tournaments": tournaments, "player_slug": slug}
+
+
+def _slug_from(value: str) -> str:
+    """Accept a full padel-austria.at profile URL or a bare slug; return the slug."""
+    v = value.strip().rstrip("/")
+    if "/players/" in v:
+        v = v.split("/players/", 1)[1].split("/")[0].split("?")[0]
+    return v.lower()
+
+
+@app.get("/api/urteil")
+async def get_urteil(
+    profile: str = Query(..., description="padel-austria.at profile URL or player slug"),
+):
+    """
+    Yaras Urteil: scrape + analyse a player's tournament profile, then have Yara
+    deliver a two-part verdict (Beobachtungen + Urteil). Rules live in
+    yara_urteil_prompt.py. Returns the facts even if the AI verdict is unavailable.
+    """
+    slug = _slug_from(profile)
+    if not slug or "/" in slug or " " in slug:
+        raise HTTPException(status_code=400, detail="Ungültiges Profil.")
+
+    facts = await asyncio.to_thread(analyze_player, slug)
+    if facts is None:
+        raise HTTPException(status_code=404, detail="Profil nicht gefunden.")
+
+    # Ausblick: upcoming tournaments the player is already registered for.
+    try:
+        upcoming = await tournaments_mongo.get_tournaments_for_player(slug)
+    except Exception:
+        upcoming = []
+
+    result: dict = {
+        "slug": slug,
+        "facts": facts,
+        "upcoming": upcoming,
+        "disclaimer": DISCLAIMER,
+        "ai_available": True,
+        "beobachtungen": [],
+        "urteil": None,
+    }
+    try:
+        verdict = await asyncio.to_thread(generate_urteil, facts)
+        result["beobachtungen"] = verdict["beobachtungen"]
+        result["urteil"] = verdict["urteil"]
+    except UrteilUnavailable as e:
+        result["ai_available"] = False
+        result["ai_error"] = str(e)
+    return result
 
 
 @app.get("/api/venues")

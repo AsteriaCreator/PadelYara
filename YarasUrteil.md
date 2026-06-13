@@ -1,6 +1,9 @@
 # Yaras Urteil — Spieleranalyse (working spec)
 
-> **Status:** Planning. Not built yet. Name provisional.
+> **Status:** Built — backend (scraper + analysis + verdict generator + `/api/urteil`)
+> and frontend (`/urteil` page) are in. To go LIVE it needs `ANTHROPIC_API_KEY` set on
+> Railway and a deploy. Without the key the endpoint still returns the facts, just no
+> AI verdict (`ai_available: false`). Name still provisional.
 > Companion to `PROJECT_STATE.md` and `Scrapers.md`. This is the source of truth
 > for the player-analysis feature. Update it as decisions land.
 

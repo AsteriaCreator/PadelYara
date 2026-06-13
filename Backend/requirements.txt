@@ -14,3 +14,4 @@ pgeocode==0.4.1
 sentry-sdk[fastapi]==2.29.1
 google-auth==2.40.2
 google-api-python-client==2.169.0
+anthropic

@@ -12,6 +12,7 @@ import ImprintModal from "./components/ImprintModal"
 import LoadingCat from "./components/LoadingCat"
 import AboutSection from "./components/AboutSection"
 import TurnierjagerPage from "./pages/TurnierjagerPage"
+import UrteilPage from "./pages/UrteilPage"
 import PadelrevierPage from "./pages/PadelrevierPage"
 import CourtDetailPage from "./pages/CourtDetailPage"
 import DatenschutzPage from "./pages/DatenschutzPage"
@@ -355,7 +356,7 @@ function FinderPage() {
 
         <p className="mb-4 text-xs" style={{ color: "#6b7280" }}>
           PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?{" "}
-          <a href="mailto:cornelia.mayer@adventure-it.at?subject=PadelYara%20Feedback" style={{ color: "#9ca3af", textDecoration: "underline" }}>
+          <a href="mailto:yara@adventure-it.at?subject=PadelYara%20Feedback" style={{ color: "#9ca3af", textDecoration: "underline" }}>
             Schreib Yara.
           </a>
         </p>
@@ -557,6 +558,7 @@ function Nav() {
       <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
       <NavLink to="/padelrevier" style={NAV_LINK_STYLE}>Padelrevier</NavLink>
       <NavLink to="/turnierjaeger" style={NAV_LINK_STYLE}>Turnierjagd</NavLink>
+      <NavLink to="/urteil" style={NAV_LINK_STYLE}>Urteil</NavLink>
       <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
     </div>
   )
@@ -667,6 +669,17 @@ export default function App() {
             </div>
             <Nav />
             <TurnierjagerPage />
+          </div>
+        </div>
+      } />
+      <Route path="/urteil" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <UrteilPage />
           </div>
         </div>
       } />
