@@ -553,8 +553,8 @@ export default function TurnierjagerPage() {
               </div>
             )}
 
-            {/* Name search (shown when no player set) */}
-            {!mySlug && (
+            {/* Name search (shown when no player identified by name yet) */}
+            {!myName && (
               <div className="relative mb-1">
                 <input
                   type="text"
