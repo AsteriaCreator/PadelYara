@@ -111,15 +111,17 @@ def lookup_opening_hours(name: str, address: str) -> dict | None:
     """
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
+        print(json.dumps({"event": "opening_hours_no_key"}))
         return None
     try:
         from google import genai
         from google.genai import types
-    except ImportError:
+    except ImportError as exc:
+        print(json.dumps({"event": "opening_hours_import_error", "error": str(exc)}))
         return None
 
-    client = genai.Client(api_key=key)
     try:
+        client = genai.Client(api_key=key)
         resp = client.models.generate_content(
             model=os.environ.get("YARA_URTEIL_MODEL", "gemini-3.5-flash"),
             contents=_PROMPT.format(name=name, address=address or "(unbekannt)"),
