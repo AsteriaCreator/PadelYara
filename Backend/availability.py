@@ -121,3 +121,38 @@ def match_durations(free_durations: list[int], wanted: list[int]) -> list[int]:
     """Durations the user wants that are actually available, longest first."""
     free = set(free_durations)
     return sorted((d for d in wanted if d in free), reverse=True)
+
+
+def durations_from_available_starts(
+    available_starts: list[int],
+    target: int,
+    step_sec: int = 1800,
+    max_min: int = MAX_DURATION_MIN,
+) -> list[int]:
+    """
+    For platforms that expose AVAILABLE slot starts directly (eTennis: one free
+    cell per bookable start, in seconds), the bookable durations on ONE court
+    starting at `target` are k consecutive free cells: a block of k*step is
+    bookable iff cells target, target+step, …, target+(k-1)*step are all free.
+
+    `available_starts` are Unix timestamps (seconds); `target` likewise. Returns
+    durations in MINUTES (multiples of step). Empty when the target cell itself
+    isn't free.
+    """
+    if step_sec <= 0:
+        step_sec = 1800
+    starts = set(available_starts)
+    if target not in starts:
+        return []
+    durations: list[int] = []
+    k = 1
+    while True:
+        dur_min = (k * step_sec) // 60
+        if dur_min > max_min:
+            break
+        if all((target + i * step_sec) in starts for i in range(k)):
+            durations.append(dur_min)
+            k += 1
+        else:
+            break
+    return durations
