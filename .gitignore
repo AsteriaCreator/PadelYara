@@ -46,3 +46,9 @@ dashboard.html
 
 # Playwright MCP snapshots
 .playwright-mcp/
+
+# Social generator — input images and exported posts are local only
+tools/social/input/*
+!tools/social/input/.gitkeep
+tools/social/output/*
+!tools/social/output/.gitkeep

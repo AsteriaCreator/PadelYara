@@ -1,0 +1,83 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# PadelYara Social Post Generator — Configuration
+# Change any value here to adjust the layout without touching Python code.
+# All paths are relative to the repository root.
+# All sizes are in pixels (at 1080 × 1350 resolution).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Input image ──────────────────────────────────────────────────────────────
+# The AI-generated image to use as the base.
+# Drop your image into tools/social/input/ and update this path.
+input_image: tools/social/input/scene.png
+
+
+# ── Output ───────────────────────────────────────────────────────────────────
+output_path: tools/social/output/post.png
+
+
+# ── Canvas ───────────────────────────────────────────────────────────────────
+canvas_width: 1080
+canvas_height: 1350
+
+
+# ── Text block ───────────────────────────────────────────────────────────────
+text:
+  lines:
+    - "Wo spielst du"
+    - "heute?"
+
+  # Path to font file, relative to repo root.
+  font: brand/CinzelFont/static/Cinzel-Bold.ttf
+
+  font_size: 80
+
+  # Space between lines, in pixels.
+  line_spacing: 20
+
+  # Color as R, G, B (0–255).
+  color: [255, 255, 255]
+
+  # Top-left corner of the text block.
+  x: 70
+  y: 120
+
+  # Optional: max width for word-wrapping, in pixels (0 = no wrap).
+  max_width: 520
+
+
+# ── Semi-transparent overlay behind the text (helps readability) ──────────────
+text_overlay:
+  enabled: true
+  # Color as R, G, B.
+  color: [0, 0, 0]
+  # 0 = fully transparent, 255 = fully opaque.
+  opacity: 90
+  # Rectangle covering the overlay area (x, y, width, height).
+  x: 0
+  y: 0
+  width: 660
+  height: 1350
+
+
+# ── Wordmark / lockup (lower left) ───────────────────────────────────────────
+wordmark:
+  file: brand/lockups/lockup-horizontal-light.svg
+  # Width to render at; height is scaled proportionally.
+  width: 340
+  # Position of the top-left corner.
+  x: 60
+  y: 1210
+  # 0 = fully transparent, 255 = fully opaque.
+  opacity: 230
+
+
+# ── Paw / cat-head signature (small, lower right of the branding area) ───────
+paw:
+  file: brand/logo/logo-transparent-white-only-head.svg
+  # Width to render at; height is scaled proportionally.
+  width: 72
+  # Position of the top-left corner.
+  x: 60
+  y: 1145
+  # 0 = fully transparent, 255 = fully opaque.
+  opacity: 200
