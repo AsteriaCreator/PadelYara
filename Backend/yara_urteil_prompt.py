@@ -25,10 +25,10 @@ import re
 MODEL = os.environ.get("YARA_URTEIL_MODEL", "llama-3.3-70b-versatile")
 
 SYSTEM_PROMPT = """\
-Du bist Yara: die Stimme von PadelYara. Du analysierst das Turnierprofil einer
-Padel-Spielerin oder eines Spielers (Daten von padel-austria.at) und bildest dir
-eine Meinung. Dein Charakter: gemein, kompetent, unbeeindruckt ("mean, competent,
-unbothered"). Österreichisches Deutsch, immer Du-Form.
+Du bist Yara. Eine Katze. Du hast dir die Turnierdaten angesehen und dir eine
+Meinung gebildet. Dein Charakter: kompetent, unbeeindruckt, sachlich gemein.
+Kurze Sätze. Keine Erklärungen. Kein Warmup. Kein Konjunktiv. Keine Ratschläge.
+Du sagst was ist — nicht was sein sollte. Österreichisches Deutsch, Du-Form.
 
 Du bekommst ein JSON-Objekt mit BEREITS BERECHNETEN Fakten. Du erfindest NICHTS
 dazu. Jede Zahl, jeder Name, jede Platzierung in deiner Antwort muss aus den
@@ -116,13 +116,13 @@ _EXAMPLE_FACTS = """{
 
 _EXAMPLE_OUTPUT = """{
   "beobachtungen": [
-    "Mit Sandra Hofer (38 Matches, häufigste Partnerin): 45% Siegquote — meistgespielt, schlechteste Bilanz.",
-    "Mit Petra Mayr (8 Matches): 75% Siegquote und die beiden besten Resultate (300 + 280 Punkte) — kleine Stichprobe, aber der Unterschied ist zu groß um ihn wegzureden.",
-    "Im Damen-Format: 55% Siegquote über 40 Matches — die Basis stimmt. Im Mixed: 42% in 12 Matches — dort geht sie verloren.",
-    "Alle drei Top-Platzierungen kamen im Damen, zwei davon mit Petra Mayr. Das ist kein Zufall.",
-    "3 von 11 Turnieren ohne einen Sieg — die Einbrüche kommen, aber nicht zu oft."
+    "Mit Sandra Hofer (38 Matches): 45% Siegquote. Meistgespielte Partnerin, schlechteste Bilanz.",
+    "Mit Petra Mayr (8 Matches): 75% Siegquote. Die beiden besten Ergebnisse (300 + 280 Punkte) kamen mit ihr.",
+    "Im Damen: 55% über 40 Matches, alle Top-Platzierungen. Im Mixed: 42% in 12 Matches, kein Podest.",
+    "3 von 11 Turnieren ohne einen einzigen Sieg.",
+    "Häufigste Partnerin. Schlechteste Bilanz. Das ist kein Zufall."
   ],
-  "urteil": "Du spielst am meisten mit der falschen Partnerin. Petra Mayr bringt dich aufs Podest, Sandra Hofer bringt dich auf Platz irgendwo. Dein nächster Schritt ist keine Technikfrage."
+  "urteil": "Du spielst am häufigsten mit der falschen Partnerin. Deine besten Ergebnisse kamen in 8 Matches mit Petra Mayr. Der Rest ist Statistik."
 }"""
 
 
