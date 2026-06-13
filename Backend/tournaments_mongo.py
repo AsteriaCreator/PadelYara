@@ -293,6 +293,44 @@ async def count_tournaments() -> int:
     return await _col().count_documents({})
 
 
+async def search_players(query: str) -> list[dict]:
+    """
+    Search for players by name across all tournament entries.
+    Returns distinct [{name, slug}] pairs matching the query (case-insensitive).
+    """
+    if not query or len(query) < 2:
+        return []
+    col = _col()
+    regex = {"$regex": _re.escape(query), "$options": "i"}
+    pipeline = [
+        {"$match": {
+            "entries": {"$exists": True, "$ne": []},
+            "$or": [
+                {"entries.player_a_name": regex},
+                {"entries.player_b_name": regex},
+            ],
+        }},
+        {"$unwind": "$entries"},
+        {"$facet": {
+            "a": [
+                {"$match": {"entries.player_a_name": regex}},
+                {"$group": {"_id": "$entries.player_a_slug", "name": {"$first": "$entries.player_a_name"}}},
+            ],
+            "b": [
+                {"$match": {"entries.player_b_name": regex}},
+                {"$group": {"_id": "$entries.player_b_slug", "name": {"$first": "$entries.player_b_name"}}},
+            ],
+        }},
+        {"$project": {"combined": {"$concatArrays": ["$a", "$b"]}}},
+        {"$unwind": "$combined"},
+        {"$group": {"_id": "$combined._id", "name": {"$first": "$combined.name"}}},
+        {"$sort": {"name": 1}},
+        {"$limit": 10},
+    ]
+    results = await col.aggregate(pipeline).to_list(10)
+    return [{"slug": r["_id"], "name": r["name"]} for r in results if r.get("_id")]
+
+
 async def get_tournaments_for_player(player_slug: str) -> list[dict]:
     """
     Return all open/upcoming tournaments where the player (identified by slug)

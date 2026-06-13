@@ -343,12 +343,6 @@ function BezirkPicker({
 
 const MY_SLUG_KEY = "turnierjager_player_slug"
 
-function extractSlug(input: string): string {
-  const m = input.trim().match(/\/players\/([a-z0-9-]+)/i)
-  if (m) return m[1].toLowerCase()
-  return input.trim().toLowerCase()
-}
-
 export default function TurnierjagerPage() {
   const [filters, setFilters] = useState<Filters>(loadFilters)
   const [tournaments, setTournaments] = useState<Tournament[]>([])
@@ -361,10 +355,9 @@ export default function TurnierjagerPage() {
 
   // "Meine Turniere" state
   const [mySlug, setMySlug] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY) ?? "")
-  const [myInput, setMyInput] = useState<string>(() => {
-    const slug = localStorage.getItem(MY_SLUG_KEY) ?? ""
-    return slug ? `https://padel-austria.at/players/${slug}` : ""
-  })
+  const [myName, setMyName] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY + "_name") ?? "")
+  const [myInput, setMyInput] = useState("")
+  const [mySuggestions, setMySuggestions] = useState<{name: string, slug: string}[]>([])
   const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
   const [myLoading, setMyLoading] = useState(false)
   const [myError, setMyError] = useState<string | null>(null)
@@ -461,20 +454,36 @@ export default function TurnierjagerPage() {
     }
   }
 
-  function submitMyProfile() {
-    const slug = extractSlug(myInput)
-    if (!slug) return
+  async function searchMyName(q: string) {
+    setMyInput(q)
+    if (q.length < 2) { setMySuggestions([]); return }
+    try {
+      const res = await fetch(`${API_BASE}/api/tournaments/players/search?q=${encodeURIComponent(q)}`)
+      const data = await res.json()
+      setMySuggestions(data.players ?? [])
+    } catch {
+      setMySuggestions([])
+    }
+  }
+
+  function selectPlayer(name: string, slug: string) {
     setMySlug(slug)
+    setMyName(name)
+    setMyInput("")
+    setMySuggestions([])
     localStorage.setItem(MY_SLUG_KEY, slug)
+    localStorage.setItem(MY_SLUG_KEY + "_name", name)
     fetchMyTournaments(slug)
-    setMyExpanded(true)
   }
 
   function clearMyProfile() {
     setMySlug("")
+    setMyName("")
     setMyInput("")
+    setMySuggestions([])
     setMyTournaments([])
     localStorage.removeItem(MY_SLUG_KEY)
+    localStorage.removeItem(MY_SLUG_KEY + "_name")
   }
 
   // Load saved slug on mount
@@ -532,35 +541,56 @@ export default function TurnierjagerPage() {
         </div>
 
         <div>
-            <p className="text-xs text-gray-500 mb-3 leading-relaxed">
-              Profil-Link von padel-austria.at eingeben — ich zeige dir deine offenen Anmeldungen.
-            </p>
-            <div className="flex gap-2 mb-1">
-              <input
-                type="text"
-                value={myInput}
-                onChange={e => setMyInput(e.target.value)}
-                onKeyDown={e => e.key === "Enter" && submitMyProfile()}
-                placeholder="https://padel-austria.at/players/dein-name"
-                className="flex-1 text-xs rounded-lg px-3 py-2 outline-none"
-                style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(107,114,128,0.4)",
-                  color: "#e5e7eb",
-                }}
-              />
-              <button
-                onClick={submitMyProfile}
-                className="text-xs px-3 py-2 rounded-lg font-semibold transition-colors"
-                style={{ background: "rgba(212,245,60,0.15)", color: "#d4f53c", border: "1px solid rgba(212,245,60,0.3)" }}
-              >
-                Los
-              </button>
-            </div>
-            {mySlug && (
-              <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500 mt-1">
-                Profil löschen
-              </button>
+            {/* Active player badge */}
+            {mySlug && myName && (
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs" style={{ color: "#d4f53c" }}>
+                  {myName}
+                </span>
+                <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500">
+                  ändern
+                </button>
+              </div>
+            )}
+
+            {/* Name search (shown when no player set) */}
+            {!mySlug && (
+              <div className="relative mb-1">
+                <input
+                  type="text"
+                  value={myInput}
+                  onChange={e => searchMyName(e.target.value)}
+                  placeholder="Name eingeben …"
+                  className="w-full text-xs rounded-lg px-3 py-2 outline-none"
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    border: "1px solid rgba(107,114,128,0.4)",
+                    color: "#e5e7eb",
+                  }}
+                />
+                {mySuggestions.length > 0 && (
+                  <div
+                    className="absolute left-0 right-0 top-full mt-1 rounded-lg border overflow-hidden z-10"
+                    style={{ background: "#111118", borderColor: "rgba(107,114,128,0.4)" }}
+                  >
+                    {mySuggestions.map(p => (
+                      <button
+                        key={p.slug}
+                        onClick={() => selectPlayer(p.name, p.slug)}
+                        className="w-full text-left text-xs px-3 py-2 transition-colors"
+                        style={{ color: "#e5e7eb" }}
+                        onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.08)")}
+                        onMouseLeave={e => (e.currentTarget.style.background = "")}
+                      >
+                        {p.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                {myInput.length >= 2 && mySuggestions.length === 0 && (
+                  <p className="text-[11px] text-gray-600 mt-2">Kein Spieler gefunden. Bist du in einem offenen Turnier angemeldet?</p>
+                )}
+              </div>
             )}
 
             {myLoading && <p className="text-xs text-gray-600 mt-3">Suche …</p>}
