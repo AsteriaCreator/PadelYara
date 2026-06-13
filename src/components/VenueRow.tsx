@@ -43,6 +43,12 @@ interface Props {
   highlighted?: boolean
 }
 
+// 1 → "1 Std", 1.5 → "1,5 Std", 2 → "2 Std" (German decimal comma).
+function formatDuration(hours: number): string {
+  const label = Number.isInteger(hours) ? String(hours) : String(hours).replace(".", ",")
+  return `${label} Std`
+}
+
 function eversportsBookingUrl(baseUrl: string, dateStr: string): string {
   // Eversports /sb/<slug> pages accept ?date=YYYY-MM-DD to jump to that day.
   const sep = baseUrl.includes("?") ? "&" : "?"
@@ -125,7 +131,9 @@ export default function VenueRow({ venue, pollingActive, searchDate, highlighted
               </span>
             )}
             <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
-              {STATUS_LABEL[displayStatus]}
+              {displayStatus === "free" && venue.matched_duration_h
+                ? `${formatDuration(venue.matched_duration_h)} frei`
+                : STATUS_LABEL[displayStatus]}
             </span>
           </div>
           {venue.time_adjusted && venue.adjustment_label && (

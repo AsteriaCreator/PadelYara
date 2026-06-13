@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import type { SearchParams, CourtType } from "../types"
-import { TIME_SLOTS } from "../constants"
+import { TIME_SLOTS, DURATION_OPTIONS, DEFAULT_DURATIONS } from "../constants"
 import { suggest, type Suggestion } from "../geocode"
 
 // text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
@@ -47,6 +47,10 @@ function getNowVienna() {
 }
 
 const pad = (n: number) => String(n).padStart(2, "0")
+const toMin = (hhmm: string) => {
+  const [h, m] = hhmm.split(":").map(Number)
+  return h * 60 + m
+}
 
 function getNextFullHour(): { date: string; time: string } {
   const v = getNowVienna()
@@ -75,7 +79,7 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   const v = getNowVienna()
   if (dateStr > v.dateStr) return false
   if (dateStr < v.dateStr) return true
-  return parseInt(timeStr) <= v.hour
+  return toMin(timeStr) <= v.hour * 60 + v.minute
 }
 
 export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange, statusFilter, onStatusFilterChange, initialLocation, initialDate, initialTime, initialRadius }: Props) {
@@ -85,6 +89,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
   const [time, setTime]           = useState(initialTime || defaultTime)
   const [location, setLocation]       = useState(initialLocation || getStoredLocation())
   const [radius, setRadius]           = useState(initialRadius || getStoredRadius())
+  const [durations, setDurations]     = useState<number[]>(DEFAULT_DURATIONS)
   const [formError, setFormError]     = useState<string | null>(null)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [showSugg, setShowSugg]       = useState(false)
@@ -103,15 +108,15 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
 
   const v       = getNowVienna()
   const isToday = date === v.dateStr
-  const minHour = v.hour + 1
+  const nowMin  = v.hour * 60 + v.minute
 
   function handleDateChange(newDate: string) {
     setFormError(null)
     const vNow = getNowVienna()
     if (newDate === vNow.dateStr) {
-      const min = vNow.hour + 1
-      if (parseInt(time) < min) {
-        const nextSlot = TIME_SLOTS.find(t => parseInt(t) >= min)
+      const min = vNow.hour * 60 + vNow.minute
+      if (toMin(time) <= min) {
+        const nextSlot = TIME_SLOTS.find(t => toMin(t) > min)
         if (nextSlot) {
           setTime(nextSlot)
         } else {
@@ -128,6 +133,18 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
   function handleTimeChange(newTime: string) {
     setTime(newTime)
     setFormError(null)
+  }
+
+  function toggleDuration(value: number) {
+    setFormError(null)
+    setDurations((prev) => {
+      if (prev.includes(value)) {
+        // Never allow deselecting the last chip — at least one must stay active.
+        if (prev.length === 1) return prev
+        return prev.filter((d) => d !== value)
+      }
+      return [...prev, value].sort((a, b) => a - b)
+    })
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -151,7 +168,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
       : courtFilter.indoor ? "indoor"
       : courtFilter.outdoor ? "outdoor"
       : "both"
-    onSearch({ date, time, court_type, location: trimmedLocation, radius })
+    onSearch({ date, time, court_type, location: trimmedLocation, radius, durations })
   }
 
   return (
@@ -243,11 +260,38 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
             className={inputClass}
           >
             {TIME_SLOTS.map((t) => (
-              <option key={t} value={t} disabled={isToday && parseInt(t) < minHour}>
+              <option key={t} value={t} disabled={isToday && toMin(t) <= nowMin}>
                 {t}
               </option>
             ))}
           </select>
+        </div>
+      </div>
+
+      {/* Play duration — multi-select. A venue counts as "frei" only if it can
+          host one of the chosen lengths continuously (not just the start time). */}
+      <div className="mb-3">
+        <label className={`${labelClass} block mb-2`} style={labelStyle}>Wie lange?</label>
+        <div className="flex gap-2">
+          {DURATION_OPTIONS.map((opt) => {
+            const active = durations.includes(opt.value)
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => toggleDuration(opt.value)}
+                aria-pressed={active}
+                className={`px-3 py-1.5 rounded-lg text-sm font-semibold border transition-colors ${
+                  active
+                    ? "border-[#d4f53c] text-gray-900"
+                    : "bg-gray-800 border-gray-700 text-gray-300 hover:border-gray-500"
+                }`}
+                style={active ? { backgroundColor: "#d4f53c" } : undefined}
+              >
+                {opt.label}
+              </button>
+            )
+          })}
         </div>
       </div>
 

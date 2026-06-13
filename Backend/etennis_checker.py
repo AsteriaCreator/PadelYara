@@ -17,8 +17,29 @@ from playwright.async_api import TimeoutError as PlaywrightTimeoutError
 from playwright.async_api import async_playwright
 
 from analytics import track_scraper_timeout
+from availability import durations_from_available_starts
 
 VIENNA_TZ = ZoneInfo("Europe/Vienna")
+
+
+def _etennis_free_durs(courts: list[list[int]], target_ts: int) -> list[int]:
+    """
+    Union of bookable continuous durations (minutes) at target_ts across eTennis
+    court columns. `courts` is one list of available-slot start timestamps per
+    court. Each court's grid step is inferred from its own slot spacing (default
+    30 min). Returns [] when no court is free at target.
+    """
+    available: set[int] = set()
+    for starts in courts:
+        if not starts:
+            continue
+        ss = sorted(set(starts))
+        step = 1800
+        gaps = [b - a for a, b in zip(ss, ss[1:]) if b - a > 0]
+        if gaps:
+            step = min(gaps)
+        available.update(durations_from_available_starts(ss, target_ts, step))
+    return sorted(available)
 
 DEFAULT_FALLBACK_MINUTES: list[int] = [30, 60]
 
@@ -124,6 +145,8 @@ def _store_result(
     next_free_ts: int | None = None,
     price_eur: int | None = None,
     slot_duration_h: float | None = None,
+    free_durations: list[int] | None = None,
+    fallback_durations: list[dict] | None = None,
 ) -> None:
     """Write one venue result to cache immediately — called per-venue as scraping completes."""
     store_ts = time.time()
@@ -138,6 +161,10 @@ def _store_result(
             entry["price_eur"] = price_eur
         if slot_duration_h is not None:
             entry["slot_duration_h"] = slot_duration_h
+        if free_durations is not None:
+            entry["free_durations"] = free_durations
+        if fallback_durations:
+            entry["fallback_durations"] = fallback_durations
         _CACHE[_cache_key(venue_id, dt)] = entry
         _COOLDOWN.pop(venue_id, None)
 
@@ -147,16 +174,20 @@ async def _check_one(
     venue: dict,
     dt: datetime,
     fallback_offsets: list[int] = (),
-) -> tuple[str, str, str | None, int | None, int | None, float | None]:
+) -> tuple[str, str, str | None, int | None, int | None, float | None, list[int] | None, list[dict]]:
     """
     Scrape one eTennis venue at the given datetime.
 
-    Returns (venue_id, status, error, next_free_ts, price_eur, slot_duration_h) where:
-      - status:          "free" | "busy" | "no_slot" | "unknown"
-      - error:           non-None when something went wrong
-      - next_free_ts:    Unix timestamp of the nearest free fallback slot, or None
-      - price_eur:       lowest price of available slots at this time, or None
-      - slot_duration_h: slot duration in hours (e.g. 1.0, 1.5), or None
+    Returns (venue_id, status, error, next_free_ts, price_eur, slot_duration_h,
+             free_durations, fallback_durations) where:
+      - status:             "free" | "busy" | "no_slot" | "unknown"
+      - error:              non-None when something went wrong
+      - next_free_ts:       Unix timestamp of the nearest free fallback slot, or None
+      - price_eur:          lowest price of available slots at this time, or None
+      - slot_duration_h:    slot duration in hours (e.g. 1.0, 1.5), or None
+      - free_durations:     bookable continuous durations (min) at T, or None when
+                            per-court grouping is unavailable (skips duration filter)
+      - fallback_durations: [{ts, durations}] for the scanned fallback offsets
 
     fallback_offsets are checked in a single JS pass over the already-loaded DOM —
     no extra page loads or browser sessions.
@@ -204,7 +235,7 @@ async def _check_one(
                 _http_scrape, url, target_ts, fallback_offsets
             )
             print(f"[eTennis] {vid}  HTTP fallback: {status}  err={fallback_err!r}  next_free_ts={next_free_ts}")
-            return vid, status, fallback_err, next_free_ts, None, None
+            return vid, status, fallback_err, next_free_ts, None, None, None, []
 
         result = await page.evaluate(
             """([ts, fallbackOffsets]) => {
@@ -278,6 +309,14 @@ async def _check_one(
                 const sampleSlot = matching[0] || slots[0] || null;
                 const durationH  = sampleSlot ? parseFloat(sampleSlot.dataset.size || '1') : null;
 
+                // Per-court available-slot starts (one column per court). Lets the
+                // backend compute continuous multi-hour availability per court
+                // rather than just "is the start free". Empty array → can't group
+                // courts on this deployment; backend then skips duration filtering.
+                const courts = [...document.querySelectorAll('.court')].map(col =>
+                    [...col.querySelectorAll('.slot.av[data-begin]')].map(s => parseInt(s.dataset.begin))
+                ).filter(arr => arr.length > 0);
+
                 return {
                     total:        slots.length,
                     matching:     matching.length,
@@ -287,10 +326,29 @@ async def _check_one(
                     nextFreeTs:   nextFreeTs,
                     minPrice:     minPrice,
                     durationH:    durationH,
+                    courts:       courts,
                 };
             }""",
             [target_ts, list(fallback_offsets)],
         )
+        # Per-court continuous availability → which durations actually fit.
+        courts = result.get("courts") or []
+        if courts:
+            fd = _etennis_free_durs(courts, target_ts)
+            # Guard: if the flat scan says "free" but per-court grouping yields
+            # nothing, grouping is unreliable for this deployment — return None so
+            # the API skips duration filtering rather than hiding a free venue.
+            free_durations = None if (result["status"] == "free" and not fd) else fd
+            fallback_durations = (
+                [{"ts": target_ts + off * 60,
+                  "durations": _etennis_free_durs(courts, target_ts + off * 60)}
+                 for off in fallback_offsets]
+                if result["status"] != "free" else []
+            )
+        else:
+            free_durations = None
+            fallback_durations = []
+
         print(json.dumps({
             "event":          "etennis_scrape_result",
             "venue_id":       vid,
@@ -305,9 +363,10 @@ async def _check_one(
             "next_free_ts":   result["nextFreeTs"],
             "min_price":      result["minPrice"],
             "duration_h":     result["durationH"],
+            "free_durations": free_durations,
             "duration_ms":    round((time.monotonic() - t0) * 1000),
         }))
-        return vid, result["status"], None, result["nextFreeTs"], result["minPrice"], result["durationH"]
+        return vid, result["status"], None, result["nextFreeTs"], result["minPrice"], result["durationH"], free_durations, fallback_durations
     except Exception as exc:
         print(f"[eTennis] {vid}  exception: {exc} — trying HTTP fallback")
         try:
@@ -326,7 +385,7 @@ async def _check_one(
                 "duration_ms":  round((time.monotonic() - t0) * 1000),
                 "via":          "http_fallback",
             }))
-            return vid, status, fallback_err, next_free_ts, None, None
+            return vid, status, fallback_err, next_free_ts, None, None, None, []
         except Exception as fallback_exc:
             print(f"[eTennis] {vid}  HTTP fallback also failed: {fallback_exc}")
         print(json.dumps({
@@ -339,7 +398,7 @@ async def _check_one(
             "duration_ms": round((time.monotonic() - t0) * 1000),
             "error":       f"{type(exc).__name__}: {exc}",
         }))
-        return vid, "unknown", str(exc), None, None, None
+        return vid, "unknown", str(exc), None, None, None, None, []
     finally:
         if page:
             try:
@@ -389,12 +448,12 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
             t_venue = time.monotonic()
             async with sem:
                 try:
-                    vid, status, err, next_free_ts, price_eur, slot_duration_h = await asyncio.wait_for(
+                    vid, status, err, next_free_ts, price_eur, slot_duration_h, free_durations, fallback_durations = await asyncio.wait_for(
                         _check_one(browser, venue, dt, fallback_offsets=fb_offsets),
                         timeout=_PER_VENUE_TIMEOUT,
                     )
                 except asyncio.TimeoutError:
-                    status, err, next_free_ts, price_eur, slot_duration_h = "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s", None, None, None
+                    status, err, next_free_ts, price_eur, slot_duration_h, free_durations, fallback_durations = "unknown", f"timeout_{_PER_VENUE_TIMEOUT}s", None, None, None, None, []
                     timeout_ms = _PER_VENUE_TIMEOUT * 1000
                     print(json.dumps({
                         "event":       "etennis_scrape_timeout",
@@ -409,7 +468,9 @@ async def _run(venues: list[dict], dt: datetime) -> dict[str, str]:
             if err and "timeout" not in err:
                 print(f"[eTennis] {vid} error: {err}")
             out[vid] = status
-            _store_result(vid, status, dt, next_free_ts=next_free_ts, price_eur=price_eur, slot_duration_h=slot_duration_h)
+            _store_result(vid, status, dt, next_free_ts=next_free_ts, price_eur=price_eur,
+                          slot_duration_h=slot_duration_h, free_durations=free_durations,
+                          fallback_durations=fallback_durations)
 
         try:
             await asyncio.gather(*[fetch_one(v) for v in venues])
