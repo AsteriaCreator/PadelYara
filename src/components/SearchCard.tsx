@@ -47,6 +47,10 @@ function getNowVienna() {
 }
 
 const pad = (n: number) => String(n).padStart(2, "0")
+const toMin = (hhmm: string) => {
+  const [h, m] = hhmm.split(":").map(Number)
+  return h * 60 + m
+}
 
 function getNextFullHour(): { date: string; time: string } {
   const v = getNowVienna()
@@ -75,7 +79,7 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   const v = getNowVienna()
   if (dateStr > v.dateStr) return false
   if (dateStr < v.dateStr) return true
-  return parseInt(timeStr) <= v.hour
+  return toMin(timeStr) <= v.hour * 60 + v.minute
 }
 
 export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange, statusFilter, onStatusFilterChange, initialLocation, initialDate, initialTime, initialRadius }: Props) {
@@ -104,15 +108,15 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
 
   const v       = getNowVienna()
   const isToday = date === v.dateStr
-  const minHour = v.hour + 1
+  const nowMin  = v.hour * 60 + v.minute
 
   function handleDateChange(newDate: string) {
     setFormError(null)
     const vNow = getNowVienna()
     if (newDate === vNow.dateStr) {
-      const min = vNow.hour + 1
-      if (parseInt(time) < min) {
-        const nextSlot = TIME_SLOTS.find(t => parseInt(t) >= min)
+      const min = vNow.hour * 60 + vNow.minute
+      if (toMin(time) <= min) {
+        const nextSlot = TIME_SLOTS.find(t => toMin(t) > min)
         if (nextSlot) {
           setTime(nextSlot)
         } else {
@@ -256,7 +260,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
             className={inputClass}
           >
             {TIME_SLOTS.map((t) => (
-              <option key={t} value={t} disabled={isToday && parseInt(t) < minHour}>
+              <option key={t} value={t} disabled={isToday && toMin(t) <= nowMin}>
                 {t}
               </option>
             ))}
