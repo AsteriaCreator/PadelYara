@@ -84,38 +84,53 @@ class UrteilUnavailable(RuntimeError):
 def generate_urteil(facts: dict) -> dict:
     """
     Turn computed `facts` into Yara's verdict via Google Gemini (free tier).
+    Uses the REST API directly (no SDK) for maximum compatibility.
 
     Returns {"beobachtungen": [str, ...], "urteil": str}.
-    Raises UrteilUnavailable if GEMINI_API_KEY is missing or the SDK isn't installed,
-    so the caller (app.py) can degrade gracefully instead of crashing.
+    Raises UrteilUnavailable if GEMINI_API_KEY is missing or the call fails.
     """
+    import requests as _requests
+
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
         raise UrteilUnavailable("GEMINI_API_KEY not set")
-    try:
-        import google.generativeai as genai
-    except ImportError as e:
-        raise UrteilUnavailable("google-generativeai SDK not installed") from e
 
-    genai.configure(api_key=key)
-    model = genai.GenerativeModel(
-        model_name=MODEL,
-        system_instruction=SYSTEM_PROMPT,
-        generation_config=genai.GenerationConfig(
-            temperature=0.9,
-            max_output_tokens=2048,
-        ),
+    url = (
+        f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}"
+        f":generateContent?key={key}"
     )
+    payload = {
+        "system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "contents": [{
+            "parts": [{
+                "text": (
+                    "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
+                    "Urteil streng nach den Regeln:\n\n"
+                    + json.dumps(facts, ensure_ascii=False, indent=2)
+                )
+            }]
+        }],
+        "generationConfig": {
+            "temperature": 0.9,
+            "maxOutputTokens": 2048,
+        },
+    }
     try:
-        resp = model.generate_content(
-            "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
-            "Urteil streng nach den Regeln:\n\n"
-            + json.dumps(facts, ensure_ascii=False, indent=2)
-        )
+        r = _requests.post(url, json=payload, timeout=60)
     except Exception as e:
-        raise UrteilUnavailable(f"Gemini error: {e}") from e
+        raise UrteilUnavailable(f"Gemini request failed: {e}") from e
 
-    text = (resp.text or "").strip()
+    if not r.ok:
+        raise UrteilUnavailable(f"Gemini HTTP {r.status_code}: {r.text[:300]}")
+
+    body = r.json()
+    text = (
+        body.get("candidates", [{}])[0]
+        .get("content", {})
+        .get("parts", [{}])[0]
+        .get("text", "")
+        or ""
+    ).strip()
     # Strip markdown code fences if the model wrapped the JSON
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text.strip()).strip()
