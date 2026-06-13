@@ -73,7 +73,20 @@ Antworte AUSSCHLIESSLICH mit einem JSON-Objekt, ohne weiteren Text, mit genau di
 Feldern:
 {"beobachtungen": ["...", "..."], "urteil": "..."}
 - "beobachtungen": 4 bis 7 Strings (Teil 1).
-- "urteil": ein String mit 2 bis 4 Sätzen (Teil 2)."""
+- "urteil": ein String mit 2 bis 4 Sätzen (Teil 2).
+
+== STILBEISPIEL (zeigt den richtigen Ton — erfinde keine anderen Zahlen) ==
+Beobachtungen-Stil (nüchtern, abgeleitet, mit N):
+• "Mit Martin Unger (49 Matches) liegt die Siegquote bei 41% — der meistgespielte Partner ist nicht der erfolgreichste."
+• "Im Mixed-Format: 42% Siegquote bei 43 Matches, aber die beiden besten Platzierungen (280 Punkte je) kamen beide im Mixed."
+• "Thomas Kratky: 75% Siegquote — aber nur 4 Matches. Vielversprechend, noch kein Beweis."
+
+Urteil-Stil (2–3 Sätze, trocken, Pointe am Ende):
+"Im Mixed sammelst du Niederlagen, auf dem Podest stehst du trotzdem. Dein häufigster Partner ist nicht dein bester — das ist kein Zufall, das ist ein Muster. Martin ist das Rückgrat, das dich durch Turniere trägt, die du eigentlich nicht gewinnen solltest."
+
+VERBOTEN im Urteil: Anführungszeichen um Begriffe ('Kartenhaus', 'Rückgrat'),
+generische Phrasen wie "solide Spielerin", lange Sätze, neue Fakten die nicht in
+den Beobachtungen stehen, Konjunktiv ("vielleicht sollte sie")."""
 
 
 class UrteilUnavailable(RuntimeError):
