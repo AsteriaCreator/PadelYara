@@ -64,7 +64,8 @@ from tennis04_checker import get_cached_entries as get_tennis04_entries
 from tennis04_checker import get_cached_statuses as get_tennis04_cached
 from eversports_service import check_eversports_slot
 from distance import filter_by_radius
-from venues_mongo import load_venues, get_venue_detail
+from venues_mongo import load_venues, get_venue_detail, invalidate_venues_cache
+import opening_hours
 from weather import WeatherResult, get_weather_for_hour
 
 
@@ -201,6 +202,20 @@ def _run_tournament_scrape(is_seed: bool = False) -> None:
         print(f"[tournaments] Upsert failed: {exc}")
 
 
+def _run_opening_hours_refresh() -> None:
+    """Blocking Gemini+Google lookup of Eversports opening hours, intended to run
+    in a thread. Uses its own sync pymongo client (see opening_hours.py), so it's
+    independent of the app's event loop and motor. Invalidates the venue cache so
+    freshly learned hours are picked up without a restart."""
+    try:
+        updated = opening_hours.refresh_eversports_hours()
+        if updated:
+            invalidate_venues_cache()
+        print(f"[opening_hours] Refresh done: {updated} venue(s) updated.")
+    except Exception as exc:
+        print(f"[opening_hours] Refresh failed: {exc}")
+
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     global _main_loop, VENUES, _ev_ids
@@ -226,8 +241,19 @@ async def lifespan(_app: FastAPI):
     from apscheduler.triggers.cron import CronTrigger
     scheduler = BackgroundScheduler(timezone="Europe/Vienna")
     scheduler.add_job(_run_tournament_scrape, CronTrigger(hour=6, minute=0))
+    # Weekly: auto-learn Eversports opening hours via Gemini + Google Search.
+    # Only Eversports needs stored hours (its slot API can't see closing time);
+    # tennis04 and eTennis expose hours themselves. Hours change rarely → weekly.
+    scheduler.add_job(_run_opening_hours_refresh, CronTrigger(day_of_week="mon", hour=4, minute=0))
     scheduler.start()
     print("[tournaments] Daily scraper scheduled at 06:00 Vienna time.")
+    print("[opening_hours] Weekly Eversports hours refresh scheduled Mon 04:00.")
+
+    # First-deploy seed: if no Eversports venue has learned hours yet, populate
+    # them once in the background so 2 h search is bounded correctly from day one.
+    if not any(v.get("opening_hours") for v in VENUES if v["platform"] == "Eversports"):
+        print("[opening_hours] No learned hours yet — seeding in background.")
+        threading.Thread(target=_run_opening_hours_refresh, daemon=True).start()
 
     # Kick off a background price scrape at startup so stale venues populate
     # immediately after deploy — don't wait for the first user search.

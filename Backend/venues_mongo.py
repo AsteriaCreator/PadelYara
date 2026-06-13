@@ -51,7 +51,16 @@ def _normalize(doc: dict) -> dict:
         "courts":                 list(doc.get("courts") or []),
         "issues":                 doc.get("issues") or None,
         "slot_fallback_minutes":  list(doc.get("slot_fallback_minutes") or []),
+        "opening_hours":          doc.get("opening_hours") or None,
     }
+
+
+def invalidate_venues_cache() -> None:
+    """Force the next load_venues() to re-read from MongoDB. Used after a
+    background job (e.g. opening-hours refresh) mutates venue documents."""
+    global _venues_cache, _venues_cache_ts
+    _venues_cache = None
+    _venues_cache_ts = 0.0
 
 
 async def load_venues() -> list[dict]:
