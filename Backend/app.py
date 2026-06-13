@@ -1546,6 +1546,14 @@ async def get_tournament_venues(bundesland: str = Query(default="")):
     return {"venues": venues}
 
 
+@app.get("/api/tournaments/player")
+async def get_player_tournaments(slug: str = Query(..., description="Player slug from padel-austria.at/players/<slug>")):
+    """Return open/upcoming tournaments the player is registered for."""
+    slug = slug.strip().lower()
+    tournaments = await tournaments_mongo.get_tournaments_for_player(slug)
+    return {"tournaments": tournaments, "player_slug": slug}
+
+
 @app.get("/api/venues")
 async def get_venues():
     """Static venue list for the Padelrevier map — no scraping, served from the

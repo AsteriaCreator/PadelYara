@@ -341,6 +341,14 @@ function BezirkPicker({
 
 // ── Main page ─────────────────────────────────────────────────────────────
 
+const MY_SLUG_KEY = "turnierjager_player_slug"
+
+function extractSlug(input: string): string {
+  const m = input.trim().match(/\/players\/([a-z0-9-]+)/i)
+  if (m) return m[1].toLowerCase()
+  return input.trim().toLowerCase()
+}
+
 export default function TurnierjagerPage() {
   const [filters, setFilters] = useState<Filters>(loadFilters)
   const [tournaments, setTournaments] = useState<Tournament[]>([])
@@ -350,6 +358,17 @@ export default function TurnierjagerPage() {
   // UI-only: which bundesländer have their district picker open
   const [expandedBl, setExpandedBl] = useState<string[]>([])
   const [venueExpanded, setVenueExpanded] = useState(false)
+
+  // "Meine Turniere" state
+  const [mySlug, setMySlug] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY) ?? "")
+  const [myInput, setMyInput] = useState<string>(() => {
+    const slug = localStorage.getItem(MY_SLUG_KEY) ?? ""
+    return slug ? `https://padel-austria.at/players/${slug}` : ""
+  })
+  const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
+  const [myLoading, setMyLoading] = useState(false)
+  const [myError, setMyError] = useState<string | null>(null)
+  const [myExpanded, setMyExpanded] = useState(false)
   // Venue options fetched from API, scoped to selected bundesländer
   const [venueOptions, setVenueOptions] = useState<string[]>([])
 
@@ -427,6 +446,44 @@ export default function TurnierjagerPage() {
     fetchTournaments(filters)
   }, [filters, fetchTournaments])
 
+  async function fetchMyTournaments(slug: string) {
+    if (!slug) return
+    setMyLoading(true)
+    setMyError(null)
+    try {
+      const res = await fetch(`${API_BASE}/api/tournaments/player?slug=${encodeURIComponent(slug)}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
+      setMyTournaments(data.tournaments ?? [])
+    } catch {
+      setMyError("Abfrage fehlgeschlagen. Bitte nochmal versuchen.")
+    } finally {
+      setMyLoading(false)
+    }
+  }
+
+  function submitMyProfile() {
+    const slug = extractSlug(myInput)
+    if (!slug) return
+    setMySlug(slug)
+    localStorage.setItem(MY_SLUG_KEY, slug)
+    fetchMyTournaments(slug)
+    setMyExpanded(true)
+  }
+
+  function clearMyProfile() {
+    setMySlug("")
+    setMyInput("")
+    setMyTournaments([])
+    localStorage.removeItem(MY_SLUG_KEY)
+  }
+
+  // Load saved slug on mount
+  useEffect(() => {
+    if (mySlug) fetchMyTournaments(mySlug)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   function resetFilters() {
     const f = defaultFilters()
     saveFilters(f)
@@ -459,6 +516,104 @@ export default function TurnierjagerPage() {
           Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System.
           Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
         </p>
+      </div>
+
+      {/* Meine Turniere */}
+      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-4">
+        <button
+          className="w-full flex items-center justify-between"
+          onClick={() => setMyExpanded(v => !v)}
+        >
+          <div className="flex items-center gap-2">
+            <span
+              className="text-sm font-semibold"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: mySlug ? "#d4f53c" : "#9ca3af" }}
+            >
+              MEINE TURNIERE
+            </span>
+            {mySlug && myTournaments.length > 0 && (
+              <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>({myTournaments.length})</span>
+            )}
+            {mySlug && !myLoading && myTournaments.length === 0 && (
+              <span className="text-xs text-gray-600">— keine offenen Anmeldungen</span>
+            )}
+          </div>
+          <svg
+            viewBox="0 0 10 6" className="w-2.5 h-2.5 transition-transform flex-shrink-0"
+            style={{ transform: myExpanded ? "rotate(180deg)" : "rotate(0deg)", color: "#6b7280" }}
+            fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+          >
+            <polyline points="1,1 5,5 9,1" />
+          </svg>
+        </button>
+
+        {myExpanded && (
+          <div className="mt-4">
+            <p className="text-xs text-gray-500 mb-3 leading-relaxed">
+              Profil-Link von padel-austria.at eingeben — ich zeige dir deine offenen Anmeldungen.
+            </p>
+            <div className="flex gap-2 mb-1">
+              <input
+                type="text"
+                value={myInput}
+                onChange={e => setMyInput(e.target.value)}
+                onKeyDown={e => e.key === "Enter" && submitMyProfile()}
+                placeholder="https://padel-austria.at/players/dein-name"
+                className="flex-1 text-xs rounded-lg px-3 py-2 outline-none"
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(107,114,128,0.4)",
+                  color: "#e5e7eb",
+                }}
+              />
+              <button
+                onClick={submitMyProfile}
+                className="text-xs px-3 py-2 rounded-lg font-semibold transition-colors"
+                style={{ background: "rgba(212,245,60,0.15)", color: "#d4f53c", border: "1px solid rgba(212,245,60,0.3)" }}
+              >
+                Los
+              </button>
+            </div>
+            {mySlug && (
+              <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500 mt-1">
+                Profil löschen
+              </button>
+            )}
+
+            {myLoading && <p className="text-xs text-gray-600 mt-3">Suche …</p>}
+            {myError && <p className="text-xs text-red-400 mt-3">{myError}</p>}
+
+            {!myLoading && !myError && mySlug && myTournaments.length === 0 && (
+              <p className="text-xs text-gray-600 mt-3">Keine offenen Anmeldungen gefunden.</p>
+            )}
+
+            {!myLoading && myTournaments.length > 0 && (
+              <div className="mt-3 rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                {myTournaments.map(t => (
+                  <div key={t.source_id}>
+                    <TournamentCard t={t} />
+                    {t.partner_name && (
+                      <div className="px-4 pb-2 -mt-1">
+                        <span className="text-[11px] text-gray-500">
+                          Partner:{" "}
+                          <a
+                            href={`https://padel-austria.at/players/${t.partner_slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                            style={{ color: "rgba(212,245,60,0.6)" }}
+                          >
+                            {t.partner_name}
+                          </a>
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Filters */}

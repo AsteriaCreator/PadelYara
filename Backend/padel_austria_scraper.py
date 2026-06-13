@@ -252,6 +252,44 @@ def _fetch_soup(url: str, session: requests.Session) -> BeautifulSoup | None:
         return None
 
 
+def _parse_entries(soup: BeautifulSoup) -> list[dict]:
+    """
+    Parse the participant entry table from a tournament detail page.
+    Returns list of: {seed, apn, points, player_a_name, player_a_slug,
+                       player_b_name, player_b_slug}
+    Table headers: # | APN | Punkte | Team
+    Each player name in the Team cell links to /players/<slug>.
+    """
+    entries = []
+    for table in soup.find_all("table"):
+        headers = [th.get_text(strip=True) for th in table.find_all("th")]
+        if "Team" not in headers:
+            continue
+        for row in table.find_all("tr")[1:]:
+            cells = row.find_all("td")
+            if len(cells) < 4:
+                continue
+            seed_text = cells[0].get_text(strip=True).lstrip("#")
+            apn_text = cells[1].get_text(strip=True).replace(",", ".")
+            points_text = cells[2].get_text(strip=True).replace(".", "").replace(",", "")
+            player_links = cells[3].find_all("a", href=re.compile(r"^/players/"))
+            if len(player_links) < 2:
+                continue
+            def _slug(a) -> str:
+                return a["href"].split("/players/")[-1].strip("/")
+            entries.append({
+                "seed": int(seed_text) if seed_text.isdigit() else None,
+                "apn": float(apn_text) if apn_text else None,
+                "points": int(points_text) if points_text.isdigit() else None,
+                "player_a_name": player_links[0].get_text(strip=True),
+                "player_a_slug": _slug(player_links[0]),
+                "player_b_name": player_links[1].get_text(strip=True),
+                "player_b_slug": _slug(player_links[1]),
+            })
+        break  # only parse the first matching table (main field, not waitlist)
+    return entries
+
+
 def _fetch_page(page: int, session: requests.Session) -> BeautifulSoup | None:
     url = TOURNAMENTS_URL if page == 1 else f"{TOURNAMENTS_URL}?page={page}"
     return _fetch_soup(url, session)
@@ -307,6 +345,16 @@ def scrape_all() -> list[dict[str, Any]]:
         print(f"[padel_austria_scraper] Page {page}/{total_pages} done. Total so far: {len(all_tournaments)}")
 
     print(f"[padel_austria_scraper] Scrape complete. {len(all_tournaments)} tournaments found.")
+
+    # Fetch entry lists for open and not_open_yet tournaments (participants registered)
+    entry_eligible = [t for t in all_tournaments if t["status"] in ("open", "not_open_yet", "full")]
+    print(f"[padel_austria_scraper] Fetching entry lists for {len(entry_eligible)} tournaments...")
+    for i, t in enumerate(entry_eligible):
+        time.sleep(0.3)
+        detail_soup = _fetch_soup(t["source_url"], session)
+        t["entries"] = _parse_entries(detail_soup) if detail_soup else []
+        if (i + 1) % 10 == 0:
+            print(f"[padel_austria_scraper] Entry lists: {i + 1}/{len(entry_eligible)}")
 
     # Enrich with the registration window from each detail page (the list page
     # doesn't expose it). Skip tournaments whose registration window can no longer

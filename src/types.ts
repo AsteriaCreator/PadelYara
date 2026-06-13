@@ -130,6 +130,8 @@ export interface Tournament {
   status: "open" | "full" | "not_open_yet" | "closed" | "cancelled" | "unknown"
   first_seen_at: string | null
   last_seen_at: string | null
+  partner_name?: string | null
+  partner_slug?: string | null
 }
 
 export interface SearchResponse {
