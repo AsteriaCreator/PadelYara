@@ -21,9 +21,8 @@ import json
 import os
 import re
 
-# Model is overridable via env in case Google renames the free flash model.
-# Flash models are on the free tier.
-MODEL = os.environ.get("YARA_URTEIL_MODEL", "gemini-2.0-flash")
+# Groq free-tier model (llama-3.3-70b-versatile). Overridable via env.
+MODEL = os.environ.get("YARA_URTEIL_MODEL", "llama-3.3-70b-versatile")
 
 SYSTEM_PROMPT = """\
 Du bist Yara: die Stimme von PadelYara. Du analysierst das Turnierprofil einer
@@ -91,46 +90,39 @@ def generate_urteil(facts: dict) -> dict:
     """
     import requests as _requests
 
-    key = os.environ.get("GEMINI_API_KEY")
+    key = os.environ.get("GROQ_API_KEY")
     if not key:
-        raise UrteilUnavailable("GEMINI_API_KEY not set")
+        raise UrteilUnavailable("GROQ_API_KEY not set")
 
-    url = (
-        f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}"
-        f":generateContent?key={key}"
-    )
     payload = {
-        "system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]},
-        "contents": [{
-            "parts": [{
-                "text": (
-                    "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
-                    "Urteil streng nach den Regeln:\n\n"
-                    + json.dumps(facts, ensure_ascii=False, indent=2)
-                )
-            }]
-        }],
-        "generationConfig": {
-            "temperature": 0.9,
-            "maxOutputTokens": 2048,
-        },
+        "model": MODEL,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": (
+                "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
+                "Urteil streng nach den Regeln:\n\n"
+                + json.dumps(facts, ensure_ascii=False, indent=2)
+            )},
+        ],
+        "temperature": 0.9,
+        "max_tokens": 2048,
+        "response_format": {"type": "json_object"},
     }
     try:
-        r = _requests.post(url, json=payload, timeout=60)
+        r = _requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            json=payload,
+            headers={"Authorization": f"Bearer {key}"},
+            timeout=60,
+        )
     except Exception as e:
-        raise UrteilUnavailable(f"Gemini request failed: {e}") from e
+        raise UrteilUnavailable(f"Groq request failed: {e}") from e
 
     if not r.ok:
-        raise UrteilUnavailable(f"Gemini HTTP {r.status_code}: {r.text[:800]}")
+        raise UrteilUnavailable(f"Groq HTTP {r.status_code}: {r.text[:800]}")
 
     body = r.json()
-    text = (
-        body.get("candidates", [{}])[0]
-        .get("content", {})
-        .get("parts", [{}])[0]
-        .get("text", "")
-        or ""
-    ).strip()
+    text = (body.get("choices", [{}])[0].get("message", {}).get("content", "") or "").strip()
     # Strip markdown code fences if the model wrapped the JSON
     text = re.sub(r"^```(?:json)?\s*", "", text)
     text = re.sub(r"\s*```$", "", text.strip()).strip()
