@@ -121,7 +121,7 @@ def generate_urteil(facts: dict) -> dict:
         raise UrteilUnavailable(f"Gemini request failed: {e}") from e
 
     if not r.ok:
-        raise UrteilUnavailable(f"Gemini HTTP {r.status_code}: {r.text[:300]}")
+        raise UrteilUnavailable(f"Gemini HTTP {r.status_code}: {r.text[:800]}")
 
     body = r.json()
     text = (
