@@ -84,9 +84,46 @@ Beobachtungen-Stil (nüchtern, abgeleitet, mit N):
 Urteil-Stil (2–3 Sätze, trocken, Pointe am Ende):
 "Im Mixed sammelst du Niederlagen, auf dem Podest stehst du trotzdem. Dein häufigster Partner ist nicht dein bester — das ist kein Zufall, das ist ein Muster. Martin ist das Rückgrat, das dich durch Turniere trägt, die du eigentlich nicht gewinnen solltest."
 
-VERBOTEN im Urteil: Anführungszeichen um Begriffe ('Kartenhaus', 'Rückgrat'),
-generische Phrasen wie "solide Spielerin", lange Sätze, neue Fakten die nicht in
-den Beobachtungen stehen, Konjunktiv ("vielleicht sollte sie")."""
+VERBOTEN:
+- Anführungszeichen um Begriffe ('Kartenhaus', 'Rückgrat')
+- Generische Phrasen: "solide Spielerin", "beeindruckend", "zeigt Potential"
+- Konjunktiv: "vielleicht sollte", "könnte besser sein"
+- Mehr als 3 Sätze im Urteil
+- Neue Fakten im Urteil die nicht in den Beobachtungen stehen
+- Erklärungen ("das bedeutet dass", "was darauf hindeutet")"""
+
+# One-shot example injected into every conversation — shows exact register.
+_EXAMPLE_FACTS = """{
+  "player": {"name": "Lisa Graf", "rank": 184, "points": 3100, "apn": "1,520", "effectiveness": "51,20"},
+  "totals": {"played": 52, "won": 27, "lost": 25},
+  "window": {"matches_analysed": 52},
+  "partners": [
+    {"name": "Sandra Hofer", "matches": 38, "wins": 17, "losses": 21, "win_rate": 45},
+    {"name": "Petra Mayr", "matches": 8, "wins": 6, "losses": 2, "win_rate": 75},
+    {"name": "Julia Eder", "matches": 6, "wins": 4, "losses": 2, "win_rate": 67}
+  ],
+  "formats": [
+    {"competition": "Damen", "matches": 40, "wins": 22, "losses": 18, "win_rate": 55},
+    {"competition": "Mixed", "matches": 12, "wins": 5, "losses": 7, "win_rate": 42}
+  ],
+  "best_results": [
+    {"points": 300, "competition": "Damen", "title": "Padeldome Damen Starter", "partner": "Petra Mayr"},
+    {"points": 280, "competition": "Damen", "title": "SportCity Damen Cup", "partner": "Petra Mayr"},
+    {"points": 240, "competition": "Damen", "title": "Prater Padel Damen", "partner": "Sandra Hofer"}
+  ],
+  "consistency": {"tournaments_in_window": 11, "tournaments_without_a_win": 3}
+}"""
+
+_EXAMPLE_OUTPUT = """{
+  "beobachtungen": [
+    "Mit Sandra Hofer (38 Matches, häufigste Partnerin): 45% Siegquote — meistgespielt, schlechteste Bilanz.",
+    "Mit Petra Mayr (8 Matches): 75% Siegquote und die beiden besten Resultate (300 + 280 Punkte) — kleine Stichprobe, aber der Unterschied ist zu groß um ihn wegzureden.",
+    "Im Damen-Format: 55% Siegquote über 40 Matches — die Basis stimmt. Im Mixed: 42% in 12 Matches — dort geht sie verloren.",
+    "Alle drei Top-Platzierungen kamen im Damen, zwei davon mit Petra Mayr. Das ist kein Zufall.",
+    "3 von 11 Turnieren ohne einen Sieg — die Einbrüche kommen, aber nicht zu oft."
+  ],
+  "urteil": "Du spielst am meisten mit der falschen Partnerin. Petra Mayr bringt dich aufs Podest, Sandra Hofer bringt dich auf Platz irgendwo. Dein nächster Schritt ist keine Technikfrage."
+}"""
 
 
 class UrteilUnavailable(RuntimeError):
@@ -111,6 +148,8 @@ def generate_urteil(facts: dict) -> dict:
         "model": MODEL,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": _EXAMPLE_FACTS},
+            {"role": "assistant", "content": _EXAMPLE_OUTPUT},
             {"role": "user", "content": (
                 "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
                 "Urteil streng nach den Regeln:\n\n"
