@@ -216,7 +216,11 @@ def _run_opening_hours_refresh() -> None:
             print("[opening_hours] Main loop not ready — skipping.")
             return
         updated = 0
-        for v in evs:
+        for i, v in enumerate(evs):
+            # Throttle: the Gemini free tier rate-limits (~15 req/min). Space the
+            # grounded lookups ~5 s apart so the whole batch stays under the cap.
+            if i > 0:
+                time.sleep(5)
             hours = opening_hours.lookup_opening_hours(v["name"], v.get("address", ""))
             if not hours:
                 continue
