@@ -111,13 +111,13 @@ def lookup_opening_hours(name: str, address: str) -> dict | None:
     """
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
-        print(json.dumps({"event": "opening_hours_no_key"}))
+        print("[opening_hours] skip: GEMINI_API_KEY not set")
         return None
     try:
         from google import genai
         from google.genai import types
     except ImportError as exc:
-        print(json.dumps({"event": "opening_hours_import_error", "error": str(exc)}))
+        print(f"[opening_hours] import error: {type(exc).__name__}: {exc}")
         return None
 
     try:
@@ -131,17 +131,17 @@ def lookup_opening_hours(name: str, address: str) -> dict | None:
             ),
         )
     except Exception as exc:
-        print(json.dumps({"event": "opening_hours_lookup_error", "venue": name, "error": str(exc)}))
+        print(f"[opening_hours] lookup error ({name}): {type(exc).__name__}: {exc}")
         return None
 
     try:
         parsed = json.loads(_strip_json(resp.text or ""))
     except (json.JSONDecodeError, TypeError):
-        print(json.dumps({"event": "opening_hours_parse_failed", "venue": name, "raw": (resp.text or "")[:160]}))
+        print(f"[opening_hours] parse failed ({name}): {(resp.text or '')[:160]!r}")
         return None
     result = _validate(parsed) if isinstance(parsed, dict) else None
     if result is None:
-        print(json.dumps({"event": "opening_hours_no_data", "venue": name}))
+        print(f"[opening_hours] no usable data ({name}): {(resp.text or '')[:160]!r}")
     return result
 
 
