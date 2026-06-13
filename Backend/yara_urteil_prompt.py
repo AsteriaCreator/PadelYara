@@ -93,27 +93,26 @@ def generate_urteil(facts: dict) -> dict:
     if not key:
         raise UrteilUnavailable("GEMINI_API_KEY not set")
     try:
-        from google import genai
-        from google.genai import types
+        import google.generativeai as genai
     except ImportError as e:
-        raise UrteilUnavailable("google-genai SDK not installed") from e
+        raise UrteilUnavailable("google-generativeai SDK not installed") from e
 
-    client = genai.Client(api_key=key)
+    genai.configure(api_key=key)
+    model = genai.GenerativeModel(
+        model_name=MODEL,
+        system_instruction=SYSTEM_PROMPT,
+        generation_config=genai.GenerationConfig(
+            temperature=0.9,
+            max_output_tokens=2048,
+        ),
+    )
     try:
-        resp = client.models.generate_content(
-            model=MODEL,
-            contents=(
-                "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
-                "Urteil streng nach den Regeln:\n\n"
-                + json.dumps(facts, ensure_ascii=False, indent=2)
-            ),
-            config=types.GenerateContentConfig(
-                system_instruction=SYSTEM_PROMPT,
-                temperature=0.9,
-                max_output_tokens=2048,
-            ),
+        resp = model.generate_content(
+            "Hier sind die berechneten Fakten. Erstelle Beobachtungen und Yaras "
+            "Urteil streng nach den Regeln:\n\n"
+            + json.dumps(facts, ensure_ascii=False, indent=2)
         )
-    except Exception as e:  # SDK raises provider-specific errors; degrade gracefully
+    except Exception as e:
         raise UrteilUnavailable(f"Gemini error: {e}") from e
 
     text = (resp.text or "").strip()
