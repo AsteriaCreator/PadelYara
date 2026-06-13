@@ -51,7 +51,7 @@ from yara_urteil_prompt import generate_urteil, UrteilUnavailable, DISCLAIMER
 import urteil_mongo
 from etennis_checker import DEFAULT_FALLBACK_MINUTES as ET_DEFAULT_FALLBACK
 import eversports_prices
-from availability import parse_durations, match_durations
+from availability import parse_durations, match_durations, SELECTABLE_DURATIONS
 
 # Eversports venues can have 30-min or 60-min slots depending on the court
 # (e.g. Traiskirchen Court 3 has 30-min slots), so check both offsets.
@@ -376,15 +376,23 @@ def _apply_cached_entry(result: dict, status: str, entry: dict, wanted: list[int
             result["availability_status"] = "free"
             result["matched_duration_h"] = max(matched) / 60
         else:
-            # The requested length doesn't fit at T — even if a single slot is
-            # free. Point at the next offset whose free durations include one of
-            # the requested lengths (duration-aware fallback).
-            result["availability_status"] = "busy"
-            wanted_set = set(wanted)
-            for fb in entry.get("fallback_durations", []):
-                if wanted_set & set(fb.get("durations", [])):
-                    result["next_available_time"] = fb["ts"]
-                    break
+            # Requested length not free now. Distinguish two cases:
+            #  • Other selectable lengths ARE free here (e.g. only 1 h/2 h slots,
+            #    so 1.5 h is structurally unavailable) → "other_duration" + the
+            #    lengths that are free, so the UI can say so instead of "Belegt".
+            #  • Nothing free → genuinely "busy"; point at the next time the
+            #    requested length opens up (duration-aware fallback).
+            other = [d for d in SELECTABLE_DURATIONS if d in set(free_durs)]
+            if other:
+                result["availability_status"] = "other_duration"
+                result["available_durations_h"] = [d / 60 for d in other]
+            else:
+                result["availability_status"] = "busy"
+                wanted_set = set(wanted)
+                for fb in entry.get("fallback_durations", []):
+                    if wanted_set & set(fb.get("durations", [])):
+                        result["next_available_time"] = fb["ts"]
+                        break
     else:
         result["availability_status"] = status
         if status != "free":
@@ -584,7 +592,14 @@ def _apply_ev_duration(result: dict, base_status: str, free_durs: list[int] | No
             result["availability_status"] = "free"
             result["matched_duration_h"] = max(matched) / 60
             return True
-        result["availability_status"] = "busy"
+        # Requested length not free. If other selectable lengths ARE free here
+        # (e.g. a 60-min-grid court can't do 1.5 h), say so instead of "Belegt".
+        other = [d for d in SELECTABLE_DURATIONS if d in set(free_durs)]
+        if other:
+            result["availability_status"] = "other_duration"
+            result["available_durations_h"] = [d / 60 for d in other]
+        else:
+            result["availability_status"] = "busy"
         return False
     result["availability_status"] = base_status
     return base_status == "free"
@@ -904,9 +919,11 @@ async def search(
                 result["price_eur"] = live_price
             if ev_result.get("slot_duration_h") is not None:
                 result["slot_duration_h"] = ev_result["slot_duration_h"]
-            # Duration-aware fallback: when the requested length doesn't fit now,
-            # scan offsets for the next time it does (not just any free slot).
-            if not matched_free and base_status in ("free", "busy", "no_slot"):
+            # Duration-aware fallback: when the venue is genuinely busy (nothing
+            # free), scan offsets for the next time the requested length opens up.
+            # Skip when status is "other_duration" (free now, just a different
+            # length) — there's nothing to wait for.
+            if result.get("availability_status") == "busy":
                 fb_offsets = venue.get("slot_fallback_minutes") or EV_DEFAULT_FALLBACK
                 for offset_min in fb_offsets:
                     dt_fb     = dt + timedelta(minutes=offset_min)

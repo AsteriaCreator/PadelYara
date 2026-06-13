@@ -93,6 +93,7 @@ type RawVenue = {
   price_eur?: number | null
   slot_duration_h?: number | null
   matched_duration_h?: number | null
+  available_durations_h?: number[] | null
 }
 
 function mapVenue(v: RawVenue): Venue {
@@ -113,6 +114,7 @@ function mapVenue(v: RawVenue): Venue {
     price_eur: v.price_eur,
     slot_duration_h: v.slot_duration_h,
     matched_duration_h: v.matched_duration_h,
+    available_durations_h: v.available_durations_h,
   }
 }
 

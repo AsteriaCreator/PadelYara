@@ -1,6 +1,6 @@
 export type CourtType = "both" | "indoor" | "outdoor"
 
-export type Status = "free" | "busy" | "pending" | "unknown" | "check_failed" | "phone_only" | "platform_check_required" | "not_checked" | "no_slot" | "error"
+export type Status = "free" | "busy" | "pending" | "unknown" | "check_failed" | "phone_only" | "platform_check_required" | "not_checked" | "no_slot" | "error" | "other_duration"
 
 export interface SearchParams {
   date: string
@@ -42,6 +42,10 @@ export interface Venue {
   // continuously at the searched time, e.g. 2 for "2h frei". Set by the backend
   // when a duration filter is active and the venue matches.
   matched_duration_h?: number | null
+  // When status is "other_duration": the selectable lengths (hours) that ARE
+  // free here, even though the requested length isn't (e.g. [1, 2] at a venue
+  // that only sells full-hour slots, so 1.5h is unavailable).
+  available_durations_h?: number[] | null
 }
 
 // Lightweight venue shape for the Padelrevier map (GET /api/venues).

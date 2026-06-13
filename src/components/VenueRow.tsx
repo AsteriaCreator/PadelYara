@@ -14,6 +14,8 @@ const STATUS_STYLES: Record<string, string> = {
   not_checked:             "bg-gray-800 text-gray-500",
   no_slot:                 "bg-red-900/40 text-red-400",
   error:                   "bg-orange-900/40 text-orange-400",
+  // Free now, but not for the requested length — amber, not red "Belegt".
+  other_duration:          "bg-amber-900/40 text-amber-400",
 }
 
 const STATUS_LABEL: Record<string, string> = {
@@ -33,6 +35,8 @@ const STATUS_LABEL: Record<string, string> = {
   not_checked:             "Nicht geprüft",
   no_slot:                 "Kein Slot",
   error:                   "Fehler",
+  // Fallback label; normally replaced by the actual free lengths (see VenueRow).
+  other_duration:          "Andere Dauer frei",
 }
 
 interface Props {
@@ -133,7 +137,9 @@ export default function VenueRow({ venue, pollingActive, searchDate, highlighted
             <span className={`text-xs px-2 py-0.5 rounded-full ${STATUS_STYLES[displayStatus]}`}>
               {displayStatus === "free" && venue.matched_duration_h
                 ? `${formatDuration(venue.matched_duration_h)} frei`
-                : STATUS_LABEL[displayStatus]}
+                : displayStatus === "other_duration" && venue.available_durations_h?.length
+                  ? `Nur ${venue.available_durations_h.map(formatDuration).join(" / ")} frei`
+                  : STATUS_LABEL[displayStatus]}
             </span>
           </div>
           {venue.time_adjusted && venue.adjustment_label && (
