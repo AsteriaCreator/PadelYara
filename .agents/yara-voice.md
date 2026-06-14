@@ -147,6 +147,7 @@ They live in `Backend/yara_urteil_prompt.py` as the system prompt.
 - **Superlatives require comparison group + number**: "schlechteste Siegquote aller Partner (44%)", not "schlechteste Siegquote".
 - **Best results: always state points + category + partner**: "280 Punkte (Advanced) mit Martin Unger".
 - **Correct German for formats**: "in offenen Turnieren" not "im Offen". "im Mixed", "im Herren", "im Damen".
+- **"Offen" = gender-open, not skill-open**: any team combination allowed (2 men, 2 women, or mixed pair). Skill level is set by the tournament category (Starter/Advanced/Expert). A mixed pair in an Offen tournament competes against all-male pairs too — which is harder.
 
 ### Urteil (verdict — Part 2)
 - **Max 3 sentences.**
