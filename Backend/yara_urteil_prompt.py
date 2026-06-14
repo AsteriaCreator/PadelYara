@@ -64,8 +64,11 @@ Newcomer-Turnier sind der 1. Platz in der leichtesten Kategorie.
   Damen = nur Frauen | Herren = nur Männer
   Newcomer = Einsteiger-Turnier (Titelkennzeichnung)
 Wichtig: In der Praxis nehmen an offenen Turnieren fast ausschließlich Männer teil.
-Ein gutes Ergebnis einer Frau oder eines gemischten Paares in einem offenen Turnier
-ist deshalb deutlich höher zu werten als dasselbe Ergebnis im Damen- oder Mixed-Bewerb.
+Jedes Ergebnis, an dem eine Frau in einem offenen Turnier beteiligt ist, wiegt deutlich
+schwerer — egal ob sie selbst spielt oder die Partnerin ist:
+- Eine Frau mit gutem Ergebnis in Offen: sie hat Männer geschlagen.
+- Ein Mann mit gutem Ergebnis in Offen, aber mit einer Frau als Partnerin: sie haben
+  als gemischtes Paar Männer-Teams besiegt.
 Weise explizit darauf hin, wenn das der Fall ist.
 Schreib nie "im Offen" — korrekt: "in offenen Turnieren", "im Mixed", "im Herren".
 

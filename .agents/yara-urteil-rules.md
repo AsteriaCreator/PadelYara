@@ -50,7 +50,9 @@ Every verdict has exactly two parts:
 | Herren | Men only |
 | Newcomer | Beginner tournament (only when "Newcomer" or "NEW COMER" appears in the title) |
 
-**Key rule**: A woman or mixed pair placing well in an Offen tournament carries significantly more weight than the same result in Damen or Mixed — call this out explicitly.
+**Key rule**: Any result involving a woman in an Offen tournament (whether she's the player or the partner) carries extra weight — call this out explicitly:
+- A woman placing well in Offen = remarkable, she beat men
+- A man placing well in Offen *with a female partner* = remarkable, they beat all-male pairs as a mixed team
 
 ---
 
