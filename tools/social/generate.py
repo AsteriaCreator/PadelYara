@@ -330,7 +330,22 @@ def generate(config_path: Path) -> None:
             wm_img = apply_opacity(wm_img, wordmark_cfg.get("opacity", 255))
             paste_asset(canvas, wm_img, wordmark_cfg["x"], wordmark_cfg["y"])
 
-    # ── 9. Export ─────────────────────────────────────────────────────────────
+    # ── 9. URL line ───────────────────────────────────────────────────────────
+    url_cfg = cfg.get("url")
+    if url_cfg:
+        url_font_path = repo_root / url_cfg["font"]
+        url_font = ImageFont.truetype(str(url_font_path), url_cfg["font_size"])
+        url_color = tuple(url_cfg["color"]) + (255,)
+        url_layer = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
+        ImageDraw.Draw(url_layer).text(
+            (url_cfg["x"], url_cfg["y"]),
+            url_cfg["text"],
+            font=url_font,
+            fill=url_color,
+        )
+        canvas = Image.alpha_composite(canvas, url_layer)
+
+    # ── 10. Export ────────────────────────────────────────────────────────────
     # Resolve the output directory, then auto-number the file.
     # When running from a git worktree the worktree root and the main repo root
     # can differ — check for a sibling repo at the same relative depth and

@@ -80,14 +80,24 @@ signature:
   paw:
     file: brand/social/input/paw.png   # real paw artwork — scaled by width
     width: 44                          # same visual weight as the text
-    color: [200, 200, 210]             # silver
-    opacity: 220
+    color: [255, 255, 255]             # full white so no part fades out
+    opacity: 255
 
 
 # ── Bottom wordmark (PadelYara lockup, lower left) ───────────────────────────
 wordmark:
   file: brand/lockups/lockup-horizontal-dark.svg
-  width: 320
+  width: 420
   x: 50
-  y: 1240
-  opacity: 210
+  y: 1210
+  opacity: 240
+
+
+# ── Website URL line (below the wordmark) ────────────────────────────────────
+url:
+  text: "www.padelyara.at"
+  font: brand/CinzelFont/static/Cinzel-Bold.ttf
+  font_size: 24
+  color: [200, 200, 210]   # silver, subtle
+  x: 50
+  y: 1300
