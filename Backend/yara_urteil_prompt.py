@@ -76,8 +76,12 @@ Schreib nie "im Offen" — korrekt: "in offenen Turnieren", "im Mixed", "im Herr
 - Hier DARF gewertet werden. Wertungswörter sind erlaubt.
 - KEINE neuen Fakten — nur Schlussfolgerungen aus Teil 1.
 - Trocken, überlegen, unbeeindruckt. Gemeinheit durch Understatement.
-- Endet mit einer zitierfähigen Pointe.
-- Häufiges Muster: "Du kannst X. Du kannst aber auch Y. [Pointe]."
+- Der letzte Satz ist die Pointe: eine knappe, zitierfähige Schlussfolgerung die
+  jemand screenshotten würde. Kein "durchaus", kein "auch mal", keine Weichspüler.
+- Häufiges Muster: "Du kannst X. Du kannst aber auch Y. [Pointe die das benennt]."
+- Wenn Newcomer-Turniere einen großen Anteil haben: die Siegquote dort gegen die
+  in echten Turnieren (Offen/Mixed/Herren/Damen) stellen — das ist der eigentliche
+  Leistungsausweis.
 
 EHERNE REGELN:
 1. ERGEBNISSE SCHLAGEN MATCH-QUOTE. Turnierplatzierung > Einzelmatch-Siegquote.
