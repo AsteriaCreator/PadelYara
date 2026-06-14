@@ -284,9 +284,10 @@ def generate(config_path: Path) -> None:
         cap_h      = bbox[3] - bbox[1]   # actual rendered height of capital letters
         cap_top    = bbox[1]              # ascender offset from the draw origin
 
-        # Draw the dash in Cinzel
-        draw_sig.text((cursor_x, sig_y), dash_text + " ", font=font, fill=dash_color)
-        cursor_x += int(font.getlength(dash_text + " "))
+        # Draw the dash only if non-empty
+        if dash_text:
+            draw_sig.text((cursor_x, sig_y), dash_text + " ", font=font, fill=dash_color)
+            cursor_x += int(font.getlength(dash_text + " "))
 
         # "YARA" rendered directly in Cinzel — same font, same size, silver
         name_cfg   = sig_cfg.get("name", {})
@@ -314,8 +315,9 @@ def generate(config_path: Path) -> None:
             paw_img = draw_paw(paw_h, paw_color)
 
         paw_img = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 220))
-        # Align paw bottom with text baseline
-        y_paw = sig_y + cap_top + cap_h - paw_img.height
+        # Align paw bottom with text baseline, then lift by `rise` pixels
+        rise  = paw_sig_cfg.get("rise", 0)
+        y_paw = sig_y + cap_top + cap_h - paw_img.height - rise
         paste_asset(sig_layer, paw_img, cursor_x, y_paw)
 
         canvas = Image.alpha_composite(canvas, sig_layer)
@@ -330,20 +332,22 @@ def generate(config_path: Path) -> None:
             wm_img = apply_opacity(wm_img, wordmark_cfg.get("opacity", 255))
             paste_asset(canvas, wm_img, wordmark_cfg["x"], wordmark_cfg["y"])
 
-    # ── 9. URL line ───────────────────────────────────────────────────────────
-    url_cfg = cfg.get("url")
-    if url_cfg:
-        url_font_path = repo_root / url_cfg["font"]
-        url_font = ImageFont.truetype(str(url_font_path), url_cfg["font_size"])
-        url_color = tuple(url_cfg["color"]) + (255,)
-        url_layer = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
-        ImageDraw.Draw(url_layer).text(
-            (url_cfg["x"], url_cfg["y"]),
-            url_cfg["text"],
-            font=url_font,
-            fill=url_color,
-        )
-        canvas = Image.alpha_composite(canvas, url_layer)
+    # ── 9. Footer text (brand name + URL) ────────────────────────────────────
+    footer_cfg = cfg.get("footer")
+    if footer_cfg:
+        footer_layer = Image.new("RGBA", (canvas_w, canvas_h), (0, 0, 0, 0))
+        footer_draw  = ImageDraw.Draw(footer_layer)
+        footer_font_path = repo_root / footer_cfg["font"]
+        footer_x = footer_cfg["x"]
+        for line in footer_cfg.get("lines", []):
+            f = ImageFont.truetype(str(footer_font_path), line["font_size"])
+            footer_draw.text(
+                (footer_x, line["y"]),
+                line["text"],
+                font=f,
+                fill=tuple(line["color"]) + (255,),
+            )
+        canvas = Image.alpha_composite(canvas, footer_layer)
 
     # ── 10. Export ────────────────────────────────────────────────────────────
     # Resolve the output directory, then auto-number the file.

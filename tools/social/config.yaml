@@ -30,8 +30,8 @@ text:
   font_size: 44
   line_spacing: 14
 
-  # Default line color (white).
-  color: [255, 255, 255]
+  # Default line color — silver so only the green accent line pops.
+  color: [200, 200, 210]
 
   # Top-left corner of the text block — upper-left sky zone.
   x: 50
@@ -69,35 +69,35 @@ signature:
   y: 620       # baseline; pushed down to give breathing room after text
 
   dash:
-    text: "—"
-    color: [212, 245, 60]   # accent yellow-green
+    text: ""                # no dash — signature starts directly with YARA
 
   name:
     text: "YARA"
-    color: [200, 200, 210]  # silver — rendered in Cinzel at the same font size
-    gap_after: 18
+    color: [200, 200, 210]  # silver
+    gap_after: 28           # more breathing room before the paw
 
   paw:
-    file: brand/social/input/paw.png   # real paw artwork — scaled by width
-    width: 44                          # same visual weight as the text
-    color: [255, 255, 255]             # full white so no part fades out
+    file: brand/social/input/paw.png
+    width: 35               # 20 % smaller than before (was 44)
+    rise: 10                # pixels to lift above the text baseline
+    color: [255, 255, 255]
     opacity: 255
 
 
-# ── Bottom wordmark (PadelYara lockup, lower left) ───────────────────────────
+# ── Bottom wordmark (disabled — replaced by text footer) ─────────────────────
 wordmark:
-  file: brand/lockups/lockup-horizontal-dark.svg
-  width: 420
-  x: 50
-  y: 1210
-  opacity: 240
 
 
-# ── Website URL line (below the wordmark) ────────────────────────────────────
-url:
-  text: "www.padelyara.at"
+# ── Footer: brand name + URL in Cinzel text ───────────────────────────────────
+footer:
   font: brand/CinzelFont/static/Cinzel-Bold.ttf
-  font_size: 24
-  color: [200, 200, 210]   # silver, subtle
   x: 50
-  y: 1300
+  lines:
+    - text: "PADELYARA"
+      font_size: 36
+      color: [255, 255, 255]
+      y: 1240
+    - text: "padelyara.at"
+      font_size: 22
+      color: [200, 200, 210]
+      y: 1286
