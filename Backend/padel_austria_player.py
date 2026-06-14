@@ -294,6 +294,43 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
         per_tournament[m["title"]]["w"] += 1 if m["won"] else 0
     collapse_tournaments = sum(1 for v in per_tournament.values() if v["m"] >= 2 and v["w"] == 0)
 
+    # APN context: interpret the player's APN on the 1.0–8.0 scale.
+    # Category eligibility thresholds (APU rules, valid from 1.1.2026):
+    #   Newcomer ≤1.5 | Starter ≤2.5 | Advanced ≤4.5 | Expert 2.5–5.5
+    #   Professional 3.5+ | Elite 3.5+ | Mixed Starter ≤3.0 | Mixed Advanced open
+    try:
+        apn_val = float(header["apn"].replace(",", "."))
+    except (ValueError, AttributeError):
+        apn_val = None
+
+    apn_context: dict[str, Any] = {"value": header["apn"]}
+    if apn_val is not None:
+        eligible = []
+        if apn_val <= 1.5:
+            eligible.append("Newcomer")
+        if apn_val <= 2.5:
+            eligible.append("Starter")
+        if apn_val <= 4.5:
+            eligible.append("Advanced")
+        if 2.5 <= apn_val <= 5.5:
+            eligible.append("Expert")
+        if apn_val >= 3.5:
+            eligible.extend(["Professional", "Elite"])
+        apn_context["eligible_categories"] = eligible
+
+        # Position within each played category (bottom/mid/top third of the APN range)
+        cat_position: dict[str, str] = {}
+        if apn_val <= 4.5:  # Advanced: 1.0–4.5 → range width 3.5
+            pct = (apn_val - 1.0) / 3.5
+            cat_position["Advanced"] = "unteres Drittel" if pct < 0.33 else ("mittleres Drittel" if pct < 0.67 else "oberes Drittel")
+        if apn_val <= 2.5:  # Starter: 1.0–2.5 → range width 1.5
+            pct = (apn_val - 1.0) / 1.5
+            cat_position["Starter"] = "unteres Drittel" if pct < 0.33 else ("mittleres Drittel" if pct < 0.67 else "oberes Drittel")
+        if 2.5 <= apn_val <= 5.5:  # Expert: 2.5–5.5 → range width 3.0
+            pct = (apn_val - 2.5) / 3.0
+            cat_position["Expert"] = "unteres Drittel" if pct < 0.33 else ("mittleres Drittel" if pct < 0.67 else "oberes Drittel")
+        apn_context["position_in_category"] = cat_position
+
     return {
         "player": {"name": header["name"], "rank": header["rank"],
                    "points": header["points"], "apn": header["apn"],
@@ -306,6 +343,7 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
         "formats": format_list,
         "best_results": best_results,
         "best_points_by_format": best_pts_by_fmt,
+        "apn_context": apn_context,
         "consistency": {"tournaments_in_window": len(per_tournament),
                         "tournaments_without_a_win": collapse_tournaments},
     }
