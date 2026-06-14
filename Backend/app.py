@@ -1440,7 +1440,7 @@ async def get_search_console():
 
     raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     if not raw:
-        raise HTTPException(status_code=503, detail="GOOGLE_SERVICE_ACCOUNT_JSON not configured")
+        return {"ok": False, "reason": "not_configured"}
 
     try:
         info = _json.loads(raw)
