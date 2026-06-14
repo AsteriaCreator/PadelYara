@@ -102,6 +102,37 @@ def recolor_asset(img: Image.Image, color: tuple) -> Image.Image:
     return flat
 
 
+def draw_paw(size: int, color: tuple) -> Image.Image:
+    """
+    Draw a paw print at `size` pixels tall.
+    Shape: four small toe beans in an arc + one large central pad beneath.
+    Returns an RGBA image with transparent background.
+    """
+    w = int(size * 0.90)
+    img = Image.new("RGBA", (w, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    c = (*color, 255)
+
+    # Main pad — wide oval in the lower half
+    pw, ph = int(w * 0.56), int(size * 0.46)
+    px = (w - pw) // 2
+    py = size - ph - int(size * 0.06)
+    d.ellipse([px, py, px + pw, py + ph], fill=c)
+
+    # Four toe beans — small ovals arcing above the pad
+    tw, th = int(w * 0.22), int(size * 0.23)
+    toes = [
+        (int(w * 0.03), int(size * 0.28)),   # far left
+        (int(w * 0.27), int(size * 0.08)),   # centre-left
+        (int(w * 0.51), int(size * 0.08)),   # centre-right
+        (int(w * 0.72), int(size * 0.28)),   # far right
+    ]
+    for tx, ty in toes:
+        d.ellipse([tx, ty, tx + tw, ty + th], fill=c)
+
+    return img
+
+
 def scale_to_height(img: Image.Image, target_height: int) -> Image.Image:
     """Scale image so its height equals target_height, width proportional."""
     ratio = target_height / img.height
@@ -237,43 +268,34 @@ def generate(config_path: Path) -> None:
         draw_sig  = ImageDraw.Draw(sig_layer)
         cursor_x  = sig_x
 
-        # "— " dash prefix in Cinzel
+        # Measure the font cap-height once so we can vertically centre everything
         dash_cfg   = sig_cfg.get("dash", {})
         dash_text  = dash_cfg.get("text", "—")
         dash_color = tuple(dash_cfg.get("color", text_cfg["color"])) + (255,)
+        bbox       = font.getbbox("YARA")
+        cap_h      = bbox[3] - bbox[1]   # actual rendered height of capital letters
+        cap_top    = bbox[1]              # ascender offset from the draw origin
+
+        # Draw the dash in Cinzel
         draw_sig.text((cursor_x, sig_y), dash_text + " ", font=font, fill=dash_color)
         cursor_x += int(font.getlength(dash_text + " "))
 
-        # Name image (e.g. yara.png) — scaled to match text cap height
-        name_cfg = sig_cfg.get("name")
-        if name_cfg:
-            name_path = repo_root / name_cfg["file"]
-            print(f"Loading signature name: {name_path}")
-            name_img  = Image.open(name_path).convert("RGBA")
-            name_color = tuple(name_cfg.get("color", [192, 192, 200]))
-            name_img  = recolor_asset(name_img, name_color)
-            name_h    = name_cfg.get("height", font_size)
-            name_img  = scale_to_height(name_img, name_h)
-            name_img  = apply_opacity(name_img, name_cfg.get("opacity", 255))
-            line_h    = font.getbbox(dash_text)[3] - font.getbbox(dash_text)[1]
-            y_name    = sig_y + max(0, (line_h - name_h) // 2)
-            paste_asset(sig_layer, name_img, cursor_x, y_name)
-            cursor_x += name_img.width + name_cfg.get("gap_after", 14)
+        # "YARA" rendered directly in Cinzel — same font, same size, silver
+        name_cfg   = sig_cfg.get("name", {})
+        name_text  = name_cfg.get("text", "YARA")
+        name_color = tuple(name_cfg.get("color", [200, 200, 210])) + (255,)
+        draw_sig.text((cursor_x, sig_y), name_text, font=font, fill=name_color)
+        cursor_x += int(font.getlength(name_text)) + name_cfg.get("gap_after", 18)
 
-        # Paw image — same color and height, vertically centered
-        paw_sig_cfg = sig_cfg.get("paw")
-        if paw_sig_cfg:
-            paw_path  = repo_root / paw_sig_cfg["file"]
-            print(f"Loading signature paw: {paw_path}")
-            paw_img   = Image.open(paw_path).convert("RGBA")
-            paw_color = tuple(paw_sig_cfg.get("color", [192, 192, 200]))
-            paw_img   = recolor_asset(paw_img, paw_color)
-            paw_h     = paw_sig_cfg.get("height", font_size)
-            paw_img   = scale_to_height(paw_img, paw_h)
-            paw_img   = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 220))
-            line_h    = font.getbbox(dash_text)[3] - font.getbbox(dash_text)[1]
-            y_paw     = sig_y + max(0, (line_h - paw_h) // 2)
-            paste_asset(sig_layer, paw_img, cursor_x, y_paw)
+        # Paw drawn with PIL — height matches cap_h so it sits flush on the baseline
+        paw_sig_cfg = sig_cfg.get("paw", {})
+        paw_color   = tuple(paw_sig_cfg.get("color", [200, 200, 210]))
+        paw_h       = paw_sig_cfg.get("height", cap_h)
+        paw_img     = draw_paw(paw_h, paw_color)
+        paw_img     = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 220))
+        # Align paw bottom with text baseline
+        y_paw = sig_y + cap_top + cap_h - paw_h
+        paste_asset(sig_layer, paw_img, cursor_x, y_paw)
 
         canvas = Image.alpha_composite(canvas, sig_layer)
 

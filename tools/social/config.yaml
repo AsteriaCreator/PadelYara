@@ -73,17 +73,13 @@ signature:
     color: [212, 245, 60]   # accent yellow-green
 
   name:
-    file: brand/social/input/yara.png
-    height: 44              # matches font_size so it reads as same visual weight
-    color: [200, 200, 210]  # shiny silver
+    text: "YARA"
+    color: [200, 200, 210]  # silver — rendered in Cinzel at the same font size
     gap_after: 18
-    opacity: 255
 
   paw:
-    file: brand/social/input/paw.png
-    height: 44              # same as name for a unified signature line
-    color: [200, 200, 210]  # shiny silver
-    opacity: 235
+    color: [200, 200, 210]  # silver — drawn with PIL circles
+    opacity: 220
 
 
 # ── Bottom wordmark (PadelYara lockup, lower left) ───────────────────────────
