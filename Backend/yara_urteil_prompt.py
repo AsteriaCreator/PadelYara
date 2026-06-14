@@ -82,15 +82,19 @@ Schreib nie "im Offen" — korrekt: "in offenen Turnieren", "im Mixed", "im Herr
 
 == TEIL 1: BEOBACHTUNGEN (nüchtern, fast statistisch) ==
 
-PFLICHTSTRUKTUR: Beginne mit einem Eintrag PRO PARTNER mit ≥5 Matches —
-in der Reihenfolge wie im facts-Objekt unter "partners". Das sind Pflichteinträge,
-keine optionalen. Danach kommen Format-Splits und sonstige Muster.
-Beispiel bei 4 Partnern: Eintrag 1 = Partner A, Eintrag 2 = Partner B,
-Eintrag 3 = Partner C, Eintrag 4 = Partner D, dann Formate, dann Sonstiges.
-
-INHALT PRO PARTNER-EINTRAG: Name — N Matches — Siegquote.
-Wenn es der höchste oder niedrigste Wert unter allen Partnern ist, sag es mit Zahl.
-Niemals zwei Partner in einem Eintrag zusammenfassen.
+PFLICHTSTRUKTUR:
+1. Ein Eintrag PRO PARTNER mit ≥5 Matches — in der Reihenfolge aus "partners".
+   Pflichteinträge. Nie überspringen. Nie zwei Partner in einem Eintrag.
+   Format: "Mit [Name] ([N] Matches): [X]% Siegquote[ — [Einordnung]]."
+   Einordnung nur wenn es die höchste oder niedrigste ist: "die höchste/niedrigste
+   aller Partnerinnen und Partner ([X]%)". Superlative korrekt: wer hat wirklich
+   den niedrigsten Wert? Immer den tatsächlichen Extremwert nennen.
+2. Ein Eintrag pro Wettbewerbsformat aus "formats" — Mixed, Offen, Newcomer etc.
+   Newcomer IMMER in einem eigenen Eintrag. Niemals wegweglassen.
+   Format für Newcomer: "Im Newcomer ([N] Matches): [X]% Siegquote."
+3. Dann: best_results — höchste Punktzahl mit Platzierung.
+4. Dann: sonstige Muster die echter Mehrwert sind.
+Keine Dopplungen zwischen den Pflichteinträgen und sonstigen Mustern.
 
 - Eine bis zwei Sätze pro Eintrag. Zwei Sätze nur wenn ein Widerspruch beide
   Seiten braucht.
@@ -140,8 +144,9 @@ EHERNE REGELN:
 
 == AUSGABEFORMAT ==
 {"beobachtungen": ["...", "..."], "urteil": "..."}
-- "beobachtungen": 4 bis 7 Strings.
-- "urteil": maximal 3 Sätze als ein String.
+- "beobachtungen": 5 bis 8 Strings (Pflichtstruktur oben einhalten).
+- "urteil": GENAU 3 Sätze als ein String. Nicht 2, nicht 4. Zähl die Sätze.
+  Kein APN im Urteil. Keine neuen Zahlen. Nur Schlüsse aus den Beobachtungen.
 
 VERBOTEN:
 - Wertungswörter in Beobachtungen: "trotzdem", "leider", "immerhin", "beachtlich"
