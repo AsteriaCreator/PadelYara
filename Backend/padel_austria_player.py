@@ -117,19 +117,44 @@ def _parse_points_table(soup: BeautifulSoup) -> list[dict[str, Any]]:
     return out
 
 
-def _fetch_tournament_competition(url: str, session: requests.Session) -> str | None:
-    """Fetch a tournament page and read the real competition format (Mixed/Offen/etc.)."""
+def _fetch_tournament_info(
+    url: str, session: requests.Session, player_name: str | None = None
+) -> dict[str, Any]:
+    """Fetch a tournament page. Returns format + optional placing/total_teams for the player."""
     soup = _fetch(url, session)
+    result: dict[str, Any] = {"competition": None, "placing": None, "total_teams": None}
     if soup is None:
-        return None
+        return result
+
     # Format shown as e.g. "Mixed - Advanced" or "Offen - Starter" right after the h1
     for tag in soup.find_all(["h1", "h2", "p", "div", "span"]):
         text = tag.get_text(strip=True)
-        # Pattern: "{competition} - {category}" where competition is a known keyword
         for fmt in ("Mixed", "Offen", "Damen", "Herren", "Newcomer"):
             if text.startswith(fmt + " -") or text == fmt:
-                return fmt
-    return None
+                result["competition"] = fmt
+                break
+        if result["competition"]:
+            break
+
+    if player_name:
+        page_text = soup.get_text()
+        # Rank markers like "#1", "#3" in the results table
+        rank_hits = [(m.start(), int(m.group(1))) for m in re.finditer(r"#(\d+)\b", page_text)]
+        if rank_hits:
+            result["total_teams"] = len(rank_hits)
+            # Find first occurrence of any name fragment
+            player_pos = -1
+            for part in player_name.split():
+                idx = page_text.find(part)
+                if idx != -1:
+                    player_pos = idx
+                    break
+            if player_pos != -1:
+                preceding = [rank for (pos, rank) in rank_hits if pos < player_pos]
+                if preceding:
+                    result["placing"] = preceding[-1]
+
+    return result
 
 
 def _decide_match(scores_a: list[str], scores_b: list[str]) -> bool | None:
@@ -302,15 +327,17 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
     best_results = []
     for p in top_results:
         competition = p["competition"]
-        # Fetch the real format from the tournament page if we have a URL
+        tinfo: dict[str, Any] = {}
         if p.get("url"):
-            real = _fetch_tournament_competition(p["url"], _session)
-            if real:
-                competition = real
+            tinfo = _fetch_tournament_info(p["url"], _session, player_name=header["name"])
+            if tinfo.get("competition"):
+                competition = tinfo["competition"]
         best_results.append({
             "points": p["points"], "category": p["category"],
             "competition": competition, "title": p["title"],
             "partner": partner_by_title.get(p["title"]),
+            "placing": tinfo.get("placing"),
+            "total_teams": tinfo.get("total_teams"),
         })
 
     # Best placement points per format (results-vs-winrate signal).
