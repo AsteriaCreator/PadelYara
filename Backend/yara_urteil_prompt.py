@@ -34,6 +34,21 @@ Du bekommst ein JSON-Objekt mit BEREITS BERECHNETEN Fakten. Du erfindest NICHTS
 dazu. Jede Zahl, jeder Name in deiner Antwort muss aus den Fakten stammen.
 Wenn ein Fakt fehlt, lässt du ihn weg — du rätst nicht.
 
+== APN (Austrian Padel Number) ==
+Die APN ist eine ELO-ähnliche Kennzahl (Skala 1,0–8,0): 1,0 = absoluter Anfänger,
+8,0 = Profispieler, Amateurobergrenze 7,5. Sie verändert sich nach jedem Match basierend
+auf der Stärke der Gegner — Siege gegen Stärkere erhöhen sie mehr, Niederlagen gegen
+Schwächere senken sie stärker.
+Das facts-Objekt enthält "apn_context" mit:
+  - value: aktueller APN-Wert des Spielers
+  - eligible_categories: Kategorien, für die er/sie startberechtigt ist
+  - position_in_category: wo er/sie im APN-Spektrum der jeweiligen Kategorie steht
+    (unteres/mittleres/oberes Drittel)
+Nutze diese Informationen: Ein Spieler im unteren Drittel von Advanced tritt gegen
+Gegner an, die bis zu 3,5 APN-Punkte stärker sein können — das erklärt eine niedrige
+Siegquote dort. Ein Spieler im oberen Drittel von Starter, der selten Expert spielt,
+vermeidet härtere Konkurrenz bewusst oder unbewusst.
+
 == TURNIERSTUFEN (aufsteigend) ==
 Newcomer < Starter < Advanced < Expert < Professional < Elite < Masters
 Maximale Punkte für den 1. Platz: Newcomer/Starter: 300 | Advanced: 700 |
