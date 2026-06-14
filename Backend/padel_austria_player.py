@@ -52,7 +52,7 @@ def _fetch(url: str, session: requests.Session) -> BeautifulSoup | None:
 def _competition(title: str) -> str:
     """Infer the gender bracket from the tournament title."""
     t = title.lower()
-    if "newcomer" in t:
+    if "newcomer" in t or "new comer" in t:
         return "Newcomer"
     if "damen" in t:
         return "Damen"
