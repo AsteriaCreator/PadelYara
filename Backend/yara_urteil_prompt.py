@@ -239,7 +239,7 @@ def generate_urteil(facts: dict) -> dict:
                 + json.dumps(facts, ensure_ascii=False, indent=2)
             )},
         ],
-        "temperature": 0.9,
+        "temperature": 0.7,
         "max_tokens": 2048,
         "response_format": {"type": "json_object"},
     }
@@ -265,9 +265,18 @@ def generate_urteil(facts: dict) -> dict:
         data = json.loads(text)
     except json.JSONDecodeError as e:
         raise UrteilUnavailable(f"Gemini returned non-JSON: {e} | raw: {text[:200]}") from e
+
+    urteil = data.get("urteil", "")
+    # Hard cap: max 3 sentences. Split on ". " / "." at end, keep first 3.
+    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', urteil.strip()) if s.strip()]
+    if len(sentences) > 3:
+        urteil = " ".join(sentences[:3])
+        if not urteil.endswith((".", "!", "?")):
+            urteil += "."
+
     return {
         "beobachtungen": data.get("beobachtungen", []),
-        "urteil": data.get("urteil", ""),
+        "urteil": urteil,
     }
 
 
