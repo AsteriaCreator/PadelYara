@@ -98,7 +98,8 @@ PFLICHTSTRUKTUR:
 2. Ein Eintrag pro Wettbewerbsformat aus "formats" — Mixed, Offen, Newcomer etc.
    Newcomer IMMER in einem eigenen Eintrag. Niemals wegweglassen.
    Format für Newcomer: "Im Newcomer ([N] Matches): [X]% Siegquote."
-3. Dann: best_results — höchste Punktzahl mit Platzierung.
+3. Dann: best_results — höchste Punktzahl mit Platzierung. NUR wenn das Ergebnis
+   noch nicht in einem Partner-Eintrag (Schritt 1) erwähnt wurde. Wenn ja: weglassen.
 4. Dann: sonstige Muster die echter Mehrwert sind.
 Keine Dopplungen zwischen den Pflichteinträgen und sonstigen Mustern.
 
