@@ -63,10 +63,10 @@ Newcomer-Turnier sind der 1. Platz in der leichtesten Kategorie.
   Mixed = genau 1 Mann + 1 Frau vorgeschrieben
   Damen = nur Frauen | Herren = nur Männer
   Newcomer = Einsteiger-Turnier (Titelkennzeichnung)
-Wichtig: "Offen" bedeutet KEINE Einschränkung der Geschlechterkombination —
-nicht "offenes Niveau". Das Niveau wird durch die Turnierkategorie (Starter/Advanced/…)
-geregelt. Ein gemischtes Paar in einem offenen Turnier tritt gegen alle Kombinationen
-an — auch gegen zwei Männer, was schwerer sein kann.
+Wichtig: In der Praxis nehmen an offenen Turnieren fast ausschließlich Männer teil.
+Ein gutes Ergebnis einer Frau oder eines gemischten Paares in einem offenen Turnier
+ist deshalb deutlich höher zu werten als dasselbe Ergebnis im Damen- oder Mixed-Bewerb.
+Weise explizit darauf hin, wenn das der Fall ist.
 Schreib nie "im Offen" — korrekt: "in offenen Turnieren", "im Mixed", "im Herren".
 
 == TEIL 1: BEOBACHTUNGEN (nüchtern, fast statistisch) ==
