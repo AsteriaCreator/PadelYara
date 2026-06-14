@@ -6,14 +6,10 @@
 # ─────────────────────────────────────────────────────────────────────────────
 
 # ── Input image ──────────────────────────────────────────────────────────────
-# The AI-generated image to use as the base.
-# Drop your image into tools/social/input/ and update this path.
-input_image: brand/social/input/scene.png
-
+input_image: brand/social/input/ChatGPT Image Jun 13, 2026, 06_23_37 no text PM.png
 
 # ── Output ───────────────────────────────────────────────────────────────────
-output_path: brand/social/output/post.png
-
+output_dir: brand/social/output
 
 # ── Canvas ───────────────────────────────────────────────────────────────────
 canvas_width: 1080
@@ -23,61 +19,75 @@ canvas_height: 1350
 # ── Text block ───────────────────────────────────────────────────────────────
 text:
   lines:
-    - "Wo spielst du"
-    - "heute?"
+    - "Während du diesen Beitrag"
+    - "liest, wurde irgendwo"
+    - "ein Court storniert."
+    - ""
+    - {text: "Ich weiß welcher.", color: [212, 245, 60]}
+    - ""
 
-  # Path to font file, relative to repo root.
   font: brand/CinzelFont/static/Cinzel-Bold.ttf
+  font_size: 44
+  line_spacing: 14
 
-  font_size: 80
-
-  # Space between lines, in pixels.
-  line_spacing: 20
-
-  # Color as R, G, B (0–255).
+  # Default line color (white).
   color: [255, 255, 255]
 
-  # Top-left corner of the text block.
-  x: 70
-  y: 120
+  # Top-left corner of the text block — upper-left sky zone.
+  x: 50
+  y: 185
 
-  # Optional: max width for word-wrapping, in pixels (0 = no wrap).
-  max_width: 520
+  # Safe column width: cat starts around x:490 in this image.
+  max_width: 440
 
 
-# ── Semi-transparent overlay behind the text (helps readability) ──────────────
+# ── Semi-transparent overlay (disabled — the sky is already dark) ─────────────
 text_overlay:
-  enabled: true
-  # Color as R, G, B.
+  enabled: false
   color: [0, 0, 0]
-  # 0 = fully transparent, 255 = fully opaque.
-  opacity: 90
-  # Rectangle covering the overlay area (x, y, width, height).
+  opacity: 0
   x: 0
   y: 0
-  width: 660
-  height: 1350
+  width: 0
+  height: 0
 
 
-# ── Wordmark / lockup (lower left) ───────────────────────────────────────────
-wordmark:
-  file: brand/lockups/lockup-horizontal-light.svg
-  # Width to render at; height is scaled proportionally.
-  width: 340
-  # Position of the top-left corner.
-  x: 60
-  y: 1210
-  # 0 = fully transparent, 255 = fully opaque.
-  opacity: 230
+# ── Header bar (disabled — lockup sits directly on dark sky) ─────────────────
+header_bar:
+  enabled: false
 
 
-# ── Paw / cat-head signature (small, lower right of the branding area) ───────
+# ── Standalone paw (disabled — paw is now part of the signature) ─────────────
 paw:
-  file: brand/logo/logo-transparent-white-only-head.svg
-  # Width to render at; height is scaled proportionally.
-  width: 72
-  # Position of the top-left corner.
-  x: 60
-  y: 1145
-  # 0 = fully transparent, 255 = fully opaque.
-  opacity: 200
+
+
+# ── Inline signature: "— " + YARA wordmark + paw ─────────────────────────────
+# All three elements are rendered on the same baseline.
+signature:
+  enabled: true
+  x: 50        # left edge — matches text block x
+  y: 565       # baseline; adjust if text block height changes
+
+  dash:
+    text: "—"
+    color: [212, 245, 60]   # accent yellow-green
+
+  name:
+    file: brand/social/input/yara.png
+    height: 48              # tall enough to read at full resolution
+    gap_after: 16           # pixels between name and paw
+    opacity: 255
+
+  paw:
+    file: brand/social/input/paw.png
+    height: 56              # slightly larger for visual emphasis
+    opacity: 220
+
+
+# ── Bottom wordmark (PadelYara lockup, lower left) ───────────────────────────
+wordmark:
+  file: brand/lockups/lockup-horizontal-dark.svg
+  width: 320
+  x: 50
+  y: 1240
+  opacity: 210
