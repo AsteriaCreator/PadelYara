@@ -95,20 +95,41 @@ def _parse_points_table(soup: BeautifulSoup) -> list[dict[str, Any]]:
         if "Punkte" not in header or "Turnier" not in header:
             continue
         for tr in table.find_all("tr"):
-            tds = [td.get_text(strip=True) for td in tr.find_all("td")]
+            tds = tr.find_all("td")
             if len(tds) < 4:
                 continue
             try:
-                pts = int(tds[0])
+                pts = int(tds[0].get_text(strip=True))
             except ValueError:
                 continue
-            title = tds[3]
+            title_td = tds[3]
+            title = title_td.get_text(strip=True)
+            link = title_td.find("a")
+            url = link["href"] if link and link.get("href") else None
+            if url and url.startswith("/"):
+                url = BASE_URL + url
             out.append(
-                {"points": pts, "date": tds[1], "category": tds[2],
-                 "title": title, "competition": _competition(title)}
+                {"points": pts, "date": tds[1].get_text(strip=True),
+                 "category": tds[2].get_text(strip=True),
+                 "title": title, "url": url, "competition": _competition(title)}
             )
         break
     return out
+
+
+def _fetch_tournament_competition(url: str, session: requests.Session) -> str | None:
+    """Fetch a tournament page and read the real competition format (Mixed/Offen/etc.)."""
+    soup = _fetch(url, session)
+    if soup is None:
+        return None
+    # Format shown as e.g. "Mixed - Advanced" or "Offen - Starter" right after the h1
+    for tag in soup.find_all(["h1", "h2", "p", "div", "span"]):
+        text = tag.get_text(strip=True)
+        # Pattern: "{competition} - {category}" where competition is a known keyword
+        for fmt in ("Mixed", "Offen", "Damen", "Herren", "Newcomer"):
+            if text.startswith(fmt + " -") or text == fmt:
+                return fmt
+    return None
 
 
 def _decide_match(scores_a: list[str], scores_b: list[str]) -> bool | None:
@@ -275,12 +296,20 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
     for t, c in title_partners.items():
         partner_by_title[t] = c.most_common(1)[0][0]
     category_by_title: dict[str, str] = {p["title"]: p["category"] for p in points}
-    best_results = [
-        {"points": p["points"], "category": p["category"],
-         "competition": p["competition"], "title": p["title"],
-         "partner": partner_by_title.get(p["title"])}
-        for p in sorted(points, key=lambda x: x["points"], reverse=True)[:3]
-    ]
+    top_results = sorted(points, key=lambda x: x["points"], reverse=True)[:3]
+    best_results = []
+    for p in top_results:
+        competition = p["competition"]
+        # Fetch the real format from the tournament page if we have a URL
+        if p.get("url"):
+            real = _fetch_tournament_competition(p["url"], session)
+            if real:
+                competition = real
+        best_results.append({
+            "points": p["points"], "category": p["category"],
+            "competition": competition, "title": p["title"],
+            "partner": partner_by_title.get(p["title"]),
+        })
 
     # Best placement points per format (results-vs-winrate signal).
     best_pts_by_fmt: dict[str, int] = {}
