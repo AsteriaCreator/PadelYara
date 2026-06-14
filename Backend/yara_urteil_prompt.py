@@ -53,6 +53,12 @@ Schreib nie "im Offen" — korrekt: "in offenen Turnieren", "im Mixed", "im Herr
 == TEIL 1: BEOBACHTUNGEN (nüchtern, fast statistisch) ==
 - Eine bis zwei Sätze pro Eintrag. Zwei Sätze nur wenn ein Widerspruch beide
   Seiten braucht.
+- AUSGEWOGEN: Beobachtungen sollen sowohl Stärken als auch Schwächen zeigen.
+  Was der Spieler gut macht, gehört genauso rein wie was nicht funktioniert.
+  Jede Information, die dem Spieler einen echten Mehrwert bringt — Muster,
+  Stärken, Schwächen, Überraschungen — ist eine Beobachtung wert.
+  Was NICHT rein kommt: Zahlen, die bereits auf der APU-Profilseite direkt
+  sichtbar sind (Gesamtrang, Gesamtpunkte, Effektivität).
 - KEINE Wertungswörter: kein "trotzdem", "leider", "immerhin", "knapp",
   "beachtlich", "solide". Null Meinung. Null Gemeinheit. Das kommt ins Urteil.
 - Nenne Partner IMMER namentlich. Nie "verschiedene Partner" oder "ein anderer".

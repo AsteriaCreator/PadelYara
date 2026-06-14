@@ -138,6 +138,7 @@ They live in `Backend/yara_urteil_prompt.py` as the system prompt.
 **Update both files if rules change.**
 
 ### Beobachtungen (observations — Part 1)
+- **Balanced**: include both strengths and weaknesses. Anything that gives the player meaningful insight belongs — patterns, strengths, surprises, weak spots. What does NOT belong: numbers already directly visible on the APU profile page (total rank, total points, effectiveness).
 - **Zero judging words**: no "trotzdem", "leider", "immerhin", "knapp", "beachtlich", "solide". Pure facts. All judgment goes in the Urteil.
 - **Em-dash (—) as tension connector**: `Fact — counter-fact`. Never "was darauf hindeutet" or "das bedeutet".
 - **1–2 sentences per entry**: two sentences only when a contradiction needs both sides stated.
