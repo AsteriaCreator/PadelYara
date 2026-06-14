@@ -259,6 +259,8 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
     if data is None:
         return None
     header, points, matches = data["header"], data["points"], data["matches"]
+    _session = requests.Session()
+    _session.headers.update(HEADERS)
 
     # Partner splits (W/L per partner).
     partners: dict[str, dict[str, int]] = defaultdict(lambda: {"matches": 0, "wins": 0})
@@ -302,7 +304,7 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
         competition = p["competition"]
         # Fetch the real format from the tournament page if we have a URL
         if p.get("url"):
-            real = _fetch_tournament_competition(p["url"], session)
+            real = _fetch_tournament_competition(p["url"], _session)
             if real:
                 competition = real
         best_results.append({
