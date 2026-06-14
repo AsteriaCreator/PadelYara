@@ -93,17 +93,13 @@ def paste_asset(canvas, img, x, y):
     canvas.paste(img, (x, y), mask=img)
 
 
-def to_white_on_transparent(img: Image.Image) -> Image.Image:
-    """
-    Convert a black-on-transparent (or any-color-on-transparent) image to
-    white-on-transparent, keeping the original alpha channel intact.
-    Useful for dark assets that need to appear on dark backgrounds.
-    """
+def recolor_asset(img: Image.Image, color: tuple) -> Image.Image:
+    """Replace all visible pixels with `color` (R,G,B), keeping the original alpha."""
     img = img.convert("RGBA")
     _, _, _, a = img.split()
-    white = Image.new("RGBA", img.size, (255, 255, 255, 255))
-    white.putalpha(a)
-    return white
+    flat = Image.new("RGBA", img.size, (*color, 255))
+    flat.putalpha(a)
+    return flat
 
 
 def scale_to_height(img: Image.Image, target_height: int) -> Image.Image:
@@ -253,29 +249,30 @@ def generate(config_path: Path) -> None:
         if name_cfg:
             name_path = repo_root / name_cfg["file"]
             print(f"Loading signature name: {name_path}")
-            name_img = Image.open(name_path).convert("RGBA")
-            name_img = to_white_on_transparent(name_img)
-            name_h   = name_cfg.get("height", 34)
-            name_img = scale_to_height(name_img, name_h)
-            name_img = apply_opacity(name_img, name_cfg.get("opacity", 255))
-            # Vertically center on the text line height
-            line_h = font.getbbox(dash_text)[3] - font.getbbox(dash_text)[1]
-            y_name = sig_y + max(0, (line_h - name_h) // 2)
+            name_img  = Image.open(name_path).convert("RGBA")
+            name_color = tuple(name_cfg.get("color", [192, 192, 200]))
+            name_img  = recolor_asset(name_img, name_color)
+            name_h    = name_cfg.get("height", font_size)
+            name_img  = scale_to_height(name_img, name_h)
+            name_img  = apply_opacity(name_img, name_cfg.get("opacity", 255))
+            line_h    = font.getbbox(dash_text)[3] - font.getbbox(dash_text)[1]
+            y_name    = sig_y + max(0, (line_h - name_h) // 2)
             paste_asset(sig_layer, name_img, cursor_x, y_name)
-            cursor_x += name_img.width + name_cfg.get("gap_after", 10)
+            cursor_x += name_img.width + name_cfg.get("gap_after", 14)
 
-        # Paw image — scaled to its own height, vertically centered
+        # Paw image — same color and height, vertically centered
         paw_sig_cfg = sig_cfg.get("paw")
         if paw_sig_cfg:
-            paw_path = repo_root / paw_sig_cfg["file"]
+            paw_path  = repo_root / paw_sig_cfg["file"]
             print(f"Loading signature paw: {paw_path}")
-            paw_img = Image.open(paw_path).convert("RGBA")
-            paw_img = to_white_on_transparent(paw_img)
-            paw_h   = paw_sig_cfg.get("height", 40)
-            paw_img = scale_to_height(paw_img, paw_h)
-            paw_img = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 200))
-            line_h  = font.getbbox(dash_text)[3] - font.getbbox(dash_text)[1]
-            y_paw   = sig_y + max(0, (line_h - paw_h) // 2)
+            paw_img   = Image.open(paw_path).convert("RGBA")
+            paw_color = tuple(paw_sig_cfg.get("color", [192, 192, 200]))
+            paw_img   = recolor_asset(paw_img, paw_color)
+            paw_h     = paw_sig_cfg.get("height", font_size)
+            paw_img   = scale_to_height(paw_img, paw_h)
+            paw_img   = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 220))
+            line_h    = font.getbbox(dash_text)[3] - font.getbbox(dash_text)[1]
+            y_paw     = sig_y + max(0, (line_h - paw_h) // 2)
             paste_asset(sig_layer, paw_img, cursor_x, y_paw)
 
         canvas = Image.alpha_composite(canvas, sig_layer)
@@ -291,26 +288,60 @@ def generate(config_path: Path) -> None:
             paste_asset(canvas, wm_img, wordmark_cfg["x"], wordmark_cfg["y"])
 
     # ── 9. Export ─────────────────────────────────────────────────────────────
-    # Support both legacy `output_path` and newer `output_dir` (auto-numbered).
+    # Resolve the output directory, then auto-number the file.
+    # When running from a git worktree the worktree root and the main repo root
+    # can differ — check for a sibling repo at the same relative depth and
+    # write there too so the file lands where the user expects it.
     if "output_dir" in cfg:
         out_dir = repo_root / cfg["output_dir"]
-        out_dir.mkdir(parents=True, exist_ok=True)
-        existing = sorted(out_dir.glob("post_*.png"))
-        next_num = 1
-        if existing:
-            last = existing[-1].stem  # e.g. "post_003"
+    else:
+        # Legacy: output_path points to a specific file; derive its directory.
+        out_dir = (repo_root / cfg["output_path"]).parent
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Also look for the same folder in the main working tree (two levels up from
+    # a .claude/worktrees/<repo>/<branch>/ path) so the output is visible there.
+    extra_dirs = []
+    worktrees_marker = out_dir.parts
+    try:
+        idx = list(worktrees_marker).index(".claude")
+        main_root = Path(*worktrees_marker[:idx])
+        extra_out = main_root / cfg.get("output_dir", cfg.get("output_path", "brand/social/output"))
+        if "output_path" in cfg:
+            extra_out = extra_out.parent
+        if extra_out != out_dir and main_root.exists():
+            extra_out.mkdir(parents=True, exist_ok=True)
+            extra_dirs.append(extra_out)
+    except (ValueError, TypeError):
+        pass
+
+    # Find the next free number across all candidate directories.
+    all_existing = sorted(out_dir.glob("post_*.png"))
+    for d in extra_dirs:
+        all_existing += list(d.glob("post_*.png"))
+    next_num = 1
+    if all_existing:
+        nums = []
+        for p in all_existing:
             try:
-                next_num = int(last.split("_")[-1]) + 1
+                nums.append(int(p.stem.split("_")[-1]))
             except ValueError:
                 pass
-        output_path = out_dir / f"post_{next_num:03d}.png"
-    else:
-        output_path = repo_root / cfg["output_path"]
-        output_path.parent.mkdir(parents=True, exist_ok=True)
+        if nums:
+            next_num = max(nums) + 1
+
+    filename = f"post_{next_num:03d}.png" if "output_dir" in cfg else Path(cfg["output_path"]).name
+    output_path = out_dir / filename
 
     final = canvas.convert("RGB")
     final.save(str(output_path), format="PNG", optimize=True)
     print(f"\nDone! Saved to: {output_path}  ({final.width} x {final.height} px)")
+    for d in extra_dirs:
+        dest = d / filename
+        import shutil
+        shutil.copy2(str(output_path), str(dest))
+        print(f"      Also copied to: {dest}")
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────

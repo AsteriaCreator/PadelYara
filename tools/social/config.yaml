@@ -66,7 +66,7 @@ paw:
 signature:
   enabled: true
   x: 50        # left edge — matches text block x
-  y: 565       # baseline; adjust if text block height changes
+  y: 620       # baseline; pushed down to give breathing room after text
 
   dash:
     text: "—"
@@ -74,14 +74,16 @@ signature:
 
   name:
     file: brand/social/input/yara.png
-    height: 48              # tall enough to read at full resolution
-    gap_after: 16           # pixels between name and paw
+    height: 44              # matches font_size so it reads as same visual weight
+    color: [200, 200, 210]  # shiny silver
+    gap_after: 18
     opacity: 255
 
   paw:
     file: brand/social/input/paw.png
-    height: 56              # slightly larger for visual emphasis
-    opacity: 220
+    height: 44              # same as name for a unified signature line
+    color: [200, 200, 210]  # shiny silver
+    opacity: 235
 
 
 # ── Bottom wordmark (PadelYara lockup, lower left) ───────────────────────────
