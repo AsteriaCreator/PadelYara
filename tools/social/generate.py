@@ -139,6 +139,14 @@ def scale_to_height(img: Image.Image, target_height: int) -> Image.Image:
     return img.resize((int(img.width * ratio), target_height), Image.LANCZOS)
 
 
+def crop_to_content(img: Image.Image) -> Image.Image:
+    """Trim transparent/empty border so the asset fills its bounding box."""
+    bbox = img.getbbox()   # returns (left, upper, right, lower) of non-zero pixels
+    if bbox:
+        return img.crop(bbox)
+    return img
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def generate(config_path: Path) -> None:
@@ -287,14 +295,27 @@ def generate(config_path: Path) -> None:
         draw_sig.text((cursor_x, sig_y), name_text, font=font, fill=name_color)
         cursor_x += int(font.getlength(name_text)) + name_cfg.get("gap_after", 18)
 
-        # Paw drawn with PIL — height matches cap_h so it sits flush on the baseline
+        # Paw — use file if provided, otherwise fall back to PIL-drawn shape
         paw_sig_cfg = sig_cfg.get("paw", {})
         paw_color   = tuple(paw_sig_cfg.get("color", [200, 200, 210]))
-        paw_h       = paw_sig_cfg.get("height", cap_h)
-        paw_img     = draw_paw(paw_h, paw_color)
-        paw_img     = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 220))
+        paw_file    = paw_sig_cfg.get("file")
+        if paw_file:
+            paw_path = repo_root / paw_file
+            print(f"Loading signature paw: {paw_path}")
+            paw_img  = Image.open(paw_path).convert("RGBA")
+            paw_img  = crop_to_content(paw_img)   # trim empty padding first
+            paw_img  = recolor_asset(paw_img, paw_color)
+            # Scale by width so the paw reads as the same visual weight as the text.
+            paw_w    = paw_sig_cfg.get("width", cap_h)
+            ratio    = paw_w / paw_img.width
+            paw_img  = paw_img.resize((paw_w, int(paw_img.height * ratio)), Image.LANCZOS)
+        else:
+            paw_h   = paw_sig_cfg.get("height", cap_h)
+            paw_img = draw_paw(paw_h, paw_color)
+
+        paw_img = apply_opacity(paw_img, paw_sig_cfg.get("opacity", 220))
         # Align paw bottom with text baseline
-        y_paw = sig_y + cap_top + cap_h - paw_h
+        y_paw = sig_y + cap_top + cap_h - paw_img.height
         paste_asset(sig_layer, paw_img, cursor_x, y_paw)
 
         canvas = Image.alpha_composite(canvas, sig_layer)

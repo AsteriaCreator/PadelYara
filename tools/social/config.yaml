@@ -78,7 +78,9 @@ signature:
     gap_after: 18
 
   paw:
-    color: [200, 200, 210]  # silver — drawn with PIL circles
+    file: brand/social/input/paw.png   # real paw artwork — scaled by width
+    width: 44                          # same visual weight as the text
+    color: [200, 200, 210]             # silver
     opacity: 220
 
 
