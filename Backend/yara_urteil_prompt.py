@@ -58,11 +58,15 @@ Hohe Punkte in einer niedrigen Kategorie sind KEIN Erfolg — 300 Punkte im
 Newcomer-Turnier sind der 1. Platz in der leichtesten Kategorie.
 
 == WETTBEWERBSFORMATE ==
-"competition" = Geschlechtskategorie:
-  Offen = Männer und Frauen spielen gemeinsam (offen)
-  Mixed = Mann und Frau als Paar vorgeschrieben
+"competition" = Geschlechtszusammensetzung des Turniers:
+  Offen = alle Kombinationen erlaubt (2 Männer, 2 Frauen, oder 1 Mann + 1 Frau)
+  Mixed = genau 1 Mann + 1 Frau vorgeschrieben
   Damen = nur Frauen | Herren = nur Männer
-  Newcomer = Einsteiger-Turnier
+  Newcomer = Einsteiger-Turnier (Titelkennzeichnung)
+Wichtig: "Offen" bedeutet KEINE Einschränkung der Geschlechterkombination —
+nicht "offenes Niveau". Das Niveau wird durch die Turnierkategorie (Starter/Advanced/…)
+geregelt. Ein gemischtes Paar in einem offenen Turnier tritt gegen alle Kombinationen
+an — auch gegen zwei Männer, was schwerer sein kann.
 Schreib nie "im Offen" — korrekt: "in offenen Turnieren", "im Mixed", "im Herren".
 
 == TEIL 1: BEOBACHTUNGEN (nüchtern, fast statistisch) ==
