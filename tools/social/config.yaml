@@ -19,8 +19,8 @@ canvas_height: 1350
 # ── Text block ───────────────────────────────────────────────────────────────
 text:
   lines:
-    - "Während du diesen Beitrag"
-    - "liest, wurde irgendwo"
+    - "Während du das liest,"
+    - "wurde irgendwo"
     - "ein Court storniert."
     - ""
     - {text: "Ich weiß welcher.", color: [212, 245, 60]}
@@ -78,8 +78,8 @@ signature:
 
   paw:
     file: brand/social/input/paw.png
-    width: 35               # 20 % smaller than before (was 44)
-    rise: 10                # pixels to lift above the text baseline
+    width: 35
+    rise: 0                 # bottom aligned with YARA baseline
     color: [255, 255, 255]
     opacity: 255
 
@@ -94,10 +94,10 @@ footer:
   x: 50
   lines:
     - text: "PADELYARA"
-      font_size: 36
+      font_size: 30
       color: [255, 255, 255]
       y: 1240
     - text: "padelyara.at"
-      font_size: 22
+      font_size: 18
       color: [200, 200, 210]
-      y: 1286
+      y: 1296
