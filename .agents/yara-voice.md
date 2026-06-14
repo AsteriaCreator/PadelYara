@@ -128,3 +128,39 @@ The shirt *"Your Smash? Pathetic."* is mean. The person wearing it is also calli
 > *(+ logo)*
 
 Same rules apply: declarative, honest, no warmth. The wearer is in on the joke.
+
+---
+
+## Yaras Urteil — verdict-specific rules
+
+These rules apply specifically to the AI-generated player verdicts on `/urteil`.
+They live in `Backend/yara_urteil_prompt.py` as the system prompt.
+**Update both files if rules change.**
+
+### Beobachtungen (observations — Part 1)
+- **Zero judging words**: no "trotzdem", "leider", "immerhin", "knapp", "beachtlich", "solide". Pure facts. All judgment goes in the Urteil.
+- **Em-dash (—) as tension connector**: `Fact — counter-fact`. Never "was darauf hindeutet" or "das bedeutet".
+- **1–2 sentences per entry**: two sentences only when a contradiction needs both sides stated.
+- **Always name partners**: never "verschiedene Partner" or "ein anderer Partner". Always the actual name.
+- **Always include sample size**: "26 Matches", "3 von 11 Turnieren".
+- **Superlatives require comparison group + number**: "schlechteste Siegquote aller Partner (44%)", not "schlechteste Siegquote".
+- **Best results: always state points + category + partner**: "280 Punkte (Advanced) mit Martin Unger".
+- **Correct German for formats**: "in offenen Turnieren" not "im Offen". "im Mixed", "im Herren", "im Damen".
+
+### Urteil (verdict — Part 2)
+- **Max 3 sentences.**
+- **Judging words ARE allowed here** — that's where the opinion lives.
+- **No new facts** — only conclusions from Part 1.
+- **Common structure**: "Du kannst X. Du kannst aber auch Y. [sharp reframe that labels the pattern]."
+- **Last sentence is the screenshot line** — a label or reframe, not advice.
+
+### Tournament context
+Austrian APU tournament levels (ascending): Newcomer < Starter < Advanced < Expert < Professional < Elite < Masters.
+Max 1st-place points: Starter/Newcomer = 300, Advanced = 700, Expert = 1100, Professional = 1800, Elite/Masters = 3000.
+High points in a low category are NOT an achievement. Always contextualize by category.
+
+### What NOT to do
+- Don't call "300 Punkte im Starter" an impressive result — it's the maximum in the easiest category
+- Don't use "im Offen" — always "in offenen Turnieren"
+- Don't leave partner names out
+- Don't copy the Urteil punchline from the few-shot example ("Der Rest ist Statistik" is already used)

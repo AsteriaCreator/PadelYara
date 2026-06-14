@@ -52,6 +52,8 @@ def _fetch(url: str, session: requests.Session) -> BeautifulSoup | None:
 def _competition(title: str) -> str:
     """Infer the gender bracket from the tournament title."""
     t = title.lower()
+    if "newcomer" in t:
+        return "Newcomer"
     if "damen" in t:
         return "Damen"
     if "herren" in t:
@@ -264,7 +266,7 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
         for c, v in fmt.items()
     ]
 
-    # Best results = top tournaments by points (placement proxy). Join partner from matches.
+    # Best results = top tournaments by points. Join partner + category from match/points data.
     partner_by_title: dict[str, str] = {}
     title_partners: dict[str, Counter] = defaultdict(Counter)
     for m in matches:
@@ -272,8 +274,10 @@ def analyze_player(slug: str) -> dict[str, Any] | None:
             title_partners[m["title"]][m["partner"]] += 1
     for t, c in title_partners.items():
         partner_by_title[t] = c.most_common(1)[0][0]
+    category_by_title: dict[str, str] = {p["title"]: p["category"] for p in points}
     best_results = [
-        {"points": p["points"], "competition": p["competition"], "title": p["title"],
+        {"points": p["points"], "category": p["category"],
+         "competition": p["competition"], "title": p["title"],
          "partner": partner_by_title.get(p["title"])}
         for p in sorted(points, key=lambda x: x["points"], reverse=True)[:3]
     ]
