@@ -142,13 +142,11 @@ def _fetch_tournament_info(
         rank_hits = [(m.start(), int(m.group(1))) for m in re.finditer(r"#(\d+)\b", page_text)]
         if rank_hits:
             result["total_teams"] = len(rank_hits)
-            # Find first occurrence of any name fragment
-            player_pos = -1
-            for part in player_name.split():
-                idx = page_text.find(part)
-                if idx != -1:
-                    player_pos = idx
-                    break
+            # Search full name first — avoids matching a different player sharing a first name
+            player_pos = page_text.find(player_name)
+            if player_pos == -1:
+                # Fallback: surname only (last word)
+                player_pos = page_text.find(player_name.split()[-1])
             if player_pos != -1:
                 preceding = [rank for (pos, rank) in rank_hits if pos < player_pos]
                 if preceding:
