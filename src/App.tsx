@@ -17,6 +17,7 @@ const UrteilPage = lazy(() => import("./pages/UrteilPage"))
 const PadelrevierPage = lazy(() => import("./pages/PadelrevierPage"))
 const CourtDetailPage = lazy(() => import("./pages/CourtDetailPage"))
 const DatenschutzPage = lazy(() => import("./pages/DatenschutzPage"))
+const ImprintPage = lazy(() => import("./pages/ImprintPage"))
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -501,12 +502,12 @@ function FinderPage() {
       <footer className="text-center py-8 mt-4">
         <p className="text-xs text-gray-700 mb-2 tracking-widest uppercase">PadelYara</p>
         <div className="flex items-center justify-center gap-4">
-          <button
-            onClick={() => setShowImprint(true)}
+          <NavLink
+            to="/impressum"
             className="text-xs text-gray-700 hover:text-gray-400 transition-colors"
           >
             Impressum
-          </button>
+          </NavLink>
           <NavLink
             to="/datenschutz"
             className="text-xs text-gray-700 hover:text-gray-400 transition-colors"
@@ -740,6 +741,17 @@ export default function App() {
             </div>
             <Nav />
             <DatenschutzPage />
+          </div>
+        </div>
+      } />
+      <Route path="/impressum" element={
+        <div className="min-h-screen overflow-x-hidden" style={BG_STYLE}>
+          <div className="max-w-2xl mx-auto px-4 py-6">
+            <div className="mb-6">
+              <img src="/lockup-horizontal-dark.svg" alt="PadelYara" className="h-24 w-auto block" />
+            </div>
+            <Nav />
+            <ImprintPage />
           </div>
         </div>
       } />
