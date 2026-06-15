@@ -1513,7 +1513,7 @@ async def _send_confirmation_email(to_email: str, token: str) -> None:
         f"— Yara"
     )
     html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:520px;margin:0 auto">
-<p style="color:#d4f53c;font-weight:bold;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;margin:0 0 32px">PadelYara</p>
+<p style="margin:0 0 36px"><img src="https://www.padelyara.at/logo-white.svg" alt="PadelYara" style="height:28px;width:auto"></p>
 
 <p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Menschen bauen merkwürdige Regeln.</p>
 <p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Eine davon ist diese.</p>
