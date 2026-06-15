@@ -1496,16 +1496,72 @@ class SubscribeBody(BaseModel):
     email: str
 
 
+_SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.world4you.com")
+_SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
+_SMTP_USER = os.environ.get("SMTP_USER", "yara@adventure-it.at")
+_SMTP_PASS = os.environ.get("SMTP_PASS", "")
+_FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://www.padelyara.at")
+
+
+async def _send_confirmation_email(to_email: str, token: str) -> None:
+    import aiosmtplib
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+
+    confirm_url = f"{_FRONTEND_URL}/api/confirm?token={token}"
+    # Plain text fallback
+    text = (
+        f"Du hast dich für PadelYara-Updates angemeldet.\n\n"
+        f"Klick hier um deine Anmeldung zu bestätigen:\n{confirm_url}\n\n"
+        f"Wenn du dich nicht angemeldet hast, kannst du diese Mail ignorieren.\n\n"
+        f"— Yara"
+    )
+    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:32px">
+<p style="color:#d4f53c;font-weight:bold;font-size:18px">PadelYara</p>
+<p>Du hast dich für Updates angemeldet.</p>
+<p>
+  <a href="{confirm_url}"
+     style="display:inline-block;background:#d4f53c;color:#000;font-weight:bold;
+            padding:12px 24px;border-radius:8px;text-decoration:none">
+    Anmeldung bestätigen
+  </a>
+</p>
+<p style="color:#6b7280;font-size:13px">
+  Oder kopier diesen Link: {confirm_url}
+</p>
+<p style="color:#6b7280;font-size:13px">
+  Wenn du dich nicht angemeldet hast, kannst du diese Mail ignorieren.
+</p>
+<p>— Yara</p>
+</body></html>"""
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = "PadelYara — Anmeldung bestätigen"
+    msg["From"] = f"Yara <{_SMTP_USER}>"
+    msg["To"] = to_email
+    msg.attach(MIMEText(text, "plain"))
+    msg.attach(MIMEText(html, "html"))
+
+    await aiosmtplib.send(
+        msg,
+        hostname=_SMTP_HOST,
+        port=_SMTP_PORT,
+        username=_SMTP_USER,
+        password=_SMTP_PASS,
+        start_tls=True,
+    )
+
+
 @app.get("/api/subscribers/count", dependencies=[Depends(_require_admin)])
 async def subscribers_count():
     from venues_mongo import _get_db
     db = _get_db()
-    count = await db["subscribers"].count_documents({})
+    count = await db["subscribers"].count_documents({"confirmed": True})
     return {"count": count}
 
 
 @app.post("/api/subscribe")
-async def subscribe(body: SubscribeBody):
+async def subscribe(body: SubscribeBody, background_tasks: BackgroundTasks):
     import re
     email = body.email.strip().lower()
     if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
@@ -1514,13 +1570,39 @@ async def subscribe(body: SubscribeBody):
     db = _get_db()
     existing = await db["subscribers"].find_one({"email": email})
     if existing:
-        return {"ok": True, "already": True}
+        if existing.get("confirmed"):
+            return {"ok": True, "already": True}
+        # Unconfirmed — resend confirmation
+        token = existing.get("confirm_token") or secrets.token_urlsafe(32)
+        await db["subscribers"].update_one({"email": email}, {"$set": {"confirm_token": token}})
+        background_tasks.add_task(_send_confirmation_email, email, token)
+        return {"ok": True, "already": False}
+    token = secrets.token_urlsafe(32)
     await db["subscribers"].insert_one({
         "email": email,
         "subscribed_at": datetime.now(timezone.utc).isoformat(),
+        "confirmed": False,
+        "confirm_token": token,
     })
-    print(json.dumps({"event": "subscriber_added", "email": email}))
+    background_tasks.add_task(_send_confirmation_email, email, token)
+    print(json.dumps({"event": "subscriber_pending", "email": email}))
     return {"ok": True, "already": False}
+
+
+@app.get("/api/confirm")
+async def confirm_subscription(token: str = Query(...)):
+    from venues_mongo import _get_db
+    db = _get_db()
+    result = await db["subscribers"].find_one_and_update(
+        {"confirm_token": token, "confirmed": False},
+        {"$set": {"confirmed": True, "confirmed_at": datetime.now(timezone.utc).isoformat()}},
+    )
+    if not result:
+        # Token already used or invalid — redirect to homepage
+        from fastapi.responses import RedirectResponse
+        return RedirectResponse(url=_FRONTEND_URL, status_code=302)
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url=f"{_FRONTEND_URL}?confirmed=1", status_code=302)
 
 
 @app.get("/api/weather")

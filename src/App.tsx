@@ -607,7 +607,7 @@ function NewsletterBanner() {
         style={{ background: "rgba(212,245,60,0.06)", border: "1px solid rgba(212,245,60,0.2)" }}
       >
         <p style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c", fontSize: "1rem" }}>
-          {alreadySubscribed ? "Ich weiß. Du bist schon auf der Liste." : "Gut. Ich informiere dich."}
+          {alreadySubscribed ? "Ich weiß. Du bist schon auf der Liste." : "Check deine Mails."}
         </p>
       </div>
     )
