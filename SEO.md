@@ -19,7 +19,7 @@
 
 ### Crawling & Indexierung
 - `public/robots.txt` — `Allow: /`, Sitemap-Verweis
-- `public/sitemap.xml` — alle Routen: `/`, `/padelrevier`, `/turnierjaeger`, `/about`
+- `public/sitemap.xml` — static routes + all 165 `/court/:id` venue URLs (generated at build time from MongoDB via `scripts/generate-sitemap.js`)
 - `public/llms.txt` — beschreibt die Site für KI-Assistenten (Gemini, ChatGPT, Perplexity)
 - Google Search Console — Domain-Property `padelyara.at` verifiziert, Sitemap eingereicht
 
@@ -28,8 +28,8 @@
 ## Was noch offen ist
 
 ### Kurzfristig
-- **Sentry-Fehler `/api/analytics/search-console`** — `GOOGLE_SERVICE_ACCOUNT_JSON` auf Railway nicht gesetzt; entweder GSC API einrichten oder 503 sauber behandeln ohne Sentry-Error
-- **Sitemap Venue-Detailseiten** — `/court/:slug` URLs fehlen noch in `sitemap.xml`; sinnvoll sobald Google anfängt zu crawlen
+- **GSC manual indexing** — request indexing via URL Inspection in Search Console for `/padelrevier`, `/turnierjaeger`, `/about` (one by one, takes a few days)
+- **Sentry-Fehler `/api/analytics/search-console`** — fixed (returns `ok: false` instead of HTTP 503)
 
 ### Mittelfristig
 - **GSC API im Admin Dashboard** — echte Klick/Impressions-Daten direkt sichtbar (braucht Google Service Account + Railway Env-Var)
