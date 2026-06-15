@@ -581,9 +581,19 @@ function Nav() {
 }
 
 function NewsletterBanner() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const confirmedParam = searchParams.get("confirmed") === "1"
   const [email, setEmail] = useState("")
-  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle")
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error" | "confirmed">(confirmedParam ? "confirmed" : "idle")
   const [alreadySubscribed, setAlreadySubscribed] = useState(false)
+
+  useEffect(() => {
+    if (confirmedParam) {
+      const p = new URLSearchParams(searchParams)
+      p.delete("confirmed")
+      setSearchParams(p, { replace: true })
+    }
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault()
@@ -601,6 +611,19 @@ function NewsletterBanner() {
       setStatus("error")
     }
   }, [email, status])
+
+  if (status === "confirmed") {
+    return (
+      <div
+        className="mb-4 px-4 py-3 rounded-xl text-sm"
+        style={{ background: "rgba(212,245,60,0.06)", border: "1px solid rgba(212,245,60,0.2)" }}
+      >
+        <p style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c", fontSize: "1rem" }}>
+          Bestätigt. Du bekommst Bescheid.
+        </p>
+      </div>
+    )
+  }
 
   if (status === "done") {
     return (
