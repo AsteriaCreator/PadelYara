@@ -1,41 +1,56 @@
 # SEO & Discoverability
 
-## Was live ist
+## What's live
 
 ### Meta & Open Graph
-- `<title>` — keyword-reich: „Padel Courts in Österreich vergleichen & buchen"
-- `<meta description>` — 155 Zeichen, enthält Wien, Österreich, Courts, Preise, CTA
-- Open Graph Tags (`og:title`, `og:description`, `og:image`, `og:url`, `og:locale`)
+- `<title>` — keyword-rich: "Padel Courts in Österreich vergleichen & buchen"
+- `<meta description>` — 155 chars, includes Wien, Österreich, Courts, Preise, CTA
+- Open Graph tags (`og:title`, `og:description`, `og:image`, `og:url`, `og:locale`)
 - Twitter Card (`summary_large_image`)
-- `og:image` → `/public/og-image-1200x630.png` (1200×630 PNG, dark brand design)
+- `og:image` → `public/og-image-1200x630.png` (1200×630 PNG, dark brand design)
 - Canonical URL → `https://padelyara.at/`
-- `lang="de"` auf `<html>`
+- `lang="de"` on `<html>`
 
-### Strukturierte Daten (JSON-LD)
-- **`WebSite` + `SearchAction`** in `index.html` — Google versteht die Suchfunktion
-- **`WebApplication`** in `index.html` — kategorisiert die App als Sport-App
-- **Dynamische `SportsActivityLocation` ItemList** in `App.tsx` — wird nach jeder Suche in `<head>` injiziert (Venues mit Name, Court-Typ, Preis, Verfügbarkeit)
-- **Pro Venue-Detailseite** via `react-helmet-async`: `<title>`, `<meta description>`, `<link rel="canonical">`, `SportsActivityLocation` JSON-LD mit Koordinaten, Adresse, Fotos
+### Per-page titles & descriptions (react-helmet-async)
+Every route has its own `<title>`, `<meta name="description">`, and `<link rel="canonical">`:
+- `/` — handled via `index.html` static tags
+- `/about` — "Über PadelYara — Österreichs Padel Court Aggregator"
+- `/padelrevier` — "Padelrevier — Padel Anlagen in Österreich auf der Karte"
+- `/turnierjaeger` — "Turnierjäger — Padel Turniere in Österreich"
+- `/court/:id` — dynamic per-venue title + description via CourtDetailPage
+- `/impressum` — title only, `noindex`
+- `/datenschutz` — title only, `noindex`
 
-### Crawling & Indexierung
-- `public/robots.txt` — `Allow: /`, Sitemap-Verweis
-- `public/sitemap.xml` — static routes + all 165 `/court/:id` venue URLs (generated at build time from MongoDB via `scripts/generate-sitemap.js`)
-- `public/llms.txt` — beschreibt die Site für KI-Assistenten (Gemini, ChatGPT, Perplexity)
-- Google Search Console — Domain-Property `padelyara.at` verifiziert, Sitemap eingereicht
+### Structured data (JSON-LD)
+- **`WebSite` + `SearchAction`** in `index.html` — Google understands the search function
+- **`WebApplication`** in `index.html` — categorises app as sports app
+- **Dynamic `SportsActivityLocation` ItemList** in `App.tsx` — injected into `<head>` after each search (venues with name, court type, price, availability)
+- **Per venue detail page** via react-helmet-async: `SportsActivityLocation` JSON-LD with coordinates, address, photos
+
+### Crawling & indexing
+- `public/robots.txt` — `Allow: /`, sitemap reference
+- `public/sitemap.xml` — 4 static routes + all venue `/court/:id` URLs, generated at build time from MongoDB via `scripts/generate-sitemap.js` (runs before `tsc && vite build`)
+- `public/llms.txt` — describes the site for AI assistants (Gemini, ChatGPT, Perplexity)
+- Google Search Console — domain property `padelyara.at` verified, sitemap submitted, manual indexing requested for `/about`, `/padelrevier`, `/turnierjaeger`
+- `/impressum` — real page at `padelyara.at/impressum` (crawlable, noindex); provides authorship/trust signal (name, address, legal info)
+
+### Performance
+- Code-split by route via `React.lazy` + `Suspense` — main bundle reduced from ~607kB to ~297kB; Leaflet (240kB) only loads on `/padelrevier`
+
+### GSC Admin Dashboard
+- `GOOGLE_SERVICE_ACCOUNT_JSON` set on Railway ✅
+- `/api/analytics/search-console` endpoint live — shows clicks, impressions, top queries, top countries in admin dashboard
 
 ---
 
-## Was noch offen ist
+## Open items
 
-### Kurzfristig
-- **GSC manual indexing** — request indexing via URL Inspection in Search Console for `/padelrevier`, `/turnierjaeger`, `/about` (one by one, takes a few days)
-- **Sentry-Fehler `/api/analytics/search-console`** — fixed (returns `ok: false` instead of HTTP 503)
+### Short term
+- **Backlinks** — contact ÖTV, Austrian padel clubs, venues directly; getting linked from authoritative AT sports sites is the highest-leverage SEO action remaining
 
-### Mittelfristig
-- **GSC API im Admin Dashboard** — echte Klick/Impressions-Daten direkt sichtbar (braucht Google Service Account + Railway Env-Var)
-- **Pre-Rendering** — Venue-Detailseiten als statisches HTML zur Build-Zeit generieren; macht Google-Indexierung schneller und zuverlässiger als JS-Rendering
-- **Backlinks** — ÖTV, österreichische Padel-Verbände, Venues direkt kontaktieren
+### Medium term
+- **Pre-rendering** — generate static HTML for venue detail pages at build time; speeds up Google indexing but low priority since Google renders JS anyway
 
-### Langfristig
-- **Venue-Fotos** — Venues selbst hochladen lassen (rechtlich sauberste Lösung)
-- **Mehr Venue-Daten** — Community-Beiträge vervollständigen Amenity-Felder (Leihschläger, Duschen, Parkplatz, Gastronomie) für reichhaltigere Detailseiten
+### Long term
+- **Venue photos** — let venues upload their own (cleanest legally)
+- **More venue data** — community contributions to fill amenity fields (rental rackets, showers, parking, food) for richer detail pages
