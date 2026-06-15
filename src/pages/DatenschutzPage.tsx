@@ -5,7 +5,7 @@
 // Vor dem produktiven Einsatz von einem Datenschutz-Generator/-Check gegenlesen
 // lassen. Verantwortliche & Adresse müssen mit dem Impressum übereinstimmen.
 
-const email = "cornelia.mayer@adventure-it.at"
+const email = "yara@adventure-it.at"
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
