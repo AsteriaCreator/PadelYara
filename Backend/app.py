@@ -1506,34 +1506,37 @@ _BACKEND_URL = f"https://{_static}" if _static else _FRONTEND_URL
 async def _send_confirmation_email(to_email: str, token: str) -> None:
     confirm_url = f"{_BACKEND_URL}/api/confirm?token={token}"
     text = (
-        f"Du hast dich für PadelYara-Updates angemeldet.\n\n"
-        f"Klick hier um deine Anmeldung zu bestätigen:\n{confirm_url}\n\n"
-        f"Wenn du dich nicht angemeldet hast, kannst du diese Mail ignorieren.\n\n"
+        f"Ich hab dich gesehen.\n\n"
+        f"Du willst wissen, was als Nächstes kommt. Gut.\n\n"
+        f"Ein Klick, und du bist dabei:\n{confirm_url}\n\n"
+        f"Wenn du dich nicht angemeldet hast: ignorier diese Mail. Ich auch.\n\n"
         f"— Yara"
     )
-    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:32px">
-<p style="color:#d4f53c;font-weight:bold;font-size:18px">PadelYara</p>
-<p>Du hast dich für Updates angemeldet.</p>
-<p>
+    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:520px;margin:0 auto">
+<p style="color:#d4f53c;font-weight:bold;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;margin:0 0 32px">PadelYara</p>
+
+<p style="font-size:22px;font-weight:600;color:#ffffff;margin:0 0 8px;line-height:1.3">Ich hab dich gesehen.</p>
+<p style="font-size:15px;color:#9ca3af;margin:0 0 32px;line-height:1.6">Du willst wissen, was als Nächstes kommt.<br>Gut.</p>
+
+<p style="margin:0 0 32px">
   <a href="{confirm_url}"
-     style="display:inline-block;background:#d4f53c;color:#000;font-weight:bold;
-            padding:12px 24px;border-radius:8px;text-decoration:none">
-    Anmeldung bestätigen
+     style="display:inline-block;background:#d4f53c;color:#000000;font-weight:700;
+            font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
+            padding:14px 28px;border-radius:8px;text-decoration:none">
+    Ja, ich will Bescheid wissen
   </a>
 </p>
-<p style="color:#6b7280;font-size:13px">
-  Oder kopier diesen Link: {confirm_url}
+
+<p style="color:#4b5563;font-size:12px;margin:0 0 8px">
+  Wenn du dich nicht angemeldet hast: ignorier diese Mail. Ich auch.
 </p>
-<p style="color:#6b7280;font-size:13px">
-  Wenn du dich nicht angemeldet hast, kannst du diese Mail ignorieren.
-</p>
-<p>— Yara</p>
+<p style="color:#374151;font-size:13px;margin:32px 0 0">— Yara</p>
 </body></html>"""
 
     payload = {
         "sender": {"name": "Yara", "email": "yara@adventure-it.at"},
         "to": [{"email": to_email}],
-        "subject": "PadelYara — Anmeldung bestätigen",
+        "subject": "Ich hab dich gesehen.",
         "textContent": text,
         "htmlContent": html,
     }
