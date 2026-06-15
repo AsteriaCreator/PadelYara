@@ -5,6 +5,8 @@
 // Vor dem produktiven Einsatz von einem Datenschutz-Generator/-Check gegenlesen
 // lassen. Verantwortliche & Adresse müssen mit dem Impressum übereinstimmen.
 
+import { Helmet } from "react-helmet-async"
+
 const email = "yara@adventure-it.at"
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
@@ -19,6 +21,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 export default function DatenschutzPage() {
   return (
     <article className="text-gray-300">
+      <Helmet>
+        <title>Datenschutz — PadelYara</title>
+        <meta name="robots" content="noindex, follow" />
+      </Helmet>
       <h1 className="text-white font-bold text-2xl mb-2">Datenschutzerklärung</h1>
       <p className="text-xs text-gray-600 mb-8">Stand: Juni 2026</p>
 

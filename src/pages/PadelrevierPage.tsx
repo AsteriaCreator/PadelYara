@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async"
 import { useEffect, useMemo, useState } from "react"
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap } from "react-leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
@@ -182,6 +183,11 @@ export default function PadelrevierPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Padelrevier — Padel Anlagen in Österreich auf der Karte</title>
+        <meta name="description" content="Alle Padel-Anlagen in Österreich auf einer Karte. Finde Courts in deiner Nähe — indoor, outdoor, und alles dazwischen." />
+        <link rel="canonical" href="https://padelyara.at/padelrevier" />
+      </Helmet>
       <p
         className="text-base italic mb-4 mt-2"
         style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}

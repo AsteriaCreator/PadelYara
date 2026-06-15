@@ -1,6 +1,13 @@
+import { Helmet } from "react-helmet-async"
+
 export default function AboutSection() {
   return (
     <section className="mt-2 pb-12">
+      <Helmet>
+        <title>Über PadelYara — Österreichs Padel Court Aggregator</title>
+        <meta name="description" content="PadelYara wurde gebaut, weil das Court-Suchen in Österreich zu viele Tabs braucht. Eine Seite, alle Courts, alle Zeiten." />
+        <link rel="canonical" href="https://padelyara.at/about" />
+      </Helmet>
 
       {/* Hero image */}
       <div className="rounded-2xl overflow-hidden mb-8 border border-gray-800">
