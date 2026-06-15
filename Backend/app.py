@@ -1496,20 +1496,12 @@ class SubscribeBody(BaseModel):
     email: str
 
 
-_SMTP_HOST = os.environ.get("SMTP_HOST", "smtp.world4you.com")
-_SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
-_SMTP_USER = os.environ.get("SMTP_USER", "yara@adventure-it.at")
-_SMTP_PASS = os.environ.get("SMTP_PASS", "")
+_BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 _FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://www.padelyara.at")
 
 
 async def _send_confirmation_email(to_email: str, token: str) -> None:
-    import aiosmtplib
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.text import MIMEText
-
     confirm_url = f"{_FRONTEND_URL}/api/confirm?token={token}"
-    # Plain text fallback
     text = (
         f"Du hast dich für PadelYara-Updates angemeldet.\n\n"
         f"Klick hier um deine Anmeldung zu bestätigen:\n{confirm_url}\n\n"
@@ -1535,21 +1527,22 @@ async def _send_confirmation_email(to_email: str, token: str) -> None:
 <p>— Yara</p>
 </body></html>"""
 
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = "PadelYara — Anmeldung bestätigen"
-    msg["From"] = f"Yara <{_SMTP_USER}>"
-    msg["To"] = to_email
-    msg.attach(MIMEText(text, "plain"))
-    msg.attach(MIMEText(html, "html"))
-
-    await aiosmtplib.send(
-        msg,
-        hostname=_SMTP_HOST,
-        port=_SMTP_PORT,
-        username=_SMTP_USER,
-        password=_SMTP_PASS,
-        start_tls=True,
-    )
+    payload = {
+        "sender": {"name": "Yara", "email": "yara@adventure-it.at"},
+        "to": [{"email": to_email}],
+        "subject": "PadelYara — Anmeldung bestätigen",
+        "textContent": text,
+        "htmlContent": html,
+    }
+    async with httpx.AsyncClient() as client:
+        resp = await client.post(
+            "https://api.brevo.com/v3/smtp/email",
+            json=payload,
+            headers={"api-key": _BREVO_API_KEY, "Content-Type": "application/json"},
+            timeout=10,
+        )
+    if resp.status_code >= 400:
+        print(json.dumps({"event": "brevo_error", "status": resp.status_code, "body": resp.text}))
 
 
 @app.get("/api/subscribers/count", dependencies=[Depends(_require_admin)])
