@@ -1498,10 +1498,13 @@ class SubscribeBody(BaseModel):
 
 _BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 _FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://www.padelyara.at")
+# Backend's own public URL — used for confirm links in emails (must hit the backend, not the frontend)
+_static = os.environ.get("RAILWAY_STATIC_URL", "")
+_BACKEND_URL = f"https://{_static}" if _static else _FRONTEND_URL
 
 
 async def _send_confirmation_email(to_email: str, token: str) -> None:
-    confirm_url = f"{_FRONTEND_URL}/api/confirm?token={token}"
+    confirm_url = f"{_BACKEND_URL}/api/confirm?token={token}"
     text = (
         f"Du hast dich für PadelYara-Updates angemeldet.\n\n"
         f"Klick hier um deine Anmeldung zu bestätigen:\n{confirm_url}\n\n"
