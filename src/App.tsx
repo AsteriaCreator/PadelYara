@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, useCallback } from "react"
+import React, { useState, useRef, useEffect, useCallback, lazy, Suspense } from "react"
 import { Routes, Route, NavLink, useSearchParams, useLocation } from "react-router-dom"
-import AdminDashboard from "./pages/AdminDashboard"
 import type { Venue, SearchParams, Weather } from "./types"
 import { fetchAvailability, fetchWeather, trackPageview, type GeoParams } from "./api"
 import { geocode, GeocodeTimeoutError } from "./geocode"
@@ -11,11 +10,13 @@ import SkeletonRow from "./components/SkeletonRow"
 import ImprintModal from "./components/ImprintModal"
 import LoadingCat from "./components/LoadingCat"
 import AboutSection from "./components/AboutSection"
-import TurnierjagerPage from "./pages/TurnierjagerPage"
-import UrteilPage from "./pages/UrteilPage"
-import PadelrevierPage from "./pages/PadelrevierPage"
-import CourtDetailPage from "./pages/CourtDetailPage"
-import DatenschutzPage from "./pages/DatenschutzPage"
+
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"))
+const TurnierjagerPage = lazy(() => import("./pages/TurnierjagerPage"))
+const UrteilPage = lazy(() => import("./pages/UrteilPage"))
+const PadelrevierPage = lazy(() => import("./pages/PadelrevierPage"))
+const CourtDetailPage = lazy(() => import("./pages/CourtDetailPage"))
+const DatenschutzPage = lazy(() => import("./pages/DatenschutzPage"))
 
 const SKELETON_COUNT = 5
 const ET_BATCH = 5
@@ -673,6 +674,7 @@ export default function App() {
   }, [location.pathname])
 
   return (
+    <Suspense fallback={<LoadingCat />}>
     <Routes>
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/turnierjaeger" element={
@@ -743,5 +745,6 @@ export default function App() {
       } />
       <Route path="/*" element={<FinderPage />} />
     </Routes>
+    </Suspense>
   )
 }

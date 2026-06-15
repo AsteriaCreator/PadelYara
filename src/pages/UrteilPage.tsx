@@ -1,7 +1,8 @@
 // Maintenance placeholder — real implementation is preserved below but not exported.
 // To restore: swap the export default below back to UrteilPageFull.
 
-const _API_BASE_UNUSED = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
+import { useState, useCallback } from "react"
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
 // PadelYara cat-head logo, lime, inlined so we can tint it (the /cat-head.svg
 // asset is white). Same path as public/cat-head.svg.
@@ -45,8 +46,9 @@ export default function UrteilPage() {
   )
 }
 
+// @ts-ignore — preserved implementation, not yet wired up
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function UrteilPageFull() {
+function _UrteilPageFull() {
   const [profile, setProfile] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -155,7 +157,7 @@ function UrteilPageFull() {
                 Beobachtungen
               </div>
               <div className="flex flex-col gap-2 mb-5">
-                {data!.beobachtungen.map((b, i) => (
+                {data!.beobachtungen.map((b: string, i: number) => (
                   <div key={i} className="flex gap-2 text-sm" style={{ color: "#cbd1d9", lineHeight: 1.4 }}>
                     <span style={{ color: "#4b5563" }}>•</span>
                     <span>{b}</span>
@@ -195,7 +197,7 @@ function UrteilPageFull() {
                 Kommende Turniere
               </div>
               <div className="flex flex-col gap-2 mb-6">
-                {data!.upcoming.slice(0, 4).map((t, i) => (
+                {data!.upcoming.slice(0, 4).map((t: UrteilData["upcoming"][number], i: number) => (
                   <a key={i} href={t.source_url} target="_blank" rel="noopener noreferrer"
                     className="flex items-center justify-between"
                     style={{ background: "rgba(212,245,60,0.06)", border: "1px solid rgba(212,245,60,0.18)", borderRadius: 8, padding: "9px 12px", textDecoration: "none" }}>
