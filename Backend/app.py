@@ -1506,37 +1506,35 @@ _BACKEND_URL = f"https://{_static}" if _static else _FRONTEND_URL
 async def _send_confirmation_email(to_email: str, token: str) -> None:
     confirm_url = f"{_BACKEND_URL}/api/confirm?token={token}"
     text = (
-        f"Ich hab dich gesehen.\n\n"
-        f"Du willst wissen, was als Nächstes kommt. Gut.\n\n"
-        f"Ein Klick, und du bist dabei:\n{confirm_url}\n\n"
-        f"Wenn du dich nicht angemeldet hast: ignorier diese Mail. Ich auch.\n\n"
+        f"Menschen bauen merkwürdige Regeln.\n\n"
+        f"Eine davon ist diese.\n\n"
+        f"{confirm_url}\n\n"
+        f"Danach weißt du, was ich weiß.\n\n"
         f"— Yara"
     )
     html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:520px;margin:0 auto">
 <p style="color:#d4f53c;font-weight:bold;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;margin:0 0 32px">PadelYara</p>
 
-<p style="font-size:22px;font-weight:600;color:#ffffff;margin:0 0 8px;line-height:1.3">Ich hab dich gesehen.</p>
-<p style="font-size:15px;color:#9ca3af;margin:0 0 32px;line-height:1.6">Du willst wissen, was als Nächstes kommt.<br>Gut.</p>
+<p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Menschen bauen merkwürdige Regeln.</p>
+<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Eine davon ist diese.</p>
 
 <p style="margin:0 0 32px">
   <a href="{confirm_url}"
      style="display:inline-block;background:#d4f53c;color:#000000;font-weight:700;
             font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
             padding:14px 28px;border-radius:8px;text-decoration:none">
-    Ja, ich will Bescheid wissen
+    Anmeldung bestätigen
   </a>
 </p>
 
-<p style="color:#4b5563;font-size:12px;margin:0 0 8px">
-  Wenn du dich nicht angemeldet hast: ignorier diese Mail. Ich auch.
-</p>
-<p style="color:#374151;font-size:13px;margin:32px 0 0">— Yara</p>
+<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Danach weißt du, was ich weiß.</p>
+<p style="color:#6b7280;font-size:13px;margin:32px 0 0">— Yara</p>
 </body></html>"""
 
     payload = {
         "sender": {"name": "Yara", "email": "yara@adventure-it.at"},
         "to": [{"email": to_email}],
-        "subject": "Ich hab dich gesehen.",
+        "subject": "Eine Formalität.",
         "textContent": text,
         "htmlContent": html,
     }
