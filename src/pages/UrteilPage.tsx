@@ -1,6 +1,7 @@
-import { useState, useCallback } from "react"
+// Maintenance placeholder — real implementation is preserved below but not exported.
+// To restore: swap the export default below back to UrteilPageFull.
 
-const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
+const _API_BASE_UNUSED = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
 // PadelYara cat-head logo, lime, inlined so we can tint it (the /cat-head.svg
 // asset is white). Same path as public/cat-head.svg.
@@ -32,6 +33,20 @@ const card = "rgba(255,255,255,0.04)"
 const lime = "#d4f53c"
 
 export default function UrteilPage() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-4"
+      style={{ background: "#080810", fontFamily: "'Barlow Condensed', sans-serif" }}>
+      <CatHead size={64} />
+      <p className="mt-6 text-lg font-bold tracking-widest uppercase" style={{ color: lime }}>
+        Kommt bald.
+      </p>
+      <p className="mt-2 text-sm text-gray-500">Yaras Urteil wird gerade geschärft.</p>
+    </div>
+  )
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function UrteilPageFull() {
   const [profile, setProfile] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
