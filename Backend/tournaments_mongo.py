@@ -338,7 +338,7 @@ async def get_tournaments_for_player(player_slug: str) -> list[dict]:
     """
     col = _col()
     query = {
-        "status": {"$in": ["open", "not_open_yet", "full"]},
+        "status": {"$in": ["open", "not_open_yet", "full", "closed"]},
         "$or": [
             {"entries.player_a_slug": player_slug},
             {"entries.player_b_slug": player_slug},
