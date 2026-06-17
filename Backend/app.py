@@ -685,6 +685,7 @@ async def _get_country(ip: str | None) -> str | None:
 
 @app.get("/health")
 async def health():
+    """Liveness probe — Railway and uptime monitors call this to confirm the process is up."""
     return {"status": "ok"}
 
 
@@ -701,6 +702,9 @@ async def search(
     durations:       str | None   = Query(default=None),
     request:         Request      = None,
 ):
+    """Search for padel court availability. Fans out to Eversports, eTennis, and Tennis04
+    scrapers in parallel. Returns immediate results plus an availability_pending flag when
+    slow scrapers are still running (frontend polls until settled)."""
     t0 = time_monotonic()
     ua = request.headers.get("user-agent", "").lower() if request else ""
     _is_bot = any(m in ua for m in _BOT_UA_MARKERS)
@@ -1109,6 +1113,7 @@ async def _require_admin(token: str = Security(_api_key_header)):
 
 @app.get("/api/analytics", dependencies=[Depends(_require_admin)])
 async def get_analytics(exclude_sessions: str | None = Query(default=None)):
+    """Admin: search counts, top locations, and booking-click rates for today vs. yesterday."""
     from analytics import _DB_NAME, _COLLECTION
     from motor.motor_asyncio import AsyncIOMotorClient
     uri = os.environ.get("MONGODB_URI", "")
@@ -1208,6 +1213,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
 
 @app.get("/api/analytics/trends", dependencies=[Depends(_require_admin)])
 async def get_analytics_trends(exclude_sessions: str | None = Query(default=None)):
+    """Admin: daily search volume for the last 7 days (sparkline data)."""
     from analytics import _DB_NAME, _COLLECTION
     from motor.motor_asyncio import AsyncIOMotorClient
     uri = os.environ.get("MONGODB_URI", "")
@@ -1557,6 +1563,7 @@ async def _send_confirmation_email(to_email: str, token: str) -> None:
 
 @app.get("/api/subscribers/count", dependencies=[Depends(_require_admin)])
 async def subscribers_count():
+    """Admin: count of confirmed newsletter subscribers."""
     from venues_mongo import _get_db
     db = _get_db()
     count = await db["subscribers"].count_documents({"confirmed": True})
@@ -1565,6 +1572,7 @@ async def subscribers_count():
 
 @app.post("/api/subscribe")
 async def subscribe(body: SubscribeBody, background_tasks: BackgroundTasks):
+    """Add an email to the newsletter waitlist and send a confirmation link."""
     import re
     email = body.email.strip().lower()
     if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
@@ -1594,6 +1602,7 @@ async def subscribe(body: SubscribeBody, background_tasks: BackgroundTasks):
 
 @app.get("/api/confirm")
 async def confirm_subscription(token: str = Query(...)):
+    """Activate a subscriber via the one-time token sent in the confirmation email."""
     from venues_mongo import _get_db
     db = _get_db()
     result = await db["subscribers"].find_one_and_update(
@@ -1615,6 +1624,7 @@ async def weather_endpoint(
     date: str | None = Query(default=None),
     time: str | None = Query(default=None),
 ):
+    """Return hourly weather (temperature, rain probability, wind) for a given location and time."""
     dt, parse_error = _parse_datetime(date, time)
     if parse_error:
         return JSONResponse(status_code=400, content={"error": parse_error})
@@ -1632,6 +1642,7 @@ async def weather_test(
     date:     str | None = Query(default=None),
     time:     str | None = Query(default=None),
 ):
+    """Dev/diagnostic: fetch weather for a specific venue by ID to verify the weather integration."""
     vid = venue_id or DEFAULT_VENUE_ID
 
     venue = next((v for v in await load_venues() if v["id"] == vid), None)
