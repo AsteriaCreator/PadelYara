@@ -1,6 +1,12 @@
 """
 Integration tests for /api/search.
 
+These are intentionally integration tests, not unit tests with mocked scrapers.
+The bugs that matter here — slot grid mismatches, Cloudflare bypass failures,
+duration filter edge cases, cache TTL races — only surface against the real
+scraper pipeline. Mocking etennis_checker or eversports_service would make the
+tests pass while hiding the class of failures that actually reach production.
+
 Requires the backend to be running locally:
     npm run backend   (or: uvicorn Backend.app:app --port 8000)
 
