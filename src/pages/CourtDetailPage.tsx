@@ -227,8 +227,21 @@ export default function CourtDetailPage() {
         />
         <AmenityFact
           icon="🅿️" label="Parkplatz" state={d.parking}
-          yesText={d.parking_note || "Vorhanden"}
+          yesText={d.parking_free === true ? "Kostenlos" : d.parking_free === false ? "Kostenpflichtig" : d.parking_note || "Vorhanden"}
+          sub={d.parking_note ?? undefined}
         />
+
+        {d.public_transport && (
+          <div className="vd-fact vd-wide">
+            <div className="vd-top">
+              <span className="vd-ic">🚇</span>
+              <div className="vd-body">
+                <div className="vd-k">Öffentliche Verkehrsmittel</div>
+                <div className="vd-v">{d.public_transport}</div>
+              </div>
+            </div>
+          </div>
+        )}
         <AmenityFact
           icon="🏓" label="Leihschläger" state={d.rental_rackets}
           yesText="Ja" sub={d.rental_rackets_system}
