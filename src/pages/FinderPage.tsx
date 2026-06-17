@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
 import { useCourtSearch, ET_BATCH } from "../hooks/useCourtSearch"
-import { BG_STYLE } from "../components/PageShell"
+import { BG_STYLE } from "../styles"
 import Nav from "../components/Nav"
 import SearchCard from "../components/SearchCard"
 import VenueRow from "../components/VenueRow"
@@ -20,7 +20,7 @@ export default function FinderPage() {
     error, searched, pollingActive, lastUpdated, secondsSince,
     bookingWindowNotice, searchLabel, searchWeather, highlightId,
     courtFilter, setCourtFilter, statusFilter, setStatusFilter,
-    lastParamsRef, skeletonCount,
+    lastParams, skeletonCount,
     onSearch, onLoadMore, getWeatherHint,
   } = useCourtSearch()
 
@@ -123,14 +123,14 @@ export default function FinderPage() {
           <p className="text-xs text-gray-600 mb-1 px-1 tracking-wide uppercase">{searchLabel}</p>
         )}
 
-        {searched && !isLoading && !error && filteredResults.length > 0 && lastParamsRef.current && (
+        {searched && !isLoading && !error && filteredResults.length > 0 && lastParams && (
           <div className="mb-2 px-1 flex items-center justify-between">
             <p style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.4)" }}>
               {filteredResults.length === 1
-                ? `1 Ergebnis im Umkreis von ${lastParamsRef.current.radius} km`
-                : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParamsRef.current.radius} km`}
+                ? `1 Ergebnis im Umkreis von ${lastParams.radius} km`
+                : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParams.radius} km`}
             </p>
-            <ShareButton params={lastParamsRef.current} />
+            <ShareButton params={lastParams} />
           </div>
         )}
 
@@ -145,7 +145,7 @@ export default function FinderPage() {
                 key={venue.id}
                 venue={venue}
                 pollingActive={pollingActive}
-                searchDate={lastParamsRef.current?.date}
+                searchDate={lastParams?.date}
                 highlighted={venue.id === highlightId}
               />
             ))}

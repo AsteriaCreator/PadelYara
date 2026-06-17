@@ -59,8 +59,8 @@ export function useCourtSearch() {
   const [etOffset, setEtOffset]                       = useState(0)
   const [error, setError]                             = useState<string | null>(null)
   const [searched, setSearched]                       = useState(false)
-  const [_pollingExpired, setPollingExpired]           = useState(false)
   const [pollingActive, setPollingActive]             = useState(false)
+  const [lastParams, setLastParams]                   = useState<SearchParams | null>(null)
   const activePollsRef                                = useRef(0)
   const [lastUpdated, setLastUpdated]                 = useState<number | null>(null)
   const [secondsSince, setSecondsSince]               = useState(0)
@@ -80,7 +80,6 @@ export function useCourtSearch() {
       refreshTimer.current = null
     }
     activePollsRef.current = 0
-    setPollingExpired(false)
     setPollingActive(false)
   }
 
@@ -110,7 +109,6 @@ export function useCourtSearch() {
   // Tick the "last updated" counter every second
   useEffect(() => {
     if (!lastUpdated) return
-    setSecondsSince(0)
     const interval = setInterval(() => {
       setSecondsSince(Math.floor((Date.now() - lastUpdated) / 1000))
     }, 1000)
@@ -164,7 +162,6 @@ export function useCourtSearch() {
       const refreshed = await fetchAvailability(params, geo, 0).catch(() => null)
       if (!refreshed?.ok) {
         setPollingActive(false)
-        setPollingExpired(true)
         return
       }
       setResults((prev) => mergeResults(prev, refreshed.results))
@@ -173,7 +170,6 @@ export function useCourtSearch() {
         scheduleRefresh(params, geo, attempt + 1)
       } else {
         setPollingActive(false)
-        if (refreshed.availability_pending) setPollingExpired(true)
       }
     }, delay)
   }
@@ -220,6 +216,7 @@ export function useCourtSearch() {
     const geo: GeoParams = { ...coords, radius: params.radius }
     lastParamsRef.current = params
     lastGeoRef.current    = geo
+    setLastParams(params)
 
     fetchWeather(coords.lat, coords.lon, params.date, params.time)
       .then((w) => { if (w) setSearchWeather(w) })
@@ -322,7 +319,7 @@ export function useCourtSearch() {
     error, searched, pollingActive, lastUpdated, secondsSince,
     bookingWindowNotice, searchLabel, searchWeather, highlightId,
     courtFilter, setCourtFilter, statusFilter, setStatusFilter,
-    lastParamsRef,
+    lastParams, lastParamsRef,
     skeletonCount: results.length > 0 ? results.length : SKELETON_COUNT,
     onSearch, onLoadMore, getWeatherHint,
   }

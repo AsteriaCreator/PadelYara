@@ -29,10 +29,12 @@ const BROWSER_HEADERS = {
 /** Parse name=value pairs out of Set-Cookie headers, drop attributes. */
 function extractCookiePairs(headers: Headers): string[] {
   const pairs: string[] = []
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   const raw: string[] =
     typeof (headers as any).getAll === "function"
       ? (headers as any).getAll("set-cookie")
       : [headers.get("set-cookie") ?? ""].filter(Boolean)
+  /* eslint-enable @typescript-eslint/no-explicit-any */
   for (const line of raw) {
     const pair = line.split(";")[0].trim()
     if (pair) pairs.push(pair)
