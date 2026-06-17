@@ -60,7 +60,6 @@ export function useCourtSearch() {
   const [error, setError]                             = useState<string | null>(null)
   const [searched, setSearched]                       = useState(false)
   const [pollingActive, setPollingActive]             = useState(false)
-  const [lastParams, setLastParams]                   = useState<SearchParams | null>(null)
   const activePollsRef                                = useRef(0)
   const [lastUpdated, setLastUpdated]                 = useState<number | null>(null)
   const [secondsSince, setSecondsSince]               = useState(0)
@@ -70,14 +69,21 @@ export function useCourtSearch() {
   const [courtFilter, setCourtFilter]                 = useState<{ indoor: boolean; outdoor: boolean }>({ indoor: true, outdoor: true })
   const [statusFilter, setStatusFilter]               = useState<{ frei: boolean; belegt: boolean }>({ frei: true, belegt: true })
 
-  const refreshTimer  = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const lastParamsRef = useRef<SearchParams | null>(null)
-  const lastGeoRef    = useRef<GeoParams | undefined>(undefined)
+  const [lastParams, setLastParams] = useState<SearchParams | null>(null)
+
+  const refreshTimer     = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const loadMoreTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastParamsRef    = useRef<SearchParams | null>(null)
+  const lastGeoRef       = useRef<GeoParams | undefined>(undefined)
 
   function cancelRefresh() {
     if (refreshTimer.current) {
       clearTimeout(refreshTimer.current)
       refreshTimer.current = null
+    }
+    if (loadMoreTimerRef.current) {
+      clearTimeout(loadMoreTimerRef.current)
+      loadMoreTimerRef.current = null
     }
     activePollsRef.current = 0
     setPollingActive(false)
@@ -166,6 +172,7 @@ export function useCourtSearch() {
       }
       setResults((prev) => mergeResults(prev, refreshed.results))
       setLastUpdated(Date.now())
+      setSecondsSince(0)
       if (refreshed.availability_pending && attempt < POLL_DELAYS.length) {
         scheduleRefresh(params, geo, attempt + 1)
       } else {
@@ -215,11 +222,17 @@ export function useCourtSearch() {
 
     const geo: GeoParams = { ...coords, radius: params.radius }
     lastParamsRef.current = params
-    lastGeoRef.current    = geo
     setLastParams(params)
+    lastGeoRef.current    = geo
 
+    const weatherSearchId = `${params.location}|${params.date}|${params.time}`
     fetchWeather(coords.lat, coords.lon, params.date, params.time)
-      .then((w) => { if (w) setSearchWeather(w) })
+      .then((w) => {
+        // Discard if a newer search has since started
+        if (w && lastParamsRef.current && `${lastParamsRef.current.location}|${lastParamsRef.current.date}|${lastParamsRef.current.time}` === weatherSearchId) {
+          setSearchWeather(w)
+        }
+      })
 
     try {
       const res = await fetchAvailability(params, geo, 0)
@@ -230,6 +243,7 @@ export function useCourtSearch() {
       setResults(res.results)
       setHasMore(res.has_more ?? false)
       setLastUpdated(Date.now())
+      setSecondsSince(0)
       setSearched(true)
       setSearchLabel(`${params.location} · ${params.radius} km Umkreis`)
       setBookingWindowNotice(res.booking_window_notice ?? null)
@@ -261,10 +275,12 @@ export function useCourtSearch() {
       setHasMore(res.has_more ?? false)
       setEtOffset(nextOffset)
       setLastUpdated(Date.now())
+      setSecondsSince(0)
       if (res.availability_pending) {
         activePollsRef.current += 1
         setPollingActive(true)
-        setTimeout(async () => {
+        loadMoreTimerRef.current = setTimeout(async () => {
+          loadMoreTimerRef.current = null
           const polled = await fetchAvailability(
             lastParamsRef.current!,
             lastGeoRef.current,
@@ -273,8 +289,9 @@ export function useCourtSearch() {
           if (polled?.ok) {
             setResults((prev) => mergeResults(prev, polled.results))
             setLastUpdated(Date.now())
+            setSecondsSince(0)
           }
-          activePollsRef.current -= 1
+          activePollsRef.current = Math.max(0, activePollsRef.current - 1)
           if (activePollsRef.current === 0) setPollingActive(false)
         }, 15_000)
       }

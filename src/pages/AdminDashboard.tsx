@@ -246,7 +246,7 @@ export default function AdminDashboard() {
       .finally(() => setRefreshing(false))
     // GSC is loaded independently so a failure there never breaks the rest of the dashboard.
     fetchSearchConsole().then(setSearchConsole).catch(() => setSearchConsole(false))
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authed, excludeEnabled, mySessions])
 
   function handleLogin(token: string) {
