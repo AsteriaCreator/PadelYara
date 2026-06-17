@@ -44,13 +44,21 @@ Frontend:
 - `VITE_API_URL` points to Railway backend
 
 Backend (single Railway service):
-- FastAPI (`Backend/app.py`)
+- FastAPI — entry point `Backend/app.py` (107 lines); routes split into `Backend/routers/`
 - Docker deploy on Railway
 - Playwright installed in container
 - Handles both eTennis scraping and Eversports scraping in-process
 - MongoDB venue source — db `padel_checker`, collection `venues`, loaded via `venues_mongo.py` (`load_venues()`)
 - Open-Meteo weather integration
 - `RAILWAY_ENVIRONMENT` env var gates Eversports (auto-set by Railway)
+
+Backend module structure (post 2026-06-17 router split):
+- `app.py` — FastAPI app, CORS, lifespan, router includes
+- `state.py` — shared globals (VENUES, _main_loop, _ev_ids)
+- `auth.py` — admin token auth dependency
+- `scheduler.py` — background jobs (tournament scrape, opening hours)
+- `routers/search.py` — /api/search + caching/scraper orchestration
+- `routers/analytics.py`, `routers/tournaments.py`, `routers/venues.py`, `routers/weather.py`, `routers/subscribers.py`, `routers/urteil.py`, `routers/admin.py`
 
 Availability Providers:
 - eTennis → Playwright scraper (in-process)
@@ -93,7 +101,7 @@ Architecture:
 - Scraper: `Backend/padel_austria_scraper.py` — BeautifulSoup, paginates all pages of padel-austria.at/tournaments
 - Storage: MongoDB `tournaments` collection (separate from venues)
 - API: `GET /api/tournaments` with filter params (bundesland, category, competition, weekday, show_full, show_closed)
-- Scheduler: APScheduler inside app.py, runs daily at 06:00 Vienna time
+- Scheduler: APScheduler in `Backend/scheduler.py` (started from lifespan in app.py), runs daily at 06:00 Vienna time
 - Frontend: `src/pages/TurnierjagerPage.tsx` + `src/components/TournamentCard.tsx`
 - Filter state persisted in localStorage
 
@@ -110,7 +118,7 @@ New dependency: `apscheduler==3.11.2`
 Standalone subpage at `/padelrevier` — interactive map of all active venues.
 
 Architecture:
-- API: `GET /api/venues` (in `app.py`) — lightweight, **no scraping**; returns each active venue's static info (name, address, lat/lon, court_type, platform, booking_url, public_url) from the cached `load_venues()`. Requires `address` in `venues_mongo._normalize()`.
+- API: `GET /api/venues` (in `routers/venues.py`) — lightweight, **no scraping**; returns each active venue's static info (name, address, lat/lon, court_type, platform, booking_url, public_url) from the cached `load_venues()`. Requires `address` in `venues_mongo._normalize()`.
 - Frontend: `src/pages/PadelrevierPage.tsx` — Leaflet + react-leaflet + react-leaflet-cluster on dark CartoDB `dark_all` tiles. Tiles are brightened via a CSS filter (`src/index.css` → `.padelrevier-map .leaflet-tile`) because the raw tiles are near-black against the dark page.
 - Austria highlight + region zoom: bundled simplified GeoJSON `src/data/austria-bundeslaender.json` (9 Bundesländer). Drawn as a lime overlay so Austria stands out; clicking a Bundesland chip fits the map to that region (`MapFit` + `useMap`).
 - Filters: Bundesland (derived from the address PLZ via `src/data/plz.ts`, since the `region` field is empty on most venues) + Platztyp (Indoor/Outdoor; a both-courts venue matches either).
@@ -126,7 +134,7 @@ Note: this map page defeats automated screenshot capture (the Leaflet renderer s
 
 Search filters by how long you want to play, not just the start time — a venue is "Frei" only if a single court is free **continuously** for a selected duration.
 
-- Shared block math: `Backend/availability.py`. Each scraper emits `free_durations` (duration-agnostic, cached per venue/date/time) + `fallback_durations`; `app.py` intersects with the `durations` query param (minutes).
+- Shared block math: `Backend/availability.py`. Each scraper emits `free_durations` (duration-agnostic, cached per venue/date/time) + `fallback_durations`; `routers/search.py` intersects with the `durations` query param (minutes).
 - Frontend: multi-select chips (`DURATION_OPTIONS`) + half-hour `TIME_SLOTS`; "2 Std frei" tag via `matched_duration_h`.
 - "Andere Dauer" state: when the requested length isn't free but other selectable lengths are (e.g. a 60-min-grid venue can't sell 1.5 h), the API returns `availability_status: "other_duration"` + `available_durations_h` → amber "Nur 1 Std / 2 Std frei" instead of misleading "Belegt".
 - Opening hours (Eversports only — its slot API can't see closing time): auto-learned via Gemini + Google Search grounding (`Backend/opening_hours.py`), weekly Mon 04:00 + first-deploy seed, throttled for the Gemini free tier; 07–23 default until learned. tennis04 / eTennis expose hours themselves.
@@ -170,7 +178,7 @@ Last verified:
 
 The old region-based architecture is deprecated.
 The old Render backend is retired (deleted 2026-06-01).
-The old Railway Eversports microservice (separate service) is retired — code merged into `app.py`.
+The old Railway Eversports microservice (separate service) is retired — code merged into the backend (now in `routers/search.py`).
 
 Do not:
 - build new UX around regions
@@ -193,7 +201,11 @@ Current production source:
 ## Important Backend Files
 
 Backend entry:
-- `Backend/app.py`
+- `Backend/app.py` — app creation, CORS, lifespan, router includes (107 lines)
+- `Backend/state.py` — shared mutable globals
+- `Backend/auth.py` — admin auth dependency
+- `Backend/scheduler.py` — APScheduler background jobs
+- `Backend/routers/search.py` — /api/search, all caching + scraper orchestration
 
 eTennis scraper:
 - `Backend/etennis_checker.py`
