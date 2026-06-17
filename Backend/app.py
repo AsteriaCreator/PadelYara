@@ -120,7 +120,7 @@ def _call_eversports_service(
             venue_url=booking_url,
             venue_id=venue_id,
         )
-        result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=18)
+        result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=_EV_COROUTINE_TIMEOUT)
         status = result.get("status", "platform_check_required")
         slots_count = result.get("slots_count")
         _log(status)
@@ -318,6 +318,12 @@ _EV_UNCHECKED  = {None, "pending", "unknown"}
 _EV_BUSY_TTL   = 60   # s — busy can flip free if a booking is cancelled; re-check sooner
 _EV_FAILED_TTL = 30   # s — cache platform_check_required briefly so it surfaces immediately
                       #      instead of retrying as pending forever; retried after 30 s
+
+# ── Scraper / task timeouts ───────────────────────────────────────────────────
+_EV_COROUTINE_TIMEOUT  = 18   # s — slot-check coroutine via thread-safe future (non-Playwright path)
+_EV_PLAYWRIGHT_TIMEOUT = 30   # s — full Playwright Eversports scrape (cold browser can be slow)
+_GEO_IP_TIMEOUT        = 3.0  # s — IP geolocation HTTP call (fire-and-forget; failure is silent)
+_WEATHER_TIMEOUT       = 2.0  # s — weather task; capped low so it never delays search response
 
 # ── Response cache (TTL) ─────────────────────────────────────────────────────
 # key → (response_dict, stored_at_monotonic, ttl_seconds)
@@ -663,7 +669,7 @@ async def _get_country(ip: str | None) -> str | None:
     if ip in _geo_cache:
         return _geo_cache[ip]
     try:
-        async with httpx.AsyncClient(timeout=3.0) as client:
+        async with httpx.AsyncClient(timeout=_GEO_IP_TIMEOUT) as client:
             r = await client.get(
                 f"http://ip-api.com/json/{ip}",
                 params={"fields": "status,country"},
@@ -867,7 +873,7 @@ async def search(
                     close_min=ev_close_min,
                 )
                 try:
-                    ev_result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=30)
+                    ev_result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=_EV_PLAYWRIGHT_TIMEOUT)
                     return ev_result
                 except Exception as exc:
                     print(json.dumps({"event": "eversports_thread_error", "venue_id": result["venue_id"], "error": str(exc)}))
@@ -1060,7 +1066,7 @@ async def search(
     search_weather = None
     if _weather_task is not None:
         try:
-            search_weather = await asyncio.wait_for(_weather_task, timeout=2.0)
+            search_weather = await asyncio.wait_for(_weather_task, timeout=_WEATHER_TIMEOUT)
         except Exception:
             pass
         finally:
