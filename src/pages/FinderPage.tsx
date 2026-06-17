@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { NavLink } from "react-router-dom"
-import { useCourtSearch, ET_BATCH, SKELETON_COUNT } from "../hooks/useCourtSearch"
+import { useCourtSearch, ET_BATCH } from "../hooks/useCourtSearch"
 import { BG_STYLE } from "../components/PageShell"
 import Nav from "../components/Nav"
 import SearchCard from "../components/SearchCard"
