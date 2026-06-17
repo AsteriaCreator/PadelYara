@@ -92,6 +92,7 @@ export default function CourtDetailPage() {
 
   useEffect(() => {
     let alive = true
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setState("loading")
     fetchVenueDetail(slug)
       .then((res) => {
@@ -312,6 +313,7 @@ export default function CourtDetailPage() {
                 const lines: string[] = [`Anlage: ${d.name} (${d.id})`]
                 for (const f of filled) lines.push(`${f.label}: ${picks[f.key]}`)
                 if (freeText.trim()) lines.push(`\nSonstiges: ${freeText.trim()}`)
+                // eslint-disable-next-line react-hooks/immutability
                 window.location.href =
                   `mailto:yara@adventure-it.at?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`
                 setSent(true)

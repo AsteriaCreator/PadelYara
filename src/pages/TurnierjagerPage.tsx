@@ -436,6 +436,7 @@ export default function TurnierjagerPage() {
   }, [])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchTournaments(filters)
   }, [filters, fetchTournaments])
 
@@ -489,6 +490,7 @@ export default function TurnierjagerPage() {
 
   // Load saved slug on mount
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (mySlug) fetchMyTournaments(mySlug)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

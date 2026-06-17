@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
 import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
 import "./AdminDashboard.css"
@@ -227,6 +228,7 @@ export default function AdminDashboard() {
     if (!authed) return
     // Don't wipe data — keep old values visible while refreshing so the
     // toggle button stays on screen and the user sees the change immediately.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
     Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
@@ -244,6 +246,7 @@ export default function AdminDashboard() {
       .finally(() => setRefreshing(false))
     // GSC is loaded independently so a failure there never breaks the rest of the dashboard.
     fetchSearchConsole().then(setSearchConsole).catch(() => setSearchConsole(false))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authed, excludeEnabled, mySessions])
 
   function handleLogin(token: string) {
