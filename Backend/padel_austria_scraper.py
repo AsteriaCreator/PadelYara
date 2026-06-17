@@ -347,7 +347,7 @@ def scrape_all() -> list[dict[str, Any]]:
     print(f"[padel_austria_scraper] Scrape complete. {len(all_tournaments)} tournaments found.")
 
     # Fetch entry lists for open and not_open_yet tournaments (participants registered)
-    entry_eligible = [t for t in all_tournaments if t["status"] in ("open", "not_open_yet", "full")]
+    entry_eligible = [t for t in all_tournaments if t["status"] in ("open", "not_open_yet", "full", "closed")]
     print(f"[padel_austria_scraper] Fetching entry lists for {len(entry_eligible)} tournaments...")
     for i, t in enumerate(entry_eligible):
         time.sleep(0.3)
