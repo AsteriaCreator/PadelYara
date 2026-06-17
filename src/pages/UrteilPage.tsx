@@ -46,8 +46,7 @@ export default function UrteilPage() {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function UrteilPageFull() {
+export function UrteilPageFull() {
   const [profile, setProfile] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
