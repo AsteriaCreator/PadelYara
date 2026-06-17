@@ -100,7 +100,9 @@ export interface VenueDetail {
   reception?: boolean | null
   reception_note?: string | null
   parking?: boolean | null
+  parking_free?: boolean | null
   parking_note?: string | null
+  public_transport?: string | null
   rental_rackets?: boolean | null
   rental_rackets_system?: string | null
   gastro?: boolean | null
