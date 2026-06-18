@@ -860,7 +860,7 @@ export default function TurnierjagerPage() {
                 </div>
                 <div className="rounded-xl border border-gray-800 bg-gray-900 divide-y divide-gray-800">
                   {items.map(t => (
-                    <TournamentCard key={`${t.source}:${t.source_id}`} t={t} />
+                    <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showShare />
                   ))}
                 </div>
               </div>
