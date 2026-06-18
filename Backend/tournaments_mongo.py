@@ -254,7 +254,7 @@ async def get_tournaments(
             query["status"] = {"$nin": ["closed", "cancelled"]}
         # Also hide tournaments whose start date has passed — scraper may not have
         # re-marked them as closed yet if they disappeared from the list.
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=12)
+        cutoff = datetime.utcnow() - timedelta(hours=12)
         query["$or"] = [
             {"starts_at": None},
             {"starts_at": {"$gte": cutoff}},
