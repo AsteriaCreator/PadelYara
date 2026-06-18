@@ -184,6 +184,27 @@ async def upsert_tournaments(
     return {"inserted": inserted, "updated": updated}
 
 
+async def mark_stale_closed(source: str, seen_source_ids: list[str]) -> int:
+    """
+    After a scrape run, close any active tournament from `source` that was NOT
+    in the scraped results. These have disappeared from the remote list — either
+    the event finished, the page was removed, or the tournament was cancelled
+    without a status update on our side.
+
+    Returns the number of documents updated.
+    """
+    col = _col()
+    result = await col.update_many(
+        {
+            "source": source,
+            "status": {"$in": ["open", "not_open_yet", "full"]},
+            "source_id": {"$nin": seen_source_ids},
+        },
+        {"$set": {"status": "closed"}},
+    )
+    return result.modified_count
+
+
 def _sort_key(t: dict) -> tuple:
     """
     Sort order:
@@ -252,13 +273,6 @@ async def get_tournaments(
             existing_status_filter["$nin"].extend(["closed", "cancelled"])
         elif not existing_status_filter:
             query["status"] = {"$nin": ["closed", "cancelled"]}
-        # Also hide tournaments whose start date has passed — scraper may not have
-        # re-marked them as closed yet if they disappeared from the list.
-        cutoff = datetime.utcnow() - timedelta(hours=12)
-        query["$or"] = [
-            {"starts_at": None},
-            {"starts_at": {"$gte": cutoff}},
-        ]
 
     cursor = col.find(query, {"_id": 0})
     docs = await cursor.to_list(length=2000)

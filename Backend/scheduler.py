@@ -33,6 +33,21 @@ def _run_tournament_scrape(is_seed: bool = False) -> None:
         print(f"[tournaments] Upsert done: {stats}")
     except Exception as exc:
         print(f"[tournaments] Upsert failed: {exc}")
+        return
+
+    # Close any tournament that disappeared from the remote list this run.
+    # These are events that finished, were cancelled, or had their page removed.
+    from padel_austria_scraper import SOURCE as PADEL_AUSTRIA_SOURCE
+    seen_ids = [t["source_id"] for t in tournaments]
+    stale_future = asyncio.run_coroutine_threadsafe(
+        tournaments_mongo.mark_stale_closed(PADEL_AUSTRIA_SOURCE, seen_ids), state._main_loop
+    )
+    try:
+        closed_count = stale_future.result(timeout=30)
+        if closed_count:
+            print(f"[tournaments] Marked {closed_count} disappeared tournament(s) as closed.")
+    except Exception as exc:
+        print(f"[tournaments] mark_stale_closed failed: {exc}")
 
 
 def _run_opening_hours_refresh() -> None:
