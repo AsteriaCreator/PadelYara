@@ -104,12 +104,13 @@ export default function TournamentCard({ t }: { t: Tournament }) {
   const newBadge = isNew(t)
   const soonBadge = opensSoon(t)
   const isOpen = t.status === "open" || t.status === "not_open_yet"
+  // padel-austria.at redirects expired tournament URLs to homepage — only link active ones
+  const isLinkable = t.status === "open" || t.status === "not_open_yet" || t.status === "full"
+  const Tag = isLinkable ? "a" : "div"
 
   return (
-    <a
-      href={t.source_url}
-      target="_blank"
-      rel="noopener noreferrer"
+    <Tag
+      {...(isLinkable ? { href: t.source_url, target: "_blank", rel: "noopener noreferrer" } : {})}
       className="block px-4 py-3 transition-colors"
       style={{ opacity: isOpen ? 1 : 0.55 }}
       onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.04)")}
@@ -159,6 +160,6 @@ export default function TournamentCard({ t }: { t: Tournament }) {
           )}
         </div>
       </div>
-    </a>
+    </Tag>
   )
 }
