@@ -101,15 +101,15 @@ function CategoryPill({ label }: { label: string }) {
 }
 
 function ShareButton({ t }: { t: Tournament }) {
-  const share = async (e: React.MouseEvent) => {
+  const share = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
     const text = `${t.title} – ${t.venue_name ?? ""}`
     const url = t.source_url ?? ""
     if (navigator.share) {
-      try { await navigator.share({ title: t.title, text, url }) } catch {}
+      void navigator.share({ title: t.title, text, url }).catch(() => {})
     } else {
-      try { await navigator.clipboard.writeText(`${text}\n${url}`) } catch {}
+      void navigator.clipboard.writeText(`${text}\n${url}`).catch(() => {})
     }
   }
   return (
