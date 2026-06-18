@@ -252,6 +252,13 @@ async def get_tournaments(
             existing_status_filter["$nin"].extend(["closed", "cancelled"])
         elif not existing_status_filter:
             query["status"] = {"$nin": ["closed", "cancelled"]}
+        # Also hide tournaments whose start date has passed — scraper may not have
+        # re-marked them as closed yet if they disappeared from the list.
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=12)
+        query["$or"] = [
+            {"starts_at": None},
+            {"starts_at": {"$gte": cutoff}},
+        ]
 
     cursor = col.find(query, {"_id": 0})
     docs = await cursor.to_list(length=2000)
