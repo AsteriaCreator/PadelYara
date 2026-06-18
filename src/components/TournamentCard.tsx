@@ -100,12 +100,44 @@ function CategoryPill({ label }: { label: string }) {
   )
 }
 
-export default function TournamentCard({ t }: { t: Tournament }) {
+function ShareButton({ t }: { t: Tournament }) {
+  const share = async (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const text = `${t.title} – ${t.venue_name ?? ""}`
+    const url = t.source_url ?? ""
+    if (navigator.share) {
+      try { await navigator.share({ title: t.title, text, url }) } catch {}
+    } else {
+      try { await navigator.clipboard.writeText(`${text}\n${url}`) } catch {}
+    }
+  }
+  return (
+    <button
+      onClick={share}
+      title="Teilen"
+      className="shrink-0 p-1 rounded transition-colors"
+      style={{ color: "rgba(212,245,60,0.5)" }}
+      onMouseEnter={e => ((e.currentTarget as HTMLButtonElement).style.color = "#d4f53c")}
+      onMouseLeave={e => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(212,245,60,0.5)")}
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+      </svg>
+    </button>
+  )
+}
+
+export default function TournamentCard({ t, showLink, showShare }: { t: Tournament; showLink?: boolean; showShare?: boolean }) {
   const newBadge = isNew(t)
   const soonBadge = opensSoon(t)
   const isOpen = t.status === "open" || t.status === "not_open_yet"
   // padel-austria.at redirects expired tournament URLs to homepage — only link active ones
-  const isLinkable = t.status === "open" || t.status === "not_open_yet" || t.status === "full"
+  // showLink overrides this (e.g. Meine Turniere where player is still competing)
+  const isLinkable = showLink
+    ? !!t.source_url
+    : t.status === "open" || t.status === "not_open_yet" || t.status === "full"
   const Tag = isLinkable ? "a" : "div"
 
   return (
@@ -130,7 +162,7 @@ export default function TournamentCard({ t }: { t: Tournament }) {
                 ÖFFNET BALD
               </span>
             )}
-            <span className="text-white text-sm font-semibold leading-snug">{t.title}</span>
+            <span className="text-white text-sm font-semibold leading-snug" style={{ userSelect: "text" }}>{t.title}</span>
           </div>
 
           {/* Venue + location */}
@@ -150,9 +182,12 @@ export default function TournamentCard({ t }: { t: Tournament }) {
           </div>
         </div>
 
-        {/* Right side: status + participants */}
+        {/* Right side: status + participants + share */}
         <div className="flex flex-col items-end gap-1.5 shrink-0">
-          <StatusBadge t={t} />
+          <div className="flex items-center gap-1">
+            <StatusBadge t={t} />
+            {showShare && <ShareButton t={t} />}
+          </div>
           {t.participants_max > 0 && (
             <span className="text-xs text-gray-600">
               {t.participants_current}/{t.participants_max}

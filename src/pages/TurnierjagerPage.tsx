@@ -612,7 +612,7 @@ export default function TurnierjagerPage() {
               <div className="mt-3 rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
                 {myTournaments.map(t => (
                   <div key={t.source_id}>
-                    <TournamentCard t={t} />
+                    <TournamentCard t={t} showLink showShare />
                     {t.partner_name && (
                       <div className="px-4 pb-2 -mt-1">
                         <span className="text-[11px] text-gray-500">
