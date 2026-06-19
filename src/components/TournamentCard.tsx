@@ -129,7 +129,31 @@ function ShareButton({ t }: { t: Tournament }) {
   )
 }
 
-export default function TournamentCard({ t, showLink, showShare }: { t: Tournament; showLink?: boolean; showShare?: boolean }) {
+function BookmarkButton({ isBookmarked, onBookmark }: { isBookmarked: boolean; onBookmark: () => void }) {
+  return (
+    <button
+      onClick={e => { e.preventDefault(); e.stopPropagation(); onBookmark() }}
+      title={isBookmarked ? "Von Merkliste entfernen" : "Zur Merkliste hinzufügen"}
+      aria-label={isBookmarked ? "Von Merkliste entfernen" : "Zur Merkliste hinzufügen"}
+      className="shrink-0 p-1 rounded transition-colors"
+      style={{ color: isBookmarked ? "#d4f53c" : "rgba(212,245,60,0.3)" }}
+      onMouseEnter={e => { if (!isBookmarked) (e.currentTarget as HTMLButtonElement).style.color = "rgba(212,245,60,0.6)" }}
+      onMouseLeave={e => { if (!isBookmarked) (e.currentTarget as HTMLButtonElement).style.color = "rgba(212,245,60,0.3)" }}
+    >
+      {isBookmarked ? (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+        </svg>
+      ) : (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+      )}
+    </button>
+  )
+}
+
+export default function TournamentCard({ t, showLink, showShare, isBookmarked, onBookmark }: { t: Tournament; showLink?: boolean; showShare?: boolean; isBookmarked?: boolean; onBookmark?: () => void }) {
   const newBadge = isNew(t)
   const soonBadge = opensSoon(t)
   const isOpen = t.status === "open" || t.status === "not_open_yet"
@@ -187,6 +211,7 @@ export default function TournamentCard({ t, showLink, showShare }: { t: Tourname
           <div className="flex items-center gap-1">
             <StatusBadge t={t} />
             {showShare && <ShareButton t={t} />}
+            {onBookmark !== undefined && <BookmarkButton isBookmarked={!!isBookmarked} onBookmark={onBookmark} />}
           </div>
           {t.participants_max > 0 && (
             <span className="text-xs text-gray-600">

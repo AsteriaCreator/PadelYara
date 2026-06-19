@@ -338,6 +338,14 @@ function BezirkPicker({
 // ── Main page ─────────────────────────────────────────────────────────────
 
 const MY_SLUG_KEY = "turnierjager_player_slug"
+const MERKLISTE_KEY = "turnierjager_merkliste"
+
+function loadMerkliste(): Record<string, Tournament> {
+  try { return JSON.parse(localStorage.getItem(MERKLISTE_KEY) ?? "{}") } catch { return {} }
+}
+function saveMerkliste(m: Record<string, Tournament>) {
+  try { localStorage.setItem(MERKLISTE_KEY, JSON.stringify(m)) } catch { /* ignore */ }
+}
 
 export default function TurnierjagerPage() {
   const [filters, setFilters] = useState<Filters>(loadFilters)
@@ -357,6 +365,39 @@ export default function TurnierjagerPage() {
   const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
   const [myLoading, setMyLoading] = useState(false)
   const [myError, setMyError] = useState<string | null>(null)
+  // Merkliste — persisted to localStorage, keyed by "source:source_id"
+  const [merkliste, setMerkliste] = useState<Record<string, Tournament>>(loadMerkliste)
+
+  function toggleMerkliste(t: Tournament) {
+    const key = `${t.source}:${t.source_id}`
+    setMerkliste(prev => {
+      const next = { ...prev }
+      if (next[key]) delete next[key]
+      else next[key] = t
+      saveMerkliste(next)
+      return next
+    })
+  }
+
+  function clearMerkliste() {
+    setMerkliste({})
+    saveMerkliste({})
+  }
+
+  function shareMerkliste(items: Tournament[]) {
+    const sorted = [...items].sort((a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1)
+    const lines = sorted.map(t => {
+      const date = t.starts_at ? new Date(t.starts_at).toLocaleDateString("de-AT", { weekday: "short", day: "2-digit", month: "2-digit" }) : ""
+      return `• ${t.title}${date ? " · " + date : ""}${t.venue_name ? " · " + t.venue_name : ""}\n  ${t.source_url}`
+    })
+    const text = `Schau dir diese Turniere an:\n\n${lines.join("\n\n")}`
+    if (navigator.share) {
+      void navigator.share({ text }).catch(() => {})
+    } else {
+      void navigator.clipboard.writeText(text).catch(() => {})
+    }
+  }
+
   // Venue options fetched from API, scoped to selected bundesländer
   const [venueOptions, setVenueOptions] = useState<string[]>([])
 
@@ -616,7 +657,7 @@ export default function TurnierjagerPage() {
               <div className="mt-3 rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
                 {myTournaments.map(t => (
                   <div key={t.source_id}>
-                    <TournamentCard t={t} showLink showShare />
+                    <TournamentCard t={t} showLink showShare isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]} onBookmark={() => toggleMerkliste(t)} />
                     {t.partner_name && (
                       <div className="px-4 pb-2 -mt-1">
                         <span className="text-[11px] text-gray-500">
@@ -639,6 +680,41 @@ export default function TurnierjagerPage() {
             )}
           </div>
       </div>
+
+      {/* Merkliste */}
+      {Object.keys(merkliste).length > 0 && (() => {
+        const items = Object.values(merkliste)
+        return (
+          <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: "#d4f53c" }}>
+                MERKLISTE <span style={{ color: "rgba(212,245,60,0.5)" }}>· {items.length}</span>
+              </span>
+              <button onClick={clearMerkliste} className="text-[10px] tracking-widest text-gray-700 hover:text-gray-500 transition-colors">
+                LEEREN
+              </button>
+            </div>
+            <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+              {items
+                .sort((a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1)
+                .map(t => (
+                  <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showLink isBookmarked onBookmark={() => toggleMerkliste(t)} />
+                ))}
+            </div>
+            <button
+              onClick={() => shareMerkliste(items)}
+              className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold tracking-wider transition-opacity hover:opacity-90"
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", background: "#d4f53c", color: "#080810" }}
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              {items.length} {items.length === 1 ? "TURNIER" : "TURNIERE"} TEILEN
+            </button>
+          </div>
+        )
+      })()}
 
       {/* Filters */}
       <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-6">
@@ -864,7 +940,7 @@ export default function TurnierjagerPage() {
                 </div>
                 <div className="rounded-xl border border-gray-800 bg-gray-900 divide-y divide-gray-800">
                   {items.map(t => (
-                    <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showShare />
+                    <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showShare isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]} onBookmark={() => toggleMerkliste(t)} />
                   ))}
                 </div>
               </div>
