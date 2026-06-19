@@ -720,36 +720,56 @@ export default function TurnierjagerPage() {
       </div>
 
       {/* Merkliste */}
-      {Object.keys(merkliste).length > 0 && (() => {
+      {(() => {
         const items = Object.values(merkliste)
+        const isEmpty = items.length === 0
         return (
           <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-4">
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: "#d4f53c" }}>
-                MERKLISTE <span style={{ color: "rgba(212,245,60,0.5)" }}>· {items.length}</span>
+              <span className="text-sm font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: isEmpty ? "#6b7280" : "#d4f53c" }}>
+                MERKLISTE {!isEmpty && <span style={{ color: "rgba(212,245,60,0.5)" }}>· {items.length}</span>}
               </span>
-              <button onClick={clearMerkliste} className="text-[10px] tracking-widest text-gray-700 hover:text-gray-500 transition-colors">
-                LEEREN
-              </button>
+              {!isEmpty && (
+                <button onClick={clearMerkliste} className="text-[10px] tracking-widest text-gray-700 hover:text-gray-500 transition-colors">
+                  LEEREN
+                </button>
+              )}
             </div>
-            <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-              {items
-                .sort((a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1)
-                .map(t => (
-                  <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showLink isBookmarked onBookmark={() => toggleMerkliste(t)} />
-                ))}
-            </div>
-            <button
-              onClick={() => shareMerkliste(items)}
-              className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold tracking-wider transition-opacity hover:opacity-90"
-              style={{ fontFamily: "'Barlow Condensed', sans-serif", background: "#d4f53c", color: "#080810" }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-              </svg>
-              {merklisteCopied ? "LINK KOPIERT!" : `${items.length} ${items.length === 1 ? "TURNIER" : "TURNIERE"} TEILEN`}
-            </button>
+            {isEmpty ? (
+              <div className="flex items-start gap-3 py-1">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
+                  <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                </svg>
+                <p className="text-xs leading-relaxed" style={{ color: "#6b7280" }}>
+                  Turniere mit{" "}
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline -mt-0.5">
+                    <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+                  </svg>
+                  {" "}markieren — dann einen Link an deinen Padel-Partner schicken.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                  {items
+                    .sort((a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1)
+                    .map(t => (
+                      <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showLink isBookmarked onBookmark={() => toggleMerkliste(t)} />
+                    ))}
+                </div>
+                <button
+                  onClick={() => void shareMerkliste(items)}
+                  className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold tracking-wider transition-opacity hover:opacity-90"
+                  style={{ fontFamily: "'Barlow Condensed', sans-serif", background: "#d4f53c", color: "#080810" }}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                  </svg>
+                  {merklisteCopied ? "LINK KOPIERT!" : `${items.length} ${items.length === 1 ? "TURNIER" : "TURNIERE"} TEILEN`}
+                </button>
+              </>
+            )}
           </div>
         )
       })()}
@@ -929,6 +949,14 @@ export default function TurnierjagerPage() {
           </label>
         </div>
       </div>
+
+      {/* Bookmark hint above results */}
+      <p className="text-xs px-1 mb-3" style={{ color: "#4b5563" }}>
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline -mt-0.5 mr-1">
+          <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+        Turnier merken → Link mit Partner teilen
+      </p>
 
       {/* Results header */}
       {!loading && !error && (
