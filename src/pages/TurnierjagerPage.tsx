@@ -495,7 +495,7 @@ export default function TurnierjagerPage() {
     setFilters(f)
   }
 
-  const totalBezirkeSelected = allSelectedBezirke(filters).length
+  const totalBezirkeSelected = filters.bundesland.flatMap(bl => filters.bezirkByBundesland[bl] ?? []).length
   const hasActiveFilters = (
     filters.bundesland.length > 0 ||
     totalBezirkeSelected > 0 ||
