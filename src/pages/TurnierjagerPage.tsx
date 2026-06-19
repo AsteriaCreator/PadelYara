@@ -101,11 +101,6 @@ function saveFilters(f: Filters): void {
   try { localStorage.setItem(LS_KEY, JSON.stringify(f)) } catch { /* ignore */ }
 }
 
-// Flat list of all selected bezirke across all selected bundesländer (for the API)
-function allSelectedBezirke(f: Filters): string[] {
-  return f.bundesland.flatMap(bl => f.bezirkByBundesland[bl] ?? [])
-}
-
 // ── Multi-select chip group ────────────────────────────────────────────────
 
 function MultiChip({
@@ -414,8 +409,7 @@ export default function TurnierjagerPage() {
     try {
       const params = new URLSearchParams()
       if (f.bundesland.length) params.set("bundesland", f.bundesland.join(","))
-      const bezirke = allSelectedBezirke(f)
-      if (bezirke.length) params.set("bezirk", bezirke.join(","))
+      // bezirk filter is applied client-side so multi-bundesland selections work correctly
       if (f.venue.length) params.set("venue_name", f.venue.join(","))
       if (f.kategorie.length) params.set("category", f.kategorie.join(","))
       if (f.wettbewerb.length) params.set("competition", f.wettbewerb.join(","))
@@ -514,9 +508,19 @@ export default function TurnierjagerPage() {
 
   // "Öffnet bald" is a time-derived label, so we filter client-side rather than
   // round-tripping a date query to the API.
-  const visibleTournaments = filters.onlyOpensSoon
-    ? tournaments.filter(opensSoon)
-    : tournaments
+  // Bezirk filter is also client-side: a per-bundesland selection must not exclude
+  // tournaments from other bundesländer that have no bezirk selection.
+  const visibleTournaments = (() => {
+    let result = filters.onlyOpensSoon ? tournaments.filter(opensSoon) : tournaments
+    const hasBezirkFilter = Object.values(filters.bezirkByBundesland).some(v => v.length > 0)
+    if (hasBezirkFilter) {
+      result = result.filter(t => {
+        const sel = filters.bezirkByBundesland[t.bundesland ?? ""] ?? []
+        return sel.length === 0 || sel.includes(t.bezirk ?? "")
+      })
+    }
+    return result
+  })()
 
   return (
     <section className="mt-2 pb-12">
