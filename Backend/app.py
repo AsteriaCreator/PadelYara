@@ -37,6 +37,7 @@ async def lifespan(_app: FastAPI):
     state._main_loop = asyncio.get_running_loop()
     await analytics.lifespan_startup()
     await tournaments_mongo.ensure_indexes()
+    await tournaments_mongo.ensure_share_index()
     eversports_prices.init_mongo(os.getenv("MONGODB_URI", ""))
     await eversports_prices.load_cache_from_mongo()
     state.VENUES = await load_venues()

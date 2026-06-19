@@ -1,6 +1,7 @@
 import threading
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
+from pydantic import BaseModel
 
 import tournaments_mongo
 from auth import _require_admin
@@ -62,6 +63,27 @@ async def get_tournaments_by_ids(ids: str = Query(..., description="Comma-separa
     """Return specific tournaments by source_id list — used for shared Merkliste links."""
     id_list = [i.strip() for i in ids.split(",") if i.strip()][:50]
     tournaments = await tournaments_mongo.get_tournaments_by_ids(id_list)
+    return {"tournaments": tournaments}
+
+
+class ShareRequest(BaseModel):
+    ids: list[str]
+
+@router.post("/api/tournaments/share")
+async def create_share(body: ShareRequest):
+    """Create a short share code for a list of tournament source_ids."""
+    ids = [i for i in body.ids if i][:50]
+    if not ids:
+        raise HTTPException(status_code=400, detail="No ids provided")
+    code = await tournaments_mongo.create_share(ids)
+    return {"code": code}
+
+@router.get("/api/tournaments/share/{code}")
+async def get_share(code: str):
+    """Resolve a share code to a list of tournaments."""
+    tournaments = await tournaments_mongo.get_share_tournaments(code.strip().lower())
+    if not tournaments:
+        raise HTTPException(status_code=404, detail="Share not found or expired")
     return {"tournaments": tournaments}
 
 

@@ -7,6 +7,8 @@ without any schema changes.
 """
 
 import os
+import random
+import string
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
@@ -364,6 +366,39 @@ async def get_tournaments_by_ids(source_ids: list[str]) -> list[dict]:
                 doc[field] = doc[field].isoformat()
         doc.pop("entries", None)
     return docs
+
+
+def _shares_col():
+    return _get_db()["merkliste_shares"]
+
+
+async def ensure_share_index() -> None:
+    col = _shares_col()
+    await col.create_index("code", unique=True)
+    await col.create_index("expires_at", expireAfterSeconds=0)
+
+
+async def create_share(source_ids: list[str]) -> str:
+    """Store a list of source_ids under a short random code. Returns the code."""
+    col = _shares_col()
+    expires_at = datetime.now(timezone.utc) + timedelta(days=30)
+    for _ in range(10):
+        code = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
+        try:
+            await col.insert_one({"code": code, "source_ids": source_ids, "expires_at": expires_at})
+            return code
+        except Exception:
+            continue
+    raise RuntimeError("Could not generate unique share code")
+
+
+async def get_share_tournaments(code: str) -> list[dict]:
+    """Resolve a share code → list of tournament documents."""
+    col = _shares_col()
+    doc = await col.find_one({"code": code})
+    if not doc:
+        return []
+    return await get_tournaments_by_ids(doc["source_ids"])
 
 
 async def get_tournaments_for_player(player_slug: str) -> list[dict]:

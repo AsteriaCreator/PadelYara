@@ -386,9 +386,20 @@ export default function TurnierjagerPage() {
 
   const [merklisteCopied, setMerklisteCopied] = useState(false)
 
-  function shareMerkliste(items: Tournament[]) {
-    const ids = items.map(t => t.source_id).join(",")
-    const url = `https://www.padelyara.at/turnierjaeger?merkliste=${ids}`
+  async function shareMerkliste(items: Tournament[]) {
+    const ids = items.map(t => t.source_id)
+    let url = "https://www.padelyara.at/turnierjaeger"
+    try {
+      const res = await fetch(`${API_BASE}/api/tournaments/share`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids }),
+      })
+      if (res.ok) {
+        const data = await res.json() as { code: string }
+        url = `https://www.padelyara.at/turnierjaeger?m=${data.code}`
+      }
+    } catch { /* fall back to base URL */ }
     const text = `Schau dir diese Turniere an: ${url}`
     if (navigator.share) {
       void navigator.share({ text, url }).catch(() => {})
@@ -476,23 +487,21 @@ export default function TurnierjagerPage() {
     fetchTournaments(filters)
   }, [filters, fetchTournaments])
 
-  // Load shared Merkliste from ?merkliste=id1,id2 URL param (runs once on mount)
+  // Load shared Merkliste from ?m=code URL param (runs once on mount)
   const merklisteLoadedFromUrl = useRef(false)
   useEffect(() => {
     if (merklisteLoadedFromUrl.current) return
     const params = new URLSearchParams(window.location.search)
-    const ids = params.get("merkliste")
-    if (!ids) return
+    const code = params.get("m")
+    if (!code) return
     merklisteLoadedFromUrl.current = true
-    // Remove param from URL without triggering a navigation
     const clean = new URL(window.location.href)
-    clean.searchParams.delete("merkliste")
+    clean.searchParams.delete("m")
     window.history.replaceState(null, "", clean.toString())
-    // Fetch those specific tournaments and merge into merkliste
-    void fetch(`${API_BASE}/api/tournaments/by-ids?ids=${encodeURIComponent(ids)}`)
-      .then(r => r.json())
-      .then((data: { tournaments?: Tournament[] }) => {
-        const incoming = data.tournaments ?? []
+    void fetch(`${API_BASE}/api/tournaments/share/${encodeURIComponent(code)}`)
+      .then(r => r.ok ? r.json() : null)
+      .then((data: { tournaments?: Tournament[] } | null) => {
+        const incoming = data?.tournaments ?? []
         if (!incoming.length) return
         setMerkliste(prev => {
           const next = { ...prev }
