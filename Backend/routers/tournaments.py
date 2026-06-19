@@ -57,6 +57,14 @@ async def get_tournament_venues(bundesland: str = Query(default="")):
     return {"venues": venues}
 
 
+@router.get("/api/tournaments/by-ids")
+async def get_tournaments_by_ids(ids: str = Query(..., description="Comma-separated source_ids")):
+    """Return specific tournaments by source_id list — used for shared Merkliste links."""
+    id_list = [i.strip() for i in ids.split(",") if i.strip()][:50]
+    tournaments = await tournaments_mongo.get_tournaments_by_ids(id_list)
+    return {"tournaments": tournaments}
+
+
 @router.get("/api/tournaments/players/search")
 async def search_players(q: str = Query(default="", min_length=2)):
     """Search for players by name across tournament entries. Returns [{name, slug}]."""

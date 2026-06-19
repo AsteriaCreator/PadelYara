@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async"
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
 import { opensSoon } from "../tournamentBadges"
@@ -384,17 +384,18 @@ export default function TurnierjagerPage() {
     saveMerkliste({})
   }
 
+  const [merklisteCopied, setMerklisteCopied] = useState(false)
+
   function shareMerkliste(items: Tournament[]) {
-    const sorted = [...items].sort((a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1)
-    const lines = sorted.map(t => {
-      const date = t.starts_at ? new Date(t.starts_at).toLocaleDateString("de-AT", { weekday: "short", day: "2-digit", month: "2-digit" }) : ""
-      return `• ${t.title}${date ? " · " + date : ""}${t.venue_name ? " · " + t.venue_name : ""}\n  ${t.source_url}`
-    })
-    const text = `Schau dir diese Turniere an:\n\n${lines.join("\n\n")}`
+    const ids = items.map(t => t.source_id).join(",")
+    const url = `https://www.padelyara.at/turnierjaeger?merkliste=${ids}`
+    const text = `Schau dir diese Turniere an: ${url}`
     if (navigator.share) {
-      void navigator.share({ text }).catch(() => {})
+      void navigator.share({ text, url }).catch(() => {})
     } else {
-      void navigator.clipboard.writeText(text).catch(() => {})
+      void navigator.clipboard.writeText(url).catch(() => {})
+      setMerklisteCopied(true)
+      setTimeout(() => setMerklisteCopied(false), 2500)
     }
   }
 
@@ -474,6 +475,34 @@ export default function TurnierjagerPage() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchTournaments(filters)
   }, [filters, fetchTournaments])
+
+  // Load shared Merkliste from ?merkliste=id1,id2 URL param (runs once on mount)
+  const merklisteLoadedFromUrl = useRef(false)
+  useEffect(() => {
+    if (merklisteLoadedFromUrl.current) return
+    const params = new URLSearchParams(window.location.search)
+    const ids = params.get("merkliste")
+    if (!ids) return
+    merklisteLoadedFromUrl.current = true
+    // Remove param from URL without triggering a navigation
+    const clean = new URL(window.location.href)
+    clean.searchParams.delete("merkliste")
+    window.history.replaceState(null, "", clean.toString())
+    // Fetch those specific tournaments and merge into merkliste
+    void fetch(`${API_BASE}/api/tournaments/by-ids?ids=${encodeURIComponent(ids)}`)
+      .then(r => r.json())
+      .then((data: { tournaments?: Tournament[] }) => {
+        const incoming = data.tournaments ?? []
+        if (!incoming.length) return
+        setMerkliste(prev => {
+          const next = { ...prev }
+          for (const t of incoming) next[`${t.source}:${t.source_id}`] = t
+          saveMerkliste(next)
+          return next
+        })
+      })
+      .catch(() => {})
+  }, [])
 
   async function fetchMyTournaments(slug: string) {
     if (!slug) return
@@ -710,7 +739,7 @@ export default function TurnierjagerPage() {
                 <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
                 <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
               </svg>
-              {items.length} {items.length === 1 ? "TURNIER" : "TURNIERE"} TEILEN
+              {merklisteCopied ? "LINK KOPIERT!" : `${items.length} ${items.length === 1 ? "TURNIER" : "TURNIERE"} TEILEN`}
             </button>
           </div>
         )

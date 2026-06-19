@@ -352,6 +352,20 @@ async def search_players(query: str) -> list[dict]:
     return [{"slug": r["_id"], "name": r["name"]} for r in results if r.get("_id")]
 
 
+async def get_tournaments_by_ids(source_ids: list[str]) -> list[dict]:
+    """Return tournaments matching a list of source_ids (for shared Merkliste links)."""
+    col = _col()
+    cursor = col.find({"source_id": {"$in": source_ids}}, {"_id": 0})
+    docs = await cursor.to_list(200)
+    for doc in docs:
+        for field in ("starts_at", "ends_at", "first_seen_at", "last_seen_at",
+                      "registration_opens_at", "registration_closes_at"):
+            if isinstance(doc.get(field), datetime):
+                doc[field] = doc[field].isoformat()
+        doc.pop("entries", None)
+    return docs
+
+
 async def get_tournaments_for_player(player_slug: str) -> list[dict]:
     """
     Return all open/upcoming tournaments where the player (identified by slug)
