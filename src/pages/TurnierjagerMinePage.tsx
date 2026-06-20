@@ -310,18 +310,21 @@ export default function TurnierjagerMinePage() {
                     <p className="text-[11px] tracking-widest mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
                       PARTNER-STATS
                     </p>
+                    <div className="flex items-center gap-2 mb-1.5 px-0">
+                      <span className="text-[10px] text-gray-700 flex-1">Partner</span>
+                      <span className="text-[10px] w-8 text-center" style={{ color: "rgba(212,245,60,0.35)" }}>Siege</span>
+                      <span className="text-[10px] w-8 text-center" style={{ color: "rgba(107,114,128,0.5)" }}>Ndlg.</span>
+                      <span className="text-[10px] w-8 text-center text-gray-700">Quote</span>
+                    </div>
                     <div className="space-y-2">
                       {partnerStats.slice(0, 5).map(p => (
                         <div key={p.name} className="flex items-center gap-2">
                           <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
-                          <div className="flex items-center gap-1.5">
-                            <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>{p.wins}S</span>
-                            <span className="text-xs text-gray-700">·</span>
-                            <span className="text-xs" style={{ color: "#6b7280" }}>{p.losses}N</span>
-                            <span className="text-xs text-gray-700 ml-1">
-                              {p.total > 0 ? `${Math.round(100 * p.wins / p.total)}%` : ""}
-                            </span>
-                          </div>
+                          <span className="text-xs font-bold w-8 text-center" style={{ color: "#d4f53c" }}>{p.wins}</span>
+                          <span className="text-xs w-8 text-center" style={{ color: "#6b7280" }}>{p.losses}</span>
+                          <span className="text-xs text-gray-700 w-8 text-center">
+                            {p.total > 0 ? `${Math.round(100 * p.wins / p.total)}%` : ""}
+                          </span>
                         </div>
                       ))}
                     </div>
