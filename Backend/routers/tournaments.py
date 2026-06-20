@@ -115,8 +115,21 @@ async def get_player_history(slug: str = Query(...)):
     if data is None:
         raise HTTPException(status_code=404, detail="Player not found")
     points = data.get("points") or []
+    matches = data.get("matches") or []
     name = (data.get("header") or {}).get("name")
-    return {"history": points, "name": name, "player_slug": slug}
+
+    # Group match W/L by tournament title so the frontend can annotate history entries
+    wl: dict[str, dict] = {}
+    for m in matches:
+        t = m.get("title", "")
+        if t not in wl:
+            wl[t] = {"wins": 0, "losses": 0, "partner": m.get("partner")}
+        if m.get("won"):
+            wl[t]["wins"] += 1
+        else:
+            wl[t]["losses"] += 1
+
+    return {"history": points, "match_results": wl, "name": name, "player_slug": slug}
 
 
 @router.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])

@@ -1,16 +1,78 @@
+import { useState } from "react"
 import { Helmet } from "react-helmet-async"
+import { useNavigate } from "react-router-dom"
 import TournamentCard from "../components/TournamentCard"
 import TurnierjagerNav from "../components/TurnierjagerNav"
 import { useMyProfile } from "../hooks/useMyProfile"
 import { useMerkliste } from "../hooks/useMerkliste"
 
 export default function TurnierjagerMinePage() {
+  const navigate = useNavigate()
   const {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
-    myHistory, historyLoading,
+    myHistory, matchResults, historyLoading,
     searchMyName, selectPlayer, clearMyProfile,
   } = useMyProfile()
   const { merkliste, toggleMerkliste } = useMerkliste()
+
+  const [filterCategory, setFilterCategory] = useState("")
+  const [filterCompetition, setFilterCompetition] = useState("")
+  const [filterPartner, setFilterPartner] = useState("")
+  const [filterYear, setFilterYear] = useState("")
+
+  // Derive partner stats from matchResults
+  const partnerStats = (() => {
+    const map: Record<string, { wins: number; losses: number }> = {}
+    for (const r of Object.values(matchResults)) {
+      if (!r.partner) continue
+      if (!map[r.partner]) map[r.partner] = { wins: 0, losses: 0 }
+      map[r.partner].wins += r.wins
+      map[r.partner].losses += r.losses
+    }
+    return Object.entries(map)
+      .map(([name, s]) => ({ name, ...s, total: s.wins + s.losses }))
+      .filter(p => p.total > 0)
+      .sort((a, b) => b.total - a.total)
+  })()
+
+  // Derive available filter options from history
+  const categories = [...new Set(myHistory.map(h => h.category).filter(Boolean))].sort()
+  const competitions = [...new Set(myHistory.map(h => h.competition).filter(Boolean))].sort()
+  const partners = [...new Set(
+    Object.values(matchResults).map(r => r.partner).filter((p): p is string => !!p)
+  )].sort()
+  const years = [...new Set(
+    myHistory.map(h => h.date?.split(".").at(-1)).filter(Boolean)
+  )].sort((a, b) => Number(b) - Number(a)) as string[]
+
+  const filteredHistory = myHistory.filter(h => {
+    if (filterCategory && h.category !== filterCategory) return false
+    if (filterCompetition && h.competition !== filterCompetition) return false
+    if (filterYear && !h.date?.endsWith(filterYear)) return false
+    if (filterPartner) {
+      const mr = matchResults[h.title]
+      if (!mr || mr.partner !== filterPartner) return false
+    }
+    return true
+  })
+
+  const hasFilter = !!(filterCategory || filterCompetition || filterPartner || filterYear)
+
+  function FilterChip({ label, value, active, onClick }: { label: string; value: string; active: boolean; onClick: () => void }) {
+    return (
+      <button
+        onClick={onClick}
+        className="text-xs px-2.5 py-1 rounded-full border transition-colors"
+        style={{
+          borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
+          color: active ? "#d4f53c" : "#6b7280",
+          background: active ? "rgba(212,245,60,0.08)" : "transparent",
+        }}
+      >
+        {label || value}
+      </button>
+    )
+  }
 
   return (
     <section className="mt-2 pb-12">
@@ -34,9 +96,20 @@ export default function TurnierjagerMinePage() {
         {mySlug && myName && (
           <div className="flex items-center justify-between mb-4">
             <span className="text-xs font-semibold" style={{ color: "#d4f53c" }}>{myName}</span>
-            <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500">
-              ändern
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate(`/urteil?slug=${encodeURIComponent(mySlug)}`)}
+                className="text-[10px] tracking-widest font-bold transition-colors"
+                style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "rgba(212,245,60,0.5)" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#d4f53c")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(212,245,60,0.5)")}
+              >
+                YARAS URTEIL →
+              </button>
+              <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500">
+                ändern
+              </button>
+            </div>
           </div>
         )}
 
@@ -89,86 +162,175 @@ export default function TurnierjagerMinePage() {
           <p className="text-xs text-gray-600 mt-3">Keine Turniere gefunden.</p>
         )}
 
+        {/* Upcoming */}
         {!myLoading && myTournaments.length > 0 && (() => {
           const now = new Date()
           const upcoming = myTournaments.filter(t => !t.starts_at || new Date(t.starts_at) >= now)
           if (upcoming.length === 0) return null
           return (
-            <div className="mt-3 space-y-4">
-              <div>
-                <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}>
-                  BEVORSTEHEND · {upcoming.length}
-                </p>
-                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-                  {upcoming.map(t => (
-                    <div key={t.source_id}>
-                      <TournamentCard
-                        t={t}
-                        showLink
-                        showShare
-                        isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]}
-                        onBookmark={() => toggleMerkliste(t)}
-                      />
-                      {t.partner_name && (
-                        <div className="px-4 pb-2 -mt-1">
-                          <span className="text-[11px] text-gray-500">
-                            Partner:{" "}
-                            <a
-                              href={`https://padel-austria.at/players/${t.partner_slug}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="hover:underline"
-                              style={{ color: "rgba(212,245,60,0.6)" }}
-                            >
-                              {t.partner_name}
-                            </a>
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+            <div className="mt-3">
+              <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}>
+                BEVORSTEHEND · {upcoming.length}
+              </p>
+              <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                {upcoming.map(t => (
+                  <div key={t.source_id}>
+                    <TournamentCard
+                      t={t}
+                      showLink
+                      showShare
+                      isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]}
+                      onBookmark={() => toggleMerkliste(t)}
+                    />
+                    {t.partner_name && (
+                      <div className="px-4 pb-2 -mt-1">
+                        <span className="text-[11px] text-gray-500">
+                          Partner:{" "}
+                          <a
+                            href={`https://padel-austria.at/players/${t.partner_slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                            style={{ color: "rgba(212,245,60,0.6)" }}
+                          >
+                            {t.partner_name}
+                          </a>
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           )
         })()}
 
-        {/* History from padel-austria.at points table */}
+        {/* History */}
         {mySlug && (
           <div className="mt-4">
             {historyLoading ? (
               <p className="text-xs text-gray-600">Lade Historie …</p>
             ) : myHistory.length > 0 && (
-              <div>
-                <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
-                  HISTORIE · {myHistory.length}
-                </p>
-                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-                  {myHistory.map((h, i) => (
-                    <div key={i} className="px-4 py-3" style={{ opacity: 0.7 }}>
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="flex-1 min-w-0">
-                          {h.url ? (
-                            <a href={h.url} target="_blank" rel="noopener noreferrer"
-                              className="text-sm font-semibold text-white leading-snug hover:underline"
-                              style={{ userSelect: "text" }}
-                            >{h.title}</a>
-                          ) : (
-                            <span className="text-sm font-semibold text-white leading-snug" style={{ userSelect: "text" }}>{h.title}</span>
-                          )}
-                          <p className="text-xs text-gray-500 mt-0.5">{h.date}</p>
+              <>
+                {/* Partner stats */}
+                {partnerStats.length > 0 && (
+                  <div className="mb-4 rounded-lg border border-gray-800 p-3">
+                    <p className="text-[11px] tracking-widest mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
+                      PARTNER-STATS
+                    </p>
+                    <div className="space-y-2">
+                      {partnerStats.slice(0, 5).map(p => (
+                        <div key={p.name} className="flex items-center gap-2">
+                          <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>{p.wins}S</span>
+                            <span className="text-xs text-gray-700">·</span>
+                            <span className="text-xs" style={{ color: "#6b7280" }}>{p.losses}N</span>
+                            <span className="text-xs text-gray-700 ml-1">
+                              {p.total > 0 ? `${Math.round(100 * p.wins / p.total)}%` : ""}
+                            </span>
+                          </div>
                         </div>
-                        <div className="shrink-0 text-right">
-                          <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(212,245,60,0.08)", color: "rgba(212,245,60,0.5)", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em" }}>
-                            {h.category.toUpperCase()}
-                          </span>
-                          <p className="text-[11px] text-gray-700 mt-1">{h.points} Pkt</p>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Filters */}
+                {(categories.length > 1 || competitions.length > 1 || partners.length > 1 || years.length > 1) && (
+                  <div className="mb-3 space-y-2">
+                    {categories.length > 1 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {categories.map(c => (
+                          <FilterChip key={c} label={c} value={c} active={filterCategory === c}
+                            onClick={() => setFilterCategory(filterCategory === c ? "" : c)} />
+                        ))}
+                      </div>
+                    )}
+                    {competitions.length > 1 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {competitions.map(c => (
+                          <FilterChip key={c} label={c} value={c} active={filterCompetition === c}
+                            onClick={() => setFilterCompetition(filterCompetition === c ? "" : c)} />
+                        ))}
+                      </div>
+                    )}
+                    {partners.length > 1 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {partners.map(p => (
+                          <FilterChip key={p} label={p} value={p} active={filterPartner === p}
+                            onClick={() => setFilterPartner(filterPartner === p ? "" : p)} />
+                        ))}
+                      </div>
+                    )}
+                    {years.length > 1 && (
+                      <div className="flex flex-wrap gap-1.5">
+                        {years.map(y => (
+                          <FilterChip key={y} label={y} value={y} active={filterYear === y}
+                            onClick={() => setFilterYear(filterYear === y ? "" : y)} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-[11px] tracking-widest" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
+                    HISTORIE · {filteredHistory.length}{hasFilter ? ` / ${myHistory.length}` : ""}
+                  </p>
+                  {hasFilter && (
+                    <button
+                      onClick={() => { setFilterCategory(""); setFilterCompetition(""); setFilterPartner(""); setFilterYear("") }}
+                      className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
+                    >
+                      Filter löschen
+                    </button>
+                  )}
+                </div>
+
+                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                  {filteredHistory.map((h, i) => {
+                    const mr = matchResults[h.title]
+                    return (
+                      <div key={i} className="px-4 py-3" style={{ opacity: 0.8 }}>
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            {h.url ? (
+                              <a href={h.url} target="_blank" rel="noopener noreferrer"
+                                className="text-sm font-semibold text-white leading-snug hover:underline"
+                                style={{ userSelect: "text" }}
+                              >{h.title}</a>
+                            ) : (
+                              <span className="text-sm font-semibold text-white leading-snug" style={{ userSelect: "text" }}>{h.title}</span>
+                            )}
+                            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                              <span className="text-xs text-gray-500">{h.date}</span>
+                              {mr?.partner && (
+                                <span className="text-xs text-gray-600">mit {mr.partner}</span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="shrink-0 text-right space-y-1">
+                            <div className="flex items-center gap-1.5 justify-end">
+                              <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(212,245,60,0.08)", color: "rgba(212,245,60,0.5)", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em" }}>
+                                {h.category.toUpperCase()}
+                              </span>
+                            </div>
+                            {mr && (mr.wins + mr.losses) > 0 && (
+                              <div className="flex items-center gap-1 justify-end">
+                                <span className="text-[11px] font-bold" style={{ color: "#d4f53c" }}>{mr.wins}S</span>
+                                <span className="text-[11px] text-gray-700">·</span>
+                                <span className="text-[11px]" style={{ color: "#6b7280" }}>{mr.losses}N</span>
+                              </div>
+                            )}
+                            <p className="text-[11px] text-gray-700">{h.points} Pkt</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    )
+                  })}
                 </div>
-              </div>
+              </>
             )}
           </div>
         )}

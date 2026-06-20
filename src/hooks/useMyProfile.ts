@@ -13,6 +13,12 @@ export interface HistoryEntry {
   points: number
 }
 
+export interface MatchResult {
+  wins: number
+  losses: number
+  partner: string | null
+}
+
 export function useMyProfile() {
   const [mySlug, setMySlug] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY) ?? "")
   const [myName, setMyName] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY + "_name") ?? "")
@@ -22,6 +28,7 @@ export function useMyProfile() {
   const [myLoading, setMyLoading] = useState(false)
   const [myError, setMyError] = useState<string | null>(null)
   const [myHistory, setMyHistory] = useState<HistoryEntry[]>([])
+  const [matchResults, setMatchResults] = useState<Record<string, MatchResult>>({})
   const [historyLoading, setHistoryLoading] = useState(false)
 
   async function fetchMyTournaments(slug: string) {
@@ -70,8 +77,10 @@ export function useMyProfile() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
       setMyHistory(data.history ?? [])
+      setMatchResults(data.match_results ?? {})
     } catch {
       setMyHistory([])
+      setMatchResults({})
     } finally {
       setHistoryLoading(false)
     }
@@ -84,6 +93,7 @@ export function useMyProfile() {
     setMySuggestions([])
     setMyTournaments([])
     setMyHistory([])
+    setMatchResults({})
     localStorage.removeItem(MY_SLUG_KEY)
     localStorage.removeItem(MY_SLUG_KEY + "_name")
   }
@@ -99,7 +109,7 @@ export function useMyProfile() {
 
   return {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
-    myHistory, historyLoading,
+    myHistory, matchResults, historyLoading,
     searchMyName, selectPlayer, clearMyProfile, fetchHistory,
   }
 }

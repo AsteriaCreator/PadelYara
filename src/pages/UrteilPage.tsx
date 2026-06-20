@@ -1,7 +1,7 @@
 // Maintenance placeholder — real implementation is preserved below but not exported.
 // To restore: swap the export default below back to UrteilPageFull.
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
 // PadelYara cat-head logo, lime, inlined so we can tint it (the /cat-head.svg
@@ -52,6 +52,35 @@ export function UrteilPageFull() {
   const [error, setError] = useState<string | null>(null)
   const [data, setData] = useState<UrteilData | null>(null)
   const [copied, setCopied] = useState(false)
+
+  // Pre-fill + auto-run when arriving from Meine Turniere with ?slug=
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("slug")
+    if (!slug) return
+    const url = `https://padel-austria.at/players/${slug}`
+    // clean the URL so sharing/refreshing doesn't re-trigger
+    window.history.replaceState(null, "", window.location.pathname)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setProfile(url)
+    void (async () => {
+      setLoading(true)
+      setError(null)
+      setData(null)
+      try {
+        const res = await fetch(`${API_BASE}/api/urteil?profile=${encodeURIComponent(url)}`)
+        if (!res.ok) {
+          const body = await res.json().catch(() => null)
+          setError(body?.detail ?? "Yara konnte das Profil nicht laden.")
+          return
+        }
+        setData(await res.json())
+      } catch {
+        setError("Verbindung fehlgeschlagen.")
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [])
 
   const request = useCallback(async () => {
     const value = profile.trim()
