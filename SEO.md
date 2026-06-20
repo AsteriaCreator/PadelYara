@@ -52,5 +52,5 @@ Every route has its own `<title>`, `<meta name="description">`, and `<link rel="
 - **Pre-rendering** — generate static HTML for venue detail pages at build time; speeds up Google indexing but low priority since Google renders JS anyway
 
 ### Long term
-- **Venue photos** — let venues upload their own (cleanest legally)
+- **Venue photo uploads** — venue detail pages already show photos from the `photos` field; long-term goal is letting venues upload their own directly (currently photos are added manually to MongoDB)
 - **More venue data** — community contributions to fill amenity fields (rental rackets, showers, parking, food) for richer detail pages
