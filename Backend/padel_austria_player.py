@@ -194,6 +194,7 @@ def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
     matches: list[dict[str, Any]] = []
     for n, d in enumerate(date_idx):
         title = seg[d - 1] if d - 1 >= 0 else ""
+        date_str = seg[d]
         body_end = (date_idx[n + 1] - 1) if n + 1 < len(date_idx) else len(seg)
         body = seg[d + 1:body_end]
 
@@ -236,6 +237,7 @@ def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
                 continue
             matches.append({
                 "title": title,
+                "date": date_str,
                 "competition": _competition(title),
                 "partner": partner,
                 "opponents": opp["names"],

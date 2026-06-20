@@ -110,7 +110,19 @@ export default function TurnierjagerMinePage() {
   const [filterPartner, setFilterPartner] = useState("")
   const [filterYear, setFilterYear] = useState("")
 
-  // Derive partner stats from matchResults (keyed by tournament title)
+  // matchResults is keyed by "title||date" (date = full string like "Sa. 19.01.2025, 16:00")
+  // Build a lookup: (title, short date "19.01.2025") → match result
+  const mrByTitleDate = Object.values(matchResults).reduce<Record<string, typeof matchResults[string]>>(
+    (acc, r) => {
+      if (r.title && r.date) {
+        const shortDate = r.date.replace(/^.+?\s/, "").split(",")[0].trim() // "19.01.2025"
+        acc[`${r.title}||${shortDate}`] = r
+      }
+      return acc
+    }, {}
+  )
+
+  // Derive partner stats from matchResults (keyed by title||date)
   const partnerStats = (() => {
     const map: Record<string, { wins: number; losses: number; tournaments: number }> = {}
     for (const r of Object.values(matchResults)) {
@@ -146,7 +158,7 @@ export default function TurnierjagerMinePage() {
     if (filterCompetition && h.competition !== filterCompetition) return false
     if (filterYear && !h.date?.endsWith(filterYear)) return false
     if (filterPartner) {
-      const mr = matchResults[h.title]
+      const mr = mrByTitleDate[`${h.title}||${h.date}`]
       if (!mr || mr.partner !== filterPartner) return false
     }
     return true
@@ -407,7 +419,7 @@ export default function TurnierjagerMinePage() {
 
                 <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
                   {filteredHistory.map((h, i) => {
-                    const mr = matchResults[h.title]
+                    const mr = mrByTitleDate[`${h.title}||${h.date}`]
                     return (
                       <div key={i} className="px-4 py-3" style={{ opacity: 0.8 }}>
                         <div className="flex items-start justify-between gap-2">

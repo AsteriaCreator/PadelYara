@@ -17,6 +17,8 @@ export interface MatchResult {
   wins: number
   losses: number
   partner: string | null
+  title: string
+  date: string
 }
 
 export function useMyProfile() {

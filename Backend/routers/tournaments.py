@@ -118,20 +118,18 @@ async def get_player_history(slug: str = Query(...)):
     matches = data.get("matches") or []
     name = (data.get("header") or {}).get("name")
 
-    # Group match W/L by (tournament title, partner) — only count games where the
-    # same partner played, so cross-partner matches in the same tournament don't
-    # inflate one partner's numbers.
+    # Group match W/L by (title, date) so recurring weekly events don't collapse
+    # into one bucket. The frontend key is "title||date" for per-session annotation.
     wl: dict[str, dict] = {}
     for m in matches:
-        t = m.get("title", "")
+        key = f"{m.get('title', '')}||{m.get('date', '')}"
         partner = m.get("partner")
-        if t not in wl:
-            wl[t] = {"wins": 0, "losses": 0, "partner": partner}
-        if wl[t]["partner"] == partner:
-            if m.get("won"):
-                wl[t]["wins"] += 1
-            else:
-                wl[t]["losses"] += 1
+        if key not in wl:
+            wl[key] = {"wins": 0, "losses": 0, "partner": partner, "title": m.get("title", ""), "date": m.get("date", "")}
+        if m.get("won"):
+            wl[key]["wins"] += 1
+        else:
+            wl[key]["losses"] += 1
 
     return {"history": points, "match_results": wl, "name": name, "player_slug": slug}
 
