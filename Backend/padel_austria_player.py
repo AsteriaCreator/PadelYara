@@ -214,15 +214,21 @@ def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
             teams.append({"names": names, "scores": scores})
 
         # Pair consecutive teams into matches.
+        first_name = player_name.split()[0] if player_name else ""
+        last_name = player_name.split()[-1] if player_name else ""
+        def _is_me(names: list[str]) -> bool:
+            return (player_name in names
+                    or any(first_name and n.startswith(first_name) for n in names)
+                    or any(last_name and n.endswith(last_name) for n in names))
         for t in range(0, len(teams) - 1, 2):
             ta, tb = teams[t], teams[t + 1]
-            if player_name in ta["names"]:
+            if _is_me(ta["names"]):
                 me, opp = ta, tb
-            elif player_name in tb["names"]:
+            elif _is_me(tb["names"]):
                 me, opp = tb, ta
             else:
                 continue
-            partner = next((nm for nm in me["names"] if nm != player_name), None)
+            partner = next((nm for nm in me["names"] if not _is_me([nm])), None)
             sa = (me["scores"] + ["-", "-", "-"])[:3]
             sb = (opp["scores"] + ["-", "-", "-"])[:3]
             won = _decide_match(sa, sb)
