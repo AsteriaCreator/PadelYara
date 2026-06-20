@@ -251,7 +251,23 @@ def fetch_player(slug: str) -> dict[str, Any] | None:
     header = _parse_header(text)
     if not header.get("name"):
         return None
-    points = _parse_points_table(soup)
+    # Points table is paginated — keep fetching until a page adds nothing new.
+    points: list[dict[str, Any]] = []
+    seen_keys: set[tuple] = set()
+    for page in range(1, 20):
+        psoup = soup if page == 1 else _fetch(f"{url}?page={page}", session)
+        if psoup is None:
+            break
+        page_points = _parse_points_table(psoup)
+        added = 0
+        for p in page_points:
+            key = (p["title"], p["date"])
+            if key not in seen_keys:
+                seen_keys.add(key)
+                points.append(p)
+                added += 1
+        if added == 0:
+            break
 
     # Matches, paginated newest-first. Stop when a page adds nothing new.
     seen: set[tuple] = set()
