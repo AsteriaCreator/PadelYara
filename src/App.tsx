@@ -33,7 +33,8 @@ const TurnierjagerPage          = lazy(() => import("./pages/TurnierjagerPage"))
 const TurnierjagerMinePage      = lazy(() => import("./pages/TurnierjagerMinePage"))
 const TurnierjagerMerklistePage = lazy(() => import("./pages/TurnierjagerMerklistePage"))
 const UrteilPage       = lazy(() => import("./pages/UrteilPage"))
-const PadelrevierPage  = lazy(() => import("./pages/PadelrevierPage"))
+const PadelrevierPage     = lazy(() => import("./pages/PadelrevierPage"))
+const PadelrevierCityPage = lazy(() => import("./pages/PadelrevierCityPage"))
 const CourtDetailPage  = lazy(() => import("./pages/CourtDetailPage"))
 const DatenschutzPage  = lazy(() => import("./pages/DatenschutzPage"))
 const ImprintPage      = lazy(() => import("./pages/ImprintPage"))
@@ -55,7 +56,8 @@ export default function App() {
         <Route path="/turnierjaeger/meine"     element={<PageShell><TurnierjagerMinePage /></PageShell>} />
         <Route path="/turnierjaeger/merkliste" element={<PageShell><TurnierjagerMerklistePage /></PageShell>} />
         <Route path="/urteil"       element={<PageShell><UrteilPage /></PageShell>} />
-        <Route path="/padelrevier"  element={<PageShell><PadelrevierPage /></PageShell>} />
+        <Route path="/padelrevier"        element={<PageShell><PadelrevierPage /></PageShell>} />
+        <Route path="/padelrevier/:city"  element={<PageShell><PadelrevierCityPage /></PageShell>} />
         <Route path="/court/:slug"  element={<PageShell><CourtDetailPage /></PageShell>} />
         <Route path="/about"        element={<PageShell><AboutSection /></PageShell>} />
         <Route path="/datenschutz"  element={<PageShell><DatenschutzPage /></PageShell>} />
