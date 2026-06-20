@@ -181,18 +181,49 @@ export default function PadelrevierPage() {
     navigate(`/?${q.toString()}`)
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Padel Courts in Österreich — alle Anlagen auf der Karte",
+    "description": "Interaktive Karte aller Padel-Anlagen in Österreich. Über 165 Courts in Wien, Graz, Linz, Salzburg und ganz Österreich — indoor und outdoor. Verfügbarkeit direkt prüfen.",
+    "url": "https://www.padelyara.at/padelrevier",
+    "provider": {
+      "@type": "Organization",
+      "name": "PadelYara",
+      "url": "https://www.padelyara.at"
+    },
+    "about": {
+      "@type": "SportsActivityLocation",
+      "name": "Padel Courts Österreich",
+      "sport": "Padel"
+    }
+  }
+
   return (
     <>
       <Helmet>
-        <title>Padelrevier — Padel Anlagen in Österreich auf der Karte</title>
-        <meta name="description" content="Alle Padel-Anlagen in Österreich auf einer Karte. Finde Courts in deiner Nähe — indoor, outdoor, und alles dazwischen." />
-        <link rel="canonical" href="https://padelyara.at/padelrevier" />
+        <title>Padel Courts Wien & Österreich — alle Anlagen auf der Karte | PadelYara</title>
+        <meta name="description" content="Alle Padel-Anlagen in Österreich auf einer interaktiven Karte. 165+ Courts in Wien, Graz, Linz und ganz Österreich — indoor und outdoor. Verfügbarkeit direkt prüfen." />
+        <link rel="canonical" href="https://www.padelyara.at/padelrevier" />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
+
+      <h1
+        className="text-xl font-bold mb-1 mt-2"
+        style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#fff", letterSpacing: "0.01em" }}
+      >
+        Padel Courts in Österreich
+      </h1>
       <p
-        className="text-base italic mb-4 mt-2"
+        className="text-base italic mb-3"
         style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
       >
-        Jeder Padel-Court in Österreich. Mein Revier. Such dir einen aus.
+        Jeder Court in Österreich. Mein Revier. Such dir einen aus.
+      </p>
+      <p className="text-sm text-gray-400 mb-5" style={{ maxWidth: 640, lineHeight: 1.6 }}>
+        Über 165 Padel-Anlagen österreichweit auf einer Karte — von Wien-Innenbezirken bis Vorarlberg.
+        Indoor-Courts für den Ganzjahresbetrieb, Outdoor-Courts für den Sommer.
+        Klick auf einen Pin für Details, Öffnungszeiten und direkte Verfügbarkeitsprüfung.
       </p>
 
       <MultiChip label="Bundesland" options={blOptions} selected={bundesland} onChange={setBundesland} />
@@ -328,6 +359,32 @@ export default function PadelrevierPage() {
                 })}
               </MarkerClusterGroup>
             </MapContainer>
+          </div>
+
+          <div className="mt-8 mb-4 text-sm text-gray-400 space-y-3" style={{ maxWidth: 680, lineHeight: 1.7 }}>
+            <h2 className="text-base font-semibold text-gray-200" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.02em" }}>
+              Padel Courts in Österreich — was du hier findest
+            </h2>
+            <p>
+              PadelYara listet alle bekannten Padel-Anlagen in Österreich — aktuell über 165 Courts
+              in 9 Bundesländern. Die Karte zeigt sowohl eigenständige Padel-Zentren als auch
+              Courts in bestehenden Tennis- und Sportzentren. Für jeden Standort findest du
+              Adresse, Platztyp (indoor oder outdoor), Verfügbarkeit und direkte Buchungslinks.
+            </p>
+            <p>
+              <strong className="text-gray-300">Wien</strong> hat die höchste Dichte an Padel-Courts in Österreich —
+              über 20 Anlagen, verteilt über alle Bezirke vom 1. bis zum 22. Bezirk.
+              Außerhalb Wiens sind <strong className="text-gray-300">Niederösterreich</strong>,{" "}
+              <strong className="text-gray-300">Steiermark</strong> und{" "}
+              <strong className="text-gray-300">Oberösterreich</strong> am stärksten vertreten.
+            </p>
+            <p>
+              Die Daten werden laufend aktualisiert. Fehlt eine Anlage?{" "}
+              <a href="mailto:hello@padelyara.at" className="underline" style={{ color: "#d4f53c" }}>
+                Schreib uns
+              </a>{" "}
+              und wir tragen sie ein.
+            </p>
           </div>
         </>
       )}
