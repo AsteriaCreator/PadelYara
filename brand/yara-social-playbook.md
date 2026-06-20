@@ -93,3 +93,31 @@ First person, German-first, present tense. Short declarative sentences; line bre
 5. Same cat, same green-gold eyes, same "and?" energy as every other post?
 
 If any answer is no, it's not Yara yet.
+
+---
+
+## Technischer Posting-Workflow (Instagram via Claude Code)
+
+### Bild-Upload
+`brand/social/output/` ist gitignored — Instagram braucht aber eine öffentliche URL. Workflow:
+1. Bild nach `public/filename.png` kopieren
+2. `git add public/filename.png && git commit && git push` → Vercel-Deploy abwarten (~1 Min)
+3. URL `https://www.padelyara.at/filename.png` für Instagram-API verwenden
+4. Nach dem Post: Datei löschen + cleanup-commit pushen
+
+### Posten via Composio MCP (zwei Schritte)
+```
+INSTAGRAM_POST_IG_USER_MEDIA   → gibt creation_id zurück
+INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH  → veröffentlicht
+ig_user_id: "28365034623084985"
+```
+
+### Was die API NICHT kann
+- **Caption nachträglich editieren** — API gibt `success: true` zurück aber ändert nichts. Immer in der App bearbeiten: ⋯ → Bearbeiten.
+- **Musik hinzufügen** — von Meta generell für API-Posts gesperrt, kein Workaround. In der App nach dem Post hinzufügen.
+- **KI-Label nachträglich** — kann nur beim Erstellen via `is_ai_generated` gesetzt werden, nicht im Nachhinein per API. In der App erledigen.
+
+### Caption-Regeln für Instagram
+- Bildtext **nicht wiederholen** — redundant, da Bild schon spricht
+- Keine Absätze (Leerzeilen) — Instagram schneidet nach ~3 Zeilen ab, Absätze verschwenden sichtbaren Platz
+- Wichtigstes zuerst; Hashtags ans Ende
