@@ -1,4 +1,5 @@
 import asyncio
+import re
 import threading
 
 from fastapi import APIRouter, Depends, Query, HTTPException
@@ -117,6 +118,35 @@ async def get_player_history(slug: str = Query(...)):
     points = data.get("points") or []
     matches = data.get("matches") or []
     name = (data.get("header") or {}).get("name")
+
+    # Supplement points table with any tournament found in matches but not in points.
+    # The points table only shows ranking-contributing entries; recent/low-points
+    # tournaments are silently dropped. Matches have everything.
+    def _category_from_title(title: str) -> str:
+        t = title.lower()
+        for cat in ["newcomer", "starter", "advanced", "expert", "professional", "elite"]:
+            if cat in t:
+                return cat.capitalize()
+        return ""
+
+    points_titles = {p["title"] for p in points}
+    extra: dict[str, dict] = {}
+    for m in matches:
+        t = m.get("title", "")
+        if not t or t in points_titles:
+            continue
+        if t not in extra:
+            date_raw = m.get("date", "")
+            dm = re.search(r"(\d{2}\.\d{2}\.\d{4})", date_raw)
+            extra[t] = {
+                "title": t,
+                "date": dm.group(1) if dm else date_raw,
+                "category": _category_from_title(t),
+                "competition": m.get("competition", ""),
+                "points": 0,
+                "url": None,
+            }
+    points = points + list(extra.values())
 
     # Group match W/L by (title, date) so recurring weekly events don't collapse
     # into one bucket. The frontend key is "title||date" for per-session annotation.
