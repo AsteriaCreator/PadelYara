@@ -221,9 +221,9 @@ export default function PadelrevierPage() {
         Jeder Court in Österreich. Mein Revier. Such dir einen aus.
       </p>
       <p className="text-sm text-gray-400 mb-5" style={{ maxWidth: 640, lineHeight: 1.6 }}>
-        Über 165 Padel-Anlagen österreichweit auf einer Karte — von Wien-Innenbezirken bis Vorarlberg.
-        Indoor-Courts für den Ganzjahresbetrieb, Outdoor-Courts für den Sommer.
-        Klick auf einen Pin für Details, Öffnungszeiten und direkte Verfügbarkeitsprüfung.
+        Über 165 Padel-Courts in Österreich auf einer Karte. Wien, Graz, Linz, Salzburg — und
+        alles dazwischen. Indoor für den Winter. Outdoor für den Rest. Jeder Pin zeigt Adresse,
+        Öffnungszeiten und Verfügbarkeit.
       </p>
 
       <MultiChip label="Bundesland" options={blOptions} selected={bundesland} onChange={setBundesland} />
