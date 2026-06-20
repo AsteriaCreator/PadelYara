@@ -105,7 +105,7 @@ export default function SpielanalysePage() {
   const {
     mySlug, myName, myInput, mySuggestions, myLoading, myError,
     myHistory, matchResults, historyLoading,
-    searchMyName, selectPlayer, viewProfile, clearMyProfile,
+    searchMyName, selectPlayer, loadPlayerBySlug, clearMyProfile,
   } = useMyProfile({ skipInitialLoad: !!routeSlug })
 
   const [filterCategory, setFilterCategory] = useState("")
@@ -113,15 +113,10 @@ export default function SpielanalysePage() {
   const [filterPartner, setFilterPartner] = useState("")
   const [filterYear, setFilterYear] = useState("")
 
-  // Auto-load from route slug (public profile URL)
+  // Auto-load from route slug — history endpoint returns the name directly
   useEffect(() => {
     if (!routeSlug) return
-    void (async () => {
-      const res = await fetch(`${import.meta.env.VITE_API_URL ?? "http://localhost:5000"}/api/tournaments/players/search?q=${encodeURIComponent(routeSlug)}`)
-      const data = await res.json()
-      const player = (data.players ?? []).find((p: { slug: string }) => p.slug === routeSlug)
-      if (player) viewProfile(player.name, player.slug)
-    })()
+    void loadPlayerBySlug(routeSlug)
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [routeSlug])
 

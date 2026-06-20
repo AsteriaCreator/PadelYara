@@ -83,6 +83,28 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
     void fetchHistory(slug)
   }
 
+  // Load any player by slug — fetches history and derives name from the response
+  async function loadPlayerBySlug(slug: string) {
+    setMySlug(slug)
+    setMyInput("")
+    setMySuggestions([])
+    void fetchMyTournaments(slug)
+    setHistoryLoading(true)
+    try {
+      const res = await fetch(`${API_BASE}/api/tournaments/player/history?slug=${encodeURIComponent(slug)}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
+      if (data.name) setMyName(data.name)
+      setMyHistory(data.history ?? [])
+      setMatchResults(data.match_results ?? {})
+    } catch {
+      setMyHistory([])
+      setMatchResults({})
+    } finally {
+      setHistoryLoading(false)
+    }
+  }
+
   async function fetchHistory(slug: string) {
     setHistoryLoading(true)
     try {
@@ -124,6 +146,6 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
   return {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
     myHistory, matchResults, historyLoading,
-    searchMyName, selectPlayer, viewProfile, clearMyProfile, fetchHistory,
+    searchMyName, selectPlayer, viewProfile, loadPlayerBySlug, clearMyProfile, fetchHistory,
   }
 }
