@@ -1,14 +1,19 @@
 """
-PadelYara Social Post Generator — Step 1
-─────────────────────────────────────────
+PadelYara Social Post Generator
+────────────────────────────────
 Loads an AI-generated image, overlays real brand assets and text,
 and exports a 1080 × 1350 Instagram-ready PNG.
 
-Usage:
-    python tools/social/generate.py
-    python tools/social/generate.py --config path/to/other-config.yaml
+Optionally posts directly to Instagram via Composio.
 
-The script reads all settings from config.yaml (same folder by default).
+Usage:
+    python tools/social/generate.py               # generate only
+    python tools/social/generate.py --post        # generate + post
+    python tools/social/generate.py --config path/to/other-config.yaml --post
+
+Requires for posting:
+    pip install composio-core
+    COMPOSIO_API_KEY in .env
 """
 
 import argparse
@@ -405,6 +410,106 @@ def generate(config_path: Path) -> None:
         shutil.copy2(str(output_path), str(dest))
         print(f"      Also copied to: {dest}")
 
+    return output_path, cfg
+
+
+# ── Instagram posting via Composio ────────────────────────────────────────────
+
+def post_to_instagram(image_path: Path, cfg: dict) -> None:
+    """
+    Post the generated image to Instagram via the Composio SDK.
+    Requires:
+      - pip install composio-core
+      - COMPOSIO_API_KEY in environment / .env
+    """
+    try:
+        from composio import ComposioToolSet
+    except ImportError:
+        print("\nERROR: composio-core is not installed.")
+        print("  Run:  pip install composio-core")
+        sys.exit(1)
+
+    ig_cfg  = cfg.get("instagram", {})
+    user_id = ig_cfg.get("user_id", "")
+    if not user_id:
+        print("\nERROR: instagram.user_id is missing in config.yaml")
+        sys.exit(1)
+
+    # Build caption: main text + optional hashtags
+    post_cfg = cfg.get("post", {})
+    caption  = post_cfg.get("caption", "")
+    hashtags = post_cfg.get("hashtags", [])
+    if hashtags:
+        caption = caption.rstrip() + "\n\n" + " ".join(f"#{h.lstrip('#')}" for h in hashtags)
+
+    print(f"\nPosting to Instagram @padelyara …")
+    print(f"  Image : {image_path.name}")
+    print(f"  Caption:\n{caption}\n")
+
+    # Load env vars from .env if present
+    env_path = image_path.parents[3] / ".env"   # repo root
+    if env_path.exists():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            if "=" in line and not line.startswith("#"):
+                k, _, v = line.partition("=")
+                import os
+                os.environ.setdefault(k.strip(), v.strip())
+
+    toolset = ComposioToolSet()
+
+    # Step 1: create media container (Composio uploads the local file to a
+    # temporary public URL that Instagram can fetch)
+    with open(image_path, "rb") as f:
+        create_result = toolset.execute_action(
+            action="INSTAGRAM_POST_IG_USER_MEDIA",
+            params={
+                "ig_user_id": user_id,
+                "caption": caption,
+                "image_file": {
+                    "name": image_path.name,
+                    "mimetype": "image/png",
+                    "content": f,
+                },
+            },
+        )
+
+    print(f"  Container result: {create_result}")
+
+    container_id = None
+    if isinstance(create_result, dict):
+        container_id = (
+            create_result.get("data", {}).get("id")
+            or create_result.get("id")
+        )
+
+    if not container_id:
+        print("\nERROR: Could not get container ID from Composio. See result above.")
+        sys.exit(1)
+
+    print(f"  Container ID: {container_id}")
+
+    # Step 2: publish
+    publish_result = toolset.execute_action(
+        action="INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH",
+        params={
+            "ig_user_id": user_id,
+            "creation_id": container_id,
+        },
+    )
+
+    print(f"  Publish result: {publish_result}")
+    media_id = None
+    if isinstance(publish_result, dict):
+        media_id = (
+            publish_result.get("data", {}).get("id")
+            or publish_result.get("id")
+        )
+
+    if media_id:
+        print(f"\n✓ Posted! Media ID: {media_id}")
+    else:
+        print("\nWarning: no media ID returned — check Instagram to confirm.")
+
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
@@ -416,5 +521,13 @@ if __name__ == "__main__":
         default=Path(__file__).parent / "config.yaml",
         help="Path to config.yaml (default: same folder as this script)",
     )
+    parser.add_argument(
+        "--post",
+        action="store_true",
+        help="Post the generated image to Instagram via Composio after generating",
+    )
     args = parser.parse_args()
-    generate(args.config)
+    result = generate(args.config)
+    if args.post and result:
+        image_path, cfg = result
+        post_to_instagram(image_path, cfg)

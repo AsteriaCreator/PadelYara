@@ -88,6 +88,19 @@ signature:
 wordmark:
 
 
+# ── Instagram posting (used when running with --post) ────────────────────────
+instagram:
+  user_id: "28365034623084985"   # @padelyara business account
+
+post:
+  caption: |
+    Während du das liest, wurde irgendwo ein Court storniert.
+    Ich weiß welcher. 🐾
+
+    padelyara.at
+  hashtags: []   # add e.g. ["padel", "padelaustria"] if wanted
+
+
 # ── Footer: brand name + URL in Cinzel text ───────────────────────────────────
 footer:
   font: brand/CinzelFont/static/Cinzel-Bold.ttf
