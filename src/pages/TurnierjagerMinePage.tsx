@@ -346,26 +346,12 @@ export default function TurnierjagerMinePage() {
                       </p>
                       <button
                         onClick={() => {
-                          const lines = [
-                            `🎾 Meine Partner-Stats${myName ? ` (${myName})` : ""}`,
-                            "",
-                            ...partnerStats.slice(0, 5).map(p =>
-                              `${p.name}: ${p.tournaments} Turniere · ${p.matches} Matches · ${p.wins}S ${p.losses}N · ${p.matches > 0 ? Math.round(100 * p.wins / p.matches) : 0}%`
-                            ),
-                            "",
-                            `Gesamt: ${partnerTotals.tournaments} Turniere · ${partnerTotals.matches} Matches · ${partnerTotals.wins}S ${partnerTotals.losses}N`,
-                            "",
-                            ...partnerStats.slice(0, 5).flatMap(p =>
-                              p.slug ? [`👉 ${p.name}: https://padelyara.at/turnierjaeger/meine?slug=${p.slug}`] : []
-                            ),
-                            "",
-                            "padelyara.at 🐾",
-                          ]
-                          const text = lines.join("\n")
+                          const url = mySlug ? `https://padelyara.at/turnierjaeger/meine?slug=${mySlug}` : "https://padelyara.at/turnierjaeger/meine"
+                          const text = `🎾 Schau dir meine Padel-Stats an${myName ? ` (${myName})` : ""}!\n\n${url}`
                           if (navigator.share) {
                             void navigator.share({ text })
                           } else {
-                            void navigator.clipboard.writeText(text)
+                            void navigator.clipboard.writeText(url)
                           }
                         }}
                         className="text-[10px] px-2 py-1 rounded border transition-colors"
@@ -385,7 +371,11 @@ export default function TurnierjagerMinePage() {
                     <div className="space-y-2">
                       {partnerStats.slice(0, 5).map(p => (
                         <div key={p.name} className="flex items-center gap-2">
-                          <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
+                          {p.slug ? (
+                            <a href={`/turnierjaeger/meine?slug=${p.slug}`} className="text-xs flex-1 truncate hover:underline" style={{ color: "rgba(212,245,60,0.7)" }}>{p.name}</a>
+                          ) : (
+                            <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
+                          )}
                           <span className="text-xs text-gray-600 w-8 text-center">{p.tournaments}</span>
                           <span className="text-xs text-gray-600 w-8 text-center">{p.matches}</span>
                           <span className="text-xs font-bold w-8 text-center" style={{ color: "#d4f53c" }}>{p.wins}</span>
