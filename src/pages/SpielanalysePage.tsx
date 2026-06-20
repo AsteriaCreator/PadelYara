@@ -106,7 +106,7 @@ export default function SpielanalysePage() {
     mySlug, myName, myInput, mySuggestions, myLoading, myError,
     myHistory, matchResults, historyLoading,
     searchMyName, selectPlayer, viewProfile, clearMyProfile,
-  } = useMyProfile()
+  } = useMyProfile({ skipInitialLoad: !!routeSlug })
 
   const [filterCategory, setFilterCategory] = useState("")
   const [filterCompetition, setFilterCompetition] = useState("")

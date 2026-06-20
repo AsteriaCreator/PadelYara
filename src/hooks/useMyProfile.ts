@@ -22,9 +22,9 @@ export interface MatchResult {
   date: string
 }
 
-export function useMyProfile() {
-  const [mySlug, setMySlug] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY) ?? "")
-  const [myName, setMyName] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY + "_name") ?? "")
+export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
+  const [mySlug, setMySlug] = useState<string>(() => opts?.skipInitialLoad ? "" : (localStorage.getItem(MY_SLUG_KEY) ?? ""))
+  const [myName, setMyName] = useState<string>(() => opts?.skipInitialLoad ? "" : (localStorage.getItem(MY_SLUG_KEY + "_name") ?? ""))
   const [myInput, setMyInput] = useState("")
   const [mySuggestions, setMySuggestions] = useState<{ name: string; slug: string }[]>([])
   const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
@@ -112,6 +112,7 @@ export function useMyProfile() {
   }
 
   useEffect(() => {
+    if (opts?.skipInitialLoad) return
     if (mySlug) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       void fetchMyTournaments(mySlug)
