@@ -157,10 +157,14 @@ def _fetch_tournament_info(
 
 def _decide_match(scores_a: list[str], scores_b: list[str]) -> bool | None:
     """True if team A won. Per-column larger int wins; majority of columns wins.
-    If sets are tied, fall back to total games won as tiebreaker."""
+    Tiebreak fallbacks:
+    1. If one team has extra unzipped scores, they won the tiebreak (site only
+       shows the winner's tiebreak score, not the loser's).
+    2. If sets still tied, fall back to total games won."""
     sets_a = sets_b = 0
     games_a = games_b = 0
-    for sa, sb in zip(scores_a, scores_b):
+    paired = list(zip(scores_a, scores_b))
+    for sa, sb in paired:
         if not sa.isdigit() or not sb.isdigit():
             continue
         ia, ib = int(sa), int(sb)
@@ -172,6 +176,12 @@ def _decide_match(scores_a: list[str], scores_b: list[str]) -> bool | None:
             sets_b += 1
     if sets_a != sets_b:
         return sets_a > sets_b
+    # If one team has extra scores beyond the zipped pairs, they won the tiebreak
+    n = len(paired)
+    if len(scores_a) > n and scores_a[n].isdigit():
+        return True
+    if len(scores_b) > n and scores_b[n].isdigit():
+        return False
     if games_a != games_b:
         return games_a > games_b
     return None
