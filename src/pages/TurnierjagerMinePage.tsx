@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import TournamentCard from "../components/TournamentCard"
 import TurnierjagerNav from "../components/TurnierjagerNav"
 import { useMyProfile, type HistoryEntry } from "../hooks/useMyProfile"
@@ -110,19 +110,19 @@ export default function TurnierjagerMinePage() {
   const [filterPartner, setFilterPartner] = useState("")
   const [filterYear, setFilterYear] = useState("")
 
-  // Auto-load profile from ?slug= URL param (shared deep link) — view only, no localStorage write
+  const { slug: routeSlug } = useParams<{ slug?: string }>()
+
+  // If a slug is in the route (/turnierjaeger/meine/:slug), load that player (view only)
   useEffect(() => {
-    const slug = new URLSearchParams(window.location.search).get("slug")
-    if (!slug) return
-    window.history.replaceState(null, "", window.location.pathname)
+    if (!routeSlug) return
     void (async () => {
-      const res = await fetch(`${import.meta.env.VITE_API_URL ?? "http://localhost:5000"}/api/tournaments/players/search?q=${encodeURIComponent(slug)}`)
+      const res = await fetch(`${import.meta.env.VITE_API_URL ?? "http://localhost:5000"}/api/tournaments/players/search?q=${encodeURIComponent(routeSlug)}`)
       const data = await res.json()
-      const player = (data.players ?? []).find((p: { slug: string }) => p.slug === slug)
+      const player = (data.players ?? []).find((p: { slug: string }) => p.slug === routeSlug)
       if (player) viewProfile(player.name, player.slug)
     })()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [routeSlug])
 
   // matchResults is keyed by "title||date" (date = full string like "Sa. 19.01.2025, 16:00")
   // Build a lookup: (title, short date "19.01.2025") → match result
@@ -346,7 +346,7 @@ export default function TurnierjagerMinePage() {
                       </p>
                       <button
                         onClick={() => {
-                          const url = mySlug ? `https://padelyara.at/turnierjaeger/meine?slug=${mySlug}` : "https://padelyara.at/turnierjaeger/meine"
+                          const url = mySlug ? `https://padelyara.at/turnierjaeger/meine/${mySlug}` : "https://padelyara.at/turnierjaeger/meine"
                           const text = `🎾 Schau dir meine Padel-Stats an${myName ? ` (${myName})` : ""}!\n\n${url}`
                           if (navigator.share) {
                             void navigator.share({ text })
@@ -372,7 +372,7 @@ export default function TurnierjagerMinePage() {
                       {partnerStats.slice(0, 5).map(p => (
                         <div key={p.name} className="flex items-center gap-2">
                           {p.slug ? (
-                            <a href={`/turnierjaeger/meine?slug=${p.slug}`} className="text-xs flex-1 truncate hover:underline" style={{ color: "rgba(212,245,60,0.7)" }}>{p.name}</a>
+                            <a href={`/turnierjaeger/meine/${p.slug}`} className="text-xs flex-1 truncate hover:underline" style={{ color: "rgba(212,245,60,0.7)" }}>{p.name}</a>
                           ) : (
                             <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
                           )}

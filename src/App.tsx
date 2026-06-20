@@ -53,7 +53,8 @@ export default function App() {
         <Routes>
         <Route path="/admin"        element={<AdminDashboard />} />
         <Route path="/turnierjaeger"           element={<PageShell><TurnierjagerPage /></PageShell>} />
-        <Route path="/turnierjaeger/meine"     element={<PageShell><TurnierjagerMinePage /></PageShell>} />
+        <Route path="/turnierjaeger/meine"      element={<PageShell><TurnierjagerMinePage /></PageShell>} />
+        <Route path="/turnierjaeger/meine/:slug" element={<PageShell><TurnierjagerMinePage /></PageShell>} />
         <Route path="/turnierjaeger/merkliste" element={<PageShell><TurnierjagerMerklistePage /></PageShell>} />
         <Route path="/urteil"       element={<PageShell><UrteilPage /></PageShell>} />
         <Route path="/padelrevier"        element={<PageShell><PadelrevierPage /></PageShell>} />
