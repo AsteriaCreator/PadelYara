@@ -313,7 +313,7 @@ export default function TurnierjagerMinePage() {
                     </p>
                     <div className="flex items-center gap-2 mb-1.5 px-0">
                       <span className="text-[10px] text-gray-700 flex-1">Partner</span>
-                      <span className="text-[10px] w-8 text-center text-gray-700">Tnre.</span>
+                      <span className="text-[10px] w-8 text-center text-gray-700">Turniere</span>
                       <span className="text-[10px] w-8 text-center" style={{ color: "rgba(212,245,60,0.35)" }}>Siege</span>
                       <span className="text-[10px] w-8 text-center" style={{ color: "rgba(107,114,128,0.5)" }}>Ndlg.</span>
                       <span className="text-[10px] w-8 text-center text-gray-700">Quote</span>
