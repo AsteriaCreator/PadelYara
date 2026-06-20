@@ -313,6 +313,7 @@ export default function TurnierjagerMinePage() {
                     </p>
                     <div className="flex items-center gap-2 mb-1.5 px-0">
                       <span className="text-[10px] text-gray-700 flex-1">Partner</span>
+                      <span className="text-[10px] w-8 text-center text-gray-700">Tnre.</span>
                       <span className="text-[10px] w-8 text-center" style={{ color: "rgba(212,245,60,0.35)" }}>Siege</span>
                       <span className="text-[10px] w-8 text-center" style={{ color: "rgba(107,114,128,0.5)" }}>Ndlg.</span>
                       <span className="text-[10px] w-8 text-center text-gray-700">Quote</span>
@@ -321,6 +322,7 @@ export default function TurnierjagerMinePage() {
                       {partnerStats.slice(0, 5).map(p => (
                         <div key={p.name} className="flex items-center gap-2">
                           <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
+                          <span className="text-xs text-gray-600 w-8 text-center">{p.total}</span>
                           <span className="text-xs font-bold w-8 text-center" style={{ color: "#d4f53c" }}>{p.wins}</span>
                           <span className="text-xs w-8 text-center" style={{ color: "#6b7280" }}>{p.losses}</span>
                           <span className="text-xs text-gray-700 w-8 text-center">
