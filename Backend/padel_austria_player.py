@@ -156,19 +156,25 @@ def _fetch_tournament_info(
 
 
 def _decide_match(scores_a: list[str], scores_b: list[str]) -> bool | None:
-    """True if team A won. Per-column larger int wins; majority of columns wins."""
+    """True if team A won. Per-column larger int wins; majority of columns wins.
+    If sets are tied, fall back to total games won as tiebreaker."""
     sets_a = sets_b = 0
+    games_a = games_b = 0
     for sa, sb in zip(scores_a, scores_b):
         if not sa.isdigit() or not sb.isdigit():
             continue
         ia, ib = int(sa), int(sb)
+        games_a += ia
+        games_b += ib
         if ia > ib:
             sets_a += 1
         elif ib > ia:
             sets_b += 1
-    if sets_a == sets_b:
-        return None
-    return sets_a > sets_b
+    if sets_a != sets_b:
+        return sets_a > sets_b
+    if games_a != games_b:
+        return games_a > games_b
+    return None
 
 
 def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
