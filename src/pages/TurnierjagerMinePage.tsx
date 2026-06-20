@@ -326,9 +326,36 @@ export default function TurnierjagerMinePage() {
                 {/* Partner stats */}
                 {partnerStats.length > 0 && (
                   <div className="mb-4 rounded-lg border border-gray-800 p-3">
-                    <p className="text-[11px] tracking-widest mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
-                      PARTNER-STATS
-                    </p>
+                    <div className="flex items-center justify-between mb-3">
+                      <p className="text-[11px] tracking-widest" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
+                        PARTNER-STATS
+                      </p>
+                      <button
+                        onClick={() => {
+                          const lines = [
+                            `🎾 Meine Partner-Stats${myName ? ` (${myName})` : ""}`,
+                            "",
+                            ...partnerStats.slice(0, 5).map(p =>
+                              `${p.name}: ${p.tournaments} Turniere · ${p.matches} Matches · ${p.wins}S ${p.losses}N · ${p.matches > 0 ? Math.round(100 * p.wins / p.matches) : 0}%`
+                            ),
+                            "",
+                            `Gesamt: ${partnerTotals.tournaments} Turniere · ${partnerTotals.matches} Matches · ${partnerTotals.wins}S ${partnerTotals.losses}N`,
+                            "",
+                            "padelyara.at 🐾",
+                          ]
+                          const text = lines.join("\n")
+                          if (navigator.share) {
+                            void navigator.share({ text })
+                          } else {
+                            void navigator.clipboard.writeText(text)
+                          }
+                        }}
+                        className="text-[10px] px-2 py-1 rounded border transition-colors"
+                        style={{ borderColor: "rgba(107,114,128,0.4)", color: "#6b7280" }}
+                      >
+                        Teilen
+                      </button>
+                    </div>
                     <div className="flex items-center gap-2 mb-1.5 px-0">
                       <span className="text-[10px] text-gray-700 flex-1">Partner</span>
                       <span className="text-[10px] w-8 text-center text-gray-700">Turniere</span>
