@@ -403,7 +403,7 @@ export default function TurnierjagerMinePage() {
                   </div>
                 )}
 
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center justify-between mb-1">
                   <p className="text-[11px] tracking-widest" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
                     HISTORIE · {filteredHistory.length}{hasFilter ? ` / ${myHistory.length}` : ""}
                   </p>
@@ -416,6 +416,9 @@ export default function TurnierjagerMinePage() {
                     </button>
                   )}
                 </div>
+                <p className="text-[10px] text-gray-700 mb-2">
+                  <span style={{ color: "#d4f53c" }}>S</span> = Siege &nbsp;·&nbsp; <span style={{ color: "#6b7280" }}>N</span> = Niederlagen (Matches innerhalb des Turniers)
+                </p>
 
                 <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
                   {filteredHistory.map((h, i) => {
