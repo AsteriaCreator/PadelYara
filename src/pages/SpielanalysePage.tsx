@@ -211,7 +211,7 @@ export default function SpielanalysePage() {
                 TEILEN →
               </button>
               <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500">
-                ändern
+                andere Person
               </button>
             </div>
           </div>
