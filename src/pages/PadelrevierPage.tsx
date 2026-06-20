@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async"
 import { useEffect, useMemo, useState } from "react"
+import { Link } from "react-router-dom"
 import { MapContainer, TileLayer, Marker, Popup, GeoJSON, useMap } from "react-leaflet"
 import MarkerClusterGroup from "react-leaflet-cluster"
 import L from "leaflet"
@@ -385,6 +386,27 @@ export default function PadelrevierPage() {
               </a>{" "}
               und wir tragen sie ein.
             </p>
+          </div>
+
+          <div className="mt-6 mb-2">
+            <p className="text-xs text-gray-500 mb-3 tracking-wide uppercase">Courts nach Stadt</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { slug: "wien", label: "Wien" },
+                { slug: "graz", label: "Graz" },
+                { slug: "linz", label: "Linz" },
+                { slug: "salzburg", label: "Salzburg" },
+              ].map(({ slug, label }) => (
+                <Link
+                  key={slug}
+                  to={`/padelrevier/${slug}`}
+                  className="text-xs px-3 py-1.5 rounded-full"
+                  style={{ border: "1px solid rgba(212,245,60,0.25)", color: "#d4f53c", background: "rgba(212,245,60,0.06)" }}
+                >
+                  Padel Courts {label}
+                </Link>
+              ))}
+            </div>
           </div>
         </>
       )}
