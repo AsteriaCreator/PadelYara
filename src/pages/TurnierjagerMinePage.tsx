@@ -121,10 +121,15 @@ export default function TurnierjagerMinePage() {
       map[r.partner].tournaments += 1
     }
     return Object.entries(map)
-      .map(([name, s]) => ({ name, ...s }))
+      .map(([name, s]) => ({ name, ...s, matches: s.wins + s.losses }))
       .filter(p => p.tournaments > 0)
       .sort((a, b) => b.tournaments - a.tournaments)
   })()
+
+  const partnerTotals = partnerStats.reduce(
+    (acc, p) => ({ tournaments: acc.tournaments + p.tournaments, matches: acc.matches + p.matches, wins: acc.wins + p.wins, losses: acc.losses + p.losses }),
+    { tournaments: 0, matches: 0, wins: 0, losses: 0 }
+  )
 
   // Derive available filter options from history
   const categories = [...new Set(myHistory.map(h => h.category).filter(Boolean))].sort()
@@ -315,6 +320,7 @@ export default function TurnierjagerMinePage() {
                     <div className="flex items-center gap-2 mb-1.5 px-0">
                       <span className="text-[10px] text-gray-700 flex-1">Partner</span>
                       <span className="text-[10px] w-8 text-center text-gray-700">Turniere</span>
+                      <span className="text-[10px] w-8 text-center text-gray-700">Matches</span>
                       <span className="text-[10px] w-8 text-center" style={{ color: "rgba(212,245,60,0.35)" }}>Siege</span>
                       <span className="text-[10px] w-8 text-center" style={{ color: "rgba(107,114,128,0.5)" }}>Ndlg.</span>
                       <span className="text-[10px] w-8 text-center text-gray-700">Quote</span>
@@ -324,13 +330,25 @@ export default function TurnierjagerMinePage() {
                         <div key={p.name} className="flex items-center gap-2">
                           <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
                           <span className="text-xs text-gray-600 w-8 text-center">{p.tournaments}</span>
+                          <span className="text-xs text-gray-600 w-8 text-center">{p.matches}</span>
                           <span className="text-xs font-bold w-8 text-center" style={{ color: "#d4f53c" }}>{p.wins}</span>
                           <span className="text-xs w-8 text-center" style={{ color: "#6b7280" }}>{p.losses}</span>
                           <span className="text-xs text-gray-700 w-8 text-center">
-                            {(p.wins + p.losses) > 0 ? `${Math.round(100 * p.wins / (p.wins + p.losses))}%` : ""}
+                            {p.matches > 0 ? `${Math.round(100 * p.wins / p.matches)}%` : ""}
                           </span>
                         </div>
                       ))}
+                    </div>
+                    {/* Totals row */}
+                    <div className="flex items-center gap-2 mt-2 pt-2 border-t border-gray-800">
+                      <span className="text-[10px] text-gray-600 flex-1">Gesamt</span>
+                      <span className="text-[10px] font-bold text-gray-500 w-8 text-center">{partnerTotals.tournaments}</span>
+                      <span className="text-[10px] font-bold text-gray-500 w-8 text-center">{partnerTotals.matches}</span>
+                      <span className="text-[10px] font-bold w-8 text-center" style={{ color: "rgba(212,245,60,0.7)" }}>{partnerTotals.wins}</span>
+                      <span className="text-[10px] font-bold w-8 text-center" style={{ color: "#6b7280" }}>{partnerTotals.losses}</span>
+                      <span className="text-[10px] font-bold text-gray-500 w-8 text-center">
+                        {partnerTotals.matches > 0 ? `${Math.round(100 * partnerTotals.wins / partnerTotals.matches)}%` : ""}
+                      </span>
                     </div>
                   </div>
                 )}
