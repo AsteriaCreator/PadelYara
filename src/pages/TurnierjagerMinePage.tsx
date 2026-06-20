@@ -101,7 +101,7 @@ export default function TurnierjagerMinePage() {
   const {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
     myHistory, matchResults, historyLoading,
-    searchMyName, selectPlayer, clearMyProfile,
+    searchMyName, selectPlayer, viewProfile, clearMyProfile,
   } = useMyProfile()
   const { merkliste, toggleMerkliste } = useMerkliste()
 
@@ -110,16 +110,16 @@ export default function TurnierjagerMinePage() {
   const [filterPartner, setFilterPartner] = useState("")
   const [filterYear, setFilterYear] = useState("")
 
-  // Auto-load profile from ?slug= URL param (shared deep link)
+  // Auto-load profile from ?slug= URL param (shared deep link) — view only, no localStorage write
   useEffect(() => {
     const slug = new URLSearchParams(window.location.search).get("slug")
-    if (!slug || mySlug) return
+    if (!slug) return
     window.history.replaceState(null, "", window.location.pathname)
     void (async () => {
       const res = await fetch(`${import.meta.env.VITE_API_URL ?? "http://localhost:5000"}/api/tournaments/players/search?q=${encodeURIComponent(slug)}`)
       const data = await res.json()
       const player = (data.players ?? []).find((p: { slug: string }) => p.slug === slug)
-      if (player) selectPlayer(player.name, player.slug)
+      if (player) viewProfile(player.name, player.slug)
     })()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -73,6 +73,16 @@ export function useMyProfile() {
     void fetchHistory(slug)
   }
 
+  // Load a profile for viewing without overwriting localStorage
+  function viewProfile(name: string, slug: string) {
+    setMySlug(slug)
+    setMyName(name)
+    setMyInput("")
+    setMySuggestions([])
+    void fetchMyTournaments(slug)
+    void fetchHistory(slug)
+  }
+
   async function fetchHistory(slug: string) {
     setHistoryLoading(true)
     try {
@@ -113,6 +123,6 @@ export function useMyProfile() {
   return {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
     myHistory, matchResults, historyLoading,
-    searchMyName, selectPlayer, clearMyProfile, fetchHistory,
+    searchMyName, selectPlayer, viewProfile, clearMyProfile, fetchHistory,
   }
 }
