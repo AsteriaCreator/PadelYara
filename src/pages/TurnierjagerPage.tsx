@@ -1,9 +1,11 @@
 import { Helmet } from "react-helmet-async"
-import { useState, useEffect, useCallback, useRef } from "react"
+import { useState, useEffect, useCallback } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
+import TurnierjagerNav from "../components/TurnierjagerNav"
 import { opensSoon } from "../tournamentBadges"
 import { BEZIRKE_BY_BUNDESLAND } from "../data/bezirke"
+import { useMerkliste } from "../hooks/useMerkliste"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -337,78 +339,16 @@ function BezirkPicker({
 
 // ── Main page ─────────────────────────────────────────────────────────────
 
-const MY_SLUG_KEY = "turnierjager_player_slug"
-const MERKLISTE_KEY = "turnierjager_merkliste"
-
-function loadMerkliste(): Record<string, Tournament> {
-  try { return JSON.parse(localStorage.getItem(MERKLISTE_KEY) ?? "{}") } catch { return {} }
-}
-function saveMerkliste(m: Record<string, Tournament>) {
-  try { localStorage.setItem(MERKLISTE_KEY, JSON.stringify(m)) } catch { /* ignore */ }
-}
-
 export default function TurnierjagerPage() {
   const [filters, setFilters] = useState<Filters>(loadFilters)
   const [tournaments, setTournaments] = useState<Tournament[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
-  // UI-only: which bundesländer have their district picker open
   const [expandedBl, setExpandedBl] = useState<string[]>([])
   const [venueExpanded, setVenueExpanded] = useState(false)
 
-  // "Meine Turniere" state
-  const [mySlug, setMySlug] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY) ?? "")
-  const [myName, setMyName] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY + "_name") ?? "")
-  const [myInput, setMyInput] = useState("")
-  const [mySuggestions, setMySuggestions] = useState<{name: string, slug: string}[]>([])
-  const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
-  const [myLoading, setMyLoading] = useState(false)
-  const [myError, setMyError] = useState<string | null>(null)
-  // Merkliste — persisted to localStorage, keyed by "source:source_id"
-  const [merkliste, setMerkliste] = useState<Record<string, Tournament>>(loadMerkliste)
-
-  function toggleMerkliste(t: Tournament) {
-    const key = `${t.source}:${t.source_id}`
-    setMerkliste(prev => {
-      const next = { ...prev }
-      if (next[key]) delete next[key]
-      else next[key] = t
-      saveMerkliste(next)
-      return next
-    })
-  }
-
-  function clearMerkliste() {
-    setMerkliste({})
-    saveMerkliste({})
-  }
-
-  const [merklisteCopied, setMerklisteCopied] = useState(false)
-
-  async function shareMerkliste(items: Tournament[]) {
-    const ids = items.map(t => t.source_id)
-    let url = "https://www.padelyara.at/turnierjaeger"
-    try {
-      const res = await fetch(`${API_BASE}/api/tournaments/share`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids }),
-      })
-      if (res.ok) {
-        const data = await res.json() as { code: string }
-        url = `https://www.padelyara.at/turnierjaeger?m=${data.code}`
-      }
-    } catch { /* fall back to base URL */ }
-    const text = `Schau dir diese Turniere an: ${url}`
-    if (navigator.share) {
-      void navigator.share({ text, url }).catch(() => {})
-    } else {
-      void navigator.clipboard.writeText(url).catch(() => {})
-      setMerklisteCopied(true)
-      setTimeout(() => setMerklisteCopied(false), 2500)
-    }
-  }
+  const { merkliste, toggleMerkliste } = useMerkliste()
 
   // Venue options fetched from API, scoped to selected bundesländer
   const [venueOptions, setVenueOptions] = useState<string[]>([])
@@ -487,87 +427,6 @@ export default function TurnierjagerPage() {
     fetchTournaments(filters)
   }, [filters, fetchTournaments])
 
-  // Load shared Merkliste from ?m=code URL param (runs once on mount)
-  const merklisteLoadedFromUrl = useRef(false)
-  useEffect(() => {
-    if (merklisteLoadedFromUrl.current) return
-    const params = new URLSearchParams(window.location.search)
-    const code = params.get("m")
-    if (!code) return
-    merklisteLoadedFromUrl.current = true
-    const clean = new URL(window.location.href)
-    clean.searchParams.delete("m")
-    window.history.replaceState(null, "", clean.toString())
-    void fetch(`${API_BASE}/api/tournaments/share/${encodeURIComponent(code)}`)
-      .then(r => r.ok ? r.json() : null)
-      .then((data: { tournaments?: Tournament[] } | null) => {
-        const incoming = data?.tournaments ?? []
-        if (!incoming.length) return
-        setMerkliste(prev => {
-          const next = { ...prev }
-          for (const t of incoming) next[`${t.source}:${t.source_id}`] = t
-          saveMerkliste(next)
-          return next
-        })
-      })
-      .catch(() => {})
-  }, [])
-
-  async function fetchMyTournaments(slug: string) {
-    if (!slug) return
-    setMyLoading(true)
-    setMyError(null)
-    try {
-      const res = await fetch(`${API_BASE}/api/tournaments/player?slug=${encodeURIComponent(slug)}`)
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = await res.json()
-      setMyTournaments(data.tournaments ?? [])
-    } catch {
-      setMyError("Abfrage fehlgeschlagen. Bitte nochmal versuchen.")
-    } finally {
-      setMyLoading(false)
-    }
-  }
-
-  async function searchMyName(q: string) {
-    setMyInput(q)
-    if (q.length < 2) { setMySuggestions([]); return }
-    try {
-      const res = await fetch(`${API_BASE}/api/tournaments/players/search?q=${encodeURIComponent(q)}`)
-      const data = await res.json()
-      setMySuggestions(data.players ?? [])
-    } catch {
-      setMySuggestions([])
-    }
-  }
-
-  function selectPlayer(name: string, slug: string) {
-    setMySlug(slug)
-    setMyName(name)
-    setMyInput("")
-    setMySuggestions([])
-    localStorage.setItem(MY_SLUG_KEY, slug)
-    localStorage.setItem(MY_SLUG_KEY + "_name", name)
-    fetchMyTournaments(slug)
-  }
-
-  function clearMyProfile() {
-    setMySlug("")
-    setMyName("")
-    setMyInput("")
-    setMySuggestions([])
-    setMyTournaments([])
-    localStorage.removeItem(MY_SLUG_KEY)
-    localStorage.removeItem(MY_SLUG_KEY + "_name")
-  }
-
-  // Load saved slug on mount
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (mySlug) fetchMyTournaments(mySlug)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   function resetFilters() {
     const f = defaultFilters()
     saveFilters(f)
@@ -617,162 +476,7 @@ export default function TurnierjagerPage() {
         </p>
       </div>
 
-      {/* Meine Turniere */}
-      <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-4">
-        <div className="flex items-center gap-2 mb-4">
-          <span
-            className="text-sm font-semibold"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: mySlug ? "#d4f53c" : "#9ca3af" }}
-          >
-            MEINE TURNIERE
-          </span>
-          {mySlug && myTournaments.length > 0 && (
-            <span className="text-xs font-bold" style={{ color: "#d4f53c" }}>({myTournaments.length})</span>
-          )}
-        </div>
-
-        <div>
-            {/* Active player badge */}
-            {mySlug && myName && (
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-xs" style={{ color: "#d4f53c" }}>
-                  {myName}
-                </span>
-                <button onClick={clearMyProfile} className="text-[10px] text-gray-700 hover:text-gray-500">
-                  ändern
-                </button>
-              </div>
-            )}
-
-            {/* Name search (shown when no player identified by name yet) */}
-            {!myName && (
-              <div className="relative mb-1">
-                <input
-                  type="text"
-                  value={myInput}
-                  onChange={e => searchMyName(e.target.value)}
-                  placeholder="Name eingeben …"
-                  className="w-full text-xs rounded-lg px-3 py-2 outline-none"
-                  style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(107,114,128,0.4)",
-                    color: "#e5e7eb",
-                  }}
-                />
-                {mySuggestions.length > 0 && (
-                  <div
-                    className="absolute left-0 right-0 top-full mt-1 rounded-lg border overflow-hidden z-10"
-                    style={{ background: "#111118", borderColor: "rgba(107,114,128,0.4)" }}
-                  >
-                    {mySuggestions.map(p => (
-                      <button
-                        key={p.slug}
-                        onClick={() => selectPlayer(p.name, p.slug)}
-                        className="w-full text-left text-xs px-3 py-2 transition-colors"
-                        style={{ color: "#e5e7eb" }}
-                        onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.08)")}
-                        onMouseLeave={e => (e.currentTarget.style.background = "")}
-                      >
-                        {p.name}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                {myInput.length >= 2 && mySuggestions.length === 0 && (
-                  <p className="text-[11px] text-gray-600 mt-2">Kein Spieler gefunden. Bist du in einem offenen Turnier angemeldet?</p>
-                )}
-              </div>
-            )}
-
-            {myLoading && <p className="text-xs text-gray-600 mt-3">Suche …</p>}
-            {myError && <p className="text-xs text-red-400 mt-3">{myError}</p>}
-
-            {!myLoading && !myError && mySlug && myTournaments.length === 0 && (
-              <p className="text-xs text-gray-600 mt-3">Keine offenen Anmeldungen gefunden.</p>
-            )}
-
-            {!myLoading && myTournaments.length > 0 && (
-              <div className="mt-3 rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-                {myTournaments.map(t => (
-                  <div key={t.source_id}>
-                    <TournamentCard t={t} showLink showShare isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]} onBookmark={() => toggleMerkliste(t)} />
-                    {t.partner_name && (
-                      <div className="px-4 pb-2 -mt-1">
-                        <span className="text-[11px] text-gray-500">
-                          Partner:{" "}
-                          <a
-                            href={`https://padel-austria.at/players/${t.partner_slug}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                            style={{ color: "rgba(212,245,60,0.6)" }}
-                          >
-                            {t.partner_name}
-                          </a>
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-      </div>
-
-      {/* Merkliste */}
-      {(() => {
-        const items = Object.values(merkliste)
-        const isEmpty = items.length === 0
-        return (
-          <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-4">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-semibold" style={{ fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", color: isEmpty ? "#6b7280" : "#d4f53c" }}>
-                MERKLISTE {!isEmpty && <span style={{ color: "rgba(212,245,60,0.5)" }}>· {items.length}</span>}
-              </span>
-              {!isEmpty && (
-                <button onClick={clearMerkliste} className="text-[10px] tracking-widest text-gray-700 hover:text-gray-500 transition-colors">
-                  LEEREN
-                </button>
-              )}
-            </div>
-            {isEmpty ? (
-              <div className="flex items-start gap-3 py-1">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4b5563" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-0.5">
-                  <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                </svg>
-                <p className="text-xs leading-relaxed" style={{ color: "#6b7280" }}>
-                  Turniere mit{" "}
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline -mt-0.5">
-                    <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-                  </svg>
-                  {" "}markieren — dann einen Link an deinen Padel-Partner schicken.
-                </p>
-              </div>
-            ) : (
-              <>
-                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-                  {items
-                    .sort((a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1)
-                    .map(t => (
-                      <TournamentCard key={`${t.source}:${t.source_id}`} t={t} showLink isBookmarked onBookmark={() => toggleMerkliste(t)} />
-                    ))}
-                </div>
-                <button
-                  onClick={() => void shareMerkliste(items)}
-                  className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-bold tracking-wider transition-opacity hover:opacity-90"
-                  style={{ fontFamily: "'Barlow Condensed', sans-serif", background: "#d4f53c", color: "#080810" }}
-                >
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                  </svg>
-                  {merklisteCopied ? "LINK KOPIERT!" : `${items.length} ${items.length === 1 ? "TURNIER" : "TURNIERE"} TEILEN`}
-                </button>
-              </>
-            )}
-          </div>
-        )
-      })()}
+      <TurnierjagerNav />
 
       {/* Filters */}
       <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-6">
@@ -949,14 +653,6 @@ export default function TurnierjagerPage() {
           </label>
         </div>
       </div>
-
-      {/* Bookmark hint above results */}
-      <p className="text-xs px-1 mb-3" style={{ color: "#4b5563" }}>
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline -mt-0.5 mr-1">
-          <path d="M19 21l-7-3-7 3V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
-        </svg>
-        Turnier merken → Link mit Partner teilen
-      </p>
 
       {/* Results header */}
       {!loading && !error && (

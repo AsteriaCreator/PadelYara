@@ -28,8 +28,10 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { crashed: boolea
   }
 }
 
-const AdminDashboard   = lazy(() => import("./pages/AdminDashboard"))
-const TurnierjagerPage = lazy(() => import("./pages/TurnierjagerPage"))
+const AdminDashboard            = lazy(() => import("./pages/AdminDashboard"))
+const TurnierjagerPage          = lazy(() => import("./pages/TurnierjagerPage"))
+const TurnierjagerMinePage      = lazy(() => import("./pages/TurnierjagerMinePage"))
+const TurnierjagerMerklistePage = lazy(() => import("./pages/TurnierjagerMerklistePage"))
 const UrteilPage       = lazy(() => import("./pages/UrteilPage"))
 const PadelrevierPage  = lazy(() => import("./pages/PadelrevierPage"))
 const CourtDetailPage  = lazy(() => import("./pages/CourtDetailPage"))
@@ -49,7 +51,9 @@ export default function App() {
       <Suspense fallback={<LoadingCat />}>
         <Routes>
         <Route path="/admin"        element={<AdminDashboard />} />
-        <Route path="/turnierjaeger" element={<PageShell><TurnierjagerPage /></PageShell>} />
+        <Route path="/turnierjaeger"           element={<PageShell><TurnierjagerPage /></PageShell>} />
+        <Route path="/turnierjaeger/meine"     element={<PageShell><TurnierjagerMinePage /></PageShell>} />
+        <Route path="/turnierjaeger/merkliste" element={<PageShell><TurnierjagerMerklistePage /></PageShell>} />
         <Route path="/urteil"       element={<PageShell><UrteilPage /></PageShell>} />
         <Route path="/padelrevier"  element={<PageShell><PadelrevierPage /></PageShell>} />
         <Route path="/court/:slug"  element={<PageShell><CourtDetailPage /></PageShell>} />
