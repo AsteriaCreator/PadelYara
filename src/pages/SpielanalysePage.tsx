@@ -404,6 +404,15 @@ export default function SpielanalysePage() {
             <p className="text-xs text-gray-700">Name eingeben und Analyse starten.</p>
           </div>
         )}
+
+        <p className="mt-6 text-[10px] text-gray-800 text-center">
+          Daten von{" "}
+          <a href="https://padel-austria.at" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600">
+            padel-austria.at
+          </a>
+          {" "}· öffentliche Turnierergebnisse · keine dauerhafte Speicherung ·{" "}
+          <a href="/datenschutz" className="hover:text-gray-600">Datenschutz</a>
+        </p>
       </div>
     </section>
   )

@@ -166,7 +166,30 @@ export default function DatenschutzPage() {
         </p>
       </Section>
 
-      <Section title="9. Lokaler Speicher (localStorage)">
+      <Section title="9. Spielanalyse (öffentliche Turnierdaten)">
+        <p>
+          Die Funktion „Spielanalyse" ruft auf Anfrage öffentlich zugängliche
+          Turnierergebnisse von <strong>padel-austria.at</strong> (Österreichische
+          Padelunion) ab und stellt sie übersichtlich dar. Es handelt sich
+          ausschließlich um Daten, die die Padelunion selbst öffentlich
+          veröffentlicht (Spielname, Turnierergebnisse, Kategorien, Punktestand).
+        </p>
+        <p>
+          Die abgerufenen Daten werden <strong>nicht dauerhaft gespeichert</strong> —
+          jede Abfrage erfolgt live direkt von padel-austria.at und wird nach
+          Darstellung im Browser nicht in unserer Datenbank abgelegt.
+        </p>
+        <p>
+          Rechtsgrundlage ist unser berechtigtes Interesse an der übersichtlichen
+          Darstellung öffentlich verfügbarer Sportstatistiken (Art. 6 Abs. 1 lit. f
+          DSGVO). Spieler:innen, die eine Darstellung ihrer Daten auf PadelYara
+          nicht wünschen, können dies jederzeit per E-Mail an{" "}
+          <a href={`mailto:${email}`} className="text-indigo-400 hover:text-indigo-300">{email}</a>{" "}
+          mitteilen — wir sperren den entsprechenden Slug umgehend.
+        </p>
+      </Section>
+
+      <Section title="10. Lokaler Speicher (localStorage)">
         <p>
           Wir verwenden den lokalen Speicher Ihres Browsers für technisch
           notwendige bzw. funktionale Zwecke, insbesondere für die oben genannte
@@ -176,7 +199,7 @@ export default function DatenschutzPage() {
         </p>
       </Section>
 
-      <Section title="10. Ihre Rechte">
+      <Section title="11. Ihre Rechte">
         <p>
           Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung
           (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),
