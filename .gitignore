@@ -47,6 +47,9 @@ dashboard.html
 # Playwright MCP snapshots
 .playwright-mcp/
 
+# MCP config — contains API keys
+.mcp.json
+
 # Social generator — input images and exported posts are local only
 brand/social/input/*
 !brand/social/input/.gitkeep
