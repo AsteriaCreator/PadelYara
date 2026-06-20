@@ -4,8 +4,8 @@ import { MY_SLUG_KEY } from "../hooks/useMyProfile"
 
 const TABS = [
   { to: "/turnierjaeger", label: "TURNIERE", exact: true },
-  { to: "/turnierjaeger/meine", label: "MEINE", exact: false },
-  { to: "/turnierjaeger/merkliste", label: "MERKLISTE", exact: false },
+  { to: "/turnierjaeger/meine", label: "MEINE JAGD", exact: false },
+  { to: "/turnierjaeger/spielanalyse", label: "SPIELANALYSE", exact: false },
 ]
 
 export default function TurnierjagerNav() {
@@ -27,7 +27,7 @@ export default function TurnierjagerNav() {
           })}
         >
           {tab.label}
-          {tab.to === "/turnierjaeger/merkliste" && merklisteCount > 0 && (
+          {tab.to === "/turnierjaeger/meine" && merklisteCount > 0 && (
             <span
               className="absolute -top-1 -right-1 min-w-[16px] h-4 px-1 rounded-full text-[10px] font-bold flex items-center justify-center"
               style={{ background: "#d4f53c", color: "#080810" }}
@@ -35,7 +35,7 @@ export default function TurnierjagerNav() {
               {merklisteCount}
             </span>
           )}
-          {tab.to === "/turnierjaeger/meine" && hasProfile && (
+          {tab.to === "/turnierjaeger/meine" && hasProfile && merklisteCount === 0 && (
             <span
               className="absolute -top-1 -right-1 w-2 h-2 rounded-full"
               style={{ background: "#d4f53c" }}

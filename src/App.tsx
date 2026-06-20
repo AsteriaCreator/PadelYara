@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, Component, type ReactNode } from "react"
-import { Routes, Route, useLocation } from "react-router-dom"
+import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { trackPageview } from "./api"
 import LoadingCat from "./components/LoadingCat"
 import PageShell from "./components/PageShell"
@@ -31,8 +31,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { crashed: boolea
 const AdminDashboard            = lazy(() => import("./pages/AdminDashboard"))
 const TurnierjagerPage          = lazy(() => import("./pages/TurnierjagerPage"))
 const TurnierjagerMinePage      = lazy(() => import("./pages/TurnierjagerMinePage"))
-const TurnierjagerMerklistePage = lazy(() => import("./pages/TurnierjagerMerklistePage"))
-const UrteilPage       = lazy(() => import("./pages/UrteilPage"))
+const SpielanalysePage = lazy(() => import("./pages/SpielanalysePage"))
 const PadelrevierPage     = lazy(() => import("./pages/PadelrevierPage"))
 const PadelrevierCityPage = lazy(() => import("./pages/PadelrevierCityPage"))
 const CourtDetailPage  = lazy(() => import("./pages/CourtDetailPage"))
@@ -53,10 +52,12 @@ export default function App() {
         <Routes>
         <Route path="/admin"        element={<AdminDashboard />} />
         <Route path="/turnierjaeger"           element={<PageShell><TurnierjagerPage /></PageShell>} />
-        <Route path="/turnierjaeger/meine"      element={<PageShell><TurnierjagerMinePage /></PageShell>} />
-        <Route path="/turnierjaeger/meine/:slug" element={<PageShell><TurnierjagerMinePage /></PageShell>} />
-        <Route path="/turnierjaeger/merkliste" element={<PageShell><TurnierjagerMerklistePage /></PageShell>} />
-        <Route path="/urteil"       element={<PageShell><UrteilPage /></PageShell>} />
+        <Route path="/turnierjaeger/meine"           element={<PageShell><TurnierjagerMinePage /></PageShell>} />
+        <Route path="/turnierjaeger/spielanalyse"     element={<PageShell><SpielanalysePage /></PageShell>} />
+        <Route path="/turnierjaeger/spielanalyse/:slug" element={<PageShell><SpielanalysePage /></PageShell>} />
+        <Route path="/turnierjaeger/merkliste"        element={<Navigate to="/turnierjaeger/meine" replace />} />
+        <Route path="/turnierjaeger/meine/:slug"      element={<Navigate to="/turnierjaeger/spielanalyse/:slug" replace />} />
+        <Route path="/urteil"                         element={<Navigate to="/turnierjaeger/spielanalyse" replace />} />
         <Route path="/padelrevier"        element={<PageShell><PadelrevierPage /></PageShell>} />
         <Route path="/padelrevier/:city"  element={<PageShell><PadelrevierCityPage /></PageShell>} />
         <Route path="/court/:slug"  element={<PageShell><CourtDetailPage /></PageShell>} />
