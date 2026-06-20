@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "vite",
     "backend": "python -m uvicorn app:app --reload --port 8000 --app-dir Backend",
-    "build": "node scripts/generate-sitemap.js && tsc -b && vite build",
+    "build": "node scripts/generate-sitemap.js && tsc -b && vite build && node scripts/prerender-venues.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.3.183",
+    "@composio/core": "^0.11.0",
     "@tailwindcss/vite": "^4.2.4",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
