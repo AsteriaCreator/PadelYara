@@ -110,19 +110,20 @@ export default function TurnierjagerMinePage() {
   const [filterPartner, setFilterPartner] = useState("")
   const [filterYear, setFilterYear] = useState("")
 
-  // Derive partner stats from matchResults
+  // Derive partner stats from matchResults (keyed by tournament title)
   const partnerStats = (() => {
-    const map: Record<string, { wins: number; losses: number }> = {}
+    const map: Record<string, { wins: number; losses: number; tournaments: number }> = {}
     for (const r of Object.values(matchResults)) {
       if (!r.partner) continue
-      if (!map[r.partner]) map[r.partner] = { wins: 0, losses: 0 }
+      if (!map[r.partner]) map[r.partner] = { wins: 0, losses: 0, tournaments: 0 }
       map[r.partner].wins += r.wins
       map[r.partner].losses += r.losses
+      map[r.partner].tournaments += 1
     }
     return Object.entries(map)
-      .map(([name, s]) => ({ name, ...s, total: s.wins + s.losses }))
-      .filter(p => p.total > 0)
-      .sort((a, b) => b.total - a.total)
+      .map(([name, s]) => ({ name, ...s }))
+      .filter(p => p.tournaments > 0)
+      .sort((a, b) => b.tournaments - a.tournaments)
   })()
 
   // Derive available filter options from history
@@ -322,11 +323,11 @@ export default function TurnierjagerMinePage() {
                       {partnerStats.slice(0, 5).map(p => (
                         <div key={p.name} className="flex items-center gap-2">
                           <span className="text-xs text-gray-400 flex-1 truncate">{p.name}</span>
-                          <span className="text-xs text-gray-600 w-8 text-center">{p.total}</span>
+                          <span className="text-xs text-gray-600 w-8 text-center">{p.tournaments}</span>
                           <span className="text-xs font-bold w-8 text-center" style={{ color: "#d4f53c" }}>{p.wins}</span>
                           <span className="text-xs w-8 text-center" style={{ color: "#6b7280" }}>{p.losses}</span>
                           <span className="text-xs text-gray-700 w-8 text-center">
-                            {p.total > 0 ? `${Math.round(100 * p.wins / p.total)}%` : ""}
+                            {(p.wins + p.losses) > 0 ? `${Math.round(100 * p.wins / (p.wins + p.losses))}%` : ""}
                           </span>
                         </div>
                       ))}
