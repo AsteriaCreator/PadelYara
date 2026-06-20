@@ -92,72 +92,56 @@ export default function TurnierjagerMinePage() {
         {!myLoading && myTournaments.length > 0 && (() => {
           const now = new Date()
           const upcoming = myTournaments.filter(t => !t.starts_at || new Date(t.starts_at) >= now)
-          const past = myTournaments.filter(t => t.starts_at && new Date(t.starts_at) < now)
-
-          function TournamentList({ items }: { items: typeof myTournaments }) {
-            return (
-              <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-                {items.map(t => (
-                  <div key={t.source_id}>
-                    <TournamentCard
-                      t={t}
-                      showLink
-                      showShare
-                      isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]}
-                      onBookmark={() => toggleMerkliste(t)}
-                    />
-                    {t.partner_name && (
-                      <div className="px-4 pb-2 -mt-1">
-                        <span className="text-[11px] text-gray-500">
-                          Partner:{" "}
-                          <a
-                            href={`https://padel-austria.at/players/${t.partner_slug}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                            style={{ color: "rgba(212,245,60,0.6)" }}
-                          >
-                            {t.partner_name}
-                          </a>
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )
-          }
-
+          if (upcoming.length === 0) return null
           return (
             <div className="mt-3 space-y-4">
-              {upcoming.length > 0 && (
-                <div>
-                  <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}>
-                    BEVORSTEHEND · {upcoming.length}
-                  </p>
-                  <TournamentList items={upcoming} />
+              <div>
+                <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}>
+                  BEVORSTEHEND · {upcoming.length}
+                </p>
+                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                  {upcoming.map(t => (
+                    <div key={t.source_id}>
+                      <TournamentCard
+                        t={t}
+                        showLink
+                        showShare
+                        isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]}
+                        onBookmark={() => toggleMerkliste(t)}
+                      />
+                      {t.partner_name && (
+                        <div className="px-4 pb-2 -mt-1">
+                          <span className="text-[11px] text-gray-500">
+                            Partner:{" "}
+                            <a
+                              href={`https://padel-austria.at/players/${t.partner_slug}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:underline"
+                              style={{ color: "rgba(212,245,60,0.6)" }}
+                            >
+                              {t.partner_name}
+                            </a>
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              )}
-              {past.length > 0 && (
-                <div>
-                  <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
-                    VERGANGEN · {past.length}
-                  </p>
-                  <TournamentList items={past} />
-                </div>
-              )}
+              </div>
             </div>
           )
         })()}
-        {/* Full history from padel-austria.at */}
+
+        {/* History from padel-austria.at points table */}
         {mySlug && (
           <div className="mt-4">
             {historyLoading ? (
-              <p className="text-xs text-gray-600">Lade Turnierhistorie …</p>
+              <p className="text-xs text-gray-600">Lade Historie …</p>
             ) : myHistory.length > 0 && (
               <div>
                 <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
-                  ALLE TURNIERE · {myHistory.length}
+                  HISTORIE · {myHistory.length}
                 </p>
                 <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
                   {myHistory.map((h, i) => (
@@ -165,15 +149,10 @@ export default function TurnierjagerMinePage() {
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
                           {h.url ? (
-                            <a
-                              href={h.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
+                            <a href={h.url} target="_blank" rel="noopener noreferrer"
                               className="text-sm font-semibold text-white leading-snug hover:underline"
                               style={{ userSelect: "text" }}
-                            >
-                              {h.title}
-                            </a>
+                            >{h.title}</a>
                           ) : (
                             <span className="text-sm font-semibold text-white leading-snug" style={{ userSelect: "text" }}>{h.title}</span>
                           )}
