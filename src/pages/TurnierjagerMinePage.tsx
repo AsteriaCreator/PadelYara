@@ -25,7 +25,8 @@ function CategoryProgression({ history }: { history: HistoryEntry[] }) {
     .filter((p): p is NonNullable<typeof p> => p !== null)
     .sort((a, b) => a.ts - b.ts)
 
-  if (points.length < 2) return null
+  const distinctCategories = new Set(points.map(p => p.category)).size
+  if (points.length < 2 || distinctCategories < 2) return null
 
   const W = 320, H = 100, PAD = { t: 12, b: 24, l: 8, r: 8 }
   const minTs = points[0].ts, maxTs = points[points.length - 1].ts
