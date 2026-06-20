@@ -88,37 +88,66 @@ export default function TurnierjagerMinePage() {
           <p className="text-xs text-gray-600 mt-3">Keine offenen Anmeldungen gefunden.</p>
         )}
 
-        {!myLoading && myTournaments.length > 0 && (
-          <div className="mt-3 rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
-            {myTournaments.map(t => (
-              <div key={t.source_id}>
-                <TournamentCard
-                  t={t}
-                  showLink
-                  showShare
-                  isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]}
-                  onBookmark={() => toggleMerkliste(t)}
-                />
-                {t.partner_name && (
-                  <div className="px-4 pb-2 -mt-1">
-                    <span className="text-[11px] text-gray-500">
-                      Partner:{" "}
-                      <a
-                        href={`https://padel-austria.at/players/${t.partner_slug}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline"
-                        style={{ color: "rgba(212,245,60,0.6)" }}
-                      >
-                        {t.partner_name}
-                      </a>
-                    </span>
+        {!myLoading && myTournaments.length > 0 && (() => {
+          const now = new Date()
+          const upcoming = myTournaments.filter(t => !t.starts_at || new Date(t.starts_at) >= now)
+          const past = myTournaments.filter(t => t.starts_at && new Date(t.starts_at) < now)
+
+          function TournamentList({ items }: { items: typeof myTournaments }) {
+            return (
+              <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                {items.map(t => (
+                  <div key={t.source_id}>
+                    <TournamentCard
+                      t={t}
+                      showLink
+                      showShare
+                      isBookmarked={!!merkliste[`${t.source}:${t.source_id}`]}
+                      onBookmark={() => toggleMerkliste(t)}
+                    />
+                    {t.partner_name && (
+                      <div className="px-4 pb-2 -mt-1">
+                        <span className="text-[11px] text-gray-500">
+                          Partner:{" "}
+                          <a
+                            href={`https://padel-austria.at/players/${t.partner_slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="hover:underline"
+                            style={{ color: "rgba(212,245,60,0.6)" }}
+                          >
+                            {t.partner_name}
+                          </a>
+                        </span>
+                      </div>
+                    )}
                   </div>
-                )}
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            )
+          }
+
+          return (
+            <div className="mt-3 space-y-4">
+              {upcoming.length > 0 && (
+                <div>
+                  <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}>
+                    BEVORSTEHEND · {upcoming.length}
+                  </p>
+                  <TournamentList items={upcoming} />
+                </div>
+              )}
+              {past.length > 0 && (
+                <div>
+                  <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
+                    VERGANGEN · {past.length}
+                  </p>
+                  <TournamentList items={past} />
+                </div>
+              )}
+            </div>
+          )
+        })()}
       </div>
     </section>
   )
