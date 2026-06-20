@@ -7,6 +7,7 @@ import { useMerkliste } from "../hooks/useMerkliste"
 export default function TurnierjagerMinePage() {
   const {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
+    myHistory, historyLoading,
     searchMyName, selectPlayer, clearMyProfile,
   } = useMyProfile()
   const { merkliste, toggleMerkliste } = useMerkliste()
@@ -84,8 +85,8 @@ export default function TurnierjagerMinePage() {
         {myLoading && <p className="text-xs text-gray-600 mt-3">Suche …</p>}
         {myError && <p className="text-xs text-red-400 mt-3">{myError}</p>}
 
-        {!myLoading && !myError && mySlug && myTournaments.length === 0 && (
-          <p className="text-xs text-gray-600 mt-3">Keine offenen Anmeldungen gefunden.</p>
+        {!myLoading && !myError && mySlug && myTournaments.length === 0 && !historyLoading && myHistory.length === 0 && (
+          <p className="text-xs text-gray-600 mt-3">Keine Turniere gefunden.</p>
         )}
 
         {!myLoading && myTournaments.length > 0 && (() => {
@@ -148,6 +149,50 @@ export default function TurnierjagerMinePage() {
             </div>
           )
         })()}
+        {/* Full history from padel-austria.at */}
+        {mySlug && (
+          <div className="mt-4">
+            {historyLoading ? (
+              <p className="text-xs text-gray-600">Lade Turnierhistorie …</p>
+            ) : myHistory.length > 0 && (
+              <div>
+                <p className="text-[11px] tracking-widest mb-2" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
+                  ALLE TURNIERE · {myHistory.length}
+                </p>
+                <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden">
+                  {myHistory.map((h, i) => (
+                    <div key={i} className="px-4 py-3" style={{ opacity: 0.7 }}>
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          {h.url ? (
+                            <a
+                              href={h.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm font-semibold text-white leading-snug hover:underline"
+                              style={{ userSelect: "text" }}
+                            >
+                              {h.title}
+                            </a>
+                          ) : (
+                            <span className="text-sm font-semibold text-white leading-snug" style={{ userSelect: "text" }}>{h.title}</span>
+                          )}
+                          <p className="text-xs text-gray-500 mt-0.5">{h.date}</p>
+                        </div>
+                        <div className="shrink-0 text-right">
+                          <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(212,245,60,0.08)", color: "rgba(212,245,60,0.5)", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em" }}>
+                            {h.category.toUpperCase()}
+                          </span>
+                          <p className="text-[11px] text-gray-700 mt-1">{h.points} Pkt</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </section>
   )

@@ -4,6 +4,15 @@ import type { Tournament } from "../types"
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 export const MY_SLUG_KEY = "turnierjager_player_slug"
 
+export interface HistoryEntry {
+  title: string
+  date: string
+  category: string
+  competition: string
+  url: string | null
+  points: number
+}
+
 export function useMyProfile() {
   const [mySlug, setMySlug] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY) ?? "")
   const [myName, setMyName] = useState<string>(() => localStorage.getItem(MY_SLUG_KEY + "_name") ?? "")
@@ -12,6 +21,8 @@ export function useMyProfile() {
   const [myTournaments, setMyTournaments] = useState<Tournament[]>([])
   const [myLoading, setMyLoading] = useState(false)
   const [myError, setMyError] = useState<string | null>(null)
+  const [myHistory, setMyHistory] = useState<HistoryEntry[]>([])
+  const [historyLoading, setHistoryLoading] = useState(false)
 
   async function fetchMyTournaments(slug: string) {
     if (!slug) return
@@ -49,6 +60,21 @@ export function useMyProfile() {
     localStorage.setItem(MY_SLUG_KEY, slug)
     localStorage.setItem(MY_SLUG_KEY + "_name", name)
     void fetchMyTournaments(slug)
+    void fetchHistory(slug)
+  }
+
+  async function fetchHistory(slug: string) {
+    setHistoryLoading(true)
+    try {
+      const res = await fetch(`${API_BASE}/api/tournaments/player/history?slug=${encodeURIComponent(slug)}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
+      setMyHistory(data.history ?? [])
+    } catch {
+      setMyHistory([])
+    } finally {
+      setHistoryLoading(false)
+    }
   }
 
   function clearMyProfile() {
@@ -57,18 +83,23 @@ export function useMyProfile() {
     setMyInput("")
     setMySuggestions([])
     setMyTournaments([])
+    setMyHistory([])
     localStorage.removeItem(MY_SLUG_KEY)
     localStorage.removeItem(MY_SLUG_KEY + "_name")
   }
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (mySlug) void fetchMyTournaments(mySlug)
+    if (mySlug) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      void fetchMyTournaments(mySlug)
+      void fetchHistory(mySlug)
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
-    searchMyName, selectPlayer, clearMyProfile,
+    myHistory, historyLoading,
+    searchMyName, selectPlayer, clearMyProfile, fetchHistory,
   }
 }

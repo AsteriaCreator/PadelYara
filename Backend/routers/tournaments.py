@@ -1,3 +1,4 @@
+import asyncio
 import threading
 
 from fastapi import APIRouter, Depends, Query, HTTPException
@@ -6,6 +7,7 @@ from pydantic import BaseModel
 import tournaments_mongo
 from auth import _require_admin
 from scheduler import _run_tournament_scrape
+import padel_austria_player
 
 router = APIRouter()
 
@@ -100,6 +102,21 @@ async def get_player_tournaments(slug: str = Query(..., description="Player slug
     slug = slug.strip().lower()
     tournaments = await tournaments_mongo.get_tournaments_for_player(slug)
     return {"tournaments": tournaments, "player_slug": slug}
+
+
+@router.get("/api/tournaments/player/history")
+async def get_player_history(slug: str = Query(...)):
+    """
+    Fetch full tournament history for a player from padel-austria.at (live scrape).
+    Returns the points table: [{title, date, category, competition, url, points}].
+    """
+    slug = slug.strip().lower()
+    data = await asyncio.to_thread(padel_austria_player.fetch_player, slug)
+    if data is None:
+        raise HTTPException(status_code=404, detail="Player not found")
+    points = data.get("points") or []
+    name = (data.get("header") or {}).get("name")
+    return {"history": points, "name": name, "player_slug": slug}
 
 
 @router.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])
