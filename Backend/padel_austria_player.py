@@ -33,7 +33,7 @@ HEADERS = {
 }
 
 # Recency window meta-rule: fetch newest-first up to this many match pages.
-MAX_MATCH_PAGES = 3
+MAX_MATCH_PAGES = 20
 
 _DATE_LINE = re.compile(r"^(Mo|Di|Mi|Do|Fr|Sa|So)\.\s*\d{2}\.\d{2}\.\d{4}")
 _SCORE_TOKEN = re.compile(r"^(?:\d{1,3}|-)$")
