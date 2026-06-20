@@ -17,6 +17,7 @@ export interface MatchResult {
   wins: number
   losses: number
   partner: string | null
+  partner_slug: string | null
   title: string
   date: string
 }

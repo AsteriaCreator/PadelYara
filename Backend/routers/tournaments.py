@@ -125,7 +125,7 @@ async def get_player_history(slug: str = Query(...)):
         key = f"{m.get('title', '')}||{m.get('date', '')}"
         partner = m.get("partner")
         if key not in wl:
-            wl[key] = {"wins": 0, "losses": 0, "partner": partner, "title": m.get("title", ""), "date": m.get("date", "")}
+            wl[key] = {"wins": 0, "losses": 0, "partner": partner, "partner_slug": m.get("partner_slug"), "title": m.get("title", ""), "date": m.get("date", "")}
         if m.get("won"):
             wl[key]["wins"] += 1
         else:

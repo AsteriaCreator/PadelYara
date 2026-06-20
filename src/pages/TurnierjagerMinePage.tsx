@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Helmet } from "react-helmet-async"
 import { useNavigate } from "react-router-dom"
 import TournamentCard from "../components/TournamentCard"
@@ -110,6 +110,20 @@ export default function TurnierjagerMinePage() {
   const [filterPartner, setFilterPartner] = useState("")
   const [filterYear, setFilterYear] = useState("")
 
+  // Auto-load profile from ?slug= URL param (shared deep link)
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get("slug")
+    if (!slug || mySlug) return
+    window.history.replaceState(null, "", window.location.pathname)
+    void (async () => {
+      const res = await fetch(`${import.meta.env.VITE_API_URL ?? "http://localhost:5000"}/api/tournaments/players/search?q=${encodeURIComponent(slug)}`)
+      const data = await res.json()
+      const player = (data.players ?? []).find((p: { slug: string }) => p.slug === slug)
+      if (player) selectPlayer(player.name, player.slug)
+    })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // matchResults is keyed by "title||date" (date = full string like "Sa. 19.01.2025, 16:00")
   // Build a lookup: (title, short date "19.01.2025") → match result
   const mrByTitleDate = Object.values(matchResults).reduce<Record<string, typeof matchResults[string]>>(
@@ -124,10 +138,10 @@ export default function TurnierjagerMinePage() {
 
   // Derive partner stats from matchResults (keyed by title||date)
   const partnerStats = (() => {
-    const map: Record<string, { wins: number; losses: number; tournaments: number }> = {}
+    const map: Record<string, { wins: number; losses: number; tournaments: number; slug: string | null }> = {}
     for (const r of Object.values(matchResults)) {
       if (!r.partner) continue
-      if (!map[r.partner]) map[r.partner] = { wins: 0, losses: 0, tournaments: 0 }
+      if (!map[r.partner]) map[r.partner] = { wins: 0, losses: 0, tournaments: 0, slug: r.partner_slug ?? null }
       map[r.partner].wins += r.wins
       map[r.partner].losses += r.losses
       map[r.partner].tournaments += 1
@@ -340,6 +354,10 @@ export default function TurnierjagerMinePage() {
                             ),
                             "",
                             `Gesamt: ${partnerTotals.tournaments} Turniere · ${partnerTotals.matches} Matches · ${partnerTotals.wins}S ${partnerTotals.losses}N`,
+                            "",
+                            ...partnerStats.slice(0, 5).flatMap(p =>
+                              p.slug ? [`👉 ${p.name}: https://padelyara.at/turnierjaeger/meine?slug=${p.slug}`] : []
+                            ),
                             "",
                             "padelyara.at 🐾",
                           ]

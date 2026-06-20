@@ -49,6 +49,19 @@ def _fetch(url: str, session: requests.Session) -> BeautifulSoup | None:
         return None
 
 
+def _extract_player_slugs(soup: BeautifulSoup) -> dict[str, str]:
+    """Build name→slug map from all /players/ links on the page."""
+    slugs: dict[str, str] = {}
+    for a in soup.find_all("a", href=True):
+        href: str = a.get("href", "")
+        if href.startswith("/players/"):
+            name = a.get_text(strip=True)
+            slug = href.split("/players/", 1)[1].strip("/")
+            if name and slug:
+                slugs[name] = slug
+    return slugs
+
+
 def _competition(title: str) -> str:
     """Infer the gender bracket from the tournament title."""
     t = title.lower()
@@ -187,7 +200,7 @@ def _decide_match(scores_a: list[str], scores_b: list[str]) -> bool | None:
     return None
 
 
-def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
+def _parse_matches(lines: list[str], player_name: str, slugs: dict[str, str] | None = None) -> list[dict[str, Any]]:
     """Parse the rendered match section into per-match records for `player_name`."""
     # Locate the matches section: the standalone "Matches" header that is followed
     # (somewhere) by a date line. Everything from there to the pagination/footer.
@@ -246,6 +259,7 @@ def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
             else:
                 continue
             partner = next((nm for nm in me["names"] if not _is_me([nm])), None)
+            partner_slug = (slugs or {}).get(partner) if partner else None
             sa = (me["scores"] + ["-", "-", "-"])[:3]
             sb = (opp["scores"] + ["-", "-", "-"])[:3]
             won = _decide_match(sa, sb)
@@ -256,6 +270,7 @@ def _parse_matches(lines: list[str], player_name: str) -> list[dict[str, Any]]:
                 "date": date_str,
                 "competition": _competition(title),
                 "partner": partner,
+                "partner_slug": partner_slug,
                 "opponents": opp["names"],
                 "won": won,
             })
@@ -275,6 +290,7 @@ def fetch_player(slug: str) -> dict[str, Any] | None:
     header = _parse_header(text)
     if not header.get("name"):
         return None
+    slugs = _extract_player_slugs(soup)
     # Points table is paginated — keep fetching until a page adds nothing new.
     points: list[dict[str, Any]] = []
     seen_keys: set[tuple] = set()
@@ -300,8 +316,9 @@ def fetch_player(slug: str) -> dict[str, Any] | None:
         psoup = soup if page == 1 else _fetch(f"{url}?page={page}", session)
         if psoup is None:
             break
+        page_slugs = _extract_player_slugs(psoup) if page > 1 else slugs
         lines = [ln.strip() for ln in psoup.get_text(separator="\n").split("\n") if ln.strip()]
-        page_matches = _parse_matches(lines, header["name"])
+        page_matches = _parse_matches(lines, header["name"], page_slugs)
         added = 0
         for m in page_matches:
             sig = (m["title"], m["partner"], tuple(m["opponents"]), m["won"])
