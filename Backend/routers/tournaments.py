@@ -148,6 +148,16 @@ async def get_player_history(slug: str = Query(...)):
             }
     points = points + list(extra.values())
 
+    # Sort chronologically — newest first. Date format is "DD.MM.YYYY".
+    def _date_key(p: dict) -> str:
+        d = p.get("date", "")
+        parts = d.split(".")
+        if len(parts) == 3:
+            return f"{parts[2]}-{parts[1]}-{parts[0]}"
+        return d
+
+    points.sort(key=_date_key, reverse=True)
+
     # Group match W/L by (title, date) so recurring weekly events don't collapse
     # into one bucket. The frontend key is "title||date" for per-session annotation.
     wl: dict[str, dict] = {}
