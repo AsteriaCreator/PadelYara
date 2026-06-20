@@ -3,8 +3,97 @@ import { Helmet } from "react-helmet-async"
 import { useNavigate } from "react-router-dom"
 import TournamentCard from "../components/TournamentCard"
 import TurnierjagerNav from "../components/TurnierjagerNav"
-import { useMyProfile } from "../hooks/useMyProfile"
+import { useMyProfile, type HistoryEntry } from "../hooks/useMyProfile"
 import { useMerkliste } from "../hooks/useMerkliste"
+
+const CATEGORY_RANK: Record<string, number> = {
+  Newcomer: 1, Starter: 2, Advanced: 3, Expert: 4, Professional: 5, Elite: 6,
+}
+const CATEGORY_COLOR: Record<string, string> = {
+  Newcomer: "#6b7280", Starter: "#60a5fa", Advanced: "#34d399",
+  Expert: "#d4f53c", Professional: "#f59e0b", Elite: "#f87171",
+}
+
+function CategoryProgression({ history }: { history: HistoryEntry[] }) {
+  const points = history
+    .map(h => {
+      const [day, month, year] = h.date.split(".")
+      const ts = Date.parse(`${year}-${month}-${day}`)
+      const rank = CATEGORY_RANK[h.category]
+      return rank && !isNaN(ts) ? { ts, rank, category: h.category, title: h.title, date: h.date } : null
+    })
+    .filter((p): p is NonNullable<typeof p> => p !== null)
+    .sort((a, b) => a.ts - b.ts)
+
+  if (points.length < 2) return null
+
+  const W = 320, H = 100, PAD = { t: 12, b: 24, l: 8, r: 8 }
+  const minTs = points[0].ts, maxTs = points[points.length - 1].ts
+  const tsRange = maxTs - minTs || 1
+  const rankMin = 1, rankMax = Math.max(...points.map(p => p.rank), 3)
+  const rankRange = rankMax - rankMin || 1
+
+  function px(ts: number) { return PAD.l + ((ts - minTs) / tsRange) * (W - PAD.l - PAD.r) }
+  function py(rank: number) { return PAD.t + (1 - (rank - rankMin) / rankRange) * (H - PAD.t - PAD.b) }
+
+  const polyline = points.map(p => `${px(p.ts).toFixed(1)},${py(p.rank).toFixed(1)}`).join(" ")
+
+  // Year labels on x-axis
+  const seenYears = new Set<string>()
+  const yearMarks = points.filter(p => {
+    const y = new Date(p.ts).getFullYear().toString()
+    if (seenYears.has(y)) return false
+    seenYears.add(y)
+    return true
+  })
+
+  return (
+    <div className="mb-4 rounded-lg border border-gray-800 p-3">
+      <p className="text-[11px] tracking-widest mb-3" style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#4b5563" }}>
+        KATEGORIE-VERLAUF
+      </p>
+      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" style={{ maxHeight: 100 }}>
+        {/* Grid lines per category */}
+        {Object.entries(CATEGORY_RANK).filter(([, r]) => r <= rankMax).map(([cat, rank]) => (
+          <g key={cat}>
+            <line x1={PAD.l} y1={py(rank)} x2={W - PAD.r} y2={py(rank)}
+              stroke="rgba(107,114,128,0.12)" strokeWidth="1" />
+            <text x={PAD.l} y={py(rank) - 3} fontSize="8" fill="rgba(107,114,128,0.5)"
+              fontFamily="'Barlow Condensed', sans-serif">{cat}</text>
+          </g>
+        ))}
+        {/* Year labels */}
+        {yearMarks.map(p => (
+          <text key={p.ts} x={px(p.ts)} y={H - 4} fontSize="8" fill="rgba(107,114,128,0.4)"
+            textAnchor="middle" fontFamily="'Barlow Condensed', sans-serif">
+            {new Date(p.ts).getFullYear()}
+          </text>
+        ))}
+        {/* Line */}
+        <polyline points={polyline} fill="none" stroke="rgba(212,245,60,0.3)" strokeWidth="1.5" strokeLinejoin="round" />
+        {/* Dots */}
+        {points.map((p, i) => (
+          <circle key={i} cx={px(p.ts)} cy={py(p.rank)} r="3"
+            fill={CATEGORY_COLOR[p.category] ?? "#d4f53c"}
+            stroke="#080810" strokeWidth="1">
+            <title>{p.title} · {p.date} · {p.category}</title>
+          </circle>
+        ))}
+      </svg>
+      {/* Legend */}
+      <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2">
+        {Object.entries(CATEGORY_COLOR)
+          .filter(([cat]) => points.some(p => p.category === cat))
+          .map(([cat, color]) => (
+            <div key={cat} className="flex items-center gap-1">
+              <span className="w-2 h-2 rounded-full inline-block" style={{ background: color }} />
+              <span className="text-[10px]" style={{ color: "rgba(107,114,128,0.7)" }}>{cat}</span>
+            </div>
+          ))}
+      </div>
+    </div>
+  )
+}
 
 export default function TurnierjagerMinePage() {
   const navigate = useNavigate()
@@ -212,6 +301,9 @@ export default function TurnierjagerMinePage() {
               <p className="text-xs text-gray-600">Lade Historie …</p>
             ) : myHistory.length > 0 && (
               <>
+                {/* Category progression */}
+                <CategoryProgression history={myHistory} />
+
                 {/* Partner stats */}
                 {partnerStats.length > 0 && (
                   <div className="mb-4 rounded-lg border border-gray-800 p-3">
