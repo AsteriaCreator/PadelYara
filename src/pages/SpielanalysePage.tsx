@@ -137,6 +137,10 @@ export default function SpielanalysePage() {
       if (filterCategory && h.category !== filterCategory) return false
       if (filterCompetition && h.competition !== filterCompetition) return false
       if (filterYear && !h.date?.endsWith(filterYear)) return false
+      if (filterPartner) {
+        const mr = mrByTitleDate[`${h.title}||${h.date}`]
+        if (!mr || mr.partner !== filterPartner) return false
+      }
       return true
     })
     for (const h of relevantHistory) {
