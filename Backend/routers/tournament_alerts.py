@@ -288,6 +288,15 @@ async def confirm_alert(token: str = Query(...)):
     )
 
 
+@router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
+async def alert_count():
+    """Admin: return count of confirmed Jagd-Alarm subscriptions."""
+    from venues_mongo import _get_db
+    db = _get_db()
+    count = await db["tournament_alerts"].count_documents({"confirmed": True})
+    return {"count": count}
+
+
 @router.get("/api/tournaments/alerts/stats", dependencies=[Depends(_require_admin)])
 async def alert_stats():
     """Admin: return subscriber counts for Jagd-Alarm."""

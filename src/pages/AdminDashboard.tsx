@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
 import "./AdminDashboard.css"
 
 function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
@@ -213,6 +213,7 @@ export default function AdminDashboard() {
   const [insights, setInsights] = useState<any>(null)
   const [searchConsole, setSearchConsole] = useState<any>(null)
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
+  const [alertCount, setAlertCount] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
@@ -231,8 +232,8 @@ export default function AdminDashboard() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
-      .then(([s, t, i, sc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount()])
+      .then(([s, t, i, sc, ac]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number) })
       .catch((e: Error) => {
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
@@ -427,6 +428,13 @@ export default function AdminDashboard() {
             <StatCard
               emoji="📬" label="Email Subscribers" value={subscriberCount}
               tip="Total email addresses collected via the newsletter signup banner."
+              color="#d4f53c"
+            />
+          )}
+          {alertCount !== null && (
+            <StatCard
+              emoji="🔔" label="Jagd-Alarm" value={alertCount}
+              tip="Confirmed Jagd-Alarm subscriptions — users who get emailed when new tournaments match their filters."
               color="#d4f53c"
             />
           )}
