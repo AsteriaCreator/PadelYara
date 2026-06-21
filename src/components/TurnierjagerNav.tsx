@@ -5,7 +5,6 @@ import { MY_SLUG_KEY } from "../hooks/useMyProfile"
 const TABS = [
   { to: "/turnierjaeger", label: "TURNIERE", exact: true },
   { to: "/turnierjaeger/meine", label: "MEINE JAGD", exact: false },
-  { to: "/turnierjaeger/spielanalyse", label: "SPIELANALYSE", exact: false },
 ]
 
 export default function TurnierjagerNav() {
