@@ -93,11 +93,14 @@ The public product should always prioritize location + radius architecture.
 
 ---
 
-## Turnierjäger (Phase 1 — live)
+## Turnierjäger (live)
 
-Standalone subpage at `/turnierjaeger`.
+Standalone section at `/turnierjaeger` with three sub-tabs (TurnierjagerNav):
+- **TURNIERE** (`/turnierjaeger`) — tournament discovery + filtering
+- **MEINE JAGD** (`/turnierjaeger/meine`) — upcoming registered tournaments + GEMERKT (bookmarks, replaces old /merkliste)
+- **SPIELANALYSE** (`/turnierjaeger/spielanalyse`) — player stats page, **hidden from nav** (accessible by direct URL only)
 
-Architecture:
+### TURNIERE
 - Scraper: `Backend/padel_austria_scraper.py` — BeautifulSoup, paginates all pages of padel-austria.at/tournaments
 - Storage: MongoDB `tournaments` collection (separate from venues)
 - API: `GET /api/tournaments` with filter params (bundesland, category, competition, weekday, show_full, show_closed)
@@ -106,6 +109,31 @@ Architecture:
 - Filter state persisted in localStorage
 
 Data model fields: source, source_id, source_url, title, venue_name, bundesland, starts_at, ends_at, weekday, category, competition, participants_current, participants_max, participants_waitlist, registration_opens_at, registration_closes_at, status, first_seen_at, last_seen_at
+
+### MEINE JAGD (`src/pages/TurnierjagerMinePage.tsx`)
+- Profile setup: player name search (slug saved to localStorage) to identify the user's upcoming tournaments
+- BEVORSTEHEND tab: upcoming tournaments from DB filtered by slug
+- GEMERKT tab: bookmarks (previously a separate /merkliste page, now merged here)
+- "SPIELANALYSE →" link to view own stats
+- `src/hooks/useMerkliste.ts` + `src/hooks/useMyProfile.ts`
+
+### SPIELANALYSE (`src/pages/SpielanalysePage.tsx`) — hidden from nav, live at direct URL
+- Player search by name (autocomplete from tournament DB)
+- Public profiles at `/turnierjaeger/spielanalyse/:slug` — loaded directly via history endpoint (no search needed)
+- Stats: APN, Punkte, Platz, Matches W/L (from padel-austria.at header)
+- Category progression chart, partner stats table (filtered by all active filters), full match history
+- All filters (category, competition, year, partner) apply to both history list AND partner stats
+- History supplemented with match-derived entries for tournaments missing from the points table (points table only shows ranking-contributing entries)
+- History sorted newest-first
+- Partner names link to their own `/spielanalyse/:slug` page
+- "Kommt bald" placeholder for Yaras Urteil AI verdict section
+- Attribution footer: "Daten von padel-austria.at · keine dauerhafte Speicherung"
+- Hidden from nav intentionally — too powerful before Yara is established; re-add SPIELANALYSE to TABS in `TurnierjagerNav.tsx` when ready to launch
+
+### Redirects (old URLs → new)
+- `/turnierjaeger/merkliste` → `/turnierjaeger/meine`
+- `/turnierjaeger/meine/:slug` → `/turnierjaeger/spielanalyse/:slug`
+- `/urteil` → `/turnierjaeger/spielanalyse`
 
 Phase 2 (not yet built): email notifications, Jagdaufträge (saved search orders), registration reminders.
 
