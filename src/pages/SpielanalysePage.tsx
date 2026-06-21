@@ -130,14 +130,22 @@ export default function SpielanalysePage() {
     }, {}
   )
 
+  // Partner stats respect category/competition/year filters but not the partner filter
   const partnerStats = (() => {
     const map: Record<string, { wins: number; losses: number; tournaments: number; slug: string | null }> = {}
-    for (const r of Object.values(matchResults)) {
-      if (!r.partner) continue
-      if (!map[r.partner]) map[r.partner] = { wins: 0, losses: 0, tournaments: 0, slug: r.partner_slug ?? null }
-      map[r.partner].wins += r.wins
-      map[r.partner].losses += r.losses
-      map[r.partner].tournaments += 1
+    const relevantHistory = myHistory.filter(h => {
+      if (filterCategory && h.category !== filterCategory) return false
+      if (filterCompetition && h.competition !== filterCompetition) return false
+      if (filterYear && !h.date?.endsWith(filterYear)) return false
+      return true
+    })
+    for (const h of relevantHistory) {
+      const mr = mrByTitleDate[`${h.title}||${h.date}`]
+      if (!mr?.partner) continue
+      if (!map[mr.partner]) map[mr.partner] = { wins: 0, losses: 0, tournaments: 0, slug: mr.partner_slug ?? null }
+      map[mr.partner].wins += mr.wins
+      map[mr.partner].losses += mr.losses
+      map[mr.partner].tournaments += 1
     }
     return Object.entries(map)
       .map(([name, s]) => ({ name, ...s, matches: s.wins + s.losses }))
