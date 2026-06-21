@@ -16,15 +16,18 @@ const COURT_TYPE_ICON: Record<string, string> = {
   "indoor+outdoor": "🏠🌳",
 }
 
-// Build the "6 Courts · 4 Indoor, 2 Outdoor" line from whatever counts we have.
+// Build the courts label:
+// - All one type  → "3 Outdoor-Courts" / "4 Indoor-Courts"
+// - Mixed         → "5 Courts, davon 3 Indoor + 2 Outdoor"
+// - Type unknown  → "4 Courts"
 function courtsText(d: VenueDetail): string | null {
   if (d.num_courts == null) return null
-  const parts = [
-    d.indoor_count ? `${d.indoor_count} Indoor` : null,
-    d.outdoor_count ? `${d.outdoor_count} Outdoor` : null,
-  ].filter(Boolean)
-  const split = parts.length ? ` · ${parts.join(", ")}` : ""
-  return `${d.num_courts} Courts${split}`
+  const i = d.indoor_count ?? 0
+  const o = d.outdoor_count ?? 0
+  if (i > 0 && o === 0) return `${i} Indoor-Courts`
+  if (o > 0 && i === 0) return `${o} Outdoor-Courts`
+  if (i > 0 && o > 0)   return `${d.num_courts} Courts, davon ${i} Indoor + ${o} Outdoor`
+  return `${d.num_courts} Courts`
 }
 
 // One amenity row. state: true = yes, false = no, null/undefined = unknown.
