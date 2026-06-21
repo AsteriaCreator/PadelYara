@@ -5,9 +5,11 @@ import secrets
 from datetime import datetime, timezone
 
 import httpx
-from fastapi import APIRouter, BackgroundTasks, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, Query
 from fastapi.responses import JSONResponse, RedirectResponse
 from pydantic import BaseModel
+
+from auth import _require_admin
 
 router = APIRouter()
 
@@ -216,6 +218,15 @@ class AlertBody(BaseModel):
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
+
+@router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
+async def alerts_count():
+    """Admin: count of confirmed Jagd-Alarm subscribers."""
+    from venues_mongo import _get_db
+    db = _get_db()
+    count = await db["tournament_alerts"].count_documents({"confirmed": True})
+    return {"count": count}
+
 
 @router.post("/api/tournaments/alerts")
 async def create_alert(body: AlertBody, background_tasks: BackgroundTasks):
