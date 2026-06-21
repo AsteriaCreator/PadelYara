@@ -171,7 +171,19 @@ async def get_player_history(slug: str = Query(...)):
         else:
             wl[key]["losses"] += 1
 
-    return {"history": points, "match_results": wl, "name": name, "player_slug": slug}
+    header = data.get("header") or {}
+    return {
+        "history": points,
+        "match_results": wl,
+        "name": name,
+        "player_slug": slug,
+        "rank": header.get("rank"),
+        "points": header.get("points"),
+        "apn": header.get("apn"),
+        "matches_played": header.get("matches_played"),
+        "matches_won": header.get("matches_won"),
+        "matches_lost": header.get("matches_lost"),
+    }
 
 
 @router.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])

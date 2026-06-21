@@ -33,6 +33,7 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
   const [myHistory, setMyHistory] = useState<HistoryEntry[]>([])
   const [matchResults, setMatchResults] = useState<Record<string, MatchResult>>({})
   const [historyLoading, setHistoryLoading] = useState(false)
+  const [playerStats, setPlayerStats] = useState<{ rank: number | null; points: number | null; apn: string | null; matchesPlayed: number | null; matchesWon: number | null; matchesLost: number | null }>({ rank: null, points: null, apn: null, matchesPlayed: null, matchesWon: null, matchesLost: null })
 
   async function fetchMyTournaments(slug: string) {
     if (!slug) return
@@ -97,6 +98,7 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
       if (data.name) setMyName(data.name)
       setMyHistory(data.history ?? [])
       setMatchResults(data.match_results ?? {})
+      setPlayerStats({ rank: data.rank ?? null, points: data.points ?? null, apn: data.apn ?? null, matchesPlayed: data.matches_played ?? null, matchesWon: data.matches_won ?? null, matchesLost: data.matches_lost ?? null })
     } catch {
       setMyHistory([])
       setMatchResults({})
@@ -113,6 +115,7 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
       const data = await res.json()
       setMyHistory(data.history ?? [])
       setMatchResults(data.match_results ?? {})
+      setPlayerStats({ rank: data.rank ?? null, points: data.points ?? null, apn: data.apn ?? null, matchesPlayed: data.matches_played ?? null, matchesWon: data.matches_won ?? null, matchesLost: data.matches_lost ?? null })
     } catch {
       setMyHistory([])
       setMatchResults({})
@@ -146,6 +149,6 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
   return {
     mySlug, myName, myInput, mySuggestions, myTournaments, myLoading, myError,
     myHistory, matchResults, historyLoading,
-    searchMyName, selectPlayer, viewProfile, loadPlayerBySlug, clearMyProfile, fetchHistory,
+    searchMyName, selectPlayer, viewProfile, loadPlayerBySlug, clearMyProfile, fetchHistory, playerStats,
   }
 }

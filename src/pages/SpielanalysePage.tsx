@@ -104,7 +104,7 @@ export default function SpielanalysePage() {
 
   const {
     mySlug, myName, myInput, mySuggestions, myLoading, myError,
-    myHistory, matchResults, historyLoading,
+    myHistory, matchResults, historyLoading, playerStats,
     searchMyName, selectPlayer, loadPlayerBySlug, clearMyProfile,
   } = useMyProfile({ skipInitialLoad: !!routeSlug })
 
@@ -248,6 +248,23 @@ export default function SpielanalysePage() {
 
         {myLoading && <p className="text-xs text-gray-600">Suche …</p>}
         {myError && <p className="text-xs text-red-400">{myError}</p>}
+
+        {/* APN + Points header */}
+        {mySlug && !historyLoading && (playerStats.apn || playerStats.points) && (
+          <div className="flex gap-2 mb-4">
+            {[
+              { label: "Punkte", value: playerStats.points },
+              { label: "APN", value: playerStats.apn },
+              { label: "Platz", value: playerStats.rank },
+              playerStats.matchesPlayed != null ? { label: "Matches", value: `${playerStats.matchesWon}S · ${playerStats.matchesLost}N` } : null,
+            ].filter(Boolean).map(s => s && (
+              <div key={s.label} className="flex-1 rounded-lg p-2.5 text-center" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(107,114,128,0.15)" }}>
+                <div className="text-[10px] uppercase tracking-wide mb-1" style={{ color: "#4b5563" }}>{s.label}</div>
+                <div className="text-sm font-bold" style={{ color: s.label === "APN" ? "#d4f53c" : "#e5e7eb" }}>{s.value ?? "–"}</div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Stats */}
         {mySlug && (
