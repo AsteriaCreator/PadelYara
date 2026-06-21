@@ -13,6 +13,8 @@ from auth import _require_admin
 
 router = APIRouter()
 
+from auth import _require_admin  # noqa: E402
+
 _BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 _FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://www.padelyara.at")
 _static = os.environ.get("RAILWAY_STATIC_URL", "")
@@ -295,6 +297,25 @@ async def confirm_alert(token: str = Query(...)):
     return RedirectResponse(
         url=f"{_FRONTEND_URL}/turnierjaeger?alert=confirmed", status_code=302
     )
+
+
+@router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
+async def alert_count():
+    """Admin: return count of confirmed Jagd-Alarm subscriptions."""
+    from venues_mongo import _get_db
+    db = _get_db()
+    count = await db["tournament_alerts"].count_documents({"confirmed": True})
+    return {"count": count}
+
+
+@router.get("/api/tournaments/alerts/stats", dependencies=[Depends(_require_admin)])
+async def alert_stats():
+    """Admin: return subscriber counts for Jagd-Alarm."""
+    from venues_mongo import _get_db
+    db = _get_db()
+    total = await db["tournament_alerts"].count_documents({})
+    confirmed = await db["tournament_alerts"].count_documents({"confirmed": True})
+    return {"total": total, "confirmed": confirmed, "pending": total - confirmed}
 
 
 @router.get("/api/tournaments/alerts/unsubscribe")
