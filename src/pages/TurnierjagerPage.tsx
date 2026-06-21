@@ -537,29 +537,14 @@ export default function TurnierjagerPage() {
       <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-6">
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs text-gray-500 tracking-widest uppercase">Filter</p>
-          <div className="flex items-center gap-3">
-            {hasActiveFilters && (
-              <button
-                onClick={resetFilters}
-                className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
-              >
-                Zurücksetzen
-              </button>
-            )}
+          {hasActiveFilters && (
             <button
-              onClick={() => setJagdAlarmOpen(true)}
-              className="text-xs font-bold px-3 py-1 rounded-full transition-colors"
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                letterSpacing: "0.06em",
-                background: "rgba(212,245,60,0.1)",
-                color: "#d4f53c",
-                border: "1px solid rgba(212,245,60,0.3)",
-              }}
+              onClick={resetFilters}
+              className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
             >
-              JAGD-ALARM
+              Zurücksetzen
             </button>
-          </div>
+          )}
         </div>
 
         <BundeslandChips
@@ -724,6 +709,29 @@ export default function TurnierjagerPage() {
         </div>
       </div>
 
+      {/* Jagd-Alarm — after filters, before results */}
+      <div
+        className="flex items-center justify-between gap-4 mb-4 px-4 py-3 rounded-xl"
+        style={{ background: "rgba(212,245,60,0.04)", border: "1px solid rgba(212,245,60,0.1)" }}
+      >
+        <div>
+          <p className="text-xs font-bold tracking-wider text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>JAGD-ALARM</p>
+          <p className="text-xs text-gray-500 mt-0.5">Yara schreibt dir, wenn neue Turniere zu deinen Filtern passen.</p>
+        </div>
+        <button
+          onClick={() => setJagdAlarmOpen(true)}
+          className="flex-shrink-0 text-xs font-bold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            letterSpacing: "0.06em",
+            background: "#d4f53c",
+            color: "#000000",
+          }}
+        >
+          AKTIVIEREN
+        </button>
+      </div>
+
       {/* Results header */}
       {!loading && !error && (
         <div className="flex items-center justify-between mb-2 px-1">
@@ -793,29 +801,7 @@ export default function TurnierjagerPage() {
         </div>
       )}
 
-      {/* Jagd-Alarm promo */}
-      <div
-        className="mt-8 rounded-xl border p-6 text-center"
-        style={{ borderColor: "rgba(212,245,60,0.1)", background: "rgba(212,245,60,0.02)" }}
-      >
-        <p className="text-white font-semibold mb-1">Kein Turnier mehr verpassen.</p>
-        <p className="text-gray-500 text-sm mb-4">
-          Jagd-Alarm: Yara schreibt dir, wenn neue Turniere auftauchen.
-        </p>
-        <button
-          onClick={() => setJagdAlarmOpen(true)}
-          className="inline-block px-5 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-opacity hover:opacity-80"
-          style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            background: "#d4f53c",
-            color: "#000000",
-          }}
-        >
-          Jagd-Alarm einrichten
-        </button>
-      </div>
-
-      <p className="text-center text-xs text-gray-800 mt-6">
+<p className="text-center text-xs text-gray-800 mt-6">
         Daten von{" "}
         <a
           href="https://padel-austria.at/tournaments"
