@@ -29,7 +29,7 @@ from venues_mongo import load_venues
 import state
 from scheduler import _run_tournament_scrape, _run_opening_hours_refresh
 
-from routers import search, analytics as analytics_router, tournaments, venues, weather, subscribers, urteil, admin
+from routers import search, analytics as analytics_router, tournaments, venues, weather, subscribers, urteil, admin, tournament_alerts
 
 
 @asynccontextmanager
@@ -100,6 +100,7 @@ app.include_router(weather.router)
 app.include_router(subscribers.router)
 app.include_router(urteil.router)
 app.include_router(admin.router)
+app.include_router(tournament_alerts.router)
 
 
 if __name__ == "__main__":

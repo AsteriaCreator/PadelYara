@@ -49,6 +49,36 @@ def _run_tournament_scrape(is_seed: bool = False) -> None:
     except Exception as exc:
         print(f"[tournaments] mark_stale_closed failed: {exc}")
 
+    # Send Jagd-Alarm notifications for tournaments first seen today.
+    # Skipped on is_seed runs to avoid flooding on initial import.
+    if not is_seed:
+        from datetime import datetime, timezone
+        today_start = datetime.now(timezone.utc).replace(hour=0, minute=0, second=0, microsecond=0)
+        alerts_future = asyncio.run_coroutine_threadsafe(
+            _dispatch_alerts(today_start), state._main_loop
+        )
+        try:
+            alerts_future.result(timeout=60)
+        except Exception as exc:
+            print(f"[tournaments] Jagd-Alarm dispatch failed: {exc}")
+
+
+async def _dispatch_alerts(today_start) -> None:
+    """Query for tournaments first seen today, then dispatch Jagd-Alarm notifications."""
+    from routers.tournament_alerts import send_alert_notifications
+    from venues_mongo import _get_db
+    db = _get_db()
+    cursor = db["tournaments"].find(
+        {"first_seen_at": {"$gte": today_start.isoformat()}},
+        {"source_id": 1},
+    )
+    new_ids = [doc["source_id"] async for doc in cursor]
+    if new_ids:
+        print(f"[tournaments] Dispatching Jagd-Alarm for {len(new_ids)} new tournament(s).")
+        await send_alert_notifications(db, new_ids)
+    else:
+        print("[tournaments] No new tournaments today — skipping Jagd-Alarm.")
+
 
 def _run_opening_hours_refresh() -> None:
     """Gemini+Google lookup of Eversports opening hours, intended to run in a

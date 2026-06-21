@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
 import TurnierjagerNav from "../components/TurnierjagerNav"
+import JagdAlarmModal from "../components/JagdAlarmModal"
 import { opensSoon } from "../tournamentBadges"
 import { BEZIRKE_BY_BUNDESLAND } from "../data/bezirke"
 import { useMerkliste } from "../hooks/useMerkliste"
@@ -347,8 +348,32 @@ export default function TurnierjagerPage() {
   const [lastUpdated, setLastUpdated] = useState<string | null>(null)
   const [expandedBl, setExpandedBl] = useState<string[]>([])
   const [venueExpanded, setVenueExpanded] = useState(false)
+  const [jagdAlarmOpen, setJagdAlarmOpen] = useState(false)
+  const [alertBanner, setAlertBanner] = useState<string | null>(null)
 
   const { merkliste, toggleMerkliste } = useMerkliste()
+
+  // Handle ?alert= query param from email confirmation/unsubscribe redirects
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const alertParam = params.get("alert")
+    if (!alertParam) return
+    const messages: Record<string, string> = {
+      confirmed: "Jagd-Alarm aktiv. Du wirst informiert.",
+      unsubscribed: "Jagd-Alarm deaktiviert.",
+      invalid: "Link ungültig oder bereits verwendet.",
+    }
+    const msg = messages[alertParam]
+    if (msg) {
+      setTimeout(() => setAlertBanner(msg), 0)
+      // Remove param from URL without reloading
+      params.delete("alert")
+      const newSearch = params.toString()
+      window.history.replaceState(null, "", window.location.pathname + (newSearch ? "?" + newSearch : ""))
+      // Auto-dismiss after 6 s
+      setTimeout(() => setAlertBanner(null), 6000)
+    }
+  }, [])
 
   // Venue options fetched from API, scoped to selected bundesländer
   const [venueOptions, setVenueOptions] = useState<string[]>([])
@@ -462,6 +487,36 @@ export default function TurnierjagerPage() {
 
   return (
     <section className="mt-2 pb-12">
+      {/* Jagd-Alarm modal */}
+      <JagdAlarmModal
+        isOpen={jagdAlarmOpen}
+        onClose={() => setJagdAlarmOpen(false)}
+        filters={{
+          bundeslaender: filters.bundesland,
+          categories: filters.kategorie,
+          competitions: filters.wettbewerb,
+          weekdays: filters.wochentag,
+          venueNames: filters.venue,
+        }}
+      />
+
+      {/* Alert banner from email redirect */}
+      {alertBanner && (
+        <div
+          className="flex items-center justify-between rounded-lg border px-4 py-3 mb-4 text-sm"
+          style={{ borderColor: "rgba(212,245,60,0.3)", background: "rgba(212,245,60,0.06)", color: "#d4f53c" }}
+        >
+          <span>{alertBanner}</span>
+          <button
+            onClick={() => setAlertBanner(null)}
+            className="ml-4 text-xs opacity-60 hover:opacity-100 transition-opacity"
+            aria-label="Schließen"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       <Helmet>
         <title>Turnierjäger — Padel Turniere in Österreich</title>
         <meta name="description" content="Alle Padel-Turniere in Österreich auf einen Blick. Filtere nach Bundesland, Bezirk und Kategorie — und verpasse kein Turnier mehr." />
@@ -482,14 +537,29 @@ export default function TurnierjagerPage() {
       <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 mb-6">
         <div className="flex items-center justify-between mb-4">
           <p className="text-xs text-gray-500 tracking-widest uppercase">Filter</p>
-          {hasActiveFilters && (
+          <div className="flex items-center gap-3">
+            {hasActiveFilters && (
+              <button
+                onClick={resetFilters}
+                className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+              >
+                Zurücksetzen
+              </button>
+            )}
             <button
-              onClick={resetFilters}
-              className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+              onClick={() => setJagdAlarmOpen(true)}
+              className="text-xs font-bold px-3 py-1 rounded-full transition-colors"
+              style={{
+                fontFamily: "'Barlow Condensed', sans-serif",
+                letterSpacing: "0.06em",
+                background: "rgba(212,245,60,0.1)",
+                color: "#d4f53c",
+                border: "1px solid rgba(212,245,60,0.3)",
+              }}
             >
-              Zurücksetzen
+              JAGD-ALARM
             </button>
-          )}
+          </div>
         </div>
 
         <BundeslandChips
@@ -723,16 +793,26 @@ export default function TurnierjagerPage() {
         </div>
       )}
 
-      {/* Notification placeholder */}
+      {/* Jagd-Alarm promo */}
       <div
         className="mt-8 rounded-xl border p-6 text-center"
         style={{ borderColor: "rgba(212,245,60,0.1)", background: "rgba(212,245,60,0.02)" }}
       >
-        <p className="text-white font-semibold mb-1">Passende Turniere im Blick behalten?</p>
-        <p className="text-gray-500 text-sm mb-3">
-          Yara benachrichtigt dich, wenn neue Turniere auftauchen — oder die Anmeldung öffnet.
+        <p className="text-white font-semibold mb-1">Kein Turnier mehr verpassen.</p>
+        <p className="text-gray-500 text-sm mb-4">
+          Jagd-Alarm: Yara schreibt dir, wenn neue Turniere auftauchen.
         </p>
-        <p className="text-xs text-gray-700 italic">Benachrichtigungen kommen bald.</p>
+        <button
+          onClick={() => setJagdAlarmOpen(true)}
+          className="inline-block px-5 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-opacity hover:opacity-80"
+          style={{
+            fontFamily: "'Barlow Condensed', sans-serif",
+            background: "#d4f53c",
+            color: "#000000",
+          }}
+        >
+          Jagd-Alarm einrichten
+        </button>
       </div>
 
       <p className="text-center text-xs text-gray-800 mt-6">
