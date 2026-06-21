@@ -25,7 +25,7 @@ async def _send_confirmation_email(to_email: str, token: str) -> None:
         f"Du willst wissen, wenn neue Turniere kommen.\n\n"
         f"Verständlich.\n\n"
         f"{confirm_url}\n\n"
-        f"Danach wirst du informiert. Ich nicht.\n\n"
+        f"Danach melde ich mich. Wenn es sich lohnt.\n\n"
         f"— Yara"
     )
     html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:520px;margin:0 auto">
@@ -43,7 +43,7 @@ async def _send_confirmation_email(to_email: str, token: str) -> None:
   </a>
 </p>
 
-<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Danach wirst du informiert. Ich nicht.</p>
+<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Danach melde ich mich. Wenn es sich lohnt.</p>
 <p style="color:#6b7280;font-size:13px;margin:32px 0 0">— Yara</p>
 </body></html>"""
 
