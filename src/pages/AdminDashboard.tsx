@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertStats, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
 import "./AdminDashboard.css"
 
 function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
@@ -213,7 +213,6 @@ export default function AdminDashboard() {
   const [insights, setInsights] = useState<any>(null)
   const [searchConsole, setSearchConsole] = useState<any>(null)
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
-  const [alertStats, setAlertStats] = useState<{ total: number; confirmed: number; pending: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
@@ -232,8 +231,8 @@ export default function AdminDashboard() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertStats()])
-      .then(([s, t, i, sc, as_]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertStats(as_ as { total: number; confirmed: number; pending: number }) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount()])
+      .then(([s, t, i, sc]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number) })
       .catch((e: Error) => {
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
@@ -431,13 +430,6 @@ export default function AdminDashboard() {
               color="#d4f53c"
             />
           )}
-          {alertStats !== null && (
-            <StatCard
-              emoji="🎯" label="Jagd-Alarm Aktiv" value={alertStats.confirmed}
-              tip={`Bestätigte Jagd-Alarm-Abos. ${alertStats.pending > 0 ? `${alertStats.pending} warten noch auf Bestätigung.` : "Alle bestätigt."}`}
-              color="#f97316"
-            />
-          )}
         </div>
         <SuccessRate breakdown={breakdown} />
 
@@ -478,31 +470,6 @@ export default function AdminDashboard() {
           )
         })()}
       </section>
-
-      {/* Jagd-Alarm */}
-      {alertStats !== null && (
-        <section className="admin-section">
-          <h2>🎯 Jagd-Alarm <span className="data-source-label">📊 Own Analytics</span></h2>
-          <p className="section-hint">Email-Benachrichtigungen für neue Turniere.</p>
-          <div className="stats-grid">
-            <StatCard
-              emoji="✅" label="Bestätigt" value={alertStats.confirmed}
-              tip="Abos, bei denen die Email-Adresse per Bestätigungslink verifiziert wurde. Diese werden benachrichtigt."
-              color="#22c55e"
-            />
-            <StatCard
-              emoji="⏳" label="Ausstehend" value={alertStats.pending}
-              tip="Abos, die noch nicht bestätigt wurden. Diese bekommen noch keine Nachrichten."
-              color="#f59e0b"
-            />
-            <StatCard
-              emoji="📊" label="Gesamt" value={alertStats.total}
-              tip="Alle Jagd-Alarm-Einträge — bestätigt und unbestätigt zusammen."
-              color="#6366f1"
-            />
-          </div>
-        </section>
-      )}
 
       {/* What did people do? */}
       <section className="admin-section">

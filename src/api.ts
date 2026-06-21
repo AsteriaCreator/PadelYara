@@ -299,12 +299,6 @@ export async function fetchSubscriberCount(): Promise<number> {
   return data.count as number
 }
 
-export async function fetchAlertStats(): Promise<{ total: number; confirmed: number; pending: number }> {
-  const res = await fetch(`${API_BASE}/api/tournaments/alerts/stats`, { headers: adminHeaders() })
-  if (!res.ok) throw new Error("Failed to fetch alert stats")
-  return res.json()
-}
-
 export async function subscribeEmail(email: string): Promise<{ ok: boolean; already?: boolean }> {
   try {
     const res = await fetch(`${API_BASE}/api/subscribe`, {
