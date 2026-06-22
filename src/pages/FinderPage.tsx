@@ -42,18 +42,6 @@ export default function FinderPage() {
           Yara findet einen freien Court für dich. Wo willst du spielen?
         </p>
 
-        <p className="mb-4 text-xs" style={{ color: "#6b7280" }}>
-          PadelYara ist im Aufbau. Etwas fehlt oder stimmt nicht?{" "}
-          <a
-            href={`mailto:${FEEDBACK_EMAIL}?subject=PadelYara%20Feedback`}
-            style={{ color: "#9ca3af", textDecoration: "underline" }}
-          >
-            Schreib Yara.
-          </a>
-        </p>
-
-        <NewsletterBanner />
-
         <SearchCard
           onSearch={onSearch}
           isLoading={isLoading}
@@ -69,7 +57,7 @@ export default function FinderPage() {
         />
 
         {!searched && !isLoading && !error && (
-          <div className="text-center py-8 text-gray-600 text-sm">
+          <div className="text-center py-8 text-gray-500 text-sm">
             <img src="/cat-head.svg" alt="Yara" className="h-16 w-auto mx-auto mb-3 opacity-30" />
             <p>Courts jagen. Sag mir wo.</p>
           </div>
@@ -101,7 +89,7 @@ export default function FinderPage() {
               </div>
               <div className="ml-auto text-right">
                 <span className="text-blue-400 text-sm font-semibold">{searchWeather.rain_prob}%</span>
-                <p className="text-gray-600 text-xs">Regenwahrsch.</p>
+                <p className="text-gray-500 text-xs">Regenwahrsch.</p>
                 {(() => {
                   const h = getWeatherHint(searchWeather.rain_prob)
                   return h ? <p className={`text-xs font-medium mt-0.5 ${h.color}`}>{h.text}</p> : null
@@ -120,7 +108,7 @@ export default function FinderPage() {
         )}
 
         {searched && !isLoading && searchLabel && (
-          <p className="text-xs text-gray-600 mb-1 px-1 tracking-wide uppercase">{searchLabel}</p>
+          <p className="text-xs text-gray-500 mb-1 px-1 tracking-wide uppercase">{searchLabel}</p>
         )}
 
         {searched && !isLoading && !error && filteredResults.length > 0 && lastParams && (
@@ -179,10 +167,23 @@ export default function FinderPage() {
         )}
 
         {searched && !isLoading && lastUpdated && (
-          <p className="text-gray-600 text-xs text-right mb-4">
+          <p className="text-gray-500 text-xs text-right mb-4">
             Zuletzt aktualisiert {secondsSince < 10 ? "gerade eben" : `vor ${secondsSince} Sekunden`}
           </p>
         )}
+
+        <div className="mt-8">
+          <NewsletterBanner />
+          <p className="text-xs px-1 mt-3" style={{ color: "#6b7280" }}>
+            Einen Platz vermisst?{" "}
+            <a
+              href={`mailto:${FEEDBACK_EMAIL}?subject=PadelYara%20Feedback`}
+              style={{ color: "#9ca3af", textDecoration: "underline" }}
+            >
+              Sag's mir.
+            </a>
+          </p>
+        </div>
       </div>
 
       <footer className="text-center py-8 mt-4">
