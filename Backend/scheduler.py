@@ -17,6 +17,7 @@ def _run_tournament_scrape(is_seed: bool = False) -> None:
     `is_seed` is True only for the initial import into an empty collection, so
     first_seen_at gets backdated instead of flagging the whole catalogue as NEU.
     """
+    print(f"[mem] before daily scrape: {state.rss_mb():.0f} MB")
     print("[tournaments] Starting daily scrape...")
     tournaments = scrape_padel_austria()
     if not tournaments:
@@ -61,6 +62,8 @@ def _run_tournament_scrape(is_seed: bool = False) -> None:
             alerts_future.result(timeout=60)
         except Exception as exc:
             print(f"[tournaments] Jagd-Alarm dispatch failed: {exc}")
+
+    print(f"[mem] after daily scrape: {state.rss_mb():.0f} MB")
 
 
 async def _dispatch_alerts(today_start) -> None:

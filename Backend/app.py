@@ -67,6 +67,8 @@ async def lifespan(_app: FastAPI):
     asyncio.create_task(eversports_prices.refresh_prices_async(state.VENUES))
     print("[startup] Eversports price refresh started in background.")
 
+    print(f"[mem] resident memory after startup load: {state.rss_mb():.0f} MB")
+
     yield
     scheduler.shutdown(wait=False)
 
