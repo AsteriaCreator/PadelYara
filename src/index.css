@@ -5,6 +5,12 @@
   overflow-x: hidden;
 }
 
+/* Keyboard focus ring — lime outline visible on the dark background */
+:focus-visible {
+  outline: 2px solid #d4f53c;
+  outline-offset: 2px;
+}
+
 /* Belt-and-suspenders: ensure all form controls meet the 16 px iOS zoom threshold */
 input,
 select,

@@ -62,7 +62,9 @@ export default function NewsletterBanner() {
         Neue Features kommen. Ob du das mitbekommst, ist deine Entscheidung.
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">
+        <label htmlFor="newsletter-email" className="sr-only">E-Mail-Adresse</label>
         <input
+          id="newsletter-email"
           type="email"
           placeholder="deine@email.at"
           value={email}

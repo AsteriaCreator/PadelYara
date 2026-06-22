@@ -5,7 +5,7 @@ import { suggest, type Suggestion } from "../geocode"
 
 // text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
 // text-sm (14 px) is below the 16 px threshold that triggers the zoom.
-const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-base text-white w-full focus:outline-none focus:border-gray-500"
+const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-base text-white w-full focus:outline-none focus-visible:ring-1 focus-visible:ring-[#d4f53c] focus-visible:border-[#d4f53c]"
 const labelClass = "text-xs font-semibold uppercase tracking-wide pl-1"
 const labelStyle = { color: "rgba(212,245,60,0.55)" }
 
@@ -178,9 +178,10 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
       {/* Location + Radius */}
       <div className="flex flex-row gap-3 mb-3">
         <div className="flex flex-col gap-1 flex-1 min-w-0" ref={wrapperRef}>
-          <label className={labelClass} style={labelStyle}>Wo?</label>
+          <label htmlFor="sc-location" className={labelClass} style={labelStyle}>Wo?</label>
           <div className="relative">
             <input
+              id="sc-location"
               type="text"
               value={location}
               onChange={(e) => {
@@ -227,8 +228,9 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
           </div>
         </div>
         <div className="flex flex-col gap-1 w-28 shrink-0">
-          <label className={labelClass} style={labelStyle}>Umkreis</label>
+          <label htmlFor="sc-radius" className={labelClass} style={labelStyle}>Umkreis</label>
           <select
+            id="sc-radius"
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
             className={inputClass}
@@ -245,8 +247,9 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
           Side-by-side only on sm: and above. */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
         <div className="flex flex-col gap-1">
-          <label className={labelClass} style={labelStyle}>Wann?</label>
+          <label htmlFor="sc-date" className={labelClass} style={labelStyle}>Wann?</label>
           <input
+            id="sc-date"
             type="date"
             value={date}
             onChange={(e) => handleDateChange(e.target.value)}
@@ -254,8 +257,9 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label className={labelClass} style={labelStyle}>Ab wann?</label>
+          <label htmlFor="sc-time" className={labelClass} style={labelStyle}>Ab wann?</label>
           <select
+            id="sc-time"
             value={time}
             onChange={(e) => handleTimeChange(e.target.value)}
             className={inputClass}

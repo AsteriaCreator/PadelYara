@@ -125,7 +125,7 @@ export default function FinderPage() {
 
         {searched && !isLoading && !error && filteredResults.length > 0 && lastParams && (
           <div className="mb-2 px-1 flex items-center justify-between">
-            <p style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.4)" }}>
+            <p style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: "0.85rem", color: "rgba(212,245,60,0.65)" }}>
               {filteredResults.length === 1
                 ? `1 Ergebnis im Umkreis von ${lastParams.radius} km`
                 : `${filteredResults.length} Ergebnisse im Umkreis von ${lastParams.radius} km`}
@@ -186,12 +186,12 @@ export default function FinderPage() {
       </div>
 
       <footer className="text-center py-8 mt-4">
-        <p className="text-xs text-gray-700 mb-2 tracking-widest uppercase">PadelYara</p>
+        <p className="text-xs text-gray-500 mb-2 tracking-widest uppercase">PadelYara</p>
         <div className="flex items-center justify-center gap-4">
-          <NavLink to="/impressum" className="text-xs text-gray-700 hover:text-gray-400 transition-colors">
+          <NavLink to="/impressum" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
             Impressum
           </NavLink>
-          <NavLink to="/datenschutz" className="text-xs text-gray-700 hover:text-gray-400 transition-colors">
+          <NavLink to="/datenschutz" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
             Datenschutz
           </NavLink>
         </div>

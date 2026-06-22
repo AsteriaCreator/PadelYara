@@ -6,7 +6,7 @@ const NAV_LINK_STYLE = ({ isActive }: { isActive: boolean }) => ({
   fontSize: "1rem",
   fontWeight: 600,
   marginRight: "24px",
-  color: isActive ? "#ffffff" : "#4b5563",
+  color: isActive ? "#ffffff" : "#9ca3af",
   borderBottom: isActive ? "2px solid #d4f53c" : "2px solid transparent",
   textDecoration: "none",
   transition: "color 0.15s",
