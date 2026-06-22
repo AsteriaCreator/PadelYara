@@ -3,11 +3,10 @@ import type { SearchParams, CourtType } from "../types"
 import { TIME_SLOTS, DURATION_OPTIONS, DEFAULT_DURATIONS } from "../constants"
 import { suggest, type Suggestion } from "../geocode"
 
-// text-base (16 px) keeps iOS Safari/Chrome from auto-zooming on focus.
-// text-sm (14 px) is below the 16 px threshold that triggers the zoom.
-const inputClass = "bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-base text-white w-full focus:outline-none focus-visible:ring-1 focus-visible:ring-[#d4f53c] focus-visible:border-[#d4f53c]"
-const labelClass = "text-xs font-semibold uppercase tracking-wide pl-1"
-const labelStyle = { color: "rgba(212,245,60,0.55)" }
+// 16 px floor prevents iOS Safari auto-zoom on input focus
+const inputClass = "bg-gray-800/60 border border-gray-700/70 rounded-lg px-3 text-base text-white w-full focus:outline-none focus-visible:ring-1 focus-visible:ring-[#d4f53c] focus-visible:border-[#d4f53c] transition-colors"
+const labelClass = "text-xs font-semibold uppercase tracking-wide pl-0.5"
+const labelStyle = { color: "rgba(212,245,60,0.7)" }
 
 const VALID_RADII = [5, 10, 20, 25, 50]
 const LS_LOCATION = "padel_location"
@@ -59,14 +58,12 @@ function getNextFullHour(): { date: string; time: string } {
   let nextHour = v.hour + 1
 
   if (nextHour > 22) {
-    // No useful slots remain today — default to tomorrow 07:00
     const tomorrow = new Date(year, month - 1, day + 1)
     year     = tomorrow.getFullYear()
     month    = tomorrow.getMonth() + 1
     day      = tomorrow.getDate()
     nextHour = 7
   } else if (nextHour < 7) {
-    // Early morning before first slot — snap to 07:00 today
     nextHour = 7
   }
 
@@ -83,19 +80,46 @@ function isSelectedPast(dateStr: string, timeStr: string): boolean {
   return toMin(timeStr) <= v.hour * 60 + v.minute
 }
 
+// Location pin SVG — inline, no icon library dependency
+function GeoIcon({ spinning }: { spinning: boolean }) {
+  return (
+    <svg
+      width="15" height="15" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+      style={spinning ? { animation: "spin 1s linear infinite" } : undefined}
+      aria-hidden="true"
+    >
+      {spinning ? (
+        <path d="M12 2a10 10 0 0 1 10 10" />
+      ) : (
+        <>
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+        </>
+      )}
+    </svg>
+  )
+}
+
 export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFilterChange, statusFilter, onStatusFilterChange, initialLocation, initialDate, initialTime, initialRadius, initialDurations }: Props) {
   const { date: defaultDate, time: defaultTime } = getNextFullHour()
 
-  const [date, setDate]           = useState(initialDate || defaultDate)
-  const [time, setTime]           = useState(initialTime || defaultTime)
+  const [date, setDate]               = useState(initialDate || defaultDate)
+  const [time, setTime]               = useState(initialTime || defaultTime)
   const [location, setLocation]       = useState(initialLocation || getStoredLocation())
   const [radius, setRadius]           = useState(initialRadius || getStoredRadius())
   const [durations, setDurations]     = useState<number[]>(initialDurations ?? DEFAULT_DURATIONS)
   const [formError, setFormError]     = useState<string | null>(null)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [showSugg, setShowSugg]       = useState(false)
+  const [geoAvailable, setGeoAvailable] = useState(false)
+  const [geoLoading, setGeoLoading]   = useState(false)
   const debounceRef                   = useRef<ReturnType<typeof setTimeout> | null>(null)
   const wrapperRef                    = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setGeoAvailable("geolocation" in navigator)
+  }, [])
 
   useEffect(() => {
     function onPointerDown(e: PointerEvent) {
@@ -110,6 +134,34 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
   const v       = getNowVienna()
   const isToday = date === v.dateStr
   const nowMin  = v.hour * 60 + v.minute
+
+  async function handleGeolocate() {
+    if (!geoAvailable || geoLoading) return
+    setGeoLoading(true)
+    try {
+      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 6000 })
+      })
+      const { latitude, longitude } = position.coords
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=de`,
+        { signal: AbortSignal.timeout(5000) }
+      )
+      if (!res.ok) return
+      const data = await res.json()
+      const plz = data.address?.postcode || data.address?.city || data.address?.town || data.address?.village
+      if (plz) {
+        setLocation(String(plz))
+        setFormError(null)
+        setSuggestions([])
+        setShowSugg(false)
+      }
+    } catch {
+      // silent failure
+    } finally {
+      setGeoLoading(false)
+    }
+  }
 
   function handleDateChange(newDate: string) {
     setFormError(null)
@@ -140,7 +192,6 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
     setFormError(null)
     setDurations((prev) => {
       if (prev.includes(value)) {
-        // Never allow deselecting the last chip — at least one must stay active.
         if (prev.length === 1) return prev
         return prev.filter((d) => d !== value)
       }
@@ -157,7 +208,6 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
     }
 
     const trimmedLocation = location.trim()
-
     if (!trimmedLocation) {
       setFormError("Bitte PLZ oder Ort eingeben.")
       return
@@ -173,11 +223,20 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-900 rounded-xl border border-gray-800 p-4 mb-6">
-
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-xl mb-6"
+      style={{
+        background: "#111318",
+        backgroundImage: "linear-gradient(180deg, rgba(212,245,60,0.05) 0%, rgba(212,245,60,0) 64px)",
+        border: "1px solid rgba(212,245,60,0.12)",
+        borderTopColor: "rgba(212,245,60,0.28)",
+        padding: "1.25rem",
+      }}
+    >
       {/* Location + Radius */}
-      <div className="flex flex-row gap-3 mb-3">
-        <div className="flex flex-col gap-1 flex-1 min-w-0" ref={wrapperRef}>
+      <div className="flex flex-row gap-3 mb-4">
+        <div className="flex flex-col gap-1.5 flex-1 min-w-0" ref={wrapperRef}>
           <label htmlFor="sc-location" className={labelClass} style={labelStyle}>Wo?</label>
           <div className="relative">
             <input
@@ -204,9 +263,23 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
                 if (suggestions.length > 0) setShowSugg(true)
               }}
               placeholder="z.B. 2500 oder Baden"
-              className={inputClass}
+              className={`${inputClass} py-2.5 ${geoAvailable ? "pr-9" : "pr-3"}`}
               autoComplete="off"
+              style={{ fontSize: "max(16px, 1em)" }}
             />
+            {geoAvailable && (
+              <button
+                type="button"
+                onClick={handleGeolocate}
+                aria-label="Meinen Standort verwenden"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 transition-colors"
+                style={{ color: geoLoading ? "rgba(212,245,60,0.9)" : "rgba(212,245,60,0.45)" }}
+                onMouseEnter={e => { if (!geoLoading) (e.currentTarget as HTMLButtonElement).style.color = "rgba(212,245,60,0.85)" }}
+                onMouseLeave={e => { if (!geoLoading) (e.currentTarget as HTMLButtonElement).style.color = "rgba(212,245,60,0.45)" }}
+              >
+                <GeoIcon spinning={geoLoading} />
+              </button>
+            )}
             {showSugg && (
               <ul className="absolute z-50 left-0 right-0 top-full mt-1 bg-gray-800 border border-gray-700 rounded-lg overflow-hidden shadow-lg">
                 {suggestions.map((s, i) => (
@@ -227,13 +300,14 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-1 w-28 shrink-0">
+        <div className="flex flex-col gap-1.5 w-28 shrink-0">
           <label htmlFor="sc-radius" className={labelClass} style={labelStyle}>Umkreis</label>
           <select
             id="sc-radius"
             value={radius}
             onChange={(e) => setRadius(Number(e.target.value))}
-            className={inputClass}
+            className={`${inputClass} py-2.5`}
+            style={{ fontSize: "max(16px, 1em)" }}
           >
             {[5, 10, 20, 25, 50].map((km) => (
               <option key={km} value={km}>{km} km</option>
@@ -242,27 +316,27 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
         </div>
       </div>
 
-      {/* Date + Time — stack vertically on mobile (<640px) so the native iOS
-          date picker (Tag/Monat/Jahr spinners) has enough width (~180px+).
-          Side-by-side only on sm: and above. */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
-        <div className="flex flex-col gap-1">
+      {/* Date + Time */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="sc-date" className={labelClass} style={labelStyle}>Wann?</label>
           <input
             id="sc-date"
             type="date"
             value={date}
             onChange={(e) => handleDateChange(e.target.value)}
-            className={inputClass}
+            className={`${inputClass} py-2.5`}
+            style={{ fontSize: "max(16px, 1em)" }}
           />
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1.5">
           <label htmlFor="sc-time" className={labelClass} style={labelStyle}>Ab wann?</label>
           <select
             id="sc-time"
             value={time}
             onChange={(e) => handleTimeChange(e.target.value)}
-            className={inputClass}
+            className={`${inputClass} py-2.5`}
+            style={{ fontSize: "max(16px, 1em)" }}
           >
             {TIME_SLOTS.map((t) => (
               <option key={t} value={t} disabled={isToday && toMin(t) <= nowMin}>
@@ -273,9 +347,11 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
         </div>
       </div>
 
-      {/* Play duration — multi-select. A venue counts as "frei" only if it can
-          host one of the chosen lengths continuously (not just the start time). */}
-      <div className="mb-3">
+      {/* Divider */}
+      <div className="border-t mb-4" style={{ borderColor: "rgba(255,255,255,0.06)" }} />
+
+      {/* Duration */}
+      <div className="mb-4">
         <label className={`${labelClass} block mb-2`} style={labelStyle}>Wie lange?</label>
         <div className="flex gap-2">
           {DURATION_OPTIONS.map((opt) => {
@@ -286,12 +362,19 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
                 type="button"
                 onClick={() => toggleDuration(opt.value)}
                 aria-pressed={active}
-                className={`px-3 py-1.5 rounded-lg text-sm font-semibold border transition-colors ${
-                  active
-                    ? "border-[#d4f53c] text-gray-900"
-                    : "bg-gray-800 border-gray-700 text-gray-300 hover:border-gray-500"
-                }`}
-                style={active ? { backgroundColor: "#d4f53c" } : undefined}
+                className="px-3 py-1.5 rounded-lg text-sm font-semibold border transition-all"
+                style={active ? {
+                  backgroundColor: "#d4f53c",
+                  borderColor: "#d4f53c",
+                  color: "#080810",
+                  boxShadow: "0 0 10px rgba(212,245,60,0.2)",
+                } : {
+                  backgroundColor: "transparent",
+                  borderColor: "rgba(255,255,255,0.12)",
+                  color: "#9ca3af",
+                }}
+                onMouseEnter={e => { if (!active) (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(212,245,60,0.4)" }}
+                onMouseLeave={e => { if (!active) (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.12)" }}
               >
                 {opt.label}
               </button>
@@ -300,7 +383,8 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
         </div>
       </div>
 
-      <div className="mb-3 flex items-start justify-between flex-wrap gap-y-3">
+      {/* Court type + Availability */}
+      <div className="mb-5 flex items-start justify-between flex-wrap gap-y-3">
         <div>
           <label className={`${labelClass} block mb-2`} style={labelStyle}>Court-Typ</label>
           <div className="flex gap-4">
@@ -312,7 +396,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
                   onChange={(e) => onCourtFilterChange({ ...courtFilter, [type]: e.target.checked })}
                   className="w-4 h-4 rounded accent-[#d4f53c] cursor-pointer"
                 />
-                <span className="text-sm text-white capitalize">{type === "indoor" ? "Indoor" : "Outdoor"}</span>
+                <span className="text-sm text-white">{type === "indoor" ? "Indoor" : "Outdoor"}</span>
               </label>
             ))}
           </div>
@@ -328,7 +412,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
                   onChange={(e) => onStatusFilterChange({ ...statusFilter, [s]: e.target.checked })}
                   className="w-4 h-4 rounded accent-[#d4f53c] cursor-pointer"
                 />
-                <span className="text-sm text-white capitalize">{s === "frei" ? "Frei" : "Belegt"}</span>
+                <span className="text-sm text-white">{s === "frei" ? "Frei" : "Belegt"}</span>
               </label>
             ))}
           </div>
@@ -336,16 +420,24 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
       </div>
 
       {formError && (
-        <p className="text-red-400 text-xs mb-2">{formError}</p>
+        <p className="text-red-400 text-xs mb-3">{formError}</p>
       )}
 
       <button
         type="submit"
-        style={{ backgroundColor: "#d4f53c", opacity: isLoading ? 0.7 : 1 }}
-        className="w-full py-2.5 rounded-lg text-sm font-bold text-gray-900 tracking-wide flex items-center justify-center gap-2"
+        disabled={isLoading}
+        className="w-full py-3 rounded-lg text-sm font-bold tracking-wide flex items-center justify-center gap-2 transition-all"
+        style={{
+          backgroundColor: "#d4f53c",
+          color: "#080810",
+          opacity: isLoading ? 0.7 : 1,
+          letterSpacing: "0.1em",
+        }}
+        onMouseEnter={e => { if (!isLoading) (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 0 20px rgba(212,245,60,0.28)" }}
+        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.boxShadow = "none" }}
       >
         {isLoading && (
-          <span className="animate-spin inline-block h-4 w-4 rounded-full border-2 border-gray-900 border-t-transparent" />
+          <span className="inline-block h-4 w-4 rounded-full border-2 border-gray-900 border-t-transparent animate-spin" />
         )}
         {isLoading ? "LADEN…" : "SUCHEN"}
       </button>
