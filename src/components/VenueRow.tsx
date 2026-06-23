@@ -176,7 +176,7 @@ export default function VenueRow({ venue, pollingActive, searchDate, highlighted
         ) : (
           // No booking URL (e.g. phone-only venues) — render a non-clickable
           // placeholder instead of a dead <a href=""> that reloads our own site.
-          <span className="text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap bg-gray-800 text-gray-600 border border-gray-700">
+          <span className="text-xs font-semibold px-3 py-1.5 rounded shrink-0 whitespace-nowrap bg-gray-800 text-gray-500 border border-gray-700">
             KEIN LINK
           </span>
         )}

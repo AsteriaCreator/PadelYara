@@ -127,7 +127,7 @@ function MultiChip({
           className="text-xs px-2.5 py-1 rounded-full border transition-colors"
           style={{
             borderColor: allSelected ? "#d4f53c" : "rgba(107,114,128,0.4)",
-            color: allSelected ? "#d4f53c" : "#6b7280",
+            color: allSelected ? "#d4f53c" : "#9ca3af",
             background: allSelected ? "rgba(212,245,60,0.08)" : "transparent",
           }}
         >
@@ -142,7 +142,7 @@ function MultiChip({
               className="text-xs px-2.5 py-1 rounded-full border transition-colors"
               style={{
                 borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
-                color: active ? "#d4f53c" : "#6b7280",
+                color: active ? "#d4f53c" : "#9ca3af",
                 background: active ? "rgba(212,245,60,0.08)" : "transparent",
               }}
             >
@@ -181,7 +181,7 @@ function BundeslandChips({
           className="text-xs px-2.5 py-1 rounded-full border transition-colors"
           style={{
             borderColor: allSelected ? "#d4f53c" : "rgba(107,114,128,0.4)",
-            color: allSelected ? "#d4f53c" : "#6b7280",
+            color: allSelected ? "#d4f53c" : "#9ca3af",
             background: allSelected ? "rgba(212,245,60,0.08)" : "transparent",
           }}
         >
@@ -190,7 +190,7 @@ function BundeslandChips({
         {BUNDESLAENDER.map(bl => {
           const active = selected.includes(bl)
           const open = expanded.includes(bl)
-          const chipColor = active ? "#d4f53c" : "#6b7280"
+          const chipColor = active ? "#d4f53c" : "#9ca3af"
           const chipBorder = active ? "#d4f53c" : "rgba(107,114,128,0.4)"
           const chipBg = active ? "rgba(212,245,60,0.08)" : "transparent"
           return active ? (
@@ -305,7 +305,7 @@ function BezirkPicker({
                 <input type="checkbox" checked={active} onChange={() => toggle(b)} className="sr-only" />
                 <span
                   className="text-[11px] leading-tight transition-colors"
-                  style={{ color: active ? "#d4f53c" : "#6b7280" }}
+                  style={{ color: active ? "#d4f53c" : "#9ca3af" }}
                 >
                   {b}
                 </span>
@@ -324,7 +324,7 @@ function BezirkPicker({
                 className="text-[11px] px-2 py-0.5 rounded-full border transition-colors"
                 style={{
                   borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.3)",
-                  color: active ? "#d4f53c" : "#6b7280",
+                  color: active ? "#d4f53c" : "#9ca3af",
                   background: active ? "rgba(212,245,60,0.08)" : "transparent",
                 }}
               >
@@ -523,9 +523,17 @@ export default function TurnierjagerPage() {
         <link rel="canonical" href="https://padelyara.at/turnierjaeger" />
       </Helmet>
       {/* Intro */}
-      <div className="mb-6 space-y-3 px-1">
-        <p className="text-white text-lg font-semibold">Turnierjagd</p>
-        <p className="text-gray-400 text-base leading-relaxed">
+      <div className="mb-5 px-1">
+        <h1
+          className="text-xl font-bold mb-2"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#fff", letterSpacing: "0.01em" }}
+        >
+          Turnierjagd
+        </h1>
+        <p
+          className="text-base italic mb-0"
+          style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
+        >
           Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System.
           Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
         </p>
@@ -801,7 +809,7 @@ export default function TurnierjagerPage() {
         </div>
       )}
 
-<p className="text-center text-xs text-gray-800 mt-6">
+<p className="text-center text-xs text-gray-500 mt-6">
         Daten von{" "}
         <a
           href="https://padel-austria.at/tournaments"
