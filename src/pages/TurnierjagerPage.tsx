@@ -525,16 +525,17 @@ export default function TurnierjagerPage() {
       {/* Intro */}
       <div className="mb-5 px-1">
         <h1
-          className="text-xl font-bold mb-1"
+          className="text-xl font-bold mb-2"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#fff", letterSpacing: "0.01em" }}
         >
           Turnierjagd
         </h1>
         <p
-          className="text-base italic mb-3"
+          className="text-base italic mb-0"
           style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
         >
-          Alle Turniere Österreichs. Ich kenn sie alle. Du auch jetzt.
+          Turniere überall verstreut. Viele Bundesländer, viele Kategorien, kein System.
+          Niemand hat dafür Zeit. Also ich. Eine Liste. Fertig.
         </p>
       </div>
 
