@@ -143,8 +143,30 @@ export default function FinderPage() {
         {searched && !isLoading && !error && filteredResults.length === 0 && (
           <div className="text-center py-10 mb-4">
             <p className="text-3xl mb-3">🎾</p>
-            <p className="text-white font-semibold mb-1">Keine Ergebnisse.</p>
-            <p className="text-gray-500 text-sm">Lösungsvorschlag: woanders wohnen.</p>
+            <p className="text-white font-semibold mb-1">Nichts gefunden.</p>
+            <p className="text-gray-500 text-sm mb-4">Lösungsvorschlag: woanders wohnen.</p>
+            {lastParams && lastParams.radius < 50 && (
+              <button
+                onClick={() => onSearch({ ...lastParams!, radius: 50 })}
+                className="text-sm font-bold tracking-wide px-5 py-2 rounded-lg transition-colors"
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  border: "1px solid rgba(212,245,60,0.3)",
+                  color: "rgba(212,245,60,0.8)",
+                  background: "transparent",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(212,245,60,0.7)"
+                  e.currentTarget.style.color = "#d4f53c"
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "rgba(212,245,60,0.3)"
+                  e.currentTarget.style.color = "rgba(212,245,60,0.8)"
+                }}
+              >
+                Auf 50 km erweitern
+              </button>
+            )}
           </div>
         )}
 
