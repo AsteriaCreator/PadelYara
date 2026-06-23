@@ -17,6 +17,60 @@ function icsEscape(s: string): string {
   return s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n")
 }
 
+export function exportRegistrationReminder(t: Tournament): void {
+  if (!t.registration_opens_at) return
+
+  const start = icsDate(t.registration_opens_at, false)
+  if (!start) return
+
+  // 30-minute reminder block
+  const endDt = new Date(t.registration_opens_at)
+  endDt.setMinutes(endDt.getMinutes() + 30)
+  const end = icsDate(endDt.toISOString(), false)
+
+  const uid = `registration-${t.source_id}@padelyara.at`
+  const now = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")
+
+  const descParts = [
+    `Anmeldung für: ${t.title}`,
+    t.source_url && `Link: ${t.source_url}`,
+  ].filter(Boolean)
+  const description = descParts.join("\\n")
+
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//PadelYara//Turnierjäger//DE",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:${uid}`,
+    `DTSTAMP:${now}`,
+    `DTSTART:${start}`,
+    `DTEND:${end}`,
+    `SUMMARY:${icsEscape(`Anmeldung öffnet: ${t.title}`)}`,
+    `DESCRIPTION:${description}`,
+    t.source_url && `URL:${t.source_url}`,
+    "BEGIN:VALARM",
+    "TRIGGER:-PT0M",
+    "ACTION:DISPLAY",
+    `DESCRIPTION:${icsEscape(`Anmeldung öffnet jetzt: ${t.title}`)}`,
+    "END:VALARM",
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].filter(Boolean).join("\r\n")
+
+  const blob = new Blob([lines], { type: "text/calendar;charset=utf-8" })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement("a")
+  a.href = url
+  a.download = `Anmeldung – ${t.title.replace(/[^a-zA-Z0-9äöüÄÖÜß\s-]/g, "").trim()}.ics`
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
+  URL.revokeObjectURL(url)
+}
+
 export function exportToCalendar(t: Tournament): void {
   const hasTime = t.starts_at?.includes("T") && !t.starts_at.endsWith("T00:00:00")
   const allDay = !hasTime
