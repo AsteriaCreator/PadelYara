@@ -60,6 +60,7 @@ function StatusChip({ t, getStatus, setStatus }: {
         }}
       >
         {statusLabel(current)}
+        <span style={{ fontSize: "8px", marginLeft: "3px", opacity: 0.6 }}>▾</span>
       </button>
       {open && (
         <div

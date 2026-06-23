@@ -15,7 +15,7 @@ export const STATUS_LABELS: Record<TournamentStatusValue, string> = {
   gefragt: "Gefragt",
   zusage: "Zusage",
   ich_buche: "Ich buche",
-  sie_bucht: "Sie bucht",
+  sie_bucht: "Partner bucht",
   warteliste: "Warteliste",
   gebucht: "Gebucht",
 }
