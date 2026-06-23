@@ -69,7 +69,7 @@ export default function NewsletterBanner() {
           placeholder="deine@email.at"
           value={email}
           onChange={e => setEmail(e.target.value)}
-          className="flex-1 bg-transparent rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-600 outline-none min-w-0"
+          className="flex-1 bg-transparent rounded-lg px-3 py-1.5 text-sm text-white placeholder-gray-500 outline-none min-w-0"
           style={{ border: "1px solid rgba(212,245,60,0.2)", fontFamily: "'Barlow Condensed', sans-serif" }}
         />
         <button

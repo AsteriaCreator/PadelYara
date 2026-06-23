@@ -274,10 +274,10 @@ function BezirkPicker({
       style={{ borderColor: "rgba(107,114,128,0.2)", background: "rgba(0,0,0,0.2)" }}
     >
       <div className="flex items-center justify-between mb-2">
-        <p className="text-[10px] text-gray-600 tracking-widest uppercase">{bundesland}</p>
+        <p className="text-[10px] text-gray-500 tracking-widest uppercase">{bundesland}</p>
         <button
           onClick={() => onChange(selected.length === options.length ? [] : options)}
-          className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
+          className="text-[10px] text-gray-400 hover:text-gray-500 transition-colors"
         >
           {selected.length === options.length ? "alle abwählen" : "alle auswählen"}
         </button>
@@ -540,7 +540,7 @@ export default function TurnierjagerPage() {
           {hasActiveFilters && (
             <button
               onClick={resetFilters}
-              className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+              className="text-xs text-gray-500 hover:text-gray-400 transition-colors"
             >
               Zurücksetzen
             </button>
@@ -600,7 +600,7 @@ export default function TurnierjagerPage() {
               {filters.venue.length > 0 && (
                 <button
                   onClick={() => updateFilter("venue", [])}
-                  className="text-[10px] text-gray-700 hover:text-gray-500 transition-colors"
+                  className="text-[10px] text-gray-400 hover:text-gray-500 transition-colors"
                 >
                   alle abwählen
                 </button>
@@ -746,14 +746,14 @@ export default function TurnierjagerPage() {
               : `${visibleTournaments.length} Turniere`}
           </p>
           {lastUpdated && (
-            <p className="text-xs text-gray-700">Stand: {lastUpdated}</p>
+            <p className="text-xs text-gray-400">Stand: {lastUpdated}</p>
           )}
         </div>
       )}
 
       {loading && (
         <div className="text-center py-10">
-          <p className="text-gray-600 text-sm">Yara jagt …</p>
+          <p className="text-gray-500 text-sm">Yara jagt …</p>
         </div>
       )}
 
@@ -807,7 +807,7 @@ export default function TurnierjagerPage() {
           href="https://padel-austria.at/tournaments"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-gray-600 transition-colors"
+          className="hover:text-gray-400 transition-colors"
         >
           padel-austria.at
         </a>

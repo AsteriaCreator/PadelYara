@@ -25,7 +25,7 @@ function FilterSummary({ filters }: { filters: JagdAlarmModalProps["filters"] })
 
   if (lines.length === 0) {
     return (
-      <p className="text-xs" style={{ color: "#6b7280" }}>
+      <p className="text-xs" style={{ color: "#9ca3af" }}>
         Alle Turniere — keine Filter aktiv.
       </p>
     )
@@ -35,7 +35,7 @@ function FilterSummary({ filters }: { filters: JagdAlarmModalProps["filters"] })
     <div className="space-y-1">
       {lines.map(l => (
         <div key={l.label} className="flex gap-2 text-xs">
-          <span style={{ color: "#6b7280", minWidth: "6rem" }}>{l.label}</span>
+          <span style={{ color: "#9ca3af", minWidth: "6rem" }}>{l.label}</span>
           <span style={{ color: "#d1d5db" }}>{l.values.join(", ")}</span>
         </div>
       ))}
@@ -98,7 +98,7 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
         {/* Close */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-600 hover:text-gray-400 transition-colors text-lg leading-none"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-300 transition-colors text-lg leading-none"
           aria-label="Schließen"
         >
           ✕
@@ -113,7 +113,7 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
             >
               CHECK DEIN POSTFACH.
             </p>
-            <p className="text-sm" style={{ color: "#6b7280" }}>
+            <p className="text-sm" style={{ color: "#9ca3af" }}>
               Bestätigungslink unterwegs. Sobald du klickst, bist du dabei.
             </p>
           </div>
@@ -126,7 +126,7 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
             >
               JAGD-ALARM
             </p>
-            <p className="text-sm mb-5" style={{ color: "#6b7280" }}>
+            <p className="text-sm mb-5" style={{ color: "#9ca3af" }}>
               Yara schreibt dir, wenn neue Turniere auftauchen.
             </p>
 
@@ -137,7 +137,7 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
             >
               <p
                 className="text-xs mb-2 tracking-widest uppercase"
-                style={{ color: "#6b7280", fontFamily: "'Barlow Condensed', sans-serif" }}
+                style={{ color: "#9ca3af", fontFamily: "'Barlow Condensed', sans-serif" }}
               >
                 Deine Filter
               </p>
