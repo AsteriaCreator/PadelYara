@@ -22,7 +22,7 @@ export default function TurnierjagerNav() {
           style={({ isActive }) => ({
             fontFamily: "'Barlow Condensed', sans-serif",
             background: isActive ? "rgba(212,245,60,0.12)" : "transparent",
-            color: isActive ? "#d4f53c" : "#6b7280",
+            color: isActive ? "#d4f53c" : "#9ca3af",
           })}
         >
           {tab.label}
