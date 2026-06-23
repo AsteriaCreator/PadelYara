@@ -252,19 +252,22 @@ def _fetch_soup(url: str, session: requests.Session) -> BeautifulSoup | None:
         return None
 
 
-def _parse_entries(soup: BeautifulSoup) -> list[dict]:
+def _parse_entries(soup: BeautifulSoup) -> tuple[list[dict], list[dict]]:
     """
-    Parse the participant entry table from a tournament detail page.
-    Returns list of: {seed, apn, points, player_a_name, player_a_slug,
-                       player_b_name, player_b_slug}
+    Parse the participant entry tables from a tournament detail page.
+    Returns (entries, waitlist_entries).
+
+    The first "Team" table is the regular field; the second (if present) is the
+    waitlist. Each row yields:
+        {seed, apn, points, player_a_name, player_a_slug, player_b_name, player_b_slug}
     Table headers: # | APN | Punkte | Team
     Each player name in the Team cell links to /players/<slug>.
     """
-    entries = []
-    for table in soup.find_all("table"):
-        headers = [th.get_text(strip=True) for th in table.find_all("th")]
-        if "Team" not in headers:
-            continue
+    def _slug(a) -> str:
+        return a["href"].split("/players/")[-1].strip("/")
+
+    def _parse_table(table) -> list[dict]:
+        rows_parsed = []
         for row in table.find_all("tr")[1:]:
             cells = row.find_all("td")
             if len(cells) < 4:
@@ -275,9 +278,7 @@ def _parse_entries(soup: BeautifulSoup) -> list[dict]:
             player_links = cells[3].find_all("a", href=re.compile(r"^/players/"))
             if len(player_links) < 2:
                 continue
-            def _slug(a) -> str:
-                return a["href"].split("/players/")[-1].strip("/")
-            entries.append({
+            rows_parsed.append({
                 "seed": int(seed_text) if seed_text.isdigit() else None,
                 "apn": float(apn_text) if apn_text else None,
                 "points": int(points_text) if points_text.isdigit() else None,
@@ -286,8 +287,15 @@ def _parse_entries(soup: BeautifulSoup) -> list[dict]:
                 "player_b_name": player_links[1].get_text(strip=True),
                 "player_b_slug": _slug(player_links[1]),
             })
-        break  # only parse the first matching table (main field, not waitlist)
-    return entries
+        return rows_parsed
+
+    team_tables = [
+        t for t in soup.find_all("table")
+        if "Team" in [th.get_text(strip=True) for th in t.find_all("th")]
+    ]
+    entries = _parse_table(team_tables[0]) if len(team_tables) >= 1 else []
+    waitlist_entries = _parse_table(team_tables[1]) if len(team_tables) >= 2 else []
+    return entries, waitlist_entries
 
 
 def _fetch_page(page: int, session: requests.Session) -> BeautifulSoup | None:
@@ -352,7 +360,11 @@ def scrape_all() -> list[dict[str, Any]]:
     for i, t in enumerate(entry_eligible):
         time.sleep(0.3)
         detail_soup = _fetch_soup(t["source_url"], session)
-        t["entries"] = _parse_entries(detail_soup) if detail_soup else []
+        if detail_soup:
+            t["entries"], t["waitlist_entries"] = _parse_entries(detail_soup)
+        else:
+            t["entries"] = []
+            t["waitlist_entries"] = []
         if (i + 1) % 10 == 0:
             print(f"[padel_austria_scraper] Entry lists: {i + 1}/{len(entry_eligible)}")
 

@@ -52,6 +52,8 @@ async def ensure_indexes() -> None:
     await col.create_index([("first_seen_at", 1)])
     await col.create_index([("entries.player_a_slug", 1)])
     await col.create_index([("entries.player_b_slug", 1)])
+    await col.create_index([("waitlist_entries.player_a_slug", 1)])
+    await col.create_index([("waitlist_entries.player_b_slug", 1)])
 
 
 import re as _re
@@ -404,7 +406,8 @@ async def get_share_tournaments(code: str) -> list[dict]:
 async def get_tournaments_for_player(player_slug: str) -> list[dict]:
     """
     Return all open/upcoming tournaments where the player (identified by slug)
-    appears in the entries list, with their partner info.
+    appears in the entries or waitlist_entries list, with their partner info.
+    Adds `is_waitlisted: bool` to each returned tournament dict.
     """
     col = _col()
     query = {
@@ -412,15 +415,19 @@ async def get_tournaments_for_player(player_slug: str) -> list[dict]:
         "$or": [
             {"entries.player_a_slug": player_slug},
             {"entries.player_b_slug": player_slug},
+            {"waitlist_entries.player_a_slug": player_slug},
+            {"waitlist_entries.player_b_slug": player_slug},
         ],
     }
     cursor = col.find(query, {"_id": 0})
     docs = await cursor.to_list(200)
     result = []
     for doc in docs:
-        # Find the specific entry row for this player
+        # Check regular entries first, then waitlist
         partner_name = None
         partner_slug = None
+        is_waitlisted = False
+
         for entry in (doc.get("entries") or []):
             if entry.get("player_a_slug") == player_slug:
                 partner_name = entry.get("player_b_name")
@@ -430,13 +437,29 @@ async def get_tournaments_for_player(player_slug: str) -> list[dict]:
                 partner_name = entry.get("player_a_name")
                 partner_slug = entry.get("player_a_slug")
                 break
+        else:
+            # Not in regular entries — check waitlist
+            for entry in (doc.get("waitlist_entries") or []):
+                if entry.get("player_a_slug") == player_slug:
+                    partner_name = entry.get("player_b_name")
+                    partner_slug = entry.get("player_b_slug")
+                    is_waitlisted = True
+                    break
+                elif entry.get("player_b_slug") == player_slug:
+                    partner_name = entry.get("player_a_name")
+                    partner_slug = entry.get("player_a_slug")
+                    is_waitlisted = True
+                    break
+
         doc.pop("entries", None)  # don't send full entry list to frontend
+        doc.pop("waitlist_entries", None)
         for field in ("starts_at", "ends_at", "first_seen_at", "last_seen_at",
                       "registration_opens_at", "registration_closes_at"):
             if isinstance(doc.get(field), datetime):
                 doc[field] = doc[field].isoformat()
         doc["partner_name"] = partner_name
         doc["partner_slug"] = partner_slug
+        doc["is_waitlisted"] = is_waitlisted
         result.append(doc)
     result.sort(key=_sort_key)
     return result

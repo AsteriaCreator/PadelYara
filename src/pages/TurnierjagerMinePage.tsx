@@ -1,9 +1,92 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Helmet } from "react-helmet-async"
 import TournamentCard from "../components/TournamentCard"
 import TurnierjagerNav from "../components/TurnierjagerNav"
 import { useMyProfile } from "../hooks/useMyProfile"
 import { useMerkliste } from "../hooks/useMerkliste"
+import { useTournamentStatus, STATUS_LABELS, AUTO_STATUSES } from "../hooks/useTournamentStatus"
+import type { TournamentStatusValue } from "../hooks/useTournamentStatus"
+import type { Tournament } from "../types"
+
+const STATUS_COLORS: Record<TournamentStatusValue, string> = {
+  interessant: "#6b7280",
+  gefragt: "#60a5fa",
+  zusage: "#a78bfa",
+  ich_buche: "#fb923c",
+  sie_bucht: "#fb923c",
+  warteliste: "#fbbf24",
+  gebucht: "#d4f53c",
+}
+
+function statusLabel(s: TournamentStatusValue): string {
+  if (s === "warteliste") return `⚡ ${STATUS_LABELS[s]}`
+  if (s === "gebucht") return `✓ ${STATUS_LABELS[s]}`
+  return STATUS_LABELS[s]
+}
+
+function StatusChip({ t, getStatus, setStatus }: {
+  t: Tournament
+  getStatus: (t: Tournament) => TournamentStatusValue
+  setStatus: (t: Tournament, s: TournamentStatusValue) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const current = getStatus(t)
+
+  useEffect(() => {
+    if (!open) return
+    function onOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", onOutside)
+    return () => document.removeEventListener("mousedown", onOutside)
+  }, [open])
+
+  const isAuto = AUTO_STATUSES.includes(current)
+
+  return (
+    <div ref={ref} className="relative inline-block">
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="text-[10px] font-bold px-2 py-0.5 rounded-full tracking-wider transition-opacity hover:opacity-80"
+        style={{
+          fontFamily: "'Barlow Condensed', sans-serif",
+          background: `${STATUS_COLORS[current]}22`,
+          color: STATUS_COLORS[current],
+          border: `1px solid ${STATUS_COLORS[current]}55`,
+          opacity: isAuto ? 1 : 0.9,
+        }}
+      >
+        {statusLabel(current)}
+      </button>
+      {open && (
+        <div
+          className="absolute left-0 top-full mt-1 rounded-lg border overflow-hidden z-20"
+          style={{ background: "#111118", borderColor: "rgba(107,114,128,0.4)", minWidth: "130px" }}
+        >
+          {(Object.keys(STATUS_LABELS) as TournamentStatusValue[]).map(s => (
+            <button
+              key={s}
+              onClick={() => { setStatus(t, s); setOpen(false) }}
+              className="w-full text-left text-[11px] px-3 py-1.5 transition-colors"
+              style={{
+                color: s === current ? STATUS_COLORS[s] : "#9ca3af",
+                background: s === current ? `${STATUS_COLORS[s]}11` : "transparent",
+                fontWeight: s === current ? 700 : 400,
+              }}
+              onMouseEnter={e => { if (s !== current) (e.currentTarget as HTMLElement).style.background = "rgba(212,245,60,0.06)" }}
+              onMouseLeave={e => { if (s !== current) (e.currentTarget as HTMLElement).style.background = "transparent" }}
+            >
+              {statusLabel(s)}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function TurnierjagerMinePage() {
   const {
@@ -11,10 +94,22 @@ export default function TurnierjagerMinePage() {
     searchMyName, selectPlayer, clearMyProfile,
   } = useMyProfile()
   const { merkliste, toggleMerkliste, clearMerkliste, shareMerkliste, copied, loadFromUrl } = useMerkliste()
+  const { getStatus, setStatus, autoSetStatus } = useTournamentStatus()
 
   const [tab, setTab] = useState<"bevorstehend" | "gemerkt">("bevorstehend")
 
   useEffect(() => { loadFromUrl() }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-detect waitlist / booked status from padel-austria.at data
+  useEffect(() => {
+    for (const t of myTournaments) {
+      if (t.is_waitlisted) {
+        autoSetStatus(t, "warteliste")
+      } else {
+        autoSetStatus(t, "gebucht")
+      }
+    }
+  }, [myTournaments]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const merklisteItems = Object.values(merkliste).sort(
     (a, b) => (a.starts_at ?? "") < (b.starts_at ?? "") ? -1 : 1
@@ -193,13 +288,17 @@ export default function TurnierjagerMinePage() {
                 </div>
                 <div className="rounded-lg border border-gray-800 divide-y divide-gray-800 overflow-hidden mb-4">
                   {merklisteItems.map(t => (
-                    <TournamentCard
-                      key={`${t.source}:${t.source_id}`}
-                      t={t}
-                      showLink
-                      isBookmarked
-                      onBookmark={() => toggleMerkliste(t)}
-                    />
+                    <div key={`${t.source}:${t.source_id}`}>
+                      <TournamentCard
+                        t={t}
+                        showLink
+                        isBookmarked
+                        onBookmark={() => toggleMerkliste(t)}
+                      />
+                      <div className="px-4 pb-3 -mt-1">
+                        <StatusChip t={t} getStatus={getStatus} setStatus={setStatus} />
+                      </div>
+                    </div>
                   ))}
                 </div>
                 <button

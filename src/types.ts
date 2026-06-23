@@ -146,6 +146,7 @@ export interface Tournament {
   last_seen_at: string | null
   partner_name?: string | null
   partner_slug?: string | null
+  is_waitlisted?: boolean
 }
 
 export interface SearchResponse {
