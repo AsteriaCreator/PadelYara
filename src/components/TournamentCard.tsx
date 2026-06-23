@@ -1,5 +1,6 @@
 import type { Tournament } from "../types"
 import { isNew, opensSoon } from "../tournamentBadges"
+import { exportToCalendar } from "../utils/icsExport"
 
 function spotsLeft(t: Tournament): number | null {
   if (!t.participants_max) return null
@@ -199,10 +200,17 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
             {formatDateRange(t.starts_at, t.ends_at)}
           </p>
 
-          {/* Pills */}
-          <div className="flex flex-wrap gap-1.5">
+          {/* Pills + calendar */}
+          <div className="flex flex-wrap items-center gap-1.5">
             {t.competition && <CategoryPill label={t.competition} />}
             {t.category && <CategoryPill label={t.category} />}
+            <button
+              onClick={e => { e.preventDefault(); e.stopPropagation(); exportToCalendar(t) }}
+              className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors ml-auto"
+              title="Zum Kalender hinzufügen"
+            >
+              + Kalender
+            </button>
           </div>
         </div>
 
