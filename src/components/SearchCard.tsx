@@ -112,14 +112,10 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
   const [formError, setFormError]     = useState<string | null>(null)
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [showSugg, setShowSugg]       = useState(false)
-  const [geoAvailable, setGeoAvailable] = useState(false)
-  const [geoLoading, setGeoLoading]   = useState(false)
-  const debounceRef                   = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const wrapperRef                    = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    setGeoAvailable("geolocation" in navigator)
-  }, [])
+  const [geoAvailable]              = useState(() => "geolocation" in navigator)
+  const [geoLoading, setGeoLoading] = useState(false)
+  const debounceRef                 = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const wrapperRef                  = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     function onPointerDown(e: PointerEvent) {
