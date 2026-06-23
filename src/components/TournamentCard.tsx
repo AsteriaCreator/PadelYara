@@ -41,7 +41,7 @@ function StatusBadge({ t }: { t: Tournament }) {
   }
   if (t.status === "closed") {
     return (
-      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(107,114,128,0.15)", color: "#4b5563" }}>
+      <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: "rgba(107,114,128,0.15)", color: "#9ca3af" }}>
         Anmeldung geschlossen
       </span>
     )
@@ -214,7 +214,7 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
             {onBookmark !== undefined && <BookmarkButton isBookmarked={!!isBookmarked} onBookmark={onBookmark} />}
           </div>
           {t.participants_max > 0 && (
-            <span className="text-xs text-gray-600">
+            <span className="text-xs text-gray-500">
               {t.participants_current}/{t.participants_max}
             </span>
           )}
