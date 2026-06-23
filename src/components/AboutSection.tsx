@@ -38,7 +38,7 @@ export default function AboutSection() {
           Zu viele Tabs. Zu viele Buchungsseiten. Verzweiflung, sobald das Wetter umschlägt.
         </p>
         <p>Immer dieselbe Frage:</p>
-        <p className="text-white italic text-lg pl-4 border-l-2" style={{ borderColor: "rgba(212,245,60,0.4)" }}>
+        <p className="text-white italic text-lg px-4 py-3 rounded-lg" style={{ background: "rgba(212,245,60,0.05)" }}>
           "Gibt es heute irgendwo einen freien Court?"
         </p>
         <p>Also habe ich ihr Problem gelöst.</p>
@@ -73,8 +73,8 @@ export default function AboutSection() {
 
       {/* Roadmap */}
       <div className="mb-10">
-        <p className="text-xs text-gray-600 mb-4 tracking-widest uppercase">Was Yara noch plant</p>
-        <div className="grid grid-cols-3 gap-3">
+        <p className="text-xs text-gray-500 mb-4 tracking-widest uppercase">Was Yara noch plant</p>
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {[
             { phase: "Jetzt", title: "Platz finden", desc: "Alle Padel-Anlagen Österreichs auf einen Blick", live: true },
             { phase: "Bald", title: "Spiel verstehen", desc: "Turnierstatistiken & persönliche Spielanalyse", live: false },
@@ -82,7 +82,7 @@ export default function AboutSection() {
           ].map(({ phase, title, desc, live }) => (
             <div
               key={phase}
-              className="rounded-xl p-4 border flex flex-col gap-2"
+              className="rounded-xl p-3 sm:p-4 border flex flex-col gap-2"
               style={{
                 background: live ? "rgba(212,245,60,0.06)" : "rgba(255,255,255,0.03)",
                 borderColor: live ? "rgba(212,245,60,0.25)" : "rgba(255,255,255,0.07)",
@@ -90,7 +90,7 @@ export default function AboutSection() {
             >
               <span
                 className="text-xs font-bold tracking-widest uppercase"
-                style={{ color: live ? "#d4f53c" : "#4b5563" }}
+                style={{ color: live ? "#d4f53c" : "#9ca3af" }}
               >
                 {phase} {live && "✓"}
               </span>
