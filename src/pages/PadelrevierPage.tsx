@@ -78,7 +78,7 @@ const CHIP_BASE = "text-xs px-2.5 py-1 rounded-full border transition-colors cur
 function chipStyle(active: boolean) {
   return {
     borderColor: active ? "#d4f53c" : "rgba(107,114,128,0.4)",
-    color: active ? "#d4f53c" : "#6b7280",
+    color: active ? "#d4f53c" : "#9ca3af",
     background: active ? "rgba(212,245,60,0.08)" : "transparent",
   }
 }
