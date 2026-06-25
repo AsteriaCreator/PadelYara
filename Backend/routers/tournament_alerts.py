@@ -23,10 +23,55 @@ _BACKEND_URL = f"https://{_static}" if _static else _FRONTEND_URL
 
 # ── Email helpers ─────────────────────────────────────────────────────────────
 
-async def _send_confirmation_email(to_email: str, token: str) -> None:
+def _format_filters_text(filters: dict) -> str:
+    """Render active filters as a human-readable plain-text list."""
+    labels = {
+        "bundesland": "Bundesland",
+        "category": "Level",
+        "competition": "Wettbewerb",
+        "weekday": "Wochentag",
+        "venue_name": "Standort",
+    }
+    lines = []
+    for key, label in labels.items():
+        values = filters.get(key) or []
+        if values:
+            lines.append(f"{label}: {', '.join(values)}")
+    return "\n".join(lines) if lines else "Alle neuen Turniere"
+
+
+def _format_filters_html(filters: dict) -> str:
+    """Render active filters as HTML rows for the email."""
+    labels = {
+        "bundesland": "Bundesland",
+        "category": "Level",
+        "competition": "Wettbewerb",
+        "weekday": "Wochentag",
+        "venue_name": "Standort",
+    }
+    rows = []
+    for key, label in labels.items():
+        values = filters.get(key) or []
+        if values:
+            rows.append(
+                f'<tr>'
+                f'<td style="color:#6b7280;font-size:12px;padding:3px 12px 3px 0;white-space:nowrap">{label}</td>'
+                f'<td style="color:#d1d5db;font-size:12px;padding:3px 0">{", ".join(values)}</td>'
+                f'</tr>'
+            )
+    if not rows:
+        return '<p style="font-size:12px;color:#6b7280;margin:0">Alle neuen Turniere</p>'
+    return f'<table style="border-collapse:collapse">{"".join(rows)}</table>'
+
+
+async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> None:
     confirm_url = f"{_BACKEND_URL}/api/tournaments/alerts/confirm?token={token}"
+    filters_text = _format_filters_text(filters)
+    filters_html = _format_filters_html(filters)
+
     text = (
         f"Du willst wissen, wenn neue Turniere kommen.\n\n"
+        f"Dein Jagd-Alarm:\n{filters_text}\n\n"
         f"Verständlich.\n\n"
         f"{confirm_url}\n\n"
         f"Danach melde ich mich. Wenn es sich lohnt.\n\n"
@@ -36,7 +81,13 @@ async def _send_confirmation_email(to_email: str, token: str) -> None:
 <p style="margin:0 0 36px"><img src="https://www.padelyara.at/logo-white.svg" alt="PadelYara" style="height:28px;width:auto"></p>
 
 <p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Du willst wissen, wenn neue Turniere kommen.</p>
-<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Verständlich.</p>
+
+<div style="margin:0 0 28px;padding:16px 20px;border-radius:10px;border:1px solid rgba(212,245,60,0.15);background:rgba(212,245,60,0.04)">
+  <p style="font-size:11px;color:#6b7280;margin:0 0 10px;text-transform:uppercase;letter-spacing:0.08em">Dein Jagd-Alarm</p>
+  {filters_html}
+</div>
+
+<p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Verständlich.</p>
 
 <p style="margin:0 0 32px">
   <a href="{confirm_url}"
@@ -272,7 +323,7 @@ async def create_alert(body: AlertBody, background_tasks: BackgroundTasks):
         })
         print(json.dumps({"event": "alert_created", "email": email}))
 
-    background_tasks.add_task(_send_confirmation_email, email, confirm_token)
+    background_tasks.add_task(_send_confirmation_email, email, confirm_token, filters_dict)
     return {"ok": True}
 
 
