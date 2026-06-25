@@ -1,4 +1,3 @@
-import os
 import time
 
 from fastapi import APIRouter, Query
@@ -24,17 +23,6 @@ async def price_cache_check():
             for venue_id, entry in _ep._PRICE_CACHE.items()
         }
 
-
-@router.get("/api/env-check")
-async def env_check():
-    """Temporary diagnostic: confirm which env vars the running process sees."""
-    import eversports_service as _ev
-    return {
-        "EVERSPORTS_CALENDAR_PROXY": os.environ.get("EVERSPORTS_CALENDAR_PROXY"),
-        "EVERSPORTS_SLOT_PROXY_set": bool(os.environ.get("EVERSPORTS_SLOT_PROXY")),
-        "_CALENDAR_PROXY_URL_at_import": _ev._CALENDAR_PROXY_URL,
-        "runtime_read": os.environ.get("EVERSPORTS_CALENDAR_PROXY"),
-    }
 
 
 @router.get("/check")
