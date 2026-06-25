@@ -27,10 +27,8 @@ __pycache__/
 .env
 .venv/
 
-# Local analysis / prototype scripts (not part of the app)
-Backend/analyze_etennis*.py
-Backend/etennis.py
-Backend/etennis_multi_test.py
+# One-off scripts archived here — not part of the running app
+Backend/scripts/
 
 # Experiments / debug artifacts
 experiments/
