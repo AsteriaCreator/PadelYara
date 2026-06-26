@@ -180,6 +180,10 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
               >
                 {status === "loading" ? "…" : "Jagd-Alarm aktivieren"}
               </button>
+              <p className="text-xs text-center" style={{ color: "rgba(156,163,175,0.7)" }}>
+                Mit der Anmeldung stimmst du der Verarbeitung deiner E-Mail gemäß unserer{" "}
+                <a href="/datenschutz" className="underline hover:opacity-80">Datenschutzerklärung</a> zu.
+              </p>
             </form>
           </>
         )}
