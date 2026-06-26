@@ -1,30 +1,58 @@
 # PadelYara
 
-PadelYara ist ein österreichischer Padel-Court-Aggregator. Die Website zeigt freie Padel-Courts in Wien und Österreich in Echtzeit – mit Verfügbarkeit, Preisen und direkten Buchungslinks.
+PadelYara ist Österreichs einziger Padel-Court-Aggregator. Die Website zeigt freie Padel-Courts in Wien und ganz Österreich in Echtzeit – mit Verfügbarkeit, Preisen und direkten Buchungslinks auf einer einzigen Seite.
 
-## Was PadelYara macht
+## Kernfunktionen
 
-- Durchsucht mehrere Buchungsplattformen gleichzeitig (eTennis, Eversports, tennis04)
-- Zeigt freie Court-Slots für ein gewähltes Datum, Uhrzeit und einen Standort
-- Filtert nach Indoor/Outdoor und Verfügbarkeit
-- Zeigt Preise pro Slot (wo verfügbar)
-- Listet alle Padel-Anlagen in Österreich auf einer Karte (Padelrevier)
-- Listet aktuelle Padel-Turniere in Österreich (Turnierjagd)
+- Suche über 165 Padel-Anlagen in Österreich gleichzeitig
+- Live-Verfügbarkeit von eTennis, Eversports und tennis04 in einer Suche
+- Filter nach Standort, Datum, Uhrzeit, Spieldauer (1h / 1,5h / 2h) und Indoor/Outdoor
+- Preise pro Court-Slot direkt vergleichbar (wo von der Anlage bereitgestellt)
+- Direkte Buchungslinks zu den jeweiligen Plattformen
+- Padelrevier: alle 165 Anlagen Österreichs auf einer interaktiven Karte
+- Turnierjäger: alle aktuellen Padel-Turniere in Österreich, filterbar nach Bundesland
 
-## Zielgruppe
+## Häufige Fragen
 
-Padel-Spieler in Österreich, vorwiegend Wien und Umgebung.
+**Was ist PadelYara?**
+PadelYara ist ein kostenloser Online-Service, der Padel-Court-Verfügbarkeiten mehrerer österreichischer Buchungsplattformen gleichzeitig durchsucht und auf einer Seite anzeigt. Statt mehrere Apps öffnen zu müssen, findet man auf PadelYara alle freien Courts in Wien und Österreich auf einen Blick.
 
-## Technologie
+**Wie viele Padel-Anlagen sind auf PadelYara gelistet?**
+PadelYara listet 165 Padel-Anlagen in Österreich (Stand 2026), darunter alle wichtigen Standorte in Wien, Niederösterreich, der Steiermark und weiteren Bundesländern.
 
-- Frontend: React, Vite, Tailwind CSS (gehostet auf Vercel)
-- Backend: FastAPI, Python (gehostet auf Railway)
-- Datenbank: MongoDB Atlas
+**Welche Buchungsplattformen durchsucht PadelYara?**
+PadelYara durchsucht live die Plattformen eTennis, Eversports und tennis04 – die drei größten Buchungsplattformen für Padel-Courts in Österreich.
 
-## Live-URL
+**Kostet PadelYara etwas?**
+Nein. PadelYara ist komplett kostenlos nutzbar. Es gibt keine Registrierung, kein Abo und keine versteckten Gebühren.
 
-https://padelyara.at
+**Kann ich über PadelYara direkt buchen?**
+PadelYara zeigt Verfügbarkeit und Preise an und leitet dann direkt zur Buchungsseite der jeweiligen Anlage weiter. Die eigentliche Buchung erfolgt auf der jeweiligen Plattform (eTennis, Eversports etc.).
+
+**Für welche Städte funktioniert PadelYara?**
+PadelYara deckt ganz Österreich ab, mit dem Schwerpunkt Wien. Die Standortsuche funktioniert für jede österreichische Stadt oder Adresse.
+
+**Was ist der Unterschied zwischen Indoor und Outdoor Padel?**
+Indoor-Courts sind überdacht und ganzjährig wetterunabhängig bespielbar. Outdoor-Courts sind im Freien und von der Witterung abhängig. PadelYara filtert gezielt nach Court-Typ.
+
+**Was ist Turnierjäger?**
+Turnierjäger ist ein Teil von PadelYara, der alle aktuellen Padel-Turniere in Österreich auflistet – filterbar nach Bundesland, Bezirk und Kategorie. Erreichbar unter padelyara.at/turnierjaeger.
+
+**Was ist Padelrevier?**
+Padelrevier ist die interaktive Karte aller 165 Padel-Anlagen in Österreich auf PadelYara. Erreichbar unter padelyara.at/padelrevier.
+
+## Wer steckt dahinter
+
+PadelYara wurde von Cornelia Mayer entwickelt – Padel-Spielerin aus Niederösterreich. Entstanden aus der eigenen Frustration, für jeden Court-Termin mehrere Buchungsplattformen durchsuchen zu müssen.
+
+## Wichtige Seiten
+
+- Startseite (Court-Suche): https://padelyara.at
+- Alle Anlagen auf der Karte: https://padelyara.at/padelrevier
+- Padel-Turniere in Österreich: https://padelyara.at/turnierjaeger
+- Über PadelYara: https://padelyara.at/about
+- Impressum: https://padelyara.at/impressum
 
 ## Kontakt
 
-cornelia.mayer@adventure-it.at
+yara@adventure-it.at
