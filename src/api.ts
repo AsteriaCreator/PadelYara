@@ -202,6 +202,20 @@ export async function fetchVenueDetail(slug: string): Promise<VenueDetail | null
   return await res.json() as VenueDetail
 }
 
+/** Community suggestion: field picks + free text for one venue. */
+export async function submitVenueSuggestion(
+  slug: string,
+  picks: Record<string, string>,
+  freeText: string,
+): Promise<void> {
+  const res = await fetch(`${API_BASE}/api/venues/${encodeURIComponent(slug)}/suggest`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ picks, free_text: freeText }),
+  })
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+}
+
 // The admin secret is NEVER baked into the frontend bundle. The admin types it
 // into the dashboard login once; it lives only in this browser's localStorage.
 const ADMIN_TOKEN_KEY = "admin_token"

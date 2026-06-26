@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
-import { fetchVenueDetail } from "../api"
-import { trackBookingClick } from "../api"
+import { fetchVenueDetail, trackBookingClick, submitVenueSuggestion } from "../api"
 import type { VenueDetail, RelatedVenue } from "../types"
 
 const COURT_TYPE_LABEL: Record<string, string> = {
@@ -93,6 +92,7 @@ export default function CourtDetailPage() {
   const [picks, setPicks] = useState<Record<string, string>>({})
   const [freeText, setFreeText] = useState("")
   const [sent, setSent] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     let alive = true
@@ -325,16 +325,15 @@ export default function CourtDetailPage() {
               className="vd-form"
               onSubmit={(e) => {
                 e.preventDefault()
-                const filled = unknown.filter(f => picks[f.key])
-                if (!filled.length && !freeText.trim()) return
-                const subject = `PadelYara: Info zu ${d.name}`
-                const lines: string[] = [`Anlage: ${d.name} (${d.id})`]
-                for (const f of filled) lines.push(`${f.label}: ${picks[f.key]}`)
-                if (freeText.trim()) lines.push(`\nSonstiges: ${freeText.trim()}`)
-                // eslint-disable-next-line react-hooks/immutability
-                window.location.href =
-                  `mailto:yara@adventure-it.at?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`
-                setSent(true)
+                const filled = Object.fromEntries(
+                  Object.entries(picks).filter(([, v]) => v)
+                )
+                if (!Object.keys(filled).length && !freeText.trim()) return
+                setSubmitting(true)
+                submitVenueSuggestion(d.id, filled, freeText)
+                  .then(() => setSent(true))
+                  .catch(() => setSent(true))
+                  .finally(() => setSubmitting(false))
               }}
             >
               {unknown.length > 0 && (
@@ -370,7 +369,7 @@ export default function CourtDetailPage() {
                 onChange={e => setFreeText(e.target.value)}
                 rows={2}
               />
-              <button type="submit">Abschicken</button>
+              <button type="submit" disabled={submitting}>{submitting ? "Wird gesendet …" : "Abschicken"}</button>
             </form>
           </>
         )}
