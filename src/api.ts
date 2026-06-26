@@ -320,6 +320,22 @@ export async function fetchAlertCount(): Promise<number> {
   return data.count as number
 }
 
+export interface AlertSubscriber {
+  email: string
+  filters: { bundesland: string[]; category: string[]; competition: string[]; weekday: string[]; venue_name: string[] }
+  confirmed: boolean
+  created_at: string
+  confirmed_at: string | null
+  last_notified_at: string | null
+}
+
+export async function fetchAlertList(): Promise<AlertSubscriber[]> {
+  const res = await fetch(`${API_BASE}/api/tournaments/alerts/list`, { headers: adminHeaders() })
+  if (!res.ok) throw new Error("Failed to fetch alert list")
+  const data = await res.json()
+  return data.alerts as AlertSubscriber[]
+}
+
 export async function subscribeEmail(email: string): Promise<{ ok: boolean; already?: boolean }> {
   try {
     const res = await fetch(`${API_BASE}/api/subscribe`, {

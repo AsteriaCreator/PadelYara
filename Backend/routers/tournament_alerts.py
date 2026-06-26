@@ -350,23 +350,15 @@ async def confirm_alert(token: str = Query(...)):
     )
 
 
-@router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
-async def alert_count():
-    """Admin: return count of confirmed Jagd-Alarm subscriptions."""
+@router.get("/api/tournaments/alerts/list", dependencies=[Depends(_require_admin)])
+async def alerts_list():
+    """Admin: list all Jagd-Alarm subscriptions (confirmed + pending)."""
     from venues_mongo import _get_db
     db = _get_db()
-    count = await db["tournament_alerts"].count_documents({"confirmed": True})
-    return {"count": count}
-
-
-@router.get("/api/tournaments/alerts/stats", dependencies=[Depends(_require_admin)])
-async def alert_stats():
-    """Admin: return subscriber counts for Jagd-Alarm."""
-    from venues_mongo import _get_db
-    db = _get_db()
-    total = await db["tournament_alerts"].count_documents({})
-    confirmed = await db["tournament_alerts"].count_documents({"confirmed": True})
-    return {"total": total, "confirmed": confirmed, "pending": total - confirmed}
+    docs = await db["tournament_alerts"].find(
+        {}, {"confirm_token": 0, "unsubscribe_token": 0, "_id": 0}
+    ).sort("created_at", -1).to_list(length=500)
+    return {"alerts": docs}
 
 
 @router.get("/api/tournaments/alerts/unsubscribe")

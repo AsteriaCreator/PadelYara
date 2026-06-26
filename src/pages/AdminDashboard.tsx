@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchAlertList, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import type { AlertSubscriber } from "../api"
 import "./AdminDashboard.css"
 
 function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
@@ -214,6 +215,7 @@ export default function AdminDashboard() {
   const [searchConsole, setSearchConsole] = useState<any>(null)
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
   const [alertCount, setAlertCount] = useState<number | null>(null)
+  const [alertList, setAlertList] = useState<AlertSubscriber[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
@@ -232,8 +234,8 @@ export default function AdminDashboard() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount()])
-      .then(([s, t, i, sc, ac]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number) })
+    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount(), fetchAlertList()])
+      .then(([s, t, i, sc, ac, al]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number); setAlertList(al as AlertSubscriber[]) })
       .catch((e: Error) => {
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
@@ -478,6 +480,45 @@ export default function AdminDashboard() {
           )
         })()}
       </section>
+
+      {/* Jagd-Alarm subscribers */}
+      {alertList && alertList.length > 0 && (
+        <section className="admin-section">
+          <h2>🔔 Jagd-Alarm Abonnenten</h2>
+          <p className="section-hint">{alertList.filter(a => a.confirmed).length} bestätigt · {alertList.filter(a => !a.confirmed).length} ausstehend</p>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
+            <thead>
+              <tr style={{ color: "#6b7280", textAlign: "left", borderBottom: "1px solid rgba(107,114,128,0.2)" }}>
+                <th style={{ padding: "6px 8px" }}>E-Mail</th>
+                <th style={{ padding: "6px 8px" }}>Filter</th>
+                <th style={{ padding: "6px 8px" }}>Status</th>
+                <th style={{ padding: "6px 8px" }}>Zuletzt benachrichtigt</th>
+              </tr>
+            </thead>
+            <tbody>
+              {alertList.map((a, i) => {
+                const filterParts = [
+                  ...(a.filters.bundesland ?? []),
+                  ...(a.filters.category ?? []),
+                  ...(a.filters.competition ?? []),
+                  ...(a.filters.weekday ?? []),
+                  ...(a.filters.venue_name ?? []),
+                ]
+                return (
+                  <tr key={i} style={{ borderBottom: "1px solid rgba(107,114,128,0.1)", color: a.confirmed ? "#d1d5db" : "#6b7280" }}>
+                    <td style={{ padding: "6px 8px" }}>{a.email}</td>
+                    <td style={{ padding: "6px 8px", color: "#9ca3af" }}>{filterParts.length ? filterParts.join(" · ") : "Alle"}</td>
+                    <td style={{ padding: "6px 8px" }}>
+                      <span style={{ color: a.confirmed ? "#d4f53c" : "#6b7280" }}>{a.confirmed ? "✓ Bestätigt" : "Ausstehend"}</span>
+                    </td>
+                    <td style={{ padding: "6px 8px", color: "#6b7280" }}>{a.last_notified_at ? new Date(a.last_notified_at).toLocaleDateString("de-AT") : "—"}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </section>
+      )}
 
       {/* What did people do? */}
       <section className="admin-section">
