@@ -62,9 +62,9 @@ export default function FinderPage() {
             <p>Courts jagen. Sag mir wo.</p>
             <div className="flex justify-center gap-6 mt-5">
               {[
-                { value: "165", label: "Anlagen in Österreich" },
-                { value: "3", label: "Buchungsplattformen" },
-                { value: "0", label: "Euro, kostenlos" },
+                { value: "165", label: "Padel-Anlagen" },
+                { value: "309", label: "Courts" },
+                { value: "728", label: "Turniere" },
               ].map(({ value, label }) => (
                 <div key={label} className="flex flex-col items-center gap-0.5">
                   <span className="text-2xl font-bold" style={{ color: "#d4f53c", fontFamily: "'Barlow Condensed', sans-serif" }}>{value}</span>
