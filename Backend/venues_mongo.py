@@ -164,6 +164,7 @@ def _detail(doc: dict) -> dict:
         "num_courts":            total,
         "indoor_count":          indoor,
         "outdoor_count":         outdoor,
+        "klimaanlage":           doc.get("klimaanlage"),
         "changing_rooms":        doc.get("changing_rooms"),
         "showers":               doc.get("showers"),
         "reception":             doc.get("reception"),

@@ -74,6 +74,7 @@ function RelatedCard({ v }: { v: RelatedVenue }) {
 // Fields that can be community-reported. Only unknown ones (null) are shown.
 const SUGGEST_FIELDS: { key: string; label: string; type: "bool" | "number" }[] = [
   { key: "num_courts",     label: "Anzahl Courts",  type: "number" },
+  { key: "klimaanlage",    label: "Klimaanlage",    type: "bool"   },
   { key: "changing_rooms", label: "Umkleiden",      type: "bool"   },
   { key: "showers",        label: "Duschen",        type: "bool"   },
   { key: "reception",      label: "Rezeption",      type: "bool"   },
@@ -222,6 +223,7 @@ export default function CourtDetailPage() {
           ? <div className="vd-fact vd-wide"><div className="vd-top"><span className="vd-ic">🎾</span><div className="vd-body"><div className="vd-k">Courts</div><div className="vd-v">{cText}</div></div></div></div>
           : <AmenityFact icon="🎾" label="Courts" state={null} wide />}
 
+        <AmenityFact icon="❄️" label="Klimaanlage" state={d.klimaanlage} />
         <AmenityFact icon="🧥" label="Umkleiden" state={d.changing_rooms} />
         <AmenityFact icon="🚿" label="Duschen" state={d.showers} />
         <AmenityFact

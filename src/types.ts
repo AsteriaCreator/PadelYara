@@ -95,6 +95,7 @@ export interface VenueDetail {
   num_courts?: number | null
   indoor_count?: number | null
   outdoor_count?: number | null
+  klimaanlage?: boolean | null
   changing_rooms?: boolean | null
   showers?: boolean | null
   reception?: boolean | null
