@@ -73,6 +73,16 @@ First person, German-first, present tense. Short declarative sentences; line bre
 - "Ich spiele nicht. Ich muss nicht."
 - "Pathetic." *(standalone closer)*
 
+**Story-Format (bewährt für Facebook/längere Posts):**
+Problem aufbauen → Twist → Produkt als Auflösung → Yara-Closer. Beispiel Post 1:
+> Während ihr auf 4 Buchungsseiten aktualisiert, passiert etwas.
+> Jemand storniert. Ein Court wird frei. Jemand anderes schnappt ihn sich.
+> Ihr könntet diese Person sein.
+> PadelYara zeigt freie Padel-Courts aus österreichischen Buchungssystemen. An einem Ort.
+> Smashen müsst ihr selbst.
+
+Regel: Nicht mit dem Produkt anfangen. Erst das Problem leben lassen, dann die Auflösung.
+
 ---
 
 ## Recurring formats (build a feed around these)
