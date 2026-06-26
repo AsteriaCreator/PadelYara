@@ -60,6 +60,18 @@ export default function FinderPage() {
           <div className="text-center py-8 text-gray-500 text-sm">
             <img src="/cat-head.svg" alt="Yara" className="h-16 w-auto mx-auto mb-3 opacity-30" />
             <p>Courts jagen. Sag mir wo.</p>
+            <div className="flex justify-center gap-6 mt-5">
+              {[
+                { value: "165", label: "Anlagen in Österreich" },
+                { value: "3", label: "Buchungsplattformen" },
+                { value: "0", label: "Euro, kostenlos" },
+              ].map(({ value, label }) => (
+                <div key={label} className="flex flex-col items-center gap-0.5">
+                  <span className="text-2xl font-bold" style={{ color: "#d4f53c", fontFamily: "'Barlow Condensed', sans-serif" }}>{value}</span>
+                  <span className="text-xs text-gray-600">{label}</span>
+                </div>
+              ))}
+            </div>
           </div>
         )}
 
