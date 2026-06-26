@@ -66,6 +66,10 @@ export default function AboutSection() {
         <p className="text-gray-400">Dort auch zu gewinnen, ist jetzt euer Problem.</p>
 
         <p className="text-gray-400 pt-2">— Yara</p>
+
+        <p className="text-gray-600 text-xs italic pt-1 leading-relaxed" style={{ fontFamily: "sans-serif" }}>
+          Yara bin ich übrigens wirklich. Cornelia Mayer ist meine Menschin. Sie spielt leidenschaftlich gerne Padel, schreibt den Code — und ich beaufsichtige beides.
+        </p>
       </div>
 
       {/* Divider */}
