@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, Component, type ReactNode } from "react"
+import * as Sentry from "@sentry/react"
 import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { trackPageview } from "./api"
 import LoadingCat from "./components/LoadingCat"
@@ -8,6 +9,7 @@ import FinderPage from "./pages/FinderPage"
 class ErrorBoundary extends Component<{ children: ReactNode }, { crashed: boolean }> {
   state = { crashed: false }
   static getDerivedStateFromError() { return { crashed: true } }
+  componentDidCatch(error: Error) { Sentry.captureException(error) }
   render() {
     if (this.state.crashed) return (
       <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center"
