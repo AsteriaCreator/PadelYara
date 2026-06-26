@@ -13,8 +13,8 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { crashed: boolea
       <div className="min-h-screen flex flex-col items-center justify-center px-4 text-center"
         style={{ background: "#080810", fontFamily: "'Barlow Condensed', sans-serif" }}>
         <img src="/cat-head.svg" alt="Yara" className="h-16 w-auto mb-4 opacity-30" />
-        <p className="text-white font-bold text-lg tracking-wide mb-1">Seite konnte nicht geladen werden.</p>
-        <p className="text-gray-500 text-sm mb-6">Schlechter Empfang? Einmal neu laden.</p>
+        <p className="text-white font-bold text-lg tracking-wide mb-1">Offenbar streikt gerade jemand.</p>
+        <p className="text-gray-500 text-sm mb-6">Einmal neu laden.</p>
         <button
           onClick={() => window.location.reload()}
           className="px-6 py-2 rounded-lg text-sm font-bold tracking-wide"
