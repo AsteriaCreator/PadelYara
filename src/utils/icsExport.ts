@@ -1,7 +1,7 @@
 import type { Tournament } from "../types"
 
 export function googleCalendarUrl(t: Tournament): string {
-  const hasTime = t.starts_at?.includes("T") && !t.starts_at.endsWith("T00:00:00")
+  const hasTime = t.starts_at?.includes("T") && !/T00:00:00/.test(t.starts_at)
   const allDay = !hasTime
 
   function gcDate(iso: string | null, allDayFmt: boolean): string {
