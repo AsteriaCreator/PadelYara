@@ -124,7 +124,7 @@ export default function TurnierjagerMinePage() {
       <Helmet>
         <title>Meine Jagd — Turnierjäger</title>
         <meta name="description" content="Deine angemeldeten und gemerkten Padel-Turniere auf einen Blick." />
-        <link rel="canonical" href="https://padelyara.at/turnierjaeger/meine" />
+        <link rel="canonical" href="https://www.padelyara.at/turnierjaeger/meine" />
       </Helmet>
 
       <div className="mb-6 space-y-3 px-1">

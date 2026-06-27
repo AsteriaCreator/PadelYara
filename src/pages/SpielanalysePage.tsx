@@ -185,7 +185,7 @@ export default function SpielanalysePage() {
       <Helmet>
         <title>{myName ? `${myName} — Spielanalyse` : "Spielanalyse — Turnierjäger"}</title>
         <meta name="description" content="Spielhistorie, Partner-Stats und Kategorie-Verlauf für jeden Padel-Spieler in Österreich." />
-        {routeSlug && <link rel="canonical" href={`https://padelyara.at/turnierjaeger/spielanalyse/${routeSlug}`} />}
+        {routeSlug && <link rel="canonical" href={`https://www.padelyara.at/turnierjaeger/spielanalyse/${routeSlug}`} />}
       </Helmet>
 
       <div className="mb-6 space-y-3 px-1">
@@ -205,7 +205,7 @@ export default function SpielanalysePage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => {
-                  const url = `https://padelyara.at/turnierjaeger/spielanalyse/${mySlug}`
+                  const url = `https://www.padelyara.at/turnierjaeger/spielanalyse/${mySlug}`
                   const text = `🎾 Schau dir meine Padel-Stats an (${myName})!\n\n${url}`
                   if (navigator.share) void navigator.share({ text })
                   else void navigator.clipboard.writeText(url)

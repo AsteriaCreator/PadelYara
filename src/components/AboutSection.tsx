@@ -6,7 +6,7 @@ export default function AboutSection() {
       <Helmet>
         <title>Über PadelYara — Österreichs Padel Court Aggregator</title>
         <meta name="description" content="PadelYara wurde gebaut, weil das Court-Suchen in Österreich zu viele Tabs braucht. Eine Seite, alle Courts, alle Zeiten." />
-        <link rel="canonical" href="https://padelyara.at/about" />
+        <link rel="canonical" href="https://www.padelyara.at/about" />
       </Helmet>
 
       {/* Hero image */}

@@ -520,7 +520,7 @@ export default function TurnierjagerPage() {
       <Helmet>
         <title>Turnierjäger — Padel Turniere in Österreich</title>
         <meta name="description" content="Alle Padel-Turniere in Österreich auf einen Blick. Filtere nach Bundesland, Bezirk und Kategorie — und verpasse kein Turnier mehr." />
-        <link rel="canonical" href="https://padelyara.at/turnierjaeger" />
+        <link rel="canonical" href="https://www.padelyara.at/turnierjaeger" />
       </Helmet>
       {/* Intro */}
       <div className="mb-5 px-1">
