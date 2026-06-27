@@ -27,7 +27,13 @@ export function googleCalendarUrl(t: Tournament): string {
       end = gcDate(d.toISOString(), true)
     }
   } else {
-    end = t.ends_at ? gcDate(t.ends_at, false) : gcDate(t.starts_at, false)
+    if (t.ends_at) {
+      end = gcDate(t.ends_at, false)
+    } else if (t.starts_at) {
+      const d = new Date(t.starts_at)
+      d.setHours(d.getHours() + 2)
+      end = gcDate(d.toISOString(), false)
+    }
   }
 
   const dates = end ? `${start}/${end}` : start
