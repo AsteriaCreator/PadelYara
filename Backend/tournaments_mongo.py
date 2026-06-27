@@ -155,7 +155,7 @@ async def upsert_tournaments(
 
         # Detail-page dates come from a per-tournament fetch that can transiently
         # fail. Never overwrite a previously-stored registration date with None.
-        for f in ("registration_opens_at", "registration_closes_at"):
+        for f in ("registration_opens_at", "registration_closes_at", "ends_at"):
             if update_fields.get(f) is None:
                 update_fields.pop(f, None)
 
