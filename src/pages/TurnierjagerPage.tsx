@@ -724,7 +724,7 @@ export default function TurnierjagerPage() {
       >
         <div>
           <p className="text-xs font-bold tracking-wider text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>JAGD-ALARM</p>
-          <p className="text-xs text-gray-500 mt-0.5">Yara schreibt dir, wenn neue Turniere zu deinen Filtern passen.</p>
+          <p className="text-xs text-gray-500 mt-0.5">Nie wieder Turnierseiten aktualisieren. Yara informiert dich automatisch über neue Turniere, die zu deinen Filtern passen.</p>
         </div>
         <button
           onClick={() => setJagdAlarmOpen(true)}
