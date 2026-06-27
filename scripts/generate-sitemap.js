@@ -25,7 +25,7 @@ if (!MONGO_URI) {
   process.exit(0)
 }
 
-const BASE_URL = "https://padelyara.at"
+const BASE_URL = "https://www.padelyara.at"
 
 const STATIC_URLS = [
   { loc: `${BASE_URL}/`,             changefreq: "daily",   priority: "1.0" },
