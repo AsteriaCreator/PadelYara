@@ -742,7 +742,46 @@ export default function TurnierjagerPage() {
         </button>
       </div>
 
-      {/* Results header + view toggle */}
+      {/* View toggle */}
+      {!loading && !error && (
+        <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => setView("list")}
+            className="flex items-center gap-2 flex-1 justify-center py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              letterSpacing: "0.05em",
+              background: view === "list" ? "rgba(212,245,60,0.12)" : "rgba(255,255,255,0.03)",
+              color: view === "list" ? "#d4f53c" : "#6b7280",
+              border: view === "list" ? "1px solid rgba(212,245,60,0.25)" : "1px solid rgba(107,114,128,0.2)",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            LISTE
+          </button>
+          <button
+            onClick={() => setView("calendar")}
+            className="flex items-center gap-2 flex-1 justify-center py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              letterSpacing: "0.05em",
+              background: view === "calendar" ? "rgba(212,245,60,0.12)" : "rgba(255,255,255,0.03)",
+              color: view === "calendar" ? "#d4f53c" : "#6b7280",
+              border: view === "calendar" ? "1px solid rgba(212,245,60,0.25)" : "1px solid rgba(107,114,128,0.2)",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            KALENDER
+          </button>
+        </div>
+      )}
+
+      {/* Results count */}
       {!loading && !error && (
         <div className="flex items-center justify-between mb-2 px-1">
           <p
@@ -755,35 +794,9 @@ export default function TurnierjagerPage() {
               ? "1 Turnier"
               : `${visibleTournaments.length} Turniere`}
           </p>
-          <div className="flex items-center gap-2">
-            {lastUpdated && (
-              <p className="text-xs text-gray-600">{lastUpdated}</p>
-            )}
-            {/* View toggle */}
-            <div className="flex rounded-lg overflow-hidden" style={{ border: "1px solid rgba(107,114,128,0.3)" }}>
-              <button
-                onClick={() => setView("list")}
-                title="Listenansicht"
-                className="px-2 py-1.5 transition-colors"
-                style={{ background: view === "list" ? "rgba(212,245,60,0.12)" : "transparent", color: view === "list" ? "#d4f53c" : "#6b7280" }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
-                  <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
-                </svg>
-              </button>
-              <button
-                onClick={() => setView("calendar")}
-                title="Kalenderansicht"
-                className="px-2 py-1.5 transition-colors"
-                style={{ background: view === "calendar" ? "rgba(212,245,60,0.12)" : "transparent", color: view === "calendar" ? "#d4f53c" : "#6b7280", borderLeft: "1px solid rgba(107,114,128,0.3)" }}
-              >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                </svg>
-              </button>
-            </div>
-          </div>
+          {lastUpdated && (
+            <p className="text-xs text-gray-600">{lastUpdated}</p>
+          )}
         </div>
       )}
 

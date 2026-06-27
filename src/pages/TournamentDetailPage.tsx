@@ -18,6 +18,7 @@ export default function TournamentDetailPage() {
 
   useEffect(() => {
     if (!sourceId) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true)
     setNotFound(false)
     fetch(`${API_BASE}/api/tournaments/${encodeURIComponent(sourceId)}`)
