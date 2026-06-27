@@ -2,9 +2,9 @@ import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import type { Tournament } from "../types"
-import { StatusBadge, CategoryPill, CalendarDropdown } from "../components/TournamentCard"
+import { StatusBadge, CategoryPill } from "../components/TournamentCard"
 import { formatDateRange } from "../utils/tournamentFormat"
-import { exportRegistrationReminder } from "../utils/icsExport"
+import { exportToCalendar, exportRegistrationReminder, googleCalendarUrl } from "../utils/icsExport"
 import JagdAlarmModal from "../components/JagdAlarmModal"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
@@ -146,21 +146,47 @@ export default function TournamentDetailPage() {
           </a>
         )}
 
-        {/* Secondary actions row */}
-        <div className="flex items-center gap-3">
-          <CalendarDropdown t={t} />
-          {registrationOpensInFuture && (
-            <button
-              onClick={() => exportRegistrationReminder(t)}
-              className="text-xs transition-colors"
-              style={{ color: "#6b7280" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#9ca3af")}
-              onMouseLeave={e => (e.currentTarget.style.color = "#6b7280")}
-            >
-              ⏰ Anmeldung erinnern
-            </button>
-          )}
+        {/* Calendar actions */}
+        <div className="flex gap-2">
+          <a
+            href={googleCalendarUrl(t)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(107,114,128,0.25)", color: "#9ca3af", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em", textDecoration: "none" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#9ca3af")}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            GOOGLE KALENDER
+          </a>
+          <button
+            onClick={() => exportToCalendar(t)}
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(107,114,128,0.25)", color: "#9ca3af", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em" }}
+            onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+            onMouseLeave={e => (e.currentTarget.style.color = "#9ca3af")}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            APPLE / .ICS
+          </button>
         </div>
+
+        {registrationOpensInFuture && (
+          <button
+            onClick={() => exportRegistrationReminder(t)}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{ background: "rgba(96,165,250,0.06)", border: "1px solid rgba(96,165,250,0.2)", color: "#60a5fa", fontFamily: "'Barlow Condensed', sans-serif", letterSpacing: "0.04em" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(96,165,250,0.12)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "rgba(96,165,250,0.06)")}
+          >
+            ⏰ ERINNERUNG: ANMELDUNG ÖFFNET
+          </button>
+        )}
       </div>
 
       {/* Jagd-Alarm CTA */}
