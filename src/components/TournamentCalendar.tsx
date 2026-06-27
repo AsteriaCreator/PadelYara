@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import type { Tournament } from "../types"
 import { CategoryPill } from "./TournamentCard"
+import { formatTime as fmtTime } from "../utils/tournamentFormat"
 
 const DAY_NAMES = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 const DAY_NAMES_FULL = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"]
@@ -25,10 +26,6 @@ function sameDay(a: Date, b: Date): boolean {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
 }
 
-function formatTime(iso: string): string {
-  const d = new Date(iso)
-  return d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" })
-}
 
 function weekLabel(weekStart: Date): string {
   const end = addDays(weekStart, 6)
@@ -50,7 +47,7 @@ function CompactCard({ t }: { t: Tournament }) {
       <p className="text-white text-xs font-semibold leading-snug truncate mb-0.5">{t.title}</p>
       <div className="flex items-center gap-1 flex-wrap">
         {t.starts_at && (
-          <span className="text-[10px]" style={{ color: "#6b7280" }}>{formatTime(t.starts_at)}</span>
+          <span className="text-[10px]" style={{ color: "#6b7280" }}>{fmtTime(t.starts_at)}</span>
         )}
         {t.category && <CategoryPill label={t.category} />}
       </div>

@@ -2,12 +2,8 @@ import { useState, useEffect } from "react"
 import { useParams, Link } from "react-router-dom"
 import { Helmet } from "react-helmet-async"
 import type { Tournament } from "../types"
-import {
-  StatusBadge,
-  CategoryPill,
-  CalendarDropdown,
-  formatDateRange,
-} from "../components/TournamentCard"
+import { StatusBadge, CategoryPill, CalendarDropdown } from "../components/TournamentCard"
+import { formatDateRange } from "../utils/tournamentFormat"
 import { exportRegistrationReminder } from "../utils/icsExport"
 import JagdAlarmModal from "../components/JagdAlarmModal"
 

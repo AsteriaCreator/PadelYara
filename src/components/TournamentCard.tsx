@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import type { Tournament } from "../types"
 import { isNew, opensSoon } from "../tournamentBadges"
 import { exportToCalendar, exportRegistrationReminder, googleCalendarUrl } from "../utils/icsExport"
+import { formatDate, formatDateRange } from "../utils/tournamentFormat"
 
 function spotsLeft(t: Tournament): number | null {
   if (!t.participants_max) return null
@@ -59,38 +60,6 @@ export function StatusBadge({ t }: { t: Tournament }) {
   return null
 }
 
-export function formatDate(isoStr: string | null, includeYear = true): string {
-  if (!isoStr) return ""
-  const d = new Date(isoStr)
-  return d.toLocaleDateString("de-AT", {
-    weekday: "short", day: "2-digit", month: "2-digit",
-    ...(includeYear ? { year: "numeric" } : {}),
-  })
-}
-
-export function formatTime(isoStr: string | null): string {
-  if (!isoStr) return ""
-  const d = new Date(isoStr)
-  return d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" })
-}
-
-function isSameDay(a: string, b: string): boolean {
-  return a.slice(0, 10) === b.slice(0, 10)
-}
-
-export function formatDateRange(starts: string | null, ends: string | null): string {
-  if (!starts) return ""
-  if (!ends || ends === starts) {
-    // No end info — just show start
-    return `${formatDate(starts)}, ${formatTime(starts)} Uhr`
-  }
-  if (isSameDay(starts, ends)) {
-    // Same day — show date once, time range
-    return `${formatDate(starts)}, ${formatTime(starts)} – ${formatTime(ends)} Uhr`
-  }
-  // Multi-day — show date range (omit year on start to save space)
-  return `${formatDate(starts, false)} – ${formatDate(ends)}`
-}
 
 export function CategoryPill({ label }: { label: string }) {
   return (
