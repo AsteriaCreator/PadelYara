@@ -810,9 +810,9 @@ export default function TurnierjagerPage() {
         <p className="text-red-400 text-sm px-1">{error}</p>
       )}
 
-      {!loading && !error && visibleTournaments.length > 0 && view === "calendar" && (
+      {view === "calendar" && !error && (
         <div className="mb-6">
-          <TournamentCalendar tournaments={visibleTournaments} />
+          <TournamentCalendar tournaments={loading ? [] : visibleTournaments} />
         </div>
       )}
 

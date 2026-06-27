@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import type { Tournament } from "../types"
 import { CategoryPill } from "./TournamentCard"
@@ -22,16 +22,43 @@ function addDays(d: Date, n: number): Date {
   return result
 }
 
-function sameDay(a: Date, b: Date): boolean {
-  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+function localDateKey(d: Date): string {
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, "0")
+  const day = String(d.getDate()).padStart(2, "0")
+  return `${y}-${m}-${day}`
 }
 
+function sameDay(a: Date, b: Date): boolean {
+  return localDateKey(a) === localDateKey(b)
+}
 
 function weekLabel(weekStart: Date): string {
   const end = addDays(weekStart, 6)
   const startStr = weekStart.toLocaleDateString("de-AT", { day: "numeric", month: "short" })
   const endStr = end.toLocaleDateString("de-AT", { day: "numeric", month: "short" })
   return `${startStr} – ${endStr}`
+}
+
+// Compare tournament starts_at string (YYYY-MM-DD prefix) to a day's local date key.
+// Avoids new Date() parsing quirks by slicing the date part directly.
+function tournamentOnDay(t: Tournament, day: Date): boolean {
+  if (!t.starts_at) return false
+  return t.starts_at.slice(0, 10) === localDateKey(day)
+}
+
+function forDay(tournaments: Tournament[], day: Date): Tournament[] {
+  return tournaments.filter(t => tournamentOnDay(t, day))
+}
+
+function firstWeekWithResults(tournaments: Tournament[], from: Date): Date {
+  let weekStart = getMonday(from)
+  for (let w = 0; w < 26; w++) {
+    const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
+    if (days.some(day => forDay(tournaments, day).length > 0)) return weekStart
+    weekStart = addDays(weekStart, 7)
+  }
+  return getMonday(from)
 }
 
 function CompactCard({ t }: { t: Tournament }) {
@@ -61,22 +88,36 @@ export default function TournamentCalendar({ tournaments }: { tournaments: Tourn
   const [weekStart, setWeekStart] = useState(() => getMonday(today))
   const [selectedDay, setSelectedDay] = useState<Date>(today)
 
+  // Auto-jump to first week with results when tournaments load (or change).
+  // Only jumps if the current week view is empty — respects manual navigation.
+  useEffect(() => {
+    if (tournaments.length === 0) return
+    const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
+    const currentWeekHasResults = days.some(day => forDay(tournaments, day).length > 0)
+    if (!currentWeekHasResults) {
+      const target = firstWeekWithResults(tournaments, today)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setWeekStart(target)
+      setSelectedDay(target)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tournaments])
+
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
-  const forDay = (day: Date) =>
-    tournaments.filter(t => t.starts_at && sameDay(new Date(t.starts_at), day))
-
-  const prevWeek = () => setWeekStart(d => addDays(d, -7))
-  const nextWeek = () => setWeekStart(d => addDays(d, 7))
+  function goToWeek(newWeekStart: Date) {
+    setWeekStart(newWeekStart)
+    // Mobile: reset selected day to Monday so something is always highlighted
+    setSelectedDay(newWeekStart)
+  }
 
   return (
     <>
       {/* Desktop: week grid (≥640px) */}
       <div className="hidden sm:block">
-        {/* Week navigation */}
         <div className="flex items-center justify-between mb-4 px-1">
           <button
-            onClick={prevWeek}
+            onClick={() => goToWeek(addDays(weekStart, -7))}
             className="p-1.5 rounded-lg transition-colors"
             style={{ color: "#6b7280", background: "rgba(107,114,128,0.1)" }}
             onMouseEnter={e => (e.currentTarget.style.color = "#d4f53c")}
@@ -90,7 +131,7 @@ export default function TournamentCalendar({ tournaments }: { tournaments: Tourn
             {weekLabel(weekStart).toUpperCase()}
           </span>
           <button
-            onClick={nextWeek}
+            onClick={() => goToWeek(addDays(weekStart, 7))}
             className="p-1.5 rounded-lg transition-colors"
             style={{ color: "#6b7280", background: "rgba(107,114,128,0.1)" }}
             onMouseEnter={e => (e.currentTarget.style.color = "#d4f53c")}
@@ -102,11 +143,10 @@ export default function TournamentCalendar({ tournaments }: { tournaments: Tourn
           </button>
         </div>
 
-        {/* 7-column grid */}
         <div className="grid grid-cols-7 gap-1">
           {days.map((day, i) => {
             const isToday = sameDay(day, today)
-            const items = forDay(day)
+            const items = forDay(tournaments, day)
             return (
               <div
                 key={i}
@@ -136,27 +176,25 @@ export default function TournamentCalendar({ tournaments }: { tournaments: Tourn
 
       {/* Mobile: day strip + list (<640px) */}
       <div className="sm:hidden">
-        {/* Week navigation */}
         <div className="flex items-center justify-between mb-3">
-          <button onClick={prevWeek} className="p-1.5 rounded" style={{ color: "#6b7280" }}>
+          <button onClick={() => goToWeek(addDays(weekStart, -7))} className="p-1.5 rounded" style={{ color: "#6b7280" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="15 18 9 12 15 6"/>
             </svg>
           </button>
           <span className="text-xs text-gray-500">{weekLabel(weekStart)}</span>
-          <button onClick={nextWeek} className="p-1.5 rounded" style={{ color: "#6b7280" }}>
+          <button onClick={() => goToWeek(addDays(weekStart, 7))} className="p-1.5 rounded" style={{ color: "#6b7280" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6"/>
             </svg>
           </button>
         </div>
 
-        {/* Horizontal day strip */}
         <div className="flex gap-1.5 overflow-x-auto pb-2 mb-4 scrollbar-hide">
           {days.map((day, i) => {
             const isSelected = sameDay(day, selectedDay)
             const isToday = sameDay(day, today)
-            const hasTournaments = forDay(day).length > 0
+            const hasTournaments = forDay(tournaments, day).length > 0
             return (
               <button
                 key={i}
@@ -187,19 +225,18 @@ export default function TournamentCalendar({ tournaments }: { tournaments: Tourn
           })}
         </div>
 
-        {/* Selected day tournaments */}
         <div>
           <p
             className="text-xs font-semibold mb-2"
             style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "rgba(212,245,60,0.5)", letterSpacing: "0.04em" }}
           >
-            {DAY_NAMES_FULL[days.findIndex(d => sameDay(d, selectedDay)) % 7]?.toUpperCase() ?? ""}
+            {DAY_NAMES_FULL[days.findIndex(d => sameDay(d, selectedDay))]?.toUpperCase() ?? ""}
             {" "}· {selectedDay.getDate()}.{selectedDay.getMonth() + 1}.
           </p>
-          {forDay(selectedDay).length === 0 ? (
+          {forDay(tournaments, selectedDay).length === 0 ? (
             <p className="text-xs text-gray-600 py-4 text-center">Kein Turnier an diesem Tag</p>
           ) : (
-            forDay(selectedDay).map(t => <CompactCard key={t.source_id} t={t} />)
+            forDay(tournaments, selectedDay).map(t => <CompactCard key={t.source_id} t={t} />)
           )}
         </div>
       </div>
