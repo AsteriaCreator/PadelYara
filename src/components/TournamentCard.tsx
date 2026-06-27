@@ -1,6 +1,7 @@
+import { useState, useRef, useEffect } from "react"
 import type { Tournament } from "../types"
 import { isNew, opensSoon } from "../tournamentBadges"
-import { exportToCalendar, exportRegistrationReminder } from "../utils/icsExport"
+import { exportToCalendar, exportRegistrationReminder, googleCalendarUrl } from "../utils/icsExport"
 
 function spotsLeft(t: Tournament): number | null {
   if (!t.participants_max) return null
@@ -154,6 +155,60 @@ function BookmarkButton({ isBookmarked, onBookmark }: { isBookmarked: boolean; o
   )
 }
 
+function CalendarDropdown({ t }: { t: Tournament }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", onOutside)
+    return () => document.removeEventListener("mousedown", onOutside)
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={e => { e.preventDefault(); e.stopPropagation(); setOpen(o => !o) }}
+        className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors"
+        title="Turnier zum Kalender hinzufügen"
+      >
+        + Kalender
+      </button>
+      {open && (
+        <div
+          className="absolute right-0 top-full mt-1 rounded-lg border z-20 overflow-hidden"
+          style={{ background: "#111118", borderColor: "rgba(107,114,128,0.4)", minWidth: "130px" }}
+          onClick={e => e.stopPropagation()}
+        >
+          <a
+            href={googleCalendarUrl(t)}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 w-full text-left text-[11px] px-3 py-2 text-gray-400 hover:text-white transition-colors"
+            style={{ textDecoration: "none" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.06)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+          >
+            Google Kalender
+          </a>
+          <button
+            onClick={e => { e.preventDefault(); e.stopPropagation(); exportToCalendar(t); setOpen(false) }}
+            className="flex items-center gap-2 w-full text-left text-[11px] px-3 py-2 text-gray-400 hover:text-white transition-colors"
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.06)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+          >
+            Apple / .ics
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function TournamentCard({ t, showLink, showShare, isBookmarked, onBookmark }: { t: Tournament; showLink?: boolean; showShare?: boolean; isBookmarked?: boolean; onBookmark?: () => void }) {
   const newBadge = isNew(t)
   const soonBadge = opensSoon(t)
@@ -214,13 +269,7 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
                   ⏰ Anmeldung
                 </button>
               )}
-              <button
-                onClick={e => { e.preventDefault(); e.stopPropagation(); exportToCalendar(t) }}
-                className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors"
-                title="Turnier zum Kalender hinzufügen"
-              >
-                + Kalender
-              </button>
+              <CalendarDropdown t={t} />
             </div>
           </div>
         </div>

@@ -1,5 +1,52 @@
 import type { Tournament } from "../types"
 
+export function googleCalendarUrl(t: Tournament): string {
+  const hasTime = t.starts_at?.includes("T") && !t.starts_at.endsWith("T00:00:00")
+  const allDay = !hasTime
+
+  function gcDate(iso: string | null, allDayFmt: boolean): string {
+    if (!iso) return ""
+    const d = new Date(iso)
+    if (isNaN(d.getTime())) return ""
+    if (allDayFmt) {
+      const y = d.getFullYear()
+      const m = String(d.getMonth() + 1).padStart(2, "0")
+      const day = String(d.getDate()).padStart(2, "0")
+      return `${y}${m}${day}`
+    }
+    return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")
+  }
+
+  const start = gcDate(t.starts_at, allDay)
+  let end = ""
+  if (allDay) {
+    const base = t.ends_at ?? t.starts_at
+    const d = base ? new Date(base) : null
+    if (d && !isNaN(d.getTime())) {
+      d.setDate(d.getDate() + 1)
+      end = gcDate(d.toISOString(), true)
+    }
+  } else {
+    end = t.ends_at ? gcDate(t.ends_at, false) : gcDate(t.starts_at, false)
+  }
+
+  const dates = end ? `${start}/${end}` : start
+  const location = [t.venue_name, t.bundesland].filter(Boolean).join(", ")
+  const details = [
+    t.category && `Level: ${t.category}`,
+    t.competition && `Wettbewerb: ${t.competition}`,
+    t.source_url && `Details: ${t.source_url}`,
+  ].filter(Boolean).join("\n")
+
+  const url = new URL("https://calendar.google.com/calendar/render")
+  url.searchParams.set("action", "TEMPLATE")
+  url.searchParams.set("text", t.title)
+  if (dates) url.searchParams.set("dates", dates)
+  if (location) url.searchParams.set("location", location)
+  if (details) url.searchParams.set("details", details)
+  return url.toString()
+}
+
 function icsDate(iso: string | null, allDay: boolean): string {
   if (!iso) return ""
   const d = new Date(iso)
