@@ -356,6 +356,20 @@ async def search_players(query: str) -> list[dict]:
     return [{"slug": r["_id"], "name": r["name"]} for r in results if r.get("_id")]
 
 
+async def get_tournament_by_source_id(source_id: str) -> dict | None:
+    """Return a single tournament by source_id, or None if not found."""
+    col = _col()
+    doc = await col.find_one({"source_id": source_id}, {"_id": 0})
+    if doc is None:
+        return None
+    for field in ("starts_at", "ends_at", "first_seen_at", "last_seen_at",
+                  "registration_opens_at", "registration_closes_at"):
+        if isinstance(doc.get(field), datetime):
+            doc[field] = doc[field].isoformat()
+    doc.pop("entries", None)
+    return doc
+
+
 async def get_tournaments_by_ids(source_ids: list[str]) -> list[dict]:
     """Return tournaments matching a list of source_ids (for shared Merkliste links)."""
     col = _col()

@@ -34,6 +34,7 @@ const AdminDashboard            = lazy(() => import("./pages/AdminDashboard"))
 const TurnierjagerPage          = lazy(() => import("./pages/TurnierjagerPage"))
 const TurnierjagerMinePage      = lazy(() => import("./pages/TurnierjagerMinePage"))
 const SpielanalysePage = lazy(() => import("./pages/SpielanalysePage"))
+const TournamentDetailPage = lazy(() => import("./pages/TournamentDetailPage"))
 const PadelrevierPage     = lazy(() => import("./pages/PadelrevierPage"))
 const PadelrevierCityPage = lazy(() => import("./pages/PadelrevierCityPage"))
 const CourtDetailPage  = lazy(() => import("./pages/CourtDetailPage"))
@@ -55,6 +56,7 @@ export default function App() {
         <Route path="/admin"        element={<AdminDashboard />} />
         <Route path="/turnierjaeger"           element={<PageShell><TurnierjagerPage /></PageShell>} />
         <Route path="/turnierjaeger/meine"           element={<PageShell><TurnierjagerMinePage /></PageShell>} />
+        <Route path="/turnierjaeger/turnier/:sourceId"  element={<PageShell><TournamentDetailPage /></PageShell>} />
         <Route path="/turnierjaeger/spielanalyse"     element={<PageShell><SpielanalysePage /></PageShell>} />
         <Route path="/turnierjaeger/spielanalyse/:slug" element={<PageShell><SpielanalysePage /></PageShell>} />
         <Route path="/turnierjaeger/merkliste"        element={<Navigate to="/turnierjaeger/meine" replace />} />

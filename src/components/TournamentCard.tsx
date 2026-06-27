@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import { Link } from "react-router-dom"
 import type { Tournament } from "../types"
 import { isNew, opensSoon } from "../tournamentBadges"
 import { exportToCalendar, exportRegistrationReminder, googleCalendarUrl } from "../utils/icsExport"
@@ -8,7 +9,7 @@ function spotsLeft(t: Tournament): number | null {
   return Math.max(0, t.participants_max - t.participants_current)
 }
 
-function StatusBadge({ t }: { t: Tournament }) {
+export function StatusBadge({ t }: { t: Tournament }) {
   const spots = spotsLeft(t)
 
   if (t.status === "open" && spots !== null && spots > 0) {
@@ -58,7 +59,7 @@ function StatusBadge({ t }: { t: Tournament }) {
   return null
 }
 
-function formatDate(isoStr: string | null, includeYear = true): string {
+export function formatDate(isoStr: string | null, includeYear = true): string {
   if (!isoStr) return ""
   const d = new Date(isoStr)
   return d.toLocaleDateString("de-AT", {
@@ -67,7 +68,7 @@ function formatDate(isoStr: string | null, includeYear = true): string {
   })
 }
 
-function formatTime(isoStr: string | null): string {
+export function formatTime(isoStr: string | null): string {
   if (!isoStr) return ""
   const d = new Date(isoStr)
   return d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" })
@@ -77,7 +78,7 @@ function isSameDay(a: string, b: string): boolean {
   return a.slice(0, 10) === b.slice(0, 10)
 }
 
-function formatDateRange(starts: string | null, ends: string | null): string {
+export function formatDateRange(starts: string | null, ends: string | null): string {
   if (!starts) return ""
   if (!ends || ends === starts) {
     // No end info — just show start
@@ -91,7 +92,7 @@ function formatDateRange(starts: string | null, ends: string | null): string {
   return `${formatDate(starts, false)} – ${formatDate(ends)}`
 }
 
-function CategoryPill({ label }: { label: string }) {
+export function CategoryPill({ label }: { label: string }) {
   return (
     <span
       className="text-xs px-1.5 py-0.5 rounded"
@@ -155,7 +156,7 @@ function BookmarkButton({ isBookmarked, onBookmark }: { isBookmarked: boolean; o
   )
 }
 
-function CalendarDropdown({ t }: { t: Tournament }) {
+export function CalendarDropdown({ t }: { t: Tournament }) {
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -213,21 +214,16 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
   const newBadge = isNew(t)
   const soonBadge = opensSoon(t)
   const isOpen = t.status === "open" || t.status === "not_open_yet"
-  // padel-austria.at redirects expired tournament URLs to homepage — only link active ones
-  // showLink overrides this (e.g. Meine Turniere where player is still competing)
   const isLinkable = showLink
-    ? !!t.source_url
+    ? !!t.source_id
     : t.status === "open" || t.status === "not_open_yet" || t.status === "full"
-  const Tag = isLinkable ? "a" : "div"
+  const detailUrl = `/turnierjaeger/turnier/${t.source_id}`
 
-  return (
-    <Tag
-      {...(isLinkable ? { href: t.source_url, target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="block px-4 py-3 transition-colors"
-      style={{ opacity: isOpen ? 1 : 0.55 }}
-      onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.04)")}
-      onMouseLeave={e => (e.currentTarget.style.background = "")}
-    >
+  const hoverStyle = { background: "rgba(212,245,60,0.04)" }
+  const wrapperClass = "block px-4 py-3 transition-colors"
+  const wrapperStyle = { opacity: isOpen ? 1 : 0.55 }
+
+  const inner = (
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           {/* Title row */}
@@ -288,6 +284,25 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
           )}
         </div>
       </div>
-    </Tag>
+  )
+
+  if (isLinkable) {
+    return (
+      <Link
+        to={detailUrl}
+        className={wrapperClass}
+        style={wrapperStyle}
+        onMouseEnter={e => (e.currentTarget.style.background = hoverStyle.background)}
+        onMouseLeave={e => (e.currentTarget.style.background = "")}
+      >{inner}</Link>
+    )
+  }
+  return (
+    <div
+      className={wrapperClass}
+      style={wrapperStyle}
+      onMouseEnter={e => (e.currentTarget.style.background = hoverStyle.background)}
+      onMouseLeave={e => (e.currentTarget.style.background = "")}
+    >{inner}</div>
   )
 }
