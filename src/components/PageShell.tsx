@@ -1,5 +1,6 @@
 import React from "react"
 import Nav from "./Nav"
+import Footer from "./Footer"
 import { BG_STYLE } from "../styles"
 
 export default function PageShell({ children }: { children: React.ReactNode }) {
@@ -11,6 +12,7 @@ export default function PageShell({ children }: { children: React.ReactNode }) {
         </div>
         <Nav />
         {children}
+        <Footer />
       </div>
     </div>
   )
