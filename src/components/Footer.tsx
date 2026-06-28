@@ -49,7 +49,7 @@ export default function Footer() {
             onMouseEnter={onCtaEnter}
             onMouseLeave={onCtaLeave}
           >
-            PARTNER WERDEN
+            KOOPERATION ANFRAGEN
           </a>
         </div>
       </div>
