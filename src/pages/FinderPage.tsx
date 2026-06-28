@@ -56,6 +56,16 @@ export default function FinderPage() {
           initialDurations={urlDurations.length > 0 ? urlDurations : undefined}
         />
 
+        <p className="text-xs px-1 mt-3 mb-2" style={{ color: "#6b7280" }}>
+          Einen Platz vermisst?{" "}
+          <a
+            href={`mailto:${FEEDBACK_EMAIL}?subject=PadelYara%20Feedback`}
+            style={{ color: "#9ca3af", textDecoration: "underline" }}
+          >
+            Sag's mir.
+          </a>
+        </p>
+
         {!searched && !isLoading && !error && (
           <div className="text-center py-8 text-gray-500 text-sm">
             <img src="/cat-head.svg" alt="Yara" className="h-16 w-auto mx-auto mb-3 opacity-30" />
@@ -208,15 +218,6 @@ export default function FinderPage() {
 
         <div className="mt-8">
           <NewsletterBanner />
-          <p className="text-xs px-1 mt-3" style={{ color: "#6b7280" }}>
-            Einen Platz vermisst?{" "}
-            <a
-              href={`mailto:${FEEDBACK_EMAIL}?subject=PadelYara%20Feedback`}
-              style={{ color: "#9ca3af", textDecoration: "underline" }}
-            >
-              Sag's mir.
-            </a>
-          </p>
         </div>
       </div>
 

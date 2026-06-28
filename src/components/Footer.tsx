@@ -1,3 +1,4 @@
+import type { MouseEvent } from "react"
 import { NavLink } from "react-router-dom"
 
 const SOCIALS = [
@@ -5,55 +6,82 @@ const SOCIALS = [
   { href: "https://www.facebook.com/padelyara", label: "Facebook", path: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" },
 ]
 
+const CTA_STYLE = {
+  border: "1px solid rgba(212,245,60,0.3)",
+  color: "rgba(212,245,60,0.8)",
+  fontFamily: "'Barlow Condensed', sans-serif",
+  letterSpacing: "0.05em",
+}
+const onCtaEnter = (e: MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.borderColor = "rgba(212,245,60,0.7)")
+const onCtaLeave = (e: MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.borderColor = "rgba(212,245,60,0.3)")
+
 export default function Footer() {
   return (
-    <footer className="text-center py-8 mt-4">
-      {/* Partnerships */}
-      <div className="mb-8">
-        <p className="text-gray-500 text-sm mb-1">Anlage, Marke oder Verband?</p>
-        <p className="text-gray-600 text-xs mb-3">Wenn wir zusammenpassen, sollten wir reden.</p>
-        <a
-          href="mailto:yara@adventure-it.at?subject=Partnerschaft%20mit%20PadelYara"
-          className="inline-block text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
-          style={{
-            border: "1px solid rgba(212,245,60,0.3)",
-            color: "rgba(212,245,60,0.8)",
-            fontFamily: "'Barlow Condensed', sans-serif",
-            letterSpacing: "0.05em",
-          }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = "rgba(212,245,60,0.7)")}
-          onMouseLeave={e => (e.currentTarget.style.borderColor = "rgba(212,245,60,0.3)")}
-        >
-          PARTNER WERDEN
-        </a>
+    <footer className="py-8 mt-4">
+      {/* Get in touch */}
+      <div className="flex flex-col sm:flex-row gap-8 sm:gap-6 text-center max-w-xl mx-auto mb-10">
+        {/* Feedback / hello */}
+        <div className="flex-1 flex flex-col items-center">
+          <p className="text-gray-500 text-sm mb-3 flex-1">
+            Irgendetwas fehlt. Irgendetwas nervt. Oder du willst einfach Hallo sagen.
+          </p>
+          <a
+            href="mailto:yara@adventure-it.at"
+            className="inline-block text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+            style={CTA_STYLE}
+            onMouseEnter={onCtaEnter}
+            onMouseLeave={onCtaLeave}
+          >
+            SCHREIB YARA
+          </a>
+        </div>
+
+        {/* Partnerships */}
+        <div className="flex-1 flex flex-col items-center">
+          <div className="flex-1">
+            <p className="text-gray-500 text-sm mb-1">Anlage, Marke oder Verband?</p>
+            <p className="text-gray-600 text-xs mb-3">Wenn wir zusammenpassen, sollten wir reden.</p>
+          </div>
+          <a
+            href="mailto:yara@adventure-it.at?subject=Partnerschaft%20mit%20PadelYara"
+            className="inline-block text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
+            style={CTA_STYLE}
+            onMouseEnter={onCtaEnter}
+            onMouseLeave={onCtaLeave}
+          >
+            PARTNER WERDEN
+          </a>
+        </div>
       </div>
 
-      <p className="text-xs text-gray-500 mb-2 tracking-widest uppercase">PadelYara</p>
-      <div className="flex items-center justify-center gap-3 mb-3">
-        {SOCIALS.map(({ href, label, path }) => (
-          <a
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
-            className="text-gray-600 transition-colors"
-            onMouseEnter={e => (e.currentTarget.style.color = "#d4f53c")}
-            onMouseLeave={e => (e.currentTarget.style.color = "")}
-          >
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-              <path d={path} />
-            </svg>
-          </a>
-        ))}
-      </div>
-      <div className="flex items-center justify-center gap-4">
-        <NavLink to="/impressum" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
-          Impressum
-        </NavLink>
-        <NavLink to="/datenschutz" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
-          Datenschutz
-        </NavLink>
+      <div className="text-center">
+        <p className="text-xs text-gray-500 mb-2 tracking-widest uppercase">PadelYara</p>
+        <div className="flex items-center justify-center gap-3 mb-3">
+          {SOCIALS.map(({ href, label, path }) => (
+            <a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="text-gray-600 transition-colors"
+              onMouseEnter={e => (e.currentTarget.style.color = "#d4f53c")}
+              onMouseLeave={e => (e.currentTarget.style.color = "")}
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d={path} />
+              </svg>
+            </a>
+          ))}
+        </div>
+        <div className="flex items-center justify-center gap-4">
+          <NavLink to="/impressum" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            Impressum
+          </NavLink>
+          <NavLink to="/datenschutz" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            Datenschutz
+          </NavLink>
+        </div>
       </div>
     </footer>
   )
