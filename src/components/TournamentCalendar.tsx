@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import type { Tournament } from "../types"
 import { CategoryPill } from "./TournamentCard"
@@ -51,15 +51,6 @@ function forDay(tournaments: Tournament[], day: Date): Tournament[] {
   return tournaments.filter(t => tournamentOnDay(t, day))
 }
 
-function firstWeekWithResults(tournaments: Tournament[], from: Date): Date {
-  let weekStart = getMonday(from)
-  for (let w = 0; w < 26; w++) {
-    const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
-    if (days.some(day => forDay(tournaments, day).length > 0)) return weekStart
-    weekStart = addDays(weekStart, 7)
-  }
-  return getMonday(from)
-}
 
 function CompactCard({ t }: { t: Tournament }) {
   const navigate = useNavigate()
@@ -88,20 +79,6 @@ export default function TournamentCalendar({ tournaments }: { tournaments: Tourn
   const [weekStart, setWeekStart] = useState(() => getMonday(today))
   const [selectedDay, setSelectedDay] = useState<Date>(today)
 
-  // Auto-jump to first week with results when tournaments load (or change).
-  // Only jumps if the current week view is empty — respects manual navigation.
-  useEffect(() => {
-    if (tournaments.length === 0) return
-    const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
-    const currentWeekHasResults = days.some(day => forDay(tournaments, day).length > 0)
-    if (!currentWeekHasResults) {
-      const target = firstWeekWithResults(tournaments, today)
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setWeekStart(target)
-      setSelectedDay(target)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tournaments])
 
   const days = Array.from({ length: 7 }, (_, i) => addDays(weekStart, i))
 
