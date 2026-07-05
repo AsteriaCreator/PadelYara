@@ -127,6 +127,8 @@ export default function PadelrevierPage() {
   const [error, setError] = useState(false)
   const [bundesland, setBundesland] = useState<string[]>([])
   const [courtType, setCourtType] = useState<string[]>([])
+  const [query, setQuery] = useState("")
+  const [showSuggestions, setShowSuggestions] = useState(false)
 
   useEffect(() => {
     fetchVenues()
@@ -143,14 +145,25 @@ export default function PadelrevierPage() {
     return opts
   }, [venues])
 
-  const visible = useMemo(() => venues.filter(v => {
-    const blOk = bundesland.length === 0 || bundesland.includes(bundeslandFromAddress(v.address))
-    // A both-courts venue matches the Indoor chip and the Outdoor chip.
-    const ctOk = courtType.length === 0
-      || courtType.includes(v.court_type)
-      || (v.court_type === "indoor+outdoor" && (courtType.includes("indoor") || courtType.includes("outdoor")))
-    return blOk && ctOk
-  }), [venues, bundesland, courtType])
+  const suggestions = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (q.length < 2) return []
+    return venues
+      .filter(v => v.name.toLowerCase().includes(q) || v.address.toLowerCase().includes(q))
+      .slice(0, 8)
+  }, [venues, query])
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    return venues.filter(v => {
+      const blOk = bundesland.length === 0 || bundesland.includes(bundeslandFromAddress(v.address))
+      const ctOk = courtType.length === 0
+        || courtType.includes(v.court_type)
+        || (v.court_type === "indoor+outdoor" && (courtType.includes("indoor") || courtType.includes("outdoor")))
+      const qOk = q.length < 2 || v.name.toLowerCase().includes(q) || v.address.toLowerCase().includes(q)
+      return blOk && ctOk && qOk
+    })
+  }, [venues, bundesland, courtType, query])
 
   // Some places are stored as two records on identical coordinates (e.g. an
   // indoor and an outdoor venue at the same address — Padeldome Alte Donau).
@@ -226,6 +239,50 @@ export default function PadelrevierPage() {
         Linz, Salzburg und alles dazwischen. Jeder Pin zeigt Adresse, Öffnungszeiten und
         Verfügbarkeit. Irgendwo ist gerade ein Court frei geworden. Ich weiß welcher.
       </p>
+
+      {/* Search field */}
+      <div className="relative mb-5" style={{ maxWidth: 400 }}>
+        <input
+          type="text"
+          value={query}
+          onChange={e => { setQuery(e.target.value); setShowSuggestions(true) }}
+          onFocus={() => setShowSuggestions(true)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+          placeholder="Anlage suchen …"
+          className="w-full text-sm px-4 py-2 rounded-lg outline-none"
+          style={{
+            background: "rgba(255,255,255,0.06)", border: "1px solid rgba(107,114,128,0.4)",
+            color: "#e5e7eb", fontFamily: "'Barlow Condensed', sans-serif",
+          }}
+        />
+        {query && (
+          <button
+            onClick={() => { setQuery(""); setShowSuggestions(false) }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+            style={{ fontSize: 16, lineHeight: 1 }}
+          >×</button>
+        )}
+        {showSuggestions && suggestions.length > 0 && (
+          <div
+            className="absolute z-50 w-full rounded-lg overflow-hidden mt-1"
+            style={{ background: "#1a1c24", border: "1px solid rgba(212,245,60,0.25)" }}
+          >
+            {suggestions.map(v => (
+              <Link
+                key={v.id}
+                to={`/court/${v.id}`}
+                className="flex flex-col px-4 py-2.5 hover:bg-white/5 transition-colors"
+                style={{ textDecoration: "none" }}
+              >
+                <span className="text-sm font-semibold" style={{ color: "#e5e7eb", fontFamily: "'Barlow Condensed', sans-serif" }}>
+                  {v.name}
+                </span>
+                <span className="text-xs" style={{ color: "#6b7280" }}>{v.address}</span>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
 
       <MultiChip label="Bundesland" options={blOptions} selected={bundesland} onChange={setBundesland} />
       <MultiChip label="Platztyp" options={COURT_TYPE_FILTERS} selected={courtType} onChange={setCourtType} />
