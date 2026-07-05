@@ -278,22 +278,64 @@ class AlertBody(BaseModel):
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 
+_ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "mayer.conny@gmail.com")
+
 @router.get("/api/tournaments/alerts/email-stats", dependencies=[Depends(_require_admin)])
 async def alert_email_stats():
-    """Fetch Brevo transactional email stats for the last 30 days."""
+    """Fetch Brevo transactional email stats for the last 30 days, excluding the admin email."""
     from datetime import date, timedelta
     end = date.today()
     start = end - timedelta(days=30)
+    params_base = {"startDate": str(start), "endDate": str(end), "limit": 100}
+
+    delivered_ids: set[str] = set()
+    opened_emails: set[str] = set()
+    clicked_emails: set[str] = set()
+    total_opens = 0
+    total_clicks = 0
+
     async with httpx.AsyncClient() as client:
-        resp = await client.get(
-            "https://api.brevo.com/v3/smtp/statistics/aggregatedReport",
-            params={"startDate": str(start), "endDate": str(end)},
-            headers={"api-key": _BREVO_API_KEY},
-            timeout=10,
-        )
-    if resp.status_code >= 400:
-        return {"error": resp.text}
-    return resp.json()
+        for event_type, target_set, is_count_only in [
+            ("delivered", delivered_ids, False),
+            ("opened",    opened_emails, False),
+            ("clicks",    clicked_emails, False),
+        ]:
+            offset = 0
+            while True:
+                resp = await client.get(
+                    "https://api.brevo.com/v3/smtp/statistics/events",
+                    params={**params_base, "event": event_type, "offset": offset},
+                    headers={"api-key": _BREVO_API_KEY},
+                    timeout=10,
+                )
+                if resp.status_code >= 400:
+                    break
+                events = resp.json().get("events", [])
+                for ev in events:
+                    email = ev.get("email", "")
+                    if email == _ADMIN_EMAIL:
+                        continue
+                    msg_id = ev.get("messageId", "") or ev.get("subject", "") + email
+                    if event_type == "delivered":
+                        delivered_ids.add(msg_id)
+                    elif event_type == "opened":
+                        opened_emails.add(email)
+                        total_opens += 1
+                    elif event_type == "clicks":
+                        clicked_emails.add(email)
+                        total_clicks += 1
+                if len(events) < 100:
+                    break
+                offset += 100
+
+    return {
+        "requests": len(delivered_ids),
+        "delivered": len(delivered_ids),
+        "opens": total_opens,
+        "uniqueOpens": len(opened_emails),
+        "clicks": total_clicks,
+        "uniqueClicks": len(clicked_emails),
+    }
 
 
 @router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
