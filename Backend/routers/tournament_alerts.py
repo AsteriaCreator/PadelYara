@@ -278,6 +278,24 @@ class AlertBody(BaseModel):
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
 
+@router.get("/api/tournaments/alerts/email-stats", dependencies=[Depends(_require_admin)])
+async def alert_email_stats():
+    """Fetch Brevo transactional email stats for the last 30 days."""
+    from datetime import date, timedelta
+    end = date.today()
+    start = end - timedelta(days=30)
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(
+            "https://api.brevo.com/v3/smtp/statistics/aggregatedReport",
+            params={"startDate": str(start), "endDate": str(end)},
+            headers={"api-key": _BREVO_API_KEY},
+            timeout=10,
+        )
+    if resp.status_code >= 400:
+        return {"error": resp.text}
+    return resp.json()
+
+
 @router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
 async def alerts_count():
     """Admin: count of confirmed Jagd-Alarm subscribers."""

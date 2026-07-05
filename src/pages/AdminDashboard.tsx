@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchAlertList, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
-import type { AlertSubscriber } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchAlertList, fetchEmailStats, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import type { AlertSubscriber, EmailStats } from "../api"
 import "./AdminDashboard.css"
 
 function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
@@ -216,6 +216,7 @@ export default function AdminDashboard() {
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
   const [alertCount, setAlertCount] = useState<number | null>(null)
   const [alertList, setAlertList] = useState<AlertSubscriber[] | null>(null)
+  const [emailStats, setEmailStats] = useState<EmailStats | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
@@ -236,6 +237,7 @@ export default function AdminDashboard() {
     setRefreshing(true)
     Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount(), fetchAlertList()])
       .then(([s, t, i, sc, ac, al]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number); setAlertList(al as AlertSubscriber[]) })
+    fetchEmailStats().then(setEmailStats).catch(() => setEmailStats(null))
       .catch((e: Error) => {
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
@@ -517,6 +519,33 @@ export default function AdminDashboard() {
               })}
             </tbody>
           </table>
+        </section>
+      )}
+
+      {/* Jagd-Alarm email stats */}
+      {emailStats && (
+        <section className="admin-section">
+          <h2>📧 Jagd-Alarm E-Mail Performance <span className="period-hint">last 30 days</span></h2>
+          <p className="section-hint">Opens and clicks tracked by Brevo for all transactional alert emails.</p>
+          <div className="stats-grid">
+            <StatCard emoji="📤" label="Sent" value={emailStats.requests}
+              tip="Total alert emails sent in the last 30 days." color="#6366f1" />
+            <StatCard emoji="📬" label="Delivered" value={emailStats.delivered}
+              tip="Emails that actually reached the inbox." color="#22c55e" />
+            <StatCard emoji="👁️" label="Unique Opens" value={emailStats.uniqueOpens}
+              tip={`${emailStats.delivered > 0 ? Math.round((emailStats.uniqueOpens / emailStats.delivered) * 100) : 0}% open rate — how many recipients opened the email at least once.`}
+              color="#f59e0b" />
+            <StatCard emoji="🖱️" label="Unique Clicks" value={emailStats.uniqueClicks}
+              tip={`${emailStats.uniqueOpens > 0 ? Math.round((emailStats.uniqueClicks / emailStats.uniqueOpens) * 100) : 0}% click-to-open rate — of those who opened, how many clicked a link.`}
+              color="#d4f53c" />
+          </div>
+          {emailStats.delivered > 0 && (
+            <div style={{ marginTop: 16, display: "flex", gap: 24, fontSize: 13, color: "#9ca3af" }}>
+              <span>Open rate: <strong style={{ color: "#f59e0b" }}>{Math.round((emailStats.uniqueOpens / emailStats.delivered) * 100)}%</strong></span>
+              <span>Click rate: <strong style={{ color: "#d4f53c" }}>{Math.round((emailStats.uniqueClicks / emailStats.delivered) * 100)}%</strong></span>
+              <span>Total opens: {emailStats.opens} &nbsp;·&nbsp; Total clicks: {emailStats.clicks}</span>
+            </div>
+          )}
         </section>
       )}
 

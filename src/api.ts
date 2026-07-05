@@ -336,6 +336,23 @@ export async function fetchAlertList(): Promise<AlertSubscriber[]> {
   return data.alerts as AlertSubscriber[]
 }
 
+export interface EmailStats {
+  requests: number
+  delivered: number
+  opens: number
+  uniqueOpens: number
+  clicks: number
+  uniqueClicks: number
+}
+
+export async function fetchEmailStats(): Promise<EmailStats | null> {
+  const res = await fetch(`${API_BASE}/api/tournaments/alerts/email-stats`, { headers: adminHeaders() })
+  if (!res.ok) return null
+  const data = await res.json()
+  if (data.error) return null
+  return data as EmailStats
+}
+
 export async function subscribeEmail(email: string): Promise<{ ok: boolean; already?: boolean }> {
   try {
     const res = await fetch(`${API_BASE}/api/subscribe`, {
