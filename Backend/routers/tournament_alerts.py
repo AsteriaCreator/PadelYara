@@ -108,6 +108,8 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         "subject": "Jagd-Alarm einrichten.",
         "textContent": text,
         "htmlContent": html,
+        "trackOpens": True,
+        "trackClicks": True,
     }
     async with httpx.AsyncClient() as client:
         resp = await client.post(
@@ -138,7 +140,8 @@ async def _send_notification_email(
         category = t.get("category", "")
         competition = t.get("competition", "")
         bundesland = t.get("bundesland", "")
-        source_url = t.get("source_url", "")
+        source_id = t.get("source_id", "")
+        detail_url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
         meta_parts = [x for x in [category, competition, bundesland] if x]
         meta_line = " · ".join(meta_parts)
         return f"""
@@ -146,7 +149,7 @@ async def _send_notification_email(
   <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#ffffff">{title}</p>
   {f'<p style="margin:0 0 4px;font-size:12px;color:#6b7280">{date_str}</p>' if date_str else ''}
   {f'<p style="margin:0 0 10px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
-  {f'<a href="{source_url}" style="font-size:12px;color:#d4f53c;text-decoration:none;font-weight:600">Zum Turnier →</a>' if source_url else ''}
+  {f'<a href="{detail_url}" style="font-size:12px;color:#d4f53c;text-decoration:none;font-weight:600">Zum Turnier →</a>' if detail_url else ''}
 </div>"""
 
     cards_html = "".join(_tournament_card(t) for t in matched_tournaments)
@@ -155,7 +158,8 @@ async def _send_notification_email(
     for t in matched_tournaments:
         title = t.get("title", "Turnier")
         date_str = t.get("start_date") or t.get("date") or ""
-        url = t.get("source_url", "")
+        source_id = t.get("source_id", "")
+        url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
         text_lines.append(f"- {title}{' - ' + date_str if date_str else ''}")
         if url:
             text_lines.append(f"  {url}")
@@ -179,6 +183,8 @@ async def _send_notification_email(
         "subject": subject,
         "textContent": text,
         "htmlContent": html,
+        "trackOpens": True,
+        "trackClicks": True,
     }
     async with httpx.AsyncClient() as client:
         resp = await client.post(
