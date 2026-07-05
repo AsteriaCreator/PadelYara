@@ -274,8 +274,12 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
 @router.get("/api/analytics/search-console", dependencies=[Depends(_require_admin)])
 async def get_search_console():
     """Fetch last 28 days of Search Console data: top queries, pages, countries."""
-    from google.oauth2 import service_account
-    from googleapiclient.discovery import build
+    try:
+        from google.oauth2 import service_account
+        from googleapiclient.discovery import build
+    except ImportError:
+        # Google client libs missing from the image — degrade cleanly instead of 500ing.
+        return {"ok": False, "reason": "dependency_missing"}
 
     raw = os.environ.get("GOOGLE_SERVICE_ACCOUNT_JSON", "").strip()
     if not raw:
