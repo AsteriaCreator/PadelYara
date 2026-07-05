@@ -81,6 +81,9 @@ export default function Footer() {
           <NavLink to="/datenschutz" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
             Datenschutz
           </NavLink>
+          <NavLink to="/agb" className="text-xs text-gray-500 hover:text-gray-300 transition-colors">
+            AGB
+          </NavLink>
         </div>
       </div>
     </footer>

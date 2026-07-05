@@ -50,6 +50,7 @@ const PadelrevierCityPage       = lazyWithReload(() => import("./pages/Padelrevi
 const CourtDetailPage           = lazyWithReload(() => import("./pages/CourtDetailPage"))
 const DatenschutzPage           = lazyWithReload(() => import("./pages/DatenschutzPage"))
 const ImprintPage               = lazyWithReload(() => import("./pages/ImprintPage"))
+const AGBPage                   = lazyWithReload(() => import("./pages/AGBPage"))
 const AboutSection              = lazyWithReload(() => import("./components/AboutSection"))
 
 export default function App() {
@@ -78,6 +79,7 @@ export default function App() {
         <Route path="/about"        element={<PageShell><AboutSection /></PageShell>} />
         <Route path="/datenschutz"  element={<PageShell><DatenschutzPage /></PageShell>} />
         <Route path="/impressum"    element={<PageShell><ImprintPage /></PageShell>} />
+        <Route path="/agb"          element={<PageShell><AGBPage /></PageShell>} />
         <Route path="/*"            element={<FinderPage />} />
         </Routes>
       </Suspense>
