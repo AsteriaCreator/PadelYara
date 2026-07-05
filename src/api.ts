@@ -9,7 +9,7 @@ export function getSessionId(): string {
   const KEY = "anon_session_id"
   let id = localStorage.getItem(KEY)
   if (!id) {
-    id = crypto.randomUUID()
+    id = crypto.randomUUID?.() ?? Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)
     localStorage.setItem(KEY, id)
   }
   return id
