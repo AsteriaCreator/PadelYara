@@ -170,15 +170,28 @@ async def _send_notification_email(
         meta_parts = [x for x in [venue, category, competition, bundesland] if x]
         meta_line = " · ".join(meta_parts)
         deadline_html = (
-            f'<p style="margin:0 0 10px;font-size:12px;color:#b45309;font-weight:600">'
+            f'<p style="margin:0 0 8px;font-size:12px;color:#b45309;font-weight:600">'
             f'Anmeldeschluss: {deadline}</p>'
         ) if deadline else ""
+        p_max = t.get("participants_max") or 0
+        p_cur = t.get("participants_current") or 0
+        spots_left = max(0, p_max - p_cur) if p_max else None
+        if spots_left is None:
+            spots_html = ""
+        elif spots_left == 0:
+            spots_html = '<p style="margin:0 0 8px;font-size:12px;color:#dc2626;font-weight:600">Warteliste.</p>'
+        elif spots_left <= 5:
+            label = "Platz" if spots_left == 1 else "Plätze"
+            spots_html = f'<p style="margin:0 0 8px;font-size:12px;color:#b45309;font-weight:600">Noch {spots_left} {label} frei.</p>'
+        else:
+            spots_html = ""
         return f"""
 <div style="border:1px solid #e5e7eb;border-radius:10px;padding:16px 20px;margin:0 0 12px;background:#f9fafb">
   <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#111827">{title}</p>
   {f'<p style="margin:0 0 4px;font-size:12px;color:#6b7280">{date_str}</p>' if date_str else ''}
   {f'<p style="margin:0 0 6px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
   {deadline_html}
+  {spots_html}
   {f'<a href="{detail_url}" style="font-size:13px;color:#16a34a;text-decoration:none;font-weight:700">Zum Turnier →</a>' if detail_url else ''}
 </div>"""
 
@@ -208,6 +221,14 @@ async def _send_notification_email(
         text_lines.append(f"- {title}{' — ' + date_str if date_str else ''}")
         if deadline:
             text_lines.append(f"  Anmeldeschluss: {deadline}")
+        p_max = t.get("participants_max") or 0
+        p_cur = t.get("participants_current") or 0
+        if p_max:
+            spots = max(0, p_max - p_cur)
+            if spots == 0:
+                text_lines.append("  Warteliste.")
+            elif spots <= 5:
+                text_lines.append(f"  Noch {spots} {'Platz' if spots == 1 else 'Plätze'} frei.")
         if url:
             text_lines.append(f"  {url}")
     if filter_parts:
