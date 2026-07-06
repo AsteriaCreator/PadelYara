@@ -355,26 +355,25 @@ export default function TurnierjagerPage() {
 
   const { merkliste, toggleMerkliste } = useMerkliste()
 
-  // Handle ?alert= query param from email confirmation/unsubscribe redirects
+  // Handle ?alert= and ?jagdalarm= query params from email links
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const alertParam = params.get("alert")
-    if (!alertParam) return
     const messages: Record<string, string> = {
       confirmed: "Jagd-Alarm aktiv. Du wirst informiert.",
       unsubscribed: "Jagd-Alarm deaktiviert.",
       invalid: "Link ungültig oder bereits verwendet.",
     }
-    const msg = messages[alertParam]
-    if (msg) {
-      setTimeout(() => setAlertBanner(msg), 0)
-      // Remove param from URL without reloading
+    const alertParam = params.get("alert")
+    if (alertParam && messages[alertParam]) {
+      setTimeout(() => setAlertBanner(messages[alertParam]), 0)
       params.delete("alert")
-      const newSearch = params.toString()
-      window.history.replaceState(null, "", window.location.pathname + (newSearch ? "?" + newSearch : ""))
-      // Auto-dismiss after 6 s
-      setTimeout(() => setAlertBanner(null), 6000)
     }
+    if (params.get("jagdalarm") === "open") {
+      setTimeout(() => setJagdAlarmOpen(true), 0)
+      params.delete("jagdalarm")
+    }
+    const newSearch = params.toString()
+    window.history.replaceState(null, "", window.location.pathname + (newSearch ? "?" + newSearch : ""))
   }, [])
 
   // Venue options fetched from API, scoped to selected bundesländer

@@ -148,7 +148,7 @@ async def _send_notification_email(
     subject = f"{count} neues Turnier für deine Jagd." if count == 1 else f"{count} neue Turniere für deine Jagd."
 
     unsubscribe_url = f"{_BACKEND_URL}/api/tournaments/alerts/unsubscribe?token={unsubscribe_token}"
-    manage_url = f"{_FRONTEND_URL}/turnierjaeger/meine"
+    manage_url = f"{_FRONTEND_URL}/turnierjaeger?jagdalarm=open"
 
     # Build filter summary line for "Du bekommst das weil:" section
     filter_parts: list[str] = []
