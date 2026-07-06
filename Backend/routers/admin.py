@@ -42,9 +42,9 @@ async def send_test_alert_email(email: str = Query(...)):
     if not alert:
         return {"ok": False, "error": "no subscription found for this email"}
     sample = await db["tournaments"].find(
-        {}, {"title": 1, "start_date": 1, "category": 1, "competition": 1, "bundesland": 1, "source_url": 1, "_id": 0}
+        {}, {"title": 1, "start_date": 1, "category": 1, "competition": 1, "bundesland": 1, "venue_name": 1, "registration_closes_at": 1, "source_id": 1, "_id": 0}
     ).sort("first_seen_at", -1).limit(3).to_list(length=3)
-    await _send_notification_email(email, alert.get("unsubscribe_token", ""), sample)
+    await _send_notification_email(email, alert.get("unsubscribe_token", ""), sample, alert.get("filters", {}))
     return {"ok": True, "sent_to": email, "tournaments": len(sample)}
 
 

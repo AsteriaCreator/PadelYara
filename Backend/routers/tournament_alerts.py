@@ -122,59 +122,113 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         print(json.dumps({"event": "brevo_error_alerts", "status": resp.status_code, "body": resp.text}))
 
 
+def _format_reg_deadline(t: dict) -> str:
+    """Return a human-readable registration deadline string, or empty string if unknown."""
+    raw = t.get("registration_closes_at")
+    if not raw:
+        return ""
+    try:
+        from datetime import datetime, timezone
+        if isinstance(raw, datetime):
+            dt = raw
+        else:
+            dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        return f"{dt.day}.{dt.month}.{dt.year}"
+    except Exception:
+        return str(raw)[:10] if raw else ""
+
+
 async def _send_notification_email(
     to_email: str,
     unsubscribe_token: str,
     matched_tournaments: list[dict],
+    alert_filters: dict | None = None,
 ) -> None:
     count = len(matched_tournaments)
-    plural_s = "s" if count == 1 else ""
-    plural_e = "e" if count != 1 else ""
-    subject = f"{count} neue{plural_s} Turnier{plural_e} für deine Jagd."
+    subject = f"{count} neues Turnier für deine Jagd." if count == 1 else f"{count} neue Turniere für deine Jagd."
 
     unsubscribe_url = f"{_BACKEND_URL}/api/tournaments/alerts/unsubscribe?token={unsubscribe_token}"
+    manage_url = f"{_FRONTEND_URL}/turnierjaeger/meine"
+
+    # Build filter summary line for "Du bekommst das weil:" section
+    filter_parts: list[str] = []
+    if alert_filters:
+        for key in ("bundesland", "category", "competition", "weekday", "venue_name"):
+            vals = alert_filters.get(key) or []
+            filter_parts.extend(vals)
 
     def _tournament_card(t: dict) -> str:
         title = t.get("title", "Turnier")
         date_str = t.get("start_date") or t.get("date") or ""
+        venue = t.get("venue_name", "")
         category = t.get("category", "")
         competition = t.get("competition", "")
         bundesland = t.get("bundesland", "")
         source_id = t.get("source_id", "")
         detail_url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
-        meta_parts = [x for x in [category, competition, bundesland] if x]
+        deadline = _format_reg_deadline(t)
+        meta_parts = [x for x in [venue, category, competition, bundesland] if x]
         meta_line = " · ".join(meta_parts)
+        deadline_html = (
+            f'<p style="margin:0 0 10px;font-size:12px;color:#b45309;font-weight:600">'
+            f'Anmeldeschluss: {deadline}</p>'
+        ) if deadline else ""
         return f"""
-<div style="border:1px solid rgba(212,245,60,0.15);border-radius:10px;padding:16px 20px;margin:0 0 12px">
-  <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#ffffff">{title}</p>
+<div style="border:1px solid #e5e7eb;border-radius:10px;padding:16px 20px;margin:0 0 12px;background:#f9fafb">
+  <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#111827">{title}</p>
   {f'<p style="margin:0 0 4px;font-size:12px;color:#6b7280">{date_str}</p>' if date_str else ''}
-  {f'<p style="margin:0 0 10px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
-  {f'<a href="{detail_url}" style="font-size:12px;color:#d4f53c;text-decoration:none;font-weight:600">Zum Turnier →</a>' if detail_url else ''}
+  {f'<p style="margin:0 0 6px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
+  {deadline_html}
+  {f'<a href="{detail_url}" style="font-size:13px;color:#16a34a;text-decoration:none;font-weight:700">Zum Turnier →</a>' if detail_url else ''}
 </div>"""
 
     cards_html = "".join(_tournament_card(t) for t in matched_tournaments)
 
-    text_lines = [f"{count} neue{plural_s} Turnier{plural_e} passend zu deinem Jagd-Alarm:\n"]
+    filter_badge_html = ""
+    if filter_parts:
+        badges = "".join(
+            f'<span style="display:inline-block;background:#f3f4f6;color:#374151;'
+            f'font-size:11px;padding:2px 8px;border-radius:4px;margin:0 4px 4px 0">{p}</span>'
+            for p in filter_parts
+        )
+        filter_badge_html = f"""
+<div style="margin:24px 0 0;padding:14px 16px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb">
+  <p style="margin:0 0 8px;font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em">Du bekommst das weil</p>
+  <div>{badges}</div>
+</div>"""
+
+    # Plain text
+    text_lines = [f"{count} {'neues Turnier' if count == 1 else 'neue Turniere'} passend zu deinem Jagd-Alarm:\n"]
     for t in matched_tournaments:
         title = t.get("title", "Turnier")
         date_str = t.get("start_date") or t.get("date") or ""
+        deadline = _format_reg_deadline(t)
         source_id = t.get("source_id", "")
         url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
-        text_lines.append(f"- {title}{' - ' + date_str if date_str else ''}")
+        text_lines.append(f"- {title}{' — ' + date_str if date_str else ''}")
+        if deadline:
+            text_lines.append(f"  Anmeldeschluss: {deadline}")
         if url:
             text_lines.append(f"  {url}")
-    text_lines.append(f"\nKeine weiteren Hinweise: {unsubscribe_url}")
+    if filter_parts:
+        text_lines.append(f"\nDu bekommst das weil: {' · '.join(filter_parts)}")
+    text_lines.append(f"\nFilter ändern: {manage_url}")
+    text_lines.append(f"Abmelden: {unsubscribe_url}")
     text = "\n".join(text_lines)
 
-    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:560px;margin:0 auto">
-<p style="margin:0 0 28px"><img src="https://www.padelyara.at/logo-white.svg" alt="PadelYara" style="height:28px;width:auto"></p>
-<p style="font-size:15px;color:#d1d5db;margin:0 0 24px;line-height:1.6">
-  {count} neue{plural_s} Turnier{plural_e} für deine Jagd.
-</p>
-{cards_html}
-<p style="margin:32px 0 0;border-top:1px solid rgba(107,114,128,0.2);padding-top:16px">
-  <a href="{unsubscribe_url}" style="font-size:11px;color:#6b7280;text-decoration:none">Keine weiteren Hinweise.</a>
-</p>
+    html = f"""<html><body style="background:#f3f4f6;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;padding:36px 32px;border:1px solid #e5e7eb">
+  <p style="margin:0 0 28px"><img src="https://www.padelyara.at/logo.svg" alt="PadelYara" style="height:28px;width:auto"></p>
+  <p style="font-size:16px;color:#111827;margin:0 0 24px;line-height:1.6;font-weight:600">
+    {count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.
+  </p>
+  {cards_html}
+  {filter_badge_html}
+  <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af">
+    <a href="{manage_url}" style="color:#6b7280;text-decoration:none;margin-right:16px">Filter ändern</a>
+    <a href="{unsubscribe_url}" style="color:#9ca3af;text-decoration:none">Abmelden</a>
+  </p>
+</div>
 </body></html>"""
 
     payload = {
@@ -252,7 +306,7 @@ async def send_alert_notifications(db, new_tournament_ids: list[str]) -> None:
             "count": len(matched),
         }))
         try:
-            await _send_notification_email(email, unsubscribe_token, matched)
+            await _send_notification_email(email, unsubscribe_token, matched, alert_filters)
             await db["tournament_alerts"].update_one(
                 {"_id": alert["_id"]},
                 {"$set": {"last_notified_at": now_iso}},
