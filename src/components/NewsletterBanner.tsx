@@ -82,7 +82,7 @@ export default function NewsletterBanner() {
         </button>
       </form>
       {status === "error" && (
-        <p className="text-red-400 text-xs mt-1">Etwas ist schiefgelaufen. Versuch es nochmal.</p>
+        <p className="text-red-400 text-xs mt-1">Ging schief. Nochmal.</p>
       )}
       <p className="text-xs mt-2" style={{ color: "rgba(156,163,175,0.7)" }}>
         Mit der Anmeldung stimmst du der Verarbeitung deiner E-Mail gemäß unserer{" "}

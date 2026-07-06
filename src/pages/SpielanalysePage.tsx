@@ -206,7 +206,7 @@ export default function SpielanalysePage() {
               <button
                 onClick={() => {
                   const url = `https://www.padelyara.at/turnierjaeger/spielanalyse/${mySlug}`
-                  const text = `🎾 Schau dir meine Padel-Stats an (${myName})!\n\n${url}`
+                  const text = `Meine Padel-Stats. Yara hat mitgezählt. (${myName})\n\n${url}`
                   if (navigator.share) void navigator.share({ text })
                   else void navigator.clipboard.writeText(url)
                 }}
@@ -282,7 +282,7 @@ export default function SpielanalysePage() {
         {mySlug && (
           <div className="mt-2">
             {historyLoading ? (
-              <p className="text-xs text-gray-600">Lade Analyse …</p>
+              <p className="text-xs text-gray-600">Yara rechnet …</p>
             ) : myHistory.length > 0 ? (
               <>
                 <CategoryProgression history={myHistory} />

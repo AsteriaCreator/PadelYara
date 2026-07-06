@@ -199,13 +199,13 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
     e.preventDefault()
 
     if (isSelectedPast(date, time)) {
-      setFormError("Diese Uhrzeit ist bereits vorbei.")
+      setFormError("Diese Uhrzeit ist vorbei. Such dir eine neue.")
       return
     }
 
     const trimmedLocation = location.trim()
     if (!trimmedLocation) {
-      setFormError("Bitte PLZ oder Ort eingeben.")
+      setFormError("Kein Ort, keine Jagd. PLZ oder Ort.")
       return
     }
 
@@ -435,7 +435,7 @@ export default function SearchCard({ onSearch, isLoading, courtFilter, onCourtFi
         {isLoading && (
           <span className="inline-block h-4 w-4 rounded-full border-2 border-gray-900 border-t-transparent animate-spin" />
         )}
-        {isLoading ? "LADEN…" : "SUCHEN"}
+        {isLoading ? "JAGT…" : "SUCHEN"}
       </button>
     </form>
   )

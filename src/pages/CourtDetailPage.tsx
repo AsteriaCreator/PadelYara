@@ -112,7 +112,7 @@ export default function CourtDetailPage() {
   // SEO handled via <Helmet> below — no manual document.title needed
 
   if (state === "loading") {
-    return <div className="py-16 text-center text-gray-600 text-sm">Lädt …</div>
+    return <div className="py-16 text-center text-gray-600 text-sm">Yara holt die Fakten …</div>
   }
   if (state === "notfound") {
     return (
@@ -315,7 +315,7 @@ export default function CourtDetailPage() {
         {sent ? (
           <>
             <h3>Hat Yara.</h3>
-            <p>Danke. Sie prüft's und ergänzt's.</p>
+            <p>Sie prüft's. Wenn's stimmt, steht's bald hier.</p>
           </>
         ) : (
           <>

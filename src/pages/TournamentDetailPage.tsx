@@ -42,7 +42,7 @@ export default function TournamentDetailPage() {
   if (notFound || !t) {
     return (
       <section className="max-w-xl mx-auto px-4 py-10 text-center">
-        <p className="text-white font-semibold mb-2">Turnier nicht gefunden.</p>
+        <p className="text-white font-semibold mb-2">Yara kennt dieses Turnier nicht.</p>
         <Link to="/turnierjaeger" className="text-xs" style={{ color: "#d4f53c" }}>
           ← Zurück zum Turnierjäger
         </Link>

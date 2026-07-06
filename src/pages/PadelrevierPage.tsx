@@ -437,11 +437,11 @@ export default function PadelrevierPage() {
               <strong className="text-gray-300">Oberösterreich</strong> am stärksten vertreten.
             </p>
             <p>
-              Die Daten werden laufend aktualisiert. Fehlt eine Anlage?{" "}
+              Die Daten werden laufend aktualisiert. Anlage fehlt?{" "}
               <a href="mailto:hello@padelyara.at" className="underline" style={{ color: "#d4f53c" }}>
-                Schreib uns
+                Sag's mir
               </a>{" "}
-              und wir tragen sie ein.
+              Ich trag sie ein.
             </p>
           </div>
 

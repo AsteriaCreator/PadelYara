@@ -208,11 +208,11 @@ export default function PadelrevierCityPage() {
               <p key={i}>{para}</p>
             ))}
             <p>
-              Fehlt eine Anlage?{" "}
+              Anlage fehlt?{" "}
               <a href="mailto:hello@padelyara.at" className="underline" style={{ color: "#d4f53c" }}>
-                Schreib uns
+                Sag's mir
               </a>{" "}
-              und wir tragen sie ein.
+              Ich trag sie ein.
             </p>
           </div>
         </>

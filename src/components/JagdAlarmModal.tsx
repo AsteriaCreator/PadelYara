@@ -72,13 +72,13 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
       })
       const data = await res.json()
       if (!res.ok || !data.ok) {
-        setErrorMsg(data.error === "invalid_email" ? "Ungültige E-Mail-Adresse." : "Etwas ist schiefgelaufen.")
+        setErrorMsg(data.error === "invalid_email" ? "Das ist keine E-Mail-Adresse." : "Ging schief. Nochmal.")
         setStatus("error")
         return
       }
       setStatus("success")
     } catch {
-      setErrorMsg("Verbindung fehlgeschlagen. Bitte nochmal versuchen.")
+      setErrorMsg("Verbindung fehlgeschlagen. Nochmal.")
       setStatus("error")
     }
   }

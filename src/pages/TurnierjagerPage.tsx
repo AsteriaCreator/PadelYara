@@ -442,7 +442,7 @@ export default function TurnierjagerPage() {
       setTournaments(data.tournaments ?? [])
       setLastUpdated(new Date().toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" }))
     } catch {
-      setError("Verbindung fehlgeschlagen. Bitte Seite neu laden.")
+      setError("Verbindung fehlgeschlagen. Seite neu laden.")
     } finally {
       setLoading(false)
     }
@@ -850,7 +850,7 @@ export default function TurnierjagerPage() {
           <p className="text-gray-500 text-sm">
             {filters.onlyOpensSoon
               ? "Gerade öffnet keine Anmeldung in den nächsten Tagen. Filter anpassen."
-              : "Filter anpassen oder mehr Optionen aktivieren."}
+              : "Deine Filter sind zu wählerisch. Lockere sie."}
           </p>
         </div>
       )}
