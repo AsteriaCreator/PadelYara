@@ -9,6 +9,33 @@ from auth import _require_admin
 
 router = APIRouter()
 
+_DACH_COUNTRIES = ["Austria", "Germany", "Switzerland"]
+
+
+async def _dach_session_ids(col, start, end=None) -> list[str]:
+    """Session IDs known to be in Austria/Germany/Switzerland, derived from any
+    pageview with a DACH country in the given window. search_completed and
+    booking_clicked events aren't geo-tagged for all history (only ones from
+    after this feature shipped carry `country` directly), so this lets us
+    attribute older/untagged events to a country via their session instead."""
+    match = {
+        "event": "pageview",
+        "country": {"$in": _DACH_COUNTRIES},
+        "session_id": {"$ne": None},
+        "timestamp": {"$gte": start, "$lt": end} if end is not None else {"$gte": start},
+    }
+    return await col.distinct("session_id", match)
+
+
+def _dach_or_match(dach_ids: list[str]) -> dict:
+    """Match documents that are DACH: either tagged directly with country, or
+    from a session known to be DACH via its pageviews (covers events that
+    predate direct country tagging on search/booking events)."""
+    return {"$or": [
+        {"country": {"$in": _DACH_COUNTRIES}},
+        {"session_id": {"$in": dach_ids}},
+    ]}
+
 
 @router.get("/api/analytics", dependencies=[Depends(_require_admin)])
 async def get_analytics(exclude_sessions: str | None = Query(default=None), dach_only: bool = Query(default=False)):
@@ -32,14 +59,13 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None), dach
     # Use with None for session/visitor counts (only count events that have a session_id)
     _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
-    # Bots inflate raw traffic: they load one page and leave, almost always from a
-    # non-DACH (US datacenter) country. search/booking events are already bot-free
-    # (bots never engage) and booking_clicked has no country field, so when the
-    # "real visitors only" filter is on we apply the DACH geo filter ONLY to the
-    # pageview- and session-based numbers where the bots actually show up.
     _engaged = {"event": {"$in": ["search_completed", "booking_clicked"]}}
-    _dach = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}}
-    _geo = _dach if dach_only else {}
+    # "Real visitors only": bots load one page and leave, almost always from a
+    # non-DACH (US datacenter) country. Filter every number — pageviews via their
+    # own country field, search/booking events (many predate direct tagging) via
+    # the session-join match — so all numbers count the same population.
+    _dach_ids = await _dach_session_ids(col, yesterday_start) if dach_only else []
+    _geo = _dach_or_match(_dach_ids) if dach_only else {}
 
     async def _session_count(start, end, extra=None):
         match = {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess, **_geo}
@@ -55,7 +81,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None), dach
 
     async def _event_breakdown(start, end):
         pipeline = [
-            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "event": {"$ne": "pageview"}, **_excl}},
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "event": {"$ne": "pageview"}, **_excl, **_geo}},
             {"$group": {"_id": "$event", "count": {"$sum": 1}}},
             {"$sort": {"count": -1}},
         ]
@@ -63,13 +89,12 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None), dach
         return {r["_id"]: r["count"] for r in rows}
 
     _no_pv = {"event": {"$ne": "pageview"}}
-    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}, **_no_pv, **_excl})
+    today_total      = await col.count_documents({"timestamp": {"$gte": today_start}, **_no_pv, **_excl, **_geo})
     today_sessions   = await _session_count(today_start, now)
     today_engaged    = await _session_count(today_start, now, _engaged)
-    today_dach       = await _session_count(today_start, now, _dach)
     today_breakdown  = await _event_breakdown(today_start, now)
     today_pageviews  = await col.count_documents({"timestamp": {"$gte": today_start}, "event": "pageview", **_excl, **_geo})
-    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_no_pv, **_excl})
+    yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_no_pv, **_excl, **_geo})
     yday_sessions    = await _session_count(yesterday_start, yesterday_window_end)
     yday_engaged     = await _session_count(yesterday_start, yesterday_window_end, _engaged)
     yday_breakdown   = await _event_breakdown(yesterday_start, yesterday_window_end)
@@ -85,11 +110,11 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None), dach
     returning_sessions = ret_r[0]["count"] if ret_r else 0
 
     avg_today_r = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": today_start}, "response_ms": {"$exists": True}, **_excl}},
+        {"$match": {"timestamp": {"$gte": today_start}, "response_ms": {"$exists": True}, **_excl, **_geo}},
         {"$group": {"_id": None, "avg_ms": {"$avg": "$response_ms"}}},
     ]).to_list(1)
     avg_yday_r = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "response_ms": {"$exists": True}, **_excl}},
+        {"$match": {"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "response_ms": {"$exists": True}, **_excl, **_geo}},
         {"$group": {"_id": None, "avg_ms": {"$avg": "$response_ms"}}},
     ]).to_list(1)
     avg_ms       = round(avg_today_r[0]["avg_ms"]) if avg_today_r else None
@@ -105,7 +130,6 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None), dach
         "pageviews_today":         today_pageviews,
         "unique_sessions_today":   today_sessions,
         "engaged_sessions_today":  today_engaged,
-        "dach_sessions_today":     today_dach,
         "returning_sessions_today": returning_sessions,
         "new_sessions_today":      today_sessions - returning_sessions,
         "avg_response_ms":         avg_ms,
@@ -141,12 +165,13 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
     _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
     _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
-    # DACH geo filter for the "real visitors only" toggle — applied to pageview
-    # and session counts only (see get_analytics for the full rationale).
-    _geo = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}} if dach_only else {}
+    # "Real visitors only" toggle — see get_analytics for the full rationale
+    # behind the session-join match.
+    _dach_ids = await _dach_session_ids(col, seven_days_ago) if dach_only else []
+    _geo = _dach_or_match(_dach_ids) if dach_only else {}
 
     event_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": {"$ne": "pageview"}, **_excl}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": {"$ne": "pageview"}, **_excl, **_geo}},
         {"$group": {"_id": {
             "date":  {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
             "event": "$event",
@@ -204,10 +229,15 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
     thirty_days_ago = now - timedelta(days=30)
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
     _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    # "Real visitors only" toggle — see get_analytics for the full rationale
+    # behind the session-join match.
+    _dach_ids = await _dach_session_ids(col, thirty_days_ago) if dach_only else []
+    _geo = _dach_or_match(_dach_ids) if dach_only else {}
     base_match = {
         "event": "search_completed",
         "timestamp": {"$gte": thirty_days_ago},
         **_excl,
+        **_geo,
     }
 
     location_rows = await col.aggregate([
@@ -230,9 +260,6 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         {"$sort": {"count": -1}},
     ]).to_list(10)
 
-    # "real visitors only" → restrict pageview-based breakdowns to DACH (drops US bots).
-    # search/booking breakdowns above are already bot-free, so they're left unfiltered.
-    _geo = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}} if dach_only else {}
     pv_match = {"event": "pageview", "timestamp": {"$gte": thirty_days_ago}, **_excl, **_geo}
 
     referrer_rows = await col.aggregate([
@@ -250,37 +277,35 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
     ]).to_list(10)
 
     country_rows = await col.aggregate([
-        # pv_match already carries the DACH filter when dach_only; only add the
-        # null/empty exclusion in the unfiltered case (avoid overriding country).
-        {"$match": {**pv_match, **({} if dach_only else {"country": {"$nin": [None, ""]}})}},
+        {"$match": {**pv_match, "country": {"$nin": [None, ""]}}},
         {"$group": {"_id": "$country", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 15},
     ]).to_list(15)
 
     venue_rows = await col.aggregate([
-        {"$match": {"event": "booking_clicked", "timestamp": {"$gte": thirty_days_ago}, **_excl}},
+        {"$match": {"event": "booking_clicked", "timestamp": {"$gte": thirty_days_ago}, **_excl, **_geo}},
         {"$group": {"_id": "$venue_id", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 10},
     ]).to_list(10)
 
     zero_rows = await col.aggregate([
-        {"$match": {"event": "search_completed", "timestamp": {"$gte": thirty_days_ago}, "results_count": 0, **_excl}},
+        {"$match": {"event": "search_completed", "timestamp": {"$gte": thirty_days_ago}, "results_count": 0, **_excl, **_geo}},
         {"$group": {"_id": "$search_location", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 10},
     ]).to_list(10)
     zero_total = await col.count_documents({
         "event": "search_completed", "timestamp": {"$gte": thirty_days_ago},
-        "results_count": 0, **_excl,
+        "results_count": 0, **_excl, **_geo,
     })
 
     searches_30d = await col.count_documents(
-        {"event": "search_completed", "timestamp": {"$gte": thirty_days_ago}, **_excl}
+        {"event": "search_completed", "timestamp": {"$gte": thirty_days_ago}, **_excl, **_geo}
     )
     bookings_30d = await col.count_documents(
-        {"event": "booking_clicked", "timestamp": {"$gte": thirty_days_ago}, **_excl}
+        {"event": "booking_clicked", "timestamp": {"$gte": thirty_days_ago}, **_excl, **_geo}
     )
 
     hours_map = {r["_id"]: r["count"] for r in hour_rows}

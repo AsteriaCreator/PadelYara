@@ -119,6 +119,7 @@ def track_search_completed(
     session_id: str | None = None,
     search_location: str | None = None,
     device_type: str | None = None,
+    country: str | None = None,
 ) -> None:
     """
     Fired after /api/search returns results successfully.
@@ -131,6 +132,8 @@ def track_search_completed(
       session_id      — anonymous random UUID from the browser (localStorage)
       search_location — city/place name the user typed (user-provided, no PII)
       device_type     — "mobile" | "tablet" | "desktop" (UA category only)
+      country         — country name resolved server-side from client IP
+                        (e.g. "Austria"); IP itself is never stored
     """
     _enqueue({
         "event":           "search_completed",
@@ -141,10 +144,13 @@ def track_search_completed(
         "session_id":      session_id,
         "search_location": search_location,
         "device_type":     device_type,
+        "country":         country,
     })
 
 
-def track_booking_clicked(*, venue_id: str, platform: str, session_id: str | None = None) -> None:
+def track_booking_clicked(
+    *, venue_id: str, platform: str, session_id: str | None = None, country: str | None = None,
+) -> None:
     """
     Fired on POST /api/booking-click (booking intent signal from the frontend).
 
@@ -152,12 +158,14 @@ def track_booking_clicked(*, venue_id: str, platform: str, session_id: str | Non
       venue_id   — venue slug (e.g. "padelzone-traiskirchen")
       platform   — "eTennis" | "Eversports" | "Andere"
       session_id — anonymous random UUID from the browser (localStorage)
+      country    — country name resolved server-side from client IP
     """
     _enqueue({
         "event":      "booking_clicked",
         "venue_id":   venue_id,
         "platform":   platform,
         "session_id": session_id,
+        "country":    country,
     })
 
 
