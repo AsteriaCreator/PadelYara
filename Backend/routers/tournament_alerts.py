@@ -76,29 +76,40 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         f"Danach melde ich mich. Wenn es sich lohnt.\n\n"
         f"— Yara"
     )
-    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:520px;margin:0 auto">
-<p style="margin:0 0 36px"><img src="https://www.padelyara.at/logo-white.svg" alt="PadelYara" style="height:28px;width:auto"></p>
+    html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+<div style="max-width:520px;margin:0 auto">
+  <p style="margin:0 0 32px;font-size:20px;font-weight:900;color:#d4f53c;letter-spacing:0.04em">PadelYara</p>
 
-<p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Du willst wissen, wenn neue Turniere kommen.</p>
+  <p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Du willst wissen, wenn neue Turniere kommen.</p>
 
-<div style="margin:0 0 28px;padding:16px 20px;border-radius:10px;border:1px solid rgba(212,245,60,0.15);background:rgba(212,245,60,0.04)">
-  <p style="font-size:11px;color:#6b7280;margin:0 0 10px;text-transform:uppercase;letter-spacing:0.08em">Dein Jagd-Alarm</p>
-  {filters_html}
+  <div style="margin:0 0 28px;padding:16px 20px;border-radius:10px;border-left:3px solid #d4f53c;border-top:1px solid #2a2a2a;border-right:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;background:#0d1a00">
+    <p style="font-size:11px;color:#d4f53c;margin:0 0 10px;text-transform:uppercase;letter-spacing:0.08em;font-weight:700">Dein Jagdauftrag</p>
+    {filters_html}
+  </div>
+
+  <p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Verständlich.</p>
+
+  <p style="margin:0 0 32px">
+    <a href="{confirm_url}"
+       style="display:inline-block;background:#d4f53c;color:#000000;font-weight:700;
+              font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
+              padding:14px 28px;border-radius:8px;text-decoration:none">
+      Jagd-Alarm aktivieren
+    </a>
+  </p>
+
+  <p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Danach melde ich mich. Wenn es sich lohnt.</p>
+  <p style="color:#9ca3af;font-size:13px;margin:0 0 32px">— Yara</p>
+
+  <div style="padding-top:16px;border-top:1px solid #1f1f1f">
+    <p style="margin:0 0 6px;font-size:12px">
+      <a href="{_FRONTEND_URL}" style="color:#d4f53c;text-decoration:none;font-weight:700">padelyara.at</a>
+    </p>
+    <p style="margin:0;font-size:11px;color:#4b5563">
+      Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at eingerichtet hast.
+    </p>
+  </div>
 </div>
-
-<p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Verständlich.</p>
-
-<p style="margin:0 0 32px">
-  <a href="{confirm_url}"
-     style="display:inline-block;background:#d4f53c;color:#000000;font-weight:700;
-            font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
-            padding:14px 28px;border-radius:8px;text-decoration:none">
-    Jagd-Alarm aktivieren
-  </a>
-</p>
-
-<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Danach melde ich mich. Wenn es sich lohnt.</p>
-<p style="color:#6b7280;font-size:13px;margin:32px 0 0">— Yara</p>
 </body></html>"""
 
     payload = {
