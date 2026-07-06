@@ -205,9 +205,9 @@ async def _send_notification_email(
             for p in filter_parts
         )
         filter_badge_html = f"""
-<div style="margin:20px 0 0;padding:14px 16px;background:#111111;border-radius:8px;border:1px solid #2a2a2a">
-  <p style="margin:0 0 8px;font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em">Dein Jagdauftrag</p>
-  <div style="margin-bottom:8px">{badges}</div>
+<div style="margin:20px 0 0;padding:14px 16px;background:#0d1a00;border-radius:8px;border-left:3px solid #d4f53c;border-top:1px solid #2a2a2a;border-right:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a">
+  <p style="margin:0 0 6px;font-size:11px;color:#d4f53c;text-transform:uppercase;letter-spacing:0.08em;font-weight:700">Dein Jagdauftrag</p>
+  <div style="margin-bottom:10px">{badges}</div>
   <a href="{manage_url}" style="font-size:11px;color:#d4f53c;text-decoration:none">Filter ändern →</a>
 </div>"""
 
@@ -236,7 +236,9 @@ async def _send_notification_email(
         text_lines.append(f"\nDein Jagdauftrag: {' · '.join(filter_parts)}")
         text_lines.append(f"Filter ändern: {manage_url}")
     text_lines.append("\nMach was daraus.\n\n— Yara")
-    text_lines.append(f"\nAbmelden: {unsubscribe_url}")
+    text_lines.append(f"\npadelyara.at")
+    text_lines.append(f"Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at aktiviert hast.")
+    text_lines.append(f"Abmelden: {unsubscribe_url}")
     text = "\n".join(text_lines)
 
     html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
@@ -250,9 +252,15 @@ async def _send_notification_email(
   {filter_badge_html}
   <p style="font-size:14px;color:#6b7280;margin:24px 0 4px;font-style:italic">Mach was daraus.</p>
   <p style="font-size:14px;color:#9ca3af;margin:0 0 32px">— Yara</p>
-  <p style="padding-top:16px;border-top:1px solid #1f1f1f;font-size:11px;margin:0">
-    <a href="{unsubscribe_url}" style="color:#4b5563;text-decoration:none">Abmelden</a>
-  </p>
+  <div style="padding-top:16px;border-top:1px solid #1f1f1f">
+    <p style="margin:0 0 6px;font-size:12px">
+      <a href="{_FRONTEND_URL}" style="color:#d4f53c;text-decoration:none;font-weight:700">padelyara.at</a>
+    </p>
+    <p style="margin:0;font-size:11px;color:#4b5563">
+      Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at aktiviert hast. &nbsp;·&nbsp;
+      <a href="{unsubscribe_url}" style="color:#4b5563;text-decoration:none">Abmelden</a>
+    </p>
+  </div>
 </div>
 </body></html>"""
 
