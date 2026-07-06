@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dein Match — Mockup v2</title>
+<title>Dein Match — Mockup v3</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
@@ -18,256 +18,336 @@
     font-family: 'Barlow Condensed', sans-serif;
     min-height: 100vh;
   }
-  .wrap { max-width: 672px; margin: 0 auto; padding: 24px 16px 48px; }
+  .wrap { max-width: 600px; margin: 0 auto; padding: 24px 16px 48px; }
   .logo { height: 84px; margin-bottom: 18px; }
-  .nav { border-bottom: 1px solid #1f2937; margin-bottom: 8px; }
-  .nav a { display: inline-block; padding-bottom: 8px; font-size: 1rem; font-weight: 600;
-    margin-right: 22px; color: #4b5563; border-bottom: 2px solid transparent; text-decoration: none; }
+  .nav { border-bottom: 1px solid #1f2937; margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 0; }
+  .nav a { display: inline-block; padding-bottom: 8px; font-size: .95rem; font-weight: 600;
+    margin-right: 18px; color: #4b5563; border-bottom: 2px solid transparent; text-decoration: none; }
   .nav a.active { color: #fff; border-bottom: 2px solid #d4f53c; }
   .lede { font-style: italic; color: #d4f53c; font-size: 1.05rem; margin: 10px 0 16px; }
 
-  .btn-primary { display: block; width: 100%; text-align: center; padding: 13px;
+  .btn-cta { display: block; width: 100%; text-align: center; padding: 13px;
     border-radius: 12px; font-weight: 700; letter-spacing: .04em; font-size: 1.05rem;
     background: rgba(212,245,60,0.12); color: #d4f53c; border: 1px solid rgba(212,245,60,0.3);
     text-transform: uppercase; margin-bottom: 22px; cursor: pointer; }
 
-  /* filter block */
   .filter-box { background: rgba(212,245,60,0.04); border: 1px solid rgba(212,245,60,0.12);
     border-radius: 14px; padding: 14px; margin-bottom: 22px; }
   .seg { display: flex; gap: 6px; margin-bottom: 12px; }
   .seg div { flex: 1; text-align: center; padding: 7px; border-radius: 8px; font-size: .9rem; cursor: pointer;
     border: 1px solid rgba(212,245,60,0.2); color: rgba(212,245,60,0.6); }
   .seg div.active { background: rgba(212,245,60,0.15); color: #d4f53c; border-color: rgba(212,245,60,0.5); }
-  .field-label { font-size: .72rem; color: #6b7280; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 6px; }
-  .input { width: 100%; background: transparent; border: 1px solid rgba(212,245,60,0.2); border-radius: 8px;
-    padding: 8px 10px; color: #fff; font-family: inherit; font-size: 1rem; margin-bottom: 12px; }
+  .fl { font-size: .72rem; color: #6b7280; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 6px; }
   .pills { display: flex; gap: 6px; flex-wrap: wrap; }
   .pill { font-size: .82rem; padding: 5px 10px; border-radius: 999px; cursor: pointer;
     border: 1px solid rgba(212,245,60,0.2); color: rgba(212,245,60,0.6); background: rgba(212,245,60,0.03); }
-  .pill.active { background: rgba(212,245,60,0.16); color: #d4f53c; border-color: rgba(212,245,60,0.5); }
+  .pill.on { background: rgba(212,245,60,0.16); color: #d4f53c; border-color: rgba(212,245,60,0.5); }
 
   .section-label { font-size: .78rem; color: #6b7280; text-transform: uppercase; letter-spacing: .08em; margin: 0 4px 8px; }
 
   .card { background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 16px; margin-bottom: 12px; }
-  .card.full { opacity: .6; }
   .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .venue { font-size: 1.15rem; font-weight: 600; color: #fff; line-height: 1.15; }
+  .venue-link { font-size: 1.12rem; font-weight: 600; color: #d4f53c; text-decoration: underline;
+    text-decoration-color: rgba(212,245,60,0.35); text-underline-offset: 3px; cursor: pointer; line-height: 1.2; }
   .when { color: #e5e7eb; font-size: .95rem; margin-top: 3px; }
   .meta { color: #6b7280; font-size: .85rem; margin-top: 3px; }
   .badges { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; flex-shrink: 0; }
-  .level { font-size: .78rem; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+  .lv { font-size: .75rem; font-weight: 600; padding: 3px 8px; border-radius: 999px;
     border: 1px solid rgba(212,245,60,0.4); color: #d4f53c; white-space: nowrap; }
-  .booked { font-size: .72rem; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
-  .booked.yes { background: rgba(74,222,128,0.12); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
-  .booked.no  { background: rgba(251,191,36,0.10); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
-  .organizer { color: #9ca3af; font-size: .9rem; margin-top: 10px; }
-  .organizer b { color: #fff; font-weight: 600; }
+  .bk { font-size: .72rem; padding: 3px 8px; border-radius: 999px; white-space: nowrap; }
+  .bk.yes { background: rgba(74,222,128,0.1); color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .bk.no  { background: rgba(251,191,36,0.09); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+  .org { color: #9ca3af; font-size: .88rem; margin-top: 10px; }
+  .org b { color: #fff; }
   .price { color: #d4f53c; font-size: .95rem; margin-top: 4px; }
-  .price .per { color: rgba(212,245,60,0.5); }
-  .count { color: #d4f53c; font-size: 1rem; margin: 12px 0 8px; font-weight: 500; }
-  .count .dim { color: rgba(212,245,60,0.45); }
-  .full-line { color: #6b7280; font-style: italic; }
-  .players { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .price .dim { color: rgba(212,245,60,0.45); }
+  .note { background: rgba(212,245,60,0.05); border-left: 2px solid rgba(212,245,60,0.35);
+    padding: 6px 10px; border-radius: 4px; color: #cbd5e1; font-size: .88rem; margin-top: 10px; }
+  .count { color: #d4f53c; font-size: .95rem; margin: 12px 0 8px; }
+  .count .dim { color: rgba(212,245,60,0.4); }
+  .full-txt { color: #6b7280; font-style: italic; }
+  .avs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
   .av { width: 34px; height: 34px; border-radius: 999px; display: grid; place-items: center;
-    font-size: .85rem; font-weight: 700; color: #080810; background: #d4f53c; position: relative; }
-  .av.crown::after { content: "★"; position: absolute; top: -8px; right: -4px; font-size: .7rem; color: #fbbf24; }
-  .av.guest { background: rgba(212,245,60,0.35); }
-  .av.empty { background: transparent; border: 1px dashed #374151; color: #4b5563; font-weight: 400; }
+    font-size: .85rem; font-weight: 700; position: relative; }
+  .av.org-av { background: #d4f53c; color: #080810; }
+  .av.org-av::after { content: "★"; position: absolute; top:-8px; right:-4px; font-size:.65rem; color:#fbbf24; }
+  .av.guest { background: rgba(212,245,60,0.32); color: #080810; }
+  .av.empty { background: transparent; border: 1px dashed #374151; color: #4b5563; font-size: 1rem; }
   .actions { display: flex; gap: 10px; align-items: center; }
-  .btn-join { flex: 1; text-align: center; padding: 10px; border-radius: 10px; font-weight: 700;
-    letter-spacing: .03em; text-transform: uppercase; font-size: .95rem; cursor: pointer;
-    background: rgba(212,245,60,0.12); color: #d4f53c; border: 1px solid rgba(212,245,60,0.3); }
-  .btn-share { color: rgba(212,245,60,0.4); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
-  .note { background: rgba(212,245,60,0.05); border-left: 2px solid rgba(212,245,60,0.4);
-    padding: 6px 10px; border-radius: 4px; color: #cbd5e1; font-size: .9rem; margin: 10px 0 0; }
-  .legend { color: #4b5563; font-size: .78rem; margin: 2px 4px 0; }
-  .divider { text-align: center; color: #4b5563; font-size: .8rem; font-style: italic; margin: 26px 0 18px;
-    border-top: 1px dashed #1f2937; padding-top: 18px; }
-  .add-row { display: flex; gap: 6px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
-  .guest-chip { font-size: .85rem; padding: 5px 10px; border-radius: 999px; background: rgba(212,245,60,0.1);
-    color: #d4f53c; border: 1px solid rgba(212,245,60,0.3); }
-  .add-btn { font-size: .85rem; padding: 5px 10px; border-radius: 999px; border: 1px dashed #374151; color: #6b7280; cursor: pointer; }
-  .two { display: flex; gap: 10px; }
-  .two > div { flex: 1; }
-  .toggle { display: flex; gap: 6px; }
-  .toggle div { flex:1; text-align:center; padding:8px; border-radius:8px; font-size:.9rem; cursor:pointer;
-    border: 1px solid rgba(212,245,60,0.2); color: rgba(212,245,60,0.6); }
-  .toggle div.active { background: rgba(212,245,60,0.15); color:#d4f53c; border-color: rgba(212,245,60,0.5); }
+  .btn-join { flex:1; text-align:center; padding:10px; border-radius:10px; font-weight:700;
+    letter-spacing:.03em; text-transform:uppercase; font-size:.95rem; cursor:pointer;
+    background:rgba(212,245,60,0.12); color:#d4f53c; border:1px solid rgba(212,245,60,0.3); }
+  .btn-share { color:rgba(212,245,60,0.4); font-size:.85rem; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; }
+  .legend-row { color:#4b5563; font-size:.75rem; margin:2px 4px 18px; }
+
+  /* ---- JOIN MODAL ---- */
+  .modal-wrap { background: rgba(8,8,16,0.85); border-radius: 16px; border: 1px solid rgba(212,245,60,0.25);
+    padding: 20px; margin-bottom: 18px; }
+  .modal-title { font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .modal-sub { color: #9ca3af; font-size: .88rem; margin-bottom: 14px; }
+  .inp { width:100%; background:transparent; border:1px solid rgba(212,245,60,0.2); border-radius:8px;
+    padding:9px 11px; color:#fff; font-family:inherit; font-size:1rem; margin-bottom:10px; }
+  .inp::placeholder { color:#4b5563; }
+  .privacy-note { color:#6b7280; font-size:.78rem; margin:-4px 0 12px; font-style:italic; }
+  .reveal-box { background:rgba(74,222,128,0.07); border:1px solid rgba(74,222,128,0.25);
+    border-radius:10px; padding:12px 14px; margin-bottom:14px; }
+  .reveal-box p { font-size:.82rem; color:#6b7280; margin-bottom:4px; }
+  .reveal-box .tel { font-size:1.1rem; font-weight:700; color:#4ade80; letter-spacing:.03em; }
+  .reveal-box .tel-sub { font-size:.78rem; color:#6b7280; margin-top:2px; }
+
+  /* ---- DIVIDER ---- */
+  .divider { text-align:center; color:#4b5563; font-size:.8rem; font-style:italic;
+    margin:24px 0 18px; border-top:1px dashed #1f2937; padding-top:18px; }
+
+  /* ---- CREATE FORM ---- */
+  .two { display:flex; gap:10px; }
+  .two > div { flex:1; }
+  .toggle { display:flex; gap:6px; margin-bottom:12px; }
+  .toggle div { flex:1; text-align:center; padding:8px; border-radius:8px; font-size:.92rem; cursor:pointer;
+    border:1px solid rgba(212,245,60,0.2); color:rgba(212,245,60,0.6); }
+  .toggle div.on { background:rgba(212,245,60,0.15); color:#d4f53c; border-color:rgba(212,245,60,0.5); }
+  .add-row { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; align-items:center; }
+  .guest-chip { font-size:.85rem; padding:5px 10px; border-radius:999px;
+    background:rgba(212,245,60,0.1); color:#d4f53c; border:1px solid rgba(212,245,60,0.3); }
+  .add-btn { font-size:.85rem; padding:5px 10px; border-radius:999px; border:1px dashed #374151; color:#6b7280; cursor:pointer; }
+  .yara-snark { font-style:italic; color:rgba(212,245,60,0.5); font-size:.82rem; margin:-4px 0 12px; }
+  .form-cta { display:block; width:100%; text-align:center; padding:13px; border-radius:12px;
+    font-weight:700; letter-spacing:.04em; font-size:1rem; text-transform:uppercase; margin-top:6px;
+    background:rgba(212,245,60,0.12); color:#d4f53c; border:1px solid rgba(212,245,60,0.3); }
+  .footer-snark { text-align:center; color:#4b5563; font-size:.8rem; font-style:italic; margin-top:28px; }
+  .sub-label { font-size:.68rem; color:#6b7280; text-transform:uppercase; letter-spacing:.08em; margin:0 0 5px; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <img class="logo" src="https://www.padelyara.at/lockup-horizontal-dark.svg" alt="PadelYara" />
+<div class="wrap">
+  <img class="logo" src="https://www.padelyara.at/lockup-horizontal-dark.svg" alt="PadelYara" />
 
-    <div class="nav">
-      <a href="#">Court Finder</a>
-      <a href="#">Padelrevier</a>
-      <a href="#">Turnierjagd</a>
-      <a href="#" class="active">Dein Match</a>
-      <a href="#">Über Yara</a>
-    </div>
-
-    <p class="lede">Vier müsst ihr sein. Den Anfang mache ich. Den Rest jagt ihr selbst.</p>
-
-    <div class="btn-primary">+ Match aufmachen</div>
-
-    <!-- FILTER -->
-    <div class="filter-box">
-      <div class="seg">
-        <div class="active">Nach Venue</div>
-        <div>Umkreissuche</div>
-      </div>
-      <p class="field-label">Venues</p>
-      <div class="pills" style="margin-bottom:12px;">
-        <span class="pill active">Padel Base Wien</span>
-        <span class="pill active">Bad Vöslau</span>
-        <span class="pill">+ Venue</span>
-      </div>
-      <p class="field-label">Level (mehrere möglich)</p>
-      <div class="pills">
-        <span class="pill">Starter</span>
-        <span class="pill">Starter +</span>
-        <span class="pill">Starter ++</span>
-        <span class="pill active">Low Adv.</span>
-        <span class="pill active">Mid Adv.</span>
-        <span class="pill active">High Adv.</span>
-        <span class="pill">Expert</span>
-        <span class="pill">Professional</span>
-        <span class="pill">Elite</span>
-      </div>
-    </div>
-
-    <p class="section-label">Offene Matches · 3 suchen noch Mitspieler</p>
-
-    <!-- Card 1 -->
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="venue">Padel Base Wien</div>
-          <div class="when">Heute · 19:00–20:30 Uhr</div>
-          <div class="meta">Indoor · 12 km entfernt</div>
-        </div>
-        <div class="badges">
-          <span class="level">Mid Advanced</span>
-          <span class="booked yes">✓ Court gebucht</span>
-        </div>
-      </div>
-      <p class="organizer">Organisiert von <b>Mara</b></p>
-      <p class="price">28 € gesamt · <span class="per">7 €/Person</span></p>
-      <p class="count">3 von 4 · <span class="dim">einer fehlt noch</span></p>
-      <div class="players">
-        <div class="av crown">M</div>
-        <div class="av guest">L</div>
-        <div class="av">T</div>
-        <div class="av empty">+</div>
-      </div>
-      <div class="actions">
-        <div class="btn-join">Ich bin dabei</div>
-        <span class="btn-share">Teilen</span>
-      </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="card">
-      <div class="card-top">
-        <div>
-          <div class="venue">Sportzentrum Bad Vöslau</div>
-          <div class="when">Morgen · 18:30–20:00 Uhr</div>
-          <div class="meta">Outdoor · 2 km entfernt</div>
-        </div>
-        <div class="badges">
-          <span class="level">Low Advanced</span>
-          <span class="level">Mid Advanced</span>
-          <span class="booked no">Court noch nicht gebucht</span>
-        </div>
-      </div>
-      <p class="organizer">Organisiert von <b>Yara</b></p>
-      <p class="price">Preis offen · <span class="per">wird noch fixiert</span></p>
-      <p class="note">„Locker spielen, nicht um Leben und Tod. Bringt Bälle mit.“</p>
-      <p class="count">2 von 4 · <span class="dim">zwei fehlen noch</span></p>
-      <div class="players">
-        <div class="av crown">Y</div>
-        <div class="av guest">S</div>
-        <div class="av empty">+</div>
-        <div class="av empty">+</div>
-      </div>
-      <div class="actions">
-        <div class="btn-join">Ich bin dabei</div>
-        <span class="btn-share">Teilen</span>
-      </div>
-    </div>
-
-    <!-- Card 3 full -->
-    <div class="card full">
-      <div class="card-top">
-        <div>
-          <div class="venue">Padel Arena Wiener Neustadt</div>
-          <div class="when">Sa, 14.06. · 11:00–12:30 Uhr</div>
-          <div class="meta">Indoor · 28 km entfernt</div>
-        </div>
-        <div class="badges">
-          <span class="level">High Advanced</span>
-          <span class="booked yes">✓ Court gebucht</span>
-        </div>
-      </div>
-      <p class="organizer">Organisiert von <b>Andi</b></p>
-      <p class="price">36 € gesamt · <span class="per">9 €/Person</span></p>
-      <p class="count">4 von 4 · <span class="full-line">Voll. Der Rest kommt zu spät.</span></p>
-      <div class="players">
-        <div class="av crown">A</div><div class="av">K</div><div class="av guest">D</div><div class="av">N</div>
-      </div>
-    </div>
-
-    <p class="legend">★ = Organisator · helle Kreise = von der Organisatorin eingetragen (kein eigener Account nötig)</p>
-
-    <!-- CREATE FORM PREVIEW -->
-    <div class="divider">— so legst du ein Match an —</div>
-    <div class="card" style="opacity:1;">
-      <p class="field-label">Venue</p>
-      <input class="input" value="Padel Base Wien" />
-      <div class="two">
-        <div>
-          <p class="field-label">Datum</p>
-          <input class="input" value="09.06.2026" />
-        </div>
-        <div>
-          <p class="field-label">Von – Bis</p>
-          <input class="input" value="19:00 – 20:30" />
-        </div>
-      </div>
-      <p class="field-label">Court schon gebucht?</p>
-      <div class="toggle" style="margin-bottom:12px;">
-        <div class="active">Ja</div>
-        <div>Nein</div>
-      </div>
-      <div class="two">
-        <div>
-          <p class="field-label">Preis gesamt (€)</p>
-          <input class="input" value="28" />
-        </div>
-        <div>
-          <p class="field-label">Dein Name (Organisator)</p>
-          <input class="input" value="Mara" />
-        </div>
-      </div>
-      <p class="field-label">Level (mehrere möglich)</p>
-      <div class="pills" style="margin-bottom:12px;">
-        <span class="pill">Starter ++</span>
-        <span class="pill active">Low Adv.</span>
-        <span class="pill active">Mid Adv.</span>
-        <span class="pill">High Adv.</span>
-      </div>
-      <p class="field-label">Mitspieler eintragen (optional — wenn du schon wen hast)</p>
-      <div class="add-row">
-        <span class="guest-chip">Lisa ✕</span>
-        <span class="add-btn">+ Spieler hinzufügen</span>
-      </div>
-      <p class="field-label">Notiz (optional)</p>
-      <input class="input" value="" placeholder="z. B. Bälle mitbringen" />
-      <div class="btn-join" style="margin-top:6px;">Match aufmachen → Link teilen</div>
-    </div>
-
-    <p class="divider" style="border:none;">Ob ihr gewinnt, ist nicht mein Problem.</p>
+  <div class="nav">
+    <a href="#">Court Finder</a>
+    <a href="#">Padelrevier</a>
+    <a href="#">Turnierjagd</a>
+    <a href="#" class="active">Dein Match</a>
+    <a href="#">Über Yara</a>
   </div>
+
+  <p class="lede">Vier müsst ihr sein. Den Anfang mache ich. Den Rest jagt ihr selbst.</p>
+
+  <div class="btn-cta">+ Match aufmachen</div>
+
+  <!-- FILTERS -->
+  <div class="filter-box">
+    <div class="seg">
+      <div class="active">Nach Venue</div>
+      <div>Umkreissuche</div>
+    </div>
+    <p class="fl" style="margin-bottom:8px;">Venues (zuletzt gesucht)</p>
+    <div class="pills" style="margin-bottom:12px;">
+      <span class="pill on">Padel Base Wien</span>
+      <span class="pill on">Sport Bad Vöslau</span>
+      <span class="pill" style="color:#4b5563;border-color:#374151;">+ Venue</span>
+    </div>
+    <p class="fl" style="margin-bottom:8px;">Level (mehrere möglich)</p>
+    <div class="pills">
+      <span class="pill">Starter</span>
+      <span class="pill">Starter +</span>
+      <span class="pill">Starter ++</span>
+      <span class="pill on">Low Advanced</span>
+      <span class="pill on">Mid Advanced</span>
+      <span class="pill on">High Advanced</span>
+      <span class="pill">Expert</span>
+      <span class="pill">Professional</span>
+      <span class="pill">Elite</span>
+    </div>
+  </div>
+
+  <p class="section-label">Offene Matches · 3 suchen noch Mitspieler</p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <div class="card-top">
+      <div>
+        <div class="venue-link">Padel Base Wien →</div>
+        <div class="when">Heute · 19:00–20:30 Uhr</div>
+        <div class="meta">Indoor · 12 km entfernt</div>
+      </div>
+      <div class="badges">
+        <span class="lv">Mid Advanced</span>
+        <span class="bk yes">✓ Court gebucht</span>
+      </div>
+    </div>
+    <p class="org">Organisiert von <b>Mara</b></p>
+    <p class="price">28 € gesamt · <span class="dim">7 €/Person</span></p>
+    <p class="count">3 von 4 · <span class="dim">einer fehlt noch</span></p>
+    <div class="avs">
+      <div class="av org-av">M</div>
+      <div class="av guest">L</div>
+      <div class="av guest">T</div>
+      <div class="av empty">+</div>
+    </div>
+    <div class="actions">
+      <div class="btn-join">Ich bin dabei</div>
+      <span class="btn-share">Teilen</span>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <div class="card-top">
+      <div>
+        <div class="venue-link">Sport Bad Vöslau →</div>
+        <div class="when">Morgen · 18:30–20:00 Uhr</div>
+        <div class="meta">Outdoor · 2 km entfernt</div>
+      </div>
+      <div class="badges">
+        <span class="lv">Low Advanced</span>
+        <span class="lv">Mid Advanced</span>
+        <span class="bk no">Court noch nicht gebucht</span>
+      </div>
+    </div>
+    <p class="org">Organisiert von <b>Yara</b></p>
+    <p class="price">Preis noch offen</p>
+    <div class="note">„Locker spielen, nicht um Leben und Tod. Bälle mitbringen."</div>
+    <p class="count">2 von 4 · <span class="dim">zwei fehlen noch</span></p>
+    <div class="avs">
+      <div class="av org-av">Y</div>
+      <div class="av guest">S</div>
+      <div class="av empty">+</div>
+      <div class="av empty">+</div>
+    </div>
+    <div class="actions">
+      <div class="btn-join">Ich bin dabei</div>
+      <span class="btn-share">Teilen</span>
+    </div>
+  </div>
+
+  <!-- CARD 3: full -->
+  <div class="card" style="opacity:.6;">
+    <div class="card-top">
+      <div>
+        <div class="venue-link">Padel Arena Wr. Neustadt →</div>
+        <div class="when">Sa, 14.06. · 11:00–12:30 Uhr</div>
+        <div class="meta">Indoor · 28 km entfernt</div>
+      </div>
+      <div class="badges">
+        <span class="lv">High Advanced</span>
+        <span class="bk yes">✓ Court gebucht</span>
+      </div>
+    </div>
+    <p class="org">Organisiert von <b>Andi</b></p>
+    <p class="price">36 € gesamt · <span class="dim">9 €/Person</span></p>
+    <p class="count">4 von 4 · <span class="full-txt">Voll. Der Rest kommt zu spät.</span></p>
+    <div class="avs">
+      <div class="av org-av">A</div><div class="av">K</div><div class="av guest">D</div><div class="av">N</div>
+    </div>
+  </div>
+
+  <p class="legend-row">★ = Organisator · helle Kreise = von Organisator eingetragen · <span style="color:#d4f53c;text-decoration:underline;text-decoration-color:rgba(212,245,60,0.3);">Venue →</span> öffnet die Court-Seite</p>
+
+  <!-- ===== JOIN FLOW ===== -->
+  <div class="divider">— so trittst du einem Match bei —</div>
+
+  <div class="modal-wrap">
+    <p class="modal-title">Padel Base Wien · Heute 19:00 Uhr</p>
+    <p class="modal-sub">Du bist Spieler 4 von 4. Gib deinen Namen und deine Nummer an.</p>
+
+    <p class="sub-label">Dein Name</p>
+    <input class="inp" value="Nina" />
+
+    <p class="sub-label">Handynummer</p>
+    <input class="inp" value="+43 699 123 456 78" />
+    <p class="privacy-note">Wird nur an die Organisatorin weitergegeben — nicht öffentlich sichtbar.</p>
+
+    <p class="sub-label">E-Mail (optional — für Benachrichtigungen)</p>
+    <input class="inp" placeholder="deine@email.at" />
+    <p class="privacy-note">Nur für „Match abgesagt" oder „Match ist voll" — kein Newsletter.</p>
+
+    <!-- Reveal: after tapping "Ich bin dabei" -->
+    <div class="reveal-box">
+      <p>Organisatorin Mara ist erreichbar unter:</p>
+      <p class="tel">+43 676 987 654 32</p>
+      <p class="tel-sub">Nur für dich sichtbar. Nicht für andere Mitspieler.</p>
+    </div>
+
+    <div class="btn-join">Ich bin dabei → Bestätigen</div>
+  </div>
+
+  <!-- ===== CREATE FORM ===== -->
+  <div class="divider">— so legst du ein Match an —</div>
+
+  <div class="card">
+    <p class="sub-label">Venue</p>
+    <input class="inp" value="Padel Base Wien" />
+
+    <div class="two">
+      <div>
+        <p class="sub-label">Datum</p>
+        <input class="inp" value="09.06.2026" />
+      </div>
+      <div>
+        <p class="sub-label">Von – Bis</p>
+        <input class="inp" value="19:00 – 20:30" />
+      </div>
+    </div>
+
+    <p class="sub-label">Court schon gebucht?</p>
+    <div class="toggle">
+      <div class="on">Ja</div>
+      <div>Nein — noch offen</div>
+    </div>
+
+    <div class="two">
+      <div>
+        <p class="sub-label">Preis gesamt (€)</p>
+        <input class="inp" value="28" />
+      </div>
+      <div>
+        <p class="sub-label">Pro Person</p>
+        <input class="inp" value="7 € (÷ 4)" style="color:rgba(212,245,60,0.5);" readonly />
+      </div>
+    </div>
+
+    <div class="two">
+      <div>
+        <p class="sub-label">Dein Name</p>
+        <input class="inp" value="Mara" />
+      </div>
+      <div>
+        <p class="sub-label">Deine Handynummer</p>
+        <input class="inp" value="+43 676 987 654 32" />
+      </div>
+    </div>
+
+    <p class="sub-label">E-Mail (für Benachrichtigungen)</p>
+    <input class="inp" value="mara@email.at" />
+    <p class="privacy-note">Du bekommst eine Mail wenn jemand beitritt oder absagt.</p>
+
+    <p class="sub-label">Level (mehrere möglich)</p>
+    <div class="pills" style="margin-bottom:4px;">
+      <span class="pill">Starter</span>
+      <span class="pill">Starter +</span>
+      <span class="pill">Starter ++</span>
+      <span class="pill on">Low Advanced</span>
+      <span class="pill on">Mid Advanced</span>
+      <span class="pill">High Advanced</span>
+      <span class="pill">Expert</span>
+      <span class="pill">Professional</span>
+      <span class="pill">Elite</span>
+    </div>
+    <p class="yara-snark">Trag dein echtes Level ein, nicht dein Wunschlevel. Die anderen merken es in den ersten fünf Minuten.</p>
+
+    <p class="sub-label">Mitspieler eintragen (optional)</p>
+    <div class="add-row">
+      <span class="guest-chip">Lisa ✕</span>
+      <span class="add-btn">+ Spieler hinzufügen</span>
+    </div>
+
+    <p class="sub-label">Notiz (optional)</p>
+    <input class="inp" placeholder="z. B. Bälle mitbringen, wir spielen locker" />
+
+    <div class="form-cta">Match aufmachen → Link teilen</div>
+  </div>
+
+  <p class="footer-snark">Ob ihr gewinnt, ist nicht mein Problem.</p>
+</div>
 </body>
 </html>
