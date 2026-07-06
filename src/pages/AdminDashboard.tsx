@@ -461,7 +461,7 @@ export default function AdminDashboard() {
 
       {/* Today's numbers */}
       <section className="admin-section">
-        <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics</span></h2>
+        <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics — filtered by toggles above</span></h2>
         <div className="stats-grid">
           <StatCard
             emoji="👥" label="Visitors Today" value={summary.unique_sessions_today}
@@ -503,15 +503,15 @@ export default function AdminDashboard() {
           )}
           {subscriberCount !== null && (
             <StatCard
-              emoji="📬" label="Email Subscribers" value={subscriberCount}
-              tip="Total email addresses collected via the newsletter signup banner."
+              emoji="📬" label="Email Subscribers (all-time)" value={subscriberCount}
+              tip="Total email addresses ever collected via the newsletter signup banner. Not a visit count, so it does NOT respond to the 'Real visitors only' or 'Exclude my visits' toggles above — every signup requires a real email, so there's no bot traffic to filter here."
               color="#d4f53c"
             />
           )}
           {alertCount !== null && (
             <StatCard
-              emoji="🔔" label="Jagd-Alarm" value={alertCount}
-              tip="Confirmed Jagd-Alarm subscriptions — users who get emailed when new tournaments match their filters."
+              emoji="🔔" label="Jagd-Alarm (all-time)" value={alertCount}
+              tip="Confirmed Jagd-Alarm subscriptions — users who get emailed when new tournaments match their filters. Not a visit count, so it does NOT respond to the toggles above."
               color="#d4f53c"
             />
           )}
@@ -559,7 +559,7 @@ export default function AdminDashboard() {
       {/* Jagd-Alarm subscribers */}
       {alertList && alertList.length > 0 && (
         <section className="admin-section">
-          <h2>🔔 Jagd-Alarm Abonnenten</h2>
+          <h2>🔔 Jagd-Alarm Abonnenten <span className="data-source-label">📋 All-time — not filtered by toggles</span></h2>
           <p className="section-hint">{alertList.filter(a => a.confirmed).length} bestätigt · {alertList.filter(a => !a.confirmed).length} ausstehend</p>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
             <thead>
@@ -598,7 +598,7 @@ export default function AdminDashboard() {
       {/* Jagd-Alarm email stats */}
       {emailStats && (
         <section className="admin-section">
-          <h2>📧 Jagd-Alarm E-Mail Performance <span className="period-hint">last 30 days</span></h2>
+          <h2>📧 Jagd-Alarm E-Mail Performance <span className="period-hint">last 30 days</span> <span className="data-source-label">📧 Brevo — not filtered by toggles</span></h2>
           <p className="section-hint">Opens and clicks tracked by Brevo for all transactional alert emails.</p>
           <div className="stats-grid">
             <StatCard emoji="📤" label="Sent" value={emailStats.requests}
