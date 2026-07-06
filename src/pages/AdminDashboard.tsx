@@ -426,8 +426,8 @@ export default function AdminDashboard() {
         <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics</span></h2>
         <div className="stats-grid">
           <StatCard
-            emoji="🎯" label="Real Visitors" value={summary.engaged_sessions_today ?? 0}
-            tip="Visitors who actually searched or clicked 'Book' today. Bots never do that — so this is your most trustworthy count of real people. Trust this number over 'Visitors Today'."
+            emoji="🎯" label="Active Visitors" value={summary.engaged_sessions_today ?? 0}
+            tip="People who actually searched or clicked 'Book' today — a subset of visitors, and one bots never trigger. Great signal for real engagement, but it undercounts people who just browse. For total real visitors, check Vercel Analytics (link at top)."
             color="#22c55e" delta={d.engaged_sessions}
           />
           <StatCard
