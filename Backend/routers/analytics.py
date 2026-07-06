@@ -27,11 +27,14 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     yesterday_window_end = yesterday_start + timedelta(seconds=hours_elapsed)
 
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
-    _excl: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
+    # Use without None for event counts (booking_clicked has no session_id)
+    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    # Use with None for session/visitor counts (only count events that have a session_id)
+    _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
     async def _session_count(start, end):
         pipeline = [
-            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl}},
+            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess}},
             {"$group": {"_id": "$session_id"}},
             {"$count": "count"},
         ]
@@ -58,7 +61,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     yday_pageviews   = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "event": "pageview", **_excl})
 
     returning_pipeline = [
-        {"$match": {"session_id": {"$exists": True, "$ne": None}, **_excl}},
+        {"$match": {"session_id": {"$exists": True, "$ne": None}, **_excl_sess}},
         {"$group": {"_id": "$session_id", "first_seen": {"$min": "$timestamp"}, "last_seen": {"$max": "$timestamp"}}},
         {"$match": {"first_seen": {"$lt": today_start}, "last_seen": {"$gte": today_start}}},
         {"$count": "count"},
@@ -118,7 +121,8 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     dates = [(now - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]
 
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
-    _excl: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
+    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
+    _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
     event_rows = await col.aggregate([
         {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": {"$ne": "pageview"}, **_excl}},
@@ -136,7 +140,7 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     ]).to_list(100)
 
     session_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}, **_excl}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess}},
         {"$group": {"_id": {
             "date":    {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
             "session": "$session_id",
@@ -178,7 +182,7 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
     now = datetime.now(timezone.utc)
     thirty_days_ago = now - timedelta(days=30)
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
-    _excl: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
+    _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
     base_match = {
         "event": "search_completed",
         "timestamp": {"$gte": thirty_days_ago},
