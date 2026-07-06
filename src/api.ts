@@ -244,33 +244,21 @@ function adminHeaders() {
   return { "Content-Type": "application/json", "X-Admin-Token": getAdminToken() }
 }
 
-const MY_SESSIONS_KEY = "analytics_my_sessions"
-
-/** Returns the list of session IDs the owner has registered as "mine". */
-export function getMySessionIds(): string[] {
-  try {
-    const raw = localStorage.getItem(MY_SESSIONS_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch {
-    return []
-  }
+/** Fetch the server-stored list of owner session IDs. */
+export async function fetchMySessions(): Promise<string[]> {
+  const res = await fetch(`${API_BASE}/api/admin/my-sessions`, { headers: adminHeaders() })
+  if (!res.ok) return []
+  const data = await res.json()
+  return data.sessions as string[]
 }
 
-/** Adds the current device's session ID to the "my sessions" list. */
-export function registerThisDevice(): string[] {
-  const id = getSessionId()
-  const current = getMySessionIds()
-  if (current.includes(id)) return current
-  const updated = [...current, id]
-  try { localStorage.setItem(MY_SESSIONS_KEY, JSON.stringify(updated)) } catch { /* */ }
-  return updated
-}
-
-/** Removes a session ID from the "my sessions" list. */
-export function removeMySession(id: string): string[] {
-  const updated = getMySessionIds().filter((s) => s !== id)
-  try { localStorage.setItem(MY_SESSIONS_KEY, JSON.stringify(updated)) } catch { /* */ }
-  return updated
+/** Persist the session list to the server. */
+export async function saveMySessions(sessions: string[]): Promise<void> {
+  await fetch(`${API_BASE}/api/admin/my-sessions`, {
+    method: "POST",
+    headers: { ...adminHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify({ sessions }),
+  })
 }
 
 function _excludeParam(ids: string[]): string {

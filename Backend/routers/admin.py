@@ -9,6 +9,29 @@ from auth import _require_admin
 router = APIRouter()
 
 
+@router.get("/api/admin/my-sessions", dependencies=[Depends(_require_admin)])
+async def get_my_sessions():
+    """Return the server-stored list of owner session IDs to exclude from analytics."""
+    from venues_mongo import _get_db
+    db = _get_db()
+    doc = await db["admin_settings"].find_one({"_id": "my_sessions"})
+    return {"sessions": doc["sessions"] if doc else []}
+
+
+@router.post("/api/admin/my-sessions", dependencies=[Depends(_require_admin)])
+async def save_my_sessions(body: dict):
+    """Persist the list of owner session IDs server-side."""
+    from venues_mongo import _get_db
+    db = _get_db()
+    sessions = [s for s in (body.get("sessions") or []) if isinstance(s, str)]
+    await db["admin_settings"].update_one(
+        {"_id": "my_sessions"},
+        {"$set": {"sessions": sessions}},
+        upsert=True,
+    )
+    return {"ok": True, "sessions": sessions}
+
+
 @router.post("/api/admin/test-alert-email", dependencies=[Depends(_require_admin)])
 async def send_test_alert_email(email: str = Query(...)):
     """Send a test Jagd-Alarm notification to the given email using real tournament data."""

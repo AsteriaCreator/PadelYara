@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchAlertList, fetchEmailStats, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchAlertList, fetchEmailStats, fetchSearchConsole, fetchMySessions, saveMySessions, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
 import type { AlertSubscriber, EmailStats } from "../api"
 import "./AdminDashboard.css"
 
@@ -221,12 +221,18 @@ export default function AdminDashboard() {
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
   const [loginError, setLoginError] = useState<string | null>(null)
-  const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
+  const [mySessions, setMySessions] = useState<string[]>([])
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
   })
 
   const excludeIds = excludeEnabled ? mySessions : []
+
+  // Load server-stored session list whenever we become authed
+  useEffect(() => {
+    if (!authed) return
+    fetchMySessions().then(setMySessions).catch(() => {})
+  }, [authed])
 
   useEffect(() => {
     if (!authed) return
@@ -268,30 +274,35 @@ export default function AdminDashboard() {
     setAuthed(false)
   }
 
-  function toggleExclude() {
-    // If no devices registered yet, add this one first then enable
+  async function toggleExclude() {
     let sessions = mySessions
     if (sessions.length === 0) {
-      sessions = registerThisDevice()
+      const id = getSessionId()
+      sessions = [id]
       setMySessions(sessions)
+      await saveMySessions(sessions)
     }
     const next = !excludeEnabled
     setExcludeEnabled(next)
     try { localStorage.setItem("analytics_exclude_me", String(next)) } catch { /* */ }
   }
 
-  function handleAddDevice() {
-    const updated = registerThisDevice()
+  async function handleAddDevice() {
+    const id = getSessionId()
+    if (mySessions.includes(id)) return
+    const updated = [...mySessions, id]
     setMySessions(updated)
+    await saveMySessions(updated)
     if (!excludeEnabled) {
       setExcludeEnabled(true)
       try { localStorage.setItem("analytics_exclude_me", "true") } catch { /* */ }
     }
   }
 
-  function handleRemoveSession(id: string) {
-    const updated = removeMySession(id)
+  async function handleRemoveSession(id: string) {
+    const updated = mySessions.filter((s) => s !== id)
     setMySessions(updated)
+    await saveMySessions(updated)
   }
 
   const thisDeviceId = getSessionId()
