@@ -198,7 +198,7 @@ async def _send_notification_email(
 </div>"""
 
     # Plain text
-    text_lines = [f"{count} {'neues Turnier' if count == 1 else 'neue Turniere'} passend zu deinem Jagd-Alarm:\n"]
+    text_lines = [f"{count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.\nIch habe gesucht. Ich habe gefunden.\n"]
     for t in matched_tournaments:
         title = t.get("title", "Turnier")
         date_str = t.get("start_date") or t.get("date") or ""
@@ -210,6 +210,7 @@ async def _send_notification_email(
             text_lines.append(f"  Anmeldeschluss: {deadline}")
         if url:
             text_lines.append(f"  {url}")
+    text_lines.append("\nDer Rest ist dein Problem.")
     if filter_parts:
         text_lines.append(f"\nDu bekommst das weil: {' · '.join(filter_parts)}")
     text_lines.append(f"\nFilter ändern: {manage_url}")
@@ -219,10 +220,12 @@ async def _send_notification_email(
     html = f"""<html><body style="background:#f3f4f6;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
 <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;padding:36px 32px;border:1px solid #e5e7eb">
   <p style="margin:0 0 28px"><img src="https://www.padelyara.at/logo.svg" alt="PadelYara" style="height:28px;width:auto"></p>
-  <p style="font-size:16px;color:#111827;margin:0 0 24px;line-height:1.6;font-weight:600">
+  <p style="font-size:16px;color:#111827;margin:0 0 4px;line-height:1.6;font-weight:600">
     {count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.
   </p>
+  <p style="font-size:13px;color:#6b7280;margin:0 0 24px;font-style:italic">Ich habe gesucht. Ich habe gefunden.</p>
   {cards_html}
+  <p style="font-size:13px;color:#9ca3af;margin:16px 0 0;font-style:italic">Der Rest ist dein Problem.</p>
   {filter_badge_html}
   <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af">
     <a href="{manage_url}" style="color:#6b7280;text-decoration:none;margin-right:16px">Filter ändern</a>
