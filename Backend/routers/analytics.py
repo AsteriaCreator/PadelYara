@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.get("/api/analytics", dependencies=[Depends(_require_admin)])
-async def get_analytics(exclude_sessions: str | None = Query(default=None)):
+async def get_analytics(exclude_sessions: str | None = Query(default=None), dach_only: bool = Query(default=False)):
     """Admin: search counts, top locations, and booking-click rates for today vs. yesterday."""
     from analytics import _DB_NAME, _COLLECTION
     uri = os.environ.get("MONGODB_URI", "")
@@ -32,8 +32,17 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     # Use with None for session/visitor counts (only count events that have a session_id)
     _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
+    # Bots inflate raw traffic: they load one page and leave, almost always from a
+    # non-DACH (US datacenter) country. search/booking events are already bot-free
+    # (bots never engage) and booking_clicked has no country field, so when the
+    # "real visitors only" filter is on we apply the DACH geo filter ONLY to the
+    # pageview- and session-based numbers where the bots actually show up.
+    _engaged = {"event": {"$in": ["search_completed", "booking_clicked"]}}
+    _dach = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}}
+    _geo = _dach if dach_only else {}
+
     async def _session_count(start, end, extra=None):
-        match = {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess}
+        match = {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess, **_geo}
         if extra:
             match.update(extra)
         pipeline = [
@@ -43,13 +52,6 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
         ]
         r = await col.aggregate(pipeline).to_list(1)
         return r[0]["count"] if r else 0
-
-    # Bots inflate raw visitor counts: they load one page and leave, and almost
-    # always report a non-DACH country. Two bot-resistant signals:
-    #   engaged — sessions that actually searched or clicked book (bots never do)
-    #   dach    — sessions from Austria / Germany / Switzerland (the target market)
-    _engaged = {"event": {"$in": ["search_completed", "booking_clicked"]}}
-    _dach = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}}
 
     async def _event_breakdown(start, end):
         pipeline = [
@@ -66,15 +68,15 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     today_engaged    = await _session_count(today_start, now, _engaged)
     today_dach       = await _session_count(today_start, now, _dach)
     today_breakdown  = await _event_breakdown(today_start, now)
-    today_pageviews  = await col.count_documents({"timestamp": {"$gte": today_start}, "event": "pageview", **_excl})
+    today_pageviews  = await col.count_documents({"timestamp": {"$gte": today_start}, "event": "pageview", **_excl, **_geo})
     yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_no_pv, **_excl})
     yday_sessions    = await _session_count(yesterday_start, yesterday_window_end)
     yday_engaged     = await _session_count(yesterday_start, yesterday_window_end, _engaged)
     yday_breakdown   = await _event_breakdown(yesterday_start, yesterday_window_end)
-    yday_pageviews   = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "event": "pageview", **_excl})
+    yday_pageviews   = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "event": "pageview", **_excl, **_geo})
 
     returning_pipeline = [
-        {"$match": {"session_id": {"$exists": True, "$ne": None}, **_excl_sess}},
+        {"$match": {"session_id": {"$exists": True, "$ne": None}, **_excl_sess, **_geo}},
         {"$group": {"_id": "$session_id", "first_seen": {"$min": "$timestamp"}, "last_seen": {"$max": "$timestamp"}}},
         {"$match": {"first_seen": {"$lt": today_start}, "last_seen": {"$gte": today_start}}},
         {"$count": "count"},
@@ -123,7 +125,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
 
 
 @router.get("/api/analytics/trends", dependencies=[Depends(_require_admin)])
-async def get_analytics_trends(exclude_sessions: str | None = Query(default=None)):
+async def get_analytics_trends(exclude_sessions: str | None = Query(default=None), dach_only: bool = Query(default=False)):
     """Admin: daily search volume for the last 7 days (sparkline data)."""
     from analytics import _DB_NAME, _COLLECTION
     uri = os.environ.get("MONGODB_URI", "")
@@ -139,6 +141,9 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     _ids = [s for s in (exclude_sessions or "").split(",") if s]
     _excl: dict = {"session_id": {"$nin": _ids}} if _ids else {}
     _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
+    # DACH geo filter for the "real visitors only" toggle — applied to pageview
+    # and session counts only (see get_analytics for the full rationale).
+    _geo = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}} if dach_only else {}
 
     event_rows = await col.aggregate([
         {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": {"$ne": "pageview"}, **_excl}},
@@ -150,13 +155,13 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
     ]).to_list(500)
 
     pageview_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": "pageview", **_excl}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "event": "pageview", **_excl, **_geo}},
         {"$group": {"_id": {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}}, "count": {"$sum": 1}}},
         {"$sort": {"_id": 1}},
     ]).to_list(100)
 
     session_rows = await col.aggregate([
-        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess}},
+        {"$match": {"timestamp": {"$gte": seven_days_ago}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess, **_geo}},
         {"$group": {"_id": {
             "date":    {"$dateToString": {"format": "%Y-%m-%d", "date": "$timestamp"}},
             "session": "$session_id",
@@ -186,7 +191,7 @@ async def get_analytics_trends(exclude_sessions: str | None = Query(default=None
 
 
 @router.get("/api/analytics/insights", dependencies=[Depends(_require_admin)])
-async def get_analytics_insights(exclude_sessions: str | None = Query(default=None)):
+async def get_analytics_insights(exclude_sessions: str | None = Query(default=None), dach_only: bool = Query(default=False)):
     """Popular search locations, peak hours, and device breakdown — last 30 days."""
     from analytics import _DB_NAME, _COLLECTION
     uri = os.environ.get("MONGODB_URI", "")
@@ -225,7 +230,10 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
         {"$sort": {"count": -1}},
     ]).to_list(10)
 
-    pv_match = {"event": "pageview", "timestamp": {"$gte": thirty_days_ago}, **_excl}
+    # "real visitors only" → restrict pageview-based breakdowns to DACH (drops US bots).
+    # search/booking breakdowns above are already bot-free, so they're left unfiltered.
+    _geo = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}} if dach_only else {}
+    pv_match = {"event": "pageview", "timestamp": {"$gte": thirty_days_ago}, **_excl, **_geo}
 
     referrer_rows = await col.aggregate([
         {"$match": {**pv_match, "referrer_host": {"$nin": [None, ""]}}},
@@ -242,7 +250,9 @@ async def get_analytics_insights(exclude_sessions: str | None = Query(default=No
     ]).to_list(10)
 
     country_rows = await col.aggregate([
-        {"$match": {**pv_match, "country": {"$nin": [None, ""]}}},
+        # pv_match already carries the DACH filter when dach_only; only add the
+        # null/empty exclusion in the unfiltered case (avoid overriding country).
+        {"$match": {**pv_match, **({} if dach_only else {"country": {"$nin": [None, ""]}})}},
         {"$group": {"_id": "$country", "count": {"$sum": 1}}},
         {"$sort": {"count": -1}},
         {"$limit": 15},

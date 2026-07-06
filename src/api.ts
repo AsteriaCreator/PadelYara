@@ -261,26 +261,29 @@ export async function saveMySessions(sessions: string[]): Promise<void> {
   })
 }
 
-function _excludeParam(ids: string[]): string {
-  return ids.length ? `?exclude_sessions=${encodeURIComponent(ids.join(","))}` : ""
+function _analyticsQuery(ids: string[], dachOnly: boolean): string {
+  const parts: string[] = []
+  if (ids.length) parts.push(`exclude_sessions=${encodeURIComponent(ids.join(","))}`)
+  if (dachOnly) parts.push("dach_only=true")
+  return parts.length ? `?${parts.join("&")}` : ""
 }
 
-export async function fetchAnalytics(excludeIds: string[] = []) {
-  const res = await fetch(`${API_BASE}/api/analytics${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+export async function fetchAnalytics(excludeIds: string[] = [], dachOnly = false) {
+  const res = await fetch(`${API_BASE}/api/analytics${_analyticsQuery(excludeIds, dachOnly)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch analytics")
   return res.json()
 }
 
-export async function fetchAnalyticsInsights(excludeIds: string[] = []) {
-  const res = await fetch(`${API_BASE}/api/analytics/insights${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+export async function fetchAnalyticsInsights(excludeIds: string[] = [], dachOnly = false) {
+  const res = await fetch(`${API_BASE}/api/analytics/insights${_analyticsQuery(excludeIds, dachOnly)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch insights")
   return res.json()
 }
 
-export async function fetchAnalyticsTrends(excludeIds: string[] = []) {
-  const res = await fetch(`${API_BASE}/api/analytics/trends${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+export async function fetchAnalyticsTrends(excludeIds: string[] = [], dachOnly = false) {
+  const res = await fetch(`${API_BASE}/api/analytics/trends${_analyticsQuery(excludeIds, dachOnly)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch trends")
   return res.json()

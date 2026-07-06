@@ -225,6 +225,11 @@ export default function AdminDashboard() {
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
   })
+  // "Real visitors only" — filters every number to AT/DE/CH, removing the US
+  // bots. Default ON so the dashboard shows honest numbers out of the box.
+  const [dachOnly, setDachOnly] = useState<boolean>(() => {
+    try { return localStorage.getItem("analytics_dach_only") !== "false" } catch { return true }
+  })
 
   const excludeIds = excludeEnabled ? (mySessions ?? []) : []
 
@@ -245,7 +250,7 @@ export default function AdminDashboard() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount(), fetchAlertList()])
+    Promise.all([fetchAnalytics(excludeIds, dachOnly), fetchAnalyticsTrends(excludeIds, dachOnly), fetchAnalyticsInsights(excludeIds, dachOnly), fetchSubscriberCount(), fetchAlertCount(), fetchAlertList()])
       .then(([s, t, i, sc, ac, al]) => {
         if (cancelled) return
         setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number); setAlertList(al as AlertSubscriber[])
@@ -267,7 +272,13 @@ export default function AdminDashboard() {
     fetchSearchConsole().then((v) => { if (!cancelled) setSearchConsole(v) }).catch(() => { if (!cancelled) setSearchConsole(false) })
     return () => { cancelled = true }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authed, excludeEnabled, mySessions])
+  }, [authed, excludeEnabled, mySessions, dachOnly])
+
+  function toggleDachOnly() {
+    const next = !dachOnly
+    setDachOnly(next)
+    try { localStorage.setItem("analytics_dach_only", String(next)) } catch { /* */ }
+  }
 
   function handleLogin(token: string) {
     setAdminToken(token)
@@ -390,6 +401,27 @@ export default function AdminDashboard() {
                   : "👁️ Currently OFF — your visits are counted in the numbers below."}
             </p>
           </div>
+          <div className="exclude-me-toggle">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={dachOnly}
+              className={`exclude-switch ${dachOnly ? "on" : ""}`}
+              onClick={toggleDachOnly}
+              disabled={refreshing}
+              title="Show only real AT/DE/CH visitors — hides bot traffic (mostly US)"
+            >
+              <span className="exclude-switch-track">
+                <span className="exclude-switch-thumb" />
+              </span>
+              <span className="exclude-switch-text">Real visitors only (AT/DE/CH)</span>
+            </button>
+            <p className="exclude-switch-state">
+              {dachOnly
+                ? "🎯 Currently ON — every number below counts only AT/DE/CH visitors, bots removed."
+                : "🤖 Currently OFF — raw numbers, including bot traffic (mostly US)."}
+            </p>
+          </div>
         </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>
 
@@ -426,19 +458,14 @@ export default function AdminDashboard() {
         <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics</span></h2>
         <div className="stats-grid">
           <StatCard
+            emoji="👥" label="Visitors Today" value={summary.unique_sessions_today}
+            tip="Distinct people who visited today. With 'Real visitors only (AT/DE/CH)' on (top right) this excludes bots; turn it off to see the raw count including bot traffic."
+            color="#6366f1" delta={d.unique_sessions}
+          />
+          <StatCard
             emoji="🎯" label="Active Visitors" value={summary.engaged_sessions_today ?? 0}
-            tip="People who actually searched or clicked 'Book' today — a subset of visitors, and one bots never trigger. Great signal for real engagement, but it undercounts people who just browse. For total real visitors, check Vercel Analytics (link at top)."
+            tip="Visitors who actually searched or clicked 'Book' today — a subset who did more than glance. Bots never trigger it. It undercounts people who just browse, so it's lower than total visitors."
             color="#22c55e" delta={d.engaged_sessions}
-          />
-          <StatCard
-            emoji="🇦🇹" label="AT/DE/CH Visitors" value={summary.dach_sessions_today ?? 0}
-            tip="Distinct visitors from Austria, Germany and Switzerland today — your target market. Filters out most bots, which usually report a US location."
-            color="#6366f1"
-          />
-          <StatCard
-            emoji="👥" label="Visitors Today (raw)" value={summary.unique_sessions_today}
-            tip="Every browser that loaded a page, including bots that run JavaScript. This number is inflated — many are single-page bot visits (often US mobile). Use 'Real Visitors' for the honest count."
-            color="#94a3b8" delta={d.unique_sessions}
           />
           <StatCard
             emoji="🆕" label="First-Time Visitors" value={summary.new_sessions_today}
