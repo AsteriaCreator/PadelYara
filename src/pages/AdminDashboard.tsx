@@ -221,21 +221,22 @@ export default function AdminDashboard() {
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
   const [loginError, setLoginError] = useState<string | null>(null)
-  const [mySessions, setMySessions] = useState<string[]>([])
+  const [mySessions, setMySessions] = useState<string[] | null>(null) // null = not yet loaded
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
   })
 
-  const excludeIds = excludeEnabled ? mySessions : []
+  const excludeIds = excludeEnabled ? (mySessions ?? []) : []
 
   // Load server-stored session list whenever we become authed
   useEffect(() => {
     if (!authed) return
-    fetchMySessions().then(setMySessions).catch(() => {})
+    fetchMySessions().then(setMySessions).catch(() => setMySessions([]))
   }, [authed])
 
   useEffect(() => {
     if (!authed) return
+    if (mySessions === null) return // wait until sessions are loaded
     // Don't wipe data — keep old values visible while refreshing so the
     // toggle button stays on screen and the user sees the change immediately.
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -275,7 +276,7 @@ export default function AdminDashboard() {
   }
 
   async function toggleExclude() {
-    let sessions = mySessions
+    let sessions = mySessions ?? []
     if (sessions.length === 0) {
       const id = getSessionId()
       sessions = [id]
@@ -289,8 +290,9 @@ export default function AdminDashboard() {
 
   async function handleAddDevice() {
     const id = getSessionId()
-    if (mySessions.includes(id)) return
-    const updated = [...mySessions, id]
+    const current = mySessions ?? []
+    if (current.includes(id)) return
+    const updated = [...current, id]
     setMySessions(updated)
     await saveMySessions(updated)
     if (!excludeEnabled) {
@@ -300,13 +302,13 @@ export default function AdminDashboard() {
   }
 
   async function handleRemoveSession(id: string) {
-    const updated = mySessions.filter((s) => s !== id)
+    const updated = (mySessions ?? []).filter((s) => s !== id)
     setMySessions(updated)
     await saveMySessions(updated)
   }
 
   const thisDeviceId = getSessionId()
-  const thisDeviceRegistered = mySessions.includes(thisDeviceId)
+  const thisDeviceRegistered = (mySessions ?? []).includes(thisDeviceId)
 
   if (!authed)
     return <AdminLogin onSubmit={handleLogin} error={loginError} />
@@ -352,8 +354,8 @@ export default function AdminDashboard() {
             <button
               type="button"
               role="switch"
-              aria-checked={excludeEnabled && mySessions.length > 0}
-              className={`exclude-switch ${excludeEnabled && mySessions.length > 0 ? "on" : ""}`}
+              aria-checked={excludeEnabled && (mySessions ?? []).length > 0}
+              className={`exclude-switch ${excludeEnabled && (mySessions ?? []).length > 0 ? "on" : ""}`}
               onClick={toggleExclude}
               disabled={refreshing}
               title="Turn on to hide your own visits from the stats"
@@ -366,7 +368,7 @@ export default function AdminDashboard() {
             <p className="exclude-switch-state">
               {refreshing
                 ? "⏳ Updating…"
-                : excludeEnabled && mySessions.length > 0
+                : excludeEnabled && (mySessions ?? []).length > 0
                   ? "🙈 Currently ON — your visits are hidden from the numbers below."
                   : "👁️ Currently OFF — your visits are counted in the numbers below."}
             </p>
@@ -384,13 +386,13 @@ export default function AdminDashboard() {
               </button>
             )}
           </div>
-          {mySessions.length === 0 ? (
+          {(mySessions ?? []).length === 0 ? (
             <p className="my-devices-empty">
               No devices added yet. Click "Add this device" on each device you use for testing.
             </p>
           ) : (
             <ul className="my-devices-list">
-              {mySessions.map((id, i) => (
+              {(mySessions ?? []).map((id, i) => (
                 <li key={id} className="my-devices-item">
                   <span className="device-icon">{id === thisDeviceId ? "📱 This device" : `🖥️ Device ${i + 1}`}</span>
                   <span className="device-id">{id.slice(0, 8)}…</span>
