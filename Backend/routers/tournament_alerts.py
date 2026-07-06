@@ -1,3 +1,4 @@
+import html
 import json
 import os
 import re
@@ -12,8 +13,6 @@ from pydantic import BaseModel
 from auth import _require_admin
 
 router = APIRouter()
-
-from auth import _require_admin  # noqa: E402
 
 _BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 _FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://www.padelyara.at")
@@ -56,7 +55,7 @@ def _format_filters_html(filters: dict) -> str:
             rows.append(
                 f'<tr>'
                 f'<td style="color:#6b7280;font-size:12px;padding:3px 12px 3px 0;white-space:nowrap">{label}</td>'
-                f'<td style="color:#d1d5db;font-size:12px;padding:3px 0">{", ".join(values)}</td>'
+                f'<td style="color:#d1d5db;font-size:12px;padding:3px 0">{html.escape(", ".join(values))}</td>'
                 f'</tr>'
             )
     if not rows:
@@ -158,8 +157,10 @@ async def _send_notification_email(
             filter_parts.extend(vals)
 
     def _tournament_card(t: dict) -> str:
-        title = t.get("title", "Turnier")
-        date_str = t.get("start_date") or t.get("date") or ""
+        # Escape all scraped text — a title like "Herren <40" or "Damen & Co"
+        # would otherwise break the email HTML or inject markup.
+        title = html.escape(t.get("title", "Turnier"))
+        date_str = html.escape(t.get("start_date") or t.get("date") or "")
         venue = t.get("venue_name", "")
         category = t.get("category", "")
         competition = t.get("competition", "")
@@ -168,10 +169,10 @@ async def _send_notification_email(
         detail_url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
         deadline = _format_reg_deadline(t)
         meta_parts = [x for x in [venue, category, competition, bundesland] if x]
-        meta_line = " · ".join(meta_parts)
+        meta_line = html.escape(" · ".join(meta_parts))
         deadline_html = (
             f'<p style="margin:0 0 8px;font-size:12px;color:#fbbf24;font-weight:600">'
-            f'Anmeldeschluss: {deadline}</p>'
+            f'Anmeldeschluss: {html.escape(deadline)}</p>'
         ) if deadline else ""
         p_max = t.get("participants_max") or 0
         p_cur = t.get("participants_current") or 0
@@ -201,7 +202,7 @@ async def _send_notification_email(
     if filter_parts:
         badges = "".join(
             f'<span style="display:inline-block;background:#1a1a1a;color:#9ca3af;border:1px solid #2a2a2a;'
-            f'font-size:11px;padding:2px 8px;border-radius:4px;margin:0 4px 4px 0">{p}</span>'
+            f'font-size:11px;padding:2px 8px;border-radius:4px;margin:0 4px 4px 0">{html.escape(p)}</span>'
             for p in filter_parts
         )
         filter_badge_html = f"""

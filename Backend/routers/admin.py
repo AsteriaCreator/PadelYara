@@ -1,6 +1,7 @@
 import time
 
 from fastapi import APIRouter, Depends, Query
+from pydantic import BaseModel
 
 import eversports_prices
 from eversports_service import check_eversports_slot
@@ -9,21 +10,25 @@ from auth import _require_admin
 router = APIRouter()
 
 
+class MySessionsBody(BaseModel):
+    sessions: list[str] = []
+
+
 @router.get("/api/admin/my-sessions", dependencies=[Depends(_require_admin)])
 async def get_my_sessions():
     """Return the server-stored list of owner session IDs to exclude from analytics."""
     from venues_mongo import _get_db
     db = _get_db()
     doc = await db["admin_settings"].find_one({"_id": "my_sessions"})
-    return {"sessions": doc["sessions"] if doc else []}
+    return {"sessions": doc.get("sessions", []) if doc else []}
 
 
 @router.post("/api/admin/my-sessions", dependencies=[Depends(_require_admin)])
-async def save_my_sessions(body: dict):
+async def save_my_sessions(body: MySessionsBody):
     """Persist the list of owner session IDs server-side."""
     from venues_mongo import _get_db
     db = _get_db()
-    sessions = [s for s in (body.get("sessions") or []) if isinstance(s, str)]
+    sessions = body.sessions
     await db["admin_settings"].update_one(
         {"_id": "my_sessions"},
         {"$set": {"sessions": sessions}},

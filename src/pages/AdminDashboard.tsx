@@ -237,15 +237,21 @@ export default function AdminDashboard() {
   useEffect(() => {
     if (!authed) return
     if (mySessions === null) return // wait until sessions are loaded
+    // Guard against out-of-order resolution: if the exclude list changes while a
+    // fetch is in flight, ignore the stale response so it can't overwrite a newer one.
+    let cancelled = false
     // Don't wipe data — keep old values visible while refreshing so the
     // toggle button stays on screen and the user sees the change immediately.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
     Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount(), fetchAlertList()])
-      .then(([s, t, i, sc, ac, al]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number); setAlertList(al as AlertSubscriber[]) })
-    fetchEmailStats().then(setEmailStats).catch(() => setEmailStats(null))
+      .then(([s, t, i, sc, ac, al]) => {
+        if (cancelled) return
+        setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number); setAlertList(al as AlertSubscriber[])
+      })
       .catch((e: Error) => {
+        if (cancelled) return
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
           clearAdminToken()
@@ -255,9 +261,11 @@ export default function AdminDashboard() {
           setError(e.message)
         }
       })
-      .finally(() => setRefreshing(false))
-    // GSC is loaded independently so a failure there never breaks the rest of the dashboard.
-    fetchSearchConsole().then(setSearchConsole).catch(() => setSearchConsole(false))
+      .finally(() => { if (!cancelled) setRefreshing(false) })
+    // Email stats + GSC load independently so a failure there never breaks the rest of the dashboard.
+    fetchEmailStats().then((v) => { if (!cancelled) setEmailStats(v) }).catch(() => { if (!cancelled) setEmailStats(null) })
+    fetchSearchConsole().then((v) => { if (!cancelled) setSearchConsole(v) }).catch(() => { if (!cancelled) setSearchConsole(false) })
+    return () => { cancelled = true }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authed, excludeEnabled, mySessions])
 
