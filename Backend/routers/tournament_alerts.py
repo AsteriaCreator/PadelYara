@@ -76,7 +76,7 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         f"Danach melde ich mich. Wenn es sich lohnt.\n\n"
         f"— Yara"
     )
-    html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+    email_html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
 <div style="max-width:520px;margin:0 auto">
   <p style="margin:0 0 32px;font-size:20px;font-weight:900;color:#d4f53c;letter-spacing:0.04em">PadelYara</p>
 
@@ -117,7 +117,7 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         "to": [{"email": to_email}],
         "subject": "Jagd-Alarm einrichten.",
         "textContent": text,
-        "htmlContent": html,
+        "htmlContent": email_html,
         "trackOpens": True,
         "trackClicks": True,
     }
@@ -253,7 +253,7 @@ async def _send_notification_email(
     text_lines.append(f"Abmelden: {unsubscribe_url}")
     text = "\n".join(text_lines)
 
-    html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+    email_html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
 <div style="max-width:560px;margin:0 auto">
   <p style="margin:0 0 32px;font-size:20px;font-weight:900;color:#d4f53c;letter-spacing:0.04em">PadelYara</p>
   <p style="font-size:16px;color:#ffffff;margin:0 0 4px;font-weight:700">
@@ -281,7 +281,7 @@ async def _send_notification_email(
         "to": [{"email": to_email}],
         "subject": subject,
         "textContent": text,
-        "htmlContent": html,
+        "htmlContent": email_html,
         "trackOpens": True,
         "trackClicks": True,
     }
