@@ -3,28 +3,25 @@ import { Link } from "react-router-dom"
 import { PADELQUARTIER_ENTRIES, type QuartierEntry } from "../data/padelquartier"
 
 function QuartierCard({ entry }: { entry: QuartierEntry }) {
-  const content = (
-    <>
+  return (
+    <Link
+      to={`/padelquartier/${entry.id}`}
+      className="flex items-start justify-between gap-3 rounded-lg px-4 py-3 group"
+      style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,245,60,0.12)" }}
+    >
       <div className="min-w-0">
         <p className="text-sm font-semibold text-white group-hover:text-[#d4f53c] transition-colors truncate">
           {entry.name}
         </p>
-        <p className="text-xs text-gray-500 mt-0.5">{entry.city} · {entry.bundesland}</p>
+        <p className="text-xs text-gray-500 mt-0.5">
+          {entry.city === entry.bundesland ? entry.city : `${entry.city} · ${entry.bundesland}`}
+        </p>
         <p className="text-xs mt-1.5" style={{ color: "rgba(212,245,60,0.6)" }}>{entry.courtInfo}</p>
         {entry.note && <p className="text-xs text-gray-500 mt-0.5">{entry.note}</p>}
         <p className="text-xs text-gray-400 mt-2" style={{ lineHeight: 1.6 }}>{entry.description}</p>
       </div>
-      <span className="text-xs text-gray-600 mt-0.5 shrink-0">{entry.isInternal ? "→" : "↗"}</span>
-    </>
-  )
-
-  const className = "flex items-start justify-between gap-3 rounded-lg px-4 py-3 group"
-  const style = { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(212,245,60,0.12)" }
-
-  return entry.isInternal ? (
-    <Link to={entry.link} className={className} style={style}>{content}</Link>
-  ) : (
-    <a href={entry.link} target="_blank" rel="noopener" className={className} style={style}>{content}</a>
+      <span className="text-xs text-gray-600 mt-0.5 shrink-0">→</span>
+    </Link>
   )
 }
 

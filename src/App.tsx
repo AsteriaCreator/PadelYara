@@ -37,6 +37,7 @@ const SpielanalysePage = lazy(() => import("./pages/SpielanalysePage"))
 const PadelrevierPage     = lazy(() => import("./pages/PadelrevierPage"))
 const PadelrevierCityPage = lazy(() => import("./pages/PadelrevierCityPage"))
 const PadelquartierPage   = lazy(() => import("./pages/PadelquartierPage"))
+const PadelquartierDetailPage = lazy(() => import("./pages/PadelquartierDetailPage"))
 const CourtDetailPage  = lazy(() => import("./pages/CourtDetailPage"))
 const DatenschutzPage  = lazy(() => import("./pages/DatenschutzPage"))
 const ImprintPage      = lazy(() => import("./pages/ImprintPage"))
@@ -64,6 +65,7 @@ export default function App() {
         <Route path="/padelrevier"        element={<PageShell><PadelrevierPage /></PageShell>} />
         <Route path="/padelrevier/:city"  element={<PageShell><PadelrevierCityPage /></PageShell>} />
         <Route path="/padelquartier"      element={<PageShell><PadelquartierPage /></PageShell>} />
+        <Route path="/padelquartier/:slug" element={<PageShell><PadelquartierDetailPage /></PageShell>} />
         <Route path="/court/:slug"  element={<PageShell><CourtDetailPage /></PageShell>} />
         <Route path="/about"        element={<PageShell><AboutSection /></PageShell>} />
         <Route path="/datenschutz"  element={<PageShell><DatenschutzPage /></PageShell>} />
