@@ -366,6 +366,8 @@ export default function AdminDashboard() {
       <header className="admin-header">
         <div className="admin-header-row">
           <h1>📊 Analytics Dashboard</h1>
+          <div className="admin-header-controls">
+          <div className="admin-header-buttons">
           <a
             className="admin-logout-btn"
             href="https://vercel.com/mayerconny-4802s-projects/neo-padel-checker/analytics"
@@ -378,6 +380,8 @@ export default function AdminDashboard() {
           <button type="button" className="admin-logout-btn" onClick={handleLogout} title="Abmelden">
             🔓 Abmelden
           </button>
+          </div>
+          <div className="admin-header-toggles">
           <div className="exclude-me-toggle">
             <button
               type="button"
@@ -421,6 +425,8 @@ export default function AdminDashboard() {
                 ? "🎯 Currently ON — every number below counts only AT/DE/CH visitors, bots removed."
                 : "🤖 Currently OFF — raw numbers, including bot traffic (mostly US)."}
             </p>
+          </div>
+          </div>
           </div>
         </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>

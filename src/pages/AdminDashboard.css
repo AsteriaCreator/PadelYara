@@ -12,11 +12,29 @@
 .admin-header { margin-bottom: 2rem; }
 .admin-header-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 0.75rem;
   margin-bottom: 0.4rem;
+}
+/* All controls (buttons + toggles) grouped at the right end of the header. */
+.admin-header-controls {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+}
+.admin-header-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+.admin-header-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1.25rem;
 }
 .admin-header h1 { font-size: 1.8rem; margin: 0; }
 .admin-subtitle { color: #64748b; margin: 0; font-size: 0.9rem; }
