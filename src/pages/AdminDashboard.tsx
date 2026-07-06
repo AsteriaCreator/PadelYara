@@ -417,9 +417,19 @@ export default function AdminDashboard() {
         <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics</span></h2>
         <div className="stats-grid">
           <StatCard
-            emoji="👥" label="Visitors Today" value={summary.unique_sessions_today}
-            tip="Each visitor gets a random ID stored in their browser. This counts how many different people visited today."
-            color="#6366f1" delta={d.unique_sessions}
+            emoji="🎯" label="Real Visitors" value={summary.engaged_sessions_today ?? 0}
+            tip="Visitors who actually searched or clicked 'Book' today. Bots never do that — so this is your most trustworthy count of real people. Trust this number over 'Visitors Today'."
+            color="#22c55e" delta={d.engaged_sessions}
+          />
+          <StatCard
+            emoji="🇦🇹" label="AT/DE/CH Visitors" value={summary.dach_sessions_today ?? 0}
+            tip="Distinct visitors from Austria, Germany and Switzerland today — your target market. Filters out most bots, which usually report a US location."
+            color="#6366f1"
+          />
+          <StatCard
+            emoji="👥" label="Visitors Today (raw)" value={summary.unique_sessions_today}
+            tip="Every browser that loaded a page, including bots that run JavaScript. This number is inflated — many are single-page bot visits (often US mobile). Use 'Real Visitors' for the honest count."
+            color="#94a3b8" delta={d.unique_sessions}
           />
           <StatCard
             emoji="🆕" label="First-Time Visitors" value={summary.new_sessions_today}

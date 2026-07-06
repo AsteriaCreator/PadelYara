@@ -32,14 +32,24 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     # Use with None for session/visitor counts (only count events that have a session_id)
     _excl_sess: dict = {"session_id": {"$nin": _ids + [None]}} if _ids else {}
 
-    async def _session_count(start, end):
+    async def _session_count(start, end, extra=None):
+        match = {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess}
+        if extra:
+            match.update(extra)
         pipeline = [
-            {"$match": {"timestamp": {"$gte": start, "$lt": end}, "session_id": {"$exists": True, "$ne": None}, **_excl_sess}},
+            {"$match": match},
             {"$group": {"_id": "$session_id"}},
             {"$count": "count"},
         ]
         r = await col.aggregate(pipeline).to_list(1)
         return r[0]["count"] if r else 0
+
+    # Bots inflate raw visitor counts: they load one page and leave, and almost
+    # always report a non-DACH country. Two bot-resistant signals:
+    #   engaged — sessions that actually searched or clicked book (bots never do)
+    #   dach    — sessions from Austria / Germany / Switzerland (the target market)
+    _engaged = {"event": {"$in": ["search_completed", "booking_clicked"]}}
+    _dach = {"country": {"$in": ["Austria", "Germany", "Switzerland"]}}
 
     async def _event_breakdown(start, end):
         pipeline = [
@@ -53,10 +63,13 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
     _no_pv = {"event": {"$ne": "pageview"}}
     today_total      = await col.count_documents({"timestamp": {"$gte": today_start}, **_no_pv, **_excl})
     today_sessions   = await _session_count(today_start, now)
+    today_engaged    = await _session_count(today_start, now, _engaged)
+    today_dach       = await _session_count(today_start, now, _dach)
     today_breakdown  = await _event_breakdown(today_start, now)
     today_pageviews  = await col.count_documents({"timestamp": {"$gte": today_start}, "event": "pageview", **_excl})
     yday_total       = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, **_no_pv, **_excl})
     yday_sessions    = await _session_count(yesterday_start, yesterday_window_end)
+    yday_engaged     = await _session_count(yesterday_start, yesterday_window_end, _engaged)
     yday_breakdown   = await _event_breakdown(yesterday_start, yesterday_window_end)
     yday_pageviews   = await col.count_documents({"timestamp": {"$gte": yesterday_start, "$lt": yesterday_window_end}, "event": "pageview", **_excl})
 
@@ -89,6 +102,8 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
         "total_events_today":      today_total,
         "pageviews_today":         today_pageviews,
         "unique_sessions_today":   today_sessions,
+        "engaged_sessions_today":  today_engaged,
+        "dach_sessions_today":     today_dach,
         "returning_sessions_today": returning_sessions,
         "new_sessions_today":      today_sessions - returning_sessions,
         "avg_response_ms":         avg_ms,
@@ -97,6 +112,7 @@ async def get_analytics(exclude_sessions: str | None = Query(default=None)):
             "total_events":    _delta(today_total,    yday_total),
             "pageviews":       _delta(today_pageviews, yday_pageviews),
             "unique_sessions": _delta(today_sessions, yday_sessions),
+            "engaged_sessions": _delta(today_engaged, yday_engaged),
             "avg_response_ms": _delta(avg_ms, avg_ms_yday) if avg_ms and avg_ms_yday else None,
             "events_by_type":  {
                 evt: _delta(today_breakdown.get(evt, 0), yday_breakdown.get(evt, 0))
