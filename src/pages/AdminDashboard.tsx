@@ -355,6 +355,15 @@ export default function AdminDashboard() {
       <header className="admin-header">
         <div className="admin-header-row">
           <h1>📊 Analytics Dashboard</h1>
+          <a
+            className="admin-logout-btn"
+            href="https://vercel.com/mayerconny-4802s-projects/neo-padel-checker/analytics"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Vercel's own (independent, bot-filtered) analytics for cross-checking"
+          >
+            📈 Vercel Analytics ↗
+          </a>
           <button type="button" className="admin-logout-btn" onClick={handleLogout} title="Abmelden">
             🔓 Abmelden
           </button>
