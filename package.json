@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "backend": "python -m uvicorn app:app --reload --port 8000 --app-dir Backend",
-    "build": "node scripts/generate-sitemap.js && tsc -b && vite build && node scripts/prerender-venues.js",
+    "build": "node scripts/generate-sitemap.js && tsc -b && vite build && node scripts/inject-meta-date.js && node scripts/prerender-venues.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
