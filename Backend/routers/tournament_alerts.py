@@ -192,13 +192,13 @@ async def _send_notification_email(
             for p in filter_parts
         )
         filter_badge_html = f"""
-<div style="margin:24px 0 0;padding:14px 16px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb">
-  <p style="margin:0 0 8px;font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em">Du bekommst das weil</p>
+<div style="margin:20px 0 0;padding:14px 16px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb">
+  <p style="margin:0 0 8px;font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em">Dein Jagdauftrag</p>
   <div>{badges}</div>
 </div>"""
 
     # Plain text
-    text_lines = [f"{count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.\nIch habe gesucht. Ich habe gefunden.\n"]
+    text_lines = [f"Treffer.\n\n{count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.\n"]
     for t in matched_tournaments:
         title = t.get("title", "Turnier")
         date_str = t.get("start_date") or t.get("date") or ""
@@ -210,9 +210,9 @@ async def _send_notification_email(
             text_lines.append(f"  Anmeldeschluss: {deadline}")
         if url:
             text_lines.append(f"  {url}")
-    text_lines.append("\nDer Rest ist dein Problem.")
     if filter_parts:
-        text_lines.append(f"\nDu bekommst das weil: {' · '.join(filter_parts)}")
+        text_lines.append(f"\nDein Jagdauftrag: {' · '.join(filter_parts)}")
+    text_lines.append("\nMach was daraus.")
     text_lines.append(f"\nFilter ändern: {manage_url}")
     text_lines.append(f"Abmelden: {unsubscribe_url}")
     text = "\n".join(text_lines)
@@ -223,11 +223,11 @@ async def _send_notification_email(
   <p style="font-size:16px;color:#111827;margin:0 0 4px;line-height:1.6;font-weight:600">
     {count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.
   </p>
-  <p style="font-size:13px;color:#6b7280;margin:0 0 24px;font-style:italic">Ich habe gesucht. Ich habe gefunden.</p>
+  <p style="font-size:13px;color:#6b7280;margin:0 0 24px">Treffer.</p>
   {cards_html}
-  <p style="font-size:13px;color:#9ca3af;margin:16px 0 0;font-style:italic">Der Rest ist dein Problem.</p>
   {filter_badge_html}
-  <p style="margin:24px 0 0;padding-top:16px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af">
+  <p style="font-size:13px;color:#9ca3af;margin:20px 0 0;font-style:italic">Mach was daraus.</p>
+  <p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af">
     <a href="{manage_url}" style="color:#6b7280;text-decoration:none;margin-right:16px">Filter ändern</a>
     <a href="{unsubscribe_url}" style="color:#9ca3af;text-decoration:none">Abmelden</a>
   </p>
