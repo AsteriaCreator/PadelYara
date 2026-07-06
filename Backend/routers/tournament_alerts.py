@@ -170,7 +170,7 @@ async def _send_notification_email(
         meta_parts = [x for x in [venue, category, competition, bundesland] if x]
         meta_line = " · ".join(meta_parts)
         deadline_html = (
-            f'<p style="margin:0 0 8px;font-size:12px;color:#b45309;font-weight:600">'
+            f'<p style="margin:0 0 8px;font-size:12px;color:#fbbf24;font-weight:600">'
             f'Anmeldeschluss: {deadline}</p>'
         ) if deadline else ""
         p_max = t.get("participants_max") or 0
@@ -179,20 +179,20 @@ async def _send_notification_email(
         if spots_left is None:
             spots_html = ""
         elif spots_left == 0:
-            spots_html = '<p style="margin:0 0 8px;font-size:12px;color:#dc2626;font-weight:600">Warteliste.</p>'
+            spots_html = '<p style="margin:0 0 8px;font-size:12px;color:#f87171;font-weight:600">Warteliste.</p>'
         elif spots_left <= 5:
             label = "Platz" if spots_left == 1 else "Plätze"
-            spots_html = f'<p style="margin:0 0 8px;font-size:12px;color:#b45309;font-weight:600">Noch {spots_left} {label} frei.</p>'
+            spots_html = f'<p style="margin:0 0 8px;font-size:12px;color:#fbbf24;font-weight:600">Noch {spots_left} {label} frei.</p>'
         else:
             spots_html = ""
         return f"""
-<div style="border:1px solid #e5e7eb;border-radius:10px;padding:16px 20px;margin:0 0 12px;background:#f9fafb">
-  <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#111827">{title}</p>
-  {f'<p style="margin:0 0 4px;font-size:12px;color:#6b7280">{date_str}</p>' if date_str else ''}
-  {f'<p style="margin:0 0 6px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
+<div style="border:1px solid #2a2a2a;border-radius:10px;padding:16px 20px;margin:0 0 12px;background:#111111">
+  <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#ffffff">{title}</p>
+  {f'<p style="margin:0 0 4px;font-size:12px;color:#9ca3af">{date_str}</p>' if date_str else ''}
+  {f'<p style="margin:0 0 8px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
   {deadline_html}
   {spots_html}
-  {f'<a href="{detail_url}" style="font-size:13px;color:#16a34a;text-decoration:none;font-weight:700">Zum Turnier →</a>' if detail_url else ''}
+  {f'<a href="{detail_url}" style="font-size:13px;color:#d4f53c;text-decoration:none;font-weight:700">Zum Turnier →</a>' if detail_url else ''}
 </div>"""
 
     cards_html = "".join(_tournament_card(t) for t in matched_tournaments)
@@ -200,14 +200,15 @@ async def _send_notification_email(
     filter_badge_html = ""
     if filter_parts:
         badges = "".join(
-            f'<span style="display:inline-block;background:#f3f4f6;color:#374151;'
+            f'<span style="display:inline-block;background:#1a1a1a;color:#9ca3af;border:1px solid #2a2a2a;'
             f'font-size:11px;padding:2px 8px;border-radius:4px;margin:0 4px 4px 0">{p}</span>'
             for p in filter_parts
         )
         filter_badge_html = f"""
-<div style="margin:20px 0 0;padding:14px 16px;background:#f9fafb;border-radius:8px;border:1px solid #e5e7eb">
-  <p style="margin:0 0 8px;font-size:11px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.06em">Dein Jagdauftrag</p>
-  <div>{badges}</div>
+<div style="margin:20px 0 0;padding:14px 16px;background:#111111;border-radius:8px;border:1px solid #2a2a2a">
+  <p style="margin:0 0 8px;font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:0.06em">Dein Jagdauftrag</p>
+  <div style="margin-bottom:8px">{badges}</div>
+  <a href="{manage_url}" style="font-size:11px;color:#d4f53c;text-decoration:none">Filter ändern →</a>
 </div>"""
 
     # Plain text
@@ -233,24 +234,24 @@ async def _send_notification_email(
             text_lines.append(f"  {url}")
     if filter_parts:
         text_lines.append(f"\nDein Jagdauftrag: {' · '.join(filter_parts)}")
-    text_lines.append("\nMach was daraus.")
-    text_lines.append(f"\nFilter ändern: {manage_url}")
-    text_lines.append(f"Abmelden: {unsubscribe_url}")
+        text_lines.append(f"Filter ändern: {manage_url}")
+    text_lines.append("\nMach was daraus.\n\n— Yara")
+    text_lines.append(f"\nAbmelden: {unsubscribe_url}")
     text = "\n".join(text_lines)
 
-    html = f"""<html><body style="background:#f3f4f6;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
-<div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;padding:36px 32px;border:1px solid #e5e7eb">
-  <p style="margin:0 0 28px"><img src="https://www.padelyara.at/lockup-horizontal-dark.svg" alt="PadelYara" style="height:28px;width:auto"></p>
-  <p style="font-size:16px;color:#111827;margin:0 0 4px;line-height:1.6;font-weight:600">
+    html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+<div style="max-width:560px;margin:0 auto">
+  <p style="margin:0 0 32px;font-size:20px;font-weight:900;color:#d4f53c;letter-spacing:0.04em">PadelYara</p>
+  <p style="font-size:16px;color:#ffffff;margin:0 0 4px;font-weight:700">
     {count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.
   </p>
-  <p style="font-size:13px;color:#6b7280;margin:0 0 24px">Treffer.</p>
+  <p style="font-size:13px;color:#d4f53c;margin:0 0 24px;font-weight:600">Treffer.</p>
   {cards_html}
   {filter_badge_html}
-  <p style="font-size:13px;color:#9ca3af;margin:20px 0 0;font-style:italic">Mach was daraus.</p>
-  <p style="margin:20px 0 0;padding-top:16px;border-top:1px solid #e5e7eb;font-size:11px;color:#9ca3af">
-    <a href="{manage_url}" style="color:#6b7280;text-decoration:none;margin-right:16px">Filter ändern</a>
-    <a href="{unsubscribe_url}" style="color:#9ca3af;text-decoration:none">Abmelden</a>
+  <p style="font-size:14px;color:#6b7280;margin:24px 0 4px;font-style:italic">Mach was daraus.</p>
+  <p style="font-size:14px;color:#9ca3af;margin:0 0 32px">— Yara</p>
+  <p style="padding-top:16px;border-top:1px solid #1f1f1f;font-size:11px;margin:0">
+    <a href="{unsubscribe_url}" style="color:#4b5563;text-decoration:none">Abmelden</a>
   </p>
 </div>
 </body></html>"""
