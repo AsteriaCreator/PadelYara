@@ -84,6 +84,15 @@ def _cache_key(lat: float, lon: float, dt: datetime) -> str:
     return f"{lat:.4f},{lon:.4f}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:00')}"
 
 
+def _purge_expired(now: float) -> None:
+    """Drop entries past their TTL. Keys are location*date*hour, so expired
+    entries are never read again — without this the cache grows unbounded and
+    leaks memory over a deployment's lifetime."""
+    for k, entry in list(_WEATHER_CACHE.items()):
+        if now - entry["timestamp"] >= _WEATHER_TTL:
+            del _WEATHER_CACHE[k]
+
+
 async def get_weather_for_hour(
     client: httpx.AsyncClient, lat: float, lon: float, dt: datetime
 ) -> WeatherResult | None:
@@ -132,6 +141,7 @@ async def get_weather_for_hour(
             "temp":      temp,
             "rain_prob": rain_prob,
         }
+        _purge_expired(now)
         _WEATHER_CACHE[key] = {"weather": weather, "timestamp": now}
         return weather
 
