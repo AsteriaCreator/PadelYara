@@ -240,7 +240,7 @@ async def _send_notification_email(
 
     html = f"""<html><body style="background:#f3f4f6;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
 <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:12px;padding:36px 32px;border:1px solid #e5e7eb">
-  <p style="margin:0 0 28px"><img src="https://www.padelyara.at/logo.svg" alt="PadelYara" style="height:28px;width:auto"></p>
+  <p style="margin:0 0 28px"><img src="https://www.padelyara.at/lockup-horizontal-dark.svg" alt="PadelYara" style="height:28px;width:auto"></p>
   <p style="font-size:16px;color:#111827;margin:0 0 4px;line-height:1.6;font-weight:600">
     {count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.
   </p>
