@@ -247,7 +247,7 @@ async def _send_notification_email(
     if filter_parts:
         text_lines.append(f"\nDein Jagdauftrag: {' · '.join(filter_parts)}")
         text_lines.append(f"Filter ändern: {manage_url}")
-    text_lines.append("\nMach was daraus.\n\n— Yara")
+    text_lines.append("\nMach was draus.\n\n— Yara")
     text_lines.append(f"\npadelyara.at")
     text_lines.append(f"Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at aktiviert hast.")
     text_lines.append(f"Abmelden: {unsubscribe_url}")
@@ -262,7 +262,7 @@ async def _send_notification_email(
   <p style="font-size:13px;color:#d4f53c;margin:0 0 24px;font-weight:600">Treffer.</p>
   {cards_html}
   {filter_badge_html}
-  <p style="font-size:14px;color:#6b7280;margin:24px 0 4px;font-style:italic">Mach was daraus.</p>
+  <p style="font-size:14px;color:#6b7280;margin:24px 0 4px">Mach was draus.</p>
   <p style="font-size:14px;color:#9ca3af;margin:0 0 32px">— Yara</p>
   <div style="padding-top:16px;border-top:1px solid #1f1f1f">
     <p style="margin:0 0 6px;font-size:12px">
