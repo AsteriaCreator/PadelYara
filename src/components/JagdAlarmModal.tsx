@@ -135,12 +135,21 @@ export default function JagdAlarmModal({ isOpen, onClose, filters }: JagdAlarmMo
               className="rounded-lg border p-3 mb-5"
               style={{ borderColor: "rgba(107,114,128,0.2)", background: "rgba(255,255,255,0.02)" }}
             >
-              <p
-                className="text-xs mb-2 tracking-widest uppercase"
-                style={{ color: "#9ca3af", fontFamily: "'Barlow Condensed', sans-serif" }}
-              >
-                Deine Filter
-              </p>
+              <div className="flex items-center justify-between mb-2">
+                <p
+                  className="text-xs tracking-widest uppercase"
+                  style={{ color: "#9ca3af", fontFamily: "'Barlow Condensed', sans-serif" }}
+                >
+                  Deine Filter
+                </p>
+                <button
+                  onClick={onClose}
+                  className="text-xs transition-opacity hover:opacity-100"
+                  style={{ color: "#d4f53c", opacity: 0.7 }}
+                >
+                  anpassen ↑
+                </button>
+              </div>
               <FilterSummary filters={filters} />
             </div>
 
