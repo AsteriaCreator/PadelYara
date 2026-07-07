@@ -70,6 +70,22 @@ export const PADELQUARTIER_ENTRIES: QuartierEntry[] = [
     internalCourtSlug: "sporthotel-podersdorf",
   },
   {
+    id: "schloss-seefels",
+    name: "Hotel Schloss Seefels",
+    city: "Pörtschach am Wörthersee",
+    bundesland: "Kärnten",
+    address: "Töschling 1, 9212 Pörtschach am Wörthersee",
+    type: "hotel",
+    courtInfo: "1 Outdoor-Court",
+    note: "Für Hotelgäste inkludiert, je nach Verfügbarkeit",
+    description: "Ein Padelcourt im Schlosspark, beschattet von altem Baumbestand, direkt am Wörthersee. Nur für Hotelgäste — wer nicht hier wohnt, kommt nicht rein.",
+    detailParagraphs: [
+      "Am Eingangsbereich des Schlossparks von Hotel Schloss Seefels in Pörtschach am Wörthersee steht ein Outdoor-Padelcourt, beschattet von altem Baumbestand — direkt neben zwei Tennisplätzen (Sand und Kunstrasen).",
+      "Die Nutzung ist für Hotelgäste in der 'Verwöhngarantie' inkludiert, je nach Verfügbarkeit. Ob und wie externe Gäste den Court buchen können, ist auf der Hotelseite nicht angegeben — im Zweifel anrufen.",
+    ],
+    websiteUrl: "https://www.seefels.at/en/sports-exercise/tennis/",
+  },
+  {
     id: "padel4fun-camps",
     name: "Padel4Fun Camps & Reisen",
     city: "Wien",
