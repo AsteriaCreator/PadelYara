@@ -27,8 +27,17 @@ Also applies to the **Dockerfile**: any new Backend `.py` file must get a `COPY`
 ## Working style & permissions
 General working-style and permission rules live in the **global `~/.claude/CLAUDE.md`** (plain-language command verdicts, batch mechanical actions without asking, commit+push agreed changes together, and the stop-and-ask list). PadelYara specifics on top of that:
 - **"Verified" before push** = typecheck + preview pass.
-- **After push:** the change is live on **padelyara.at** in ~1–3 min (push → GitHub → Vercel/Railway auto-deploy).
+- **After push:** the change is live on **padelyara.at** in ~1–3 min (push → GitHub → Vercel/Railway auto-deploy). **Don't stop at "pushed" — verify the deploy.** Check Railway/Vercel build status via their MCPs, then load the real live site and check the thing that changed actually works. Only then report "deployed and verified" (or the exact failure). Don't make Cornelia wait for the deploy email to find out.
 - **The production database to never touch carelessly** is MongoDB Atlas `padel_checker`.
 
 ## Voice
 User-facing copy is in German, written in **Yara's voice** (see `.agents/yara-voice.md`): mean, competent, unbothered.
+
+## Hidden-from-nav features (already built, intentionally not linked)
+- **Spielanalyse** — player tournament stats + AI verdict. Live at `/turnierjaeger/spielanalyse` (direct URL only, not in any menu). Hidden on purpose — Cornelia decided it's too powerful before the Yara brand is established. Don't rebuild it; it exists. To launch: add `SPIELANALYSE` back to the `TABS` array in `src/components/TurnierjagerNav.tsx`. Spec: `YarasUrteil.md` (repo root) + `Backend/yara_urteil_prompt.py` (live verdict prompt).
+
+## Monitoring — check proactively, don't wait to be asked
+At the start of any session touching PadelYara, or after a deploy, check Sentry for new unresolved issues yourself — don't wait for Cornelia to paste an error. Call `search_issues(organizationSlug='adventure-it', query='is:unresolved', sort='date')` and report anything new in plain German.
+
+Known noise to ignore (self-resolving, not real bugs):
+- "Failed to fetch dynamically imported module" — `lazyWithReload()` handles it, user never sees it.

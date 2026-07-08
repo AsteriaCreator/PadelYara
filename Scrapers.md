@@ -1,5 +1,7 @@
 # Scrapers
 
+**Last cross-scraper parity check: 2026-07-08.** Verified eTennis, Eversports, and tennis04 all implement the same `status` (`free`/`busy`/`no_slot`/`unknown`) + `free_durations`/`fallback_durations` model consistently — no drift found. Known, tracked (not a bug): venue-info enrichment (photos, parking, klimaanlage, cancellation policy) only covers Padelzone-sourced venues so far; eTennis/tennis04 venues don't have an equivalent enrichment scraper yet. Re-check parity here whenever a scraper gets a new feature or bugfix — see the scraper consistency rule in `CLAUDE.md`.
+
 ## Purpose
 
 PadelYara depends on two fundamentally different scraping systems:
