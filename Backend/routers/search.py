@@ -524,6 +524,7 @@ async def search(
     search_location: str | None   = Query(default=None),
     durations:       str | None   = Query(default=None),
     request:         Request      = None,
+    background_tasks: BackgroundTasks = None,
 ):
     """Search for padel court availability. Fans out to Eversports, eTennis, and Tennis04
     scrapers in parallel. Returns immediate results plus an availability_pending flag when
@@ -838,15 +839,25 @@ async def search(
         "response_ms": response_ms,
     }))
     if not _is_bot:
-        track_search_completed(
-            radius=radius,
-            court_type=court_type,
-            results_count=len(results),
-            response_ms=response_ms,
-            session_id=session_id,
-            search_location=search_location,
-            device_type=device_type,
-        )
+        # Resolve country in a background task (ip-api call, cached) so it never
+        # adds latency to the search response.
+        ip = _client_ip(request) if request else None
+
+        async def _track_search():
+            country = await _get_country(ip)
+            track_search_completed(
+                radius=radius,
+                court_type=court_type,
+                results_count=len(results),
+                response_ms=response_ms,
+                session_id=session_id,
+                search_location=search_location,
+                device_type=device_type,
+                country=country,
+            )
+
+        if background_tasks is not None:
+            background_tasks.add_task(_track_search)
 
     results.sort(key=lambda v: v.get("distance_km") or float("inf"))
 
@@ -887,9 +898,15 @@ class BookingClickBody(BaseModel):
 
 
 @router.post("/api/booking-click")
-async def booking_click(body: BookingClickBody):
+async def booking_click(body: BookingClickBody, request: Request, background_tasks: BackgroundTasks):
     """Record booking intent. Frontend fires-and-forgets; opens the booking URL itself."""
-    track_booking_clicked(venue_id=body.venue_id, platform=body.platform, session_id=body.session_id)
+    ip = _client_ip(request)
+
+    async def _track():
+        country = await _get_country(ip)
+        track_booking_clicked(venue_id=body.venue_id, platform=body.platform, session_id=body.session_id, country=country)
+
+    background_tasks.add_task(_track)
     return {"ok": True}
 
 

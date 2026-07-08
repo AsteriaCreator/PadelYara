@@ -27,7 +27,7 @@ try {
 } catch { /* no .env — use environment directly */ }
 
 const API_BASE = (process.env.VITE_API_URL ?? "https://neo-padel-checker-backend-production.up.railway.app").replace(/\/$/, "")
-const BASE_URL = "https://padelyara.at"
+const BASE_URL = "https://www.padelyara.at"
 const DIST = join(ROOT, "dist")
 
 if (!existsSync(join(DIST, "index.html"))) {

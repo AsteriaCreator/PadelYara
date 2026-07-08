@@ -45,7 +45,7 @@ export function useMyProfile(opts?: { skipInitialLoad?: boolean }) {
       const data = await res.json()
       setMyTournaments(data.tournaments ?? [])
     } catch {
-      setMyError("Abfrage fehlgeschlagen. Bitte nochmal versuchen.")
+      setMyError("Abfrage fehlgeschlagen. Nochmal.")
     } finally {
       setMyLoading(false)
     }

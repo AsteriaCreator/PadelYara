@@ -202,7 +202,7 @@ export function useCourtSearch() {
       } catch (err) {
         setError(
           err instanceof GeocodeTimeoutError
-            ? "Ortssuche hat zu lange gedauert — bitte nochmal versuchen."
+            ? "Ortssuche hat zu lange gedauert. Nochmal."
             : "Verbindung fehlgeschlagen"
         )
         setLoading(false)
@@ -210,7 +210,7 @@ export function useCourtSearch() {
       }
     }
     if (!coords) {
-      setError("Ort nicht gefunden. Bitte gib den vollständigen Ortsnamen oder die PLZ ein.")
+      setError("Ort nicht gefunden. Vollständiger Name oder PLZ.")
       setLoading(false)
       return
     }

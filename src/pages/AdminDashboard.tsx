@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react"
-import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchSearchConsole, getMySessionIds, registerThisDevice, removeMySession, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import { fetchAnalytics, fetchAnalyticsTrends, fetchAnalyticsInsights, fetchSubscriberCount, fetchAlertCount, fetchAlertList, fetchEmailStats, fetchSearchConsole, fetchMySessions, saveMySessions, getSessionId, hasAdminToken, setAdminToken, clearAdminToken } from "../api"
+import type { AlertSubscriber, EmailStats } from "../api"
 import "./AdminDashboard.css"
 
 function AdminLogin({ onSubmit, error }: { onSubmit: (token: string) => void; error: string | null }) {
@@ -214,27 +215,48 @@ export default function AdminDashboard() {
   const [searchConsole, setSearchConsole] = useState<any>(null)
   const [subscriberCount, setSubscriberCount] = useState<number | null>(null)
   const [alertCount, setAlertCount] = useState<number | null>(null)
+  const [alertList, setAlertList] = useState<AlertSubscriber[] | null>(null)
+  const [emailStats, setEmailStats] = useState<EmailStats | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [authed, setAuthed] = useState<boolean>(() => hasAdminToken())
   const [loginError, setLoginError] = useState<string | null>(null)
-  const [mySessions, setMySessions] = useState<string[]>(() => getMySessionIds())
+  const [mySessions, setMySessions] = useState<string[] | null>(null) // null = not yet loaded
   const [excludeEnabled, setExcludeEnabled] = useState<boolean>(() => {
     try { return localStorage.getItem("analytics_exclude_me") === "true" } catch { return false }
   })
+  // "Real visitors only" — filters every number to AT/DE/CH, removing the US
+  // bots. Default ON so the dashboard shows honest numbers out of the box.
+  const [dachOnly, setDachOnly] = useState<boolean>(() => {
+    try { return localStorage.getItem("analytics_dach_only") !== "false" } catch { return true }
+  })
 
-  const excludeIds = excludeEnabled ? mySessions : []
+  const excludeIds = excludeEnabled ? (mySessions ?? []) : []
+
+  // Load server-stored session list whenever we become authed
+  useEffect(() => {
+    if (!authed) return
+    fetchMySessions().then(setMySessions).catch(() => setMySessions([]))
+  }, [authed])
 
   useEffect(() => {
     if (!authed) return
+    if (mySessions === null) return // wait until sessions are loaded
+    // Guard against out-of-order resolution: if the exclude list changes while a
+    // fetch is in flight, ignore the stale response so it can't overwrite a newer one.
+    let cancelled = false
     // Don't wipe data — keep old values visible while refreshing so the
     // toggle button stays on screen and the user sees the change immediately.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setError(null)
     setRefreshing(true)
-    Promise.all([fetchAnalytics(excludeIds), fetchAnalyticsTrends(excludeIds), fetchAnalyticsInsights(excludeIds), fetchSubscriberCount(), fetchAlertCount()])
-      .then(([s, t, i, sc, ac]) => { setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number) })
+    Promise.all([fetchAnalytics(excludeIds, dachOnly), fetchAnalyticsTrends(excludeIds, dachOnly), fetchAnalyticsInsights(excludeIds, dachOnly), fetchSubscriberCount(), fetchAlertCount(), fetchAlertList()])
+      .then(([s, t, i, sc, ac, al]) => {
+        if (cancelled) return
+        setSummary(s); setTrends(t); setInsights(i); setSubscriberCount(sc as number); setAlertCount(ac as number); setAlertList(al as AlertSubscriber[])
+      })
       .catch((e: Error) => {
+        if (cancelled) return
         // Wrong / expired token → drop it and show the login form again.
         if (e.message === "Unauthorized") {
           clearAdminToken()
@@ -244,11 +266,19 @@ export default function AdminDashboard() {
           setError(e.message)
         }
       })
-      .finally(() => setRefreshing(false))
-    // GSC is loaded independently so a failure there never breaks the rest of the dashboard.
-    fetchSearchConsole().then(setSearchConsole).catch(() => setSearchConsole(false))
+      .finally(() => { if (!cancelled) setRefreshing(false) })
+    // Email stats + GSC load independently so a failure there never breaks the rest of the dashboard.
+    fetchEmailStats().then((v) => { if (!cancelled) setEmailStats(v) }).catch(() => { if (!cancelled) setEmailStats(null) })
+    fetchSearchConsole().then((v) => { if (!cancelled) setSearchConsole(v) }).catch(() => { if (!cancelled) setSearchConsole(false) })
+    return () => { cancelled = true }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authed, excludeEnabled, mySessions])
+  }, [authed, excludeEnabled, mySessions, dachOnly])
+
+  function toggleDachOnly() {
+    const next = !dachOnly
+    setDachOnly(next)
+    try { localStorage.setItem("analytics_dach_only", String(next)) } catch { /* */ }
+  }
 
   function handleLogin(token: string) {
     setAdminToken(token)
@@ -264,34 +294,40 @@ export default function AdminDashboard() {
     setAuthed(false)
   }
 
-  function toggleExclude() {
-    // If no devices registered yet, add this one first then enable
-    let sessions = mySessions
+  async function toggleExclude() {
+    let sessions = mySessions ?? []
     if (sessions.length === 0) {
-      sessions = registerThisDevice()
+      const id = getSessionId()
+      sessions = [id]
       setMySessions(sessions)
+      await saveMySessions(sessions)
     }
     const next = !excludeEnabled
     setExcludeEnabled(next)
     try { localStorage.setItem("analytics_exclude_me", String(next)) } catch { /* */ }
   }
 
-  function handleAddDevice() {
-    const updated = registerThisDevice()
+  async function handleAddDevice() {
+    const id = getSessionId()
+    const current = mySessions ?? []
+    if (current.includes(id)) return
+    const updated = [...current, id]
     setMySessions(updated)
+    await saveMySessions(updated)
     if (!excludeEnabled) {
       setExcludeEnabled(true)
       try { localStorage.setItem("analytics_exclude_me", "true") } catch { /* */ }
     }
   }
 
-  function handleRemoveSession(id: string) {
-    const updated = removeMySession(id)
+  async function handleRemoveSession(id: string) {
+    const updated = (mySessions ?? []).filter((s) => s !== id)
     setMySessions(updated)
+    await saveMySessions(updated)
   }
 
   const thisDeviceId = getSessionId()
-  const thisDeviceRegistered = mySessions.includes(thisDeviceId)
+  const thisDeviceRegistered = (mySessions ?? []).includes(thisDeviceId)
 
   if (!authed)
     return <AdminLogin onSubmit={handleLogin} error={loginError} />
@@ -330,15 +366,28 @@ export default function AdminDashboard() {
       <header className="admin-header">
         <div className="admin-header-row">
           <h1>📊 Analytics Dashboard</h1>
+          <div className="admin-header-controls">
+          <div className="admin-header-buttons">
+          <a
+            className="admin-logout-btn"
+            href="https://vercel.com/mayerconny-4802s-projects/neo-padel-checker/analytics"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Vercel's own (independent, bot-filtered) analytics for cross-checking"
+          >
+            📈 Vercel Analytics ↗
+          </a>
           <button type="button" className="admin-logout-btn" onClick={handleLogout} title="Abmelden">
             🔓 Abmelden
           </button>
+          </div>
+          <div className="admin-header-toggles">
           <div className="exclude-me-toggle">
             <button
               type="button"
               role="switch"
-              aria-checked={excludeEnabled && mySessions.length > 0}
-              className={`exclude-switch ${excludeEnabled && mySessions.length > 0 ? "on" : ""}`}
+              aria-checked={excludeEnabled && (mySessions ?? []).length > 0}
+              className={`exclude-switch ${excludeEnabled && (mySessions ?? []).length > 0 ? "on" : ""}`}
               onClick={toggleExclude}
               disabled={refreshing}
               title="Turn on to hide your own visits from the stats"
@@ -351,10 +400,33 @@ export default function AdminDashboard() {
             <p className="exclude-switch-state">
               {refreshing
                 ? "⏳ Updating…"
-                : excludeEnabled && mySessions.length > 0
+                : excludeEnabled && (mySessions ?? []).length > 0
                   ? "🙈 Currently ON — your visits are hidden from the numbers below."
                   : "👁️ Currently OFF — your visits are counted in the numbers below."}
             </p>
+          </div>
+          <div className="exclude-me-toggle">
+            <button
+              type="button"
+              role="switch"
+              aria-checked={dachOnly}
+              className={`exclude-switch ${dachOnly ? "on" : ""}`}
+              onClick={toggleDachOnly}
+              disabled={refreshing}
+              title="Show only real AT/DE/CH visitors — hides bot traffic (mostly US)"
+            >
+              <span className="exclude-switch-track">
+                <span className="exclude-switch-thumb" />
+              </span>
+              <span className="exclude-switch-text">Real visitors only (AT/DE/CH)</span>
+            </button>
+            <p className="exclude-switch-state">
+              {dachOnly
+                ? "🎯 Currently ON — every number below counts only AT/DE/CH visitors, bots removed."
+                : "🤖 Currently OFF — raw numbers, including bot traffic (mostly US)."}
+            </p>
+          </div>
+          </div>
           </div>
         </div>
         <p className="admin-subtitle">Here's what's happening on PadelYara — today and over the last 7 days.</p>
@@ -369,13 +441,13 @@ export default function AdminDashboard() {
               </button>
             )}
           </div>
-          {mySessions.length === 0 ? (
+          {(mySessions ?? []).length === 0 ? (
             <p className="my-devices-empty">
               No devices added yet. Click "Add this device" on each device you use for testing.
             </p>
           ) : (
             <ul className="my-devices-list">
-              {mySessions.map((id, i) => (
+              {(mySessions ?? []).map((id, i) => (
                 <li key={id} className="my-devices-item">
                   <span className="device-icon">{id === thisDeviceId ? "📱 This device" : `🖥️ Device ${i + 1}`}</span>
                   <span className="device-id">{id.slice(0, 8)}…</span>
@@ -389,12 +461,17 @@ export default function AdminDashboard() {
 
       {/* Today's numbers */}
       <section className="admin-section">
-        <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics</span></h2>
+        <h2>Today at a Glance <span className="data-source-label">📊 Own Analytics — filtered by toggles above</span></h2>
         <div className="stats-grid">
           <StatCard
             emoji="👥" label="Visitors Today" value={summary.unique_sessions_today}
-            tip="Each visitor gets a random ID stored in their browser. This counts how many different people visited today."
+            tip="Distinct people who visited today. With 'Real visitors only (AT/DE/CH)' on (top right) this excludes bots; turn it off to see the raw count including bot traffic."
             color="#6366f1" delta={d.unique_sessions}
+          />
+          <StatCard
+            emoji="🎯" label="Active Visitors" value={summary.engaged_sessions_today ?? 0}
+            tip="Visitors who actually searched or clicked 'Book' today — a subset who did more than glance. Bots never trigger it. It undercounts people who just browse, so it's lower than total visitors."
+            color="#22c55e" delta={d.engaged_sessions}
           />
           <StatCard
             emoji="🆕" label="First-Time Visitors" value={summary.new_sessions_today}
@@ -426,15 +503,15 @@ export default function AdminDashboard() {
           )}
           {subscriberCount !== null && (
             <StatCard
-              emoji="📬" label="Email Subscribers" value={subscriberCount}
-              tip="Total email addresses collected via the newsletter signup banner."
+              emoji="📬" label="Email Subscribers (all-time)" value={subscriberCount}
+              tip="Total email addresses ever collected via the newsletter signup banner. Not a visit count, so it does NOT respond to the 'Real visitors only' or 'Exclude my visits' toggles above — every signup requires a real email, so there's no bot traffic to filter here."
               color="#d4f53c"
             />
           )}
           {alertCount !== null && (
             <StatCard
-              emoji="🔔" label="Jagd-Alarm" value={alertCount}
-              tip="Confirmed Jagd-Alarm subscriptions — users who get emailed when new tournaments match their filters."
+              emoji="🔔" label="Jagd-Alarm (all-time)" value={alertCount}
+              tip="Confirmed Jagd-Alarm subscriptions — users who get emailed when new tournaments match their filters. Not a visit count, so it does NOT respond to the toggles above."
               color="#d4f53c"
             />
           )}
@@ -478,6 +555,72 @@ export default function AdminDashboard() {
           )
         })()}
       </section>
+
+      {/* Jagd-Alarm subscribers */}
+      {alertList && alertList.length > 0 && (
+        <section className="admin-section">
+          <h2>🔔 Jagd-Alarm Abonnenten <span className="data-source-label">📋 All-time — not filtered by toggles</span></h2>
+          <p className="section-hint">{alertList.filter(a => a.confirmed).length} bestätigt · {alertList.filter(a => !a.confirmed).length} ausstehend</p>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px" }}>
+            <thead>
+              <tr style={{ color: "#6b7280", textAlign: "left", borderBottom: "1px solid rgba(107,114,128,0.2)" }}>
+                <th style={{ padding: "6px 8px" }}>E-Mail</th>
+                <th style={{ padding: "6px 8px" }}>Filter</th>
+                <th style={{ padding: "6px 8px" }}>Status</th>
+                <th style={{ padding: "6px 8px" }}>Zuletzt benachrichtigt</th>
+              </tr>
+            </thead>
+            <tbody>
+              {alertList.map((a, i) => {
+                const filterParts = [
+                  ...(a.filters.bundesland ?? []),
+                  ...(a.filters.category ?? []),
+                  ...(a.filters.competition ?? []),
+                  ...(a.filters.weekday ?? []),
+                  ...(a.filters.venue_name ?? []),
+                ]
+                return (
+                  <tr key={i} style={{ borderBottom: "1px solid rgba(107,114,128,0.1)", color: a.confirmed ? "#d1d5db" : "#6b7280" }}>
+                    <td style={{ padding: "6px 8px" }}>{a.email}</td>
+                    <td style={{ padding: "6px 8px", color: "#9ca3af" }}>{filterParts.length ? filterParts.join(" · ") : "Alle"}</td>
+                    <td style={{ padding: "6px 8px" }}>
+                      <span style={{ color: a.confirmed ? "#d4f53c" : "#6b7280" }}>{a.confirmed ? "✓ Bestätigt" : "Ausstehend"}</span>
+                    </td>
+                    <td style={{ padding: "6px 8px", color: "#6b7280" }}>{a.last_notified_at ? new Date(a.last_notified_at).toLocaleDateString("de-AT") : "—"}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </section>
+      )}
+
+      {/* Jagd-Alarm email stats */}
+      {emailStats && (
+        <section className="admin-section">
+          <h2>📧 Jagd-Alarm E-Mail Performance <span className="period-hint">last 30 days</span> <span className="data-source-label">📧 Brevo — not filtered by toggles</span></h2>
+          <p className="section-hint">Opens and clicks tracked by Brevo for all transactional alert emails.</p>
+          <div className="stats-grid">
+            <StatCard emoji="📤" label="Sent" value={emailStats.requests}
+              tip="Total alert emails sent in the last 30 days." color="#6366f1" />
+            <StatCard emoji="📬" label="Delivered" value={emailStats.delivered}
+              tip="Emails that actually reached the inbox." color="#22c55e" />
+            <StatCard emoji="👁️" label="Unique Opens" value={emailStats.uniqueOpens}
+              tip={`${emailStats.delivered > 0 ? Math.round((emailStats.uniqueOpens / emailStats.delivered) * 100) : 0}% open rate — how many recipients opened the email at least once.`}
+              color="#f59e0b" />
+            <StatCard emoji="🖱️" label="Unique Clicks" value={emailStats.uniqueClicks}
+              tip={`${emailStats.uniqueOpens > 0 ? Math.round((emailStats.uniqueClicks / emailStats.uniqueOpens) * 100) : 0}% click-to-open rate — of those who opened, how many clicked a link.`}
+              color="#d4f53c" />
+          </div>
+          {emailStats.delivered > 0 && (
+            <div style={{ marginTop: 16, display: "flex", gap: 24, fontSize: 13, color: "#9ca3af" }}>
+              <span>Open rate: <strong style={{ color: "#f59e0b" }}>{Math.round((emailStats.uniqueOpens / emailStats.delivered) * 100)}%</strong></span>
+              <span>Click rate: <strong style={{ color: "#d4f53c" }}>{Math.round((emailStats.uniqueClicks / emailStats.delivered) * 100)}%</strong></span>
+              <span>Total opens: {emailStats.opens} &nbsp;·&nbsp; Total clicks: {emailStats.clicks}</span>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* What did people do? */}
       <section className="admin-section">

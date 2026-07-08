@@ -9,7 +9,7 @@ export function getSessionId(): string {
   const KEY = "anon_session_id"
   let id = localStorage.getItem(KEY)
   if (!id) {
-    id = crypto.randomUUID()
+    id = crypto.randomUUID?.() ?? Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)
     localStorage.setItem(KEY, id)
   }
   return id
@@ -244,55 +244,46 @@ function adminHeaders() {
   return { "Content-Type": "application/json", "X-Admin-Token": getAdminToken() }
 }
 
-const MY_SESSIONS_KEY = "analytics_my_sessions"
-
-/** Returns the list of session IDs the owner has registered as "mine". */
-export function getMySessionIds(): string[] {
-  try {
-    const raw = localStorage.getItem(MY_SESSIONS_KEY)
-    return raw ? JSON.parse(raw) : []
-  } catch {
-    return []
-  }
+/** Fetch the server-stored list of owner session IDs. */
+export async function fetchMySessions(): Promise<string[]> {
+  const res = await fetch(`${API_BASE}/api/admin/my-sessions`, { headers: adminHeaders() })
+  if (!res.ok) return []
+  const data = await res.json()
+  return data.sessions as string[]
 }
 
-/** Adds the current device's session ID to the "my sessions" list. */
-export function registerThisDevice(): string[] {
-  const id = getSessionId()
-  const current = getMySessionIds()
-  if (current.includes(id)) return current
-  const updated = [...current, id]
-  try { localStorage.setItem(MY_SESSIONS_KEY, JSON.stringify(updated)) } catch { /* */ }
-  return updated
+/** Persist the session list to the server. */
+export async function saveMySessions(sessions: string[]): Promise<void> {
+  await fetch(`${API_BASE}/api/admin/my-sessions`, {
+    method: "POST",
+    headers: { ...adminHeaders(), "Content-Type": "application/json" },
+    body: JSON.stringify({ sessions }),
+  })
 }
 
-/** Removes a session ID from the "my sessions" list. */
-export function removeMySession(id: string): string[] {
-  const updated = getMySessionIds().filter((s) => s !== id)
-  try { localStorage.setItem(MY_SESSIONS_KEY, JSON.stringify(updated)) } catch { /* */ }
-  return updated
+function _analyticsQuery(ids: string[], dachOnly: boolean): string {
+  const parts: string[] = []
+  if (ids.length) parts.push(`exclude_sessions=${encodeURIComponent(ids.join(","))}`)
+  if (dachOnly) parts.push("dach_only=true")
+  return parts.length ? `?${parts.join("&")}` : ""
 }
 
-function _excludeParam(ids: string[]): string {
-  return ids.length ? `?exclude_sessions=${encodeURIComponent(ids.join(","))}` : ""
-}
-
-export async function fetchAnalytics(excludeIds: string[] = []) {
-  const res = await fetch(`${API_BASE}/api/analytics${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+export async function fetchAnalytics(excludeIds: string[] = [], dachOnly = false) {
+  const res = await fetch(`${API_BASE}/api/analytics${_analyticsQuery(excludeIds, dachOnly)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch analytics")
   return res.json()
 }
 
-export async function fetchAnalyticsInsights(excludeIds: string[] = []) {
-  const res = await fetch(`${API_BASE}/api/analytics/insights${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+export async function fetchAnalyticsInsights(excludeIds: string[] = [], dachOnly = false) {
+  const res = await fetch(`${API_BASE}/api/analytics/insights${_analyticsQuery(excludeIds, dachOnly)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch insights")
   return res.json()
 }
 
-export async function fetchAnalyticsTrends(excludeIds: string[] = []) {
-  const res = await fetch(`${API_BASE}/api/analytics/trends${_excludeParam(excludeIds)}`, { headers: adminHeaders() })
+export async function fetchAnalyticsTrends(excludeIds: string[] = [], dachOnly = false) {
+  const res = await fetch(`${API_BASE}/api/analytics/trends${_analyticsQuery(excludeIds, dachOnly)}`, { headers: adminHeaders() })
   if (res.status === 403) throw new Error("Unauthorized")
   if (!res.ok) throw new Error("Failed to fetch trends")
   return res.json()
@@ -318,6 +309,39 @@ export async function fetchAlertCount(): Promise<number> {
   if (!res.ok) throw new Error("Failed to fetch alert count")
   const data = await res.json()
   return data.count as number
+}
+
+export interface AlertSubscriber {
+  email: string
+  filters: { bundesland: string[]; category: string[]; competition: string[]; weekday: string[]; venue_name: string[] }
+  confirmed: boolean
+  created_at: string
+  confirmed_at: string | null
+  last_notified_at: string | null
+}
+
+export async function fetchAlertList(): Promise<AlertSubscriber[]> {
+  const res = await fetch(`${API_BASE}/api/tournaments/alerts/list`, { headers: adminHeaders() })
+  if (!res.ok) throw new Error("Failed to fetch alert list")
+  const data = await res.json()
+  return data.alerts as AlertSubscriber[]
+}
+
+export interface EmailStats {
+  requests: number
+  delivered: number
+  opens: number
+  uniqueOpens: number
+  clicks: number
+  uniqueClicks: number
+}
+
+export async function fetchEmailStats(): Promise<EmailStats | null> {
+  const res = await fetch(`${API_BASE}/api/tournaments/alerts/email-stats`, { headers: adminHeaders() })
+  if (!res.ok) return null
+  const data = await res.json()
+  if (data.error) return null
+  return data as EmailStats
 }
 
 export async function subscribeEmail(email: string): Promise<{ ok: boolean; already?: boolean }> {

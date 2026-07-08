@@ -164,15 +164,21 @@ def _parse_row(row) -> dict[str, Any] | None:
     ends_at = None
     weekday = ""
     if len(date_spans) >= 2:
-        # spans: ['Fr. 05.06.2026', '15:00', 'So. 07.06.2026', '15:00'] (multi-day)
-        # or:    ['Sa. 06.06.2026', '09:00'] (single day)
+        # spans after filtering ',' and '-':
+        #   multi-day:  ['Fr. 05.06.2026', '15:00', 'So. 07.06.2026', '15:00']
+        #   single-day: ['Sa. 06.06.2026', '16:00', '22:00']
+        #   single-day: ['Sa. 06.06.2026', '09:00']
         for i, s in enumerate(date_spans):
             if re.match(r"[A-Za-z]+\.", s):  # weekday prefix → date
                 if starts_at is None and i + 1 < len(date_spans):
                     starts_at = _parse_datetime(s, date_spans[i + 1])
-                    # Extract weekday abbreviation
                     wday_abbr = s.split(".")[0] + "."
                     weekday = _WEEKDAY_MAP.get(wday_abbr, "")
+                    # Check if the item after the start time is a plain end time
+                    # (no weekday prefix) — that means same-day end, e.g. '22:00'
+                    if i + 2 < len(date_spans) and not re.match(r"[A-Za-z]+\.", date_spans[i + 2]):
+                        if re.match(r"\d{1,2}:\d{2}", date_spans[i + 2]):
+                            ends_at = _parse_datetime(s, date_spans[i + 2])
                 elif starts_at is not None and i + 1 < len(date_spans):
                     ends_at = _parse_datetime(s, date_spans[i + 1])
                     break

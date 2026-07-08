@@ -1,13 +1,16 @@
+import { useState, useRef, useEffect } from "react"
+import { Link } from "react-router-dom"
 import type { Tournament } from "../types"
 import { isNew, opensSoon } from "../tournamentBadges"
-import { exportToCalendar, exportRegistrationReminder } from "../utils/icsExport"
+import { exportToCalendar, exportRegistrationReminder, googleCalendarUrl } from "../utils/icsExport"
+import { formatDate, formatDateRange } from "../utils/tournamentFormat"
 
 function spotsLeft(t: Tournament): number | null {
   if (!t.participants_max) return null
   return Math.max(0, t.participants_max - t.participants_current)
 }
 
-function StatusBadge({ t }: { t: Tournament }) {
+export function StatusBadge({ t }: { t: Tournament }) {
   const spots = spotsLeft(t)
 
   if (t.status === "open" && spots !== null && spots > 0) {
@@ -57,40 +60,8 @@ function StatusBadge({ t }: { t: Tournament }) {
   return null
 }
 
-function formatDate(isoStr: string | null, includeYear = true): string {
-  if (!isoStr) return ""
-  const d = new Date(isoStr)
-  return d.toLocaleDateString("de-AT", {
-    weekday: "short", day: "2-digit", month: "2-digit",
-    ...(includeYear ? { year: "numeric" } : {}),
-  })
-}
 
-function formatTime(isoStr: string | null): string {
-  if (!isoStr) return ""
-  const d = new Date(isoStr)
-  return d.toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" })
-}
-
-function isSameDay(a: string, b: string): boolean {
-  return a.slice(0, 10) === b.slice(0, 10)
-}
-
-function formatDateRange(starts: string | null, ends: string | null): string {
-  if (!starts) return ""
-  if (!ends || ends === starts) {
-    // No end info — just show start
-    return `${formatDate(starts)}, ${formatTime(starts)} Uhr`
-  }
-  if (isSameDay(starts, ends)) {
-    // Same day — show date once, time range
-    return `${formatDate(starts)}, ${formatTime(starts)} – ${formatTime(ends)} Uhr`
-  }
-  // Multi-day — show date range (omit year on start to save space)
-  return `${formatDate(starts, false)} – ${formatDate(ends)}`
-}
-
-function CategoryPill({ label }: { label: string }) {
+export function CategoryPill({ label }: { label: string }) {
   return (
     <span
       className="text-xs px-1.5 py-0.5 rounded"
@@ -154,25 +125,74 @@ function BookmarkButton({ isBookmarked, onBookmark }: { isBookmarked: boolean; o
   )
 }
 
+export function CalendarDropdown({ t }: { t: Tournament }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener("mousedown", onOutside)
+    return () => document.removeEventListener("mousedown", onOutside)
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={e => { e.preventDefault(); e.stopPropagation(); setOpen(o => !o) }}
+        className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors"
+        title="Turnier zum Kalender hinzufügen"
+      >
+        + Kalender
+      </button>
+      {open && (
+        <div
+          className="absolute right-0 top-full mt-1 rounded-lg border z-20 overflow-hidden"
+          style={{ background: "#111118", borderColor: "rgba(107,114,128,0.4)", minWidth: "130px" }}
+          onClick={e => e.stopPropagation()}
+        >
+          <a
+            href={googleCalendarUrl(t)}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setOpen(false)}
+            className="flex items-center gap-2 w-full text-left text-[11px] px-3 py-2 text-gray-400 hover:text-white transition-colors"
+            style={{ textDecoration: "none" }}
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.06)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+          >
+            Google Kalender
+          </a>
+          <button
+            onClick={e => { e.preventDefault(); e.stopPropagation(); exportToCalendar(t); setOpen(false) }}
+            className="flex items-center gap-2 w-full text-left text-[11px] px-3 py-2 text-gray-400 hover:text-white transition-colors"
+            onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.06)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+          >
+            Apple / .ics
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function TournamentCard({ t, showLink, showShare, isBookmarked, onBookmark }: { t: Tournament; showLink?: boolean; showShare?: boolean; isBookmarked?: boolean; onBookmark?: () => void }) {
   const newBadge = isNew(t)
   const soonBadge = opensSoon(t)
   const isOpen = t.status === "open" || t.status === "not_open_yet"
-  // padel-austria.at redirects expired tournament URLs to homepage — only link active ones
-  // showLink overrides this (e.g. Meine Turniere where player is still competing)
   const isLinkable = showLink
-    ? !!t.source_url
+    ? !!t.source_id
     : t.status === "open" || t.status === "not_open_yet" || t.status === "full"
-  const Tag = isLinkable ? "a" : "div"
+  const detailUrl = `/turnierjaeger/turnier/${t.source_id}`
 
-  return (
-    <Tag
-      {...(isLinkable ? { href: t.source_url, target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="block px-4 py-3 transition-colors"
-      style={{ opacity: isOpen ? 1 : 0.55 }}
-      onMouseEnter={e => (e.currentTarget.style.background = "rgba(212,245,60,0.04)")}
-      onMouseLeave={e => (e.currentTarget.style.background = "")}
-    >
+  const hoverStyle = { background: "rgba(212,245,60,0.04)" }
+  const wrapperClass = "block px-4 py-3 transition-colors"
+  const wrapperStyle = { opacity: isOpen ? 1 : 0.55 }
+
+  const inner = (
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
           {/* Title row */}
@@ -214,13 +234,7 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
                   ⏰ Anmeldung
                 </button>
               )}
-              <button
-                onClick={e => { e.preventDefault(); e.stopPropagation(); exportToCalendar(t) }}
-                className="text-[10px] text-gray-600 hover:text-gray-400 transition-colors"
-                title="Turnier zum Kalender hinzufügen"
-              >
-                + Kalender
-              </button>
+              <CalendarDropdown t={t} />
             </div>
           </div>
         </div>
@@ -239,6 +253,25 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
           )}
         </div>
       </div>
-    </Tag>
+  )
+
+  if (isLinkable) {
+    return (
+      <Link
+        to={detailUrl}
+        className={wrapperClass}
+        style={wrapperStyle}
+        onMouseEnter={e => (e.currentTarget.style.background = hoverStyle.background)}
+        onMouseLeave={e => (e.currentTarget.style.background = "")}
+      >{inner}</Link>
+    )
+  }
+  return (
+    <div
+      className={wrapperClass}
+      style={wrapperStyle}
+      onMouseEnter={e => (e.currentTarget.style.background = hoverStyle.background)}
+      onMouseLeave={e => (e.currentTarget.style.background = "")}
+    >{inner}</div>
   )
 }

@@ -1,10 +1,20 @@
-import { lazy, Suspense, useEffect, Component, type ReactNode } from "react"
+import { lazy, Suspense, useEffect, Component, type ReactNode, type ComponentType } from "react"
 import * as Sentry from "@sentry/react"
 import { Routes, Route, Navigate, useLocation } from "react-router-dom"
 import { trackPageview } from "./api"
 import LoadingCat from "./components/LoadingCat"
 import PageShell from "./components/PageShell"
 import FinderPage from "./pages/FinderPage"
+
+// Auto-reload once on chunk fetch failure (stale deploy cache)
+function lazyWithReload<T extends ComponentType>(factory: () => Promise<{ default: T }>) {
+  return lazy(() =>
+    factory().catch(() => {
+      window.location.reload()
+      return new Promise<never>(() => {})
+    })
+  )
+}
 
 class ErrorBoundary extends Component<{ children: ReactNode }, { crashed: boolean }> {
   state = { crashed: false }
@@ -30,18 +40,20 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { crashed: boolea
   }
 }
 
-const AdminDashboard            = lazy(() => import("./pages/AdminDashboard"))
-const TurnierjagerPage          = lazy(() => import("./pages/TurnierjagerPage"))
-const TurnierjagerMinePage      = lazy(() => import("./pages/TurnierjagerMinePage"))
-const SpielanalysePage = lazy(() => import("./pages/SpielanalysePage"))
-const PadelrevierPage     = lazy(() => import("./pages/PadelrevierPage"))
-const PadelrevierCityPage = lazy(() => import("./pages/PadelrevierCityPage"))
-const PadelquartierPage   = lazy(() => import("./pages/PadelquartierPage"))
-const PadelquartierDetailPage = lazy(() => import("./pages/PadelquartierDetailPage"))
-const CourtDetailPage  = lazy(() => import("./pages/CourtDetailPage"))
-const DatenschutzPage  = lazy(() => import("./pages/DatenschutzPage"))
-const ImprintPage      = lazy(() => import("./pages/ImprintPage"))
-const AboutSection     = lazy(() => import("./components/AboutSection"))
+const AdminDashboard            = lazyWithReload(() => import("./pages/AdminDashboard"))
+const TurnierjagerPage          = lazyWithReload(() => import("./pages/TurnierjagerPage"))
+const TurnierjagerMinePage      = lazyWithReload(() => import("./pages/TurnierjagerMinePage"))
+const SpielanalysePage          = lazyWithReload(() => import("./pages/SpielanalysePage"))
+const TournamentDetailPage      = lazyWithReload(() => import("./pages/TournamentDetailPage"))
+const PadelrevierPage           = lazyWithReload(() => import("./pages/PadelrevierPage"))
+const PadelrevierCityPage       = lazyWithReload(() => import("./pages/PadelrevierCityPage"))
+const PadelquartierPage         = lazyWithReload(() => import("./pages/PadelquartierPage"))
+const PadelquartierDetailPage   = lazyWithReload(() => import("./pages/PadelquartierDetailPage"))
+const CourtDetailPage           = lazyWithReload(() => import("./pages/CourtDetailPage"))
+const DatenschutzPage           = lazyWithReload(() => import("./pages/DatenschutzPage"))
+const ImprintPage               = lazyWithReload(() => import("./pages/ImprintPage"))
+const AGBPage                   = lazyWithReload(() => import("./pages/AGBPage"))
+const AboutSection              = lazyWithReload(() => import("./components/AboutSection"))
 
 export default function App() {
   const location = useLocation()
@@ -57,6 +69,7 @@ export default function App() {
         <Route path="/admin"        element={<AdminDashboard />} />
         <Route path="/turnierjaeger"           element={<PageShell><TurnierjagerPage /></PageShell>} />
         <Route path="/turnierjaeger/meine"           element={<PageShell><TurnierjagerMinePage /></PageShell>} />
+        <Route path="/turnierjaeger/turnier/:sourceId"  element={<PageShell><TournamentDetailPage /></PageShell>} />
         <Route path="/turnierjaeger/spielanalyse"     element={<PageShell><SpielanalysePage /></PageShell>} />
         <Route path="/turnierjaeger/spielanalyse/:slug" element={<PageShell><SpielanalysePage /></PageShell>} />
         <Route path="/turnierjaeger/merkliste"        element={<Navigate to="/turnierjaeger/meine" replace />} />
@@ -70,6 +83,7 @@ export default function App() {
         <Route path="/about"        element={<PageShell><AboutSection /></PageShell>} />
         <Route path="/datenschutz"  element={<PageShell><DatenschutzPage /></PageShell>} />
         <Route path="/impressum"    element={<PageShell><ImprintPage /></PageShell>} />
+        <Route path="/agb"          element={<PageShell><AGBPage /></PageShell>} />
         <Route path="/*"            element={<FinderPage />} />
         </Routes>
       </Suspense>

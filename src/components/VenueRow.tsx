@@ -99,7 +99,7 @@ export default function VenueRow({ venue, pollingActive, searchDate, highlighted
     : venue.booking_url
 
   const bookingLabel = venue.status === "free"
-    ? "JETZT BUCHEN →"
+    ? "ZUSCHLAGEN →"
     : isPhoneOnly
       ? "WEBSITE →"
       : "LINK →"

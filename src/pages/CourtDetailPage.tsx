@@ -112,7 +112,7 @@ export default function CourtDetailPage() {
   // SEO handled via <Helmet> below — no manual document.title needed
 
   if (state === "loading") {
-    return <div className="py-16 text-center text-gray-600 text-sm">Lädt …</div>
+    return <div className="py-16 text-center text-gray-600 text-sm">Yara holt die Fakten …</div>
   }
   if (state === "notfound") {
     return (
@@ -151,7 +151,7 @@ export default function CourtDetailPage() {
     "@context": "https://schema.org",
     "@type": "SportsActivityLocation",
     "name": d.name,
-    "url": `https://padelyara.at/court/${d.id}`,
+    "url": `https://www.padelyara.at/court/${d.id}`,
     ...(d.address ? { "address": d.address } : {}),
     ...(d.lat != null && d.lon != null
       ? { "geo": { "@type": "GeoCoordinates", "latitude": d.lat, "longitude": d.lon } }
@@ -165,7 +165,7 @@ export default function CourtDetailPage() {
       <Helmet>
         <title>{pageTitle}</title>
         <meta name="description" content={metaDesc} />
-        <link rel="canonical" href={`https://padelyara.at/court/${d.id}`} />
+        <link rel="canonical" href={`https://www.padelyara.at/court/${d.id}`} />
         <script type="application/ld+json">{JSON.stringify(ld)}</script>
       </Helmet>
 
@@ -315,7 +315,7 @@ export default function CourtDetailPage() {
         {sent ? (
           <>
             <h3>Hat Yara.</h3>
-            <p>Danke. Sie prüft's und ergänzt's.</p>
+            <p>Sie prüft's. Wenn's stimmt, steht's bald hier.</p>
           </>
         ) : (
           <>

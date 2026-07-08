@@ -186,6 +186,15 @@ async def get_player_history(slug: str = Query(...)):
     }
 
 
+@router.get("/api/tournaments/{source_id}")
+async def get_tournament_detail(source_id: str):
+    """Return a single tournament by source_id. 404 if not found."""
+    t = await tournaments_mongo.get_tournament_by_source_id(source_id)
+    if not t:
+        raise HTTPException(status_code=404, detail="Tournament not found")
+    return t
+
+
 @router.post("/api/admin/scrape-tournaments", dependencies=[Depends(_require_admin)])
 async def trigger_tournament_scrape():
     """Manually trigger a tournament scrape (admin only)."""

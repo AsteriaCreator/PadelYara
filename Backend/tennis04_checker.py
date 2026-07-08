@@ -71,6 +71,19 @@ def _cache_key(venue_id: str, dt: datetime) -> str:
     return f"{venue_id}*{dt.strftime('%Y-%m-%d')}*{dt.strftime('%H:%M')}"
 
 
+def _purge_cache(now: float) -> None:
+    """Drop entries past their TTL. _CACHE is keyed by venue*date*time, so stale
+    entries are never read again — without this they accumulate forever and leak
+    memory over a deployment's lifetime. Iterate over a snapshot: writes happen
+    from the scraper thread."""
+    for k, entry in list(_CACHE.items()):
+        if now - entry["timestamp"] >= _TTL:
+            del _CACHE[k]
+    for vid, ts in list(_COOLDOWN.items()):
+        if now - ts >= _COOLDOWN_TTL:
+            _COOLDOWN.pop(vid, None)
+
+
 def _scrape_key(venue_ids: list[str], dt: datetime) -> str:
     """Stable key for a set of venues at a given date+hour+minute, used to deduplicate in-flight scrapes."""
     return "|".join(sorted(venue_ids)) + f"@{dt.strftime('%Y-%m-%dT%H:%M')}"
@@ -545,6 +558,7 @@ def check_tennis04_venues(venues: list[dict], dt: datetime) -> dict[str, str]:
         return {}
 
     now = time.time()
+    _purge_cache(now)
     cached: dict[str, str] = {}
     to_fetch: list[dict] = []
 

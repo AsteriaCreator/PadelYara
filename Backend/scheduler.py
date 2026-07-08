@@ -72,7 +72,7 @@ async def _dispatch_alerts(today_start) -> None:
     from venues_mongo import _get_db
     db = _get_db()
     cursor = db["tournaments"].find(
-        {"first_seen_at": {"$gte": today_start.isoformat()}},
+        {"first_seen_at": {"$gte": today_start}},
         {"source_id": 1},
     )
     new_ids = [doc["source_id"] async for doc in cursor]

@@ -155,7 +155,7 @@ async def upsert_tournaments(
 
         # Detail-page dates come from a per-tournament fetch that can transiently
         # fail. Never overwrite a previously-stored registration date with None.
-        for f in ("registration_opens_at", "registration_closes_at"):
+        for f in ("registration_opens_at", "registration_closes_at", "ends_at"):
             if update_fields.get(f) is None:
                 update_fields.pop(f, None)
 
@@ -354,6 +354,20 @@ async def search_players(query: str) -> list[dict]:
     ]
     results = await col.aggregate(pipeline).to_list(10)
     return [{"slug": r["_id"], "name": r["name"]} for r in results if r.get("_id")]
+
+
+async def get_tournament_by_source_id(source_id: str) -> dict | None:
+    """Return a single tournament by source_id, or None if not found."""
+    col = _col()
+    doc = await col.find_one({"source_id": source_id}, {"_id": 0})
+    if doc is None:
+        return None
+    for field in ("starts_at", "ends_at", "first_seen_at", "last_seen_at",
+                  "registration_opens_at", "registration_closes_at"):
+        if isinstance(doc.get(field), datetime):
+            doc[field] = doc[field].isoformat()
+    doc.pop("entries", None)
+    return doc
 
 
 async def get_tournaments_by_ids(source_ids: list[str]) -> list[dict]:

@@ -1,3 +1,4 @@
+import html
 import json
 import os
 import re
@@ -12,8 +13,6 @@ from pydantic import BaseModel
 from auth import _require_admin
 
 router = APIRouter()
-
-from auth import _require_admin  # noqa: E402
 
 _BREVO_API_KEY = os.environ.get("BREVO_API_KEY", "")
 _FRONTEND_URL = os.environ.get("FRONTEND_URL", "https://www.padelyara.at")
@@ -56,7 +55,7 @@ def _format_filters_html(filters: dict) -> str:
             rows.append(
                 f'<tr>'
                 f'<td style="color:#6b7280;font-size:12px;padding:3px 12px 3px 0;white-space:nowrap">{label}</td>'
-                f'<td style="color:#d1d5db;font-size:12px;padding:3px 0">{", ".join(values)}</td>'
+                f'<td style="color:#d1d5db;font-size:12px;padding:3px 0">{html.escape(", ".join(values))}</td>'
                 f'</tr>'
             )
     if not rows:
@@ -77,29 +76,40 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         f"Danach melde ich mich. Wenn es sich lohnt.\n\n"
         f"— Yara"
     )
-    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:520px;margin:0 auto">
-<p style="margin:0 0 36px"><img src="https://www.padelyara.at/logo-white.svg" alt="PadelYara" style="height:28px;width:auto"></p>
+    email_html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+<div style="max-width:520px;margin:0 auto">
+  <p style="margin:0 0 32px;font-size:20px;font-weight:900;color:#d4f53c;letter-spacing:0.04em">PadelYara</p>
 
-<p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Du willst wissen, wenn neue Turniere kommen.</p>
+  <p style="font-size:16px;color:#d1d5db;margin:0 0 12px;line-height:1.7">Du willst wissen, wenn neue Turniere kommen.</p>
 
-<div style="margin:0 0 28px;padding:16px 20px;border-radius:10px;border:1px solid rgba(212,245,60,0.15);background:rgba(212,245,60,0.04)">
-  <p style="font-size:11px;color:#6b7280;margin:0 0 10px;text-transform:uppercase;letter-spacing:0.08em">Dein Jagd-Alarm</p>
-  {filters_html}
+  <div style="margin:0 0 28px;padding:16px 20px;border-radius:10px;border-left:3px solid #d4f53c;border-top:1px solid #2a2a2a;border-right:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a;background:#0d1a00">
+    <p style="font-size:11px;color:#d4f53c;margin:0 0 10px;text-transform:uppercase;letter-spacing:0.08em;font-weight:700">Dein Jagdauftrag</p>
+    {filters_html}
+  </div>
+
+  <p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Verständlich.</p>
+
+  <p style="margin:0 0 32px">
+    <a href="{confirm_url}"
+       style="display:inline-block;background:#d4f53c;color:#000000;font-weight:700;
+              font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
+              padding:14px 28px;border-radius:8px;text-decoration:none">
+      Jagd-Alarm aktivieren
+    </a>
+  </p>
+
+  <p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Danach melde ich mich. Wenn es sich lohnt.</p>
+  <p style="color:#9ca3af;font-size:13px;margin:0 0 32px">— Yara</p>
+
+  <div style="padding-top:16px;border-top:1px solid #1f1f1f">
+    <p style="margin:0 0 6px;font-size:12px">
+      <a href="{_FRONTEND_URL}" style="color:#d4f53c;text-decoration:none;font-weight:700">padelyara.at</a>
+    </p>
+    <p style="margin:0;font-size:11px;color:#4b5563">
+      Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at eingerichtet hast.
+    </p>
+  </div>
 </div>
-
-<p style="font-size:16px;color:#d1d5db;margin:0 0 28px;line-height:1.7">Verständlich.</p>
-
-<p style="margin:0 0 32px">
-  <a href="{confirm_url}"
-     style="display:inline-block;background:#d4f53c;color:#000000;font-weight:700;
-            font-size:14px;letter-spacing:0.06em;text-transform:uppercase;
-            padding:14px 28px;border-radius:8px;text-decoration:none">
-    Jagd-Alarm aktivieren
-  </a>
-</p>
-
-<p style="font-size:16px;color:#d1d5db;margin:0 0 32px;line-height:1.7">Danach melde ich mich. Wenn es sich lohnt.</p>
-<p style="color:#6b7280;font-size:13px;margin:32px 0 0">— Yara</p>
 </body></html>"""
 
     payload = {
@@ -107,7 +117,9 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         "to": [{"email": to_email}],
         "subject": "Jagd-Alarm einrichten.",
         "textContent": text,
-        "htmlContent": html,
+        "htmlContent": email_html,
+        "trackOpens": True,
+        "trackClicks": True,
     }
     async with httpx.AsyncClient() as client:
         resp = await client.post(
@@ -120,57 +132,148 @@ async def _send_confirmation_email(to_email: str, token: str, filters: dict) -> 
         print(json.dumps({"event": "brevo_error_alerts", "status": resp.status_code, "body": resp.text}))
 
 
+def _format_reg_deadline(t: dict) -> str:
+    """Return a human-readable registration deadline string, or empty string if unknown."""
+    raw = t.get("registration_closes_at")
+    if not raw:
+        return ""
+    try:
+        from datetime import datetime, timezone
+        if isinstance(raw, datetime):
+            dt = raw
+        else:
+            dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+        return f"{dt.day}.{dt.month}.{dt.year}"
+    except Exception:
+        return str(raw)[:10] if raw else ""
+
+
 async def _send_notification_email(
     to_email: str,
     unsubscribe_token: str,
     matched_tournaments: list[dict],
+    alert_filters: dict | None = None,
 ) -> None:
     count = len(matched_tournaments)
-    plural_s = "s" if count == 1 else ""
-    plural_e = "e" if count != 1 else ""
-    subject = f"{count} neue{plural_s} Turnier{plural_e} für deine Jagd."
+    subject = f"{count} neues Turnier für deine Jagd." if count == 1 else f"{count} neue Turniere für deine Jagd."
 
     unsubscribe_url = f"{_BACKEND_URL}/api/tournaments/alerts/unsubscribe?token={unsubscribe_token}"
+    manage_url = f"{_FRONTEND_URL}/turnierjaeger?jagdalarm=open"
+
+    # Build filter summary line for "Du bekommst das weil:" section
+    filter_parts: list[str] = []
+    if alert_filters:
+        for key in ("bundesland", "category", "competition", "weekday", "venue_name"):
+            vals = alert_filters.get(key) or []
+            filter_parts.extend(vals)
 
     def _tournament_card(t: dict) -> str:
-        title = t.get("title", "Turnier")
-        date_str = t.get("start_date") or t.get("date") or ""
+        # Escape all scraped text — a title like "Herren <40" or "Damen & Co"
+        # would otherwise break the email HTML or inject markup.
+        title = html.escape(t.get("title", "Turnier"))
+        date_str = html.escape(t.get("start_date") or t.get("date") or "")
+        venue = t.get("venue_name", "")
         category = t.get("category", "")
         competition = t.get("competition", "")
         bundesland = t.get("bundesland", "")
-        source_url = t.get("source_url", "")
-        meta_parts = [x for x in [category, competition, bundesland] if x]
-        meta_line = " · ".join(meta_parts)
+        source_id = t.get("source_id", "")
+        detail_url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
+        deadline = _format_reg_deadline(t)
+        meta_parts = [x for x in [venue, category, competition, bundesland] if x]
+        meta_line = html.escape(" · ".join(meta_parts))
+        deadline_html = (
+            f'<p style="margin:0 0 8px;font-size:12px;color:#fbbf24;font-weight:600">'
+            f'Anmeldeschluss: {html.escape(deadline)}</p>'
+        ) if deadline else ""
+        p_max = t.get("participants_max") or 0
+        p_cur = t.get("participants_current") or 0
+        spots_left = max(0, p_max - p_cur) if p_max else None
+        if spots_left is None:
+            spots_html = ""
+        elif spots_left == 0:
+            spots_html = '<p style="margin:0 0 8px;font-size:12px;color:#f87171;font-weight:600">Warteliste.</p>'
+        elif spots_left <= 5:
+            label = "Platz" if spots_left == 1 else "Plätze"
+            spots_html = f'<p style="margin:0 0 8px;font-size:12px;color:#fbbf24;font-weight:600">Noch {spots_left} {label} frei.</p>'
+        else:
+            spots_html = ""
         return f"""
-<div style="border:1px solid rgba(212,245,60,0.15);border-radius:10px;padding:16px 20px;margin:0 0 12px">
+<div style="border:1px solid #2a2a2a;border-radius:10px;padding:16px 20px;margin:0 0 12px;background:#111111">
   <p style="margin:0 0 4px;font-size:15px;font-weight:700;color:#ffffff">{title}</p>
-  {f'<p style="margin:0 0 4px;font-size:12px;color:#6b7280">{date_str}</p>' if date_str else ''}
-  {f'<p style="margin:0 0 10px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
-  {f'<a href="{source_url}" style="font-size:12px;color:#d4f53c;text-decoration:none;font-weight:600">Zum Turnier →</a>' if source_url else ''}
+  {f'<p style="margin:0 0 4px;font-size:12px;color:#9ca3af">{date_str}</p>' if date_str else ''}
+  {f'<p style="margin:0 0 8px;font-size:12px;color:#6b7280">{meta_line}</p>' if meta_line else ''}
+  {deadline_html}
+  {spots_html}
+  {f'<a href="{detail_url}" style="font-size:13px;color:#d4f53c;text-decoration:none;font-weight:700">Zum Turnier →</a>' if detail_url else ''}
 </div>"""
 
     cards_html = "".join(_tournament_card(t) for t in matched_tournaments)
 
-    text_lines = [f"{count} neue{plural_s} Turnier{plural_e} passend zu deinem Jagd-Alarm:\n"]
+    filter_badge_html = ""
+    if filter_parts:
+        badges = "".join(
+            f'<span style="display:inline-block;background:#1a1a1a;color:#9ca3af;border:1px solid #2a2a2a;'
+            f'font-size:11px;padding:2px 8px;border-radius:4px;margin:0 4px 4px 0">{html.escape(p)}</span>'
+            for p in filter_parts
+        )
+        filter_badge_html = f"""
+<div style="margin:20px 0 0;padding:14px 16px;background:#0d1a00;border-radius:8px;border-left:3px solid #d4f53c;border-top:1px solid #2a2a2a;border-right:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a">
+  <p style="margin:0 0 6px;font-size:11px;color:#d4f53c;text-transform:uppercase;letter-spacing:0.08em;font-weight:700">Dein Jagdauftrag</p>
+  <div style="margin-bottom:10px">{badges}</div>
+  <a href="{manage_url}" style="font-size:11px;color:#d4f53c;text-decoration:none">Filter ändern →</a>
+</div>"""
+
+    # Plain text
+    text_lines = [f"Treffer.\n\n{count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.\n"]
     for t in matched_tournaments:
         title = t.get("title", "Turnier")
         date_str = t.get("start_date") or t.get("date") or ""
-        url = t.get("source_url", "")
-        text_lines.append(f"- {title}{' - ' + date_str if date_str else ''}")
+        deadline = _format_reg_deadline(t)
+        source_id = t.get("source_id", "")
+        url = f"{_FRONTEND_URL}/turnierjaeger/turnier/{source_id}" if source_id else ""
+        text_lines.append(f"- {title}{' — ' + date_str if date_str else ''}")
+        if deadline:
+            text_lines.append(f"  Anmeldeschluss: {deadline}")
+        p_max = t.get("participants_max") or 0
+        p_cur = t.get("participants_current") or 0
+        if p_max:
+            spots = max(0, p_max - p_cur)
+            if spots == 0:
+                text_lines.append("  Warteliste.")
+            elif spots <= 5:
+                text_lines.append(f"  Noch {spots} {'Platz' if spots == 1 else 'Plätze'} frei.")
         if url:
             text_lines.append(f"  {url}")
-    text_lines.append(f"\nKeine weiteren Hinweise: {unsubscribe_url}")
+    if filter_parts:
+        text_lines.append(f"\nDein Jagdauftrag: {' · '.join(filter_parts)}")
+        text_lines.append(f"Filter ändern: {manage_url}")
+    text_lines.append("\nMach was draus.\n\n— Yara")
+    text_lines.append(f"\npadelyara.at")
+    text_lines.append(f"Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at aktiviert hast.")
+    text_lines.append(f"Abmelden: {unsubscribe_url}")
     text = "\n".join(text_lines)
 
-    html = f"""<html><body style="background:#0a0a0a;color:#d1d5db;font-family:sans-serif;padding:40px;max-width:560px;margin:0 auto">
-<p style="margin:0 0 28px"><img src="https://www.padelyara.at/logo-white.svg" alt="PadelYara" style="height:28px;width:auto"></p>
-<p style="font-size:15px;color:#d1d5db;margin:0 0 24px;line-height:1.6">
-  {count} neue{plural_s} Turnier{plural_e} für deine Jagd.
-</p>
-{cards_html}
-<p style="margin:32px 0 0;border-top:1px solid rgba(107,114,128,0.2);padding-top:16px">
-  <a href="{unsubscribe_url}" style="font-size:11px;color:#6b7280;text-decoration:none">Keine weiteren Hinweise.</a>
-</p>
+    email_html = f"""<html><body style="background:#0a0a0a;font-family:Arial,sans-serif;padding:32px 16px;margin:0">
+<div style="max-width:560px;margin:0 auto">
+  <p style="margin:0 0 32px;font-size:20px;font-weight:900;color:#d4f53c;letter-spacing:0.04em">PadelYara</p>
+  <p style="font-size:16px;color:#ffffff;margin:0 0 4px;font-weight:700">
+    {count} {'neues Turnier' if count == 1 else 'neue Turniere'} für deine Jagd.
+  </p>
+  <p style="font-size:13px;color:#d4f53c;margin:0 0 24px;font-weight:600">Treffer.</p>
+  {cards_html}
+  {filter_badge_html}
+  <p style="font-size:14px;color:#6b7280;margin:24px 0 4px">Mach was draus.</p>
+  <p style="font-size:14px;color:#9ca3af;margin:0 0 32px">— Yara</p>
+  <div style="padding-top:16px;border-top:1px solid #1f1f1f">
+    <p style="margin:0 0 6px;font-size:12px">
+      <a href="{_FRONTEND_URL}" style="color:#d4f53c;text-decoration:none;font-weight:700">padelyara.at</a>
+    </p>
+    <p style="margin:0;font-size:11px;color:#4b5563">
+      Du erhältst diese E-Mail weil du einen Jagd-Alarm auf padelyara.at aktiviert hast. &nbsp;·&nbsp;
+      <a href="{unsubscribe_url}" style="color:#4b5563;text-decoration:none">Abmelden</a>
+    </p>
+  </div>
+</div>
 </body></html>"""
 
     payload = {
@@ -178,7 +281,9 @@ async def _send_notification_email(
         "to": [{"email": to_email}],
         "subject": subject,
         "textContent": text,
-        "htmlContent": html,
+        "htmlContent": email_html,
+        "trackOpens": True,
+        "trackClicks": True,
     }
     async with httpx.AsyncClient() as client:
         resp = await client.post(
@@ -246,7 +351,7 @@ async def send_alert_notifications(db, new_tournament_ids: list[str]) -> None:
             "count": len(matched),
         }))
         try:
-            await _send_notification_email(email, unsubscribe_token, matched)
+            await _send_notification_email(email, unsubscribe_token, matched, alert_filters)
             await db["tournament_alerts"].update_one(
                 {"_id": alert["_id"]},
                 {"$set": {"last_notified_at": now_iso}},
@@ -271,6 +376,66 @@ class AlertBody(BaseModel):
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
+
+_ADMIN_EMAIL = os.environ.get("ADMIN_EMAIL", "mayer.conny@gmail.com")
+
+@router.get("/api/tournaments/alerts/email-stats", dependencies=[Depends(_require_admin)])
+async def alert_email_stats():
+    """Fetch Brevo transactional email stats for the last 30 days, excluding the admin email."""
+    from datetime import date, timedelta
+    end = date.today()
+    start = end - timedelta(days=30)
+    params_base = {"startDate": str(start), "endDate": str(end), "limit": 100}
+
+    delivered_ids: set[str] = set()
+    opened_emails: set[str] = set()
+    clicked_emails: set[str] = set()
+    total_opens = 0
+    total_clicks = 0
+
+    async with httpx.AsyncClient() as client:
+        for event_type, target_set, is_count_only in [
+            ("delivered", delivered_ids, False),
+            ("opened",    opened_emails, False),
+            ("clicks",    clicked_emails, False),
+        ]:
+            offset = 0
+            while True:
+                resp = await client.get(
+                    "https://api.brevo.com/v3/smtp/statistics/events",
+                    params={**params_base, "event": event_type, "offset": offset},
+                    headers={"api-key": _BREVO_API_KEY},
+                    timeout=10,
+                )
+                if resp.status_code >= 400:
+                    break
+                events = resp.json().get("events", [])
+                for ev in events:
+                    email = ev.get("email", "")
+                    if email == _ADMIN_EMAIL:
+                        continue
+                    msg_id = ev.get("messageId", "") or ev.get("subject", "") + email
+                    if event_type == "delivered":
+                        delivered_ids.add(msg_id)
+                    elif event_type == "opened":
+                        opened_emails.add(email)
+                        total_opens += 1
+                    elif event_type == "clicks":
+                        clicked_emails.add(email)
+                        total_clicks += 1
+                if len(events) < 100:
+                    break
+                offset += 100
+
+    return {
+        "requests": len(delivered_ids),
+        "delivered": len(delivered_ids),
+        "opens": total_opens,
+        "uniqueOpens": len(opened_emails),
+        "clicks": total_clicks,
+        "uniqueClicks": len(clicked_emails),
+    }
+
 
 @router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
 async def alerts_count():
@@ -350,23 +515,15 @@ async def confirm_alert(token: str = Query(...)):
     )
 
 
-@router.get("/api/tournaments/alerts/count", dependencies=[Depends(_require_admin)])
-async def alert_count():
-    """Admin: return count of confirmed Jagd-Alarm subscriptions."""
+@router.get("/api/tournaments/alerts/list", dependencies=[Depends(_require_admin)])
+async def alerts_list():
+    """Admin: list all Jagd-Alarm subscriptions (confirmed + pending)."""
     from venues_mongo import _get_db
     db = _get_db()
-    count = await db["tournament_alerts"].count_documents({"confirmed": True})
-    return {"count": count}
-
-
-@router.get("/api/tournaments/alerts/stats", dependencies=[Depends(_require_admin)])
-async def alert_stats():
-    """Admin: return subscriber counts for Jagd-Alarm."""
-    from venues_mongo import _get_db
-    db = _get_db()
-    total = await db["tournament_alerts"].count_documents({})
-    confirmed = await db["tournament_alerts"].count_documents({"confirmed": True})
-    return {"total": total, "confirmed": confirmed, "pending": total - confirmed}
+    docs = await db["tournament_alerts"].find(
+        {}, {"confirm_token": 0, "unsubscribe_token": 0, "_id": 0}
+    ).sort("created_at", -1).to_list(length=500)
+    return {"alerts": docs}
 
 
 @router.get("/api/tournaments/alerts/unsubscribe")

@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async"
 import { useState, useEffect, useCallback } from "react"
 import type { Tournament } from "../types"
 import TournamentCard from "../components/TournamentCard"
+import TournamentCalendar from "../components/TournamentCalendar"
 import TurnierjagerNav from "../components/TurnierjagerNav"
 import JagdAlarmModal from "../components/JagdAlarmModal"
 import { opensSoon } from "../tournamentBadges"
@@ -349,30 +350,30 @@ export default function TurnierjagerPage() {
   const [expandedBl, setExpandedBl] = useState<string[]>([])
   const [venueExpanded, setVenueExpanded] = useState(false)
   const [jagdAlarmOpen, setJagdAlarmOpen] = useState(false)
+  const [view, setView] = useState<"list" | "calendar">("list")
   const [alertBanner, setAlertBanner] = useState<string | null>(null)
 
   const { merkliste, toggleMerkliste } = useMerkliste()
 
-  // Handle ?alert= query param from email confirmation/unsubscribe redirects
+  // Handle ?alert= and ?jagdalarm= query params from email links
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const alertParam = params.get("alert")
-    if (!alertParam) return
     const messages: Record<string, string> = {
       confirmed: "Jagd-Alarm aktiv. Du wirst informiert.",
       unsubscribed: "Jagd-Alarm deaktiviert.",
       invalid: "Link ungültig oder bereits verwendet.",
     }
-    const msg = messages[alertParam]
-    if (msg) {
-      setTimeout(() => setAlertBanner(msg), 0)
-      // Remove param from URL without reloading
+    const alertParam = params.get("alert")
+    if (alertParam && messages[alertParam]) {
+      setTimeout(() => setAlertBanner(messages[alertParam]), 0)
       params.delete("alert")
-      const newSearch = params.toString()
-      window.history.replaceState(null, "", window.location.pathname + (newSearch ? "?" + newSearch : ""))
-      // Auto-dismiss after 6 s
-      setTimeout(() => setAlertBanner(null), 6000)
     }
+    if (params.get("jagdalarm") === "open") {
+      setTimeout(() => setJagdAlarmOpen(true), 0)
+      params.delete("jagdalarm")
+    }
+    const newSearch = params.toString()
+    window.history.replaceState(null, "", window.location.pathname + (newSearch ? "?" + newSearch : ""))
   }, [])
 
   // Venue options fetched from API, scoped to selected bundesländer
@@ -441,7 +442,7 @@ export default function TurnierjagerPage() {
       setTournaments(data.tournaments ?? [])
       setLastUpdated(new Date().toLocaleTimeString("de-AT", { hour: "2-digit", minute: "2-digit" }))
     } catch {
-      setError("Verbindung fehlgeschlagen. Bitte Seite neu laden.")
+      setError("Verbindung fehlgeschlagen. Seite neu laden.")
     } finally {
       setLoading(false)
     }
@@ -520,7 +521,7 @@ export default function TurnierjagerPage() {
       <Helmet>
         <title>Turnierjäger — Padel Turniere in Österreich</title>
         <meta name="description" content="Alle Padel-Turniere in Österreich auf einen Blick. Filtere nach Bundesland, Bezirk und Kategorie — und verpasse kein Turnier mehr." />
-        <link rel="canonical" href="https://padelyara.at/turnierjaeger" />
+        <link rel="canonical" href="https://www.padelyara.at/turnierjaeger" />
       </Helmet>
       {/* Intro */}
       <div className="mb-5 px-1">
@@ -724,7 +725,7 @@ export default function TurnierjagerPage() {
       >
         <div>
           <p className="text-xs font-bold tracking-wider text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif" }}>JAGD-ALARM</p>
-          <p className="text-xs text-gray-500 mt-0.5">Yara schreibt dir, wenn neue Turniere zu deinen Filtern passen.</p>
+          <p className="text-xs text-gray-500 mt-0.5">Nie wieder Turnierseiten aktualisieren. Yara informiert dich automatisch über neue Turniere, die zu deinen Filtern passen.</p>
         </div>
         <button
           onClick={() => setJagdAlarmOpen(true)}
@@ -740,7 +741,46 @@ export default function TurnierjagerPage() {
         </button>
       </div>
 
-      {/* Results header */}
+      {/* View toggle */}
+      {!loading && !error && (
+        <div className="flex items-center gap-2 mb-4">
+          <button
+            onClick={() => setView("list")}
+            className="flex items-center gap-2 flex-1 justify-center py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              letterSpacing: "0.05em",
+              background: view === "list" ? "rgba(212,245,60,0.12)" : "rgba(255,255,255,0.03)",
+              color: view === "list" ? "#d4f53c" : "#6b7280",
+              border: view === "list" ? "1px solid rgba(212,245,60,0.25)" : "1px solid rgba(107,114,128,0.2)",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
+              <line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
+            </svg>
+            LISTE
+          </button>
+          <button
+            onClick={() => setView("calendar")}
+            className="flex items-center gap-2 flex-1 justify-center py-2.5 rounded-xl text-sm font-semibold transition-colors"
+            style={{
+              fontFamily: "'Barlow Condensed', sans-serif",
+              letterSpacing: "0.05em",
+              background: view === "calendar" ? "rgba(212,245,60,0.12)" : "rgba(255,255,255,0.03)",
+              color: view === "calendar" ? "#d4f53c" : "#6b7280",
+              border: view === "calendar" ? "1px solid rgba(212,245,60,0.25)" : "1px solid rgba(107,114,128,0.2)",
+            }}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            KALENDER
+          </button>
+        </div>
+      )}
+
+      {/* Results count */}
       {!loading && !error && (
         <div className="flex items-center justify-between mb-2 px-1">
           <p
@@ -754,7 +794,7 @@ export default function TurnierjagerPage() {
               : `${visibleTournaments.length} Turniere`}
           </p>
           {lastUpdated && (
-            <p className="text-xs text-gray-400">Stand: {lastUpdated}</p>
+            <p className="text-xs text-gray-600">{lastUpdated}</p>
           )}
         </div>
       )}
@@ -769,7 +809,13 @@ export default function TurnierjagerPage() {
         <p className="text-red-400 text-sm px-1">{error}</p>
       )}
 
-      {!loading && !error && visibleTournaments.length > 0 && (
+      {view === "calendar" && !error && (
+        <div className="mb-6">
+          <TournamentCalendar tournaments={loading ? [] : visibleTournaments} />
+        </div>
+      )}
+
+      {!loading && !error && visibleTournaments.length > 0 && view === "list" && (
         <div className="space-y-6 mb-6">
           {RESULT_SECTIONS.map(s => {
             const items = visibleTournaments.filter(s.match)
@@ -804,7 +850,7 @@ export default function TurnierjagerPage() {
           <p className="text-gray-500 text-sm">
             {filters.onlyOpensSoon
               ? "Gerade öffnet keine Anmeldung in den nächsten Tagen. Filter anpassen."
-              : "Filter anpassen oder mehr Optionen aktivieren."}
+              : "Deine Filter sind zu wählerisch. Lockere sie."}
           </p>
         </div>
       )}
