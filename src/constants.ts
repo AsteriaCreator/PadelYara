@@ -20,3 +20,11 @@ export const DURATION_OPTIONS: { value: number; label: string }[] = [
 ]
 
 export const DEFAULT_DURATIONS: number[] = [120]
+
+// Dein Match level scale — finer-grained than the Turnierjagd categories, and
+// deliberately without "Newcomer". Keep in sync with Backend/matches_mongo.py LEVELS.
+export const MATCH_LEVELS: string[] = [
+  "Starter", "Starter +", "Starter ++",
+  "Low Advanced", "Mid Advanced", "High Advanced",
+  "Expert", "Professional", "Elite",
+]

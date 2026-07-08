@@ -166,7 +166,44 @@ export default function DatenschutzPage() {
         </p>
       </Section>
 
-      <Section title="9. Spielanalyse (öffentliche Turnierdaten)">
+      <Section title="9. Dein Match (Mitspieler-Vermittlung)">
+        <p>
+          Über „Dein Match" können Sie ohne Registrierung ein Padel-Match
+          organisieren oder einem bestehenden Match beitreten. Dabei
+          verarbeiten wir: Vorname, Handynummer, optional E-Mail-Adresse,
+          sowie die von Ihnen gewählten Match-Details (Ort, Zeit, Spielniveau,
+          Preis, Notiz).
+        </p>
+        <p>
+          <strong>Telefonnummer:</strong> Die Weitergabe Ihrer Handynummer an
+          die Organisatorin bzw. an einen beitretenden Spieler ist die
+          Kernfunktion dieser Vermittlung — nur so können sich Mitspieler:innen
+          im Ernstfall erreichen. Ihre Nummer wird{" "}
+          <strong>ausschließlich zwischen Ihnen und der Organisatorin</strong>{" "}
+          ausgetauscht, niemals öffentlich angezeigt und niemals an andere
+          Mitspieler:innen weitergegeben. Rechtsgrundlage ist die Erfüllung
+          der von Ihnen angefragten Vermittlung (Art. 6 Abs. 1 lit. b DSGVO).
+        </p>
+        <p>
+          <strong>E-Mail-Benachrichtigungen:</strong> Wenn Sie eine
+          E-Mail-Adresse angeben, informieren wir Sie über den Versanddienst{" "}
+          <strong>Brevo</strong> (Sendinblue GmbH, Deutschland) über den Status
+          Ihres Matches (z. B. wenn jemand beitritt, das Match voll ist,
+          abgesagt wird oder sich die Zeit ändert). Mit dem Anbieter besteht
+          ein Auftragsverarbeitungsvertrag (Art. 28 DSGVO).
+        </p>
+        <p>
+          <strong>Löschung:</strong> Nach Ablauf des Match-Termins wird der
+          Eintrag vom öffentlichen Board entfernt. Sieben Tage danach werden
+          Telefonnummer, E-Mail-Adresse und Namen automatisch entfernt bzw.
+          auf Initialen gekürzt; nach 60 Tagen wird der gesamte Eintrag
+          gelöscht. Sie können sich jederzeit selbst über den persönlichen
+          Link aus einem Match austragen; als Organisator:in können Sie das
+          Match jederzeit absagen oder Mitspieler:innen entfernen.
+        </p>
+      </Section>
+
+      <Section title="10. Spielanalyse (öffentliche Turnierdaten)">
         <p>
           Die Funktion „Spielanalyse" ruft auf Anfrage öffentlich zugängliche
           Turnierergebnisse von <strong>padel-austria.at</strong> (Österreichische
@@ -189,17 +226,18 @@ export default function DatenschutzPage() {
         </p>
       </Section>
 
-      <Section title="10. Lokaler Speicher (localStorage)">
+      <Section title="11. Lokaler Speicher (localStorage)">
         <p>
           Wir verwenden den lokalen Speicher Ihres Browsers für technisch
           notwendige bzw. funktionale Zwecke, insbesondere für die oben genannte
-          anonyme Statistik-Kennung und zur Speicherung Ihrer Einstellungen. Es
-          werden dabei keine Tracking-Cookies und keine Cookies von Drittanbietern
-          zu Werbezwecken eingesetzt.
+          anonyme Statistik-Kennung, Ihre persönlichen Match-Links (Abschnitt 9)
+          und zur Speicherung Ihrer Einstellungen. Es werden dabei keine
+          Tracking-Cookies und keine Cookies von Drittanbietern zu
+          Werbezwecken eingesetzt.
         </p>
       </Section>
 
-      <Section title="11. Ihre Rechte">
+      <Section title="12. Ihre Rechte">
         <p>
           Sie haben nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung
           (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18),

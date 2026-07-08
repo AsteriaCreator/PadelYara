@@ -45,6 +45,9 @@ const TurnierjagerPage          = lazyWithReload(() => import("./pages/Turnierja
 const TurnierjagerMinePage      = lazyWithReload(() => import("./pages/TurnierjagerMinePage"))
 const SpielanalysePage          = lazyWithReload(() => import("./pages/SpielanalysePage"))
 const TournamentDetailPage      = lazyWithReload(() => import("./pages/TournamentDetailPage"))
+const DeinMatchPage             = lazyWithReload(() => import("./pages/DeinMatchPage"))
+const MatchCreatePage           = lazyWithReload(() => import("./pages/MatchCreatePage"))
+const MatchDetailPage           = lazyWithReload(() => import("./pages/MatchDetailPage"))
 const PadelrevierPage           = lazyWithReload(() => import("./pages/PadelrevierPage"))
 const PadelrevierCityPage       = lazyWithReload(() => import("./pages/PadelrevierCityPage"))
 const PadelquartierPage         = lazyWithReload(() => import("./pages/PadelquartierPage"))
@@ -76,6 +79,9 @@ export default function App() {
         <Route path="/turnierjaeger/merkliste"        element={<Navigate to="/turnierjaeger/meine" replace />} />
         <Route path="/turnierjaeger/meine/:slug"      element={<Navigate to="/turnierjaeger/spielanalyse/:slug" replace />} />
         <Route path="/urteil"                         element={<Navigate to="/turnierjaeger/spielanalyse" replace />} />
+        <Route path="/dein-match"        element={<PageShell><DeinMatchPage /></PageShell>} />
+        <Route path="/dein-match/neu"    element={<PageShell><MatchCreatePage /></PageShell>} />
+        <Route path="/match/:slug"       element={<PageShell><MatchDetailPage /></PageShell>} />
         <Route path="/padelrevier"        element={<PageShell><PadelrevierPage /></PageShell>} />
         <Route path="/padelrevier/:city"  element={<PageShell><PadelrevierCityPage /></PageShell>} />
         <Route path="/padelquartier"      element={<PageShell><PadelquartierPage /></PageShell>} />

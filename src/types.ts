@@ -161,3 +161,67 @@ export interface SearchResponse {
   booking_window_notice?: string
   weather?: Weather | null
 }
+
+// ── Dein Match ────────────────────────────────────────────────────────────────
+// Mirrors the backend's snake_case JSON shapes directly (Backend/matches_mongo.py)
+// — this is a standalone feature, so no separate raw→mapped translation layer.
+
+export type MatchStatus = "open" | "full" | "cancelled" | "expired"
+
+export interface MatchVenueRef {
+  id: string
+  name: string
+  court_type?: string | null
+  lat?: number | null
+  lon?: number | null
+  distance_km?: number
+}
+
+// Public shape — never carries phone/email/tokens. Returned by the board and
+// GET /api/matches/:slug.
+export interface MatchPlayerPublic {
+  name: string
+  added_by_organizer: boolean
+}
+
+export interface MatchPublic {
+  slug: string
+  venue: MatchVenueRef
+  starts_at: string
+  ends_at: string
+  levels: string[]
+  court_booked: boolean
+  price_total: number | null
+  note: string | null
+  organizer: { name: string }
+  players: MatchPlayerPublic[]
+  spots_total: number
+  status: MatchStatus
+  created_at: string
+  updated_at: string
+}
+
+// Personal view — GET /api/matches/:slug/me?t=... Adds role + the contact
+// info this particular token is entitled to see (see the visibility matrix
+// in DeinMatch.md §1.3).
+export interface MatchPersonal extends Omit<MatchPublic, "organizer" | "players"> {
+  role: "organizer" | "player"
+  organizer: { name: string; phone: string; email?: string }
+  players: (MatchPlayerPublic & { phone?: string | null; email?: string | null; token?: string })[]
+  my_token?: string
+}
+
+export interface MatchCreatePayload {
+  venue_id: string
+  starts_at: string
+  ends_at: string
+  levels: string[]
+  court_booked: boolean
+  price_total: number | null
+  note: string | null
+  organizer_name: string
+  organizer_phone: string
+  organizer_email: string
+  guest_players: { name: string; phone?: string | null }[]
+  website?: string // honeypot — always ""
+}

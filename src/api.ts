@@ -1,4 +1,4 @@
-import type { SearchParams, SearchResponse, Venue, Status, Weather, MapVenue, VenueDetail } from "./types"
+import type { SearchParams, SearchResponse, Venue, Status, Weather, MapVenue, VenueDetail, MatchPublic, MatchPersonal, MatchCreatePayload } from "./types"
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000"
 
@@ -356,6 +356,127 @@ export async function subscribeEmail(email: string): Promise<{ ok: boolean; alre
   } catch {
     return { ok: false }
   }
+}
+
+// ── Dein Match ────────────────────────────────────────────────────────────────
+
+export interface MatchBoardFilter {
+  venueIds?: string[]
+  lat?: number
+  lon?: number
+  radius?: number
+  levels?: string[]
+}
+
+export async function fetchMatches(filter: MatchBoardFilter): Promise<MatchPublic[]> {
+  const url = new URL(`${API_BASE}/api/matches`)
+  if (filter.venueIds?.length) url.searchParams.set("venue_ids", filter.venueIds.join(","))
+  if (filter.lat != null && filter.lon != null && filter.radius != null) {
+    url.searchParams.set("lat", String(filter.lat))
+    url.searchParams.set("lon", String(filter.lon))
+    url.searchParams.set("radius", String(filter.radius))
+  }
+  if (filter.levels?.length) url.searchParams.set("levels", filter.levels.join(","))
+  const res = await fetch(url.toString())
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const data = await res.json()
+  return (data.matches ?? []) as MatchPublic[]
+}
+
+export async function fetchMatch(slug: string): Promise<MatchPublic | null> {
+  const res = await fetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}`)
+  if (res.status === 404) return null
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  return await res.json() as MatchPublic
+}
+
+export async function fetchMatchPersonal(slug: string, token: string): Promise<MatchPersonal | null> {
+  const res = await fetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}/me?t=${encodeURIComponent(token)}`)
+  if (!res.ok) return null
+  return await res.json() as MatchPersonal
+}
+
+interface ApiErrorBody { ok?: boolean; error?: string }
+
+export class MatchApiError extends Error {
+  status: number
+  constructor(status: number, message: string) {
+    super(message)
+    this.status = status
+  }
+}
+
+async function _matchFetch<T>(url: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(url, init)
+  const data = await res.json().catch(() => ({})) as ApiErrorBody & T
+  if (!res.ok) {
+    throw new MatchApiError(res.status, data.error ?? `HTTP ${res.status}`)
+  }
+  return data as T
+}
+
+export async function createMatch(payload: MatchCreatePayload): Promise<{ slug: string; manage_token: string }> {
+  return _matchFetch(`${API_BASE}/api/matches`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...payload, website: "" }),
+  })
+}
+
+export async function joinMatch(
+  slug: string,
+  body: { name: string; phone: string; email?: string },
+): Promise<{ player_token: string; organizer_phone: string; match: MatchPublic }> {
+  return _matchFetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}/join`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...body, website: "" }),
+  })
+}
+
+export async function leaveMatch(slug: string, playerToken: string): Promise<{ match: MatchPublic }> {
+  return _matchFetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}/leave`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ player_token: playerToken }),
+  })
+}
+
+export async function patchMatch(
+  slug: string,
+  manageToken: string,
+  updates: Partial<Pick<MatchCreatePayload, "starts_at" | "ends_at" | "levels" | "court_booked" | "price_total" | "note">>,
+): Promise<MatchPublic> {
+  return _matchFetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}?t=${encodeURIComponent(manageToken)}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updates),
+  })
+}
+
+export async function addMatchPlayer(
+  slug: string,
+  manageToken: string,
+  player: { name: string; phone?: string },
+): Promise<MatchPublic> {
+  return _matchFetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}/players?t=${encodeURIComponent(manageToken)}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(player),
+  })
+}
+
+export async function removeMatchPlayer(slug: string, manageToken: string, playerToken: string): Promise<MatchPublic> {
+  return _matchFetch(
+    `${API_BASE}/api/matches/${encodeURIComponent(slug)}/players/${encodeURIComponent(playerToken)}?t=${encodeURIComponent(manageToken)}`,
+    { method: "DELETE" },
+  )
+}
+
+export async function cancelMatch(slug: string, manageToken: string): Promise<MatchPublic> {
+  return _matchFetch(`${API_BASE}/api/matches/${encodeURIComponent(slug)}?t=${encodeURIComponent(manageToken)}`, {
+    method: "DELETE",
+  })
 }
 
 export async function fetchWeather(

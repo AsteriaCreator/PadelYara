@@ -31,6 +31,7 @@ const STATIC_URLS = [
   { loc: `${BASE_URL}/`,             changefreq: "daily",   priority: "1.0" },
   { loc: `${BASE_URL}/padelrevier`,  changefreq: "weekly",  priority: "0.8" },
   { loc: `${BASE_URL}/turnierjaeger`,changefreq: "daily",   priority: "0.8" },
+  { loc: `${BASE_URL}/dein-match`,  changefreq: "daily",   priority: "0.8" },
   { loc: `${BASE_URL}/about`,        changefreq: "monthly", priority: "0.4" },
 ]
 

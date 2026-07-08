@@ -24,12 +24,13 @@ sentry_sdk.init(
 
 import analytics
 import tournaments_mongo
+import matches_mongo
 import eversports_prices
 from venues_mongo import load_venues
 import state
-from scheduler import _run_tournament_scrape, _run_opening_hours_refresh
+from scheduler import _run_tournament_scrape, _run_opening_hours_refresh, _run_match_cleanup
 
-from routers import search, analytics as analytics_router, tournaments, venues, weather, subscribers, urteil, admin, tournament_alerts
+from routers import search, analytics as analytics_router, tournaments, venues, weather, subscribers, urteil, admin, tournament_alerts, matches
 
 
 @asynccontextmanager
@@ -38,6 +39,7 @@ async def lifespan(_app: FastAPI):
     await analytics.lifespan_startup()
     await tournaments_mongo.ensure_indexes()
     await tournaments_mongo.ensure_share_index()
+    await matches_mongo.ensure_indexes()
     eversports_prices.init_mongo(os.getenv("MONGODB_URI", ""))
     await eversports_prices.load_cache_from_mongo()
     state.VENUES = await load_venues()
@@ -59,9 +61,12 @@ async def lifespan(_app: FastAPI):
     scheduler.add_job(_run_tournament_scrape, CronTrigger(hour=6, minute=0))
     # Weekly: auto-learn Eversports opening hours via Gemini + Google Search.
     scheduler.add_job(_run_opening_hours_refresh, CronTrigger(day_of_week="mon", hour=4, minute=0))
+    # Daily: Dein Match DSGVO housekeeping (expire → purge PII → delete).
+    scheduler.add_job(_run_match_cleanup, CronTrigger(hour=5, minute=0))
     scheduler.start()
     print("[tournaments] Daily scraper scheduled at 06:00 Vienna time.")
     print("[opening_hours] Weekly Eversports hours refresh scheduled Mon 04:00.")
+    print("[matches] Daily cleanup scheduled at 05:00 Vienna time.")
 
     # Kick off a background price scrape at startup
     asyncio.create_task(eversports_prices.refresh_prices_async(state.VENUES))
@@ -103,6 +108,7 @@ app.include_router(subscribers.router)
 app.include_router(urteil.router)
 app.include_router(admin.router)
 app.include_router(tournament_alerts.router)
+app.include_router(matches.router)
 
 
 if __name__ == "__main__":

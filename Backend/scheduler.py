@@ -83,6 +83,22 @@ async def _dispatch_alerts(today_start) -> None:
         print("[tournaments] No new tournaments today — skipping Jagd-Alarm.")
 
 
+def _run_match_cleanup() -> None:
+    """Dein Match DSGVO housekeeping, intended to run in a thread: expire past
+    matches, purge personal data from expired/cancelled ones after 7 days,
+    delete the documents entirely after 60 days. See DeinMatch.md §5."""
+    import matches_mongo
+    if state._main_loop is None:
+        print("[matches] Main event loop not ready — skipping cleanup.")
+        return
+    future = asyncio.run_coroutine_threadsafe(matches_mongo.cleanup_matches(), state._main_loop)
+    try:
+        stats = future.result(timeout=60)
+        print(f"[matches] Cleanup done: {stats}")
+    except Exception as exc:
+        print(f"[matches] Cleanup failed: {exc}")
+
+
 def _run_opening_hours_refresh() -> None:
     """Gemini+Google lookup of Eversports opening hours, intended to run in a
     thread. The blocking Gemini calls stay off the event loop; the Mongo writes
