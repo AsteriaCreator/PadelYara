@@ -91,8 +91,8 @@ export default function AusruestungPage() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center 30%",
-            filter: "brightness(0.75)",
+            objectPosition: "center 60%",
+            filter: "brightness(1.1)",
             animation: "ausruestung-zoom 8s ease-out forwards",
           }}
         />
@@ -100,7 +100,7 @@ export default function AusruestungPage() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(to right, rgba(8,8,16,0.85) 45%, rgba(8,8,16,0.15) 100%)",
+            background: "linear-gradient(to right, rgba(8,8,16,0.7) 40%, rgba(8,8,16,0.05) 100%)",
           }}
         />
         <div
