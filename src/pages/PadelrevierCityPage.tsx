@@ -12,6 +12,11 @@ const COURT_TYPE_LABEL: Record<string, string> = {
   indoor_outdoor: "Indoor & Outdoor",
 }
 
+const CITY_HERO: Record<string, string> = {
+  wien: "/padelrevier-wien.jpg",
+  graz: "/padelrevier-graz.jpg",
+}
+
 interface CityConfig {
   displayName: string
   bundesland: string
@@ -137,23 +142,115 @@ export default function PadelrevierCityPage() {
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
-      <p className="text-xs text-gray-500 mb-3">
-        <Link to="/padelrevier" style={{ color: "#d4f53c" }}>← Padelrevier</Link>
-        {" / "}{config.displayName}
-      </p>
+      {CITY_HERO[city!] && (
+        <>
+          <div
+            style={{
+              position: "relative",
+              height: "42vh",
+              minHeight: 200,
+              overflow: "hidden",
+              borderBottom: "1px solid rgba(212,245,60,0.12)",
+              marginLeft: -16,
+              marginRight: -16,
+              marginTop: -16,
+            }}
+          >
+            <img
+              src={CITY_HERO[city!]}
+              alt={`Padel Courts ${config.displayName}`}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center 60%",
+                filter: "brightness(1.1)",
+                animation: "city-zoom 8s ease-out forwards",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(to right, rgba(8,8,16,0.7) 40%, rgba(8,8,16,0.05) 100%)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                inset: 0,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-end",
+                padding: "0 16px 24px",
+              }}
+            >
+              <p style={{ fontSize: 11, color: "rgba(212,245,60,0.45)", marginBottom: 10, letterSpacing: "0.04em" }}>
+                <Link to="/padelrevier" style={{ color: "rgba(212,245,60,0.45)", textDecoration: "none" }}>← Padelrevier</Link>
+                {" / "}{config.displayName}
+              </p>
+              <h1
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontSize: 30,
+                  fontWeight: 700,
+                  color: "#fff",
+                  letterSpacing: "0.01em",
+                  lineHeight: 1.1,
+                  marginBottom: 8,
+                  animation: "city-fadein 0.8s 0.3s both",
+                }}
+              >
+                {config.h1}
+              </h1>
+              <p
+                style={{
+                  fontFamily: "'Barlow Condensed', sans-serif",
+                  fontSize: 15,
+                  fontStyle: "italic",
+                  color: "#d4f53c",
+                  animation: "city-fadein 0.8s 0.55s both",
+                }}
+              >
+                {config.intro}
+              </p>
+            </div>
+          </div>
+          <style>{`
+            @keyframes city-zoom {
+              from { transform: scale(1); }
+              to   { transform: scale(1.18); }
+            }
+            @keyframes city-fadein {
+              from { opacity: 0; transform: translateY(12px); }
+              to   { opacity: 1; transform: translateY(0); }
+            }
+          `}</style>
+        </>
+      )}
 
-      <h1
-        className="text-xl font-bold mb-2"
-        style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#fff", letterSpacing: "0.01em" }}
-      >
-        {config.h1}
-      </h1>
-      <p
-        className="text-base italic mb-6"
-        style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
-      >
-        {config.intro}
-      </p>
+      {!CITY_HERO[city!] && (
+        <>
+          <p className="text-xs text-gray-500 mb-3">
+            <Link to="/padelrevier" style={{ color: "#d4f53c" }}>← Padelrevier</Link>
+            {" / "}{config.displayName}
+          </p>
+          <h1
+            className="text-xl font-bold mb-2"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#fff", letterSpacing: "0.01em" }}
+          >
+            {config.h1}
+          </h1>
+          <p
+            className="text-base italic mb-6"
+            style={{ fontFamily: "'Barlow Condensed', sans-serif", color: "#d4f53c" }}
+          >
+            {config.intro}
+          </p>
+        </>
+      )}
 
       {loading && (
         <p className="text-gray-500 text-sm py-8 text-center">Yara kartiert …</p>
