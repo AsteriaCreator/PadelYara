@@ -92,7 +92,7 @@ export default function AusruestungPage() {
             height: "100%",
             objectFit: "cover",
             objectPosition: "center 30%",
-            filter: "brightness(0.45)",
+            filter: "brightness(0.75)",
             animation: "ausruestung-zoom 8s ease-out forwards",
           }}
         />
