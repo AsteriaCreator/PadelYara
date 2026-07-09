@@ -13,8 +13,10 @@ const COURT_TYPE_LABEL: Record<string, string> = {
 }
 
 const CITY_HERO: Record<string, string> = {
-  wien: "/padelrevier-wien.jpg",
-  graz: "/padelrevier-graz.jpg",
+  wien:     "/padelrevier-wien.jpg",
+  graz:     "/padelrevier-graz.jpg",
+  linz:     "/padelrevier-linz.jpg",
+  salzburg: "/padelrevier-salzburg.jpg",
 }
 
 interface CityConfig {
