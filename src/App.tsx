@@ -50,6 +50,7 @@ const PadelrevierCityPage       = lazyWithReload(() => import("./pages/Padelrevi
 const PadelquartierPage         = lazyWithReload(() => import("./pages/PadelquartierPage"))
 const PadelquartierDetailPage   = lazyWithReload(() => import("./pages/PadelquartierDetailPage"))
 const CourtDetailPage           = lazyWithReload(() => import("./pages/CourtDetailPage"))
+const AusruestungPage           = lazyWithReload(() => import("./pages/AusruestungPage"))
 const DatenschutzPage           = lazyWithReload(() => import("./pages/DatenschutzPage"))
 const ImprintPage               = lazyWithReload(() => import("./pages/ImprintPage"))
 const AGBPage                   = lazyWithReload(() => import("./pages/AGBPage"))
@@ -80,6 +81,7 @@ export default function App() {
         <Route path="/padelquartier"      element={<PageShell><PadelquartierPage /></PageShell>} />
         <Route path="/padelquartier/:slug" element={<PageShell><PadelquartierDetailPage /></PageShell>} />
         <Route path="/court/:slug"  element={<PageShell><CourtDetailPage /></PageShell>} />
+        <Route path="/ausruestung"  element={<PageShell><AusruestungPage /></PageShell>} />
         <Route path="/about"        element={<PageShell><AboutSection /></PageShell>} />
         <Route path="/datenschutz"  element={<PageShell><DatenschutzPage /></PageShell>} />
         <Route path="/impressum"    element={<PageShell><ImprintPage /></PageShell>} />
