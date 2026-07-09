@@ -18,6 +18,7 @@ export default function Nav() {
       <NavLink to="/" end style={NAV_LINK_STYLE}>Court Finder</NavLink>
       <NavLink to="/padelrevier" style={NAV_LINK_STYLE}>Padelrevier</NavLink>
       <NavLink to="/turnierjaeger" style={NAV_LINK_STYLE}>Turnierjagd</NavLink>
+      <NavLink to="/ausruestung" style={NAV_LINK_STYLE}>Ausrüstung</NavLink>
       <NavLink to="/about" style={NAV_LINK_STYLE}>Über Yara</NavLink>
     </div>
   )
