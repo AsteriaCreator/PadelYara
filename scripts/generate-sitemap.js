@@ -29,7 +29,11 @@ const BASE_URL = "https://www.padelyara.at"
 
 const STATIC_URLS = [
   { loc: `${BASE_URL}/`,             changefreq: "daily",   priority: "1.0" },
-  { loc: `${BASE_URL}/padelrevier`,  changefreq: "weekly",  priority: "0.8" },
+  { loc: `${BASE_URL}/padelrevier`,          changefreq: "weekly",  priority: "0.8" },
+  { loc: `${BASE_URL}/padelrevier/wien`,     changefreq: "weekly",  priority: "0.7" },
+  { loc: `${BASE_URL}/padelrevier/graz`,     changefreq: "weekly",  priority: "0.7" },
+  { loc: `${BASE_URL}/padelrevier/linz`,     changefreq: "weekly",  priority: "0.7" },
+  { loc: `${BASE_URL}/padelrevier/salzburg`, changefreq: "weekly",  priority: "0.7" },
   { loc: `${BASE_URL}/turnierjaeger`,changefreq: "daily",   priority: "0.8" },
   { loc: `${BASE_URL}/dein-match`,  changefreq: "daily",   priority: "0.8" },
   { loc: `${BASE_URL}/about`,        changefreq: "monthly", priority: "0.4" },
