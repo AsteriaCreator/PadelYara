@@ -6,8 +6,9 @@ import type { MatchPublic, MapVenue } from "../types"
 import { suggest, geocode, type Suggestion } from "../geocode"
 import {
   inputClass, labelClass, labelStyle, LS_MATCH_FILTER,
-  LevelPills, AvatarRow, formatMatchWhen, formatPrice, courtTypeLabel, spotsLeftLabel, occupied,
+  formatMatchWhen, formatPrice, courtTypeLabel, spotsLeftLabel, occupied,
 } from "./matchShared"
+import { LevelPills, AvatarRow } from "./matchComponents"
 
 interface StoredFilter {
   mode: "venue" | "radius"
@@ -71,7 +72,8 @@ export default function DeinMatchPage() {
   }, [])
 
   // Restore + search on mount
-  useEffect(() => { runSearch(filter) }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
+  useEffect(() => { runSearch(filter) }, [])
 
   function updateFilter(patch: Partial<StoredFilter>) {
     const next = { ...filter, ...patch }

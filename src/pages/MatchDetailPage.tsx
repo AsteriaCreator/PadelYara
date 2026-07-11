@@ -7,10 +7,11 @@ import {
 } from "../api"
 import type { MatchPublic, MatchPersonal } from "../types"
 import {
-  inputClass, labelClass, labelStyle, LevelPills,
+  inputClass, labelClass, labelStyle,
   getStoredMatchToken, storeMatchToken, clearMatchToken, toViennaISO, viennaDateTimeParts,
-  formatMatchWhen, formatPrice, courtTypeLabel, spotsLeftLabel, occupied, AvatarRow,
+  formatMatchWhen, formatPrice, courtTypeLabel, spotsLeftLabel, occupied,
 } from "./matchShared"
+import { LevelPills, AvatarRow } from "./matchComponents"
 import { ShareMatchButton } from "./DeinMatchPage"
 
 const JOIN_ERROR_MESSAGES: Record<string, string> = {
@@ -59,6 +60,7 @@ export default function MatchDetailPage() {
     setState("ready")
   }, [slug, urlToken])
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { load() }, [load])
 
   // Changing searchParams updates `urlToken`, which changes `load`'s identity

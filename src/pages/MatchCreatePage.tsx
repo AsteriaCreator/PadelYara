@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom"
 import { createMatch, fetchVenues, MatchApiError } from "../api"
 import type { MapVenue } from "../types"
 import {
-  inputClass, labelClass, labelStyle, LevelPills, LEVEL_SNARK,
+  inputClass, labelClass, labelStyle, LEVEL_SNARK,
   storeMatchToken, toViennaISO,
 } from "./matchShared"
+import { LevelPills } from "./matchComponents"
 
 function getNowVienna() {
   const now = new Date()
