@@ -24,9 +24,16 @@ When fixing or adding a feature in any scraper (`eversports_service.py`, `eversp
 
 Also applies to the **Dockerfile**: any new Backend `.py` file must get a `COPY` line and be added to the build-time import check.
 
+## New indexable page rule
+The moment a new public `<Route>` is added in `src/App.tsx` that should be findable on Google (not `/admin`, not a redirect, not something behind a search form) — **immediately add it in the same edit** to:
+- `scripts/generate-sitemap.js` (`STATIC_URLS`)
+- `scripts/prerender-venues.js` (`STATIC_PAGES`) if it needs a static HTML shell for SEO (most content pages do — SPA routes without pre-rendering often show as "crawled, not indexed" in Search Console)
+
+Don't rely on `scripts/check-sitemap-coverage.js` (runs at the end of `npm run build`) to catch this — that only fires on Vercel's build, which nobody watches. Treat it as a last-resort safety net, not the actual check. The real check is doing it inline when the route is written, the same way the scraper consistency rule works above.
+
 ## Working style & permissions
 General working-style and permission rules live in the **global `~/.claude/CLAUDE.md`** (plain-language command verdicts, batch mechanical actions without asking, commit+push agreed changes together, and the stop-and-ask list). PadelYara specifics on top of that:
-- **"Verified" before push** = typecheck + preview pass.
+- **"Verified" before push** = typecheck + preview pass. For SEO/page changes, also run `npm run build` locally first — it now ends with a sitemap coverage check that fails loudly in the terminal if a pre-rendered page isn't in the sitemap.
 - **After push:** the change is live on **padelyara.at** in ~1–3 min (push → GitHub → Vercel/Railway auto-deploy).
 - **The production database to never touch carelessly** is MongoDB Atlas `padel_checker`.
 
