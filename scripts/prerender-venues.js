@@ -63,6 +63,30 @@ const STATIC_PAGES = [
     desc: "Alle Padel-Turniere in Österreich auf einen Blick. Filterbar nach Bundesland, Kategorie und Datum. Über 700 Turniere gelistet.",
     canonical: `${BASE_URL}/turnierjaeger`,
   },
+  {
+    path: "padelrevier/wien",
+    title: "Padel Courts Wien — alle Anlagen | PadelYara",
+    desc: "Alle Padel-Anlagen in Wien. 18 Standorte, über 100 Courts — indoor und outdoor, vom 2. bis zum 22. Bezirk. Adresse, Öffnungszeiten und Verfügbarkeit direkt prüfen.",
+    canonical: `${BASE_URL}/padelrevier/wien`,
+  },
+  {
+    path: "padelrevier/graz",
+    title: "Padel Courts Graz — alle Anlagen in der Steiermark | PadelYara",
+    desc: "Alle Padel-Anlagen in Graz und der Steiermark. PadelZone Puntigam, PadelZone Ragnitz und weitere — Verfügbarkeit und Preise direkt prüfen.",
+    canonical: `${BASE_URL}/padelrevier/graz`,
+  },
+  {
+    path: "padelrevier/linz",
+    title: "Padel Courts Linz — alle Anlagen in Oberösterreich | PadelYara",
+    desc: "Alle Padel-Anlagen in Linz und Oberösterreich. PadelBase Linz, Pichling, Gunskirchen, Marchtrenk, Wels — Verfügbarkeit auf einen Blick.",
+    canonical: `${BASE_URL}/padelrevier/linz`,
+  },
+  {
+    path: "padelrevier/salzburg",
+    title: "Padel Courts Salzburg — alle Anlagen | PadelYara",
+    desc: "Alle Padel-Anlagen in Salzburg. PadelBase CUPRA Arena und weitere Standorte — Verfügbarkeit und Preise direkt prüfen.",
+    canonical: `${BASE_URL}/padelrevier/salzburg`,
+  },
 ]
 
 for (const page of STATIC_PAGES) {
