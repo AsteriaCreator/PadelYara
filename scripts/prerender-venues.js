@@ -49,6 +49,37 @@ try {
   process.exit(0)
 }
 
+// Pre-render static pages (SPA routes that Google struggles to index)
+const STATIC_PAGES = [
+  {
+    path: "padelrevier",
+    title: "Padelrevier — Alle Padel-Anlagen in Österreich auf der Karte",
+    desc: "165 Padel-Anlagen in Österreich auf einer interaktiven Karte. Finde Courts in Wien, Graz, Linz, Salzburg und allen Bundesländern.",
+    canonical: `${BASE_URL}/padelrevier`,
+  },
+  {
+    path: "turnierjaeger",
+    title: "Turnierjäger — Padel-Turniere in Österreich",
+    desc: "Alle Padel-Turniere in Österreich auf einen Blick. Filterbar nach Bundesland, Kategorie und Datum. Über 700 Turniere gelistet.",
+    canonical: `${BASE_URL}/turnierjaeger`,
+  },
+]
+
+for (const page of STATIC_PAGES) {
+  const inject = `
+  <title>${esc(page.title)}</title>
+  <meta name="description" content="${esc(page.desc)}" />
+  <link rel="canonical" href="${page.canonical}" />
+  <meta property="og:title" content="${esc(page.title)}" />
+  <meta property="og:description" content="${esc(page.desc)}" />
+  <meta property="og:url" content="${page.canonical}" />`
+  const html = shell.replace("</head>", `${inject}\n</head>`)
+  const dir = join(DIST, page.path)
+  mkdirSync(dir, { recursive: true })
+  writeFileSync(join(dir, "index.html"), html, "utf8")
+  console.log(`✅ Pre-rendered /${page.path}`)
+}
+
 console.log(`Pre-rendering ${venues.length} venue pages…`)
 
 let ok = 0
