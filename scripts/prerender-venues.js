@@ -35,7 +35,20 @@ if (!existsSync(join(DIST, "index.html"))) {
   process.exit(0)
 }
 
-const shell = readFileSync(join(DIST, "index.html"), "utf8")
+// Strip the shell's default per-page tags so the injected, page-specific ones
+// don't end up duplicated (two <title>s, two canonicals, etc.). We keep og:type,
+// og:image, twitter:* and the ld+json blocks — those aren't re-injected per page.
+function stripDefaultMeta(html) {
+  return html
+    .replace(/\s*<title>[\s\S]*?<\/title>/i, "")
+    .replace(/\s*<meta\s+name="description"[^>]*>/i, "")
+    .replace(/\s*<link\s+rel="canonical"[^>]*>/i, "")
+    .replace(/\s*<meta\s+property="og:title"[^>]*>/i, "")
+    .replace(/\s*<meta\s+property="og:description"[^>]*>/i, "")
+    .replace(/\s*<meta\s+property="og:url"[^>]*>/i, "")
+}
+
+const shell = stripDefaultMeta(readFileSync(join(DIST, "index.html"), "utf8"))
 
 // Fetch all venues from the backend (includes name, city, address etc.)
 let venues
