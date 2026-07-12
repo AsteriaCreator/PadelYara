@@ -1,6 +1,8 @@
-// Generates public/sitemap.xml from MongoDB venues before each build.
-// Reads MONGODB_URI from .env (local) or environment (Vercel).
-import { MongoClient } from "mongodb"
+// Generates public/sitemap.xml from the backend venues API before each build.
+// Uses the SAME source as scripts/prerender-venues.js (VITE_API_URL /api/venues)
+// so the sitemap and the pre-rendered /court/:id pages can never drift apart —
+// check-sitemap-coverage.js enforces that they match. Reads VITE_API_URL from
+// .env (local) or environment (Vercel); falls back to the Railway backend.
 import { writeFileSync, readFileSync } from "fs"
 import { join, dirname } from "path"
 import { fileURLToPath } from "url"
@@ -19,12 +21,7 @@ try {
   }
 } catch { /* no .env file — use environment directly */ }
 
-const MONGO_URI = process.env.MONGODB_URI
-if (!MONGO_URI) {
-  console.warn("⚠️  MONGODB_URI not set — skipping venue URLs in sitemap")
-  process.exit(0)
-}
-
+const API_BASE = (process.env.VITE_API_URL ?? "https://neo-padel-checker-backend-production.up.railway.app").replace(/\/$/, "")
 const BASE_URL = "https://www.padelyara.at"
 
 const STATIC_URLS = [
@@ -39,27 +36,28 @@ const STATIC_URLS = [
   { loc: `${BASE_URL}/about`,        changefreq: "monthly", priority: "0.4" },
 ]
 
-const client = new MongoClient(MONGO_URI)
-
+let venues
 try {
-  await client.connect()
-  const venues = await client
-    .db("padel_checker")
-    .collection("venues")
-    .find({}, { projection: { id: 1, _id: 0 } })
-    .toArray()
+  const res = await fetch(`${API_BASE}/api/venues`, { signal: AbortSignal.timeout(20_000) })
+  if (!res.ok) throw new Error(`HTTP ${res.status}`)
+  const data = await res.json()
+  venues = data.venues ?? data
+} catch (err) {
+  console.warn(`⚠️  Could not fetch venues from ${API_BASE} — skipping venue URLs in sitemap (${err.message})`)
+  process.exit(0)
+}
 
-  const venueUrls = venues
-    .filter(v => v.id)
-    .map(v => ({
-      loc: `${BASE_URL}/court/${v.id}`,
-      changefreq: "weekly",
-      priority: "0.6",
-    }))
+const venueUrls = venues
+  .filter(v => v.id)
+  .map(v => ({
+    loc: `${BASE_URL}/court/${v.id}`,
+    changefreq: "weekly",
+    priority: "0.6",
+  }))
 
-  const allUrls = [...STATIC_URLS, ...venueUrls]
+const allUrls = [...STATIC_URLS, ...venueUrls]
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allUrls.map(u => `  <url>
     <loc>${u.loc}</loc>
@@ -68,8 +66,5 @@ ${allUrls.map(u => `  <url>
   </url>`).join("\n")}
 </urlset>`
 
-  writeFileSync(join(ROOT, "public", "sitemap.xml"), xml, "utf8")
-  console.log(`✅ sitemap.xml generated — ${allUrls.length} URLs (${venueUrls.length} venues)`)
-} finally {
-  await client.close()
-}
+writeFileSync(join(ROOT, "public", "sitemap.xml"), xml, "utf8")
+console.log(`✅ sitemap.xml generated — ${allUrls.length} URLs (${venueUrls.length} venues)`)
