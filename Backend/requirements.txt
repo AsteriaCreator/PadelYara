@@ -11,6 +11,6 @@ dnspython==2.8.0
 python-dotenv==1.2.2
 apscheduler==3.11.3
 pgeocode==0.5.0
-sentry-sdk[fastapi]==2.64.0
+sentry-sdk[fastapi]==2.65.0
 google-auth==2.56.0
 google-api-python-client==2.197.0
