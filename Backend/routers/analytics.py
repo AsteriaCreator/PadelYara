@@ -350,7 +350,7 @@ async def get_search_console():
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Auth error: {exc}")
 
-    site = "https://www.padelyara.at/"
+    site = "sc-domain:padelyara.at"
 
     def _query(dimensions, row_limit=10):
         body = {
@@ -362,7 +362,8 @@ async def get_search_console():
         try:
             resp = svc.searchanalytics().query(siteUrl=site, body=body).execute()
             return resp.get("rows", [])
-        except Exception:
+        except Exception as exc:
+            print(f"[search-console] query failed for {dimensions}: {exc}")
             return []
 
     query_rows   = _query(["query"], 15)
