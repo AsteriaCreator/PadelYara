@@ -40,7 +40,7 @@ def _normalize(doc: dict) -> dict:
         "platform":        _PLATFORM_MAP.get(platform_raw, doc.get("platform", "")),
         "priority":        int(doc.get("priority", 0) or 0),
         "booking_url":     doc.get("booking_url", ""),
-        "public_url":      doc.get("public_url", ""),
+        "public_url":      doc.get("public_url") or doc.get("website_url") or "",
         "lat":             float(lat) if lat is not None else None,
         "lon":             float(lon) if lon is not None else None,
         "platform_id":            doc.get("platform_id") or doc.get("etennis_id") or None,
@@ -53,6 +53,7 @@ def _normalize(doc: dict) -> dict:
         "issues":                 doc.get("issues") or None,
         "slot_fallback_minutes":  list(doc.get("slot_fallback_minutes") or []),
         "opening_hours":          doc.get("opening_hours") or None,
+        "court_grid_min":         doc.get("court_grid_min") or None,
     }
 
 

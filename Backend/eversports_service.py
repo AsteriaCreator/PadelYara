@@ -771,6 +771,7 @@ def _parse_slots(text: str) -> list | None:
 def _ev_free_durations(
     slots: list, date: str, court_ids: list[int],
     target_min: int, open_min: int, close_min: int,
+    court_grid_min: dict[int, int] | None = None,
 ) -> list[int]:
     """
     Bookable continuous durations (minutes) free at target_min across the given
@@ -800,11 +801,14 @@ def _ev_free_durations(
     available: set[int] = set()
     for cid in court_ids:
         booked = sorted(by_court.get(cid, set()))
-        grid = 60
-        for a, b in zip(booked, booked[1:]):
-            if b - a == 30:
-                grid = 30
-                break
+        if court_grid_min and cid in court_grid_min:
+            grid = court_grid_min[cid]
+        else:
+            grid = 60
+            for a, b in zip(booked, booked[1:]):
+                if b - a == 30:
+                    grid = 30
+                    break
         busy = [(m, m + grid) for m in booked]
         available.update(court_free_durations(busy, target_min, grid, open_min, close_min))
     return sorted(available)
@@ -828,14 +832,15 @@ def _build_params(
 # ---------------------------------------------------------------------------
 
 async def check_eversports_slot(
-    facility_id: int,
-    court_ids:   str,
-    date:        str,
-    time:        str,
-    venue_url:   str = "",
-    venue_id:    str = "",
-    open_min:    int = DEFAULT_OPEN_MIN,
-    close_min:   int = DEFAULT_CLOSE_MIN,
+    facility_id:    int,
+    court_ids:      str,
+    date:           str,
+    time:           str,
+    venue_url:      str = "",
+    venue_id:       str = "",
+    open_min:       int = DEFAULT_OPEN_MIN,
+    close_min:      int = DEFAULT_CLOSE_MIN,
+    slot_grid_min:  dict[int, int] | None = None,
 ) -> EversportsResult:
     """
     Core Eversports availability check.  Returns {"status": ..., "slots_count": ...}.
@@ -1040,7 +1045,7 @@ async def check_eversports_slot(
 
                 # Bookable continuous durations free at the requested time,
                 # bounded by opening hours (duration-aware availability).
-                ev_free = _ev_free_durations(slots, date, cids, target_min, open_min, close_min)
+                ev_free = _ev_free_durations(slots, date, cids, target_min, open_min, close_min, court_grid_min=slot_grid_min)
 
                 _log(slot_status, slots_count,
                      first_starts=first_starts, last_starts=last_starts,

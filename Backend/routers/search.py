@@ -407,6 +407,7 @@ def _call_eversports_service(
             time=time_colon,
             venue_url=booking_url,
             venue_id=venue_id,
+            slot_grid_min=venue.get("court_grid_min") if venue else None,
         )
         result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=_EV_COROUTINE_TIMEOUT)
         status = result.get("status", "platform_check_required")
@@ -669,6 +670,8 @@ async def search(
                 venue.get("opening_hours") if venue else None, dt.weekday()
             )
 
+            ev_slot_grid_min = venue.get("court_grid_min") if venue else None
+
             def _run(time_str: str, date_str: str) -> str:
                 coro = check_eversports_slot(
                     facility_id=fid,
@@ -679,6 +682,7 @@ async def search(
                     venue_id=result["venue_id"],
                     open_min=ev_open_min,
                     close_min=ev_close_min,
+                    slot_grid_min=ev_slot_grid_min,
                 )
                 try:
                     ev_result = asyncio.run_coroutine_threadsafe(coro, _get_ev_loop()).result(timeout=_EV_PLAYWRIGHT_TIMEOUT)
