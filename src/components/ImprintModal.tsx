@@ -52,6 +52,16 @@ export default function ImprintModal({ onClose }: Props) {
               {email}
             </a>
           </p>
+          <p>
+            <a
+              href="https://www.adventure-it.at"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-400 hover:text-indigo-300 transition-colors"
+            >
+              www.adventure-it.at
+            </a>
+          </p>
         </div>
 
         <div className="border-t border-gray-800 pt-3 space-y-2 text-gray-400 text-xs leading-relaxed">
