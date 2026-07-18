@@ -192,6 +192,7 @@ def _detail(doc: dict) -> dict:
         # Eversports/eTennis links (`photos_scraped`), so a manual upload is
         # never clobbered by the scraper.
         "photos":                list(doc.get("photos") or doc.get("photos_scraped") or []),
+        "photos_source":         "betreiber" if doc.get("photos") else ("eversports" if doc.get("photos_scraped") else None),
     })
     return base
 

@@ -188,6 +188,9 @@ export default function CourtDetailPage() {
           ))}
         </div>
       )}
+      {photos.length > 0 && d.photos_source === "eversports" && (
+        <p className="vd-photo-credit">Fotos: Eversports</p>
+      )}
 
       {/* Hero */}
       <h1 className="vd-h1">{d.name}</h1>
@@ -408,6 +411,7 @@ function DetailStyles() {
       .vd { font-family: "Barlow Condensed", sans-serif; color: #f5f6f4; line-height: 1.25; }
       .vd a { text-decoration: none; }
 
+      .vd-photo-credit { font-size: 11px; color: #6b7280; margin: -12px 0 18px; text-align: right; }
       .vd-crumbs { font-size: 14px; color: #6b7280; margin-bottom: 14px; }
       .vd-crumbs a { color: #6b7280; }
       .vd-crumbs a:hover { color: #d4f53c; }

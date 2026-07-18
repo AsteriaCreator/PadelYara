@@ -115,6 +115,7 @@ export interface VenueDetail {
   cancellation_policy?: string | null
   cancellation_url?: string | null
   photos?: string[]
+  photos_source?: "betreiber" | "eversports" | null
   related?: {
     operator: string
     city: string
