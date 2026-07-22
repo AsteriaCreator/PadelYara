@@ -5,6 +5,13 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    # Keep react and react-dom on the exact same version — a split bump
+    # (only one of them) triggers React error #527 and a blank production page.
+    groups:
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
 
   - package-ecosystem: "pip"
     directory: "/Backend"
