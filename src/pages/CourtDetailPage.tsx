@@ -4,6 +4,16 @@ import { Helmet } from "react-helmet-async"
 import { fetchVenueDetail, trackBookingClick, submitVenueSuggestion } from "../api"
 import type { VenueDetail, RelatedVenue } from "../types"
 
+const SURFACE_COLOR: Record<string, string> = {
+  rot: "#ef4444", grün: "#22c55e", gruen: "#22c55e", blau: "#3b82f6",
+  schwarz: "#374151", orange: "#f97316", gelb: "#eab308",
+  weiß: "#e5e7eb", weiss: "#e5e7eb", lila: "#a855f7", grau: "#9ca3af",
+  sand: "#d4a96a", beige: "#d4a96a", türkis: "#06b6d4", turkis: "#06b6d4",
+}
+function surfaceColor(s: string): string {
+  return SURFACE_COLOR[s.toLowerCase()] ?? "#6b7280"
+}
+
 const COURT_TYPE_LABEL: Record<string, string> = {
   indoor: "Indoor",
   outdoor: "Outdoor",
@@ -134,6 +144,8 @@ export default function CourtDetailPage() {
 
   const photos = d.photos ?? []
   const cText = courtsText(d)
+  const courts = d.courts ?? []
+  const surfacesMissing = courts.every(c => !c.surface)
   const rel = d.related
   const finderHref = `/?ort=${encodeURIComponent(d.city || d.name)}`
   const unknown = SUGGEST_FIELDS.filter(f => (d as unknown as Record<string, unknown>)[f.key] == null)
@@ -225,6 +237,28 @@ export default function CourtDetailPage() {
         {cText
           ? <div className="vd-fact vd-wide"><div className="vd-top"><span className="vd-ic">🎾</span><div className="vd-body"><div className="vd-k">Courts</div><div className="vd-v">{cText}</div></div></div></div>
           : <AmenityFact icon="🎾" label="Courts" state={null} wide />}
+
+        {/* Belagfarbe */}
+        {courts.length > 0 && !surfacesMissing ? (
+          <div className="vd-fact vd-wide">
+            <div className="vd-top">
+              <span className="vd-ic">🎨</span>
+              <div className="vd-body">
+                <div className="vd-k">Belagfarbe</div>
+                <div className="vd-surface-list">
+                  {courts.map((c, i) => c.surface ? (
+                    <span key={i} className="vd-surface-item">
+                      <span className="vd-dot" style={{ background: surfaceColor(c.surface) }} />
+                      {c.name ?? `Court ${i + 1}`}
+                    </span>
+                  ) : null)}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <AmenityFact icon="🎨" label="Belagfarbe" state={null} />
+        )}
 
         <AmenityFact icon="❄️" label="Klimaanlage" state={d.klimaanlage} />
         <AmenityFact icon="🧥" label="Umkleiden" state={d.changing_rooms} />
@@ -339,6 +373,18 @@ export default function CourtDetailPage() {
                   .finally(() => setSubmitting(false))
               }}
             >
+              {surfacesMissing && (
+                <div className="vd-suggest-row vd-suggest-surface">
+                  <span className="vd-suggest-label">🎨 Belagfarbe</span>
+                  <input
+                    type="text"
+                    className="vd-suggest-input vd-suggest-surface-input"
+                    placeholder={courts.length > 1 ? "z.B. rot, blau, grün" : "z.B. rot"}
+                    value={picks["belagfarbe"] || ""}
+                    onChange={e => setPicks(p => ({ ...p, belagfarbe: e.target.value }))}
+                  />
+                </div>
+              )}
               {unknown.length > 0 && (
                 <div className="vd-suggest-grid">
                   {unknown.map(f => (
@@ -472,6 +518,14 @@ function DetailStyles() {
       .vd-form textarea { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #f5f6f4; border-radius: 9px; padding: 10px 12px; font-family: inherit; font-size: 16px; font-weight: 500; outline: none; resize: vertical; }
       .vd-form textarea:focus { border-color: rgba(212,245,60,0.6); }
       .vd-form button { background: #d4f53c; color: #080810; border: none; cursor: pointer; font-family: inherit; font-size: 15px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; border-radius: 9px; padding: 10px 20px; align-self: flex-start; }
+      .vd-surface-list { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 4px; }
+      .vd-surface-item { display: flex; align-items: center; gap: 7px; font-size: 17px; font-weight: 600; color: #f5f6f4; }
+      .vd-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid rgba(255,255,255,0.2); }
+
+      .vd-suggest-surface { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+      .vd-suggest-surface-input { background: #15171f; border: 1px solid rgba(107,114,128,0.30); color: #f5f6f4; border-radius: 7px; padding: 5px 10px; font-family: inherit; font-size: 15px; font-weight: 600; outline: none; width: 160px; }
+      .vd-suggest-surface-input:focus { border-color: rgba(212,245,60,0.6); }
+
       .vd-suggest-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; margin-bottom: 4px; }
       .vd-suggest-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
       .vd-suggest-label { font-size: 15px; font-weight: 600; color: #d1d5db; }

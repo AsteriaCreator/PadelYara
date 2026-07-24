@@ -64,6 +64,13 @@ export interface MapVenue {
   lon: number
 }
 
+export interface CourtInfo {
+  id: string
+  type?: string
+  name?: string | null
+  surface?: string | null
+}
+
 // Compact venue shape for the "Andere Anlagen" cross-links on a detail page.
 export interface RelatedVenue {
   id: string
@@ -114,6 +121,7 @@ export interface VenueDetail {
   extras?: string | null
   cancellation_policy?: string | null
   cancellation_url?: string | null
+  courts?: CourtInfo[]
   photos?: string[]
   photos_source?: "betreiber" | "eversports" | null
   related?: {
