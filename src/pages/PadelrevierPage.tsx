@@ -40,7 +40,7 @@ function MapFit({ selected }: { selected: string[] }) {
   const map = useMap()
   const key = selected.slice().sort().join("|")
   useEffect(() => {
-    map.fitBounds(boundsForSelection(selected), { padding: [24, 24] })
+    map.fitBounds(boundsForSelection(selected), { padding: [24, 24], animate: false })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key])
   return null
