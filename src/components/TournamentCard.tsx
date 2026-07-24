@@ -249,6 +249,9 @@ export default function TournamentCard({ t, showLink, showShare, isBookmarked, o
           {t.participants_max > 0 && (
             <span className="text-xs text-gray-500">
               {t.participants_current}/{t.participants_max}
+              {t.participants_waitlist > 0 && (
+                <span style={{ color: "#fbbf24" }}> +{t.participants_waitlist} WL</span>
+              )}
             </span>
           )}
         </div>
